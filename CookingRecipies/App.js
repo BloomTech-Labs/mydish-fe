@@ -8,6 +8,7 @@
 
 import React from 'react';
 import styles from './styles/styles';
+import RecipeList from './Components/RecipeList';
 
 import {
   SafeAreaView,
@@ -24,9 +25,9 @@ const App = () => {
       {/* <StatusBar barStyle="dark-content" /> */}
       <SafeAreaView>
         {/* <Search/> */}
-        {/* <RecipeList/> */}
         <View>
-        <Text style={styles.red}>Hello World</Text>
+        <Text style={styles.header}>Recipe Hub</Text>
+        <RecipeList/>
         </View>
       </SafeAreaView>
     </>

@@ -4,9 +4,8 @@ import {
   } from 'react-native/Libraries/NewAppScreen';
 
 const styles = StyleSheet.create({
-    header : {
-      color : 'red',
-    //   flex : 3
+    red : {
+      color : 'green'
     },
     scrollView: {
       backgroundColor: Colors.lighter,
@@ -45,6 +44,5 @@ const styles = StyleSheet.create({
       textAlign: 'right',
     },
   });
-
 
   module.exports = styles;
