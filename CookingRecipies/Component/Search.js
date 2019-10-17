@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {View,View,TouchableOpacity, TextInput, Button} from "react-native";
 import { FormInput} from 'react-native-elements'
 
-const RecipeCards = () => {
+const Search = () => {
     let [dish, setDish] = useState('')
     let [recipe, setRecipes] = useState([])
     
