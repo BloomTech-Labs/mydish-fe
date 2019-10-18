@@ -18,16 +18,20 @@ import {
   StatusBar,
 } from 'react-native';
 
+
 const App = () => {
   return (
     <>
       {/* <StatusBar barStyle="dark-content" /> */}
-      <SafeAreaView>
+      <SafeAreaView
+      style={{
+        flex: 1, 
+        justifyContent: "center", 
+        alignItems: "center"
+       }}>
         {/* <Search/> */}
         {/* <RecipeList/> */}
-        <View>
         <Text style={styles.red}>Hello World</Text>
-        </View>
       </SafeAreaView>
     </>
   );
