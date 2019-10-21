@@ -8,6 +8,7 @@
 
 import React from 'react';
 import styles from './styles/styles';
+import Search from "./Component/Search";
 
 import {
   SafeAreaView,
@@ -20,16 +21,17 @@ import {
 
 const App = () => {
   return (
-    <>
+    <SafeAreaView>
       {/* <StatusBar barStyle="dark-content" /> */}
-      <SafeAreaView>
-        {/* <Search/> */}
+      
+        
         {/* <RecipeList/> */}
         <View>
-        <Text style={styles.red}>Hello World</Text>
+        <Text >hi</Text>
         </View>
+        <Search/>
       </SafeAreaView>
-    </>
+
   );
 };
 
