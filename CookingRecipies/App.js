@@ -25,15 +25,16 @@ const App = () => {
     <>
       <SafeAreaView>
         <Text>Hello are you react native?</Text>
-      </SafeAreaView>
-      {/* <StatusBar barStyle="dark-content" /> */}
+          {/* <RecipeList/> */}
+           {/* <StatusBar barStyle="dark-content" /> */}
       {/* <SafeAreaView> */}
         {/* <Search/> */}
         {/* <View> */}
           {/* <Text style={styles.header}>Recipe Hub</Text> */}
-          <RecipeList/>
         {/* </View> */}
       {/* </SafeAreaView> */}
+      </SafeAreaView>
+     
     </>
   );
 };
