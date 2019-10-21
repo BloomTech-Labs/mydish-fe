@@ -1,22 +1,25 @@
 import React from 'react';
 import styles from '../styles/styles';
 import Recipe from './Recipe';
-import {AppRegistry, View} from 'react-native';
+import {AppRegistry, View, Text} from 'react-native';
 // import {name as appName} from '../app.json';
 import App from '../App';
+import samplerecipes from './samplerecipes.json';
+
+console.log('sample recipes : ', samplerecipes[0]);
 
 const RecipeList = () => {
 
+    const [recipes, setRecipes] = React.useState(samplerecipes)
+   
     return (
         <>
         <View/>
-            <Recipe/>
+          {recipes.map( recp => <Recipe recipe={recp} />)}
          <View/>
          </>
     )  
 }
-
-// AppRegistry.registerComponent(appName, () => App );
 
 export default RecipeList;
 

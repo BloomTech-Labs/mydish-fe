@@ -31,7 +31,7 @@ const App = () => {
         {/* <Search/> */}
         {/* <View> */}
           {/* <Text style={styles.header}>Recipe Hub</Text> */}
-          {/* <RecipeList/> */}
+          <RecipeList/>
         {/* </View> */}
       {/* </SafeAreaView> */}
     </>
