@@ -34,6 +34,7 @@ const App = () => {
         <Search/>
         {/* <RecipeList/> */}
         <Text style={styles.red}>Hello World</Text>
+        <Text style={styles.red}>wow</Text>
       </SafeAreaView>
 
   );
