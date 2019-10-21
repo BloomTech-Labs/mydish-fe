@@ -19,17 +19,21 @@ import {
   StatusBar,
 } from 'react-native';
 
+
 const App = () => {
   return (
-    <SafeAreaView>
-      {/* <StatusBar barStyle="dark-content" /> */}
-      
-        
-        {/* <RecipeList/> */}
-        <View>
-        <Text >hi</Text>
-        </View>
+
+      <SafeAreaView
+      // style={{
+      //   flex: 1, 
+      //   justifyContent: "center", 
+      //   alignItems: "center"
+      //  }}
+       >
+        {/* <StatusBar barStyle="dark-content" /> */}
         <Search/>
+        {/* <RecipeList/> */}
+        <Text style={styles.red}>Hello World</Text>
       </SafeAreaView>
 
   );
