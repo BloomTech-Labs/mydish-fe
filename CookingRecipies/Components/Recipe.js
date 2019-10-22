@@ -20,7 +20,7 @@ const Recipe = (props) => {
                 <Card title="Recipe Card" >
                     <Text>Sample Recipes</Text>
                     <Image 
-                        source={require('../assets/ipadrecipe.jpg')}
+                        source={ipad}
                         style={{width: 200, height: 200 }}
                     />
                     <Button title="Details" onClick={btnClk}/>

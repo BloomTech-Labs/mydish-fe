@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import styles from './styles/styles';
 import RecipeList from './Components/RecipeList';
 import {View, Text, SafeAreaView} from 'react-native';
 

@@ -3,7 +3,7 @@ import {
     Colors
   } from 'react-native/Libraries/NewAppScreen';
 
-const styles = StyleSheet.create({
+module.exports = StyleSheet.create({
     header : {
       color : 'red',
     //   flex : 3
@@ -42,9 +42,6 @@ const styles = StyleSheet.create({
       fontWeight: '600',
       padding: 4,
       paddingRight: 12,
-      textAlign: 'right',
+      textAlign: 'right'
     },
   });
-
-
-  module.exports = styles;
