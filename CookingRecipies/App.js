@@ -24,7 +24,6 @@ const App = () => {
   return (
     <>
       <SafeAreaView>
-        <Text>Hello are you react native?</Text>
           <RecipeList/>
            {/* <StatusBar barStyle="dark-content" /> */}
       {/* <SafeAreaView> */}
@@ -34,7 +33,6 @@ const App = () => {
         {/* </View> */}
       {/* </SafeAreaView> */}
       </SafeAreaView>
-     
     </>
   );
 };

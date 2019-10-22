@@ -1,7 +1,10 @@
 import React from 'react';
 // import styles from '../styles/styles';
 import {View,Text} from 'react-native';
-import {Button, ThemeProvider} from 'react-native-elements';
+import {Card, Button, Image, ThemeProvider} from 'react-native-elements';
+// import ipad from '../assets/ipadrecipe.jpg';
+const ipad = require('../assets/ipadrecipe.jpg');
+
 
 const Recipe = (props) => {
     console.log('props in recipes', props);
@@ -9,13 +12,19 @@ const Recipe = (props) => {
     const btnClk = () => {
         console.log('native element button has been clicked');
     }
-
+    
     return (
         <>
         <ThemeProvider>
-            <View>
-                <Text>Sample Recipes</Text>
-                <Button title="Solid Button" onClick={btnClk}/>
+            <View style={{alignItems: 'center'}}>
+                <Card title="Recipe Card" >
+                    <Text>Sample Recipes</Text>
+                    <Image 
+                        source={require('../assets/ipadrecipe.jpg')}
+                        style={{width: 200, height: 200 }}
+                    />
+                    <Button title="Details" onClick={btnClk}/>
+                </Card>
             </View>
         </ThemeProvider>
         </>
