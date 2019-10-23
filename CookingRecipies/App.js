@@ -18,16 +18,8 @@ const TabNavigator = createBottomTabNavigator({
   CookBook: CookBookNavigator
 },
 {
-  initialRouteName: 'Home',
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: '#f4511e',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  },
+  initialRouteName: 'Home'
+
 });
 
 const CookBookNavigator =  createStackNavigator({
