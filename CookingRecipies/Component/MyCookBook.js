@@ -33,7 +33,7 @@ const MyCookBook = (props) =>{
                     <TouchableOpacity style={styles.button}>
                     <Button  
                     color="white"    
-                    onPress={()  =>  this.props.navigation('CookBookFolder',  {data: folder})}
+                    onPress={()  =>  props.navigation.navigate('CookBookFolder',  {data: folder})}
                     title={folder.courses}
                     accessibilityLabel="Search"                   
                     />
