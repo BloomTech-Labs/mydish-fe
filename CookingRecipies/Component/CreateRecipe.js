@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Image, StyleSheet, } from 'react-native';
+import { Text, TextInput, View, Image, StyleSheet, Button, Alert } from 'react-native';
 
 import ModalDropdown from 'react-native-modal-dropdown';
+import { Icon } from 'react-native-elements'
 
 export default class CreateRecipe extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ export default class CreateRecipe extends Component {
           style={{ padding: 15, width: 500 }}
         />
 
-        <Text style = {{marginTop: 15}}>Cuisine</Text>
+        <Text style={{ marginTop: 15 }}>Cuisine</Text>
         <TextInput
           style={{ height: 40 }}
           placeholder="Just a placeholder for Cuisine"
@@ -109,6 +110,38 @@ export default class CreateRecipe extends Component {
 
         </View>
 
+        <Text>Ingredients</Text>
+
+        <View style={{ flexDirection: "row", padding: 15 }}>
+          <TextInput
+            style={{ height: 40 }}
+            placeholder="Amount"
+            onChangeText={(text) => this.setState({ text })}
+            value={this.state.text}
+          />
+
+          <TextInput
+            style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
+            placeholder="Ingredient"
+            onChangeText={(text) => this.setState({ text })}
+            value={this.state.text}
+          />
+
+        </View >
+
+        <View style={{ flexDirection: "row", padding: 15 }} >
+
+          <Icon name='add' reverse = {true}></Icon>
+
+          <Button
+            title="Add Ingredients"
+            color="black"
+            backgroundColor=''
+            onPress={() => Alert.alert('Really Random Alert')}
+          />
+        </View>
+
+
       </View>
     );
   }
@@ -125,5 +158,9 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  title: {
+    textAlign: 'center',
+    marginVertical: 8,
   },
 });
