@@ -55,7 +55,7 @@ const options = {
   stylesheet: formStyles,
 };
 
-export default class App extends Component {
+export default class CreateRecipe extends Component {
   handleSubmit = () => {
     const value = this._form.getValue();
     console.log('value: ', value);
