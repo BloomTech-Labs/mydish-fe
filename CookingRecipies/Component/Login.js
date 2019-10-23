@@ -87,4 +87,8 @@ const onPress = () => {
     
     });
 
+    Login.navigationOptions = {
+      title: 'login',
+      };
+
 export default Login;

@@ -1,43 +1,36 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
 
 import React from 'react';
-import styles from './styles/styles';
-import Search from "./Component/Search";
 
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+
+import HomePage from './Component/homePage.js'
+import Login from './Component/Login.js'
+import SignUp from './Component/signUp'
 
 
-const App = () => {
+const TabNavigator = createBottomTabNavigator({
+  Home: {screen: HomePage},
+  Login: {screen: Login},
+  SignUp: {screen: SignUp},
+},
+{
+  initialRouteName: 'Home',
+  defaultNavigationOptions: {
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  },
+});
+
+const AppContainer = createAppContainer(TabNavigator);
+
+export default App = () => {
   return (
-
-      <SafeAreaView
-      // style={{
-      //   flex: 1, 
-      //   justifyContent: "center", 
-      //   alignItems: "center"
-      //  }}
-       >
-        {/* <StatusBar barStyle="dark-content" /> */}
-        <Search/>
-        {/* <RecipeList/> */}
-        <Text style={styles.red}>Hello World</Text>
-        <Text style={styles.red}>wow</Text>
-      </SafeAreaView>
-
-  );
-};
-
-export default App;
+    <AppContainer/>
+  )
+}
