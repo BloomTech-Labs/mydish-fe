@@ -11,14 +11,15 @@ import SignUp from './Component/signUp'
 
 const TabNavigator = createBottomTabNavigator({
   Home: {screen: HomePage},
-  Login: {screen: Login},
-  SignUp: {screen: SignUp},
+  List: {screen: SignUp},
+  Create: {screen: SignUp},
+  Cookbook: {screen: SignUp},
+  Profile: {screen: Login}
 },
 {
   initialRouteName: 'Home',
   defaultNavigationOptions: {
     headerStyle: {
-      backgroundColor: '#f4511e',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
