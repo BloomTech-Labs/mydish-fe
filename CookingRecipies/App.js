@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import {createAppContainer, createSwitchNavigator } from 'react-navigation';
@@ -19,7 +18,6 @@ const TabNavigator = createBottomTabNavigator({
 },
 {
   initialRouteName: 'Home'
-
 });
 
 const CookBookNavigator =  createStackNavigator({
