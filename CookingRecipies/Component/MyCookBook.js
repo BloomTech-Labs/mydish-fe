@@ -44,3 +44,5 @@ const MyCookBook = (props) =>{
     )
 
 }
+
+export default MyCookBook;

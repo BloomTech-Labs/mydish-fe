@@ -7,15 +7,24 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 
-const Login = () => {
+const Login = props => {
 const [login, SetLogin] = useState({username: '', password: ''})
+
+const signInAsync = async () => {
+  await AsyncStorage.setItem('userToken', 'abc');
+  props.navigation.navigate('App');
+  const token = await AsyncStorage.getItem('userToken')
+  console.log(token)
+};
 
 console.log(login)
 
 const onPress = () => {
+  signInAsync()
  console.log("axios call goes here")
   // axios.put('', login)
   // .then(res => console.log('response from login axios post', res))
