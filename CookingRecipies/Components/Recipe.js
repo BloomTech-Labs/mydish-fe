@@ -8,12 +8,17 @@ import styled from 'styled-components';
 
 
 
-const Recipe = ({recipe}) => {
+const Recipe = (props) => {
+
+    const {recipe, height} = props;
+    console.log('props in recipe', props);
 
     const RecipeCard = styled.View`
     flex: 1;
     alignItems: center;
-    minWidth: 200;
+    justifyContent: flex-start;
+    minWidth: 150;
+    marginBottom: 10;
     `;
     
     return (
@@ -22,21 +27,11 @@ const Recipe = ({recipe}) => {
             <RecipeCard>
                 <Image 
                     source={ipad}
-                    style={{width: 130, height: 180 }}
+                    style={{width: height, height: height }}
                     />
-                <Text style={{marginTop: 10}}>Sample Recipe</Text>
-                <Button title="Details"/>
+                <Text style={{marginTop: 10, marginBottom: 10}}>Sample Recipe</Text>
+                {/* <Button title="Details"/> */}
             </RecipeCard>
-            {/* <View style={{flex: 4, minWidth: 140, alignItems: 'center'}}>
-            <Card title="Recipe Card">
-                <Text>Sample Recipe</Text>
-                <Image 
-                    source={ipad}
-                    style={{width: 130, height: 100 }}
-                    />
-                <Button title="Details"/>
-            </Card>
-        </View> */}
         </>
     )
 }
