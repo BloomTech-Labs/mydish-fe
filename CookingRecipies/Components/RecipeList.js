@@ -11,7 +11,7 @@ const RecipeList = () => {
    
     return (
         <ScrollView>
-            <View style={{flexDirection: 'column', alignItems: 'center'}}>
+            <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
                  {recipes.map( recp => <Recipe recipe={recp} />)}
             </View>
          </ScrollView>
