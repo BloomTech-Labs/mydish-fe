@@ -4,7 +4,7 @@ import { Text, TextInput, View, Image, StyleSheet, Button, Alert, ScrollView } f
 import ModalDropdown from 'react-native-modal-dropdown';
 import { Icon } from 'react-native-elements'
 
-export default class CreateRecipe extends Component {
+export default class CreateRecipeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +37,9 @@ export default class CreateRecipe extends Component {
              </View>
 
           </View>
+
     {/* ========= Inputs ========== */}
+
          <View style={{ alignSelf: 'center', width: 350 }}>
 
             <Text style = {{fontWeight: 'bold', fontSize : 20}}>Recipe Name</Text>
@@ -117,6 +119,7 @@ export default class CreateRecipe extends Component {
             <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between'}}>
 
             {/* ==== Total Time === */}
+
               <ModalDropdown
                 options={['10 min.', '25 min.', '20 min.', '30 min.', '60 min.', 'Other']}
                 defaultValue={'Total Time'}
@@ -126,6 +129,7 @@ export default class CreateRecipe extends Component {
               />
 
             {/* ==== Servings === */}
+
               <ModalDropdown
                 options={['1-2 servings', '2-3 servings', '3-5 servings', '6-8 servings', '10-12 servings', 'Others']}
                 defaultValue={'Servings'}
@@ -137,13 +141,16 @@ export default class CreateRecipe extends Component {
 
             </View>
 
-    {/* =============== Ingredients ===================== */}
+     {/* =============== Ingredients ===================== */}
+
             <Text style = {{fontWeight: 'bold', fontSize : 20}} >Ingredients</Text>
 
         {/* ======= Amount and Ingredient Input View ====== */}
+
             <View style={{ flexDirection: "row", padding: 15, }}>
               
             {/* ==== Amount === */}
+
               <TextInput
                 style={{ height: 40 }}
                 placeholder="Amount"
@@ -152,6 +159,7 @@ export default class CreateRecipe extends Component {
               />
 
             {/* ==== Ingredient === */}
+
               <TextInput
                 style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
                 placeholder="Ingredient"
@@ -163,6 +171,7 @@ export default class CreateRecipe extends Component {
 
 
     {/* ========= Add Ingredients View ============== */}
+    
             <View style={{ flexDirection: "row", padding: 15 }} >
 
               <Icon name='add' reverse={true}></Icon>
