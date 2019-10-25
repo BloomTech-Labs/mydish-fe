@@ -9,7 +9,7 @@ console.log('sample recipes : ', samplerecipes[0]);
 
 const RecipeList = () => {
 
-    let smallHeight = false;
+    let smallHeight = true;
 
     const [recipes, setRecipes] = React.useState(samplerecipes)
     // const [tall,setTall ] = React.useState(true);
@@ -22,7 +22,7 @@ const RecipeList = () => {
 
     const imgSizer = () => {
         smallHeight = !smallHeight;
-        return smallHeight ? 100 : 200;
+        return smallHeight ? 130 : 200;
     }
 
     return (

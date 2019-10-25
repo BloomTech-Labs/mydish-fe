@@ -8,6 +8,21 @@ module.exports = StyleSheet.create({
       color : 'red',
     //   flex : 3
     },
+    text : {
+      marginTop: 10, 
+      marginBottom: 10, 
+      fontSize: 20, 
+      fontWeight: 'bold', 
+      textAlign: 'left'
+    },
+    username : {
+      flexDirection : 'row',
+      borderTopWidth : 1,
+      borderBottomWidth : 1,
+    },
+    prep : {
+      alignSelf : 'flex-end'
+    },
     scrollView: {
       backgroundColor: Colors.lighter,
     },
