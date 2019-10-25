@@ -1,19 +1,27 @@
 import React, {useState} from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   TextInput,
   TouchableOpacity,
+  Button
 } from 'react-native';
 import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
+
+import styles from '../styles/signUpStyles.js'
 
 
 
-const SignUp = () => {
+const SignUp = props => {
     const [signUp, SetSignUp] = useState({username: '', password: ''})
 
     console.log(signUp)
+
+    const signOutAsync = async () => {
+      await AsyncStorage.clear();
+      props.navigation.navigate('Auth');
+    };
     
     const onPress = () => {
      console.log("axios call goes here")
@@ -25,65 +33,30 @@ const SignUp = () => {
       return (
        
         <View style={styles.signUp}>
-          <Text style={{color: "red"}}>Sign up</Text>
-          <Text>Email</Text>
+          <Text style={styles.title}>RecipeShare</Text>
+          <Text style={styles.createAccountTitle}>Create Account</Text>
+          <Text style={styles.emailText}>Email</Text>
           <TextInput
            style={styles.inputFeilds}
            value={signUp.username}
            onChangeText={event => SetSignUp({...signUp, username:event})}/>
-           <Text>Password</Text>
+           <Text style={styles.passwordText}>Password</Text>
           <TextInput
            style={styles.inputFeilds}
            value={signUp.password}
            onChangeText={event => SetSignUp({...signUp, password:event})}/>
            <TouchableOpacity
              onPress={onPress}
-             style={styles.signUpButton}
+             style={styles.createAccountButton}
            >
-             <Text>Sign up</Text>
+             <Text style={styles.createAccountText}>Create Account</Text>
            </TouchableOpacity>
+           <Button title="Actually, sign me out :)" 
+          onPress={signOutAsync} />
         </View>
        
       );
     }
     
-    const styles = StyleSheet.create({
-     signUp: {
-      flex: 1, 
-      justifyContent: "center", 
-      alignItems: "center"
-     },
-     border:{
-      borderLeftWidth: 1,
-      borderRightWidth: 1, 
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-     },
-    inputFeilds: {
-      height: 40,
-      width: 300,  
-      borderLeftWidth: 1,
-      borderRightWidth: 1, 
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-      marginBottom: 10, 
-      marginTop: 10,
-      paddingLeft: 15,
-      paddingRight: 15
-    },
-    signUpButton: {
-      borderLeftWidth: 1,
-      borderRightWidth: 1, 
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-      marginBottom: 10, 
-      marginTop: 10,
-      paddingLeft: 20,
-      paddingRight: 20,
-      paddingBottom: 10,
-      paddingTop: 10
-    }
-    
-    });
 
 export default SignUp;

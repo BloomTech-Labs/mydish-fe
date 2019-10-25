@@ -9,6 +9,8 @@ import {
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
 
+import styles from '../styles/loginStyles.js'
+
 
 
 const Login = props => {
@@ -33,68 +35,36 @@ const onPress = () => {
 
   return (
     <View style={styles.signUp}>
-          <Text>Login</Text>
+          <Text style={styles.title}>RecipeShare</Text>
+          <Text style={styles.explanationText}>Sign in or create a new account to save and edit your favorite recipes.</Text>
+          <Text style={styles.loginText}>Log In</Text>
+          <Text style={styles.emailText}>Email</Text>
           <TextInput
            style={styles.inputFeilds}
-           placeholder="Username"
            name="username"
            value={login.username}
            onChangeText={event => SetLogin({...login, username:event})}/>
+           <Text style={styles.passwordText}>Password</Text>
           <TextInput
            style={styles.inputFeilds}
-           placeholder="Password"
            name="password"
            value={login.password}
            onChangeText={event => SetLogin({...login, password:event})}/>
            <TouchableOpacity
+           onPress={() => props.navigation.navigate('SignUp')}>
+           <Text style={styles.createAccountButton}>Create an Account</Text>
+           </TouchableOpacity>
+           <TouchableOpacity
              onPress={onPress}
-             style={styles.signUpButton}
+             style={styles.loginButton}
            >
-             <Text>Login</Text>
+             <Text style={styles.loginButtonText}>Login</Text>
            </TouchableOpacity>
         </View>
        
       );
     }
     
-    const styles = StyleSheet.create({
-     signUp: {
-      flex: 1, 
-      justifyContent: "center", 
-      alignItems: "center"
-     },
-     border:{
-      borderLeftWidth: 1,
-      borderRightWidth: 1, 
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-     },
-    inputFeilds: {
-      height: 40,
-      width: 300,  
-      borderLeftWidth: 1,
-      borderRightWidth: 1, 
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-      marginBottom: 10, 
-      marginTop: 10,
-      paddingLeft: 15,
-      paddingRight: 15
-    },
-    signUpButton: {
-      borderLeftWidth: 1,
-      borderRightWidth: 1, 
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-      marginBottom: 10, 
-      marginTop: 10,
-      paddingLeft: 20,
-      paddingRight: 20,
-      paddingBottom: 10,
-      paddingTop: 10
-    }
-    
-    });
 
 
 export default Login;

@@ -25,7 +25,7 @@ const HomePage = () => {
         {/* <StatusBar barStyle="dark-content" /> */}
         <Search/>
         {/* <RecipeList/> */}
-        
+        <Text style={styles.red}>Hello home page</Text>
       </SafeAreaView>
 
   );
