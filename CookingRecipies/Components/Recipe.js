@@ -18,23 +18,31 @@ const Recipe = (props) => {
     minWidth: 150;
     marginBottom: 10;
     `;
-    
+
+    const UserCard = styled.View`
+      flexDirection : row;
+      borderRightWidth : 1;
+      justifyContent : space-around;
+    `;
+
     return (
         <>
             {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
             <RecipeCard>
                 <Image 
                     source={ipad}
-                    style={{width: 150, height: height, borderRadius: 15 }}
+                    style={{ width: 150, height: height, borderRadius: 15 }}
                     />
                 <Text style={styles.text}>Sample Recipe</Text>
                 {/* <Button title="Details"/> */}
-                <View style={styles.username}>
+                <UserCard>
                     <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}
                         style={{width: 50, height: 50 }}/>
-                    <Text>Username</Text>
-                    <Text style={styles.prep}>Prep Time</Text>
-                </View>
+                    <Text style={styles.username}>Username</Text>
+                    <Text style={styles.prep}>Min: Prep Time</Text>
+                </UserCard>
+                   
+              
                 
 
             </RecipeCard>

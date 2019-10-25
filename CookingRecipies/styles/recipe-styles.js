@@ -16,12 +16,12 @@ module.exports = StyleSheet.create({
       textAlign: 'left'
     },
     username : {
-      flexDirection : 'row',
-      borderTopWidth : 1,
-      borderBottomWidth : 1,
+      fontSize : 15,
+      marginLeft : 20
     },
     prep : {
-      alignSelf : 'flex-end'
+      alignSelf : 'flex-end',
+      marginRight: 10
     },
     scrollView: {
       backgroundColor: Colors.lighter,
