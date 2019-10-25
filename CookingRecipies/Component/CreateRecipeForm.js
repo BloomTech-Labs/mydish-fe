@@ -15,37 +15,48 @@ export default class CreateRecipeForm extends Component {
   }
 
   render() {
-   return (
-    <ScrollView>
+    return (
+      <ScrollView>
         <View style={{ padding: 1, paddingTop: 40 }}>
           <Text style={styles.header}>Create Recipe</Text>
-         
-    {/* ====== Image with Recipe Name and Creator ========= */}
+
+          {/* ====== Image with Recipe Name and Creator ========= */}
 
           <View style={{ flexDirection: "row", padding: 15 }}>
-             <Image
+            <Image
               style={{ width: 150, height: 150 }}
               // resizeMode='contain'
-              source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4XWzZO9k9I58DojrPtoSvYsJ_DA8K7H0md9j6ETfu1zqpXmQqMQ&s' }}
-             />
+              source={{ uri: 'https://visualpharm.com/assets/654/Add%20Camera-595b40b85ba036ed117dbeab.svg' }}
+            />
 
-             <View style={{ marginLeft: 15 }}>
-               <Text style={styles.titleText} >Honey Pancakes</Text>
-               <Text style={styles.baseText}>Recipe by: Lana Smith
-                                    {/* {this.props.username} *based from profile */}
-               </Text>
-             </View>
+            <View style={{ marginLeft: 15 }}>
+              {/* <Text style={styles.titleText} >Honey Pancakes</Text> */}
+
+
+              <TextInput
+                style={styles.titleText}
+                placeholder="Recipe Name"
+                onChangeText={(value) => this.setState({ value })}
+                value={this.state.value}
+              />
+
+
+              <Text style={styles.baseText}>Recipe by: Lana Smith
+                                      {/* {this.props.username} *based from profile */}
+              </Text>
+            </View>
 
           </View>
 
-    {/* ========= Inputs ========== */}
+          {/* ========= Inputs ========== */}
 
-         <View style={{ alignSelf: 'center', width: 350 }}>
+          <View style={{ alignSelf: 'center', width: 350 }}>
 
-            <Text style = {{fontWeight: 'bold', fontSize : 20}}>Recipe Name</Text>
-            
+            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Recipe Name</Text>
+
+
             <TextInput
-              style = {styles.container}
+              style={styles.container}
               multiline={true}
               numberOfLines={5}
               maxLength={55}
@@ -55,123 +66,123 @@ export default class CreateRecipeForm extends Component {
 
             <Text style={{ alignSelf: 'flex-end' }}>
               {this.state.value.length}/55
-            </Text>
+              </Text>
 
             {/* <TextInput
-              style={{ height: 40 }}
-              // label = "Recipe Name"
-              placeholder="Just a placeholder"
-              onChangeText={(text) => this.setState({ text })}
-              value={this.state.text}
-            /> */}
+                style={{ height: 40 }}
+                // label = "Recipe Name"
+                placeholder="Just a placeholder"
+                onChangeText={(text) => this.setState({ text })}
+                value={this.state.text}
+              /> */}
             {/* <Text style={{ padding: 10, fontSize: 42 }}>
-              {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
-            </Text> */}
+                {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
+              </Text> */}
 
-        {/* ======== Course Type Dropdown ================== */}
+            {/* ======== Course Type Dropdown ================== */}
 
             <ModalDropdown
               options={['Breakfast', 'Brunch', 'Gluten-Free', 'Vegan', 'Vegetarian', 'Keto']}
               defaultValue={'Course Type'}
               //  showsVerticalScrollIndicator = {true}
-              textStyle = {styles.dropdownText}
-              dropdownStyle = {styles.dropdownText}
+              textStyle={styles.dropdownText}
+              dropdownStyle={styles.dropdownText}
             />
 
 
-        {/* =========== Cuisine Input ======================== */}
+            {/* =========== Cuisine Input ======================== */}
 
             <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold' }}>Cuisine</Text>
             <TextInput
               style={styles.container}
               placeholder="Just a placeholder for Cuisine"
-              onChangeText={(text) => this.setState({ text })}
-              value={this.state.text}
+              onChangeText={(cuisine) => this.setState({ cuisine })}
+              value={this.state.cuisine}
             />
 
-        {/* ============= Prep and Cook Time View =============== */}
+            {/* ============= Prep and Cook Time View =============== */}
 
 
             <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
-            
-            {/* ==== Prep Time === */}
+
+              {/* ==== Prep Time === */}
               <ModalDropdown
                 options={['5 min.', '10 min.', '15 min.', '20 min.', '30 min.', '45 min.', 'Other']}
                 defaultValue={'Prep Time'}
                 //  showsVerticalScrollIndicator = {true}
-                textStyle = {styles.dropdown}
-                dropdownStyle = {styles.dropdown}
+                textStyle={styles.dropdown}
+                dropdownStyle={styles.dropdown}
               />
 
-            {/* ==== Cook Time === */}
+              {/* ==== Cook Time === */}
               <ModalDropdown
                 options={['3-5 min.', '10-15 min.', '20-30 min.', '45-55 min.', '60 min', 'Other']}
                 defaultValue={'Cook Time'}
                 //  showsVerticalScrollIndicator = {true}
-                textStyle = {styles.dropdown}
-                dropdownStyle = {styles.dropdown}
+                textStyle={styles.dropdown}
+                dropdownStyle={styles.dropdown}
               />
 
             </View>
 
-        {/* ============= Total Time and Servings View =============== */}
+            {/* ============= Total Time and Servings View =============== */}
 
-            <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between'}}>
+            <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
 
-            {/* ==== Total Time === */}
+              {/* ==== Total Time === */}
 
               <ModalDropdown
                 options={['10 min.', '25 min.', '20 min.', '30 min.', '60 min.', 'Other']}
                 defaultValue={'Total Time'}
                 //  showsVerticalScrollIndicator = {true}
-                textStyle = {styles.dropdown}
-                dropdownStyle = {styles.dropdown}
+                textStyle={styles.dropdown}
+                dropdownStyle={styles.dropdown}
               />
 
-            {/* ==== Servings === */}
+              {/* ==== Servings === */}
 
               <ModalDropdown
                 options={['1-2 servings', '2-3 servings', '3-5 servings', '6-8 servings', '10-12 servings', 'Others']}
                 defaultValue={'Servings'}
                 //  showsVerticalScrollIndicator = {true}
-                textStyle = {styles.dropdown}
-                dropdownStyle = {styles.dropdown}
-                
+                textStyle={styles.dropdown}
+                dropdownStyle={styles.dropdown}
+
               />
 
             </View>
 
-     {/* =============== Ingredients ===================== */}
+            {/* =============== Ingredients ===================== */}
 
-            <Text style = {{fontWeight: 'bold', fontSize : 20}} >Ingredients</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 20 }} >Ingredients</Text>
 
-        {/* ======= Amount and Ingredient Input View ====== */}
+            {/* ======= Amount and Ingredient Input View ====== */}
 
             <View style={{ flexDirection: "row", padding: 15, }}>
-              
-            {/* ==== Amount === */}
+
+              {/* ==== Amount === */}
 
               <TextInput
                 style={{ height: 40 }}
                 placeholder="Amount"
-                onChangeText={(text) => this.setState({ text })}
-                value={this.state.text}
+                onChangeText={(amount) => this.setState({ amount })}
+                value={this.state.amount}
               />
 
-            {/* ==== Ingredient === */}
+              {/* ==== Ingredient === */}
 
               <TextInput
                 style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
                 placeholder="Ingredient"
-                onChangeText={(text) => this.setState({ text })}
-                value={this.state.text}
+                onChangeText={(ingredients) => this.setState({ ingredients })}
+                value={this.state.ingredients}
               />
 
             </View >
 
 
-    {/* ========= Add Ingredients View ============== */}
-    
+            {/* ========= Add Ingredients View ============== */}
+
             <View style={{ flexDirection: "row", padding: 15 }} >
 
               <Icon name='add' reverse={true}></Icon>
@@ -184,14 +195,60 @@ export default class CreateRecipeForm extends Component {
               />
             </View>
 
-          </View> 
-          {/* ^^^ View under ===Inputs=== */}
 
+            {/* ======= Instructions Input View ====== */}
+
+            <View style={{ flexDirection: "row", padding: 15, }}>
+
+
+
+              {/* ==== Instructions === */}
+
+              <TextInput
+                style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
+                placeholder=" Add Instructions"
+                onChangeText={(instructions) => this.setState({ instructions })}
+                value={this.state.instructions}
+              />
+
+            </View >
+
+
+            {/* ========= Add Instructions View ============== */}
+
+            <View style={{ flexDirection: "row", padding: 15 }} >
+
+              <Icon name='add' reverse={true}></Icon>
+
+              <Button
+                title="Add Instructions"
+                color="black"
+                backgroundColor=''
+                onPress={() => Alert.alert('Really Random Alert')}
+              />
+            </View>
+
+            <ToggleSwitch
+              isOn={true}
+              onColor='green'
+              offColor='black'
+              label='Make Recipe Private'
+              labelStyle={{ color: 'black', fontWeight: 'bold' }}
+              size='medium'
+              onToggle={isOn => console.log('changed to : ', isOn)}
+
+            />
+
+            <Text></Text>
+            <Button title='Submit Recipe' />
+
+          </View>
+          {/* ^^^ View under ===Inputs=== */}
 
         </View>
 
-    </ScrollView>
-   );
+      </ScrollView>
+    )
   }
 }
 
@@ -228,7 +285,7 @@ const styles = StyleSheet.create({
     width: 350,
     marginTop: 15
   },
-  dropdown :{
+  dropdown: {
     //    Text shown in dropdown bar
     borderRadius: 4,
     borderWidth: 0.5,
