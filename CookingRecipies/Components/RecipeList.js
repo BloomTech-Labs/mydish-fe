@@ -5,8 +5,6 @@ import samplerecipes from './samplerecipes.json';
 
 console.log('sample recipes : ', samplerecipes[0]);
 
-
-
 const RecipeList = () => {
 
     let smallHeight = true;
@@ -27,6 +25,7 @@ const RecipeList = () => {
 
     return (
         <ScrollView>
+
             <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
                  {recipes.map( recp => <Recipe recipe={recp} height={imgSizer()} />)}
             </View>
