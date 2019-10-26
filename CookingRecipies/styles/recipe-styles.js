@@ -1,7 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {
-    Colors
-  } from 'react-native/Libraries/NewAppScreen';
 
 module.exports = StyleSheet.create({
     header : {
@@ -19,11 +16,11 @@ module.exports = StyleSheet.create({
       fontSize : 15
     },
     usercardTxt : {
-      flex: 1, 
+      // flex: 1, 
       flexDirection: 'row', 
-      justifyContent: 'space-between', 
-      borderTopWidth: 5, 
-      borderBottomWidth: 5
+      justifyContent: 'space-between'
+      // borderTopWidth: 5, 
+      // borderBottomWidth: 5
     }, 
     prep : {
       alignSelf: 'flex-end',
