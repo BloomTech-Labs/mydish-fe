@@ -14,6 +14,7 @@ const Recipe = (props) => {
     const {recipe, height} = props;
     console.log('props in recipe', props);
     let [like, setLike] = React.useState(false);
+    // let [likeCount, setLikeCount] = React.useState(props.recipe.likes)  //get likes from recipe handed down via props from the database.
 
     const RecipeCard = styled.View`
     flex: 1;
@@ -26,7 +27,7 @@ const Recipe = (props) => {
     const UserCard = styled.View`
       flexDirection : row;
       borderRightWidth : 1;
-      justifyContent : space-around;
+      justifyContent : flex-start;
     `;
 
     const Like = styled.View`
@@ -59,8 +60,11 @@ const Recipe = (props) => {
                 <UserCard>
                     <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}
                         style={{width: 50, height: 50 }}/>
-                    <Text style={styles.username}>Username</Text>
-                    <Text style={styles.prep}>Min: Prep Time</Text>
+                    <View style={styles.usercardTxt}>
+                        <Text style={styles.username}>Username</Text>
+                        <Text style={styles.prep}>Min: Prep Time</Text>
+                    </View>
+                    
                 </UserCard>
             </RecipeCard>
         </>
