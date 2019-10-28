@@ -26,15 +26,20 @@ const signInAsync = async () => {
 console.log(login)
 
 const onPress = () => {
-  signInAsync()
+  //signInAsync()
  console.log("axios call goes here")
-  // axios.put('', login)
+  // axios.put('https://recipeshare-development.herokuapp.com/cooks/login', login)
   // .then(res => console.log('response from login axios post', res))
   // .catch(err => console.log('error from login axios post',err))
 }
 
   return (
     <View style={styles.signUp}>
+      <TouchableOpacity
+          onPress={() => props.navigation.navigate('Home')}
+          >
+            <Text style={styles.exitButton}>x</Text>
+          </TouchableOpacity>
           <Text style={styles.title}>RecipeShare</Text>
           <Text style={styles.explanationText}>Sign in or create a new account to save and edit your favorite recipes.</Text>
           <Text style={styles.loginText}>Log In</Text>

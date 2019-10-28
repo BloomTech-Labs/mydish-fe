@@ -61,6 +61,13 @@ const styles = StyleSheet.create({
        color: "white",
        fontSize: 16,
        fontWeight: 'bold',
+   },
+   exitButton: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: '#047396',
+    paddingBottom:50,
+    marginLeft: 300
    }
    
    });

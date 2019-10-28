@@ -25,14 +25,19 @@ const SignUp = props => {
     
     const onPress = () => {
      console.log("axios call goes here")
-    //   axios.put('http://www.mocky.io/v2/5da8f1433100005b004e0679', signUp)
-    //   .then(res => console.log('response from sign up axios post', res))
-    //   .catch(err => console.log('error from sign up axios post',err))
+      // axios.put('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
+      // .then(res => console.log('response from sign up axios post', res))
+      // .catch(err => console.log('error from sign up axios post',err))
     }
     
       return (
        
         <View style={styles.signUp}>
+          <TouchableOpacity
+          onPress={() => props.navigation.navigate('Home')}
+          >
+            <Text style={styles.exitButton}>x</Text>
+          </TouchableOpacity>
           <Text style={styles.title}>RecipeShare</Text>
           <Text style={styles.createAccountTitle}>Create Account</Text>
           <Text style={styles.emailText}>Email</Text>
