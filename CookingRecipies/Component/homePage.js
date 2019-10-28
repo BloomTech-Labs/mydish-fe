@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/styles.js';
-import Search from "./Search.js";
+import Search from "./Search.js.js";
 
 import {
   SafeAreaView,
