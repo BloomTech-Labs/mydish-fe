@@ -69,6 +69,7 @@ const Recipe = (props) => {
                         style={{width: 50, height: 50 }}/>
                     <View style={styles.usercardTxt}>
                         <Text style={styles.username}>Username</Text>
+                        <Text style={styles.username}></Text>
                         <Text style={styles.prep}>Min: Prep Time</Text>
                     </View>
                     

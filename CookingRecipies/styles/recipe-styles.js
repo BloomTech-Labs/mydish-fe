@@ -18,7 +18,8 @@ module.exports = StyleSheet.create({
     usercardTxt : {
       // flex: 1, 
       flexDirection: 'row', 
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      marginLeft : 5
       // borderTopWidth: 5, 
       // borderBottomWidth: 5
     }, 
