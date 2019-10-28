@@ -72,7 +72,6 @@ const Recipe = (props) => {
                         <Text style={styles.username}></Text>
                         <Text style={styles.prep}>Min: Prep Time</Text>
                     </View>
-                    
                 </UserCard>
             </RecipeCard>
         </>
