@@ -26,7 +26,7 @@ const signInAsync = async () => {
 console.log(login)
 
 const onPress = () => {
-  //signInAsync()
+  signInAsync()
  console.log("axios call goes here")
   // axios.put('https://recipeshare-development.herokuapp.com/cooks/login', login)
   // .then(res => console.log('response from login axios post', res))
