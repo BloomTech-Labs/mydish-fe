@@ -15,7 +15,7 @@ const MyCookBook = (props) =>{
 
     useEffect(()=>{
         for(i in savedRecipes){
-            for(x in savedRecipses){
+            for(x in folderName){
                 if(i.course == folderName.course){
                     setFolderName(...folderName, {...folderName.course, recpies: recpies.append(i)})
                 }
