@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../styles/styles.js';
 import Search from "./Search.js";
+import RecipeList from './RecipeList.js'
 
 import {
   SafeAreaView,
@@ -24,8 +25,11 @@ const HomePage = () => {
        >
         {/* <StatusBar barStyle="dark-content" /> */}
         <Search/>
-        {/* <RecipeList/> */}
-        
+        <Text style={styles.red}>Hello home page</Text>
+        {/* <View>
+
+        <RecipeList/>
+        </View> */}
       </SafeAreaView>
 
   );
