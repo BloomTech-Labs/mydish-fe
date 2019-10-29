@@ -6,11 +6,11 @@ import {createStackNavigator} from "react-navigation-stack";
 import AsyncStorage from '@react-native-community/async-storage'
 import {View, ActivityIndicator, StatusBar} from 'react-native'
 
-import HomePage from './Component/homePage.js'
-import Login from './Component/Login.js'
-import SignUp from './Component/signUp'
-import MyCookBook from './Component/MyCookBook.js'
-import CookBookFolder from "./Component/CookBookFolder";
+import HomePage from './Components/homePage.js'
+import Login from './Components/CookBookFolder.js'
+import SignUp from './Components/signUp.js'
+import MyCookBook from './Components/MyCookBook.js'
+import CookBookFolder from "./Components/CookBookFolder";
 
 class AuthLoadingScreen extends React.Component {
   componentDidMount() {

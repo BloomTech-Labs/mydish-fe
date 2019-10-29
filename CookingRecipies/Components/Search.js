@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text} from "react-native";
 import axios from "axios";
 
+import RecipeList from './RecipeList.js'
+
 const Search = () => {
     let [dish, setDish] = useState('')
     let [recipe, setRecipes] = useState([])
@@ -56,7 +58,7 @@ const Search = () => {
                     accessibilityLabel="Search"                   
                     />
                 </TouchableOpacity>
-            {/* <RecipeList data={state.data}/>  */}
+            {/* <RecipeList />  */}
 
 
         </View>

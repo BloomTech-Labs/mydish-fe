@@ -15,7 +15,7 @@ const CookBookFolder = (props) =>{
     return(
         <View>
             <Text>{props.course}</Text>
-            <RecipleList props={props.navigation.getParam.data}/>
+            {/* <RecipeList props={props.navigation.getParam.data}/> */}
             {/* <Button
             onPress={deleteRecipe}
             >Delete Recipe</Button> */}
