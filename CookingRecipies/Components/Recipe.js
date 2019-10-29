@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState}from 'react';
 import styles from '../styles/recipe-styles';
 import {View,Text,ScrollView, Image} from 'react-native';
 // import {Icon} from 'react-native-elements';
@@ -11,8 +11,12 @@ import solidHeart from '../assets/solid-heart.png';
 
 const Recipe = (props) => {
 
+    console.log("props", props.recipe)
+
     const {recipe, height} = props;
-    console.log('props in recipe', props);
+
+    const [id,  setID] = useState(props.recipe.id)
+    // console.log('props in recipe', props);
     let [like, setLike] = React.useState(false);
     // let [likeCount, setLikeCount] = React.useState(props.recipe.likes)  //get likes from recipe handed down via props from the database.
 
@@ -51,7 +55,7 @@ const Recipe = (props) => {
     return (
         <>
             {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
-            <RecipeCard>
+            <RecipeCard  onPress={()  =>  props.navigation.navigate('CookBookFolder',  {data: id})}>
                 <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}> 3k</Text>
@@ -68,9 +72,8 @@ const Recipe = (props) => {
                     <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}
                         style={{width: 50, height: 50 }}/>
                     <View style={styles.usercardTxt}>
-                        <Text style={styles.username}>Username</Text>
-                        <Text style={styles.username}></Text>
-                        <Text style={styles.prep}>Min: Prep Time</Text>
+                        <Text style={styles.username}>{props.title}</Text>
+                        <Text style={styles.prep}>Min: {props.minutes}</Text>
                     </View>
                 </UserCard>
             </RecipeCard>

@@ -25,7 +25,6 @@ const HomePage = () => {
        >
         {/* <StatusBar barStyle="dark-content" /> */}
         <Search/>
-        <Text style={styles.red}>Hello home page</Text>
         {/* <View>
 
         <RecipeList/>
