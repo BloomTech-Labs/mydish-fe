@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import 
 {View,TouchableOpacity, TextInput, Button, StyleSheet, Text} 
 from "react-native";
+import RecipeList from "./RecipeList";
 
 
 const MyCookBook = (props) =>{
@@ -11,24 +12,37 @@ const MyCookBook = (props) =>{
             recipes:  []
         }
     ]);
-    const [savedRecipes,  setSavedRecipes] = useState([props]);
+    const [savedRecipes,  setSavedRecipes] = useState([]);
 
-    useEffect(()=>{
-        for(i in savedRecipes){
-            for(x in folderName){
-                if(i.course == folderName.course){
-                    setFolderName(...folderName, {...folderName.course, recpies: recpies.append(i)})
-                }
-                setFolderName(...folderName, {course: i.course, recpies: recpies.append(i)})
-            }
-        }
+    
+    useEffect(() =>{
+        axios
+        .get(
+          `https://recipeshare-development.herokuapp.com/cookbook`
+        )
+        .then(res => {
+            setSavedRecipes([res.data]);
+          console.log("hi", recipe)
+        })
+        .catch(err => console.log(err));
 
     },[]);
+    // useEffect(()=>{
+    //     for(i in savedRecipes){
+    //         for(x in folderName){
+    //             if(i.course == folderName.course){
+    //                 setFolderName(...folderName, {...folderName.course, recpies: recpies.append(i)})
+    //             }
+    //             setFolderName(...folderName, {course: i.course, recpies: recpies.append(i)})
+    //         }
+    //     }
+
+    // },[]);
 
     return(
         <View>
             {/* <Text>{user.props.name}</Text> */}
-            {folderName.props.map(folder  => {
+            {/* {folderName.props.map(folder  => {
                 return (
                     <TouchableOpacity style={styles.button}>
                     <Button  
@@ -39,7 +53,8 @@ const MyCookBook = (props) =>{
                     />
                 </TouchableOpacity>
                 )
-            })}
+            })} */}
+            <RecipeList/>
         </View>
     )
 

@@ -11,19 +11,18 @@ const Search = () => {
     useEffect(() =>{
         axios
         .get(
-          `https://restcountries.eu/rest/v2/all`
+          `https://recipeshare-development.herokuapp.com/recipes/all`
         )
         .then(res => {
-          setRecipes([res.data]);
-          console.log("hi", recipe)
+          setRecipes(res.data);
         })
         .catch(err => console.log(err));
 
     },[]);
+
     
     let grabRecipes = e => {
         e.preventDefault();
-        console.log(dish);
         if( dish.length>0){
             axios
             .get(
@@ -58,9 +57,7 @@ const Search = () => {
                     accessibilityLabel="Search"                   
                     />
                 </TouchableOpacity>
-            {/* <RecipeList />  */}
-
-
+                {recipe.length>=1  && <RecipeList props={recipe} /> }
         </View>
 
     )

@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Recipe from './Recipe';
 import {ScrollView, View} from 'react-native';
-import samplerecipes from './samplerecipes.json';
 
-console.log('sample recipes : ', samplerecipes[0]);
 
-const RecipeList = () => {
 
+
+const RecipeList = (props) => {
+
+    
+    
     let smallHeight = true;
 
-    const [recipes, setRecipes] = React.useState(samplerecipes);
+    const [recipes, setRecipes] = React.useState([]);
+
+    useEffect(() =>{
+        setRecipes(props.props)
+    },[]);
     // const imgSizer = () => {
     //     const width = Math.floor(100 + Math.random()*100);
     //     console.log(width);
