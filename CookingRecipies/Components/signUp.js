@@ -25,7 +25,7 @@ const SignUp = props => {
     
     const onPress = () => {
      console.log("axios call goes here")
-      axios.put('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
+      axios.post('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
       .then(res => console.log('response from sign up axios post', res))
       .catch(err => console.log('error from sign up axios post',err))
     }

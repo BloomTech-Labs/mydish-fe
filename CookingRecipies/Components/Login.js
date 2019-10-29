@@ -16,8 +16,8 @@ import styles from '../styles/loginStyles.js'
 const Login = props => {
 const [login, SetLogin] = useState({username: '', password: ''})
 
-const signInAsync = async () => {
-  await AsyncStorage.setItem('userToken', 'abc');
+const signInAsync = async (tok) => {
+  await AsyncStorage.setItem('userToken', tok);
   props.navigation.navigate('App');
   const token = await AsyncStorage.getItem('userToken')
   console.log(token)
@@ -26,11 +26,13 @@ const signInAsync = async () => {
 console.log(login)
 
 const onPress = () => {
-  signInAsync()
+  
  console.log("axios call goes here")
-  // axios.put('https://recipeshare-development.herokuapp.com/cooks/login', login)
-  // .then(res => console.log('response from login axios post', res))
-  // .catch(err => console.log('error from login axios post',err))
+  axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)
+  .then(res => signInAsync(res.data.token)
+    // console.log('response from login axios post', res.data.token)
+          )
+  .catch(err => console.log('error from login axios post',err))
 }
 
   return (
