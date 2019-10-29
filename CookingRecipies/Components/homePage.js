@@ -15,21 +15,12 @@ import {
 
 const HomePage = () => {
   return (
+      <SafeAreaView>
 
-      <SafeAreaView
-      // style={{
-      //   flex: 1, 
-      //   justifyContent: "center", 
-      //   alignItems: "center"
-      //  }}
-       >
-        {/* <StatusBar barStyle="dark-content" /> */}
         <Search/>
-        {/* <View>
 
-        <RecipeList/>
-        </View> */}
       </SafeAreaView>
+
 
   );
 };
