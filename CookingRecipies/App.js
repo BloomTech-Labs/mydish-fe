@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import {View, ActivityIndicator, StatusBar} from 'react-native'
 
 import HomePage from './Components/homePage.js'
-import Login from './Components/CookBookFolder.js'
+import Login from './Components/Login.js'
 import SignUp from './Components/signUp.js'
 import MyCookBook from './Components/MyCookBook.js'
 import CookBookFolder from "./Components/CookBookFolder";
@@ -49,7 +49,7 @@ const LoginNavigator = createStackNavigator({
 },
 {
   initialRouteName: 'Login',
-})
+});
 
 const MainNavigator = createBottomTabNavigator({
   Home: {screen: HomePage},
