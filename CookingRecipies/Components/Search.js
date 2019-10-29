@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text} from "react-native";
+import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text, ScrollView} from "react-native";
 import axios from "axios";
 
 import RecipeList from './RecipeList.js'
@@ -57,7 +57,9 @@ const Search = () => {
                     accessibilityLabel="Search"                   
                     />
                 </TouchableOpacity>
-                {recipe.length>=1  && <RecipeList props={recipe} /> }
+                <ScrollView>
+                    {recipe.length>=1  && <RecipeList props={recipe} /> }
+                </ScrollView>
         </View>
 
     )
