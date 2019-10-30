@@ -18,7 +18,7 @@ const HomePage = () => {
       <SafeAreaView>
 
         <Search/>
-
+      
       </SafeAreaView>
 
 

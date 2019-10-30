@@ -1,6 +1,7 @@
 import React, {useState}from 'react';
 import styles from '../styles/recipe-styles';
-import {View,Text,ScrollView, Image} from 'react-native';
+import {View,Text,ScrollView, Image, TouchableOpacity} from 'react-native';
+import { withNavigation } from 'react-navigation'
 // import {Icon} from 'react-native-elements';
 // import Icon from "react-native-vector-icons/FontAwesome";
 // import ipad from '../assets/ipadrecipe.jpg';
@@ -11,12 +12,15 @@ import solidHeart from '../assets/solid-heart.png';
 
 const Recipe = (props) => {
 
-    console.log("props", props.recipe)
+    console.log("props in Recipe.js", props.recipe)
 
     const {recipe, height} = props;
 
+    // const recipeID = props.recipe.id
+    // console.log('testing for id in Recipe.js',recipeID)
     const [id,  setID] = useState(props.recipe.id)
-    // console.log('props in recipe', props);
+    console.log('testing for id in Recipe.js', id)
+    //console.log('props in recipe', props);
     let [like, setLike] = React.useState(false);
     // let [likeCount, setLikeCount] = React.useState(props.recipe.likes)  //get likes from recipe handed down via props from the database.
 
@@ -55,16 +59,19 @@ const Recipe = (props) => {
     return (
         <>
             {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
-            <RecipeCard  onPress={()  =>  props.navigation.navigate('CookBookFolder',  {data: id})}>
+            <RecipeCard  >
+               <TouchableOpacity  
+               onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: '3'})}
+               >
                 <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}> 3k</Text>
                 </Like>
-               
                 <Image 
                     source={{uri : 'https://fakeimg.pl/250x100/?text=recipe'}}
                     style={{width: 190, height: height, borderRadius: 20, paddingRight: 20 }}
                     resieMode="contain"
+                    
                 />
                 
                 <Text style={styles.text}>Sample Recipe</Text>
@@ -76,9 +83,10 @@ const Recipe = (props) => {
                         <Text style={styles.prep}>Min: {props.minutes}</Text>
                     </View>
                 </UserCard>
+                 </TouchableOpacity>
             </RecipeCard>
         </>
     )
 }
 
-export default Recipe;
+export default withNavigation(Recipe);

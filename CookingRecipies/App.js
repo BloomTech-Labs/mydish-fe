@@ -12,6 +12,8 @@ import SignUp from './Components/signUp.js'
 import MyCookBook from './Components/MyCookBook.js'
 import CreateRecipeForm from './Components/CreateRecipeForm.js'
 import CookBookFolder from "./Components/CookBookFolder";
+import IndividualRecipes from './Components/IndividualRecipes.js'
+import Recipe from './Components/Recipe.js'
 import plus from './assets/add_circle.png';
 import person from './assets/person_outline.png';
 import list from './assets/assignment.png';
@@ -57,8 +59,16 @@ const LoginNavigator = createStackNavigator({
   initialRouteName: 'Login',
 });
 
+const RecipeNavigator = createStackNavigator({
+  Home: {screen: HomePage},
+  IndividualR: {screen: IndividualRecipes}
+},
+{
+  initialRouteName: 'Home',
+});
+
 const MainNavigator = createBottomTabNavigator({
-  Home: {screen: HomePage,
+  Home: {screen: RecipeNavigator,
     navigationOptions: {
       tabBarLabel: 'Home',
       tabBarIcon: (
@@ -66,14 +76,14 @@ const MainNavigator = createBottomTabNavigator({
       ),
     }
   },
-  List: {screen: SignUp,
-      navigationOptions: {
-    tabBarLabel: 'My List',
-    tabBarIcon: (
-          <Image style={{ width: 25, height: 25, paddingTop:10 }} source={list}/>
-    ),
-  }
-},
+//   List: {screen: SignUp,
+//       navigationOptions: {
+//     tabBarLabel: 'My List',
+//     tabBarIcon: (
+//           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={list}/>
+//     ),
+//   }
+// },
   Create: {screen: CreateRecipeForm,
     navigationOptions: {
       tabBarLabel: 'Create',
@@ -111,14 +121,14 @@ const AuthNavigator = createBottomTabNavigator({
       ),
     }
   },
-  List: {screen: LoginNavigator,
-    navigationOptions: {
-      tabBarLabel: 'My List',
-      tabBarIcon: (
-            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={list}/>
-      ),
-    }
-  }, 
+  // List: {screen: LoginNavigator,
+  //   navigationOptions: {
+  //     tabBarLabel: 'My List',
+  //     tabBarIcon: (
+  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={list}/>
+  //     ),
+  //   }
+  // }, 
   Create: {screen: LoginNavigator,
     navigationOptions: {
       tabBarLabel: 'Create',

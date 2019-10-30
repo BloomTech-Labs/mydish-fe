@@ -68,13 +68,14 @@ const Search = () => {
 const styles = StyleSheet.create({
 textInput: {
     flex: 1,
-    height: 4000,
+    height: 40,
+    //width: 300,
     fontSize: 18,
     margin: 7,
     fontWeight: 'bold',
     color: 'black',
     paddingLeft: 3,
-    minHeight: '65%',
+    minHeight: '5%',
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#d6d7da'

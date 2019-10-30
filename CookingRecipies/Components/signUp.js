@@ -58,6 +58,9 @@ const SignUp = props => {
            </TouchableOpacity>
            <Button title="Actually, sign me out :)" 
           onPress={signOutAsync} />
+           {/* <TouchableOpacity  
+               onPress={()  =>  props.navigation.navigate('IndividualR')}
+               ><Text> Go to Recipe </Text></TouchableOpacity> */}
         </View>
        
       );

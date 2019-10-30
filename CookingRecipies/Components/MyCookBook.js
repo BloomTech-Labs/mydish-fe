@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import 
 {View,TouchableOpacity, TextInput, Button, StyleSheet, Text} 
 from "react-native";
+import axios from 'axios'
 import RecipeList from "./RecipeList";
 
 
@@ -21,8 +22,9 @@ const MyCookBook = (props) =>{
           `https://recipeshare-development.herokuapp.com/cookbook`
         )
         .then(res => {
+            console.log(res)
             setSavedRecipes([res.data]);
-          console.log("hi", recipe)
+          console.log("hi", savedRecipes)
         })
         .catch(err => console.log(err));
 
