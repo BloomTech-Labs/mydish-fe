@@ -6,8 +6,6 @@ import {ScrollView, View} from 'react-native';
 
 
 const RecipeList = (props) => {
-
-    
     
     let smallHeight = true;
 
@@ -22,15 +20,15 @@ const RecipeList = (props) => {
     //     return width;
     // }
 
-    const imgSizer = () => {
-        smallHeight = !smallHeight;
-        return smallHeight ? 130 : 300;
-    }
+    // const imgSizer = () => {
+    //     smallHeight = !smallHeight;
+    //     return smallHeight ? 130 : 300;
+    // }
 
     return (
         <ScrollView>
-            <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
-                 {recipes.map( recp => <Recipe recipe={recp} height={imgSizer()} />)}
+            <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                 {recipes.map( recp => <Recipe recipe={recp}  />)}
             </View>
          </ScrollView>
     )  
