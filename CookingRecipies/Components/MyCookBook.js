@@ -3,9 +3,13 @@ import
 {View,TouchableOpacity, TextInput, Button, StyleSheet, Text} 
 from "react-native";
 import RecipeList from "./RecipeList";
+import axios from "axios";
+import AxiosWithAuth from "./AxiosWithAuth";
+
 
 
 const MyCookBook = (props) =>{
+    
     const[folderName, setFolderName] = useState([
         {
             course: '',
@@ -14,19 +18,21 @@ const MyCookBook = (props) =>{
     ]);
     const [savedRecipes,  setSavedRecipes] = useState([]);
 
-    
-    useEffect(() =>{
-        axios
-        .get(
-          `https://recipeshare-development.herokuapp.com/cookbook`
-        )
-        .then(res => {
-            setSavedRecipes([res.data]);
-          console.log("hi", recipe)
-        })
-        .catch(err => console.log(err));
+  
+    if(props.props!=null){
+            console.log("true", props.props)
+            AxiosWithAuth(props.props)
+            .get(`https://recipeshare-development.herokuapp.com/cookbook`)
+            .then(res => {
+                console.log("mycookbook", res)
+                setSavedRecipes([res.data]);
+             
+            })
+            .catch(err => console.log(err));
+    }
 
-    },[]);
+    
+    
     // useEffect(()=>{
     //     for(i in savedRecipes){
     //         for(x in folderName){
@@ -54,7 +60,7 @@ const MyCookBook = (props) =>{
                 </TouchableOpacity>
                 )
             })} */}
-            <RecipeList/>
+            {/* {savedRecipes.length>=1  && <RecipeList props={savedRecipes} /> } */}
         </View>
     )
 
