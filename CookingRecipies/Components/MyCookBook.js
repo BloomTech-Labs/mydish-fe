@@ -4,7 +4,6 @@ import
 from "react-native";
 import axios from 'axios'
 import RecipeList from "./RecipeList";
-import axios from "axios";
 import AxiosWithAuth from "./AxiosWithAuth";
 
 
