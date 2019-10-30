@@ -8,33 +8,31 @@ import {
 } from 'react-native';
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
+import MyCookBook from "./MyCookBook"
+
 
 import styles from '../styles/loginStyles.js'
-
-
-
 const Login = props => {
-const [login, SetLogin] = useState({username: '', password: ''})
+  const [login, SetLogin] = useState({username: '', password: ''})
+  const [toke, setTok] = useState()
 
-const signInAsync = async (tok) => {
-  await AsyncStorage.setItem('userToken', tok);
-  props.navigation.navigate('App');
-  const token = await AsyncStorage.getItem('userToken')
-  console.log(token)
-};
+  const signInAsync = async (tok) => {
+    await AsyncStorage.setItem('userToken', tok);
+    props.navigation.navigate('App');
+    const token = await AsyncStorage.getItem('userToken')
+    console.log(token)
+  };
 
-console.log(login)
+  const onPress = () => {
+    
+  console.log("axios call goes here")
+    axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)
+    .then(res => {signInAsync(res.data.token),  setTok(res.data.token)})
+      // console.log('response from login axios post', res.data.token)
+    .catch(err => console.log('error from login axios post',err))
+    } 
 
-const onPress = () => {
-  
- console.log("axios call goes here")
-  axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)
-  .then(res => signInAsync(res.data.token)
-    // console.log('response from login axios post', res.data.token)
-          )
-  .catch(err => console.log('error from login axios post',err))
-}
-
+    console.log("tiktok",toke)
   return (
     <View style={styles.signUp}>
       <TouchableOpacity
@@ -66,8 +64,12 @@ const onPress = () => {
              style={styles.loginButton}
            >
              <Text style={styles.loginButtonText}>Login</Text>
+             <MyCookBook props={toke}/>
+             {/* <axiosWithAuth props={toke}/> */}
            </TouchableOpacity>
+           
         </View>
+       
        
       );
     }

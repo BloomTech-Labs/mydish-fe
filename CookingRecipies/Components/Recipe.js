@@ -79,8 +79,8 @@ const Recipe = (props) => {
                     <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}
                         style={{width: 50, height: 50 }}/>
                     <View style={styles.usercardTxt}>
-                        <Text style={styles.username}>{props.title}</Text>
-                        <Text style={styles.prep}>Min: {props.minutes}</Text>
+                        <Text style={styles.username}>{props.recipe.title}</Text>
+                        <Text style={styles.prep}>Min: {props.recipe.minutes}</Text>
                     </View>
                 </UserCard>
                  </TouchableOpacity>
