@@ -40,7 +40,6 @@ const Search = () => {
 
     return(
         <View>
-            <Text >Search Bar</Text>
 				 <TextInput
 					style={styles.textInput}
 					placeholder="What Dish are you looking for?"
@@ -84,8 +83,8 @@ button: {
     borderWidth: 2,
     marginLeft: 100,
     marginRight: 100,
-    borderColor: '#2089dc',
-    backgroundColor: `#2089dc`
+    borderColor: '#3BA405',
+    backgroundColor: `#3BA405`
 }
 })
 

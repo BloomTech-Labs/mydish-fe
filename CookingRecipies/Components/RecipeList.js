@@ -6,8 +6,6 @@ import {ScrollView, View} from 'react-native';
 
 
 const RecipeList = (props) => {
-    
-    let smallHeight = true;
 
     const [recipes, setRecipes] = React.useState([]);
 
@@ -28,7 +26,7 @@ const RecipeList = (props) => {
     return (
         <ScrollView>
             <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                 {recipes.map( recp => <Recipe recipe={recp}  />)}
+                 {recipes.map( recp =>  <Recipe recipe={recp}/>)}
             </View>
          </ScrollView>
     )  
