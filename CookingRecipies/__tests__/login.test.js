@@ -20,6 +20,5 @@ test('login snapshot', () => {
 // test('Login Renders', () => {
 //     const Login = render(<Login/>);
 //     console.log(Login);
-
 // })
 
