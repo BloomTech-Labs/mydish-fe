@@ -10,28 +10,90 @@ import AddIngredientsForm from './CreateRecipe/AddIngredientsForm.js'
 import AddInstructionsForm from './CreateRecipe/AddInstructionsForm.js'
 
 export default function CreateRecipeForm(props) {
+  const [array, setArray] = useState([])
 
   const initialFormState = {
     title: '',
     minutes: '',
     notes: "",
     categories: [],
-    ingredients: {
-      name: "",
-      quantity: "",
-      unit: ""
-    },            
+    ingredients: array,            
     likes: "",
-    steps: [
-          ], 
+    steps: [], 
     ancestor: ""
   }  
-
   const [recipe, setRecipe] = useState(initialFormState)
   console.log('recipe from create recipe form', recipe)
+  
+  const [state, setState] = useState({
+    textInput : []
+  })
+  const [ing, setIng] = useState({
+    name: "",
+    quantity: "",
+    unit: "" 
+  })
  
 
-  // onSubmit = event => {event.preventDefault()
+  const testSubmit = () => {
+    console.log('1',ing)
+    setArray(array.concat({ing}))
+    console.log('2', ing)
+  }
+
+
+
+
+// const handleIngredientNameChange = idx => evt => {
+//   const newIngredient = recipe.ingredients.map((ing, sidx) => {
+//     if (idx !== sidx) return ;
+//     return { ...ing, name: evt.target.value };
+//   });
+
+const handleIngredientChange = event => {
+  
+
+}
+console.log('array', array)
+
+const  addTextInput = (key) => {
+  let textInput = state.textInput;
+  
+  textInput.push( <View key={key} style={{ flexDirection: "row", flexWrap: "wrap" }}>
+    
+
+  <TextInput
+    style={{ height: 40, width: 75 }}
+    placeholder="Amount"
+    onChangeText={event => setIng({...ing, quantity: event})}
+    value={ing.quantity}
+  />
+
+  <TextInput
+    style={{ height: 40, width: 75 }}
+    placeholder="Unit"
+    onChangeText ={event => setIng({...ing, unit: event})}
+    value={ing.unit}
+    />
+
+  <TextInput
+    style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
+    placeholder="Ingredient"
+    onChangeText ={event => setIng({...ing, name: event})}
+    value={ing.name}
+    />
+
+    <Button
+    title="+"
+    onPress={testSubmit} 
+    />
+
+</View >);
+  setState({ textInput })
+  // testSubmit()
+}
+
+// onSubmit = event => {event.preventDefault()
   //   if(!recipe.name || !recipe.minutes) return
   //    props.addRecipe(recipe) 
   //    setRecipe(initialFormState)
@@ -164,15 +226,6 @@ export default function CreateRecipeForm(props) {
 
           </View>
 
-          {/* ======== Course Type Dropdown ================== */}
-
-          {/* <ModalDropdown
-            options={['Breakfast', 'Brunch', 'Gluten-Free', 'Vegan', 'Vegetarian', 'Keto']}
-            defaultValue={'Course Type'}
-            //  showsVerticalScrollIndicator = {true}
-            textStyle={styles.dropdownText}
-            dropdownStyle={styles.dropdownText}
-          /> */}
 
           <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>Course Type</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
@@ -203,12 +256,7 @@ export default function CreateRecipeForm(props) {
           {/* =========== Cuisine Input ======================== */}
 
           <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20  }}>Cuisine</Text>
-          {/* <TextInput
-            style={styles.container}
-            placeholder="Just a placeholder for Cuisine"
-            onChangeText={event => setRecipe({ ...recipe, categories:  [].push(event)})}
-            value={recipe.categories}
-          /> */}
+       
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
            <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "American"]})}>
             <Text>American</Text>
@@ -257,55 +305,20 @@ export default function CreateRecipeForm(props) {
 
           <Text style={{ fontWeight: 'bold', fontSize: 20 }} >Ingredients</Text>
 
-          {/* <IngredientsList/>  */}
-          {/* <AddIngredientsForm/> */}
-
-          <View style={{ flexDirection: "row", padding: 15, }}>
-
-
-            {/* ==== Amount === */}
-
-            <TextInput
-              style={{ height: 40, width: 75 }}
-              placeholder="Amount"
-              onChangeText={event => setRecipe({ ...recipe, ingredients: {...recipe.ingredients, quantity: event }})}
-              //value={recipe.ingredient.quantity}
-            />
-
-
-            {/* ==== Unit === */}
-
-            <TextInput
-              style={{ height: 40, width: 75 }}
-              placeholder="Unit"
-              onChangeText ={event => setRecipe({ ...recipe, ingredients: {...recipe.ingredients, unit: event }})}
-              value={recipe.unit}
-            />
-
-            {/* ==== Ingredient === */}
-
-            <TextInput
-              style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
-              placeholder="Ingredient"
-              onChangeText ={event => setRecipe({ ...recipe, ingredients: {...recipe.ingredients, name: event }})}
-              value={recipe.name}
-            />
-
-          </View >
 
           {/* ========= Add Ingredients View ============== */}
 
           <View style={{ flexDirection: "row", padding: 15 }} >
 
             {/* <Icon name='add' reverse={true}></Icon> */}
-
-            <Button
-              title="Add Ingredients"
-              color="black"
-              backgroundColor=''
-              onPress={() => Alert.alert('Really Random Alert')}
-            />
+            <View>
+            <Button title='Add Ingredients'  color="black"
+              backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
+            {state.textInput}
           </View>
+          </View>
+
+          
 
           {/* ======= Instructions Input View ====== */}
 
@@ -345,8 +358,7 @@ export default function CreateRecipeForm(props) {
           }}/>
 
         </View>
-        {/* ^^^ View under ===Inputs=== */}
-
+        {/* ^^^ Testing ===Inputs=== */}
       </View>
 
     </ScrollView>
