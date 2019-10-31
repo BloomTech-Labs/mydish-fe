@@ -44,7 +44,7 @@ let IndividualRecipes = props => {
 
          <Text style={styles.tags}>Tags</Text>
          <View style={styles.tagBox}>
-        {store.categories.map( cat => {
+        {store.categories && store.categories.map( cat => {
             return(
                 <View>
                     <Text styles={styles.individualTags}>{cat}</Text>
@@ -52,9 +52,9 @@ let IndividualRecipes = props => {
             )
         })}
         </View>
-        <View>
-        <Image source={editIcon} style={styles.editButton}/>
+        <View style={styles.editView}>
         <TouchableOpacity>
+        <Image source={editIcon} style={styles.editButton}/>
                     <Text 
                     // color="white"    
                     // onPress={grabRecipes}
@@ -63,7 +63,8 @@ let IndividualRecipes = props => {
                     >Make Changes</Text>
         </TouchableOpacity>
         </View>
-      {store.ingredients.map( ing => {
+        <Text style={styles.ingredients}>Ingredients</Text>
+      {store.ingredients && store.ingredients.map( ing => {
             return(
                 <View>
                     <Text>{ing.quantity} {ing.unit}</Text>
@@ -72,7 +73,7 @@ let IndividualRecipes = props => {
                 </View>
             )
         })}
-         {store.steps.map( step => {
+         {store.steps && store.steps.map( step => {
             return(
                 <View>
 

@@ -61,7 +61,7 @@ const Recipe = (props) => {
             {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
             <RecipeCard  >
                <TouchableOpacity  
-               onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: '3'})}
+               onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
                >
                 <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>

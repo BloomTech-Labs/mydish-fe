@@ -35,13 +35,27 @@ const styles = StyleSheet.create({
     tagBox: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        borderBottomWidth: 1,
+        borderBottomColor: '#6B6F70',
+        paddingBottom: 18
     },
     editButton: {
         backgroundColor: '#8FCC70',
         borderRadius: 50,
         width: 25,
         height: 25,
+        marginLeft: 30,
+        marginBottom: 5
+    },
+    editView: {
+        // justifyContent: 'flex-end',
+        paddingLeft: 300,
+        marginTop: 44,
+        alignContent: 'center'
+    },
+    ingredients: {
+        borderTopWidth
     }
 })
 
