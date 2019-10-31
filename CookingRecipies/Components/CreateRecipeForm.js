@@ -8,16 +8,18 @@ import styles from '../styles/createRecipeStyles.js'
 
 import AddIngredientsForm from './CreateRecipe/AddIngredientsForm.js'
 import AddInstructionsForm from './CreateRecipe/AddInstructionsForm.js'
+import Ingredient from './Ingredient';
+
 
 export default function CreateRecipeForm(props) {
-  const [array, setArray] = useState([])
+  
 
   const initialFormState = {
     title: '',
     minutes: '',
     notes: "",
     categories: [],
-    ingredients: array,            
+    ingredients: ingList,            
     likes: "",
     steps: [], 
     ancestor: ""
@@ -28,18 +30,21 @@ export default function CreateRecipeForm(props) {
   const [state, setState] = useState({
     textInput : []
   })
+  
+  const [ingList, setIngList] = useState([])
+
   const [ing, setIng] = useState({
     name: "",
     quantity: "",
     unit: "" 
   })
- 
 
-  const testSubmit = () => {
-    console.log('1',ing)
-    setArray(array.concat({ing}))
-    console.log('2', ing)
-  }
+
+  // const testSubmit = () => {
+  //   console.log('1',ing)
+  //   setArray(array.concat({ing}))
+  //   console.log('2', ing)
+  // }
 
 
 
@@ -50,11 +55,15 @@ export default function CreateRecipeForm(props) {
 //     return { ...ing, name: evt.target.value };
 //   });
 
-const handleIngredientChange = event => {
-  
+// console.log('array', array)
 
+const setIngredients = (newIng) => {
+  console.log('ingredients to change', newIng);
+  console.log('ing in state', ing);
+  
+  // console.log('updated ingredient in state', ing, quantity);
 }
-console.log('array', array)
+
 
 const  addTextInput = (key) => {
   let textInput = state.textInput;
@@ -65,7 +74,7 @@ const  addTextInput = (key) => {
   <TextInput
     style={{ height: 40, width: 75 }}
     placeholder="Amount"
-    onChangeText={event => setIng({...ing, quantity: event})}
+    onChangeText={event => setIngredients('test') }
     value={ing.quantity}
   />
 
@@ -314,10 +323,13 @@ const  addTextInput = (key) => {
             <View>
             <Button title='Add Ingredients'  color="black"
               backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
-            {state.textInput.map((value, index) => {
+            {/* {state.textInput.map((value, index) => {
               return value
-            })}
-          </View>
+            })} */}
+
+              <Ingredient addIng={setIngredients} ingredient={ing}/>
+    
+            </View>
           </View>
 
           
