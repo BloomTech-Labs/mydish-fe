@@ -9,6 +9,7 @@ module.exports = StyleSheet.create({
       marginBottom: 10, 
       fontSize: 20, 
       fontWeight: 'bold', 
+      color: '#3BA405',
       textAlign: 'left',
       width: 150
     },
@@ -25,6 +26,8 @@ module.exports = StyleSheet.create({
     }, 
     prep : {
       alignSelf: 'flex-end',
-      marginStart: -40
+      fontSize: 14,
+      marginStart: -2,
+      color: '#3BA405'
     }
   });

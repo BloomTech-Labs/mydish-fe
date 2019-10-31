@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text} from "react-native";
+import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text, ScrollView} from "react-native";
 import axios from "axios";
 
 import RecipeList from './RecipeList.js'
@@ -11,11 +11,10 @@ const Search = () => {
     useEffect(() =>{
         axios
         .get(
-          `https://restcountries.eu/rest/v2/all`
+          `https://recipeshare-development.herokuapp.com/recipes/all`
         )
         .then(res => {
-          setRecipes([res.data]);
-          console.log("hi", recipe)
+          setRecipes(res.data);
         })
         .catch(err => console.log(err));
 
@@ -23,11 +22,10 @@ const Search = () => {
     
     let grabRecipes = e => {
         e.preventDefault();
-        console.log(dish);
         if( dish.length>0){
             axios
             .get(
-              `https://restcountries.eu/rest/v2/capital/${dish}`
+              `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
             )
             .then(res => {
               setRecipes([]);
@@ -42,7 +40,6 @@ const Search = () => {
 
     return(
         <View>
-            <Text >Search Bar</Text>
 				 <TextInput
 					style={styles.textInput}
 					placeholder="What Dish are you looking for?"
@@ -58,9 +55,9 @@ const Search = () => {
                     accessibilityLabel="Search"                   
                     />
                 </TouchableOpacity>
-            {/* <RecipeList />  */}
-
-
+                <ScrollView>
+                    {recipe.length>=1  && <RecipeList props={recipe} /> }
+                </ScrollView>
         </View>
 
     )
@@ -69,13 +66,14 @@ const Search = () => {
 const styles = StyleSheet.create({
 textInput: {
     flex: 1,
-    height: 4000,
+    height: 40,
+    //width: 300,
     fontSize: 18,
     margin: 7,
     fontWeight: 'bold',
     color: 'black',
     paddingLeft: 3,
-    minHeight: '65%',
+    minHeight: '5%',
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#d6d7da'
@@ -85,8 +83,8 @@ button: {
     borderWidth: 2,
     marginLeft: 100,
     marginRight: 100,
-    borderColor: '#2089dc',
-    backgroundColor: `#2089dc`
+    borderColor: '#3BA405',
+    backgroundColor: `#3BA405`
 }
 })
 

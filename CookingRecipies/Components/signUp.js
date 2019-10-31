@@ -25,9 +25,9 @@ const SignUp = props => {
     
     const onPress = () => {
      console.log("axios call goes here")
-      // axios.put('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
-      // .then(res => console.log('response from sign up axios post', res))
-      // .catch(err => console.log('error from sign up axios post',err))
+      axios.post('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
+      .then(res => console.log('response from sign up axios post', res))
+      .catch(err => console.log('error from sign up axios post',err))
     }
     
       return (
@@ -58,6 +58,9 @@ const SignUp = props => {
            </TouchableOpacity>
            <Button title="Actually, sign me out :)" 
           onPress={signOutAsync} />
+           {/* <TouchableOpacity  
+               onPress={()  =>  props.navigation.navigate('IndividualR')}
+               ><Text> Go to Recipe </Text></TouchableOpacity> */}
         </View>
        
       );
