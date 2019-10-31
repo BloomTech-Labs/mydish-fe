@@ -1,21 +1,17 @@
 import React from 'react';
 import styles from '../styles/recipe-styles';
+import styled from 'styled-components/native';  //deprecated way , but required to test styled components using jest. 
 import {View,Text,ScrollView, Image} from 'react-native';
-// import {Icon} from 'react-native-elements';
-// import Icon from "react-native-vector-icons/FontAwesome";
-// import ipad from '../assets/ipadrecipe.jpg';
-// const ipad = require('../assets/ipadrecipe.jpg');
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import clearHeart from '../assets/clear-heart.png';
 import solidHeart from '../assets/solid-heart.png';
 
 const Recipe = (props) => {
 
     const {recipe, height} = props;
-    console.log('props in recipe', props);
+    // console.log('props in recipe', props);
     let [like, setLike] = React.useState(false);
     // let [likeCount, setLikeCount] = React.useState(props.recipe.likes)  //get likes from recipe handed down via props from the database.
-
     const RecipeCard = styled.View`
     flex: 1;
     marginLeft : 10;

@@ -3,7 +3,7 @@ import Recipe from './Recipe';
 import {ScrollView, View} from 'react-native';
 import samplerecipes from './samplerecipes.json';
 
-console.log('sample recipes : ', samplerecipes[0]);
+// console.log('sample recipes : ', samplerecipes[0]);
 
 const RecipeList = () => {
 

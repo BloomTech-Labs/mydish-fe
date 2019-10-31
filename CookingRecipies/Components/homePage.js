@@ -15,7 +15,6 @@ import {
 
 const HomePage = () => {
   return (
-
       <SafeAreaView
       // style={{
       //   flex: 1, 
@@ -24,19 +23,18 @@ const HomePage = () => {
       //  }}
        >
         {/* <StatusBar barStyle="dark-content" /> */}
-        <Search/>
+        {/* <Search/> */}
+        {/* <RecipeList/> */}
         <Text style={styles.red}>Hello home page</Text>
         {/* <View>
-
         <RecipeList/>
         </View> */}
       </SafeAreaView>
-
   );
 };
 
 HomePage.navigationOptions = {
-    title: 'Home',
+    title: 'Home'
     };
 
 export default HomePage;

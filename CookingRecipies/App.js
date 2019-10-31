@@ -1,11 +1,9 @@
 import React from 'react';
-
-import {createAppContainer, createSwitchNavigator } from 'react-navigation';
+// import {createAppContainer, createSwitchNavigator } from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from "react-navigation-stack";
 import AsyncStorage from '@react-native-community/async-storage'
 import {View, ActivityIndicator, StatusBar} from 'react-native'
-
 import HomePage from './Components/homePage.js'
 import Login from './Components/Login.js'
 import SignUp from './Components/signUp.js'
@@ -88,7 +86,7 @@ const AppContainer = createAppContainer(
   }) 
   );
 
-export default App = () => {
+export const App = () => {
   return (
     <AppContainer/>
   )
