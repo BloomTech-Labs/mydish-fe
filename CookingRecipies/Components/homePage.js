@@ -16,12 +16,8 @@ import {
 const HomePage = () => {
   return (
       <SafeAreaView>
-
         <Search/>
-      
       </SafeAreaView>
-
-
   );
 };
 

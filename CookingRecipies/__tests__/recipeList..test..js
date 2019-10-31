@@ -5,11 +5,13 @@ import {render, fireEvent} from 'react-native-testing-library';
 import renderer from 'react-test-renderer';
 import styled from 'styled-components/native';
 import homePage from '../Components/homePage';
+import recipes from '../Components/samplerecipes.json';
 
-  test('testing react-native-testing-library', () => {
-    const RL = render(<RecipeList/>);
-    // console.log("recipe list rendered by react native testing library render() : ", RL)
-    const RLSnap = renderer.create(<RecipeList/>).toJSON();
+// console.log(recipes);
+test.skip('recipe list snapshot', () => {
+  // const RL = render(<RecipeList/>);
+  // console.log("recipe list rendered by react native testing library render() : ", RL)
+    const RLSnap = renderer.create(<RecipeList recipe={recipes}/>).toJSON();
     expect(RLSnap).toMatchSnapshot();
   })
 

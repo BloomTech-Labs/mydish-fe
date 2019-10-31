@@ -2,9 +2,6 @@
 
 exports[`search snapshot 1`] = `
 <View>
-  <Text>
-    Search Bar
-  </Text>
   <TextInput
     allowFontScaling={true}
     onChangeText={[Function]}
@@ -20,9 +17,9 @@ exports[`search snapshot 1`] = `
         "flex": 1,
         "fontSize": 18,
         "fontWeight": "bold",
-        "height": 4000,
+        "height": 40,
         "margin": 7,
-        "minHeight": "65%",
+        "minHeight": "5%",
         "paddingLeft": 3,
       }
     }
@@ -42,8 +39,8 @@ exports[`search snapshot 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "backgroundColor": "#2089dc",
-        "borderColor": "#2089dc",
+        "backgroundColor": "#3BA405",
+        "borderColor": "#3BA405",
         "borderRadius": 4,
         "borderWidth": 2,
         "marginLeft": 100,
@@ -99,5 +96,8 @@ exports[`search snapshot 1`] = `
       </View>
     </View>
   </View>
+  <RCTScrollView>
+    <View />
+  </RCTScrollView>
 </View>
 `;

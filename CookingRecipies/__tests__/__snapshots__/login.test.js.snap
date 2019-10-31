@@ -216,6 +216,7 @@ exports[`login snapshot 1`] = `
     >
       Login
     </Text>
+    <View />
   </View>
 </View>
 `;

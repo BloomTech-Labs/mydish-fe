@@ -11,7 +11,7 @@ test('sanity check', () => {
 })
 
 
-test('login snapshot', () => {
+test.skip('login snapshot', () => {
     const loginSnap = renderer.create(<Login/>).toJSON();
     expect(loginSnap).toMatchSnapshot();
 })
