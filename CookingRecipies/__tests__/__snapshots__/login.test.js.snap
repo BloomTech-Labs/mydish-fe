@@ -1,0 +1,221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`login snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#047396",
+          "fontSize": 20,
+          "fontWeight": "500",
+          "marginLeft": 300,
+          "paddingBottom": 50,
+        }
+      }
+    >
+      x
+    </Text>
+  </View>
+  <Text
+    style={
+      Object {
+        "color": "#42C200",
+        "fontSize": 30,
+        "fontWeight": "bold",
+        "paddingBottom": 14,
+        "textAlign": "center",
+      }
+    }
+  >
+    RecipeShare
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "#363838",
+        "fontSize": 16,
+        "marginBottom": 29,
+        "textAlign": "left",
+        "width": 296,
+      }
+    }
+  >
+    Sign in or create a new account to save and edit your favorite recipes.
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "#363838",
+        "fontSize": 18,
+        "fontWeight": "500",
+        "marginBottom": 16,
+        "paddingRight": 270,
+        "textAlign": "left",
+      }
+    }
+  >
+    Log In
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "#363838",
+        "paddingRight": 283,
+      }
+    }
+  >
+    Email
+  </Text>
+  <TextInput
+    allowFontScaling={true}
+    name="username"
+    onChangeText={[Function]}
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderBottomWidth": 1,
+        "borderColor": "#363838",
+        "borderLeftWidth": 1,
+        "borderRadius": 4,
+        "borderRightWidth": 1,
+        "borderTopWidth": 1,
+        "height": 40,
+        "marginBottom": 10,
+        "marginTop": 10,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+        "width": 327,
+      }
+    }
+    underlineColorAndroid="transparent"
+    value=""
+  />
+  <Text
+    style={
+      Object {
+        "color": "#363838",
+        "paddingRight": 256,
+      }
+    }
+  >
+    Password
+  </Text>
+  <TextInput
+    allowFontScaling={true}
+    name="password"
+    onChangeText={[Function]}
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderBottomWidth": 1,
+        "borderColor": "#363838",
+        "borderLeftWidth": 1,
+        "borderRadius": 4,
+        "borderRightWidth": 1,
+        "borderTopWidth": 1,
+        "height": 40,
+        "marginBottom": 10,
+        "marginTop": 10,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+        "width": 327,
+      }
+    }
+    underlineColorAndroid="transparent"
+    value=""
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#047396",
+          "fontSize": 14,
+          "fontWeight": "500",
+          "paddingRight": 200,
+        }
+      }
+    >
+      Create an Account
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#3BA405",
+        "borderRadius": 50,
+        "height": 40,
+        "marginBottom": 10,
+        "marginLeft": 205,
+        "marginTop": 31,
+        "opacity": 1,
+        "paddingTop": 10,
+        "width": 120,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "white",
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "textAlign": "center",
+        }
+      }
+    >
+      Login
+    </Text>
+  </View>
+</View>
+`;

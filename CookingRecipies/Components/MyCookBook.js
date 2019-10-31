@@ -15,20 +15,17 @@ const MyCookBook = (props) =>{
 
     useEffect(()=>{
         for(i in savedRecipes){
-            for(x in savedRecipses){
                 if(i.course == folderName.course){
-                    setFolderName(...folderName, {...folderName.course, recpies: recpies.append(i)})
+                    setFolderName(...folderName, {...folderName.course, recipies: props.recipies.append(i)})
                 }
                 setFolderName(...folderName, {course: i.course, recpies: recpies.append(i)})
             }
-        }
-
-    },[]);
+        },[]);
 
     return(
         <View>
             {/* <Text>{user.props.name}</Text> */}
-            {folderName.props.map(folder  => {
+            {folderName.props && folderName.props.map(folder  => {
                 return (
                     <TouchableOpacity style={styles.button}>
                     <Button  

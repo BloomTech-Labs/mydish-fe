@@ -13,15 +13,17 @@ import homePage from '../Components/homePage';
     expect(RLSnap).toMatchSnapshot();
   })
 
-  test('testing homePage', () => {
-    const HP = render(<homePage/>);
-    console.log('homepage', HP);
-    HPSnap = renderer.create(<homePage/>).toJSON();
-    expect(HPSnap).toMatchSnapshot();
-    const Text = HP.getByText('Hello home page');
-    console.log(Text);
-    expect(text).toBe('Hello home page');
-  })
+  // test('testing homePage', () => {
+  //   const HP = render(<homePage/>);
+  //   console.log('homepage', HP);
+  //   HPSnap = renderer.create(<homePage/>).toJSON();
+  //   expect(HPSnap).toMatchSnapshot();
+  //   const Text = HP.getByText('Hello home page');
+  //   console.log(Text);
+  //   expect(text).toBe('Hello home page');
+  // })
+
+
 
 
 

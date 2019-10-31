@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`testing homePage 1`] = `<homePage />`;
-
 exports[`testing react-native-testing-library 1`] = `
 <RCTScrollView>
   <View>

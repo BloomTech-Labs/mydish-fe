@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`search snapshot 1`] = `
+<View>
+  <Text>
+    Search Bar
+  </Text>
+  <TextInput
+    allowFontScaling={true}
+    onChangeText={[Function]}
+    placeholder="What Dish are you looking for?"
+    placeholderTextColor="#D3D3D3"
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderColor": "#d6d7da",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "color": "black",
+        "flex": 1,
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "height": 4000,
+        "margin": 7,
+        "minHeight": "65%",
+        "paddingLeft": 3,
+      }
+    }
+    underlineColorAndroid="transparent"
+    value=""
+  />
+  <View
+    accessible={true}
+    focusable={false}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#2089dc",
+        "borderColor": "#2089dc",
+        "borderRadius": 4,
+        "borderWidth": 2,
+        "marginLeft": 100,
+        "marginRight": 100,
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      accessibilityLabel="Search"
+      accessibilityRole="button"
+      accessibilityStates={Array []}
+      accessible={true}
+      focusable={true}
+      isTVSelectable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {},
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#007AFF",
+                "fontSize": 18,
+                "padding": 8,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "white",
+              },
+            ]
+          }
+        >
+          Click me
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
