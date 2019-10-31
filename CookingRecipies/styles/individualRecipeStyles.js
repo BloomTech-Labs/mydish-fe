@@ -55,7 +55,22 @@ const styles = StyleSheet.create({
         alignContent: 'center'
     },
     ingredients: {
-        borderTopWidth
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderTopColor: '#6B6F70',
+        borderBottomColor: '#6B6F70',
+        paddingTop: 5,
+        paddingBottom: 5,
+        backgroundColor: '#047396',
+        color: 'white',
+        alignItems: 'center'
+    },
+    ingrdientList: {
+      backgroundColor: '#F4F8FA',
+    },
+    ingredientText: {
+        color: '#1E1F20' ,
+        fontSize: 16,
     }
 })
 

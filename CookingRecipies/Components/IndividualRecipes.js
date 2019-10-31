@@ -6,6 +6,7 @@ import StockPhoto from '../assets/stock_photo.jpg'
 import styles from '../styles/individualRecipeStyles.js'
 import clearHeart from '../assets/clear-heart.png';
 import editIcon from '../assets/edit_icon.png';
+import styled from 'styled-components';
 
 
 let IndividualRecipes = props => {
@@ -15,6 +16,11 @@ let IndividualRecipes = props => {
 
     const id =  props.navigation.getParam('paramsID', 'params not passed')
     console.log("id in individualRecipe.js", id)
+
+    const IngredientCard = styled.Text`
+        color: '#1E1F20' ,
+        fontSize: 16,
+    `;
 
     useEffect(() =>{
         axios
@@ -63,12 +69,14 @@ let IndividualRecipes = props => {
                     >Make Changes</Text>
         </TouchableOpacity>
         </View>
+        <View style={styles.ingredients}> 
         <Text style={styles.ingredients}>Ingredients</Text>
+        </View >
       {store.ingredients && store.ingredients.map( ing => {
             return(
-                <View>
-                    <Text>{ing.quantity} {ing.unit}</Text>
-                    <Text>{ing.name}</Text>
+                <View style={styles.ingredientList}>
+                    <Text styles={styles.ingredientText}>{ing.quantity} {ing.unit}</Text>
+                    <Text styles={styles.ingredientText}>{ing.name}</Text>
 
                 </View>
             )

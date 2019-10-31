@@ -4,6 +4,8 @@ import { Text, TextInput, View, Image, StyleSheet, Button, Alert, ScrollView, To
 import ModalDropdown from 'react-native-modal-dropdown';
 import ToggleSwitch from 'toggle-switch-react-native';
 
+import styles from '../styles/createRecipeStyles.js'
+
 import AddIngredientsForm from './CreateRecipe/AddIngredientsForm.js'
 import AddInstructionsForm from './CreateRecipe/AddInstructionsForm.js'
 
@@ -145,6 +147,23 @@ export default function CreateRecipeForm(props) {
             {recipe.title.length}/55
           </Text>
 
+          <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
+
+    
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Total Time</Text>
+
+            <TextInput
+              style={styles.container}
+              multiline={true}
+              numberOfLines={5}
+              maxLength={55}
+              placeholder='Placeholder for Total Time'
+              onChangeText={event => setRecipe({ ...recipe, minutes: event })}
+              value={recipe.minutes} />
+
+
+          </View>
+
           {/* ======== Course Type Dropdown ================== */}
 
           {/* <ModalDropdown
@@ -154,50 +173,70 @@ export default function CreateRecipeForm(props) {
             textStyle={styles.dropdownText}
             dropdownStyle={styles.dropdownText}
           /> */}
-          {/* <TouchableOpacity onPress={}>
+
+          <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>Course Type</Text>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+           <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Breakfast"]})}>
             <Text>Breakfast</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
 
-            <TouchableOpacity>
+          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Brunch"]})}>
             <Text>Brunch</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
 
-            <TouchableOpacity>
+          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Lunch"]})}>
+            <Text>Lunch</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Dinner"]})}>
             <Text>Dinner</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
 
-            <TouchableOpacity>
+          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Dessert"]})}>
+            <Text>Dessert</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Snack"]})}>
             <Text>Snack</Text>
-          </TouchableOpacity> */}
-
+          </TouchableOpacity>
+          </View>
           {/* =========== Cuisine Input ======================== */}
 
-          <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold' }}>Cuisine</Text>
+          <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20  }}>Cuisine</Text>
           {/* <TextInput
             style={styles.container}
             placeholder="Just a placeholder for Cuisine"
             onChangeText={event => setRecipe({ ...recipe, categories:  [].push(event)})}
             value={recipe.categories}
           /> */}
-           <TouchableOpacity onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "American"]})}>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+           <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "American"]})}>
             <Text>American</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "Italian"]})}>
+            <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "Italian"]})}>
             <Text>Italian</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress ={() => setRecipe({...recipe, categories: [...recipe.categories, "Thai"]})}>
+            <TouchableOpacity style={styles.tagButtons} onPress ={() => setRecipe({...recipe, categories: [...recipe.categories, "Thai"]})}>
             <Text>Thai</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Chinese"]})}>
+            <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Chinese"]})}>
             <Text>Chinese</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Mexican"]})}>
+            <Text>Mexican</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Japanese"]})}>
+            <Text>Japanese</Text>
+          </TouchableOpacity>
+          </View>
           {/* ============= Total Time and Servings View =============== */}
 
-          <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
+          {/* <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
 
     
             <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Total Time</Text>
@@ -212,7 +251,7 @@ export default function CreateRecipeForm(props) {
                 value={recipe.minutes} />
 
 
-          </View>
+          </View> */}
    
           {/* =============== Ingredients ===================== */}
 
@@ -315,51 +354,3 @@ export default function CreateRecipeForm(props) {
  }
 
 
-const styles = StyleSheet.create({
-  baseText:
-  {
-    //   Recipe by: 
-    fontSize: 15,
-  },
-  header: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    alignSelf: 'center'
-
-  },
-  titleText: {
-    //   Recipe Title Name
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  container: {
-    //   Typically for inputs
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: 'black',
-    height: 40
-  },
-  dropdownText: {
-    //    Text shown before clicking the dropdown
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: 'black',
-    fontSize: 18,
-    width: 350,
-    marginTop: 15
-  },
-  dropdown: {
-    //    Text shown in dropdown bar
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: 'black',
-    fontSize: 15,
-    width: 120,
-    marginTop: 15
-  }
-
-  // title: {
-  //   textAlign: 'center',
-  //   marginVertical: 8,
-  // },
-});
