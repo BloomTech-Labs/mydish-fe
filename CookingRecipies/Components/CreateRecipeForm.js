@@ -314,7 +314,9 @@ const  addTextInput = (key) => {
             <View>
             <Button title='Add Ingredients'  color="black"
               backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
-            {state.textInput}
+            {state.textInput.map((value, index) => {
+              return value
+            })}
           </View>
           </View>
 
