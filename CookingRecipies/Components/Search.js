@@ -19,14 +19,13 @@ const Search = () => {
         .catch(err => console.log(err));
 
     },[]);
-
     
     let grabRecipes = e => {
         e.preventDefault();
         if( dish.length>0){
             axios
             .get(
-              `https://restcountries.eu/rest/v2/capital/${dish}`
+              `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
             )
             .then(res => {
               setRecipes([]);

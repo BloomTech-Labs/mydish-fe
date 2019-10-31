@@ -3,7 +3,6 @@ import
 {View,TouchableOpacity, TextInput, Button, StyleSheet, Text} 
 from "react-native";
 import RecipeList from "./RecipeList";
-import axios from "axios";
 import AxiosWithAuth from "./AxiosWithAuth";
 
 
