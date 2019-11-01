@@ -137,23 +137,6 @@ export default function CreateRecipeForm(props) {
           </View>
 
           {/* ============= Total Time and Servings View =============== */}
-
-          {/* <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
-
-    
-            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Total Time</Text>
-            
-              <TextInput
-                style={styles.container}
-                multiline={true}
-                numberOfLines={5}
-                maxLength={55}
-                placeholder='Placeholder for Total Time'
-                onChangeText={event => setRecipe({ ...recipe, minutes: event })}
-                value={recipe.minutes} />
-
-
-          </View> */}
    
           {/* =============== Ingredients ===================== */}
 
@@ -170,6 +153,8 @@ export default function CreateRecipeForm(props) {
                   {addIngredients()}
             </View>
           </View>
+
+          
 
           {/* ======= Instructions Input View ====== */}
 

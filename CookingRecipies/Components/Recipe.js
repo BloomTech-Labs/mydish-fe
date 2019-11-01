@@ -11,22 +11,33 @@ import clearHeart from '../assets/clear-heart.png';
 import solidHeart from '../assets/solid-heart.png';
 
 
-let fakeImages=["hack","https://imgur.com/P6MJY3E", "https://imgur.com/a/nYjndsf", "https://imgur.com/a/59bk6KQ", "https://imgur.com/a/zL5DFJs"]
-let count = 0
+var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"
+var HomeFries = "https://image.shutterstock.com/z/stock-photo-fried-potatoes-147539354.jpg"
+var Eggplant = "https://image.shutterstock.com/image-photo/grilled-eggplants-seasoned-olive-oil-260nw-87708241.jpg"
+var ScrambledEggs = "https://image.shutterstock.com/image-photo/mexican-food-recipes-revoltillo-de-600w-752977636.jpg"
+let fakeImages=["Cereal","Home Fries","Eggplant","Scrambled Eggs"]
+
+
 const Recipe = (props) => {
-    const [img,  setImg] = useState()
+    const [img, setImg]= useState()
 
-    useEffect(()=>{
-        count= count+1
-        console.log("COUNT", count)
-        setImg(fakeImages[count])
-    },[])
-
-
-    //console.log('props in recipe', props);
     let [like, setLike] = React.useState(false);
     // let [likeCount, setLikeCount] = React.useState(props.recipe.likes)  //get likes from recipe handed down via props from the database.
 
+    // useEffect(() =>{
+    //     for(i in fakeImages){
+    //         console.log("i", fakeImages[i], props.recipe.title)
+    //         if(fakeImages[i] == props.recipe.title=="Cereal"){
+    //             console.log("hi")
+    //             setImg(Cereal)
+    //             console.log(img)
+    //         }
+    //         if(fakeImages[i] == props.recipe.title=="Home Fries"){
+    //             setImg(HomeFries)
+    //         }
+    //     }
+    //     console.log('props in recipe', img);
+    // },[]);
     const RecipeCard = styled.View`
     justifyContent: flex-start;
     width: 130;
@@ -71,7 +82,8 @@ const Recipe = (props) => {
                     <Text style={{color : 'white', fontWeight: 'bold'}}> 3k</Text>
                 </Like>
                 <Image 
-                    source={{uri : img}}
+                
+                    source={{uri : Cereal}}
                     style={{width: 160, height: 250, borderRadius: 20, paddingRight: 20 }}
                     resieMode="contain"
                     

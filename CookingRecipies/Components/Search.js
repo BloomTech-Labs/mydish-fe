@@ -30,17 +30,28 @@ const Search = () => {
             .then(res => {
               setRecipes([]);
               setRecipes([res.data]);
-              console.log(recipe)
+              setDish('')
               
             })
             .catch(err => console.log(err));
         };
+        if(dish.length==0){
+            axios
+            .get(
+              `https://recipeshare-development.herokuapp.com/recipes/all`
+            )
+            .then(res => {
+                setRecipes([]);
+                setRecipes(res.data);
+            })
+            .catch(err => console.log(err));
+        }
+ 
     };
 
 
     return(
         <View>
-            <Text >Search Bar</Text>
 				 <TextInput
 					style={styles.textInput}
 					placeholder="What Dish are you looking for?"
@@ -52,7 +63,7 @@ const Search = () => {
                     <Button  
                     color="white"    
                     onPress={grabRecipes}
-                    title="Click me"
+                    title="Search"
                     accessibilityLabel="Search"                   
                     />
                 </TouchableOpacity>
@@ -84,8 +95,8 @@ button: {
     borderWidth: 2,
     marginLeft: 100,
     marginRight: 100,
-    borderColor: '#2089dc',
-    backgroundColor: `#2089dc`
+    borderColor: '#3BA405',
+    backgroundColor: `#3BA405`
 }
 })
 

@@ -65,7 +65,7 @@ const Login = props => {
              style={styles.loginButton}
            >
              <Text style={styles.loginButtonText}>Login</Text>
-             <MyCookBook props={toke}/>
+             {/* <MyCookBook props={toke} style={{display: 'none'}}/> */}
              {/* <axiosWithAuth props={toke}/> */}
            </TouchableOpacity>
            
