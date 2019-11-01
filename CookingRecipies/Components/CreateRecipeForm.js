@@ -12,7 +12,6 @@ import Ingredient from './Ingredient';
 
 
 export default function CreateRecipeForm(props) {
-  
 
   const initialFormState = {
     title: '',
@@ -25,7 +24,7 @@ export default function CreateRecipeForm(props) {
     ancestor: ""
   }  
   const [recipe, setRecipe] = useState(initialFormState)
-  console.log('recipe from create recipe form', recipe)
+  // console.log('recipe from create recipe form', recipe)
   
   const [state, setState] = useState({
     textInput : []
@@ -33,11 +32,14 @@ export default function CreateRecipeForm(props) {
   
   const [ingList, setIngList] = useState([])
 
-  const [ing, setIng] = useState({
-    name: "",
-    quantity: "",
-    unit: "" 
-  })
+  let [ingredientCount, setIngredientCount] = React.useState(1)
+
+  // const [ing, setIng] = useState({
+  //   name: "",
+  //   quantity: "",
+  //   unit: "" 
+  // })
+
 
 
   // const testSubmit = () => {
@@ -57,50 +59,50 @@ export default function CreateRecipeForm(props) {
 
 // console.log('array', array)
 
-const setIngredients = (newIng) => {
-  console.log('ingredients to change', newIng);
-  console.log('ing in state', ing);
-  
-  // console.log('updated ingredient in state', ing, quantity);
-}
+// const setIngredients = (newIng) => {
+//   console.log('ingredients to change', newIng);
+//   console.log('ing in state', ing);
+
+//   // console.log('updated ingredient in state', ing, quantity);
+// }
 
 
-const  addTextInput = (key) => {
-  let textInput = state.textInput;
+// const  addTextInput = (key) => {
+//   let textInput = state.textInput;
   
-  textInput.push( <View key={key} style={{ flexDirection: "row", flexWrap: "wrap" }}>
+//   textInput.push( <View key={key} style={{ flexDirection: "row", flexWrap: "wrap" }}>
     
 
-  <TextInput
-    style={{ height: 40, width: 75 }}
-    placeholder="Amount"
-    onChangeText={event => setIngredients('test') }
-    value={ing.quantity}
-  />
+//   <TextInput
+//     style={{ height: 40, width: 75 }}
+//     placeholder="Amount"
+//     onChangeText={event => setIngredients('test') }
+//     value={ing.quantity}
+//   />
 
-  <TextInput
-    style={{ height: 40, width: 75 }}
-    placeholder="Unit"
-    onChangeText ={event => setIng({...ing, unit: event})}
-    value={ing.unit}
-    />
+//   <TextInput
+//     style={{ height: 40, width: 75 }}
+//     placeholder="Unit"
+//     onChangeText ={event => setIng({...ing, unit: event})}
+//     value={ing.unit}
+//     />
 
-  <TextInput
-    style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
-    placeholder="Ingredient"
-    onChangeText ={event => setIng({...ing, name: event})}
-    value={ing.name}
-    />
+//   <TextInput
+//     style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
+//     placeholder="Ingredient"
+//     onChangeText ={event => setIng({...ing, name: event})}
+//     value={ing.name}
+//     />
 
-    <Button
-    title="+"
-    onPress={testSubmit} 
-    />
+//     <Button
+//     title="+"
+//     onPress={testSubmit} 
+//     />
 
-</View >);
-  setState({ textInput })
-  // testSubmit()
-}
+// </View >);
+//   setState({ textInput })
+//   // testSubmit()
+// }
 
 // onSubmit = event => {event.preventDefault()
   //   if(!recipe.name || !recipe.minutes) return
@@ -168,6 +170,13 @@ const  addTextInput = (key) => {
     
   // }
   // setRecipe({initialFormState})
+
+  const addIngredients = () => {
+    console.log('addIngredients triggered');
+    console.log(ingredientCount, 'count');
+
+
+  }
 
   return (                                                   
     <ScrollView>
@@ -327,7 +336,8 @@ const  addTextInput = (key) => {
               return value
             })} */}
 
-              <Ingredient addIng={setIngredients} ingredient={ing}/>
+              <Ingredient ingList={ingList} setIngList={setIngList} setCount={setIngredientCount} count={ingredientCount}/>
+              {addIngredients()}
     
             </View>
           </View>

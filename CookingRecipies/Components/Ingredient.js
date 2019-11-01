@@ -10,18 +10,24 @@ const Ingredient = (props) => {
     //   })
 
     // const {addIng, ingredient} = props;
+    let {ingList, setIngList, count, setCount} = props;
 
     let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
 
     const handleChange = (key,value) => {
-        setIngredient({...ingredient, [key] : value})
+        setIngredient({...ingredient, [key] : value});
        console.log('ingredient', ingredient);
     }
 
+    const handleSubmit = () => {
+        console.log('ingList, handleSubmit triggered', ingList);
+        // setIngList(() => [...ingList, ingredient]);
+        setCount(count++);
+        setIngList([...ingList, ingredient]);
+    }
 
     return  (
         <View>
-            
              <TextInput
                 style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
                 placeholder="Ingredient"
@@ -45,10 +51,10 @@ const Ingredient = (props) => {
                 value={ingredient.unit}
                 />
 
-           
+
             <Button
             title="+"
-            // onPress={testSubmit} 
+            onPress={handleSubmit} 
             />
         </View>
     )
