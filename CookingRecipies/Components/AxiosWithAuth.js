@@ -2,16 +2,22 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const AxiosWithAuth = (props) => {
+export const AxiosWithAuth = async () => {
 
-    console.log("axios", props)
+    try {
+        const token = await AsyncStorage.getItem('userToken');
+        console.log('token', token);
+    } 
 
-    return axios.create({
-    headers: {
-        Authorization: props
+    catch(err) {
+        console.log(err);
     }
-});
-        
+
+    // return axios.create({
+    //     headers: {
+    //         Authorization: token
+    //     }
+    // });
 };
 
 export default AxiosWithAuth;
