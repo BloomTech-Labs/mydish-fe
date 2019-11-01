@@ -6,7 +6,8 @@ import styles from '../styles/createRecipeStyles.js'
 import AddIngredientsForm from './CreateRecipe/AddIngredientsForm.js'
 import AddInstructionsForm from './CreateRecipe/AddInstructionsForm.js'
 import Ingredient from './Ingredient';
-
+import CourseType from './CourseType';
+import Cuisine from './Cuisine';
 
 export default function CreateRecipeForm(props) {
 
@@ -21,24 +22,23 @@ export default function CreateRecipeForm(props) {
     ancestor: ""
   }  
   const [recipe, setRecipe] = useState(initialFormState)
-  // console.log('recipe from create recipe form', recipe)
-  
-  // const [state, setState] = useState({
-  //   textInput : []
-  // })
   
   const [ingList, setIngList] = useState([])
-  let [count, setCount] = useState(0)
-
+  let [count, setCount] = useState(0)  //count is for the # of <Ingredient/>'s to render
+  const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']);
+  const [cuisines,] = useState(['American','Italian','Thai','Chinese','Mexican','Japanese']);
 
   const addIngredients = () => {
     console.log('addIngredients triggered');
-    console.log(count, 'count');
     const IngredientComponents = [];
-    for (let i=0; i<count; i++) {
+
+      if (!count) {  //if no added ingredients, render only a single ingredient
         IngredientComponents.push(<Ingredient ingList={ingList} setIngList={setIngList} setCount={setCount} count={count}/>);
-    }
-    console.log(IngredientComponents);
+      } else {
+        for (let i=0; i<count; i++) {
+          IngredientComponents.push(<Ingredient ingList={ingList} setIngList={setIngList} setCount={setCount} count={count}/>);
+        }
+      }
     return IngredientComponents;
   }
 
@@ -103,67 +103,22 @@ export default function CreateRecipeForm(props) {
               maxLength={55}
               placeholder='Placeholder for Total Time'
               onChangeText={event => setRecipe({ ...recipe, minutes: event })}
-              value={recipe.minutes} />
-
-
+              value={recipe.minutes} 
+            />
           </View>
 
-
+         {/* ********************<CourseTypes/>*************** */}
           <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>Course Type</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-           <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Breakfast"]})}>
-            <Text>Breakfast</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Brunch"]})}>
-            <Text>Brunch</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Lunch"]})}>
-            <Text>Lunch</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Dinner"]})}>
-            <Text>Dinner</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Dessert"]})}>
-            <Text>Dessert</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Snack"]})}>
-            <Text>Snack</Text>
-          </TouchableOpacity>
+            {courses.map(course => <CourseType course={course} recipe={recipe} setRecipe={setRecipe}/>)}
           </View>
-          {/* =========== Cuisine Input ======================== */}
 
+          {/* ********************<Cuisines/>*************** */}
           <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20  }}>Cuisine</Text>
-       
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-           <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "American"]})}>
-            <Text>American</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "Italian"]})}>
-            <Text>Italian</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.tagButtons} onPress ={() => setRecipe({...recipe, categories: [...recipe.categories, "Thai"]})}>
-            <Text>Thai</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Chinese"]})}>
-            <Text>Chinese</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Mexican"]})}>
-            <Text>Mexican</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Japanese"]})}>
-            <Text>Japanese</Text>
-          </TouchableOpacity>
+            {cuisines.map(cuis => <Cuisine cuisine={cuis} recipe={recipe} setRecipe={setRecipe}/>)}
           </View>
+
           {/* ============= Total Time and Servings View =============== */}
 
           {/* <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
@@ -187,29 +142,17 @@ export default function CreateRecipeForm(props) {
 
           <Text style={{ fontWeight: 'bold', fontSize: 20 }} >Ingredients</Text>
 
-
           {/* ========= Add Ingredients View ============== */}
 
           <View style={{ flexDirection: "row", padding: 15 }} >
 
             {/* <Icon name='add' reverse={true}></Icon> */}
             <View>
-            <Button title='Add Ingredients'  color="black"
-              backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
-            {/* {state.textInput.map((value, index) => {
-              return value
-            })} */}
-              {!count ? <Ingredient 
-                ingList={ingList} 
-                setIngList={setIngList} 
-                setCount={setCount} 
-                count={count}
-              /> : null}
-              {count ? addIngredients() : null}
+                <Button title='Add Ingredients'  color="black"
+                  backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
+                  {addIngredients()}
             </View>
           </View>
-
-          
 
           {/* ======= Instructions Input View ====== */}
 
@@ -241,7 +184,6 @@ export default function CreateRecipeForm(props) {
           }}/>
 
         </View>
-        {/* ^^^ Testing ===Inputs=== */}
       </View>
     </ScrollView>
   )
@@ -384,3 +326,59 @@ export default function CreateRecipeForm(props) {
     
   // }
   // setRecipe({initialFormState})
+
+  {/* <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Breakfast"]})}>
+                        <Text>Breakfast</Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Brunch"]})}>
+                        <Text>Brunch</Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Lunch"]})}>
+                        <Text>Lunch</Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Dinner"]})}>
+                        <Text>Dinner</Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Dessert"]})}>
+                        <Text>Dessert</Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Snack"]})}>
+                        <Text>Snack</Text>
+                      </TouchableOpacity>
+                  </View> */}
+          {/* =========== Cuisine Input ======================== */}
+
+          {/* <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+           <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "American"]})}>
+            <Text>American</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "Italian"]})}>
+            <Text>Italian</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.tagButtons} onPress ={() => setRecipe({...recipe, categories: [...recipe.categories, "Thai"]})}>
+            <Text>Thai</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Chinese"]})}>
+            <Text>Chinese</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Mexican"]})}>
+            <Text>Mexican</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Japanese"]})}>
+            <Text>Japanese</Text>
+          </TouchableOpacity>
+          </View> */}
+           {/* {state.textInput.map((value, index) => {
+                  return value
+                })} */}
