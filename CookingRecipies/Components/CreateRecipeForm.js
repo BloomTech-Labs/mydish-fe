@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { Text, TextInput, View, Image, Button, Alert, ScrollView, TouchableOpacity } from 'react-native';
-import ModalDropdown from 'react-native-modal-dropdown';
-import ToggleSwitch from 'toggle-switch-react-native';
 import styles from '../styles/createRecipeStyles.js'
-import AddIngredientsForm from './CreateRecipe/AddIngredientsForm.js'
-import AddInstructionsForm from './CreateRecipe/AddInstructionsForm.js'
 import Ingredient from './Ingredient';
 import CourseType from './CourseType';
 import Cuisine from './Cuisine';
@@ -127,13 +123,13 @@ export default function CreateRecipeForm(props) {
          {/* ********************<CourseTypes/>*************** */}
           <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>Course Type</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-            {courses.map(course => <CourseType course={course} recipe={recipe} setRecipe={setRecipe}/>)}
+            {courses.map(course => <CourseType course={course} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
           {/* ********************<Cuisines/>*************** */}
           <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20  }}>Cuisine</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-            {cuisines.map(cuis => <Cuisine cuisine={cuis} recipe={recipe} setRecipe={setRecipe}/>)}
+            {cuisines.map(cuis => <Cuisine cuisine={cuis} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
           {/* ============= Total Time and Servings View =============== */}
