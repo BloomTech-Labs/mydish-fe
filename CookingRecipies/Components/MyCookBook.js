@@ -20,7 +20,7 @@ const MyCookBook = (props) =>{
   
     if(props.props!=null){
             console.log("true", props.props)
-            AxiosWithAuth(props.props)
+            AxiosWithAuth()
             .get(`https://recipeshare-development.herokuapp.com/cookbook`)
             .then(res => {
                 console.log("mycookbook", res)

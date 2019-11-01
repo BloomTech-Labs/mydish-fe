@@ -9,8 +9,9 @@ import {
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
 import MyCookBook from "./MyCookBook"
+import AxiosWithAuth from "./AxiosWithAuth"
 
-
+export const wow=[]
 import styles from '../styles/loginStyles.js'
 const Login = props => {
   const [login, SetLogin] = useState({username: '', password: ''})
@@ -27,7 +28,7 @@ const Login = props => {
     
   console.log("axios call goes here")
     axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)
-    .then(res => {signInAsync(res.data.token),  setTok(res.data.token)})
+    .then(res => {signInAsync(res.data.token),  wow.push(res.data.token)})
       // console.log('response from login axios post', res.data.token)
     .catch(err => console.log('error from login axios post',err))
     } 
@@ -64,8 +65,8 @@ const Login = props => {
              style={styles.loginButton}
            >
              <Text style={styles.loginButtonText}>Login</Text>
-             <MyCookBook props={toke}/>
-             {/* <axiosWithAuth props={toke}/> */}
+             {/* <MyCookBook props={toke}/> */}
+             <AxiosWithAuth />
            </TouchableOpacity>
            
         </View>
