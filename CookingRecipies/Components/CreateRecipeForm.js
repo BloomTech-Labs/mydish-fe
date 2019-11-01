@@ -12,11 +12,6 @@ import Ingredient from './Ingredient';
 
 
 export default function CreateRecipeForm(props) {
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 60d1558a6369962e1f65c6d3125ebe326148ace2
   const initialFormState = {
     title: '',
     minutes: '',
@@ -33,35 +28,27 @@ export default function CreateRecipeForm(props) {
   const [state, setState] = useState({
     textInput : []
   })
-<<<<<<< HEAD
-  const [ing, setIng] = useState({
-    name: "",
-    quantity: "",
-    unit: "" 
-  })
-  const [array, setArray] = useState([{...ing}])
- 
-
-  const testSubmit = event => {
-    console.log('1',ing)
-    // setArray(array.concat({ing}))
-    setArray([...array, { ...ing }]);
-    console.log('2', ing)
-  }
-//   const addCat = () => {
-//     setCatState([...catState, { ...blankCat }]);
-// };
-  
-  const handleIngredientChange = event => {
-    const updateIngredients = [...ing]
-    updateIngredients[event.target.dataset.idx][event.target.className] = event.target.value
-    setArray(updateIngredients);
-  }
-=======
   
   const [ingList, setIngList] = useState([])
 
   let [ingredientCount, setIngredientCount] = React.useState(1)
+
+  const [color, setColor] = useState({active:[]})
+     
+  function toggleBackgroundColor(category){
+      const index= color.active.indexOf(category)
+      const newActive= index !== -1 ?  color.active.filter(activeCategory => activeCategory !== category) : color.active.concat(category)
+      setColor({active: newActive})
+    }
+    console.log('test color function', color)
+
+      function tagsIncluded(tag) {
+        //const check = recipe.categories.includes(tag) 
+         const index= recipe.categories.indexOf(tag)
+         const newTags= index !== -1 ?  recipe.categories.filter(activeTag => activeTag !== tag) : recipe.categories.concat(tag)
+         setRecipe({...recipe, categories: newTags})
+        }
+        console.log('category tags', recipe.categories)
 
   // const [ing, setIng] = useState({
   //   name: "",
@@ -76,7 +63,6 @@ export default function CreateRecipeForm(props) {
   //   setArray(array.concat({ing}))
   //   console.log('2', ing)
   // }
->>>>>>> 60d1558a6369962e1f65c6d3125ebe326148ace2
 
 //   const handleCatChange = (e) => {
 //     const updatedCats = [...catState];
@@ -91,16 +77,11 @@ export default function CreateRecipeForm(props) {
 //     return { ...ing, name: evt.target.value };
 //   });
 
-<<<<<<< HEAD
-
-console.log('array', array)
-=======
 // console.log('array', array)
 
 // const setIngredients = (newIng) => {
 //   console.log('ingredients to change', newIng);
 //   console.log('ing in state', ing);
->>>>>>> 60d1558a6369962e1f65c6d3125ebe326148ace2
 
 //   // console.log('updated ingredient in state', ing, quantity);
 // }
@@ -286,27 +267,27 @@ console.log('array', array)
 
           <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>Course Type</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-           <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Breakfast"]})}>
+           <TouchableOpacity style={color.active.includes('Breakfast') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Breakfast'); toggleBackgroundColor('Breakfast')} }>
             <Text>Breakfast</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Brunch"]})}>
+          <TouchableOpacity style={color.active.includes('Brunch') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Brunch'); toggleBackgroundColor('Brunch')}}>
             <Text>Brunch</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Lunch"]})}>
+          <TouchableOpacity style={color.active.includes('Lunch') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Lunch'); toggleBackgroundColor('Lunch')}}>
             <Text>Lunch</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Dinner"]})}>
+          <TouchableOpacity style={color.active.includes('Dinner') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Dinner'); toggleBackgroundColor('Dinner')}}>
             <Text>Dinner</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Dessert"]})}>
+          <TouchableOpacity style={color.active.includes('Dessert') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Dessert'); toggleBackgroundColor('Dessert')}}>
             <Text>Dessert</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Snack"]})}>
+          <TouchableOpacity style={color.active.includes('Snack') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Snack'); toggleBackgroundColor('Snack')}}>
             <Text>Snack</Text>
           </TouchableOpacity>
           </View>
@@ -315,27 +296,27 @@ console.log('array', array)
           <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20  }}>Cuisine</Text>
        
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-           <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "American"]})}>
+           <TouchableOpacity style={color.active.includes('American') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('American'); toggleBackgroundColor('American')}}>
             <Text>American</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "Italian"]})}>
+            <TouchableOpacity style={color.active.includes('Italian') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Italian'); toggleBackgroundColor('Italian')}}>
             <Text>Italian</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.tagButtons} onPress ={() => setRecipe({...recipe, categories: [...recipe.categories, "Thai"]})}>
+            <TouchableOpacity style={color.active.includes('Thai') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Thai'); toggleBackgroundColor('Thai')}}>
             <Text>Thai</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Chinese"]})}>
+            <TouchableOpacity style={color.active.includes('Chinese') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Chinese'); toggleBackgroundColor('Chinese')}}>
             <Text>Chinese</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Mexican"]})}>
+          <TouchableOpacity style={color.active.includes('Mexican') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Mexican'); toggleBackgroundColor('Mexican')}}>
             <Text>Mexican</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Japanese"]})}>
+          <TouchableOpacity style={color.active.includes('Japanese') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Japanese'); toggleBackgroundColor('Japanese')}}>
             <Text>Japanese</Text>
           </TouchableOpacity>
           </View>
@@ -371,11 +352,7 @@ console.log('array', array)
             <View>
             <Button title='Add Ingredients'  color="black"
               backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
-<<<<<<< HEAD
-            {state.textInput.map((value, idx) => {
-=======
             {/* {state.textInput.map((value, index) => {
->>>>>>> 60d1558a6369962e1f65c6d3125ebe326148ace2
               return value
             })} */}
 

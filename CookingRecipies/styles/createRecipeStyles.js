@@ -2,10 +2,6 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
     tagButtons: {
-        // borderRightWidth: 1,
-        // borderTopWidth: 1,
-        // borderBottomWidth: 1,
-        // borderLeftWidth: 1,
         borderRadius: 50,
         width: 105,
         alignItems: 'center',
@@ -14,6 +10,16 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         marginRight: 5,
         backgroundColor: '#8FCC70'
+    },
+    tagButtonPressed: {
+        borderRadius: 50,
+        width: 105,
+        alignItems: 'center',
+        height: 40,
+        paddingTop: 10,
+        marginBottom: 8,
+        marginRight: 5,
+        backgroundColor: '#3BA405'
     },
     baseText:
     {
