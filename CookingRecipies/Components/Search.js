@@ -30,11 +30,23 @@ const Search = () => {
             .then(res => {
               setRecipes([]);
               setRecipes([res.data]);
-              console.log(recipe)
+              setDish('')
               
             })
             .catch(err => console.log(err));
         };
+        if(dish.length==0){
+            axios
+            .get(
+              `https://recipeshare-development.herokuapp.com/recipes/all`
+            )
+            .then(res => {
+                setRecipes([]);
+                setRecipes(res.data);
+            })
+            .catch(err => console.log(err));
+        }
+ 
     };
 
 
@@ -51,7 +63,7 @@ const Search = () => {
                     <Button  
                     color="white"    
                     onPress={grabRecipes}
-                    title="Click me"
+                    title="Search"
                     accessibilityLabel="Search"                   
                     />
                 </TouchableOpacity>

@@ -10,91 +10,93 @@ import AddIngredientsForm from './CreateRecipe/AddIngredientsForm.js'
 import AddInstructionsForm from './CreateRecipe/AddInstructionsForm.js'
 
 export default function CreateRecipeForm(props) {
-  const [array, setArray] = useState([])
 
   const initialFormState = {
     title: '',
     minutes: '',
     notes: "",
     categories: [],
-    ingredients: array,            
+    ingredients: {
+      name: "",
+      quantity: "",
+      unit: ""
+    },            
     likes: "",
-    steps: [], 
+    steps: [
+          ], 
     ancestor: ""
   }  
+
   const [recipe, setRecipe] = useState(initialFormState)
   console.log('recipe from create recipe form', recipe)
-  
-  const [state, setState] = useState({
-    textInput : []
-  })
-  const [nam, setNam]=useState('')
-  const [quant, setQuant]=useState('')
-  const [unit, setUnit]=useState('')
+ 
 
-  const [ing, setIng] = useState({
-    name: nam,
-    quantity: quant,
-    unit: unit, 
-  })
+  // onSubmit = event => {event.preventDefault()
+  //   if(!recipe.name || !recipe.minutes) return
+  //    props.addRecipe(recipe) 
+  //    setRecipe(initialFormState)
+  //    console.log('==========Submitted==========')
+  // }
 
 
-  const testSubmit = (e) => {
-    e.preventDefault();
-    console.log('1',ing)
-    setArray(array.concat({ing}))
-    console.log('2', ing)
-  }
+  // useEffect(() => {
 
+  //   const handleInputChange = e => {
+  //     const { name, value } = e.target;
+  //     setRecipe({ ...recipe, [name]: value })
+  //   }
 
+  //   const handleSubmit = e => {
+  //     e.preventDefault();
+  //     if(!recipe.name || null) return
+  //     props.addRecipe(recipe)
+  //     setRecipe(initialFormState)
+  //   }
 
+  //   const sendRecipe = () => {
+  //       axios({
+  //           url: 'https://recipeshare-development.herokuapp.com/recipe',
+  //           method: 'post',
+  //           headers: 
+  //           { Authorization: AsyncStorage.getItem('token')
+  //       },
+  //       data:{
+  //           title: recipe.title,
+  //           minutes: {
+  //             prepTime: recipe.prepTime, 
+  //             cookTime: recipe.cookTime,
+  //             totalTime: recipe.totalTime,
+  //           },
+  //           notes: recipe.notes,
+  //           categories: [
+  //             recipe.categories
+  //           ],
+  //           ingredients: {
+  //             name: recipe.name,
+  //             quantity: recipe.quantity,
+  //             unit: recipe.unit
+  //           },
+  //           likes: recipe.likes,
+  //           steps: [
+  //             {
+  //               ordinal: 1,
+  //               body: recipe.body
+  //             },
+  //           ],
+  //           ancestor: recipe.ancestor
+  //         }
+  //         .then((res) => {
+  //             setRecipe([res, ...recipe])
+  //         })
+  //         .catch((err) => {
+  //             console.log(err)
+  //         })
 
-// const handleIngredientNameChange = idx => evt => {
-//   const newIngredient = recipe.ingredients.map((ing, sidx) => {
-//     if (idx !== sidx) return ;
-//     return { ...ing, name: evt.target.value };
-//   });
-
-const handleIngredientChange = event => {
-  
-
-}
-console.log('array', array)
-
-const  addTextInput = (key) => {
-  let textInput = state.textInput;
-  console.log(ing.quantity)
-  textInput.push( <View key={key} style={{ flexDirection: "row", flexWrap: "wrap" }}>
+  //       })
+  //   sendRecipe();
     
-
-  <TextInput
-    style={{ height: 40, width: 75 }}
-    placeholder="Amount"
-    onChangeText ={event => setQuant(event)}
-  />
-
-  <TextInput
-    style={{ height: 40, width: 75 }}
-    placeholder="Unit"
-    onChangeText ={event => setUnit(event)}
-    />
-
-  <TextInput
-    style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
-    placeholder="Ingredient"
-    onChangeText ={event => setNam(event)}
-    />
-
-    <Button
-    title="+"
-    onPress={testSubmit} 
-    />
-
-  </View >);
-  setState({ textInput })
-  // testSubmit()
-  }
-
+  // }
+  // setRecipe({initialFormState})
 
   return (                                                   
     <ScrollView>
@@ -162,6 +164,15 @@ const  addTextInput = (key) => {
 
           </View>
 
+          {/* ======== Course Type Dropdown ================== */}
+
+          {/* <ModalDropdown
+            options={['Breakfast', 'Brunch', 'Gluten-Free', 'Vegan', 'Vegetarian', 'Keto']}
+            defaultValue={'Course Type'}
+            //  showsVerticalScrollIndicator = {true}
+            textStyle={styles.dropdownText}
+            dropdownStyle={styles.dropdownText}
+          /> */}
 
           <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>Course Type</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
@@ -192,7 +203,12 @@ const  addTextInput = (key) => {
           {/* =========== Cuisine Input ======================== */}
 
           <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20  }}>Cuisine</Text>
-       
+          {/* <TextInput
+            style={styles.container}
+            placeholder="Just a placeholder for Cuisine"
+            onChangeText={event => setRecipe({ ...recipe, categories:  [].push(event)})}
+            value={recipe.categories}
+          /> */}
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
            <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "American"]})}>
             <Text>American</Text>
@@ -219,27 +235,77 @@ const  addTextInput = (key) => {
           </TouchableOpacity>
           </View>
           {/* ============= Total Time and Servings View =============== */}
+
+          {/* <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
+
+    
+            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Total Time</Text>
+            
+              <TextInput
+                style={styles.container}
+                multiline={true}
+                numberOfLines={5}
+                maxLength={55}
+                placeholder='Placeholder for Total Time'
+                onChangeText={event => setRecipe({ ...recipe, minutes: event })}
+                value={recipe.minutes} />
+
+
+          </View> */}
    
           {/* =============== Ingredients ===================== */}
 
           <Text style={{ fontWeight: 'bold', fontSize: 20 }} >Ingredients</Text>
 
+          {/* <IngredientsList/>  */}
+          {/* <AddIngredientsForm/> */}
+
+          <View style={{ flexDirection: "row", padding: 15, }}>
+
+
+            {/* ==== Amount === */}
+
+            <TextInput
+              style={{ height: 40, width: 75 }}
+              placeholder="Amount"
+              onChangeText={event => setRecipe({ ...recipe, ingredients: {...recipe.ingredients, quantity: event }})}
+              //value={recipe.ingredient.quantity}
+            />
+
+
+            {/* ==== Unit === */}
+
+            <TextInput
+              style={{ height: 40, width: 75 }}
+              placeholder="Unit"
+              onChangeText ={event => setRecipe({ ...recipe, ingredients: {...recipe.ingredients, unit: event }})}
+              value={recipe.unit}
+            />
+
+            {/* ==== Ingredient === */}
+
+            <TextInput
+              style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
+              placeholder="Ingredient"
+              onChangeText ={event => setRecipe({ ...recipe, ingredients: {...recipe.ingredients, name: event }})}
+              value={recipe.name}
+            />
+
+          </View >
 
           {/* ========= Add Ingredients View ============== */}
 
           <View style={{ flexDirection: "row", padding: 15 }} >
 
             {/* <Icon name='add' reverse={true}></Icon> */}
-            <View>
-            <Button title='Add Ingredients'  color="black"
-              backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
-            {state.textInput.map((value, index) => {
-              return value
-            })}
-          </View>
-          </View>
 
-          
+            <Button
+              title="Add Ingredients"
+              color="black"
+              backgroundColor=''
+              onPress={() => Alert.alert('Really Random Alert')}
+            />
+          </View>
 
           {/* ======= Instructions Input View ====== */}
 
@@ -279,7 +345,8 @@ const  addTextInput = (key) => {
           }}/>
 
         </View>
-        {/* ^^^ Testing ===Inputs=== */}
+        {/* ^^^ View under ===Inputs=== */}
+
       </View>
 
     </ScrollView>
