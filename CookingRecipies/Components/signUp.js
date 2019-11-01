@@ -49,7 +49,8 @@ const SignUp = props => {
           <TextInput
            style={styles.inputFeilds}
            value={signUp.password}
-           onChangeText={event => SetSignUp({...signUp, password:event})}/>
+           onChangeText={event => SetSignUp({...signUp, password:event})}
+           secureTextEntry={true}/>
            <TouchableOpacity
              onPress={onPress}
              style={styles.createAccountButton}
@@ -57,10 +58,7 @@ const SignUp = props => {
              <Text style={styles.createAccountText}>Create Account</Text>
            </TouchableOpacity>
            <Button title="Actually, sign me out :)" 
-          onPress={signOutAsync} />
-           {/* <TouchableOpacity  
-               onPress={()  =>  props.navigation.navigate('IndividualR')}
-               ><Text> Go to Recipe </Text></TouchableOpacity> */}
+          onPress={signOutAsync} /> 
         </View>
        
       );

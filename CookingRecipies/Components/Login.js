@@ -54,7 +54,8 @@ const Login = props => {
            style={styles.inputFeilds}
            name="password"
            value={login.password}
-           onChangeText={event => SetLogin({...login, password:event})}/>
+           onChangeText={event => SetLogin({...login, password:event})}
+           secureTextEntry={true}/>
            <TouchableOpacity
            onPress={() => props.navigation.navigate('SignUp')}>
            <Text style={styles.createAccountButton}>Create an Account</Text>

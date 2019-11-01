@@ -10,8 +10,7 @@ import AddIngredientsForm from './CreateRecipe/AddIngredientsForm.js'
 import AddInstructionsForm from './CreateRecipe/AddInstructionsForm.js'
 
 export default function CreateRecipeForm(props) {
-  const [array, setArray] = useState([])
-
+  
   const initialFormState = {
     title: '',
     minutes: '',
@@ -33,15 +32,30 @@ export default function CreateRecipeForm(props) {
     quantity: "",
     unit: "" 
   })
+  const [array, setArray] = useState([{...ing}])
  
 
-  const testSubmit = () => {
+  const testSubmit = event => {
     console.log('1',ing)
-    setArray(array.concat({ing}))
+    // setArray(array.concat({ing}))
+    setArray([...array, { ...ing }]);
     console.log('2', ing)
   }
+//   const addCat = () => {
+//     setCatState([...catState, { ...blankCat }]);
+// };
+  
+  const handleIngredientChange = event => {
+    const updateIngredients = [...ing]
+    updateIngredients[event.target.dataset.idx][event.target.className] = event.target.value
+    setArray(updateIngredients);
+  }
 
-
+//   const handleCatChange = (e) => {
+//     const updatedCats = [...catState];
+//     updatedCats[e.target.dataset.idx][e.target.className] = e.target.value;
+//     setCatState(updatedCats);
+// };
 
 
 // const handleIngredientNameChange = idx => evt => {
@@ -50,10 +64,7 @@ export default function CreateRecipeForm(props) {
 //     return { ...ing, name: evt.target.value };
 //   });
 
-const handleIngredientChange = event => {
-  
 
-}
 console.log('array', array)
 
 const  addTextInput = (key) => {
@@ -314,7 +325,7 @@ const  addTextInput = (key) => {
             <View>
             <Button title='Add Ingredients'  color="black"
               backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
-            {state.textInput.map((value, index) => {
+            {state.textInput.map((value, idx) => {
               return value
             })}
           </View>
