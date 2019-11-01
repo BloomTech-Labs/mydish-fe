@@ -4,6 +4,8 @@ import styles from '../styles/createRecipeStyles.js'
 import Ingredient from './Ingredient';
 import CourseType from './CourseType';
 import Cuisine from './Cuisine';
+import Instruction from './Instruction';
+
 
 export default function CreateRecipeForm(props) {
   const initialFormState = {
@@ -20,8 +22,10 @@ export default function CreateRecipeForm(props) {
   
   const [ingList, setIngList] = useState([])
   let [count, setCount] = useState(0)  //count is for the # of <Ingredient/>'s to render
+  let [stepCount, setStepCount] = useState(0);
   const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']);
   const [cuisines,] = useState(['American','Italian','Thai','Chinese','Mexican','Japanese']);
+  
 
   const addIngredients = () => {
     console.log('addIngredients triggered');
@@ -36,6 +40,23 @@ export default function CreateRecipeForm(props) {
       }
     return IngredientComponents;
   }
+
+  const addInstructions = () => {
+    console.log('add instructions component generator triggered');
+    const InstructionComponents = [];
+
+    if (!stepCount) {
+      InstructionComponents.push(<Instruction recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
+    } else {
+      for (let i=0; i<stepCount; i++) {
+        InstructionComponents.push(<Instruction recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
+      }
+    }
+    console.log(InstructionComponents);
+    return InstructionComponents;
+  }
+
+
   
   const [color, setColor] = useState({active:[]})
      
@@ -44,7 +65,6 @@ export default function CreateRecipeForm(props) {
       const newActive= index !== -1 ?  color.active.filter(activeCategory => activeCategory !== category) : color.active.concat(category)
       setColor({active: newActive})
     }
-    console.log('test color function', color)
 
       function tagsIncluded(tag) {
         //const check = recipe.categories.includes(tag) 
@@ -52,7 +72,6 @@ export default function CreateRecipeForm(props) {
          const newTags= index !== -1 ?  recipe.categories.filter(activeTag => activeTag !== tag) : recipe.categories.concat(tag)
          setRecipe({...recipe, categories: newTags})
         }
-        console.log('category tags', recipe.categories)
         
   return (                                                   
     <ScrollView>
@@ -141,12 +160,21 @@ export default function CreateRecipeForm(props) {
           {/* ========= Add Ingredients View ============== */}
 
           <View style={{ flexDirection: "row", padding: 15 }} >
-
             {/* <Icon name='add' reverse={true}></Icon> */}
             <View>
-                <Button title='Add Ingredients'  color="black"
-                  backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
                   {addIngredients()}
+            </View>
+          </View>
+
+          <View style={{ flexDirection: "row", padding: 15 }} >
+            {/* <Icon name='add' reverse={true}></Icon> */}
+            <View>
+                  {addInstructions()}
+                  {/* <Instruction recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />
+                  <Instruction recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />
+                  <Instruction recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />
+                  <Instruction recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />
+                  <Instruction recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} /> */}
             </View>
           </View>
 
@@ -156,24 +184,28 @@ export default function CreateRecipeForm(props) {
 
                   {/* ======= Instructions Input View ====== */}
 
-          <View style={{ flexDirection: "row", padding: 15, }}>
-
+        
           {/* ==== Instructions === */}
-            <TextInput
+            {/* <Instruction recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} /> */}
+           
+            {/* <TextInput
               style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
               placeholder=" Add Instructions"
-              onChangeText ={event => setRecipe({...recipe, steps: [...recipe.steps, event]})}
+              onChangeText ={event => {
+                console.log('recipe with added step', recipe.steps);
+                setRecipe({...recipe, steps: [...recipe.steps, event]})}
+              }
               value={recipe.body}
-            />
-          </View >
+            /> */}
+         
 
           {/* ========= Add Instructions View ============== */}
-          <Button
+          {/* <Button
             title="Add Instructions"
             color="black"
             backgroundColor=''
             onPress={() => Alert.alert('Really Random Alert')}
-          />      
+          />       */}
           <View style={{ flexDirection: "row", padding: 15 }} >
           {/* <Icon body='add' reverse={true}></Icon> */}
           </View>
