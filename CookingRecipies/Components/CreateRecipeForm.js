@@ -8,25 +8,32 @@ import styles from '../styles/createRecipeStyles.js'
 
 import AddIngredientsForm from './CreateRecipe/AddIngredientsForm.js'
 import AddInstructionsForm from './CreateRecipe/AddInstructionsForm.js'
+import Ingredient from './Ingredient';
+
 
 export default function CreateRecipeForm(props) {
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 60d1558a6369962e1f65c6d3125ebe326148ace2
   const initialFormState = {
     title: '',
     minutes: '',
     notes: "",
     categories: [],
-    ingredients: array,            
+    ingredients: ingList,            
     likes: "",
     steps: [], 
     ancestor: ""
   }  
   const [recipe, setRecipe] = useState(initialFormState)
-  console.log('recipe from create recipe form', recipe)
+  // console.log('recipe from create recipe form', recipe)
   
   const [state, setState] = useState({
     textInput : []
   })
+<<<<<<< HEAD
   const [ing, setIng] = useState({
     name: "",
     quantity: "",
@@ -50,6 +57,26 @@ export default function CreateRecipeForm(props) {
     updateIngredients[event.target.dataset.idx][event.target.className] = event.target.value
     setArray(updateIngredients);
   }
+=======
+  
+  const [ingList, setIngList] = useState([])
+
+  let [ingredientCount, setIngredientCount] = React.useState(1)
+
+  // const [ing, setIng] = useState({
+  //   name: "",
+  //   quantity: "",
+  //   unit: "" 
+  // })
+
+
+
+  // const testSubmit = () => {
+  //   console.log('1',ing)
+  //   setArray(array.concat({ing}))
+  //   console.log('2', ing)
+  // }
+>>>>>>> 60d1558a6369962e1f65c6d3125ebe326148ace2
 
 //   const handleCatChange = (e) => {
 //     const updatedCats = [...catState];
@@ -64,45 +91,57 @@ export default function CreateRecipeForm(props) {
 //     return { ...ing, name: evt.target.value };
 //   });
 
+<<<<<<< HEAD
 
 console.log('array', array)
+=======
+// console.log('array', array)
 
-const  addTextInput = (key) => {
-  let textInput = state.textInput;
+// const setIngredients = (newIng) => {
+//   console.log('ingredients to change', newIng);
+//   console.log('ing in state', ing);
+>>>>>>> 60d1558a6369962e1f65c6d3125ebe326148ace2
+
+//   // console.log('updated ingredient in state', ing, quantity);
+// }
+
+
+// const  addTextInput = (key) => {
+//   let textInput = state.textInput;
   
-  textInput.push( <View key={key} style={{ flexDirection: "row", flexWrap: "wrap" }}>
+//   textInput.push( <View key={key} style={{ flexDirection: "row", flexWrap: "wrap" }}>
     
 
-  <TextInput
-    style={{ height: 40, width: 75 }}
-    placeholder="Amount"
-    onChangeText={event => setIng({...ing, quantity: event})}
-    value={ing.quantity}
-  />
+//   <TextInput
+//     style={{ height: 40, width: 75 }}
+//     placeholder="Amount"
+//     onChangeText={event => setIngredients('test') }
+//     value={ing.quantity}
+//   />
 
-  <TextInput
-    style={{ height: 40, width: 75 }}
-    placeholder="Unit"
-    onChangeText ={event => setIng({...ing, unit: event})}
-    value={ing.unit}
-    />
+//   <TextInput
+//     style={{ height: 40, width: 75 }}
+//     placeholder="Unit"
+//     onChangeText ={event => setIng({...ing, unit: event})}
+//     value={ing.unit}
+//     />
 
-  <TextInput
-    style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
-    placeholder="Ingredient"
-    onChangeText ={event => setIng({...ing, name: event})}
-    value={ing.name}
-    />
+//   <TextInput
+//     style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
+//     placeholder="Ingredient"
+//     onChangeText ={event => setIng({...ing, name: event})}
+//     value={ing.name}
+//     />
 
-    <Button
-    title="+"
-    onPress={testSubmit} 
-    />
+//     <Button
+//     title="+"
+//     onPress={testSubmit} 
+//     />
 
-</View >);
-  setState({ textInput })
-  // testSubmit()
-}
+// </View >);
+//   setState({ textInput })
+//   // testSubmit()
+// }
 
 // onSubmit = event => {event.preventDefault()
   //   if(!recipe.name || !recipe.minutes) return
@@ -170,6 +209,13 @@ const  addTextInput = (key) => {
     
   // }
   // setRecipe({initialFormState})
+
+  const addIngredients = () => {
+    console.log('addIngredients triggered');
+    console.log(ingredientCount, 'count');
+
+
+  }
 
   return (                                                   
     <ScrollView>
@@ -325,10 +371,18 @@ const  addTextInput = (key) => {
             <View>
             <Button title='Add Ingredients'  color="black"
               backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
+<<<<<<< HEAD
             {state.textInput.map((value, idx) => {
+=======
+            {/* {state.textInput.map((value, index) => {
+>>>>>>> 60d1558a6369962e1f65c6d3125ebe326148ace2
               return value
-            })}
-          </View>
+            })} */}
+
+              <Ingredient ingList={ingList} setIngList={setIngList} setCount={setIngredientCount} count={ingredientCount}/>
+              {addIngredients()}
+    
+            </View>
           </View>
 
           
