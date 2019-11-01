@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View, Image, StyleSheet, Button, Alert, ScrollView, TouchableOpacity } from 'react-native';
-
+import { Text, TextInput, View, Image, Button, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import ToggleSwitch from 'toggle-switch-react-native';
-
 import styles from '../styles/createRecipeStyles.js'
-
 import AddIngredientsForm from './CreateRecipe/AddIngredientsForm.js'
 import AddInstructionsForm from './CreateRecipe/AddInstructionsForm.js'
 import Ingredient from './Ingredient';
@@ -26,156 +23,23 @@ export default function CreateRecipeForm(props) {
   const [recipe, setRecipe] = useState(initialFormState)
   // console.log('recipe from create recipe form', recipe)
   
-  const [state, setState] = useState({
-    textInput : []
-  })
+  // const [state, setState] = useState({
+  //   textInput : []
+  // })
   
   const [ingList, setIngList] = useState([])
+  let [count, setCount] = useState(0)
 
-  let [ingredientCount, setIngredientCount] = React.useState(1)
-
-  // const [ing, setIng] = useState({
-  //   name: "",
-  //   quantity: "",
-  //   unit: "" 
-  // })
-
-
-
-  // const testSubmit = () => {
-  //   console.log('1',ing)
-  //   setArray(array.concat({ing}))
-  //   console.log('2', ing)
-  // }
-
-
-
-
-// const handleIngredientNameChange = idx => evt => {
-//   const newIngredient = recipe.ingredients.map((ing, sidx) => {
-//     if (idx !== sidx) return ;
-//     return { ...ing, name: evt.target.value };
-//   });
-
-// console.log('array', array)
-
-// const setIngredients = (newIng) => {
-//   console.log('ingredients to change', newIng);
-//   console.log('ing in state', ing);
-
-//   // console.log('updated ingredient in state', ing, quantity);
-// }
-
-
-// const  addTextInput = (key) => {
-//   let textInput = state.textInput;
-  
-//   textInput.push( <View key={key} style={{ flexDirection: "row", flexWrap: "wrap" }}>
-    
-
-//   <TextInput
-//     style={{ height: 40, width: 75 }}
-//     placeholder="Amount"
-//     onChangeText={event => setIngredients('test') }
-//     value={ing.quantity}
-//   />
-
-//   <TextInput
-//     style={{ height: 40, width: 75 }}
-//     placeholder="Unit"
-//     onChangeText ={event => setIng({...ing, unit: event})}
-//     value={ing.unit}
-//     />
-
-//   <TextInput
-//     style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
-//     placeholder="Ingredient"
-//     onChangeText ={event => setIng({...ing, name: event})}
-//     value={ing.name}
-//     />
-
-//     <Button
-//     title="+"
-//     onPress={testSubmit} 
-//     />
-
-// </View >);
-//   setState({ textInput })
-//   // testSubmit()
-// }
-
-// onSubmit = event => {event.preventDefault()
-  //   if(!recipe.name || !recipe.minutes) return
-  //    props.addRecipe(recipe) 
-  //    setRecipe(initialFormState)
-  //    console.log('==========Submitted==========')
-  // }
-
-
-  // useEffect(() => {
-
-  //   const handleInputChange = e => {
-  //     const { name, value } = e.target;
-  //     setRecipe({ ...recipe, [name]: value })
-  //   }
-
-  //   const handleSubmit = e => {
-  //     e.preventDefault();
-  //     if(!recipe.name || null) return
-  //     props.addRecipe(recipe)
-  //     setRecipe(initialFormState)
-  //   }
-
-  //   const sendRecipe = () => {
-  //       axios({
-  //           url: 'https://recipeshare-development.herokuapp.com/recipe',
-  //           method: 'post',
-  //           headers: 
-  //           { Authorization: AsyncStorage.getItem('token')
-  //       },
-  //       data:{
-  //           title: recipe.title,
-  //           minutes: {
-  //             prepTime: recipe.prepTime, 
-  //             cookTime: recipe.cookTime,
-  //             totalTime: recipe.totalTime,
-  //           },
-  //           notes: recipe.notes,
-  //           categories: [
-  //             recipe.categories
-  //           ],
-  //           ingredients: {
-  //             name: recipe.name,
-  //             quantity: recipe.quantity,
-  //             unit: recipe.unit
-  //           },
-  //           likes: recipe.likes,
-  //           steps: [
-  //             {
-  //               ordinal: 1,
-  //               body: recipe.body
-  //             },
-  //           ],
-  //           ancestor: recipe.ancestor
-  //         }
-  //         .then((res) => {
-  //             setRecipe([res, ...recipe])
-  //         })
-  //         .catch((err) => {
-  //             console.log(err)
-  //         })
-
-  //       })
-  //   sendRecipe();
-    
-  // }
-  // setRecipe({initialFormState})
 
   const addIngredients = () => {
     console.log('addIngredients triggered');
-    console.log(ingredientCount, 'count');
-
-
+    console.log(count, 'count');
+    const IngredientComponents = [];
+    for (let i=0; i<count; i++) {
+        IngredientComponents.push(<Ingredient ingList={ingList} setIngList={setIngList} setCount={setCount} count={count}/>);
+    }
+    console.log(IngredientComponents);
+    return IngredientComponents;
   }
 
   return (                                                   
@@ -335,10 +199,13 @@ export default function CreateRecipeForm(props) {
             {/* {state.textInput.map((value, index) => {
               return value
             })} */}
-
-              <Ingredient ingList={ingList} setIngList={setIngList} setCount={setIngredientCount} count={ingredientCount}/>
-              {addIngredients()}
-    
+              {!count ? <Ingredient 
+                ingList={ingList} 
+                setIngList={setIngList} 
+                setCount={setCount} 
+                count={count}
+              /> : null}
+              {count ? addIngredients() : null}
             </View>
           </View>
 
@@ -348,35 +215,27 @@ export default function CreateRecipeForm(props) {
 
                   {/* ======= Instructions Input View ====== */}
 
-                  <View style={{ flexDirection: "row", padding: 15, }}>
+          <View style={{ flexDirection: "row", padding: 15, }}>
 
           {/* ==== Instructions === */}
-
-          <TextInput
-          
-            style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
-            placeholder=" Add Instructions"
-            onChangeText ={event => setRecipe({...recipe, steps: [...recipe.steps, event]})}
-            value={recipe.body}
-          />
-
+            <TextInput
+              style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
+              placeholder=" Add Instructions"
+              onChangeText ={event => setRecipe({...recipe, steps: [...recipe.steps, event]})}
+              value={recipe.body}
+            />
           </View >
 
           {/* ========= Add Instructions View ============== */}
-
-          <View style={{ flexDirection: "row", padding: 15 }} >
-
-          {/* <Icon body='add' reverse={true}></Icon> */}
-
-
           <Button
             title="Add Instructions"
             color="black"
             backgroundColor=''
             onPress={() => Alert.alert('Really Random Alert')}
-          />
+          />      
+          <View style={{ flexDirection: "row", padding: 15 }} >
+          {/* <Icon body='add' reverse={true}></Icon> */}
           </View>
-              
           <Button title='Submit Recipe' onPress ={() => {
               alert('Submitted'), console.log('==========submitted======')
           }}/>
@@ -384,9 +243,144 @@ export default function CreateRecipeForm(props) {
         </View>
         {/* ^^^ Testing ===Inputs=== */}
       </View>
-
     </ScrollView>
   )
  }
 
+//*************************************Old Code taken out after refactoring with an <Ingredient/> Child Component. */
+  // const [ing, setIng] = useState({
+  //   name: "",
+  //   quantity: "",
+  //   unit: "" 
+  // })
 
+
+
+  // const testSubmit = () => {
+  //   console.log('1',ing)
+  //   setArray(array.concat({ing}))
+  //   console.log('2', ing)
+  // }
+
+
+
+
+// const handleIngredientNameChange = idx => evt => {
+//   const newIngredient = recipe.ingredients.map((ing, sidx) => {
+//     if (idx !== sidx) return ;
+//     return { ...ing, name: evt.target.value };
+//   });
+
+// console.log('array', array)
+
+// const setIngredients = (newIng) => {
+//   console.log('ingredients to change', newIng);
+//   console.log('ing in state', ing);
+
+//   // console.log('updated ingredient in state', ing, quantity);
+// }
+
+
+// const  addTextInput = (key) => {
+//   let textInput = state.textInput;
+  
+//   textInput.push( <View key={key} style={{ flexDirection: "row", flexWrap: "wrap" }}>
+    
+
+//   <TextInput
+//     style={{ height: 40, width: 75 }}
+//     placeholder="Amount"
+//     onChangeText={event => setIngredients('test') }
+//     value={ing.quantity}
+//   />
+
+//   <TextInput
+//     style={{ height: 40, width: 75 }}
+//     placeholder="Unit"
+//     onChangeText ={event => setIng({...ing, unit: event})}
+//     value={ing.unit}
+//     />
+
+//   <TextInput
+//     style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
+//     placeholder="Ingredient"
+//     onChangeText ={event => setIng({...ing, name: event})}
+//     value={ing.name}
+//     />
+
+//     <Button
+//     title="+"
+//     onPress={testSubmit} 
+//     />
+
+// </View >);
+//   setState({ textInput })
+//   // testSubmit()
+// }
+
+// onSubmit = event => {event.preventDefault()
+  //   if(!recipe.name || !recipe.minutes) return
+  //    props.addRecipe(recipe) 
+  //    setRecipe(initialFormState)
+  //    console.log('==========Submitted==========')
+  // }
+
+
+  // useEffect(() => {
+
+  //   const handleInputChange = e => {
+  //     const { name, value } = e.target;
+  //     setRecipe({ ...recipe, [name]: value })
+  //   }
+
+  //   const handleSubmit = e => {
+  //     e.preventDefault();
+  //     if(!recipe.name || null) return
+  //     props.addRecipe(recipe)
+  //     setRecipe(initialFormState)
+  //   }
+
+  //   const sendRecipe = () => {
+  //       axios({
+  //           url: 'https://recipeshare-development.herokuapp.com/recipe',
+  //           method: 'post',
+  //           headers: 
+  //           { Authorization: AsyncStorage.getItem('token')
+  //       },
+  //       data:{
+  //           title: recipe.title,
+  //           minutes: {
+  //             prepTime: recipe.prepTime, 
+  //             cookTime: recipe.cookTime,
+  //             totalTime: recipe.totalTime,
+  //           },
+  //           notes: recipe.notes,
+  //           categories: [
+  //             recipe.categories
+  //           ],
+  //           ingredients: {
+  //             name: recipe.name,
+  //             quantity: recipe.quantity,
+  //             unit: recipe.unit
+  //           },
+  //           likes: recipe.likes,
+  //           steps: [
+  //             {
+  //               ordinal: 1,
+  //               body: recipe.body
+  //             },
+  //           ],
+  //           ancestor: recipe.ancestor
+  //         }
+  //         .then((res) => {
+  //             setRecipe([res, ...recipe])
+  //         })
+  //         .catch((err) => {
+  //             console.log(err)
+  //         })
+
+  //       })
+  //   sendRecipe();
+    
+  // }
+  // setRecipe({initialFormState})
