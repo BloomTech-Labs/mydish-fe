@@ -22,7 +22,7 @@ const Ingredient = (props) => {
     const handleSubmit = () => {
         console.log('ingList, handleSubmit triggered', ingList);
         // setIngList(() => [...ingList, ingredient]);
-        setCount(count++);
+        setCount(count + 1);
         setIngList([...ingList, ingredient]);
     }
 

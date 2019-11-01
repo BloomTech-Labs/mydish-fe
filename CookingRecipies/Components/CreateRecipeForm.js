@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View, Image, StyleSheet, Button, Alert, ScrollView, TouchableOpacity } from 'react-native';
-
+import { Text, TextInput, View, Image, Button, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import ToggleSwitch from 'toggle-switch-react-native';
-
 import styles from '../styles/createRecipeStyles.js'
-
 import AddIngredientsForm from './CreateRecipe/AddIngredientsForm.js'
 import AddInstructionsForm from './CreateRecipe/AddInstructionsForm.js'
 import Ingredient from './Ingredient';
-
+import CourseType from './CourseType';
+import Cuisine from './Cuisine';
 
 export default function CreateRecipeForm(props) {
   const initialFormState = {
@@ -23,16 +21,26 @@ export default function CreateRecipeForm(props) {
     ancestor: ""
   }  
   const [recipe, setRecipe] = useState(initialFormState)
-  // console.log('recipe from create recipe form', recipe)
-  
-  const [state, setState] = useState({
-    textInput : []
-  })
   
   const [ingList, setIngList] = useState([])
+  let [count, setCount] = useState(0)  //count is for the # of <Ingredient/>'s to render
+  const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']);
+  const [cuisines,] = useState(['American','Italian','Thai','Chinese','Mexican','Japanese']);
 
-  let [ingredientCount, setIngredientCount] = React.useState(1)
+  const addIngredients = () => {
+    console.log('addIngredients triggered');
+    const IngredientComponents = [];
 
+      if (!count) {  //if no added ingredients, render only a single ingredient
+        IngredientComponents.push(<Ingredient ingList={ingList} setIngList={setIngList} setCount={setCount} count={count}/>);
+      } else {
+        for (let i=0; i<count; i++) {
+          IngredientComponents.push(<Ingredient ingList={ingList} setIngList={setIngList} setCount={setCount} count={count}/>);
+        }
+      }
+    return IngredientComponents;
+  }
+  
   const [color, setColor] = useState({active:[]})
      
   function toggleBackgroundColor(category){
@@ -49,7 +57,156 @@ export default function CreateRecipeForm(props) {
          setRecipe({...recipe, categories: newTags})
         }
         console.log('category tags', recipe.categories)
+        
+  return (                                                   
+    <ScrollView>
+      <View style={{ padding: 1, paddingTop: 40 }}>
+        <Text style={styles.header}>Create Recipe</Text>
 
+        {/* ====== Image with Recipe Name and Creator ========= */}
+
+        <View style={{ flexDirection: "row", padding: 15 }}>
+
+          <Image
+            style={{ width: 150, height: 150, }}
+            // resizeMode='contain'
+            source={{ uri: 'https://visualpharm.com/assets/654/Add%20Camera-595b40b85ba036ed117dbeab.svg' }}
+          />
+
+          <View style={{ marginLeft: 15 }}>
+            {/* <Text style={styles.titleText}>Honey Pancakes</Text> */}
+            <TextInput
+              style={styles.titleText}
+              placeholder="Recipe Name"
+              onChangeText={event => setRecipe({ ...recipe, title: event })}
+              value={recipe.title}
+            />
+
+            <Text style={styles.baseText}>Recipe by: Lana Smith</Text>
+
+          </View>
+
+        </View>
+
+
+        {/* ========= Inputs ========== */}
+
+        <View style={{ alignSelf: 'center', width: 350 }}>
+
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Recipe Name</Text>
+
+          <TextInput
+            style={styles.container}
+            multiline={true}
+            numberOfLines={5}
+            maxLength={55}
+            placeholder='Placeholder for Recipe Name'
+            onChangeText={event => setRecipe({ ...recipe, title: event })}
+            value={recipe.title} />
+
+          <Text style={{ alignSelf: 'flex-end' }}>
+            {recipe.title.length}/55
+          </Text>
+
+          <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
+
+    
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Total Time</Text>
+
+            <TextInput
+              style={styles.container}
+              multiline={true}
+              numberOfLines={5}
+              maxLength={55}
+              placeholder='Placeholder for Total Time'
+              onChangeText={event => setRecipe({ ...recipe, minutes: event })}
+              value={recipe.minutes} 
+            />
+          </View>
+
+         {/* ********************<CourseTypes/>*************** */}
+          <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>Course Type</Text>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+            {courses.map(course => <CourseType course={course} recipe={recipe} setRecipe={setRecipe}/>)}
+          </View>
+
+          {/* ********************<Cuisines/>*************** */}
+          <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20  }}>Cuisine</Text>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+            {cuisines.map(cuis => <Cuisine cuisine={cuis} recipe={recipe} setRecipe={setRecipe}/>)}
+          </View>
+
+          {/* ============= Total Time and Servings View =============== */}
+
+          {/* <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
+
+    
+            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Total Time</Text>
+            
+              <TextInput
+                style={styles.container}
+                multiline={true}
+                numberOfLines={5}
+                maxLength={55}
+                placeholder='Placeholder for Total Time'
+                onChangeText={event => setRecipe({ ...recipe, minutes: event })}
+                value={recipe.minutes} />
+
+
+          </View> */}
+   
+          {/* =============== Ingredients ===================== */}
+
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }} >Ingredients</Text>
+
+          {/* ========= Add Ingredients View ============== */}
+
+          <View style={{ flexDirection: "row", padding: 15 }} >
+
+            {/* <Icon name='add' reverse={true}></Icon> */}
+            <View>
+                <Button title='Add Ingredients'  color="black"
+                  backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
+                  {addIngredients()}
+            </View>
+          </View>
+
+          {/* ======= Instructions Input View ====== */}
+
+                  {/* ======= Instructions Input View ====== */}
+
+          <View style={{ flexDirection: "row", padding: 15, }}>
+
+          {/* ==== Instructions === */}
+            <TextInput
+              style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
+              placeholder=" Add Instructions"
+              onChangeText ={event => setRecipe({...recipe, steps: [...recipe.steps, event]})}
+              value={recipe.body}
+            />
+          </View >
+
+          {/* ========= Add Instructions View ============== */}
+          <Button
+            title="Add Instructions"
+            color="black"
+            backgroundColor=''
+            onPress={() => Alert.alert('Really Random Alert')}
+          />      
+          <View style={{ flexDirection: "row", padding: 15 }} >
+          {/* <Icon body='add' reverse={true}></Icon> */}
+          </View>
+          <Button title='Submit Recipe' onPress ={() => {
+              alert('Submitted'), console.log('==========submitted======')
+          }}/>
+
+        </View>
+      </View>
+    </ScrollView>
+  )
+ }
+
+//*************************************Old Code taken out after refactoring with an <Ingredient/> Child Component. */
   // const [ing, setIng] = useState({
   //   name: "",
   //   quantity: "",
@@ -191,112 +348,35 @@ export default function CreateRecipeForm(props) {
   // }
   // setRecipe({initialFormState})
 
-  const addIngredients = () => {
-    console.log('addIngredients triggered');
-    console.log(ingredientCount, 'count');
+  {/* <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Breakfast"]})}>
+                        <Text>Breakfast</Text>
+                      </TouchableOpacity>
 
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Brunch"]})}>
+                        <Text>Brunch</Text>
+                      </TouchableOpacity>
 
-  }
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Lunch"]})}>
+                        <Text>Lunch</Text>
+                      </TouchableOpacity>
 
-  return (                                                   
-    <ScrollView>
-      <View style={{ padding: 1, paddingTop: 40 }}>
-        <Text style={styles.header}>Create Recipe</Text>
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Dinner"]})}>
+                        <Text>Dinner</Text>
+                      </TouchableOpacity>
 
-        {/* ====== Image with Recipe Name and Creator ========= */}
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Dessert"]})}>
+                        <Text>Dessert</Text>
+                      </TouchableOpacity>
 
-        <View style={{ flexDirection: "row", padding: 15 }}>
-
-          <Image
-            style={{ width: 150, height: 150, }}
-            // resizeMode='contain'
-            source={{ uri: 'https://visualpharm.com/assets/654/Add%20Camera-595b40b85ba036ed117dbeab.svg' }}
-          />
-
-          <View style={{ marginLeft: 15 }}>
-            {/* <Text style={styles.titleText}>Honey Pancakes</Text> */}
-            <TextInput
-              style={styles.titleText}
-              placeholder="Recipe Name"
-              onChangeText={event => setRecipe({ ...recipe, title: event })}
-              value={recipe.title}
-            />
-
-            <Text style={styles.baseText}>Recipe by: Lana Smith</Text>
-
-          </View>
-
-        </View>
-
-        {/* ========= Inputs ========== */}
-
-        <View style={{ alignSelf: 'center', width: 350 }}>
-
-          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Recipe Name</Text>
-
-          <TextInput
-            style={styles.container}
-            multiline={true}
-            numberOfLines={5}
-            maxLength={55}
-            placeholder='Placeholder for Recipe Name'
-            onChangeText={event => setRecipe({ ...recipe, title: event })}
-            value={recipe.title} />
-
-          <Text style={{ alignSelf: 'flex-end' }}>
-            {recipe.title.length}/55
-          </Text>
-
-          <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
-
-    
-          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Total Time</Text>
-
-            <TextInput
-              style={styles.container}
-              multiline={true}
-              numberOfLines={5}
-              maxLength={55}
-              placeholder='Placeholder for Total Time'
-              onChangeText={event => setRecipe({ ...recipe, minutes: event })}
-              value={recipe.minutes} />
-
-
-          </View>
-
-
-          <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>Course Type</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-           <TouchableOpacity style={color.active.includes('Breakfast') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Breakfast'); toggleBackgroundColor('Breakfast')} }>
-            <Text>Breakfast</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={color.active.includes('Brunch') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Brunch'); toggleBackgroundColor('Brunch')}}>
-            <Text>Brunch</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={color.active.includes('Lunch') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Lunch'); toggleBackgroundColor('Lunch')}}>
-            <Text>Lunch</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={color.active.includes('Dinner') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Dinner'); toggleBackgroundColor('Dinner')}}>
-            <Text>Dinner</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={color.active.includes('Dessert') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Dessert'); toggleBackgroundColor('Dessert')}}>
-            <Text>Dessert</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={color.active.includes('Snack') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Snack'); toggleBackgroundColor('Snack')}}>
-            <Text>Snack</Text>
-          </TouchableOpacity>
-          </View>
+                      <TouchableOpacity style={styles.tagButtons} onPress = {() => setRecipe({...recipe, categories: [...recipe.categories, "Snack"]})}>
+                        <Text>Snack</Text>
+                      </TouchableOpacity>
+                  </View> */}
           {/* =========== Cuisine Input ======================== */}
 
-          <Text style={{ marginTop: 15, fontSize: 20, fontWeight: 'bold', marginBottom: 20  }}>Cuisine</Text>
-       
-          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-           <TouchableOpacity style={color.active.includes('American') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('American'); toggleBackgroundColor('American')}}>
+          {/* <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+           <TouchableOpacity style={styles.tagButtons} onPress={() => setRecipe({...recipe, categories: [...recipe.categories, "American"]})}>
             <Text>American</Text>
             </TouchableOpacity>
 
@@ -319,94 +399,7 @@ export default function CreateRecipeForm(props) {
           <TouchableOpacity style={color.active.includes('Japanese') ? styles.tagButtonPressed : styles.tagButtons}  onPress = {() => {tagsIncluded('Japanese'); toggleBackgroundColor('Japanese')}}>
             <Text>Japanese</Text>
           </TouchableOpacity>
-          </View>
-          {/* ============= Total Time and Servings View =============== */}
-
-          {/* <View style={{ flexDirection: "row", padding: 15, justifyContent: 'space-between' }}>
-
-    
-            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Total Time</Text>
-            
-              <TextInput
-                style={styles.container}
-                multiline={true}
-                numberOfLines={5}
-                maxLength={55}
-                placeholder='Placeholder for Total Time'
-                onChangeText={event => setRecipe({ ...recipe, minutes: event })}
-                value={recipe.minutes} />
-
-
           </View> */}
-   
-          {/* =============== Ingredients ===================== */}
-
-          <Text style={{ fontWeight: 'bold', fontSize: 20 }} >Ingredients</Text>
-
-
-          {/* ========= Add Ingredients View ============== */}
-
-          <View style={{ flexDirection: "row", padding: 15 }} >
-
-            {/* <Icon name='add' reverse={true}></Icon> */}
-            <View>
-            <Button title='Add Ingredients'  color="black"
-              backgroundColor='' onPress={() => addTextInput(state.textInput.length)} />
-            {/* {state.textInput.map((value, index) => {
-              return value
-            })} */}
-
-              <Ingredient ingList={ingList} setIngList={setIngList} setCount={setIngredientCount} count={ingredientCount}/>
-              {addIngredients()}
-    
-            </View>
-          </View>
-
-          
-
-          {/* ======= Instructions Input View ====== */}
-
-                  {/* ======= Instructions Input View ====== */}
-
-                  <View style={{ flexDirection: "row", padding: 15, }}>
-
-          {/* ==== Instructions === */}
-
-          <TextInput
-          
-            style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
-            placeholder=" Add Instructions"
-            onChangeText ={event => setRecipe({...recipe, steps: [...recipe.steps, event]})}
-            value={recipe.body}
-          />
-
-          </View >
-
-          {/* ========= Add Instructions View ============== */}
-
-          <View style={{ flexDirection: "row", padding: 15 }} >
-
-          {/* <Icon body='add' reverse={true}></Icon> */}
-
-
-          <Button
-            title="Add Instructions"
-            color="black"
-            backgroundColor=''
-            onPress={() => Alert.alert('Really Random Alert')}
-          />
-          </View>
-              
-          <Button title='Submit Recipe' onPress ={() => {
-              alert('Submitted'), console.log('==========submitted======')
-          }}/>
-
-        </View>
-        {/* ^^^ Testing ===Inputs=== */}
-      </View>
-
-    </ScrollView>
-  )
- }
-
-
+           {/* {state.textInput.map((value, index) => {
+                  return value
+                })} */}
