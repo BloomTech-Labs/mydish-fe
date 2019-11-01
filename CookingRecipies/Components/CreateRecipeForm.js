@@ -13,13 +13,24 @@ import AxiosWithAuth from './AxiosWithAuth.js';
 export default function CreateRecipeForm(props) {
   const initialFormState = {
     title: '',
-    minutes: '',
+    minutes: 0,
     notes: "",
     categories: [],
-    ingredients: ingList,            
-    likes: "",
+    ingredients: [],            
+    //likes: "",
     steps: [], 
     ancestor: ""
+  }  
+
+  const practice = {
+    title: 'bye',
+    minutes: 20,
+    notes: "aaahhhhhh",
+    categories: ['breakfast'],
+    ingredients: [{unit:'cups', quantity: 3, name: 'help'}],            
+    //likes: "",
+    steps: ['help'], 
+    ancestor: null
   }  
   const [recipe, setRecipe] = useState(initialFormState)
   
@@ -75,9 +86,12 @@ export default function CreateRecipeForm(props) {
         }
 
   const postRecipe = () => {
-      alert('Submitted')
-      console.log('==========submitted======');
-     AxiosWithAuth();
+      // alert('Submitted')
+      // console.log('==========submitted======');
+      console.log('recipe inside submit', practice)
+     AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', practice)
+     .then(res => console.log(res))
+     .catch(err => console.log(err));
   }
         
   return (                                                   
