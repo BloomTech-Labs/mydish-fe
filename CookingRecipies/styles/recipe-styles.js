@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
 
 module.exports = StyleSheet.create({
-    header : {
-      color : 'red'
-    },
+  // masonry: { /* Masonry container */
+  //   columnC: 4,
+  //   column-gap: 1em,
+  // },
     text : {
       marginTop: 10, 
       marginBottom: 10, 
