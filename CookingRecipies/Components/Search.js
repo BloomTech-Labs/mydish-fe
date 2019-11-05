@@ -22,7 +22,7 @@ const Search = () => {
     
     let grabRecipes = e => {
         e.preventDefault();
-        if( dish.length>0){
+        if(dish.length!==0){
             axios
             .get(
               `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
@@ -43,12 +43,14 @@ const Search = () => {
             .then(res => {
                 setRecipes([]);
                 setRecipes(res.data);
+                setDish('')
             })
             .catch(err => console.log(err));
         }
  
     };
 
+    console.log("recipes", recipe)
 
     return(
         <View>

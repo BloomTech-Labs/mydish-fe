@@ -22,10 +22,9 @@ const getRandomInt = (min, max) =>
 
 const Recipe = (props) => {
     const [num, setNum]= useState(1)
-    console.log("jeight", props.height)
     let [like, setLike] = React.useState(false);
 
-
+console.log("wow", props.recipe)
     const im = ()=>{
         if(props.recipe.img==null){
             return(
