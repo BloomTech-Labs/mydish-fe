@@ -91,13 +91,13 @@ const MainNavigator = createBottomTabNavigator({
             <Image style={{ width: 25, height: 25, paddingTop:10 }} source={plus}/>
       ),
     }},
-  CookBook: { screen: CookBookNavigator,
-    navigationOptions: {
-      tabBarLabel: 'CookBook',
-      tabBarIcon: (
-            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={cooks}/>
-      ),
-    }},
+  // CookBook: { screen: CookBookNavigator,
+  //   navigationOptions: {
+  //     tabBarLabel: 'CookBook',
+  //     tabBarIcon: (
+  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={cooks}/>
+  //     ),
+  //   }},
   Profile: {screen: SignUp,
     navigationOptions: {
       tabBarLabel: 'Profile',
@@ -137,14 +137,14 @@ const AuthNavigator = createBottomTabNavigator({
       ),
     }
   },
-  CookBook: {screen: LoginNavigator,
-    navigationOptions: {
-      tabBarLabel: 'CookBook',
-      tabBarIcon: (
-            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={cooks}/>
-      ),
-    }
-  },
+  // CookBook: {screen: LoginNavigator,
+  //   navigationOptions: {
+  //     tabBarLabel: 'CookBook',
+  //     tabBarIcon: (
+  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={cooks}/>
+  //     ),
+  //   }
+  // },
   Profile: {screen: LoginNavigator,
     navigationOptions: {
       tabBarLabel: 'Profile',

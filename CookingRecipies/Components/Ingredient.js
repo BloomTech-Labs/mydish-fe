@@ -34,11 +34,11 @@ const Ingredient = (props) => {
         const fullIng = ingArr.filter(i => !!i);
         console.log('fullIng', fullIng);
         if (fullIng.length === 3) {
-           await setRecipe({...recipe, ingredients: [...recipe.ingredients, ingredient]})
-        //    recipe.ingredients.reduce((acc, current) => {
-        //         const repeat = current.findIndex((a,b) => a.name === b.name)
-        //         return acc.slice(0,repeat).push(currect).concat(acc.slice(repeat + 1))
-        //    }, [])
+           const unique = recipe.ingredients.reduce((acc, current) => {
+                const repeat = current.findIndex((a,b) => a.name === b.name)
+                return acc.slice(0,repeat).push(currect).concat(acc.slice(repeat + 1))
+            }, [])
+            await setRecipe({...recipe, ingredients: [...recipe.ingredients, unique]})
         }
         console.log('recipe', recipe);
     }
