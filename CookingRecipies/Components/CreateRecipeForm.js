@@ -106,16 +106,18 @@ export default function CreateRecipeForm(props) {
       console.log('recipe inside submit of <CreateREcipeForm/> ', recipe);
       
      AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
-     .then(res => console.log('response from post request',res))
+     .then(res => {console.log('response from post request',res); setRecipe(initialFormState)})
      .catch(err => console.log(err));
+
+    
   }
         
   return (                                                   
     <ScrollView>
       <View style={styles.crForm}>
 
-          <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'flex-end', marginTop: 30, color: ' #3BA405', fontSize: 14}}>
-            <Text>Done</Text>
+          <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'flex-end', marginTop: 30, fontSize: 14}}>
+            <Text style={{color: '#3BA405'}}>Done</Text>
           </TouchableOpacity>
 
            {/* <Button style = {{alignItems: 'flex-end'}} title='Done' onPress ={postRecipe}/> */}
@@ -174,7 +176,7 @@ export default function CreateRecipeForm(props) {
               style={styles.totalTimeContainer}
               placeholder='Enter Total Cook Time in minutes'
               onChangeText={event => setRecipe({ ...recipe, minutes: event })}
-              value={JSON.stringify(recipe.minutes)} 
+              value={recipe.minutes} 
             />
           </View>
 
@@ -260,8 +262,8 @@ export default function CreateRecipeForm(props) {
 
         </View>
 
-
-          <Button title='Submit Recipe' onPress ={postRecipe}/>
+{/* 
+          <Button title='Submit Recipe' onPress ={postRecipe}/> */}
 
         </View>
       </View>

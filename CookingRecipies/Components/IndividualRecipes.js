@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import IndividualRecipeIngredients from './individualRecipeIngredients';
 //import individualRecipeIngredients from "./individualRecipeIngredients.js";
 
+var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"
 
 let IndividualRecipes = props => {
     const [store, setStored] = useState([])
@@ -62,16 +63,24 @@ let IndividualRecipes = props => {
           }
       }
 
-      console.log('store', store)
-    
-
-      console.log(store.img)
+      const im = ()=>{
+        if(store.img==null){
+            return(
+                <Image source={{uri: Cereal}}
+                style={{width: 400, height: 400, marginLeft: 7}} />
+            )
+        }else{
+            return(
+                <Image source={{uri: store.img}}
+                style={{width: 400, height: 400, marginLeft: 7}} />
+            )
+        }
+    }
       
     
     return (
      <ScrollView>
-  <Image source={{uri: store.img}}
-       style={{width: 400, height: 400, marginLeft: 7}} />
+            {im()}
             { console.log('img inside scrollview',store.img)}
             <Text style={styles.title}>{store.title}</Text>
             <View style={styles.time}>
