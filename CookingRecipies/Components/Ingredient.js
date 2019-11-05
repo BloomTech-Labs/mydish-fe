@@ -76,7 +76,7 @@ const Ingredient = (props) => {
                   itemColor={'#B4B4B4'}
                 /> */}
 
-            <View style = {{ flexDirection: 'row', width: 350, marginBottom: 20}}>
+            <View style = {{ flexDirection: 'row', width: 350, marginBottom: 20, justifyContent: 'space-around'}}>
                 <TextInput
                     style={{ height: 40, width: 60, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4 }}
                     placeholder="Amount"

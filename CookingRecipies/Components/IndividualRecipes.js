@@ -52,7 +52,7 @@ let IndividualRecipes = props => {
         return newString
       }
       const setOrdinalToOne = (ordinal) => {
-          console.log('ordinal', ordinal)
+          //console.log('ordinal', ordinal)
           if(ordinal === '0.00'){
            // console.log('ordinal inside if statement', ordinal)
              const numPlusOne = Number(ordinal) + 1.00
@@ -62,21 +62,23 @@ let IndividualRecipes = props => {
           }
       }
 
-    //   console.log(store.img)
+      console.log('store', store)
+    
+
+      console.log(store.img)
+      
     
     return (
      <ScrollView>
-
-        <Image 
-            source={{uri: store.img}}
-            style={{width: 450, paddingRight: 20 }}
-            resizeMode="contain"/>
+  <Image source={{uri: store.img}}
+       style={{width: 400, height: 400, marginLeft: 7}} />
+            { console.log('img inside scrollview',store.img)}
             <Text style={styles.title}>{store.title}</Text>
             <View style={styles.time}>
                 <View>
                 <Image source={logo} style={{width: 20, height: 20}}/> 
-                {/* <Text>Edited by: {store.innovator}</Text>
-                <Text>Recipe by: {store.ancestor}</Text> */}
+                {/* <Text>Edited by: {store.innovator}</Text> */}
+                <Text>Recipe by: {store.innovator_name}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
             <Image source={clock} style={{width: 20, height: 20}}/> 

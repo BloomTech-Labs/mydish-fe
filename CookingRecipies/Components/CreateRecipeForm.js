@@ -114,6 +114,11 @@ export default function CreateRecipeForm(props) {
     <ScrollView>
       <View style={styles.crForm}>
 
+          <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'flex-end', marginTop: 30, color: ' #3BA405', fontSize: 14}}>
+            <Text>Done</Text>
+          </TouchableOpacity>
+
+           {/* <Button style = {{alignItems: 'flex-end'}} title='Done' onPress ={postRecipe}/> */}
         {/* ====== Image with Recipe Name and Creator ========= */}
 
         <View style={{ flexDirection: "column", padding: 15, alignItems: 'center' }}>
@@ -225,11 +230,11 @@ export default function CreateRecipeForm(props) {
 
 
           <View style={{ flexDirection: "row", marginTop: 20}} >
-            {/* <Icon name='add' reverse={true}></Icon> */}
-            <View>
-                  {addInstructions()}
 
-                  <TouchableOpacity onPress={handleInstructionSubmit} style = {{flexDirection: 'row'}} >
+            <View>
+              {addInstructions()}
+
+              <TouchableOpacity onPress={handleInstructionSubmit} style = {{flexDirection: 'row'}} >
                 
                 <Image source={add} style={{width: 20, height: 20}}/> 
                 
@@ -237,16 +242,24 @@ export default function CreateRecipeForm(props) {
                     Add A Steps
                 </Text>
                
-            </TouchableOpacity> 
+              </TouchableOpacity> 
             </View>
-          </View>
-          {/* ======= Instructions Input View ====== */}
 
-                  {/* ======= Instructions Input View ====== */}
-
-          <View style={{ flexDirection: "row", padding: 15 }} >
-          {/* <Icon body='add' reverse={true}></Icon> */}
           </View>
+
+        <View>
+
+            <Text style={{fontSize: 16, color: '#363838', marginTop: 25  }}>Notes: </Text>
+
+            <TextInput
+              style={styles.notesContainer}
+              placeholder=''
+              onChangeText={event => setRecipe({ ...recipe, notes: event })}
+              value={recipe.notes} 
+            />
+
+        </View>
+
 
           <Button title='Submit Recipe' onPress ={postRecipe}/>
 

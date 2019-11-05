@@ -14,10 +14,10 @@ import CreateRecipeForm from './Components/CreateRecipeForm.js'
 import CookBookFolder from "./Components/CookBookFolder";
 import IndividualRecipes from './Components/IndividualRecipes.js'
 import Recipe from './Components/Recipe.js'
-import plus from './assets/add_circle.png';
+import plus from './assets/add_circle_grey.png';
 import person from './assets/person_outline.png';
 import list from './assets/assignment.png';
-import home from './assets/home.png';
+import home from './assets/Union.png';
 import cooks from './assets/restaurant.png';
 
 class AuthLoadingScreen extends React.Component {
@@ -70,9 +70,9 @@ const RecipeNavigator = createStackNavigator({
 const MainNavigator = createBottomTabNavigator({
   Home: {screen: RecipeNavigator,
     navigationOptions: {
-      tabBarLabel: 'Home',
+      tabBarLabel: 'Explore',
       tabBarIcon: (
-            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={home}/>
+            <Image style={{ width: 20, height: 20, paddingTop:10 }} source={home}/>
       ),
     }
   },
@@ -115,7 +115,7 @@ const MainNavigator = createBottomTabNavigator({
 const AuthNavigator = createBottomTabNavigator({
   Home: {screen: HomePage,
     navigationOptions: {
-      tabBarLabel: 'Home',
+      tabBarLabel: 'Explore',
       tabBarIcon: (
             <Image style={{ width: 25, height: 25, paddingTop:10 }} source={home}/>
       ),

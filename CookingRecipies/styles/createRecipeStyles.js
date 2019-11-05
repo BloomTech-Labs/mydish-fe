@@ -55,6 +55,13 @@ const styles = StyleSheet.create({
       borderWidth: 0.8,
       borderColor: '#363838',
     },
+    notesContainer: {
+      width: 350,
+      height: 100,
+      borderRadius: 4,
+      borderWidth: 0.8,
+      borderColor: '#363838',
+    },
     container: {
       //   Typically for inputs
       borderRadius: 4,
@@ -80,9 +87,6 @@ const styles = StyleSheet.create({
       width: 120,
       marginTop: 15,
     },
-    addButton: {
-      color: 'green'
-    }
 })
 
 module.exports = styles
