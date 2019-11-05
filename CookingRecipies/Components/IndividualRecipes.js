@@ -4,9 +4,13 @@ import axios from 'axios'
 
 import StockPhoto from '../assets/stock_photo.jpg'
 import styles from '../styles/individualRecipeStyles.js'
-import clearHeart from '../assets/clear-heart.png';
+import saves from '../assets/save_alt.png';
+import clearBlackHeart from '../assets/clear-heart-black.png';
 import editIcon from '../assets/edit_icon.png';
+import clock from '../assets/timer.png';
 import styled from 'styled-components';
+import IndividualRecipeIngredients from './individualRecipeIngredients';
+//import individualRecipeIngredients from "./individualRecipeIngredients.js";
 
 
 let IndividualRecipes = props => {
@@ -17,10 +21,6 @@ let IndividualRecipes = props => {
     const id =  props.navigation.getParam('paramsID', 'params not passed')
     console.log("id in individualRecipe.js", id)
 
-    const IngredientCard = styled.Text`
-        color: '#1E1F20' ,
-        fontSize: 16,
-    `;
 
     useEffect(() =>{
         axios
@@ -29,23 +29,55 @@ let IndividualRecipes = props => {
         )
         .then(res => {
             setStored(res.data);
-            console.log(store)
+            console.log('store in individual recipes',store)
+            // axios.get(
+            //   `https://recipeshare-development.herokuapp.com/cooks/${store.innovator}`
+            // ).then(res => console.log(res))
+            // .catch(err => console.log('error from second axios call inside individula recipes', err))
         })
         .catch(err => console.log(err));
-
+        
     },[]);
+
+    const [color, setColor] = useState({active: 'Ingredients'})
+
+    const tabsDisplay = (cat) => {
+        const newActive= cat
+        setColor({active: newActive})
+      }
+
+      const capitalize = (string) => {
+        const newString = string.replace(/^\w/, c => c.toUpperCase());
+        return newString
+      }
+      const setOrdinalToOne = (ordinal) => {
+          console.log('ordinal', ordinal)
+          if(ordinal === '0.00'){
+           // console.log('ordinal inside if statement', ordinal)
+             const numPlusOne = Number(ordinal) + 1.00
+            return numPlusOne.toString()
+          }else{
+              return ordinal;
+          }
+      }
+    
     return (
      <ScrollView>
 
         <Image 
-            // source={{uri : `${props.imageURL}`}}
             source={StockPhoto}
             style={{width: 450, paddingRight: 20 }}
-            resieMode="contain"/>
+            resizeMode="contain"/>
             <Text style={styles.title}>{store.title}</Text>
-            <View style={styles.likes}>
-            <Image source={clearHeart} style={{width: 20, height: 20}}/>
-            <Text >{store.likes}</Text>
+            <View style={styles.time}>
+                <View>
+                <Text>Edited by: {store.innovator}</Text>
+                <Text>Recipe by: {store.ancestor}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+            <Image source={clock} style={{width: 20, height: 20}}/> 
+        <Text>{store.minutes} minutes</Text>
+            </View>
             </View>
 
          <Text style={styles.tags}>Tags</Text>
@@ -53,51 +85,57 @@ let IndividualRecipes = props => {
         {store.categories && store.categories.map( cat => {
             return(
                 <View>
-                    <Text styles={styles.individualTags}>{cat}</Text>
+                    <Text style={styles.individualTags}>{capitalize(cat)}</Text>
                 </View>
             )
         })}
+
         </View>
+         <View style={styles.likes}>
+             <View style={styles.likeView}>
+            <Image source={clearBlackHeart} style={{width: 20, height: 20}}/>
+            <Text >{store.likes}</Text>
+            </View>
+                <TouchableOpacity>
+            <View style={styles.likeView}>
+            <Image source={saves} style={{width: 20, height: 20}}/>
+            <Text >Save</Text>
+            </View>
+            </TouchableOpacity>
+            </View>
         <View style={styles.editView}>
         <TouchableOpacity>
+            <View style={styles.editButtonView}>
         <Image source={editIcon} style={styles.editButton}/>
-                    <Text 
-                    // color="white"    
-                    // onPress={grabRecipes}
-                    title="My Version"
-                    // accessibilityLabel="Edit"                   
-                    >Make Changes</Text>
-        </TouchableOpacity>
         </View>
-        <View style={styles.ingredients}> 
-        <Text style={styles.ingredients}>Ingredients</Text>
-        </View >
-      {store.ingredients && store.ingredients.map( ing => {
-            return(
-                <View style={styles.ingredientList}>
-                    <Text styles={styles.ingredientText}>{ing.quantity} {ing.unit}</Text>
-                    <Text styles={styles.ingredientText}>{ing.name}</Text>
-
-                </View>
-            )
-        })}
-         {store.steps && store.steps.map( step => {
-            return(
-                <View>
-
-                    <Text>Step {step.ordinal.split('.')[0]} - {step.body}</Text>
-                </View>
-            )
-        })}
-        <Text>{store.notes}</Text>
-        <TouchableOpacity>
-            <Button  
-            // color="white"    
-            // onPress={grabRecipes}
-            title="Save to MyCookBook"
-            // accessibilityLabel="Save"                   
-            />
         </TouchableOpacity>
+        </View >
+        <View style={styles.ingredients}> 
+        <TouchableOpacity onPress={() => tabsDisplay('Ingredients')}>
+        <View style={color.active.includes('Ingredients') ? styles.titlesViewBorderIng : styles.titlesViewBorderIngOff}>
+        <Text style={color.active.includes('Ingredients') ? styles.titlesColorWhite : styles.titlesColorBlue}>Ingredients</Text>
+        </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => tabsDisplay('Instructions')}>
+        <View style={color.active.includes('Instructions') ? styles.titlesViewBorderInstOn : styles.titlesViewBorderInst}>
+        <Text style={color.active.includes('Instructions') ? styles.titlesColorWhite : styles.titlesColorBlue}>Instructions</Text>
+        </View>
+        </TouchableOpacity>
+        </View >
+        <View style={styles.details}>
+      {store.ingredients && store.ingredients.map( ing => { return <IndividualRecipeIngredients ing={ing} color={color}/>})}
+         
+         {store.steps && store.steps.map( (step, index) => {
+            return(
+                <View style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
+
+                    <Text style={styles.stepText}>{setOrdinalToOne(step.ordinal).split('.')[0]}. {step.body}</Text>
+                </View>
+            )
+        })}
+        <Text style={ color.active.includes('Ingredients') ? styles.hidden : styles.notes}>NOTES</Text>
+        <Text style={ color.active.includes('Ingredients') ? styles.hidden :styles.stepTextView}>{store.notes}</Text>
+        </View>
 
     </ScrollView>
     );
