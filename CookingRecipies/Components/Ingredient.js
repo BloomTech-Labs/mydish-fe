@@ -1,46 +1,59 @@
 import React from 'react';
 import {TextInput, Button, View, TouchableOpacity, Image, Text} from 'react-native';
-import ScrollPicker from 'react-native-wheel-scroll-picker';
 import styles from '../styles/createRecipeStyles';
-
-//var PickerItem = Picker.Item;
 
 const Ingredient = (props) => {
 
-    let {ingList, setIngList, count, setCount, recipe, setRecipe} = props;
+    let {recipe, setRecipe} = props;
 
     let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
-    const [unitList,] = React.useState([.25,.5,.75,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
-    const [unitSelected, setUnitSelected] = React.useState({selectedItem: 2})
-
-//    const onPickerSelect = (index) => {
-// 		setUnitSelected({
-// 			selectedItem: index,
-//         })
-//         console.log('unitSelected',unitSelected)
-// 	}
+    const [toEdits, setToEdits] = React.useState([]);
+    // const ingList = [];
 
     const handleChange = async (key,value) => {
         await setIngredient({...ingredient, [key] : value});
-        console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
+        // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     }
 
 
     const handleBlur = async (event) => {
         console.log('handleBlur triggered in <Ingredient/>');
-        // setIngList([...ingList, ingredient]);
-        console.log('recipe.ingredients inside handleBlur', recipe.ingredients);
         const ingArr = Object.values(ingredient);
         const fullIng = ingArr.filter(i => !!i);
-        console.log('fullIng', fullIng);
         if (fullIng.length === 3) {
-           const unique = recipe.ingredients.reduce((acc, current) => {
-                const repeat = current.findIndex((a,b) => a.name === b.name)
-                return acc.slice(0,repeat).push(currect).concat(acc.slice(repeat + 1))
-            }, [])
-            await setRecipe({...recipe, ingredients: [...recipe.ingredients, unique]})
+         await setToEdits([...toEdits, ingredient]);
+        //  ingList.push(ingredient);
+         console.log('ingList in <Ingredient/>', toEdits);
+         console.log('recipe.ingredients in <Ingredient/>', recipe.ingredients);
+         console.log('ingredient in <Ingredient/>', ingredient);
+         const recipeIng = [...recipe.ingredients];
+
+         for (let i=0; i<toEdits.length; i++) {
+            for (let j=0; j<recipeIng.length; j++) {
+              if (toEdits[i].name === recipeIng[j].name) {
+                recipeIng.splice(j,1);
+              }
+            }
+          }
+
+        console.log('recipeIng after splicing', recipeIng);
+        //  recIng = [...recipe.ingredients];
+
+        //     for (let i=0; i<ingList.length; i++) {
+        //         for (let j=0; j<recIng.length; j++) {
+        //             // console.log('rec.ing[i].name', recipe.ingredients[i].name );
+        //             // console.log('ingList[j].name', ingList[j].name);
+        //             if (ingList[i].name === recipe.ingredients[j].name) {
+        //                 recipe.ingredients.splice(j,1);
+        //             //     return false;
+        //             // } else {return true}
+        //         }
+        //     }
+        // }
+        //     console.log('recipe.ingredients after splicing', recipe.ingredients);
+          
+           await setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
         }
-        console.log('recipe', recipe);
     }
 
     // const handleSubmit = async () => {
@@ -52,30 +65,6 @@ const Ingredient = (props) => {
 
     return  (
         <View>
-{/* <ScrollPicker
-                  dataSource={[
-                       'a',
-                       'b',
-                       'c',
-                       'd',
-                  ]}
-                  selectedIndex={1}
-                  renderItem={(data, index, isSelected) => {
-                      //
-                  }}
-                  onValueChange={(data, selectedIndex) => {
-                      //
-                  }}
-                  wrapperHeight={180}
-                  wrapperWidth={150}
-                  wrapperBackground={'#FFFFFF'}
-                  itemHeight={60}
-                  highlightColor={'#d8d8d8'}
-                  highlightBorderWidth={2}
-                  activeItemColor={'#222121'}
-                  itemColor={'#B4B4B4'}
-                /> */}
-
             <View style = {{ flexDirection: 'row', width: 350, marginBottom: 20}}>
                 <TextInput
                     style={{ height: 40, width: 60, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4 }}

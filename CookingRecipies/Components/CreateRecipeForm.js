@@ -10,7 +10,7 @@ import AxiosWithAuth from './AxiosWithAuth.js';
 
 
 export default function CreateRecipeForm(props) {
-  console.log('<CreateRecipeForm/> rendering');
+  // console.log('<CreateRecipeForm/> rendering');
   const initialFormState = {
     title: '',
     minutes: 0,
@@ -22,16 +22,16 @@ export default function CreateRecipeForm(props) {
     ancestor: null
   }  
 
-  const practice = {
-    title: 'bye',
-    minutes: 20,
-    notes: "aaahhhhhh",
-    categories: ['breakfast'],
-    ingredients: [{unit:'cups', quantity: 3, name: 'help'}],            
-    //likes: "",
-    steps: ['help'], 
-    ancestor: null
-  }  
+  // const practice = {
+  //   title: 'bye',
+  //   minutes: 20,
+  //   notes: "aaahhhhhh",
+  //   categories: ['breakfast'],
+  //   ingredients: [{unit:'cups', quantity: 3, name: 'help'}],            
+  //   //likes: "",
+  //   steps: ['help'], 
+  //   ancestor: null
+  // }  
   const [recipe, setRecipe] = useState(initialFormState)
   
   const [ingList, setIngList] = useState([])
@@ -48,7 +48,7 @@ export default function CreateRecipeForm(props) {
   const addIngredients = () => {
     // console.log('addIngredients triggered');
     const IngredientComponents = [];
-    console.log('count in <CreateRecipeForm/>', ingCount);
+    // console.log('count in <CreateRecipeForm/>', ingCount);
 
       if (!ingCount) {  //if no added ingredients, render only a single ingredient
         IngredientComponents.push(<Ingredient recipe={recipe} setRecipe={setRecipe} ingList={ingList} setIngList={setIngList} setCount={setIngCount} count={ingCount}/>);
@@ -234,7 +234,7 @@ export default function CreateRecipeForm(props) {
                 <Image source={add} style={{width: 20, height: 20}}/> 
                 
                 <Text style = {{color : 'green', fontSize: 16, marginLeft: 5}}>
-                    Add A Steps
+                    Add A Step
                 </Text>
                
             </TouchableOpacity> 
