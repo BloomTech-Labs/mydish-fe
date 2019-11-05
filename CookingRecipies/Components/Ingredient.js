@@ -38,7 +38,7 @@ const Ingredient = (props) => {
         <View>
             <View style = {{ flexDirection: 'row', width: 350, marginBottom: 20}}>
                 <TextInput
-                    style={{ height: 40, width: 60 }}
+                    style={{ height: 40, width: 60, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4 }}
                     placeholder="Amount"
                     // onChangeText={event => addIng({...ingredient, quantity: event}) }
                     onChangeText ={event => handleChange('quantity', event)}
@@ -47,7 +47,7 @@ const Ingredient = (props) => {
                 />
                 
                 <TextInput
-                    style={{ height: 40, width: 60 }}
+                    style={{ height: 40, width: 60, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4 }}
                     placeholder="Unit"
                     // onChangeText ={event => addIng({...ingredient, unit: event})}
                     onChangeText ={event => handleChange('unit', event)}
@@ -56,7 +56,7 @@ const Ingredient = (props) => {
                 />
 
                 <TextInput
-                    style={{ height: 40, width: 230, backgroundColor: 'lightgray', padding: 10 }}
+                    style={{ height: 40, width: 230, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4 }}
                     placeholder="Ingredient"
                     // onChangeText ={event => addIng({...ingredient, name: event})}
                     onChangeText ={event => handleChange('name', event)}
