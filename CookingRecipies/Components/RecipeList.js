@@ -57,6 +57,7 @@ const RecipeList = (props) => {
     return (
         <ScrollView>
             <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                {/* {recipes.length==1 && <Recipe key={props.title} recipe={recipes} height={adjustHeight()} marg={adjustMargin()}/>} */}
                  {recipes.map( recp =>  <Recipe key={props.title} recipe={recp} height={adjustHeight()} marg={adjustMargin()}/>)}
             </View>
          </ScrollView>

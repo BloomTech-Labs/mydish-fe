@@ -20,8 +20,8 @@ const Search = () => {
 
     },[]);
     
-    let grabRecipes = e => {
-        e.preventDefault();
+    let grabRecipes = () => {
+        // e.preventDefault();
         if(dish.length!==0){
             axios
             .get(
@@ -29,7 +29,7 @@ const Search = () => {
             )
             .then(res => {
               setRecipes([]);
-              setRecipes([res.data]);
+              setRecipes(res.data);
               setDish('')
               
             })
@@ -50,7 +50,6 @@ const Search = () => {
  
     };
 
-    console.log("recipes", recipe)
 
     return(
         <View>

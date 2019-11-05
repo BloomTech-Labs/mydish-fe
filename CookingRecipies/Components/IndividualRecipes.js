@@ -63,11 +63,12 @@ let IndividualRecipes = props => {
     
     return (
      <ScrollView>
-
-        <Image 
-            source={StockPhoto}
-            style={{width: 450, paddingRight: 20 }}
-            resizeMode="contain"/>
+                <Image 
+                
+                source={{uri : "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"}}
+                style={{width: 160, height: 20, borderRadius: 20, paddingRight: 20 }}
+                
+            />
             <Text style={styles.title}>{store.title}</Text>
             <View style={styles.time}>
                 <View>
