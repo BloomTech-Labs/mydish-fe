@@ -4,10 +4,8 @@ import {ScrollView, View} from 'react-native';
 import Masonry from 'react-native-masonry-layout'
 
 
-
-
 const RecipeList = (props) => {
-    let Height = true;
+    let Height = 0;
 
     const [recipes, setRecipes] = React.useState([]);
 
@@ -24,24 +22,34 @@ const RecipeList = (props) => {
         Height = !Height;
         return Height ? 200 : 300;
     }
-    const adjust2 = () => {
-        Height = !Height;
-        return Height ? 300 : 200;
+    const adjust = () => {
+        
+        if(Height === 0){  
+            console.log("height 0", Height)
+            Height= Height +1
+            return 300
+        }if(Height===1){
+            console.log("height 1", Height)
+            Height = Height +1
+            return 200
+        }if(Height===2){
+            console.log("height 2", Height)
+            Height = Height -2
+            return 200
+        }
     }
 
     return (
         <ScrollView>
-            {/* <Masonry
-                ref="masonry"
-                columns={3} // optional - Default: 2
-                renderItem={recipes.map( recp =>  <Recipe recipe={recp} height={adjust1()}/>)}
-                /> */}
             <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                 {recipes.map( recp =>  <Recipe recipe={recp} height={adjust1()}/>)}
+                 {recipes.map( recp =>  <Recipe recipe={recp} height={adjust()}/>)}
             </View>
          </ScrollView>
     )  
 }
 
 export default RecipeList;
+
+
+
 
