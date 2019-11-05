@@ -20,16 +20,16 @@ const Search = () => {
 
     },[]);
     
-    let grabRecipes = e => {
-        e.preventDefault();
-        if( dish.length>0){
+    let grabRecipes = () => {
+        // e.preventDefault();
+        if(dish.length!==0){
             axios
             .get(
               `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
             )
             .then(res => {
               setRecipes([]);
-              setRecipes([res.data]);
+              setRecipes(res.data);
               setDish('')
               
             })
@@ -43,6 +43,7 @@ const Search = () => {
             .then(res => {
                 setRecipes([]);
                 setRecipes(res.data);
+                setDish('')
             })
             .catch(err => console.log(err));
         }
@@ -57,16 +58,17 @@ const Search = () => {
 					placeholder="What Dish are you looking for?"
 					placeholderTextColor="#D3D3D3"
 					value={dish}
-					onChangeText={dish => setDish(dish)}
+                    onChangeText={dish => setDish(dish)}
+                    onSubmitEditing={grabRecipes}
 				/>
-                 <TouchableOpacity style={styles.button}>
+                 {/* <TouchableOpacity style={styles.button}>
                     <Button  
                     color="white"    
                     onPress={grabRecipes}
                     title="Search"
                     accessibilityLabel="Search"                   
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <ScrollView>
                     {recipe.length>=1  && <RecipeList props={recipe} /> }
                 </ScrollView>

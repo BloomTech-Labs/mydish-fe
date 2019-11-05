@@ -17,11 +17,52 @@ var Eggplant = "https://image.shutterstock.com/image-photo/grilled-eggplants-sea
 var ScrambledEggs = "https://image.shutterstock.com/image-photo/mexican-food-recipes-revoltillo-de-600w-752977636.jpg"
 let fakeImages=["Cereal","Home Fries","Eggplant","Scrambled Eggs"]
 
+const getRandomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min
 
 const Recipe = (props) => {
-    const [img, setImg]= useState()
-
+    const [num, setNum]= useState(1)
     let [like, setLike] = React.useState(false);
+
+    const im = ()=>{
+        if(props.recipe.img==null){
+            return(
+                <Image 
+                
+                source={{uri : Cereal}}
+                style={{width: 160, height: props.height, borderRadius: 20, paddingRight: 20 }}
+                resieMode="contain"
+                
+            />
+            )
+        }else{
+            return(
+                <Image 
+                
+                source={{uri : props.recipe.img}}
+                style={{width: 160, height: props.height, borderRadius: 20, paddingRight: 20 }}
+                resieMode="contain"
+                
+            />
+            )
+        }
+    }
+
+    
+    //   useEffect(() =>{
+    //     if (num !== 0){
+    //         setNum()
+    //         setNum(0)
+    //         console.log("0", num)
+    //     } 
+    //     else{
+    //         setNum()
+    //         setNum(1)
+    //         console.log("1 ", num)
+    //     }
+        
+    //   }, [])
+     
     // let [likeCount, setLikeCount] = React.useState(props.recipe.likes)  //get likes from recipe handed down via props from the database.
 
     // useEffect(() =>{
@@ -38,14 +79,13 @@ const Recipe = (props) => {
     //     }
     //     console.log('props in recipe', img);
     // },[]);
-    const RecipeCard = styled.View`
-    justifyContent: flex-start;
-    width: 130;
-    marginLeft: 20;
-    marginRight: 20;
-    marginBottom: 10;
-    marginTop: 10;
-    `;
+        const RecipeCard = styled.View`
+        justifyContent: flex-start;
+        width: 130;
+        marginLeft: 35;
+        marginRight: 13;
+        marginBottom: 150;
+        `;
 
     const UserCard = styled.View`
       flexDirection : row;
@@ -70,32 +110,26 @@ const Recipe = (props) => {
         setLike(!like);
     }
 
+
     return (
         <>
             {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
-            <RecipeCard >
+            <RecipeCard style={{height: props.height, marginTop: props.marg}}>
                <TouchableOpacity  
                onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
                >
-                <Like onStartShouldSetResponder={likeIt}>
+                {/* <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}> 3k</Text>
-                </Like>
-                <Image 
-                
-                    source={{uri : Cereal}}
-                    style={{width: 160, height: 250, borderRadius: 20, paddingRight: 20 }}
-                    resieMode="contain"
-                    
-                />
-                
+                </Like> */}
+                {im()}
                 <Text style={styles.text}>{props.recipe.title}</Text>
                 <UserCard>
                     <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}
                         style={{width: 50, height: 50 }}/>
                     <View style={styles.usercardTxt}>
-                        <Text style={styles.username}></Text>
-                        <Text style={styles.prep}>Min: {props.recipe.minutes}</Text>
+                        <Text style={styles.username}>{props.recipe.username}</Text>
+                        <Text style={styles.prep}>{props.recipe.minutes} min.</Text>
                     </View>
                 </UserCard>
                  </TouchableOpacity>

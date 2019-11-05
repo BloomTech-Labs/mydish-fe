@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import MyCookBook from "./MyCookBook"
 import AxiosWithAuth from './AxiosWithAuth.js'
 
-
+export const wow=[]
 import styles from '../styles/loginStyles.js'
 
 export const temp = []
