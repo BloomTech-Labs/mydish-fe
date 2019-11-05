@@ -35,7 +35,7 @@ const RecipeList = (props) => {
         }if(Height===2){
             console.log("height 2", Height)
             Height = Height -2
-            return 200
+            return 250
         }
     }
 

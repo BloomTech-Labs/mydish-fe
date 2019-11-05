@@ -86,7 +86,7 @@ const Recipe = (props) => {
         width: 130;
         marginLeft: 20;
         marginRight: 13;
-        marginBottom: 110;
+        marginBottom: 150;
         `;
 
     const UserCard = styled.View`
