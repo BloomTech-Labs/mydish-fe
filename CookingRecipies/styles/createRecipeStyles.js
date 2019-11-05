@@ -1,6 +1,9 @@
 import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
+  crForm: {
+    margin: 16
+  },              
     tagButtons: {
         borderRadius: 50,
         width: 105,
@@ -19,7 +22,10 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         marginBottom: 8,
         marginRight: 5,
-        backgroundColor: '#3BA405'
+        backgroundColor: '#3BA405',
+    },
+    fontColorWhite: {
+      color: 'white'
     },
     baseText:
     {
@@ -34,14 +40,27 @@ const styles = StyleSheet.create({
     },
     titleText: {
       //   Recipe Title Name
-      fontSize: 20,
+      fontSize: 25,
       fontWeight: 'bold',
+      color:  '#363838'
+    
+    },
+    textInputStyles: {
+      fontSize: 14,
+        color: '#363838',
+    },
+    totalTimeContainer: {
+      width: 350,
+      height: 40,
+      borderRadius: 4,
+      borderWidth: 0.8,
+      borderColor: '#363838',
     },
     container: {
       //   Typically for inputs
       borderRadius: 4,
-      borderWidth: 0.5,
-      borderColor: 'black',
+      borderWidth: 0.8,
+      borderColor: '#363838',
       height: 40
     },
     dropdownText: {
@@ -60,9 +79,11 @@ const styles = StyleSheet.create({
       borderColor: 'black',
       fontSize: 15,
       width: 120,
-      marginTop: 15
+      marginTop: 15,
+    },
+    addButton: {
+      color: 'green'
     }
-
 })
 
 module.exports = styles

@@ -8,6 +8,7 @@ import saves from '../assets/save_alt.png';
 import clearBlackHeart from '../assets/clear-heart-black.png';
 import editIcon from '../assets/edit_icon.png';
 import clock from '../assets/timer.png';
+import logo from '../assets/background.png';
 import styled from 'styled-components';
 import IndividualRecipeIngredients from './individualRecipeIngredients';
 //import individualRecipeIngredients from "./individualRecipeIngredients.js";
@@ -71,6 +72,7 @@ let IndividualRecipes = props => {
             <Text style={styles.title}>{store.title}</Text>
             <View style={styles.time}>
                 <View>
+                <Image source={logo} style={{width: 20, height: 20}}/> 
                 <Text>Edited by: {store.innovator}</Text>
                 <Text>Recipe by: {store.ancestor}</Text>
                 </View>

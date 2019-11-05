@@ -1,62 +1,76 @@
 import React from 'react';
-import {TextInput, Button, View} from 'react-native';
+import {TextInput, Button, View, TouchableOpacity, Image, Text} from 'react-native';
+import styles from '../styles/createRecipeStyles';
 
 const Ingredient = (props) => {
 
-    // const [ing, setIng] = useState({
-    //     name: "",
-    //     quantity: "",
-    //     unit: "" 
-    //   })
-
-    // const {addIng, ingredient} = props;
-    let {ingList, setIngList, count, setCount} = props;
+    let {ingList, setIngList, count, setCount, recipe, setRecipe} = props;
 
     let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
 
-    const handleChange = (key,value) => {
-        setIngredient({...ingredient, [key] : value});
-       console.log('ingredient', ingredient);
+    const handleChange = async (key,value) => {
+        await setIngredient({...ingredient, [key] : value});
+        console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     }
 
-    const handleSubmit = () => {
-        console.log('ingList, handleSubmit triggered', ingList);
+
+    const handleBlur = async (event) => {
+        console.log('handleBlur triggered in <Ingredient/>');
+        // setIngList([...ingList, ingredient]);
+        console.log('recipe.ingredients inside handleBlur', recipe.ingredients);
+        const ingArr = Object.values(ingredient);
+        const fullIng = ingArr.filter(i => !!i);
+        console.log('fullIng', fullIng);
+        if (fullIng.length === 3) {
+           await setRecipe({...recipe, ingredients: [...recipe.ingredients, ingredient]})
+        }
+        console.log('recipe', recipe);
+    }
+
+    const handleSubmit = async () => {
+        console.log('<Ingredient/> handleSubmit triggered');
         // setIngList(() => [...ingList, ingredient]);
-        setCount(count + 1);
-        setIngList([...ingList, ingredient]);
+        await setCount( oldCount => oldCount + 1);
+        console.log('count in <Ingredient/>', count);
     }
 
     return  (
         <View>
-             <TextInput
-                style={{ height: 40, width: 250, marginLeft: 15, backgroundColor: 'lightgray', padding: 10 }}
-                placeholder="Ingredient"
-                // onChangeText ={event => addIng({...ingredient, name: event})}
-                onChangeText ={event => handleChange('name', event)}
-                value={ingredient.name}
-            />
-
-            <TextInput
-            style={{ height: 40, width: 75 }}
-            placeholder="Amount"
-            // onChangeText={event => addIng({...ingredient, quantity: event}) }
-            onChangeText ={event => handleChange('quantity', event)}
-            value={ingredient.quantity}
-            />
-            <TextInput
-                style={{ height: 40, width: 75 }}
-                placeholder="Unit"
-                // onChangeText ={event => addIng({...ingredient, unit: event})}
-                onChangeText ={event => handleChange('unit', event)}
-                value={ingredient.unit}
+            <View style = {{ flexDirection: 'row', width: 350, marginBottom: 20}}>
+                <TextInput
+                    style={{ height: 40, width: 60 }}
+                    placeholder="Amount"
+                    // onChangeText={event => addIng({...ingredient, quantity: event}) }
+                    onChangeText ={event => handleChange('quantity', event)}
+                    onBlur={handleBlur}
+                    value={ingredient.quantity}
+                />
+                
+                <TextInput
+                    style={{ height: 40, width: 60 }}
+                    placeholder="Unit"
+                    // onChangeText ={event => addIng({...ingredient, unit: event})}
+                    onChangeText ={event => handleChange('unit', event)}
+                    onBlur={handleBlur}
+                    value={ingredient.unit}
                 />
 
+                <TextInput
+                    style={{ height: 40, width: 230, backgroundColor: 'lightgray', padding: 10 }}
+                    placeholder="Ingredient"
+                    // onChangeText ={event => addIng({...ingredient, name: event})}
+                    onChangeText ={event => handleChange('name', event)}
+                    onBlur={handleBlur}
+                    value={ingredient.name}
+                />
 
-            <Button
-            title="+"
-            onPress={handleSubmit} 
-            />
+            </View>
+
+            <View style = {{alignItems: 'center'}}> 
+
+            </View>
         </View>
+    
     )
 }
 
