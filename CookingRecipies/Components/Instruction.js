@@ -26,7 +26,7 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
         <>
         <View>
             <View style = {{width: 350, marginBottom: 20}}>
-                <Text>Step </Text>
+                {/* <Text>Step </Text> */}
                 <TextInput 
                     style={{ height: 76, width: 350,  padding: 10, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4}}
                     placeholder=" Add Instructions"

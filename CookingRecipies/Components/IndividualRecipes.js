@@ -61,20 +61,22 @@ let IndividualRecipes = props => {
               return ordinal;
           }
       }
+
+    //   console.log(store.img)
     
     return (
      <ScrollView>
 
         <Image 
-            source={StockPhoto}
+            source={{uri: store.img}}
             style={{width: 450, paddingRight: 20 }}
             resizeMode="contain"/>
             <Text style={styles.title}>{store.title}</Text>
             <View style={styles.time}>
                 <View>
                 <Image source={logo} style={{width: 20, height: 20}}/> 
-                <Text>Edited by: {store.innovator}</Text>
-                <Text>Recipe by: {store.ancestor}</Text>
+                {/* <Text>Edited by: {store.innovator}</Text>
+                <Text>Recipe by: {store.ancestor}</Text> */}
                 </View>
                 <View style={{flexDirection: 'row'}}>
             <Image source={clock} style={{width: 20, height: 20}}/> 
@@ -98,19 +100,19 @@ let IndividualRecipes = props => {
             <Image source={clearBlackHeart} style={{width: 20, height: 20}}/>
             <Text >{store.likes}</Text>
             </View>
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
             <View style={styles.likeView}>
             <Image source={saves} style={{width: 20, height: 20}}/>
             <Text >Save</Text>
             </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             </View>
         <View style={styles.editView}>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
             <View style={styles.editButtonView}>
         <Image source={editIcon} style={styles.editButton}/>
         </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         </View >
         <View style={styles.ingredients}> 
         <TouchableOpacity onPress={() => tabsDisplay('Ingredients')}>

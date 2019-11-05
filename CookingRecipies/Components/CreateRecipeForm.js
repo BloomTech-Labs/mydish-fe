@@ -17,7 +17,7 @@ export default function CreateRecipeForm(props) {
     notes: "",
     categories: [],
     ingredients: [],            
-    likes: "",
+    //likes: "",
     steps: [], 
     ancestor: null
   }  
@@ -102,18 +102,9 @@ export default function CreateRecipeForm(props) {
     }
 
   const postRecipe = () => {
-      // alert('Submitted')
-      // console.log('==========submitted======');
-      // console.log('recipe inside submit', practice)
-      // await setRecipe({...recipe, ingredients: ingList});
+     
       console.log('recipe inside submit of <CreateREcipeForm/> ', recipe);
       
-      // console.log('ingList: ', ingList);
-      
-      
-      // recipe.ingredients.shift();
-
-     //await setRecipe({...recipe, ingredients: [...recipe.ingredients, ingList], steps: [...recipe.steps, ]})
      AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
      .then(res => console.log('response from post request',res))
      .catch(err => console.log(err));
@@ -176,7 +167,7 @@ export default function CreateRecipeForm(props) {
 
             <TextInput
               style={styles.totalTimeContainer}
-              placeholder='Enter Total Cook Time'
+              placeholder='Enter Total Cook Time in minutes'
               onChangeText={event => setRecipe({ ...recipe, minutes: event })}
               value={recipe.minutes} 
             />
@@ -230,7 +221,7 @@ export default function CreateRecipeForm(props) {
             </View>
           </View>
 
-          <Text style={{ fontSize: 16, color: '#363838', marginTop: 25}} >Instructions</Text>
+          <Text style={{fontSize: 16, color: '#363838', marginTop: 25  }} >Instructions</Text>
 
 
           <View style={{ flexDirection: "row", marginTop: 20}} >

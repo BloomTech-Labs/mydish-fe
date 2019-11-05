@@ -40,8 +40,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
       //   Recipe Title Name
-      fontSize: 25,
-      fontWeight: 'bold',
+      fontSize: 16,
       color:  '#363838'
     
     },
