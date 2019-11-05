@@ -57,16 +57,17 @@ const Search = () => {
 					placeholder="What Dish are you looking for?"
 					placeholderTextColor="#D3D3D3"
 					value={dish}
-					onChangeText={dish => setDish(dish)}
+                    onChangeText={dish => setDish(dish)}
+                    onSubmitEditing={grabRecipes}
 				/>
-                 <TouchableOpacity style={styles.button}>
+                 {/* <TouchableOpacity style={styles.button}>
                     <Button  
                     color="white"    
                     onPress={grabRecipes}
                     title="Search"
                     accessibilityLabel="Search"                   
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <ScrollView>
                     {recipe.length>=1  && <RecipeList props={recipe} /> }
                 </ScrollView>

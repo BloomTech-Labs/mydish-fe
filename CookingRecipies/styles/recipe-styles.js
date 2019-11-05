@@ -6,10 +6,10 @@ module.exports = StyleSheet.create({
     },
     text : {
       marginTop: 10, 
-      marginBottom: 10, 
+      marginBottom: 10,
+      fontSize : 25,
       fontSize: 20, 
       fontWeight: 'bold', 
-      color: '#3BA405',
       textAlign: 'left',
       width: 150
     },
@@ -26,8 +26,7 @@ module.exports = StyleSheet.create({
     }, 
     prep : {
       alignSelf: 'flex-end',
-      fontSize: 14,
-      marginStart: -2,
-      color: '#3BA405'
+      fontSize: 9,
+      marginLeft: 10,
     }
   });

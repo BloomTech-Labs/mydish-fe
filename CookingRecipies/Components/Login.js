@@ -9,10 +9,13 @@ import {
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
 import MyCookBook from "./MyCookBook"
-import AxiosWithAuth from "./AxiosWithAuth"
+import AxiosWithAuth from './AxiosWithAuth.js'
 
 export const wow=[]
 import styles from '../styles/loginStyles.js'
+
+export const temp = []
+
 const Login = props => {
   const [login, SetLogin] = useState({username: '', password: ''})
   const [toke, setTok] = useState()
@@ -28,12 +31,12 @@ const Login = props => {
     
   console.log("axios call goes here")
     axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)
-    .then(res => {signInAsync(res.data.token),  wow.push(res.data.token)})
+    .then(res => {signInAsync(res.data.token),  temp.push(res.data.token)})
       // console.log('response from login axios post', res.data.token)
     .catch(err => console.log('error from login axios post',err))
     } 
 
-    console.log("tiktok",toke)
+    //console.log("tiktok",toke)
   return (
     <View style={styles.signUp}>
       <TouchableOpacity
@@ -55,7 +58,8 @@ const Login = props => {
            style={styles.inputFeilds}
            name="password"
            value={login.password}
-           onChangeText={event => SetLogin({...login, password:event})}/>
+           onChangeText={event => SetLogin({...login, password:event})}
+           secureTextEntry={true}/>
            <TouchableOpacity
            onPress={() => props.navigation.navigate('SignUp')}>
            <Text style={styles.createAccountButton}>Create an Account</Text>
@@ -65,8 +69,8 @@ const Login = props => {
              style={styles.loginButton}
            >
              <Text style={styles.loginButtonText}>Login</Text>
-             {/* <MyCookBook props={toke}/> */}
-             <AxiosWithAuth />
+             {/* <MyCookBook props={toke} style={{display: 'none'}}/> */}
+             {/* <AxiosWithAuth token={toke}/> */}
            </TouchableOpacity>
            
         </View>

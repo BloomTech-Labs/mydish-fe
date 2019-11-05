@@ -18,8 +18,8 @@ const MyCookBook = (props) =>{
     const [savedRecipes,  setSavedRecipes] = useState([]);
 
   
-    if(props.props!=null){
-            console.log("true", props.props)
+ useEffect(()=> {
+            //console.log("true", props.props)
             AxiosWithAuth()
             .get(`https://recipeshare-development.herokuapp.com/cookbook`)
             .then(res => {
@@ -28,8 +28,7 @@ const MyCookBook = (props) =>{
              
             })
             .catch(err => console.log(err));
-    }
-
+}, [])
     
     
     // useEffect(()=>{
