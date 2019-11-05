@@ -33,7 +33,7 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
                     multiline={true}
                     onChangeText ={(event) => handleChange(event)}
                     onBlur={handleBlur}
-                    value={step}
+                    value={step.text}
                 />
             </View>
 

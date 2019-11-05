@@ -51,10 +51,10 @@ export default function CreateRecipeForm(props) {
     console.log('count in <CreateRecipeForm/>', ingCount);
 
       if (!ingCount) {  //if no added ingredients, render only a single ingredient
-        IngredientComponents.push(<Ingredient recipe={recipe} setRecipe={setRecipe} ingList={ingList} setIngList={setIngList} setCount={setIngCount} count={ingCount}/>);
+        IngredientComponents.push(<Ingredient key={0} recipe={recipe} setRecipe={setRecipe} ingList={ingList} setIngList={setIngList} setCount={setIngCount} count={ingCount}/>);
       } else {
         for (let i=0; i<ingCount; i++) {
-          IngredientComponents.push(<Ingredient recipe={recipe} setRecipe={setRecipe} ingList={ingList} setIngList={setIngList} setCount={setIngCount} count={ingCount}/>);
+          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe} ingList={ingList} setIngList={setIngList} setCount={setIngCount} count={ingCount}/>);
         }
       }
     return IngredientComponents;
@@ -65,10 +65,10 @@ export default function CreateRecipeForm(props) {
     const InstructionComponents = [];
 
     if (!stepCount) {
-      InstructionComponents.push(<Instruction recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
+      InstructionComponents.push(<Instruction key={0} recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
     } else {
       for (let i=0; i<stepCount; i++) {
-        InstructionComponents.push(<Instruction recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
+        InstructionComponents.push(<Instruction key={i+1}recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
       }
     }
     // console.log(InstructionComponents);
@@ -174,30 +174,30 @@ export default function CreateRecipeForm(props) {
               style={styles.totalTimeContainer}
               placeholder='Enter Total Cook Time in minutes'
               onChangeText={event => setRecipe({ ...recipe, minutes: event })}
-              value={recipe.minutes} 
+              value={JSON.stringify(recipe.minutes)} 
             />
           </View>
 
          {/* ********************<CourseTypes/>*************** */}
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16 }}>Course Type</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {courses.map(tag => <TagButtons tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+            {courses.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
           {/* ********************<Cuisines/>*************** */}
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16  }}>Cuisine</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {cuisines.map(tag => <TagButtons tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+            {cuisines.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16  }}>Diet</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {diet.map(tag => <TagButtons tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+            {diet.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16  }}>Difficulty</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {difficulty.map(tag => <TagButtons tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+            {difficulty.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
           {/* ============= Total Time and Servings View =============== */}

@@ -41,12 +41,12 @@ const SignUp = props => {
           </TouchableOpacity>
           <Text style={styles.title}>RecipeShare</Text>
           <Text style={styles.createAccountTitle}>Create Account</Text>
-          <Text style={styles.emailText}>Email</Text>
+          <Text style={styles.emailText}>Username</Text>
           <TextInput
            style={styles.inputFeilds}
            value={signUp.username}
            onChangeText={event => SetSignUp({...signUp, username:event})}/>
-           {err !=null && <Text>{err}</Text>}
+           {err !=null && <Text style={{marginLeft:150, color:"red"}}>Username already exists</Text>}
            <Text style={styles.passwordText}>Password</Text>
           <TextInput
            style={styles.inputFeilds}

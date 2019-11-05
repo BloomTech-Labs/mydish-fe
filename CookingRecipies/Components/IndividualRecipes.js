@@ -90,7 +90,7 @@ let IndividualRecipes = props => {
          <View style={styles.tagBox}>
         {store.categories && store.categories.map( cat => {
             return(
-                <View>
+                <View key={cat}>
                     <Text style={styles.individualTags}>{capitalize(cat)}</Text>
                 </View>
             )
@@ -129,11 +129,11 @@ let IndividualRecipes = props => {
         </TouchableOpacity>
         </View >
         <View style={styles.details}>
-      {store.ingredients && store.ingredients.map( ing => { return <IndividualRecipeIngredients ing={ing} color={color}/>})}
+      {store.ingredients && store.ingredients.map( ing => { return <IndividualRecipeIngredients ing={ing} key={ing.name}color={color}/>})}
          
          {store.steps && store.steps.map( (step, index) => {
             return(
-                <View style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
+                <View key={step.ordinal} style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
 
                     <Text style={styles.stepText}>{setOrdinalToOne(step.ordinal).split('.')[0]}. {step.body}</Text>
                 </View>
