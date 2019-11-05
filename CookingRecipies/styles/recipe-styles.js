@@ -26,7 +26,7 @@ module.exports = StyleSheet.create({
     }, 
     prep : {
       alignSelf: 'flex-end',
-      fontSize: 9,
-      marginLeft: 10,
+      fontSize: 12,
+      marginLeft: 5
     }
   });

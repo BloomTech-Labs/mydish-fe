@@ -22,12 +22,12 @@ const RecipeList = (props) => {
         Height = !Height;
         return Height ? 200 : 300;
     }
-    const adjust = () => {
+    const adjustHeight = () => {
         
         if(Height === 0){  
             console.log("height 0", Height)
             Height= Height +1
-            return 300
+            return 275
         }if(Height===1){
             console.log("height 1", Height)
             Height = Height +1
@@ -39,10 +39,24 @@ const RecipeList = (props) => {
         }
     }
 
+    const adjustMargin = () =>{
+        if(Height === 0){  
+            Height= Height +1
+            return 10
+        }if(Height===1){
+            Height = Height +1
+            return 15
+        }if(Height===2){
+            Height = Height -2
+            return 25
+        }
+
+    }
+
     return (
         <ScrollView>
             <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                 {recipes.map( recp =>  <Recipe recipe={recp} height={adjust()}/>)}
+                 {recipes.map( recp =>  <Recipe recipe={recp} height={adjustHeight()} marg={adjustMargin()}/>)}
             </View>
          </ScrollView>
     )  

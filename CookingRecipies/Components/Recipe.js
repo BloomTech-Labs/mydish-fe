@@ -84,7 +84,7 @@ const Recipe = (props) => {
         const RecipeCard = styled.View`
         justifyContent: flex-start;
         width: 130;
-        marginLeft: 20;
+        marginLeft: 35;
         marginRight: 13;
         marginBottom: 150;
         `;
@@ -116,7 +116,7 @@ const Recipe = (props) => {
     return (
         <>
             {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
-            <RecipeCard style={{height: props.height}}>
+            <RecipeCard style={{height: props.height, marginTop: props.marg}}>
                <TouchableOpacity  
                onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
                >
