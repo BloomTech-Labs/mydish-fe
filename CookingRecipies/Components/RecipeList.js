@@ -43,7 +43,7 @@ const RecipeList = (props) => {
         if(LeftHeight === 0){  
             console.log("LeftHeight 0", LeftHeight)
             LeftHeight= LeftHeight +1
-            return 200
+            return 220
         }if(LeftHeight===1){
             console.log("LeftHeight 1", LeftHeight)
             LeftHeight = LeftHeight -1
@@ -59,7 +59,7 @@ const RecipeList = (props) => {
         }if(RightHeight===1){
             console.log("RightHeight 1", RightHeight)
             RightHeight = RightHeight -1
-            return 200
+            return 220
         }
     }
     const adjustImageHeight = () => {  

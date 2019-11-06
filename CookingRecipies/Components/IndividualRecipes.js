@@ -69,12 +69,12 @@ let IndividualRecipes = props => {
         if(store.img==null){
             return(
                 <Image source={{uri: Cereal}}
-                style={{width: 420, height: 400}} />
+                style={{width: 375, height: 345}} />
             )
         }else{
             return(
                 <Image source={{uri: store.img}}
-                style={{width: 420, height: 400}} />
+                style={{width:375, height: 345}} />
             )
         }
     }
