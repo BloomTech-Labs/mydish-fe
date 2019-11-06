@@ -6,6 +6,7 @@ import Instruction from './Instruction';
 import TagButtons from './tagButtons.js';
 import add from '../assets/add_circle_32px.png';;
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 import AxiosWithAuth from './AxiosWithAuth.js';
 
 
@@ -101,15 +102,28 @@ export default function CreateRecipeForm(props) {
         await setStepCount(oldCount => oldCount + 1);
     }
 
-  const postRecipe = () => {
+  const postRecipe = async () => {
      
       console.log('recipe inside submit of <CreateREcipeForm/> ', recipe);
-      
-     AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
-     .then(res => {console.log('response from post request',res); setRecipe(initialFormState)})
-     .catch(err => console.log(err));
 
-    
+      // console.log('axioswithauth', AxiosWithAuth());
+      const userToken = await AsyncStorage.getItem('userToken');
+
+      try {
+        const res  = await axios.post('https://recipeshare-development.herokuapp.com/recipes', recipe, {
+          headers: {
+            Authorization: userToken
+          }
+        })
+        console.log(res);
+      } 
+      catch (error) {
+        console.log(error);
+      }
+
+    //  AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
+    //  .then(res => {console.log('response from post request',res); setRecipe(initialFormState)})
+    //  .catch(err => console.log(err));
   }
         
   return (                                                   
