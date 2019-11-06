@@ -5,42 +5,53 @@ import {ScrollView, View} from 'react-native';
 
 const RecipeList = (props) => {
     let imageHeight = 0;
-    let cardHeight = 0;
-    let Margin =3
+    let LeftHeight = 0;
+    let RightHeight= 0;
+    let Margin =0
 
     const [recipes, setRecipes] = React.useState([]);
 
     useEffect(() =>{
         setRecipes(props.props)
+
+        console.log("HELLLOOOOO",Math.floor(recipes.length/2)+1)
     },[]);
     // const imgSizer = () => {
     //     const width = Math.floor(100 + Math.random()*100);
     //     console.log(width);
     //     return width;
     // }
+    const wow = (Math.floor(recipes.length/2))
+    
 
+    // console.log("WOW", recipes.slice(0, wow))
+    // console.log("NOW", recipes.slice(wow, recipes.length+1))
     
     const adjust1 = () => {
         Height = !Height;
         return Height ? 200 : 300;
     }
-    const adjustCardHeight = () => {
+    const LeftHeightAdjustment = () => {
         
-        if(cardHeight === 0){  
-            console.log("cardHeight 0", cardHeight)
-            cardHeight= cardHeight +1
-            return 240
-        }if(cardHeight===1){
-            console.log("cardHeight 1", cardHeight)
-            cardHeight = cardHeight +1
+        if(LeftHeight === 0){  
+            console.log("LeftHeight 0", LeftHeight)
+            LeftHeight= LeftHeight +1
             return 200
-        }if(cardHeight===2){
-            console.log("cardHeight 2", cardHeight)
-            cardHeight = cardHeight -2
-            return 240
-        }if(cardHeight===3){
-            console.log("cardHeight 2", cardHeight)
-            cardHeight = cardHeight -3
+        }if(LeftHeight===1){
+            console.log("LeftHeight 1", LeftHeight)
+            LeftHeight = LeftHeight -1
+            return 230
+        }
+    }
+    const RightHeightAdjustment = () => {
+        
+        if(RightHeight === 0){  
+            console.log("RightHeight 0", RightHeight)
+            RightHeight= RightHeight +1
+            return 230
+        }if(RightHeight===1){
+            console.log("RightHeight 1", RightHeight)
+            RightHeight = RightHeight -1
             return 200
         }
     }
@@ -48,19 +59,11 @@ const RecipeList = (props) => {
         if(imageHeight === 0){  
             console.log("imageHeight 0", imageHeight)
             imageHeight= imageHeight +1
-            return 250
+            return 150
         }if(imageHeight===1){
             console.log("imageHeight 1", imageHeight)
-            imageHeight = imageHeight +1
-            return 225
-        }if(imageHeight===2){
-            console.log("imageHeight 2", imageHeight)
-            imageHeight = imageHeight -2
-            return 225
-        }if(imageHeight===3){
-            console.log("imageHeight 2", imageHeight)
-            imageHeight = imageHeight -3
-            return 275
+            imageHeight = imageHeight -1
+            return 185
         }
     }
 
@@ -68,29 +71,26 @@ const RecipeList = (props) => {
         if(Margin === 0){ 
             console.log("Margin 0", Margin)
             Margin= Margin +1
-            return 85
+            return 0
         }if(Margin===1){
             console.log("Margin 1", Margin)
-            Margin= Margin +1
-            return 30
-        }if(Margin===2){
-            console.log("Margin 2", Margin)
-            Margin= Margin +1
-            return 15
-        }if(Margin===3){
-            console.log("Margin 3", Margin)
-            Margin= Margin -3
-            return 50
+            Margin= Margin -1
+            return 0
         }
 
     }
-    console.log("recipes", recipes)
+    console.log("recipes", recipes.slice(0, wow))
 
     return (
         <ScrollView>
-            <View style={{flexDirection: 'row', flexWrap: 'wrap', flex: 1}}>
+            <View style={{flexDirection: 'row'}}>
                 {/* {recipes.length==1 && <Recipe key={props.title} recipe={recipes} height={adjustHeight()} marg={adjustMargin()}/>} */}
-                 {recipes.map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={adjustCardHeight()}/>)}
+                <View style={{flexDirection: 'column'}}>
+                 {recipes.slice(0, wow).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={LeftHeightAdjustment()}/>)}
+                </View>
+                 <View style={{flexDirection: 'column'}}>
+                 {recipes.slice(wow, recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={RightHeightAdjustment()}/>)}
+                </View>
             </View>
          </ScrollView>
     )  

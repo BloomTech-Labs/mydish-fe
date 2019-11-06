@@ -24,8 +24,6 @@ const Recipe = (props) => {
     const [num, setNum]= useState(1)
     let [like, setLike] = React.useState(false);
 
-    
-
     const im = ()=>{
         if(props.recipe.img==null){
             return(
@@ -82,8 +80,6 @@ const Recipe = (props) => {
     //     console.log('props in recipe', img);
     // },[]);
         const RecipeCard = styled.View`
-        marginLeft: 20;
-        position: relative;
         `;
 
     const UserCard = styled.View`
@@ -113,7 +109,7 @@ const Recipe = (props) => {
     return (
         <>
             {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
-            <RecipeCard style={{height: props.cardHeight, marginBottom: props.marg}}>
+            <RecipeCard style={{height: props.cardHeight, marginLeft:props.marg}}>
                <TouchableOpacity  
                onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
                >
