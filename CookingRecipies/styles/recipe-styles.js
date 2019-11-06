@@ -7,13 +7,13 @@ module.exports = StyleSheet.create({
   // },
     text : {
       marginTop: 5, 
-      fontSize: 15, 
+      fontSize: 13, 
       fontWeight: 'bold', 
       textAlign: 'left',
       width: 300
     },
     username : {
-      fontSize : 12
+      fontSize : 10
     },
     usercardTxt : {
       // flex: 1, 
@@ -25,7 +25,7 @@ module.exports = StyleSheet.create({
     }, 
     prep : {
       alignSelf: 'flex-end',
-      fontSize: 12,
+      fontSize: 10,
       marginLeft: 5
     }
   });
