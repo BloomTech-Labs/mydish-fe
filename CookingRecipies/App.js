@@ -1,6 +1,5 @@
 import React from 'react';
-
-import {createAppContainer, createSwitchNavigator } from 'react-navigation';
+// import {createAppContainer, createSwitchNavigator } from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from "react-navigation-stack";
 import AsyncStorage from '@react-native-community/async-storage'
@@ -180,7 +179,7 @@ const AppContainer = createAppContainer(
   }) 
   );
 
-export default App = () => {
+export const App = () => {
   return (
     <AppContainer/>
   )

@@ -16,17 +16,13 @@ import {
 const HomePage = () => {
   return (
       <SafeAreaView>
-
         <Search/>
-      
       </SafeAreaView>
-
-
   );
 };
 
 HomePage.navigationOptions = {
-    title: 'Home',
+    title: 'Home'
     };
 
 export default HomePage;
