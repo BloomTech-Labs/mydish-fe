@@ -4,8 +4,7 @@ import styles from '../styles/createRecipeStyles.js'
 import Ingredient from './Ingredient';
 import Instruction from './Instruction';
 import TagButtons from './tagButtons.js';
-import add from '../assets/add_circle_32px.png';;
-import axios from 'axios';
+import add from '../assets/add_circle_32px.png';
 import AxiosWithAuth from './AxiosWithAuth.js';
 
 
@@ -114,8 +113,8 @@ export default function CreateRecipeForm(props) {
     <ScrollView>
       <View style={styles.crForm}>
 
-          <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'flex-end', marginTop: 30, color: ' #3BA405', fontSize: 14}}>
-            <Text>Done</Text>
+          <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'flex-end', marginTop: 30, fontSize: 14}}>
+            <Text style={{color: "#3BA405"}}>Done</Text>
           </TouchableOpacity>
 
            {/* <Button style = {{alignItems: 'flex-end'}} title='Done' onPress ={postRecipe}/> */}
@@ -173,13 +172,13 @@ export default function CreateRecipeForm(props) {
             <TextInput
               style={styles.totalTimeContainer}
               placeholder='Enter Total Cook Time in minutes'
-              onChangeText={event => setRecipe({ ...recipe, minutes: event })}
+              onChangeText={(event) => setRecipe({ ...recipe, minutes: event })}
               value={recipe.minutes} 
             />
           </View>
 
          {/* ********************<CourseTypes/>*************** */}
-          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16 }}>Course Type</Text>
+          <Text style={{ marginTop: 16, fontSize: 16, color: "#363838", marginBottom: 16 }}>Course Type</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
             {courses.map(tag => <TagButtons tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
@@ -261,7 +260,7 @@ export default function CreateRecipeForm(props) {
         </View>
 
 
-          <Button title='Submit Recipe' onPress ={postRecipe}/>
+          {/* <Button title='Submit Recipe' onPress ={postRecipe}/> */}
 
         </View>
       </View>

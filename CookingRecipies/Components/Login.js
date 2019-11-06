@@ -27,6 +27,8 @@ const Login = props => {
     console.log(token)
   };
 
+ 
+
   const onPress = () => {
     
   console.log("axios call goes here")
@@ -47,7 +49,7 @@ const Login = props => {
           <Text style={styles.title}>RecipeShare</Text>
           <Text style={styles.explanationText}>Sign in or create a new account to save and edit your favorite recipes.</Text>
           <Text style={styles.loginText}>Log In</Text>
-          <Text style={styles.emailText}>Email</Text>
+          <Text style={styles.emailText}>Username</Text>
           <TextInput
            style={styles.inputFeilds}
            name="username"

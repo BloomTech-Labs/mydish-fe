@@ -23,6 +23,7 @@ const SignUp = props => {
       props.navigation.navigate('Auth');
     };
     
+    
     const onPress = () => {
      console.log("axios call goes here")
       axios.post('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
@@ -40,7 +41,7 @@ const SignUp = props => {
           </TouchableOpacity>
           <Text style={styles.title}>RecipeShare</Text>
           <Text style={styles.createAccountTitle}>Create Account</Text>
-          <Text style={styles.emailText}>Email</Text>
+          <Text style={styles.emailText}>Username</Text>
           <TextInput
            style={styles.inputFeilds}
            value={signUp.username}
