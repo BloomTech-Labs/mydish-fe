@@ -55,7 +55,7 @@ const Search = () => {
         <View>
 				 <TextInput
 					style={styles.textInput}
-					placeholder="What Dish are you looking for?"
+					placeholder="What dish are you looking for?"
 					placeholderTextColor="#D3D3D3"
 					value={dish}
                     onChangeText={dish => setDish(dish)}
