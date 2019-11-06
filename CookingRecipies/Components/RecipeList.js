@@ -95,7 +95,7 @@ const RecipeList = (props) => {
                 <View style={{flexDirection: 'column', marginRight: -140, marginLeft: 12}}>
                  {recipes.slice(0, wow()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={LeftHeightAdjustment()}/>)}
                 </View>
-                 <View style={{flexDirection: 'column', marginTop: 5}}>
+                 <View style={{flexDirection: 'column'}}>
                  {recipes.slice(wow(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={RightHeightAdjustment()}/>)}
                 </View>
             </View>

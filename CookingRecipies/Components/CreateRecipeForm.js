@@ -124,6 +124,8 @@ export default function CreateRecipeForm(props) {
         console.log(error);
       }
 
+      props.navigation.navigate('Home')
+
     //  AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
     //  .then(res => {console.log('response from post request',res); setRecipe(initialFormState)})
     //  .catch(err => console.log(err));
