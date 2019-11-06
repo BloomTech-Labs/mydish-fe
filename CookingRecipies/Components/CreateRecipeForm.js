@@ -184,12 +184,13 @@ export default function CreateRecipeForm(props) {
           <View style={{ flexDirection: "column", justifyContent: 'space-between' }}>
 
     
-          <Text style={styles.textInputStyles}>Total Cook Time</Text>
+          <Text style={styles.textInputStyles}>Cook Time (minutes)</Text>
 
             <TextInput
               style={styles.totalTimeContainer}
-              placeholder='Enter Total Cook Time in minutes'
-              onChangeText={event => setRecipe({ ...recipe, minutes: event })}
+              placeholder='Cook Time (minutes only)'
+              keyboardType={'numeric'}
+              onChangeText={event => setRecipe({ ...recipe, minutes: Number(event) })}
               value={recipe.minutes} 
             />
           </View>
