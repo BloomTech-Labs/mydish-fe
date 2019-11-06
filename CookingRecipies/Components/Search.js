@@ -8,36 +8,18 @@ const Search = () => {
     let [dish, setDish] = useState('')
     let [recipe, setRecipes] = useState([])
 
+    useEffect(() =>{
+        axios
+        .get(
+          `https://recipeshare-development.herokuapp.com/recipes/all`
+        )
+        .then(res => {
+          setRecipes(res.data);
+        })
+        .catch(err => console.log(err));
 
+    },[]);
     
-<<<<<<< HEAD
-    let grabRecipes = (e) => {
-        setDish(e)
-        useEffect(() =>{
-            if(dish.length!==0){
-                axios
-                .get(
-                  `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
-                )
-                .then(res => {
-                  setRecipes([]);
-                  setRecipes(res.data);
-                  setDish('')
-                  
-                })
-                .catch(err => console.log(err));
-            };
-            axios
-            .get(
-              `https://recipeshare-development.herokuapp.com/recipes/all`
-            )
-            .then(res => {
-              setRecipes(res.data);
-            })
-            .catch(err => console.log(err));
-    
-        },[]);
-=======
     let grabRecipes = async (d) => {
         // e.preventDefault();
         await setDish(d)
@@ -66,7 +48,6 @@ const Search = () => {
         //     })
         //     .catch(err => console.log(err));
         // }
->>>>>>> b5dea9df64012a47ac124408e710f8a63720f844
  
     };
 
@@ -79,11 +60,7 @@ const Search = () => {
 					placeholderTextColor="#D3D3D3"
 					value={dish}
                     onChangeText={dish => grabRecipes(dish)}
-<<<<<<< HEAD
-                    // onSubmitEditing={grabRecipes}
-=======
                     //onSubmitEditing={grabRecipes}
->>>>>>> b5dea9df64012a47ac124408e710f8a63720f844
 				/>
                  {/* <TouchableOpacity style={styles.button}>
                     <Button  
