@@ -1,6 +1,8 @@
 import React from 'react';
-import {TextInput, Button, View, TouchableOpacity, Image, Text} from 'react-native';
+import {TextInput, Button, View, TouchableOpacity, Image, Text, Picker} from 'react-native';
 import styles from '../styles/createRecipeStyles';
+import ScrollPicker from 'react-native-wheel-scroll-picker';
+
 
 const Ingredient = (props) => {
 
@@ -9,11 +11,20 @@ const Ingredient = (props) => {
     let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
     const [toEdits, setToEdits] = React.useState([]);
     // const ingList = [];
+    const [unit, setUnit] = React.useState('g');
+
 
     const handleChange = async (key,value) => {
+        console.log('handleChange triggered in <Ingredient>')
         await setIngredient({...ingredient, [key] : value});
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     }
+
+    const handlePicker = async (u) => {
+        console.log('handlepicker triggered', unit);
+        await setUnits(u)
+    }
+
 
 
     const handleBlur = async (event) => {
@@ -67,9 +78,9 @@ const Ingredient = (props) => {
         <View>
             <View style = {{ flexDirection: 'row', width: 350, marginBottom: 20}}>
                 <TextInput
-                    style={{ height: 40, width: 30, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', fontSize: 15 }}
-                    placeholder="#"
-                    // onChangeText={event => addIng({...ingredient, quantity: event}) }
+                    style={{ height: 40, width: 60, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4 }}
+                    placeholder="Amount"
+                    keyboardType={'numeric'}
                     onChangeText ={event => handleChange('quantity', event)}
                     onBlur={handleBlur}
                     value={ingredient.quantity}
@@ -78,11 +89,31 @@ const Ingredient = (props) => {
                 <TextInput
                     style={{ height: 40, width: 60, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 15  }}
                     placeholder="Unit"
-                    // onChangeText ={event => addIng({...ingredient, unit: event})}
                     onChangeText ={event => handleChange('unit', event)}
                     onBlur={handleBlur}
                     value={ingredient.unit}
                 />
+
+                {/* <Picker 
+                    selectedValue={unit}
+                    style={{width: 100, height: 50}}
+                    onValueChange={ (unit,i) => handlePicker(unit)}
+                >
+                    <Picker.Item label="grams" value="g" />
+                    <Picker.Item label="cups" value="cups"/>
+                    <Picker.Item label="ounces" value="oz"/>
+                </Picker> */}
+
+                {/* <ScrollPicker 
+                    dataSource={['g','oz','cups']}
+                    selectedIndex={0}
+                    renderItem={()=>{}}
+                    onValueChange={ unit => handleChange('unit', unit)}
+                    activeItemColor={'green'}
+                    itemColor={'black'}
+                /> */}
+
+
 
                 <TextInput
                     style={{ height: 40, width: 230, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 15  }}

@@ -16,30 +16,43 @@ import {temp} from './Login.js'
 //     }
 //     return
 //   }
-const AxiosWithAuth = () => {
+const AxiosWithAuth = async () => {
 
-    // try {
-    //     const retrievedItem =  await AsyncStorage.getItem('userToken');
-    //     const item = JSON.parse(retrievedItem);
-    //     console.log('item', item)
-    //     return item;
-    // } catch (error) {
-    //     console.log(error.message);
-    // }
-    // //return
-    // console.log('item from axios with auth', item)
-    //console.log('trying to debug axios with auth', boo)
-   
-        console.log('axioswithauth', temp)
+    const userToken =  await AsyncStorage.getItem('userToken');
+        // const item = JSON.parse(retrievedItem);
         return axios.create({
             headers: {
-                Authorization: temp[temp.length-1]
+                Authorization: userToken
             }
-        });
+        })
+    }
+
+
+    // try {
+    //     const userToken =  await AsyncStorage.getItem('userToken');
+    //     // const item = JSON.parse(retrievedItem);
+    //     return axios.create({
+    //         headers: {
+    //             Authorization: userToken
+    //         }
+    //     })
+    // } catch (error) {
+    //     console.log('error.message', error.message);
+    //     return error.message;
+
+    //return
+    // console.log('item from axios with auth', item)
+    // console.log('trying to debug axios with auth', boo)
+   
+    //     console.log('axioswithauth', temp)
+    //     return axios.create({
+    //         headers: {
+    //             Authorization: temp[temp.length-1]
+    //         }
+    //     });
         
 
     //     return (<View></View>)
 
-};
 
 export default AxiosWithAuth;

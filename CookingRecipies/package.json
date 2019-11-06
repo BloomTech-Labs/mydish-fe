@@ -7,6 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "watch": "jest --watchAl",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -32,12 +34,17 @@
     "@babel/core": "^7.6.4",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
+    "enzyme-adapter-react-16": "^1.15.1",
     "eslint": "^6.5.1",
     "jest": "^24.9.0",
+    "jest-environment-enzyme": "^7.1.2",
+    "jest-enzyme": "^7.1.2",
     "metro-react-native-babel-preset": "^0.56.0",
+    "react-native-testing-library": "^1.11.1",
     "react-test-renderer": "16.9.0"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": ["./jestSetupFile.js"]
   }
 }

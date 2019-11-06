@@ -4,8 +4,13 @@ import styles from '../styles/createRecipeStyles.js'
 import Ingredient from './Ingredient';
 import Instruction from './Instruction';
 import TagButtons from './tagButtons.js';
-import add from '../assets/add_circle_32px.png';
+import add from '../assets/add_circle_32px.png';;
+import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 import AxiosWithAuth from './AxiosWithAuth.js';
+//import done from /assets/done_button.png;
+//import done from '../assets/done_button.png';
+import done from '../assets/done_button.png';
 
 
 export default function CreateRecipeForm(props) {
@@ -103,12 +108,25 @@ export default function CreateRecipeForm(props) {
   const postRecipe = async () => {
      
       console.log('recipe inside submit of <CreateREcipeForm/> ', recipe);
-      
-     await AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
-     .then(res => {console.log('response from post request',res); setRecipe(initialFormState)})
-     .catch(err => console.log(err));
 
-    props.navigation.navigate('Home')
+      // console.log('axioswithauth', AxiosWithAuth());
+      const userToken = await AsyncStorage.getItem('userToken');
+
+      try {
+        const res  = await axios.post('https://recipeshare-development.herokuapp.com/recipes', recipe, {
+          headers: {
+            Authorization: userToken
+          }
+        })
+        console.log(res);
+      } 
+      catch (error) {
+        console.log(error);
+      }
+
+    //  AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
+    //  .then(res => {console.log('response from post request',res); setRecipe(initialFormState)})
+    //  .catch(err => console.log(err));
   }
         
   return (  
@@ -169,14 +187,22 @@ export default function CreateRecipeForm(props) {
           <View style={{ flexDirection: "column", justifyContent: 'space-between' }}>
 
     
-          <Text style={styles.textInputStyles}>Total Cook Time</Text>
+          <Text style={styles.textInputStyles}>Cook Time (minutes)</Text>
 
             <TextInput
               style={styles.totalTimeContainer}
-              placeholder='Enter Total Cook Time in minutes'
-              onChangeText={(event) => setRecipe({ ...recipe, minutes: event })}
+              placeholder='Cook Time (minutes only)'
+              keyboardType={'numeric'}
+              onChangeText={event => setRecipe({ ...recipe, minutes: Number(event) })}
               value={recipe.minutes} 
             />
+            {/* <NumTextInput
+              style={styles.totalTimeContainer}
+              placeholder="Cook Time (minutes only)"
+              onChangeText={text => setRecipe({...recipe, minutes: text})}
+              value={recipe.minutes.toString()}
+            /> */}
+
           </View>
 
          {/* ********************<CourseTypes/>*************** */}
@@ -263,7 +289,7 @@ export default function CreateRecipeForm(props) {
         </View>
 
         <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'center', marginTop: 30}}>
-            <Text style={{color: '#3BA405'}}>Done</Text>
+            <Image source={done} style = {{width: 136, height: 40, marginLeft: 215}                  }/> 
           </TouchableOpacity>
 
 {/* 

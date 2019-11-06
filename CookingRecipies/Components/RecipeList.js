@@ -43,7 +43,7 @@ const RecipeList = (props) => {
         if(LeftHeight === 0){  
             console.log("LeftHeight 0", LeftHeight)
             LeftHeight= LeftHeight +1
-            return 220
+            return 200
         }if(LeftHeight===1){
             console.log("LeftHeight 1", LeftHeight)
             LeftHeight = LeftHeight -1
@@ -59,7 +59,7 @@ const RecipeList = (props) => {
         }if(RightHeight===1){
             console.log("RightHeight 1", RightHeight)
             RightHeight = RightHeight -1
-            return 220
+            return 200
         }
     }
     const adjustImageHeight = () => {  
@@ -95,7 +95,7 @@ const RecipeList = (props) => {
                 <View style={{flexDirection: 'column', marginRight: -140, marginLeft: 12}}>
                  {recipes.slice(0, wow()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={LeftHeightAdjustment()}/>)}
                 </View>
-                 <View style={{flexDirection: 'column', marginTop: 5}}>
+                 <View style={{flexDirection: 'column'}}>
                  {recipes.slice(wow(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={RightHeightAdjustment()}/>)}
                 </View>
             </View>
