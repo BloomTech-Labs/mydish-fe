@@ -13,19 +13,18 @@ module.exports = StyleSheet.create({
       width: 300
     },
     username : {
-      fontSize : 10
+      fontSize : 11
     },
     usercardTxt : {
       // flex: 1, 
       flexDirection: 'row', 
       justifyContent: 'space-between',
+      width: 160,
       // marginLeft : 5
       // borderTopWidth: 5, 
       // borderBottomWidth: 5
     }, 
     prep : {
-      alignSelf: 'flex-end',
-      fontSize: 10,
-      marginLeft: 5
+      fontSize: 11,
     }
   });

@@ -84,9 +84,7 @@ const Recipe = (props) => {
         `;
 
     const UserCard = styled.View`
-      flexDirection : row;
 
-      justifyContent : flex-start;
     `;
 
     const Like = styled.View`
