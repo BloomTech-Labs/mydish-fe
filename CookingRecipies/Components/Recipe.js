@@ -24,6 +24,8 @@ const Recipe = (props) => {
     const [num, setNum]= useState(1)
     let [like, setLike] = React.useState(false);
 
+    
+
     const im = ()=>{
         if(props.recipe.img==null){
             return(

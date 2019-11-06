@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import IndividualRecipeIngredients from './individualRecipeIngredients';
 //import individualRecipeIngredients from "./individualRecipeIngredients.js";
 
+var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"
 
 let IndividualRecipes = props => {
     const [store, setStored] = useState([])
@@ -67,13 +68,8 @@ let IndividualRecipes = props => {
       const im = ()=>{
         if(store.img==null){
             return(
-                <Image 
-                
-                source={{uri : Cereal}}
-                style={{width: 160, height: props.height, borderRadius: 20, paddingRight: 20 }}
-                resieMode="contain"
-                
-            />
+                <Image source={{uri: Cereal}}
+                style={{width: 400, height: 400, marginLeft: 7}} />
             )
         }else{
             return(
@@ -82,13 +78,12 @@ let IndividualRecipes = props => {
             )
         }
     }
-
-    console.log(store)
       
     
     return (
      <ScrollView>
-                {im()}
+            {im()}
+            { console.log('img inside scrollview',store.img)}
             <Text style={styles.title}>{store.title}</Text>
             <View style={styles.time}>
                 <View>
@@ -106,7 +101,7 @@ let IndividualRecipes = props => {
          <View style={styles.tagBox}>
         {store.categories && store.categories.map( cat => {
             return(
-                <View>
+                <View key={cat}>
                     <Text style={styles.individualTags}>{capitalize(cat)}</Text>
                 </View>
             )
@@ -145,11 +140,11 @@ let IndividualRecipes = props => {
         </TouchableOpacity>
         </View >
         <View style={styles.details}>
-      {store.ingredients && store.ingredients.map( ing => { return <IndividualRecipeIngredients ing={ing} color={color}/>})}
+      {store.ingredients && store.ingredients.map( ing => { return <IndividualRecipeIngredients ing={ing} key={ing.name}color={color}/>})}
          
          {store.steps && store.steps.map( (step, index) => {
             return(
-                <View style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
+                <View key={step.ordinal} style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
 
                     <Text style={styles.stepText}>{setOrdinalToOne(step.ordinal).split('.')[0]}. {step.body}</Text>
                 </View>

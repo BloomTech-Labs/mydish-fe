@@ -15,6 +15,7 @@ import styles from '../styles/signUpStyles.js'
 
 const SignUp = props => {
     const [signUp, SetSignUp] = useState({username: '', password: ''})
+    const [err, setErr] = useState()
 
     console.log(signUp)
 
@@ -28,7 +29,7 @@ const SignUp = props => {
      console.log("axios call goes here")
       axios.post('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
       .then(res => console.log('response from sign up axios post', res))
-      .catch(err => console.log('error from sign up axios post',err))
+      .catch(err => setErr(err))
     }
     
       return (
@@ -46,6 +47,7 @@ const SignUp = props => {
            style={styles.inputFeilds}
            value={signUp.username}
            onChangeText={event => SetSignUp({...signUp, username:event})}/>
+           {err !=null && <Text style={{marginLeft:150, color:"red"}}>Username already exists</Text>}
            <Text style={styles.passwordText}>Password</Text>
           <TextInput
            style={styles.inputFeilds}

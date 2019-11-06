@@ -35,7 +35,7 @@ const Login = props => {
     axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)
     .then(res => {signInAsync(res.data.token),  temp.push(res.data.token)})
       // console.log('response from login axios post', res.data.token)
-    .catch(err => console.log('error from login axios post',err))
+    .catch(err => setTok(err))
     } 
 
     //console.log("tiktok",toke)
@@ -62,6 +62,7 @@ const Login = props => {
            value={login.password}
            onChangeText={event => SetLogin({...login, password:event})}
            secureTextEntry={true}/>
+           {toke!=null && <Text style={{color:"red", marginLeft:100}}>Incorrect Username or Password</Text>}
            <TouchableOpacity
            onPress={() => props.navigation.navigate('SignUp')}>
            <Text style={styles.createAccountButton}>Create an Account</Text>
