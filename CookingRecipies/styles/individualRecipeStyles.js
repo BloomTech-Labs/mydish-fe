@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color: '#363838',
         fontWeight: 'bold', 
-       // marginTop: 8,
+        marginTop: 5,
         marginBottom: 12,
         marginLeft: 14,
         //textAlign: 'center'
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#363838',
         fontWeight: '500',
-        marginLeft: 17,
+        marginLeft: 13,
         marginBottom: 8,
         // borderTopWidth: 0.3,
         // borderTopColor: '#6B6F70',
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
       marginTop: 10,
       marginBottom: 20,
       flexDirection: 'row-reverse',
-      width: 343,
+      width: 400,
       justifyContent: 'space-around',
       paddingRight: 10,
     },
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     },
     stepText: {
         color: '#1E1F20' ,
-        fontSize: 14,
+        fontSize: 16,
     }, 
     stepTextView: {
       backgroundColor: '#F4F8FA',
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
       paddingBottom: 9,
       marginTop: 10,
       marginBottom: 20,
-      width: 343,
+      width: 400,
     },
     details:{
         alignItems: 'center'

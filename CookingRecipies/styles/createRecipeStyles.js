@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         marginBottom: 8,
         marginRight: 5,
+        margin: 5,
         backgroundColor: '#8FCC70'
     },
     tagButtonPressed: {
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         marginBottom: 8,
         marginRight: 5,
+        margin: 5,
         backgroundColor: '#3BA405',
     },
     fontColorWhite: {
@@ -47,6 +49,7 @@ const styles = StyleSheet.create({
     textInputStyles: {
       fontSize: 14,
         color: '#363838',
+        marginBottom: 10
     },
     totalTimeContainer: {
       width: 350,

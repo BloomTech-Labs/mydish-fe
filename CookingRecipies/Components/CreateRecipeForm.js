@@ -39,7 +39,7 @@ export default function CreateRecipeForm(props) {
   let [steps, setSteps] = useState([0]);
   const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']);
   const [cuisines,] = useState(['American','Italian','Thai','Chinese','Mexican','Japanese']);
-  const [diet,] = useState(['Meatless','Nut-free','Vegan','Gluten-Free','Vegitarian','Sugar-Free']);
+  const [diet,] = useState(['Meatless','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
 
 
@@ -100,29 +100,29 @@ export default function CreateRecipeForm(props) {
         await setStepCount(oldCount => oldCount + 1);
     }
 
-  const postRecipe = () => {
+  const postRecipe = async () => {
      
       console.log('recipe inside submit of <CreateREcipeForm/> ', recipe);
       
-     AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
+     await AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
      .then(res => {console.log('response from post request',res); setRecipe(initialFormState)})
      .catch(err => console.log(err));
 
-    
+    props.navigation.navigate('Home')
   }
         
-  return (                                                   
-    <ScrollView>
-      <View style={styles.crForm}>
+  return (  
+    <View>  
 
-          <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'flex-end', marginTop: 30, fontSize: 14}}>
+          <TouchableOpacity onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
             <Text style={{color: '#3BA405'}}>Done</Text>
           </TouchableOpacity>
 
-           {/* <Button style = {{alignItems: 'flex-end'}} title='Done' onPress ={postRecipe}/> */}
-        {/* ====== Image with Recipe Name and Creator ========= */}
+    <ScrollView>
+      <View style={styles.crForm}>
 
-        <View style={{ flexDirection: "column", padding: 15, alignItems: 'center' }}>
+           
+        <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 65 }}>
 
           {/* <Image
             style={{ width: 125, height: 150, }}
@@ -133,12 +133,12 @@ export default function CreateRecipeForm(props) {
 
           <View style={{ marginLeft: 15 }}>
             {/* <Text style={styles.titleText}>Honey Pancakes</Text> */}
-            <TextInput
+            {/* <TextInput
               style={styles.titleText}
               placeholder="Recipe Name"
               onChangeText={event => setRecipe({ ...recipe, title: event })}
               value={recipe.title}
-            />
+            /> */}
 
             {/* <Text style={styles.baseText}>Recipe by: Lana Smith</Text> */}
 
@@ -154,15 +154,15 @@ export default function CreateRecipeForm(props) {
           <Text style={styles.textInputStyles}>Recipe Name</Text>
 
           <TextInput
-            style={styles.container}
-            multiline={true}
-            numberOfLines={5}
+            style={styles.totalTimeContainer}
+            // multiline={true}
+            // numberOfLines={5}
             maxLength={55}
             placeholder='Enter Recipe Name'
             onChangeText={event => setRecipe({ ...recipe, title: event })}
             value={recipe.title} />
 
-          <Text style={{ alignSelf: 'flex-end', color: "#363838", fontSize: 11}}>
+          <Text style={{ alignSelf: 'flex-end', color: "#363838", fontSize: 11, marginTop: 8}}>
             {recipe.title.length}/55
           </Text>
 
@@ -181,7 +181,8 @@ export default function CreateRecipeForm(props) {
 
          {/* ********************<CourseTypes/>*************** */}
           <Text style={{ marginTop: 16, fontSize: 16, color: "#363838", marginBottom: 16 }}>Course Type</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5, alignItems:'stretch'
+        }}>
             {courses.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
@@ -261,11 +262,16 @@ export default function CreateRecipeForm(props) {
 
         </View>
 
+        <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'center', marginTop: 30}}>
+            <Text style={{color: '#3BA405'}}>Done</Text>
+          </TouchableOpacity>
+
 {/* 
           <Button title='Submit Recipe' onPress ={postRecipe}/> */}
 
         </View>
       </View>
     </ScrollView>
+  </View>   
   )
  }

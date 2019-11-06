@@ -12,12 +12,14 @@ import SignUp from './Components/signUp.js'
 import MyCookBook from './Components/MyCookBook.js'
 import CreateRecipeForm from './Components/CreateRecipeForm.js'
 import CookBookFolder from "./Components/CookBookFolder";
-import IndividualRecipes from './Components/IndividualRecipes.js'
+import IndividualRecipes from './Components/IndividualRecipes.js';
+import Signout from './Components/Signout.js';
 import Recipe from './Components/Recipe.js'
 import plus from './assets/add_circle_grey.png';
 import person from './assets/person_outline.png';
 import list from './assets/assignment.png';
-import home from './assets/Union.png';
+import search from './assets/Union.png';
+import searchBlack from './assets/search_black.png';
 import cooks from './assets/restaurant.png';
 
 class AuthLoadingScreen extends React.Component {
@@ -46,6 +48,11 @@ class AuthLoadingScreen extends React.Component {
 }
 
 
+const CreateNavigator =  createStackNavigator({
+  Create: {screen:  CreateRecipeForm},
+  Home:  {screen: HomePage}
+}, {initialRouteName: "Create"})
+
 const CookBookNavigator =  createStackNavigator({
   CookBook: {screen:  MyCookBook},
   FolderInCookBook:  {screen: CookBookFolder}
@@ -72,7 +79,8 @@ const MainNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: 'Explore',
       tabBarIcon: (
-            <Image style={{ width: 20, height: 20, paddingTop:10 }} source={home}/>
+            <Image style={{ width: 20, height: 20, paddingTop:10 }} source={searchBlack}/>
+            
       ),
     }
   },
@@ -84,7 +92,7 @@ const MainNavigator = createBottomTabNavigator({
 //     ),
 //   }
 // },
-  Create: {screen: CreateRecipeForm,
+  Create: {screen: CreateNavigator,
     navigationOptions: {
       tabBarLabel: 'Create',
       tabBarIcon: (
@@ -98,12 +106,13 @@ const MainNavigator = createBottomTabNavigator({
   //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={cooks}/>
   //     ),
   //   }},
-  Profile: {screen: SignUp,
+  Profile: {screen: Signout,
     navigationOptions: {
-      tabBarLabel: 'Profile',
-      tabBarIcon: (
-            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={person}/>
-      ),
+      tabBarLabel: 'Sign Out', 
+    tabBarOnPress: async ({navigation}) => {
+        await AsyncStorage.clear();
+        navigation.navigate('Auth');
+    }
     }},
 },
 {
@@ -117,7 +126,8 @@ const AuthNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: 'Explore',
       tabBarIcon: (
-            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={home}/>
+            <Image  style={{width: 25, height: 25, paddingLeft: 10}} source={search}/>
+            // 
       ),
     }
   },
@@ -145,14 +155,14 @@ const AuthNavigator = createBottomTabNavigator({
   //     ),
   //   }
   // },
-  Profile: {screen: LoginNavigator,
-    navigationOptions: {
-      tabBarLabel: 'Profile',
-      tabBarIcon: (
-            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={person}/>
-      ),
-    }
-  },
+  // Profile: {screen: LoginNavigator,
+  //   navigationOptions: {
+  //     tabBarLabel: 'Profile',
+  //     tabBarIcon: (
+  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={person}/>
+  //     ),
+  //   }
+  // },
 },
 {
   initialRouteName: 'Home',

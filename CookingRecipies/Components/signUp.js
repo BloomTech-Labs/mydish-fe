@@ -18,11 +18,6 @@ const SignUp = props => {
     const [err, setErr] = useState()
 
     console.log(signUp)
-
-    const signOutAsync = async () => {
-      await AsyncStorage.clear();
-      props.navigation.navigate('Auth');
-    };
     
     
     const onPress = () => {
@@ -60,8 +55,6 @@ const SignUp = props => {
            >
              <Text style={styles.createAccountText}>Create Account</Text>
            </TouchableOpacity>
-           <Button title="Actually, sign me out :)" 
-          onPress={signOutAsync} /> 
         </View>
        
       );

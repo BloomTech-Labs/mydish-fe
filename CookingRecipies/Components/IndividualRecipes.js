@@ -54,27 +54,27 @@ let IndividualRecipes = props => {
         const newString = string.replace(/^\w/, c => c.toUpperCase());
         return newString
       }
-      const setOrdinalToOne = (ordinal) => {
-          //console.log('ordinal', ordinal)
-          if(ordinal === '0.00'){
-           // console.log('ordinal inside if statement', ordinal)
-             const numPlusOne = Number(ordinal) + 1.00
-            return numPlusOne.toString()
-          }else{
-              return ordinal;
-          }
-      }
+    //   const setOrdinalToOne = (ordinal) => {
+    //       //console.log('ordinal', ordinal)
+    //       if(ordinal === '0.00'){
+    //        // console.log('ordinal inside if statement', ordinal)
+    //          const numPlusOne = Number(ordinal) + 1.00
+    //         return numPlusOne.toString()
+    //       }else{
+    //           return ordinal;
+    //       }
+    //   }
 
       const im = ()=>{
         if(store.img==null){
             return(
                 <Image source={{uri: Cereal}}
-                style={{width: 400, height: 400, marginLeft: 7}} />
+                style={{width: 420, height: 400}} />
             )
         }else{
             return(
                 <Image source={{uri: store.img}}
-                style={{width: 400, height: 400, marginLeft: 7}} />
+                style={{width: 420, height: 400}} />
             )
         }
     }
@@ -108,25 +108,25 @@ let IndividualRecipes = props => {
         })}
 
         </View>
-         <View style={styles.likes}>
+         {/* <View style={styles.likes}>
              <View style={styles.likeView}>
             <Image source={clearBlackHeart} style={{width: 20, height: 20}}/>
             <Text >{store.likes}</Text>
             </View>
-                {/* <TouchableOpacity>
+                <TouchableOpacity>
             <View style={styles.likeView}>
             <Image source={saves} style={{width: 20, height: 20}}/>
             <Text >Save</Text>
             </View>
-            </TouchableOpacity> */}
-            </View>
-        <View style={styles.editView}>
-        {/* <TouchableOpacity>
+            </TouchableOpacity>
+            </View> */}
+        {/* <View style={styles.editView}>
+        <TouchableOpacity>
             <View style={styles.editButtonView}>
         <Image source={editIcon} style={styles.editButton}/>
         </View>
-        </TouchableOpacity> */}
-        </View >
+        </TouchableOpacity>
+        </View > */}
         <View style={styles.ingredients}> 
         <TouchableOpacity onPress={() => tabsDisplay('Ingredients')}>
         <View style={color.active.includes('Ingredients') ? styles.titlesViewBorderIng : styles.titlesViewBorderIngOff}>
@@ -146,7 +146,7 @@ let IndividualRecipes = props => {
             return(
                 <View key={step.ordinal} style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
 
-                    <Text style={styles.stepText}>{setOrdinalToOne(step.ordinal).split('.')[0]}. {step.body}</Text>
+                    <Text style={styles.stepText}>{step.ordinal.split('.')[0]}. {step.body}</Text>
                 </View>
             )
         })}

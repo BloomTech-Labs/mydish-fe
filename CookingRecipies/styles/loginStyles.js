@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
       emailText: {
       paddingRight: 283,
        color: '#363838',
+       marginLeft: 25
     
       },
       passwordText: {
