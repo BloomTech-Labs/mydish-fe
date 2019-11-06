@@ -11,7 +11,7 @@ import clearHeart from '../assets/clear-heart.png';
 import solidHeart from '../assets/solid-heart.png';
 
 
-var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"
+var Cereal = "https://i.imgur.com/iYFK1mG.png"
 var HomeFries = "https://image.shutterstock.com/z/stock-photo-fried-potatoes-147539354.jpg"
 var Eggplant = "https://image.shutterstock.com/image-photo/grilled-eggplants-seasoned-olive-oil-260nw-87708241.jpg"
 var ScrambledEggs = "https://image.shutterstock.com/image-photo/mexican-food-recipes-revoltillo-de-600w-752977636.jpg"
@@ -80,10 +80,12 @@ const Recipe = (props) => {
     //     console.log('props in recipe', img);
     // },[]);
         const RecipeCard = styled.View`
+        marginLeft: 10;
         `;
 
     const UserCard = styled.View`
       flexDirection : row;
+
       justifyContent : flex-start;
     `;
 
@@ -109,7 +111,7 @@ const Recipe = (props) => {
     return (
         <>
             {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
-            <RecipeCard style={{height: props.cardHeight, marginLeft:props.marg}}>
+            <RecipeCard style={{height: props.cardHeight}}>
                <TouchableOpacity  
                onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
                >
