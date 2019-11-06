@@ -85,7 +85,7 @@ const RecipeList = (props) => {
         <ScrollView>
             <View style={{flexDirection: 'row'}}>
                 {/* {recipes.length==1 && <Recipe key={props.title} recipe={recipes} height={adjustHeight()} marg={adjustMargin()}/>} */}
-                <View style={{flexDirection: 'column'}}>
+                <View style={{flexDirection: 'column', marginRight: -130, marginLeft: 20}}>
                  {recipes.slice(0, wow).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={LeftHeightAdjustment()}/>)}
                 </View>
                  <View style={{flexDirection: 'column'}}>
