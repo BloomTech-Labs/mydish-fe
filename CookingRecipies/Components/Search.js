@@ -8,45 +8,34 @@ const Search = () => {
     let [dish, setDish] = useState('')
     let [recipe, setRecipes] = useState([])
 
-    useEffect(() =>{
-        axios
-        .get(
-          `https://recipeshare-development.herokuapp.com/recipes/all`
-        )
-        .then(res => {
-          setRecipes(res.data);
-        })
-        .catch(err => console.log(err));
 
-    },[]);
     
-    let grabRecipes = () => {
-        // e.preventDefault();
-        if(dish.length!==0){
-            axios
-            .get(
-              `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
-            )
-            .then(res => {
-              setRecipes([]);
-              setRecipes(res.data);
-              setDish('')
-              
-            })
-            .catch(err => console.log(err));
-        };
-        if(dish.length==0){
+    let grabRecipes = (e) => {
+        setDish(e)
+        useEffect(() =>{
+            if(dish.length!==0){
+                axios
+                .get(
+                  `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
+                )
+                .then(res => {
+                  setRecipes([]);
+                  setRecipes(res.data);
+                  setDish('')
+                  
+                })
+                .catch(err => console.log(err));
+            };
             axios
             .get(
               `https://recipeshare-development.herokuapp.com/recipes/all`
             )
             .then(res => {
-                setRecipes([]);
-                setRecipes(res.data);
-                setDish('')
+              setRecipes(res.data);
             })
             .catch(err => console.log(err));
-        }
+    
+        },[]);
  
     };
 
@@ -58,8 +47,8 @@ const Search = () => {
 					placeholder="What dish are you looking for?"
 					placeholderTextColor="#D3D3D3"
 					value={dish}
-                    onChangeText={dish => setDish(dish)}
-                    onSubmitEditing={grabRecipes}
+                    onChangeText={dish => grabRecipes(dish)}
+                    // onSubmitEditing={grabRecipes}
 				/>
                  {/* <TouchableOpacity style={styles.button}>
                     <Button  
