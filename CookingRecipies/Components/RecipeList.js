@@ -120,7 +120,11 @@ const RecipeList = (props) => {
                  {recipes.slice(0, wow()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeightLeft()} marg={adjustMargin()} cardHeight={LeftHeightAdjustment()}/>)}
                 </View>
                  <View style={{flexDirection: 'column'}}>
+<<<<<<< HEAD
                  {recipes.slice(wow(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeightRight()} marg={adjustMargin()} cardHeight={RightHeightAdjustment()}/>)}
+=======
+                 {recipes.slice(wow(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={RightHeightAdjustment()}/>)}
+>>>>>>> b5dea9df64012a47ac124408e710f8a63720f844
                 </View>
             </View>
          </ScrollView>

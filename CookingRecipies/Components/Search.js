@@ -10,6 +10,7 @@ const Search = () => {
 
 
     
+<<<<<<< HEAD
     let grabRecipes = (e) => {
         setDish(e)
         useEffect(() =>{
@@ -36,6 +37,36 @@ const Search = () => {
             .catch(err => console.log(err));
     
         },[]);
+=======
+    let grabRecipes = async (d) => {
+        // e.preventDefault();
+        await setDish(d)
+        // if(dish.length!==0){
+            axios
+            .get(
+              `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
+            )
+            .then(res => {
+             setRecipes([]);
+              setRecipes(res.data);
+              //setDish('')
+              
+            })
+            .catch(err => console.log(err));
+        // };
+        // if(dish.length==0){
+        //     axios
+        //     .get(
+        //       `https://recipeshare-development.herokuapp.com/recipes/all`
+        //     )
+        //     .then(res => {
+        //         setRecipes([]);
+        //         setRecipes(res.data);
+        //         //setDish('')
+        //     })
+        //     .catch(err => console.log(err));
+        // }
+>>>>>>> b5dea9df64012a47ac124408e710f8a63720f844
  
     };
 
@@ -48,7 +79,11 @@ const Search = () => {
 					placeholderTextColor="#D3D3D3"
 					value={dish}
                     onChangeText={dish => grabRecipes(dish)}
+<<<<<<< HEAD
                     // onSubmitEditing={grabRecipes}
+=======
+                    //onSubmitEditing={grabRecipes}
+>>>>>>> b5dea9df64012a47ac124408e710f8a63720f844
 				/>
                  {/* <TouchableOpacity style={styles.button}>
                     <Button  
@@ -68,6 +103,7 @@ const Search = () => {
 
 const styles = StyleSheet.create({
 textInput: {
+    //flex: 1,
     height: 40,
     //width: 300,
     fontSize: 18,

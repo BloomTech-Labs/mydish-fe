@@ -57,14 +57,16 @@ const styles = StyleSheet.create({
       borderRadius: 4,
       borderWidth: 0.8,
       borderColor: '#363838',
+      padding: 10,
     },
-    notesContainer: {
-      width: 350,
-      height: 100,
-      borderRadius: 4,
-      borderWidth: 0.8,
-      borderColor: '#363838',
-    },
+    notesContainer: { 
+      height: 76,
+       width: 350,  
+       padding: 10, 
+       borderWidth: 0.8, 
+       borderColor: '#363838',
+        borderRadius: 4,
+      },
     container: {
       //   Typically for inputs
       borderRadius: 4,

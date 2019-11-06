@@ -50,11 +50,13 @@ const styles = StyleSheet.create({
     },
     tagBox: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         flexWrap: 'wrap',
-        borderBottomWidth: 0.3,
-        borderBottomColor: '#6B6F70',
-        paddingBottom: 18
+        // borderBottomWidth: 0.3,
+        // borderBottomColor: '#6B6F70',
+        paddingBottom: 18,
+        width: 330,
+        marginLeft: 14,
     },
     editButton: {
         width: 25,
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
       marginTop: 10,
       marginBottom: 20,
       flexDirection: 'row-reverse',
-      width: 400,
+      width: 348,
       justifyContent: 'space-around',
       paddingRight: 10,
     },
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
       paddingBottom: 9,
       marginTop: 10,
       marginBottom: 20,
-      width: 400,
+      width: 348,
     },
     details:{
         alignItems: 'center'

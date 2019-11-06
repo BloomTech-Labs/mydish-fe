@@ -124,6 +124,8 @@ export default function CreateRecipeForm(props) {
         console.log(error);
       }
 
+      props.navigation.navigate('Home')
+
     //  AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
     //  .then(res => {console.log('response from post request',res); setRecipe(initialFormState)})
     //  .catch(err => console.log(err));
@@ -282,6 +284,7 @@ export default function CreateRecipeForm(props) {
             <TextInput
               style={styles.notesContainer}
               placeholder=''
+              multiline={true}
               onChangeText={event => setRecipe({ ...recipe, notes: event })}
               value={recipe.notes} 
             />
@@ -289,7 +292,7 @@ export default function CreateRecipeForm(props) {
         </View>
 
         <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'center', marginTop: 30}}>
-            <Image source={done} style = {{width: 136, height: 40, marginLeft: 215}                  }/> 
+            <Image source={done} style = {{width: 136, height: 40, marginLeft: 215, marginBottom: 20}                  }/> 
           </TouchableOpacity>
 
 {/* 
