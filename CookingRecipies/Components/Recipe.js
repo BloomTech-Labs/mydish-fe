@@ -30,7 +30,7 @@ const Recipe = (props) => {
                 <Image 
                 
                 source={{uri : Cereal}}
-                style={{width: 160, height: props.imageHeight, borderRadius: 20, paddingRight: 20 }}
+                style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
                 resieMode="contain"
                 
             />
@@ -40,7 +40,7 @@ const Recipe = (props) => {
                 <Image 
                 
                 source={{uri : props.recipe.img}}
-                style={{width: 160, height: props.imageHeight, borderRadius: 20, paddingRight: 20 }}
+                style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
                 resieMode="contain"
                 
             />
@@ -84,9 +84,7 @@ const Recipe = (props) => {
         `;
 
     const UserCard = styled.View`
-      flexDirection : row;
 
-      justifyContent : flex-start;
     `;
 
     const Like = styled.View`
