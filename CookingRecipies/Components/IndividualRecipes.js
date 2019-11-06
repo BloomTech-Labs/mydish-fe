@@ -86,10 +86,10 @@ let IndividualRecipes = props => {
             { console.log('img inside scrollview',store.img)}
             <Text style={styles.title}>{store.title}</Text>
             <View style={styles.time}>
-                <View>
+                <View style={{flexDirection: 'row'}}>
                 <Image source={logo} style={{width: 20, height: 20}}/> 
                 {/* <Text>Edited by: {store.innovator}</Text> */}
-                <Text>Recipe by: {store.innovator_name}</Text>
+                <Text style={{marginLeft: 5}}>{store.innovator_name}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
             <Image source={clock} style={{width: 20, height: 20}}/> 
@@ -98,6 +98,7 @@ let IndividualRecipes = props => {
             </View>
 
          <Text style={styles.tags}>Tags</Text>
+             <View style={{borderBottomWidth: 0.3, borderBottomColor: '#6B6F70',}}>
          <View style={styles.tagBox}>
         {store.categories && store.categories.map( cat => {
             return(
@@ -106,7 +107,7 @@ let IndividualRecipes = props => {
                 </View>
             )
         })}
-
+        </View>
         </View>
          {/* <View style={styles.likes}>
              <View style={styles.likeView}>
