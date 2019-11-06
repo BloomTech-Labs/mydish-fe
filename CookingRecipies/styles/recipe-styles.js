@@ -1,30 +1,30 @@
 import {StyleSheet} from 'react-native';
 
 module.exports = StyleSheet.create({
-    header : {
-      color : 'red'
-    },
+  // masonry: { /* Masonry container */
+  //   columnC: 4,
+  //   column-gap: 1em,
+  // },
     text : {
-      marginTop: 10, 
-      marginBottom: 10, 
-      fontSize: 20, 
+      marginTop: 5, 
+      fontSize: 13, 
       fontWeight: 'bold', 
       textAlign: 'left',
-      width: 150
+      width: 300
     },
     username : {
-      fontSize : 15
+      fontSize : 11
     },
     usercardTxt : {
       // flex: 1, 
       flexDirection: 'row', 
       justifyContent: 'space-between',
-      marginLeft : 5
+      width: 160
+      // marginLeft : 5
       // borderTopWidth: 5, 
       // borderBottomWidth: 5
     }, 
     prep : {
-      alignSelf: 'flex-end',
-      marginStart: -40
+      fontSize: 11,
     }
   });

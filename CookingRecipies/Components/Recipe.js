@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect}from 'react';
 import styles from '../styles/recipe-styles';
-import {View,Text,ScrollView, Image} from 'react-native';
+import {View,Text,ScrollView, Image, TouchableOpacity} from 'react-native';
+import { withNavigation } from 'react-navigation'
 // import {Icon} from 'react-native-elements';
 // import Icon from "react-native-vector-icons/FontAwesome";
 // import ipad from '../assets/ipadrecipe.jpg';
@@ -9,25 +10,81 @@ import styled from 'styled-components';
 import clearHeart from '../assets/clear-heart.png';
 import solidHeart from '../assets/solid-heart.png';
 
-const Recipe = (props) => {
 
-    const {recipe, height} = props;
-    console.log('props in recipe', props);
+var Cereal = "https://i.imgur.com/iYFK1mG.png"
+var HomeFries = "https://image.shutterstock.com/z/stock-photo-fried-potatoes-147539354.jpg"
+var Eggplant = "https://image.shutterstock.com/image-photo/grilled-eggplants-seasoned-olive-oil-260nw-87708241.jpg"
+var ScrambledEggs = "https://image.shutterstock.com/image-photo/mexican-food-recipes-revoltillo-de-600w-752977636.jpg"
+let fakeImages=["Cereal","Home Fries","Eggplant","Scrambled Eggs"]
+
+const getRandomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min
+
+const Recipe = (props) => {
+    const [num, setNum]= useState(1)
     let [like, setLike] = React.useState(false);
+
+    const im = ()=>{
+        if(props.recipe.img==null){
+            return(
+                <Image 
+                
+                source={{uri : Cereal}}
+                style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
+                resieMode="contain"
+                
+            />
+            )
+        }else{
+            return(
+                <Image 
+                
+                source={{uri : props.recipe.img}}
+                style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
+                resieMode="contain"
+                
+            />
+            )
+        }
+    }
+
+    
+    //   useEffect(() =>{
+    //     if (num !== 0){
+    //         setNum()
+    //         setNum(0)
+    //         console.log("0", num)
+    //     } 
+    //     else{
+    //         setNum()
+    //         setNum(1)
+    //         console.log("1 ", num)
+    //     }
+        
+    //   }, [])
+     
     // let [likeCount, setLikeCount] = React.useState(props.recipe.likes)  //get likes from recipe handed down via props from the database.
 
-    const RecipeCard = styled.View`
-    flex: 1;
-    marginLeft : 10;
-    marginRight : 10;
-    justifyContent: flex-start;
-    minWidth: 150;
-    marginBottom: 10;
-    `;
+    // useEffect(() =>{
+    //     for(i in fakeImages){
+    //         console.log("i", fakeImages[i], props.recipe.title)
+    //         if(fakeImages[i] == props.recipe.title=="Cereal"){
+    //             console.log("hi")
+    //             setImg(Cereal)
+    //             console.log(img)
+    //         }
+    //         if(fakeImages[i] == props.recipe.title=="Home Fries"){
+    //             setImg(HomeFries)
+    //         }
+    //     }
+    //     console.log('props in recipe', img);
+    // },[]);
+        const RecipeCard = styled.View`
+        marginLeft: 10;
+        `;
 
     const UserCard = styled.View`
-      flexDirection : row;
-      justifyContent : flex-start;
+
     `;
 
     const Like = styled.View`
@@ -48,34 +105,32 @@ const Recipe = (props) => {
         setLike(!like);
     }
 
+
     return (
         <>
             {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
-            <RecipeCard>
-                <Like onStartShouldSetResponder={likeIt}>
+            <RecipeCard style={{height: props.cardHeight}}>
+               <TouchableOpacity  
+               onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
+               >
+                {/* <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}> 3k</Text>
-                </Like>
-               
-                <Image 
-                    source={{uri : 'https://fakeimg.pl/250x100/?text=recipe'}}
-                    style={{width: 190, height: height, borderRadius: 20, paddingRight: 20 }}
-                    resieMode="contain"
-                />
-                
-                <Text style={styles.text}>Sample Recipe</Text>
+                </Like> */}
+                {im()}
+                <Text style={styles.text}>{props.recipe.title}</Text>
                 <UserCard>
-                    <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}
-                        style={{width: 50, height: 50 }}/>
+                    {/* <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}
+                        style={{width: 50, height: 50 }}/> */}
                     <View style={styles.usercardTxt}>
-                        <Text style={styles.username}>Username</Text>
-                        <Text style={styles.username}></Text>
-                        <Text style={styles.prep}>Min: Prep Time</Text>
+                        <Text style={styles.username}>{props.recipe.username}</Text>
+                        <Text style={styles.prep}>{props.recipe.minutes} min.</Text>
                     </View>
                 </UserCard>
+                 </TouchableOpacity>
             </RecipeCard>
         </>
     )
 }
 
-export default Recipe;
+export default withNavigation(Recipe);

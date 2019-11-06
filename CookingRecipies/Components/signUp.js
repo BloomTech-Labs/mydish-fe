@@ -15,19 +15,16 @@ import styles from '../styles/signUpStyles.js'
 
 const SignUp = props => {
     const [signUp, SetSignUp] = useState({username: '', password: ''})
+    const [err, setErr] = useState()
 
     console.log(signUp)
-
-    const signOutAsync = async () => {
-      await AsyncStorage.clear();
-      props.navigation.navigate('Auth');
-    };
+    
     
     const onPress = () => {
      console.log("axios call goes here")
-      // axios.put('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
-      // .then(res => console.log('response from sign up axios post', res))
-      // .catch(err => console.log('error from sign up axios post',err))
+      axios.post('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
+      .then(res => console.log('response from sign up axios post', res))
+      .catch(err => setErr(err))
     }
     
       return (
@@ -40,24 +37,24 @@ const SignUp = props => {
           </TouchableOpacity>
           <Text style={styles.title}>RecipeShare</Text>
           <Text style={styles.createAccountTitle}>Create Account</Text>
-          <Text style={styles.emailText}>Email</Text>
+          <Text style={styles.emailText}>Username</Text>
           <TextInput
            style={styles.inputFeilds}
            value={signUp.username}
            onChangeText={event => SetSignUp({...signUp, username:event})}/>
+           {err !=null && <Text style={{marginLeft:150, color:"red"}}>Username already exists</Text>}
            <Text style={styles.passwordText}>Password</Text>
           <TextInput
            style={styles.inputFeilds}
            value={signUp.password}
-           onChangeText={event => SetSignUp({...signUp, password:event})}/>
+           onChangeText={event => SetSignUp({...signUp, password:event})}
+           secureTextEntry={true}/>
            <TouchableOpacity
              onPress={onPress}
              style={styles.createAccountButton}
            >
              <Text style={styles.createAccountText}>Create Account</Text>
            </TouchableOpacity>
-           <Button title="Actually, sign me out :)" 
-          onPress={signOutAsync} />
         </View>
        
       );

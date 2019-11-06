@@ -47,12 +47,12 @@ const styles = StyleSheet.create({
      marginLeft: 105
    },
    emailText: {
-    paddingRight: 283,
+    paddingRight: 256,
      color: '#363838',
   
     },
     passwordText: {
-      paddingRight: 256,
+      paddingRight: 258,
        color: '#363838',
     
       },
