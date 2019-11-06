@@ -18,6 +18,7 @@ import plus from './assets/add_circle_grey.png';
 import person from './assets/person_outline.png';
 import list from './assets/assignment.png';
 import search from './assets/Union.png';
+import logout from './assets/account_circle.png';
 import searchBlack from './assets/search_black.png';
 import cooks from './assets/restaurant.png';
 
@@ -108,6 +109,10 @@ const MainNavigator = createBottomTabNavigator({
   Profile: {screen: Signout,
     navigationOptions: {
       tabBarLabel: 'Sign Out', 
+      tabBarIcon: (
+        <Image style={{ width: 25, height: 25}} source={logout}/>
+        
+  ),
     tabBarOnPress: async ({navigation}) => {
         await AsyncStorage.clear();
         navigation.navigate('Auth');
@@ -139,9 +144,9 @@ const AuthNavigator = createBottomTabNavigator({
   // }, 
   Create: {screen: LoginNavigator,
     navigationOptions: {
-      tabBarLabel: 'Create',
+      tabBarLabel: 'Login',
       tabBarIcon: (
-            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={plus}/>
+            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={logout}/>
       ),
     }
   },
