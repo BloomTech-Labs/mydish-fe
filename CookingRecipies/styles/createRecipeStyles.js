@@ -90,6 +90,11 @@ const styles = StyleSheet.create({
       width: 120,
       marginTop: 15,
     },
+    doneButton: {
+      width: 205,
+      height: 60,
+      padding: 30
+    }
 })
 
 module.exports = styles

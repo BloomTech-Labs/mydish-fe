@@ -6,6 +6,9 @@ import Instruction from './Instruction';
 import TagButtons from './tagButtons.js';
 import add from '../assets/add_circle_32px.png';
 import AxiosWithAuth from './AxiosWithAuth.js';
+//import done from /assets/done_button.png;
+//import done from '../assets/done_button.png';
+import done from '../assets/done_button.png';
 
 
 export default function CreateRecipeForm(props) {
@@ -263,7 +266,7 @@ export default function CreateRecipeForm(props) {
         </View>
 
         <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'center', marginTop: 30}}>
-            <Text style={{color: '#3BA405'}}>Done</Text>
+            <Image source={done} style = {{width: 136, height: 40, marginLeft: 215}                  }/> 
           </TouchableOpacity>
 
 {/* 
