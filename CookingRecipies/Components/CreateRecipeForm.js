@@ -8,6 +8,7 @@ import add from '../assets/add_circle_32px.png';;
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import AxiosWithAuth from './AxiosWithAuth.js';
+import NumTextInput from 'react-native-num-textinput';
 
 
 export default function CreateRecipeForm(props) {
@@ -186,13 +187,20 @@ export default function CreateRecipeForm(props) {
     
           <Text style={styles.textInputStyles}>Cook Time (minutes)</Text>
 
-            <TextInput
+            {/* <TextInput
               style={styles.totalTimeContainer}
               placeholder='Cook Time (minutes only)'
               keyboardType={'numeric'}
               onChangeText={event => setRecipe({ ...recipe, minutes: Number(event) })}
               value={recipe.minutes} 
+            /> */}
+            <NumTextInput
+              style={styles.totalTimeContainer}
+              placeholder="Cook Time (minutes only)"
+              onChangeText={text => setRecipe({...recipe, minutes: text})}
+              value={recipe.minutes.toString()}
             />
+
           </View>
 
          {/* ********************<CourseTypes/>*************** */}
