@@ -26,59 +26,16 @@ const Recipe = (props) => {
 
     const im = ()=>{
         if(props.recipe.img==null){
-            return(
-                <Image 
-                
-                source={{uri : Cereal}}
-                style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
-                resieMode="contain"
-                
-            />
-            )
+            return Cereal
         }else{
-            return(
-                <Image 
-                
-                source={{uri : props.recipe.img}}
-                style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
-                resieMode="contain"
-                
-            />
-            )
+            return props.recipe.img
         }
     }
 
-    
-    //   useEffect(() =>{
-    //     if (num !== 0){
-    //         setNum()
-    //         setNum(0)
-    //         console.log("0", num)
-    //     } 
-    //     else{
-    //         setNum()
-    //         setNum(1)
-    //         console.log("1 ", num)
-    //     }
-        
-    //   }, [])
      
     // let [likeCount, setLikeCount] = React.useState(props.recipe.likes)  //get likes from recipe handed down via props from the database.
 
-    // useEffect(() =>{
-    //     for(i in fakeImages){
-    //         console.log("i", fakeImages[i], props.recipe.title)
-    //         if(fakeImages[i] == props.recipe.title=="Cereal"){
-    //             console.log("hi")
-    //             setImg(Cereal)
-    //             console.log(img)
-    //         }
-    //         if(fakeImages[i] == props.recipe.title=="Home Fries"){
-    //             setImg(HomeFries)
-    //         }
-    //     }
-    //     console.log('props in recipe', img);
-    // },[]);
+
         const RecipeCard = styled.View`
         marginLeft: 10;
         `;
@@ -108,7 +65,6 @@ const Recipe = (props) => {
 
     return (
         <>
-            {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
             <RecipeCard style={{height: props.cardHeight}}>
                <TouchableOpacity  
                onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
@@ -117,7 +73,7 @@ const Recipe = (props) => {
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}> 3k</Text>
                 </Like> */}
-                {im()}
+            <Image source={{uri : im()}}style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}/>
                 <Text style={styles.text}>{props.recipe.title}</Text>
                 <UserCard>
                     {/* <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}
