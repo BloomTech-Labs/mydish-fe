@@ -29,7 +29,7 @@ const Search = () => {
               `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
             )
             .then(res => {
-              setRecipes([]);
+             setRecipes([]);
               setRecipes(res.data);
               //setDish('')
               

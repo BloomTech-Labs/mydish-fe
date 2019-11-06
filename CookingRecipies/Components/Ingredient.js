@@ -78,7 +78,7 @@ const Ingredient = (props) => {
         <View>
             <View style = {{ flexDirection: 'row', width: 350, marginBottom: 20}}>
                 <TextInput
-                    style={{ height: 40, width: 60, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4 }}
+                    style={{ height: 40, width: 60, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', }}
                     placeholder="Amount"
                     keyboardType={'numeric'}
                     onChangeText ={event => handleChange('quantity', event)}
@@ -116,7 +116,7 @@ const Ingredient = (props) => {
 
 
                 <TextInput
-                    style={{ height: 40, width: 230, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 15  }}
+                    style={{ height: 40, width: 200, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 15  }}
                     placeholder="Ingredient Name"
                     // onChangeText ={event => addIng({...ingredient, name: event})}
                     onChangeText ={event => handleChange('name', event)}
