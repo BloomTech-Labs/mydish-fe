@@ -23,7 +23,7 @@ let IndividualRecipes = props => {
     const id =  props.navigation.getParam('paramsID', 'params not passed')
     console.log("id in individualRecipe.js", id)
 
-    var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"
+    var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 
     useEffect(() =>{

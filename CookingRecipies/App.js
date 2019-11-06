@@ -79,7 +79,7 @@ const MainNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: 'Explore',
       tabBarIcon: (
-            <Image style={{ width: 20, height: 20, paddingTop:10 }} source={searchBlack}/>
+            <Image style={{ width: 20, height: 20, paddingLeft: 28}} source={search}/>
             
       ),
     }
@@ -126,9 +126,8 @@ const AuthNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: 'Explore',
       tabBarIcon: (
-            <Image  style={{width: 25, height: 25, paddingLeft: 10}} source={search}/>
-            // 
-      ),
+            <Image  style={{width: 20, height: 20, paddingLeft: 28}} source={search}/>
+      )
     }
   },
   // List: {screen: LoginNavigator,
