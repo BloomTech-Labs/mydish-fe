@@ -10,7 +10,7 @@ You can find the deployed project at WORK IN PROGRESS(REACT-NATIVE) [🚫URL NAM
 
 ## Contributors
 
-|                                       [Amir](https://github.com/ayunas)                                        |                                       [Kenya](https://github.com/Kenya-a)                                        |                                       [Hannah](https://github.com/hannahtuttle)                                        |                                       [Obaida](https://github.com/Obaida-Albaroudi)                                        |                                       [Heymi](UX Designer)                                        |
+|                                       [Amir](https://github.com/ayunas)                                        |                                       [Kenya](https://github.com/Kenya-a)                                        |                                       [Hannah](https://github.com/hannahtuttle)                                        |                                       [Obaida](https://github.com/Obaida-Albaroudi)                                        |                                       [Heymi UX]                                        |
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
 |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |
 |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)            |          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)           |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)             |
@@ -45,9 +45,8 @@ v1.0
 - POST a detailed recipe once logged in
 
 ##  Tech Stack
-
 ### Front end built using: React-Native
-  - "dependencies": {
+  - "dependencies"
    - "@react-native-community/async-storage": "^1.6.2",
    - "axios": "^0.19.0",
    - "react": "16.9.0",
@@ -63,8 +62,7 @@ v1.0
    - "react-native-vector-icons": "^6.6.0",
    - "styled-components": "^4.4.0",
    - "toggle-switch-react-native": "^2.1.0"
-  },
- - "devDependencies": {
+ - "devDependencies"
  -   "@babel/core": "^7.6.4",
  -   "@babel/runtime": "^7.6.3",
  -   "@react-native-community/eslint-config": "^0.0.5",
@@ -73,7 +71,6 @@ v1.0
  -   "jest": "^24.9.0",
  -   "metro-react-native-babel-preset": "^0.56.0",
  -   "react-test-renderer": "16.9.0"
-  }
     
 
 Why did you choose this framework?
@@ -88,13 +85,12 @@ Why did you choose this framework?
 #### [Back end](https://github.com/Lambda-School-Labs/cooking-recipe-source-control-be/tree/development) built using: NodeJS
 
 ####  back end framework 
--  "devDependencies": {
+-  "devDependencies": 
 -    "cross-env": "^6.0.3",
 -    "jest": "^24.9.0",
 -    "nodemon": "^1.19.4",
 -    "supertest": "^4.0.2"
-  },
--  "dependencies": {
+-  "dependencies": 
 -    "bcryptjs": "^2.4.3",
 -   "cors": "^2.8.5",
 -    "dotenv": "^8.2.0",
@@ -105,7 +101,6 @@ Why did you choose this framework?
 -    "pg": "^7.12.1",
 -    "psql": "0.0.1",
 -    "supertest": "^4.0.2"
-  }
 
 # APIs
 
@@ -137,28 +132,25 @@ In order for the app to function correctly, the user must set up their own envir
 
 #  Content Licenses
 
-https://www.figma.com/file/yckNzpK8dwMjsWrMNkdl3i/Material-Icons-(Outlined)-(Copy)?node-id=0%3A22
-https://www.figma.com/resources/assets/material-icons-outline/
-https://unsplash.com/s/photos/food
+- https://www.figma.com/file/yckNzpK8dwMjsWrMNkdl3i/Material-Icons-(Outlined)-(Copy)?node-id=0%3A22
+- https://www.figma.com/resources/assets/material-icons-outline/
+- https://unsplash.com/s/photos/food
 
 #  Testing
 
-Jest: Standard for Javascript
-React-Native-Testing-Library:compatible with react-native
+- Jest: Standard for Javascript
+- React-Native-Testing-Library:compatible with react-native
 
 #  Installation Instructions
 
 🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
 
 ## Other Scripts
-
-  "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
-    "test": "jest",
-    "lint": "eslint ."
-  }
+ -   "android": "react-native run-android",
+ -   "ios": "react-native run-ios",
+ -   "start": "react-native start",
+ -   "test": "jest",
+ -   "lint": "eslint ."
 
 # Contributing
 
