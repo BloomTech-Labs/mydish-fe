@@ -24,15 +24,13 @@ const Recipe = (props) => {
     const [num, setNum]= useState(1)
     let [like, setLike] = React.useState(false);
 
-    
-
     const im = ()=>{
         if(props.recipe.img==null){
             return(
                 <Image 
                 
                 source={{uri : Cereal}}
-                style={{width: 160, height: props.height, borderRadius: 20, paddingRight: 20 }}
+                style={{width: 160, height: props.imageHeight, borderRadius: 20, paddingRight: 20 }}
                 resieMode="contain"
                 
             />
@@ -42,7 +40,7 @@ const Recipe = (props) => {
                 <Image 
                 
                 source={{uri : props.recipe.img}}
-                style={{width: 160, height: props.height, borderRadius: 20, paddingRight: 20 }}
+                style={{width: 160, height: props.imageHeight, borderRadius: 20, paddingRight: 20 }}
                 resieMode="contain"
                 
             />
@@ -82,11 +80,6 @@ const Recipe = (props) => {
     //     console.log('props in recipe', img);
     // },[]);
         const RecipeCard = styled.View`
-        justifyContent: flex-start;
-        width: 130;
-        marginLeft: 35;
-        marginRight: 13;
-        marginBottom: 150;
         `;
 
     const UserCard = styled.View`
@@ -116,7 +109,7 @@ const Recipe = (props) => {
     return (
         <>
             {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
-            <RecipeCard style={{height: props.height, marginTop: props.marg}}>
+            <RecipeCard style={{height: props.cardHeight, marginLeft:props.marg}}>
                <TouchableOpacity  
                onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
                >
@@ -127,8 +120,8 @@ const Recipe = (props) => {
                 {im()}
                 <Text style={styles.text}>{props.recipe.title}</Text>
                 <UserCard>
-                    <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}
-                        style={{width: 50, height: 50 }}/>
+                    {/* <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}
+                        style={{width: 50, height: 50 }}/> */}
                     <View style={styles.usercardTxt}>
                         <Text style={styles.username}>{props.recipe.username}</Text>
                         <Text style={styles.prep}>{props.recipe.minutes} min.</Text>

@@ -6,22 +6,20 @@ module.exports = StyleSheet.create({
   //   column-gap: 1em,
   // },
     text : {
-      marginTop: 10, 
-      marginBottom: 10,
-      fontSize : 25,
-      fontSize: 20, 
+      marginTop: 5, 
+      fontSize: 15, 
       fontWeight: 'bold', 
       textAlign: 'left',
-      width: 150
+      width: 300
     },
     username : {
-      fontSize : 15
+      fontSize : 12
     },
     usercardTxt : {
       // flex: 1, 
       flexDirection: 'row', 
       justifyContent: 'space-between',
-      marginLeft : 5
+      // marginLeft : 5
       // borderTopWidth: 5, 
       // borderBottomWidth: 5
     }, 
