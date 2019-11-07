@@ -48,31 +48,10 @@ const Ingredient = (props) => {
           }
 
         console.log('recipeIng after splicing', recipeIng);
-        //  recIng = [...recipe.ingredients];
-
-        //     for (let i=0; i<ingList.length; i++) {
-        //         for (let j=0; j<recIng.length; j++) {
-        //             // console.log('rec.ing[i].name', recipe.ingredients[i].name );
-        //             // console.log('ingList[j].name', ingList[j].name);
-        //             if (ingList[i].name === recipe.ingredients[j].name) {
-        //                 recipe.ingredients.splice(j,1);
-        //             //     return false;
-        //             // } else {return true}
-        //         }
-        //     }
-        // }
-        //     console.log('recipe.ingredients after splicing', recipe.ingredients);
-          
+        
            await setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
         }
     }
-
-    // const handleSubmit = async () => {
-    //     console.log('<Ingredient/> handleSubmit triggered');
-    //     // setIngList(() => [...ingList, ingredient]);
-    //     await setCount( oldCount => oldCount + 1);
-    //     console.log('count in <Ingredient/>', count);
-    // }
 
     return  (
         <View>
