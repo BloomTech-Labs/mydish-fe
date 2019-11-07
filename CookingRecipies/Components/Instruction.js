@@ -20,10 +20,10 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
 
     const handleBlur = (event) => {
         const recipeSteps = [...recipe.steps];
-        console.log('onBlur event triggered in <Instruction/>');
+        // console.log('onBlur event triggered in <Instruction/>');
         setEditedSteps([...editedSteps, step])
-        console.log('editedSteps', editedSteps);
-        console.log('recipeSteps before splicing',recipeSteps);
+        // console.log('editedSteps', editedSteps);
+        // console.log('recipeSteps before splicing',recipeSteps);
 
         if (editedSteps.length) {
             for (let i=0; i<editedSteps.length; i++) {
@@ -33,8 +33,8 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
                   }
                 }
             }
-            console.log('recipeSteps after splice and insert',recipeSteps);
-            console.log('there are edited steps')
+            // console.log('recipeSteps after splice and insert',recipeSteps);
+            // console.log('there are edited steps')
             setRecipe({...recipe, steps : recipeSteps });
         } else {
             setRecipe({...recipe, steps : [...recipe.steps, step.text] });
