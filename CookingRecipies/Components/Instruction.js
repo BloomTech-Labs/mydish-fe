@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TextInput, Button, View, TouchableOpacity, Text, Image} from 'react-native';
 import styles from '../styles/createRecipeStyles';
 import add from '../assets/add_circle_32px.png';
 
 const Instruction = ({ recipe, setRecipe, count, setCount}) => {
 
-    let [step, setStep] = React.useState({text : ''});
+    let [step, setStep] = useState({text : ''});
+    let [editedSteps, setEditedSteps] = useState([]);
 
     const handleChange = async (event) => {
             // console.log(event, 'event');
@@ -18,8 +19,19 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
     }
 
     const handleBlur = (event) => {
+        const recipeSteps = [...recipe.steps];
         console.log('onBlur event triggered in <Instruction/>');
-        setRecipe({...recipe, steps : [...recipe.steps, step.text] });
+        setEditedSteps([...editedSteps, step])
+
+        for (let i=0; i<editedSteps.length; i++) {
+            for (let j=0; j<recipeSteps.length; j++) {
+              if (editedSteps[i].text === recipeSteps[j]) {
+                recipeSteps.splice(j,1,step.text);
+              }
+            }
+        }
+        
+        setRecipe({...recipe, steps : [...recipeSteps] });
     }
 
     return (
@@ -38,17 +50,6 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
             </View>
 
             <View>
-
-            {/* <TouchableOpacity onPress={handleSubmit} style = {{flexDirection: 'row'}} >
-                
-                <Image source={add} style={{width: 20, height: 20}}/> 
-                
-                <Text style = {{color : 'green', fontSize: 16, marginLeft: 5}}>
-                    Add A Steps
-                </Text>
-               
-            </TouchableOpacity>  */}
-                {/* <Button title="Add A Step" onPress={handleSubmit} /> */}
             </View>
 
         </View>

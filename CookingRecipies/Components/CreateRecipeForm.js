@@ -47,8 +47,6 @@ export default function CreateRecipeForm(props) {
   const [diet,] = useState(['Meatless','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
 
-
-  
   const addIngredients = () => {
     // console.log('addIngredients triggered');
     const IngredientComponents = [];
