@@ -1,7 +1,6 @@
 import React from 'react';
 import {TextInput, Button, View, TouchableOpacity, Image, Text, Picker} from 'react-native';
 import styles from '../styles/createRecipeStyles';
-import ScrollPicker from 'react-native-wheel-scroll-picker';
 
 
 const Ingredient = (props) => {
@@ -48,10 +47,12 @@ const Ingredient = (props) => {
           }
 
         console.log('recipeIng after splicing', recipeIng);
-        
+
+          
            await setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
         }
     }
+
 
     return  (
         <View>
@@ -72,25 +73,6 @@ const Ingredient = (props) => {
                     onBlur={handleBlur}
                     value={ingredient.unit}
                 />
-
-                {/* <Picker 
-                    selectedValue={unit}
-                    style={{width: 100, height: 50}}
-                    onValueChange={ (unit,i) => handlePicker(unit)}
-                >
-                    <Picker.Item label="grams" value="g" />
-                    <Picker.Item label="cups" value="cups"/>
-                    <Picker.Item label="ounces" value="oz"/>
-                </Picker> */}
-
-                {/* <ScrollPicker 
-                    dataSource={['g','oz','cups']}
-                    selectedIndex={0}
-                    renderItem={()=>{}}
-                    onValueChange={ unit => handleChange('unit', unit)}
-                    activeItemColor={'green'}
-                    itemColor={'black'}
-                /> */}
 
 
 

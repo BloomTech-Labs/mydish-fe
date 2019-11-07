@@ -1,26 +1,20 @@
 import React from 'react';
+import { StyleSheet, Text, View, Image, AsyncStorage, ActivityIndicator, StatusBar, SafeAreaView, ScrollView} from 'react-native';
 import {createAppContainer, createSwitchNavigator } from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from "react-navigation-stack";
-import AsyncStorage from '@react-native-community/async-storage'
-import {View, ActivityIndicator, StatusBar, Image} from 'react-native'
+// import AsyncStorage from '@react-native-community/async-storage'
 
-import HomePage from './Components/homePage.js'
-import Login from './Components/Login.js'
-import SignUp from './Components/signUp.js'
-import MyCookBook from './Components/MyCookBook.js'
-import CreateRecipeForm from './Components/CreateRecipeForm.js'
-import CookBookFolder from "./Components/CookBookFolder";
-import IndividualRecipes from './Components/IndividualRecipes.js';
-import Signout from './Components/Signout.js';
-import Recipe from './Components/Recipe.js'
+import IndividualRecipes from './components/IndividualRecipes.js'
+import CreateRecipeForm from './components/CreateRecipeForm.js'
+import Search from './components/Search.js';
+import HomePage from './components/homePage.js'
+import Login from './components/Login.js';
+import SignUp from './components/signUp';
 import plus from './assets/add_circle_grey.png';
-import person from './assets/person_outline.png';
-import list from './assets/assignment.png';
 import search from './assets/Union.png';
 import logout from './assets/account_circle.png';
-import searchBlack from './assets/search_black.png';
-import cooks from './assets/restaurant.png';
+
 
 class AuthLoadingScreen extends React.Component {
   componentDidMount() {
@@ -29,6 +23,8 @@ class AuthLoadingScreen extends React.Component {
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
+    console.log('test for token userToken', userToken)
+    
   
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
@@ -53,10 +49,10 @@ const CreateNavigator =  createStackNavigator({
   Home:  {screen: HomePage}
 }, {initialRouteName: "Create"})
 
-const CookBookNavigator =  createStackNavigator({
-  CookBook: {screen:  MyCookBook},
-  FolderInCookBook:  {screen: CookBookFolder}
-}, {initialRouteName: "CookBook"})
+// const CookBookNavigator =  createStackNavigator({
+//   CookBook: {screen:  MyCookBook},
+//   FolderInCookBook:  {screen: CookBookFolder}
+// }, {initialRouteName: "CookBook"})
 
 const LoginNavigator = createStackNavigator({
   Login: {screen: Login},
@@ -84,14 +80,6 @@ const MainNavigator = createBottomTabNavigator({
       ),
     }
   },
-//   List: {screen: SignUp,
-//       navigationOptions: {
-//     tabBarLabel: 'My List',
-//     tabBarIcon: (
-//           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={list}/>
-//     ),
-//   }
-// },
   Create: {screen: CreateNavigator,
     navigationOptions: {
       tabBarLabel: 'Create',
@@ -99,14 +87,7 @@ const MainNavigator = createBottomTabNavigator({
             <Image style={{ width: 25, height: 25, paddingTop:10 }} source={plus}/>
       ),
     }},
-  // CookBook: { screen: CookBookNavigator,
-  //   navigationOptions: {
-  //     tabBarLabel: 'CookBook',
-  //     tabBarIcon: (
-  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={cooks}/>
-  //     ),
-  //   }},
-  Profile: {screen: Signout,
+  Profile: {screen: Login,
     navigationOptions: {
       tabBarLabel: 'Sign Out', 
       tabBarIcon: (
@@ -134,14 +115,6 @@ const AuthNavigator = createBottomTabNavigator({
       )
     }
   },
-  // List: {screen: LoginNavigator,
-  //   navigationOptions: {
-  //     tabBarLabel: 'My List',
-  //     tabBarIcon: (
-  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={list}/>
-  //     ),
-  //   }
-  // }, 
   Create: {screen: LoginNavigator,
     navigationOptions: {
       tabBarLabel: 'Login',
@@ -150,28 +123,11 @@ const AuthNavigator = createBottomTabNavigator({
       ),
     }
   },
-  // CookBook: {screen: LoginNavigator,
-  //   navigationOptions: {
-  //     tabBarLabel: 'CookBook',
-  //     tabBarIcon: (
-  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={cooks}/>
-  //     ),
-  //   }
-  // },
-  // Profile: {screen: LoginNavigator,
-  //   navigationOptions: {
-  //     tabBarLabel: 'Profile',
-  //     tabBarIcon: (
-  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={person}/>
-  //     ),
-  //   }
-  // },
 },
 {
   initialRouteName: 'Home',
   
 });
-
 
 const AppContainer = createAppContainer(
   createSwitchNavigator({
@@ -184,8 +140,12 @@ const AppContainer = createAppContainer(
   }) 
   );
 
-export const App = () => {
-  return (
-    <AppContainer/>
-  )
-}
+
+
+export default App = () => {
+    return (
+      <AppContainer/>
+    )
+  }
+
+

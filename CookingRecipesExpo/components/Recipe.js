@@ -13,27 +13,42 @@ import solidHeart from '../assets/solid-heart.png';
 
 var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
+
 const Recipe = (props) => {
     const [num, setNum]= useState(1)
     let [like, setLike] = React.useState(false);
 
     const im = ()=>{
         if(props.recipe.img==null){
-            return Cereal
+            return(
+                <Image 
+                
+                source={{uri : Cereal}}
+                style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
+                resieMode="contain"
+                
+            />
+            )
         }else{
-            return props.recipe.img
+            return(
+                <Image 
+                
+                source={{uri : props.recipe.img}}
+                style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
+                resieMode="contain"
+                
+            />
+            )
         }
     }
 
-     
-    // let [likeCount, setLikeCount] = React.useState(props.recipe.likes)  //get likes from recipe handed down via props from the database.
 
-
-    const RecipeCard = styled.View`
-    marginLeft: 10;
-    `;
+        const RecipeCard = styled.View`
+        marginLeft: 10;
+        `;
 
     const UserCard = styled.View`
+
     `;
 
     const Like = styled.View`
@@ -44,10 +59,7 @@ const Recipe = (props) => {
         zIndex : 1;
     `;
 
-    // const RecipeImage = styled.View`
-    //     marginRight: 30;
-    //     paddingRight: 10;
-    // `;
+  
 
     const likeIt = () => {
         console.log('like pressed');
@@ -57,6 +69,7 @@ const Recipe = (props) => {
 
     return (
         <>
+            {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
             <RecipeCard style={{height: props.cardHeight}}>
                <TouchableOpacity  
                onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
@@ -65,7 +78,7 @@ const Recipe = (props) => {
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}> 3k</Text>
                 </Like> */}
-            <Image source={{uri : im()}}style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}/>
+                {im()}
                 <Text style={styles.text}>{props.recipe.title}</Text>
                 <UserCard>
                     {/* <Image source={{uri : "https://fakeimg.pl/50x50/?text=user"}}

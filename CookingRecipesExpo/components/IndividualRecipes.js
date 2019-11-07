@@ -2,16 +2,15 @@ import React, {useState, useEffect} from "react";
 import {View,Text,ScrollView, Image, TouchableOpacity, Button} from 'react-native';
 import axios from 'axios'
 
-import StockPhoto from '../assets/stock_photo.jpg'
+// import StockPhoto from '../assets/stock_photo.jpg'
 import styles from '../styles/individualRecipeStyles.js'
 import saves from '../assets/save_alt.png';
 import clearBlackHeart from '../assets/clear-heart-black.png';
 import editIcon from '../assets/edit_icon.png';
 import clock from '../assets/timer.png';
 import logo from '../assets/background.png';
-import styled from 'styled-components';
 import IndividualRecipeIngredients from './individualRecipeIngredients';
-//import individualRecipeIngredients from "./individualRecipeIngredients.js";
+
 
 var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"
 
@@ -21,7 +20,7 @@ let IndividualRecipes = props => {
     //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
 
     const id =  props.navigation.getParam('paramsID', 'params not passed')
-    // console.log("id in individualRecipe.js", id)
+    console.log("id in individualRecipe.js", id)
 
     var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
@@ -33,12 +32,8 @@ let IndividualRecipes = props => {
         )
         .then(res => {
             setStored(res.data);
-            console.log('store in individual recipes',store)
-            // axios.get(
-            //   `https://recipeshare-development.herokuapp.com/cooks/${store.innovator}`
-            // ).then(res => console.log(res))
-            // .catch(err => console.log('error from second axios call inside individula recipes', err))
-        })
+            // console.log('store in individual recipes',store)
+     })
         .catch(err => console.log(err));
         
     },[]);
@@ -54,16 +49,6 @@ let IndividualRecipes = props => {
         const newString = string.replace(/^\w/, c => c.toUpperCase());
         return newString
       }
-    //   const setOrdinalToOne = (ordinal) => {
-    //       //console.log('ordinal', ordinal)
-    //       if(ordinal === '0.00'){
-    //        // console.log('ordinal inside if statement', ordinal)
-    //          const numPlusOne = Number(ordinal) + 1.00
-    //         return numPlusOne.toString()
-    //       }else{
-    //           return ordinal;
-    //       }
-    //   }
 
       const im = ()=>{
         if(store.img==null){
@@ -83,12 +68,11 @@ let IndividualRecipes = props => {
     return (
      <ScrollView>
             {im()}
-            {/* { console.log('img inside scrollview',store.img)} */}
+            { console.log('img inside scrollview',store.img)}
             <Text style={styles.title}>{store.title}</Text>
             <View style={styles.time}>
                 <View style={{flexDirection: 'row'}}>
                 <Image source={logo} style={{width: 20, height: 20}}/> 
-                {/* <Text>Edited by: {store.innovator}</Text> */}
                 <Text style={{marginLeft: 5}}>{store.innovator_name}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
