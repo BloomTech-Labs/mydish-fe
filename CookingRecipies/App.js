@@ -1,16 +1,30 @@
 import React from 'react';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 94bab58b5b36a334bad8972a89e8b690fe495a57
 import {createAppContainer, createSwitchNavigator } from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from "react-navigation-stack";
 import AsyncStorage from '@react-native-community/async-storage'
-import {View, ActivityIndicator, StatusBar} from 'react-native'
+import {View, ActivityIndicator, StatusBar, Image} from 'react-native'
 
 import HomePage from './Components/homePage.js'
 import Login from './Components/Login.js'
 import SignUp from './Components/signUp.js'
 import MyCookBook from './Components/MyCookBook.js'
+import CreateRecipeForm from './Components/CreateRecipeForm.js'
 import CookBookFolder from "./Components/CookBookFolder";
+import IndividualRecipes from './Components/IndividualRecipes.js';
+import Signout from './Components/Signout.js';
+import Recipe from './Components/Recipe.js'
+import plus from './assets/add_circle_grey.png';
+import person from './assets/person_outline.png';
+import list from './assets/assignment.png';
+import search from './assets/Union.png';
+import logout from './assets/account_circle.png';
+import searchBlack from './assets/search_black.png';
+import cooks from './assets/restaurant.png';
 
 class AuthLoadingScreen extends React.Component {
   componentDidMount() {
@@ -38,6 +52,11 @@ class AuthLoadingScreen extends React.Component {
 }
 
 
+const CreateNavigator =  createStackNavigator({
+  Create: {screen:  CreateRecipeForm},
+  Home:  {screen: HomePage}
+}, {initialRouteName: "Create"})
+
 const CookBookNavigator =  createStackNavigator({
   CookBook: {screen:  MyCookBook},
   FolderInCookBook:  {screen: CookBookFolder}
@@ -51,12 +70,58 @@ const LoginNavigator = createStackNavigator({
   initialRouteName: 'Login',
 });
 
-const MainNavigator = createBottomTabNavigator({
+const RecipeNavigator = createStackNavigator({
   Home: {screen: HomePage},
-  List: {screen: SignUp},
-  Create: {screen: SignUp},
-  CookBook: CookBookNavigator,
-  Profile: {screen: SignUp},
+  IndividualR: {screen: IndividualRecipes}
+},
+{
+  initialRouteName: 'Home',
+});
+
+const MainNavigator = createBottomTabNavigator({
+  Home: {screen: RecipeNavigator,
+    navigationOptions: {
+      tabBarLabel: 'Explore',
+      tabBarIcon: (
+            <Image style={{ width: 20, height: 20, paddingLeft: 28}} source={search}/>
+            
+      ),
+    }
+  },
+//   List: {screen: SignUp,
+//       navigationOptions: {
+//     tabBarLabel: 'My List',
+//     tabBarIcon: (
+//           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={list}/>
+//     ),
+//   }
+// },
+  Create: {screen: CreateNavigator,
+    navigationOptions: {
+      tabBarLabel: 'Create',
+      tabBarIcon: (
+            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={plus}/>
+      ),
+    }},
+  // CookBook: { screen: CookBookNavigator,
+  //   navigationOptions: {
+  //     tabBarLabel: 'CookBook',
+  //     tabBarIcon: (
+  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={cooks}/>
+  //     ),
+  //   }},
+  Profile: {screen: Signout,
+    navigationOptions: {
+      tabBarLabel: 'Sign Out', 
+      tabBarIcon: (
+        <Image style={{ width: 25, height: 25}} source={logout}/>
+        
+  ),
+    tabBarOnPress: async ({navigation}) => {
+        await AsyncStorage.clear();
+        navigation.navigate('Auth');
+    }
+    }},
 },
 {
   initialRouteName: 'Home',
@@ -65,11 +130,46 @@ const MainNavigator = createBottomTabNavigator({
 );
 
 const AuthNavigator = createBottomTabNavigator({
-  Home: {screen: HomePage},
-  List: LoginNavigator,
-  Create: LoginNavigator,
-  CookBook: LoginNavigator,
-  Profile: LoginNavigator,
+  Home: {screen: RecipeNavigator,
+    navigationOptions: {
+      tabBarLabel: 'Explore',
+      tabBarIcon: (
+            <Image  style={{width: 20, height: 20, paddingLeft: 28}} source={search}/>
+      )
+    }
+  },
+  // List: {screen: LoginNavigator,
+  //   navigationOptions: {
+  //     tabBarLabel: 'My List',
+  //     tabBarIcon: (
+  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={list}/>
+  //     ),
+  //   }
+  // }, 
+  Create: {screen: LoginNavigator,
+    navigationOptions: {
+      tabBarLabel: 'Login',
+      tabBarIcon: (
+            <Image style={{ width: 25, height: 25, paddingTop:10 }} source={logout}/>
+      ),
+    }
+  },
+  // CookBook: {screen: LoginNavigator,
+  //   navigationOptions: {
+  //     tabBarLabel: 'CookBook',
+  //     tabBarIcon: (
+  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={cooks}/>
+  //     ),
+  //   }
+  // },
+  // Profile: {screen: LoginNavigator,
+  //   navigationOptions: {
+  //     tabBarLabel: 'Profile',
+  //     tabBarIcon: (
+  //           <Image style={{ width: 25, height: 25, paddingTop:10 }} source={person}/>
+  //     ),
+  //   }
+  // },
 },
 {
   initialRouteName: 'Home',
@@ -88,7 +188,7 @@ const AppContainer = createAppContainer(
   }) 
   );
 
-export default App = () => {
+export const App = () => {
   return (
     <AppContainer/>
   )

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text} from "react-native";
+import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text, ScrollView} from "react-native";
 import axios from "axios";
 
 import RecipeList from './RecipeList.js'
@@ -11,56 +11,37 @@ const Search = () => {
     useEffect(() =>{
         axios
         .get(
-          `https://restcountries.eu/rest/v2/all`
+          `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
         )
         .then(res => {
-          setRecipes([res.data]);
-          console.log("hi", recipe)
+            setRecipes([])
+            setRecipes(res.data);
         })
         .catch(err => console.log(err));
 
-    },[]);
+    },[dish]);
     
-    let grabRecipes = e => {
-        e.preventDefault();
-        console.log(dish);
-        if( dish.length>0){
-            axios
-            .get(
-              `https://restcountries.eu/rest/v2/capital/${dish}`
-            )
-            .then(res => {
-              setRecipes([]);
-              setRecipes([res.data]);
-              console.log(recipe)
-              
-            })
-            .catch(err => console.log(err));
-        };
-    };
-
-
     return(
         <View>
-            <Text >Search Bar</Text>
 				 <TextInput
 					style={styles.textInput}
-					placeholder="What Dish are you looking for?"
+					placeholder="What dish are you looking for?"
 					placeholderTextColor="#D3D3D3"
 					value={dish}
-					onChangeText={dish => setDish(dish)}
+                    onChangeText={dish => setDish(dish)}
+                    // onSubmitEditing={grabRecipes}
 				/>
-                 <TouchableOpacity style={styles.button}>
+                 {/* <TouchableOpacity style={styles.button}>
                     <Button  
                     color="white"    
                     onPress={grabRecipes}
-                    title="Click me"
+                    title="Search"
                     accessibilityLabel="Search"                   
                     />
-                </TouchableOpacity>
-            {/* <RecipeList />  */}
-
-
+                </TouchableOpacity> */}
+                <ScrollView>
+                    {recipe.length>=1  && <RecipeList props={recipe} /> }
+                </ScrollView>
         </View>
 
     )
@@ -68,14 +49,13 @@ const Search = () => {
 
 const styles = StyleSheet.create({
 textInput: {
-    flex: 1,
-    height: 4000,
+    height: 40,
     fontSize: 18,
     margin: 7,
     fontWeight: 'bold',
     color: 'black',
     paddingLeft: 3,
-    minHeight: '65%',
+    minHeight: '5%',
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#d6d7da'
@@ -85,8 +65,8 @@ button: {
     borderWidth: 2,
     marginLeft: 100,
     marginRight: 100,
-    borderColor: '#2089dc',
-    backgroundColor: `#2089dc`
+    borderColor: '#3BA405',
+    backgroundColor: `#3BA405`
 }
 })
 

@@ -4,15 +4,13 @@
 
 🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
 
-# 1️⃣ Title of project goes here
+# Title: RecipeShare
 
-1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+You can find the deployed project at WORK IN PROGRESS(REACT-NATIVE) [🚫URL NAME GOES HERE](🚫copy and paste URL here).
 
-## 4️⃣ Contributors
+## Contributors
 
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
-
-|                                       [Student 1](https://github.com/)                                        |                                       [Student 2](https://github.com/)                                        |                                       [Student 3](https://github.com/)                                        |                                       [Student 4](https://github.com/)                                        |                                       [Student 5](https://github.com/)                                        |
+|                                       [Amir](https://github.com/ayunas)                                        |                                       [Kenya](https://github.com/Kenya-a)                                        |                                       [Hannah](https://github.com/hannahtuttle)                                        |                                       [Obaida](https://github.com/Obaida-Albaroudi)                                        |                                       [Heymi UX]                                        |
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
 |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |
 |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)            |          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)           |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)             |
@@ -21,99 +19,101 @@
 <br>
 <br>
 
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
-
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
-![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-🚫 more info on using badges [here](https://github.com/badges/shields)
+![React-Native](https://img.shields.io/badge/React__Native-Android%2FiOS-critical)
+
+more info on using badges [here](https://github.com/badges/shields), [make your own] (https://shields.io/#your-badge)
 
 ## Project Overview
 
-1️⃣ [Trello Board](🚫add link to trello board here)
+ [Trello Board](https://trello.com/b/7B6XLvde/cooking-recipe-project)
 
-1️⃣ [Product Canvas](🚫add link to product canvas here)
+ [Product Canvas](https://www.notion.so/Cooking-Recipe-Source-Control-24149db37e5f434fa994cfb0de71fc9d)
 
-1️⃣ [UX Design files](🚫add link to design files here) - 🚫 delete if not applicable
-
-🚫 Replace lorem ipsum with a description of your project
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+ [UX Design files](https://lambdaschoolstudents.slack.com/files/UGL2P3L4F/FPM62US92/cochef_userflow.pdfe)
 
 
-### 4️⃣ Key Features
+RecipeShare is the best place to collaborate with other cooks to create the best possible recipes. A cooking community for sharing recipes and alterations.
 
--    feature one
--    feature two
--    feature three
--    feature four
--    feature five
 
-## 1️⃣ Tech Stack
+###  Key Features
+v1.0
+- GET all recipes to show up in a list of cards
+- SEARCH functionality for recipes
+- LOGIN/LOGOUT authentication
+- POST a detailed recipe once logged in
 
-### Front end built using:
+##  Tech Stack
+### Front end built using: React-Native
+  - "dependencies"
+   - "@react-native-community/async-storage": "^1.6.2",
+   - "axios": "^0.19.0",
+   - "react": "16.9.0",
+   - "react-native": "0.61.2",
+   - "react-native-gesture-handler": "^1.4.1",
+   - "react-native-reanimated": "^1.3.0",
+   - "react-native-screens": "^2.0.0-alpha.5",
+   - "react-navigation": "^4.0.10",
+   - "react-navigation-stack": "^1.10.2",
+   - "react-navigation-tabs": "^2.5.6",
+   - "react-native-elements": "^1.2.6",
+   - "react-native-modal-dropdown": "^0.7.0",
+   - "react-native-vector-icons": "^6.6.0",
+   - "styled-components": "^4.4.0",
+   - "toggle-switch-react-native": "^2.1.0"
+ - "devDependencies"
+ -   "@babel/core": "^7.6.4",
+ -   "@babel/runtime": "^7.6.3",
+ -   "@react-native-community/eslint-config": "^0.0.5",
+ -   "babel-jest": "^24.9.0",
+ -   "eslint": "^6.5.1",
+ -   "jest": "^24.9.0",
+ -   "metro-react-native-babel-preset": "^0.56.0",
+ -   "react-test-renderer": "16.9.0"
+    
 
-#### _Front end framework goes here_
+Why did you choose this framework?
 
-🚫 Why did you choose this framework?
+-    Mobile first
+-    Ability to use for iOS and Android
+-    Mobile is the popular choice while cooking/looking for ingredients on the go
 
--    point one
--    point two
--    point three
--    point four
 
-🚫List the rest of the front end features and libraries in the same format as the framework above.
+#### Front end deployed to WORK IN PROGESS(REACT-NATIVE) `🚫insert service here`
 
-#### Front end deployed to `🚫insert service here`
+#### [Back end](https://github.com/Lambda-School-Labs/cooking-recipe-source-control-be/tree/development) built using: NodeJS
 
-#### [Back end](🚫link to back end repo here) built using:
-
-#### 🚫 back end framework goes here
-
--    point one
--    point two
--    point three
-
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
+####  back end framework 
+-  "devDependencies": 
+-    "cross-env": "^6.0.3",
+-    "jest": "^24.9.0",
+-    "nodemon": "^1.19.4",
+-    "supertest": "^4.0.2"
+-  "dependencies": 
+-    "bcryptjs": "^2.4.3",
+-   "cors": "^2.8.5",
+-    "dotenv": "^8.2.0",
+-   "express": "^4.17.1",
+-    "jest": "^24.9.0",
+-   "jsonwebtoken": "^8.5.1",
+-    "knex": "^0.19.5",
+-    "pg": "^7.12.1",
+-    "psql": "0.0.1",
+-    "supertest": "^4.0.2"
 
 # APIs
 
-## 2️⃣ Authentication API here
+## Authentication API 
 
-🚫Replace text below with a description of the API
+Axios/Auth/JWT, built from scratch
 
-Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do things A little happy sunlight shining through there. Let all these little things happen. Don't fight them. Learn to use them. Even the worst thing we can do here is good.
+##  Payment API 
+n/a
+##  Misc API 
+n/a
 
-## 2️⃣ Payment API here
-
-🚫Replace text below with a description of the API
-
-This is the way you take out your flustrations. Get away from those little Christmas tree things we used to make in school. Isn't it fantastic that you can change your mind and create all these happy things? Everything's not great in life, but we can still find beauty in it.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-You can do anything your heart can imagine. In life you need colors. This is where you take out all your hostilities and frustrations. It's better than kicking the puppy dog around and all that so. I'm sort of a softy, I couldn't shoot Bambi except with a camera. Trees get lonely too, so we'll give him a little friend. We'll lay all these little funky little things in there.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-When you do it your way you can go anywhere you choose. Let your heart take you to wherever you want to be. If I paint something, I don't want to have to explain what it is. A tree needs to be your friend if you're going to paint him. That's a son of a gun of a cloud. Even the worst thing we can do here is good.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-Volunteering your time; it pays you and your whole community fantastic dividends. Maybe there's a happy little waterfall happening over here. You can spend all day playing with mountains. We don't have to be committed. We are just playing here. You have freedom here. The only guide is your heart. It's cold, but it's beautiful.
-
-# 3️⃣ Environment Variables
+# Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
@@ -130,31 +130,27 @@ In order for the app to function correctly, the user must set up their own envir
     *  REACT_APP_clientid - this is the Stripe_connect clientID, generated in Stripe_connect settings
     *  REACT_APP_stripe_plan - this is the ID for a second Stripe subscription plan, generated under Stripe products
 
-# 5️⃣ Content Licenses
+#  Content Licenses
 
-🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
+- https://www.figma.com/file/yckNzpK8dwMjsWrMNkdl3i/Material-Icons-(Outlined)-(Copy)?node-id=0%3A22
+- https://www.figma.com/resources/assets/material-icons-outline/
+- https://unsplash.com/s/photos/food
 
-| Image Filename | Source / Creator | License                                                                      |
-| -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
-| rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
+#  Testing
 
-# 4️⃣ Testing
+- Jest: Standard for Javascript
+- React-Native-Testing-Library:compatible with react-native
 
-🚫Document what you used for testing and why
-
-# 4️⃣ Installation Instructions
+#  Installation Instructions
 
 🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
 
 ## Other Scripts
-
-🚫replace these examples with your own
-
-    * typecheck - runs the TypeScript compiler
-    * build - creates a build of the application
-    * start - starts the production server after a build is created
-    * test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
+ -   "android": "react-native run-android",
+ -   "ios": "react-native run-ios",
+ -   "start": "react-native start",
+ -   "test": "jest",
+ -   "lint": "eslint ."
 
 # Contributing
 
@@ -194,4 +190,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Backend Documentation](🚫_link to your backend readme here_) for details on the backend of our project.
+See [Backend Documentation](https://github.com/Lambda-School-Labs/cooking-recipe-source-control-be) for details on the backend of our project.
