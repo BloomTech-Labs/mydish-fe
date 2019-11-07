@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TextInput, Button, View, TouchableOpacity, Text, Image} from 'react-native';
 import styles from '../styles/createRecipeStyles';
 import add from '../assets/add_circle_32px.png';
 
 const Instruction = ({ recipe, setRecipe, count, setCount}) => {
 
-    let [step, setStep] = useState({text : ''});
-    let [editedSteps, setEditedSteps] = useState([]);
+    let [step, setStep] = React.useState({text : ''});
 
     const handleChange = async (event) => {
             // console.log(event, 'event');
@@ -19,19 +18,8 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
     }
 
     const handleBlur = (event) => {
-        const recipeSteps = [...recipe.steps];
         console.log('onBlur event triggered in <Instruction/>');
-        setEditedSteps([...editedSteps, step])
-
-        for (let i=0; i<editedSteps.length; i++) {
-            for (let j=0; j<recipeSteps.length; j++) {
-              if (editedSteps[i].text === recipeSteps[j]) {
-                recipeSteps.splice(j,1,step.text);
-              }
-            }
-        }
-        
-        setRecipe({...recipe, steps : [...recipeSteps] });
+        setRecipe({...recipe, steps : [...recipe.steps, step.text] });
     }
 
     return (
@@ -50,6 +38,17 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
             </View>
 
             <View>
+
+            {/* <TouchableOpacity onPress={handleSubmit} style = {{flexDirection: 'row'}} >
+                
+                <Image source={add} style={{width: 20, height: 20}}/> 
+                
+                <Text style = {{color : 'green', fontSize: 16, marginLeft: 5}}>
+                    Add A Steps
+                </Text>
+               
+            </TouchableOpacity>  */}
+                {/* <Button title="Add A Step" onPress={handleSubmit} /> */}
             </View>
 
         </View>
@@ -59,3 +58,4 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
 
 
 export default Instruction;
+

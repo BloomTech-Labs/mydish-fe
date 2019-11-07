@@ -12,13 +12,6 @@ import solidHeart from '../assets/solid-heart.png';
 
 
 var Cereal = "https://i.imgur.com/iYFK1mG.png"
-var HomeFries = "https://image.shutterstock.com/z/stock-photo-fried-potatoes-147539354.jpg"
-var Eggplant = "https://image.shutterstock.com/image-photo/grilled-eggplants-seasoned-olive-oil-260nw-87708241.jpg"
-var ScrambledEggs = "https://image.shutterstock.com/image-photo/mexican-food-recipes-revoltillo-de-600w-752977636.jpg"
-let fakeImages=["Cereal","Home Fries","Eggplant","Scrambled Eggs"]
-
-const getRandomInt = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1)) + min
 
 const Recipe = (props) => {
     const [num, setNum]= useState(1)
@@ -36,12 +29,11 @@ const Recipe = (props) => {
     // let [likeCount, setLikeCount] = React.useState(props.recipe.likes)  //get likes from recipe handed down via props from the database.
 
 
-        const RecipeCard = styled.View`
-        marginLeft: 10;
-        `;
+    const RecipeCard = styled.View`
+    marginLeft: 10;
+    `;
 
     const UserCard = styled.View`
-
     `;
 
     const Like = styled.View`
