@@ -14,7 +14,7 @@ const RecipeList = (props) => {
     useEffect(() =>{
         setRecipes(props.props)
 
-        console.log("HELLLOOOOO",Math.floor(recipes.length/2)+1)
+        // console.log("HELLLOOOOO",Math.floor(recipes.length/2)+1)
     },[]);
     // const imgSizer = () => {
     //     const width = Math.floor(100 + Math.random()*100);
@@ -53,22 +53,21 @@ const RecipeList = (props) => {
     const RightHeightAdjustment = () => {
         
         if(RightHeight === 0){  
-            console.log("RightHeight 0", RightHeight)
+            
             RightHeight= RightHeight +1
             return 230
         }if(RightHeight===1){
-            console.log("RightHeight 1", RightHeight)
+            
             RightHeight = RightHeight -1
             return 220
         }
     }
     const adjustImageHeight = () => {  
         if(imageHeight === 0){  
-            console.log("imageHeight 0", imageHeight)
+            
             imageHeight= imageHeight +1
             return 150
         }if(imageHeight===1){
-            console.log("imageHeight 1", imageHeight)
             imageHeight = imageHeight -1
             return 185
         }
@@ -76,7 +75,6 @@ const RecipeList = (props) => {
 
     const adjustMargin = () =>{
         if(Margin === 0){ 
-            console.log("Margin 0", Margin)
             Margin= Margin +1
             return 0
         }if(Margin===1){
@@ -86,7 +84,7 @@ const RecipeList = (props) => {
         }
 
     }
-    console.log("recipes", recipes.slice(0, wow))
+    // console.log("recipes", recipes.slice(0, wow))
 
     return (
         <ScrollView>
