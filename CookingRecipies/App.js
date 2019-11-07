@@ -126,7 +126,7 @@ const MainNavigator = createBottomTabNavigator({
 );
 
 const AuthNavigator = createBottomTabNavigator({
-  Home: {screen: HomePage,
+  Home: {screen: RecipeNavigator,
     navigationOptions: {
       tabBarLabel: 'Explore',
       tabBarIcon: (
