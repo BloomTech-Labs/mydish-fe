@@ -145,7 +145,7 @@ export default function CreateRecipeForm(props) {
 
         {/* ========= Inputs ========== */}
 
-        <View style={{ alignSelf: 'center', width: 350 }}>
+        <View >
 
           <Text style={styles.textInputStyles}>Recipe Name</Text>
 
@@ -158,7 +158,7 @@ export default function CreateRecipeForm(props) {
             onChangeText={event => setRecipe({ ...recipe, title: event })}
             value={recipe.title} />
 
-          <Text style={{ alignSelf: 'flex-end', color: "#363838", fontSize: 11, marginTop: 8}}>
+          <Text style={{ alignSelf: 'flex-end', color: "#363838", fontSize: 11, marginTop: 4, marginRight: 14}}>
             {recipe.title.length}/55
           </Text>
 
@@ -178,24 +178,24 @@ export default function CreateRecipeForm(props) {
           </View>
 
          {/* ********************<CourseTypes/>*************** */}
-          <Text style={{ marginTop: 16, fontSize: 16, color: "#363838", marginBottom: 16 }}>Course Type</Text>
+          <Text style={{ marginTop: 16, fontSize: 16, color: "#363838", marginBottom: 16, marginLeft: 14 }}>Course Type</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5, alignItems:'stretch'
         }}>
             {courses.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
           {/* ********************<Cuisines/>*************** */}
-          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16  }}>Cuisine</Text>
+          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Cuisine</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
             {cuisines.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
-          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16  }}>Diet</Text>
+          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Diet</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
             {diet.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
-          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16  }}>Difficulty</Text>
+          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Difficulty</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
             {difficulty.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
@@ -204,7 +204,7 @@ export default function CreateRecipeForm(props) {
    
           {/* =============== Ingredients ===================== */}
 
-          <Text style={{ fontSize: 16, color: '#363838', marginTop: 25 }} >Ingredients</Text>
+          <Text style={{ fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14 }} >Ingredients</Text>
 
           {/* ========= Add Ingredients View ============== */}
 
@@ -215,7 +215,7 @@ export default function CreateRecipeForm(props) {
 
                   <TouchableOpacity onPress={handleSubmit} style = {{flexDirection: 'row'}} >
                 
-                <Image source={add} style={{width: 20, height: 20}}/> 
+                <Image source={add} style={{width: 20, height: 20, marginLeft: 14}}/> 
                 
                 <Text style = {{color : 'green', fontSize: 16, marginLeft: 5}}>
                     Add Ingredients
@@ -226,7 +226,7 @@ export default function CreateRecipeForm(props) {
             </View>
           </View>
 
-          <Text style={{fontSize: 16, color: '#363838', marginTop: 25  }} >Instructions</Text>
+          <Text style={{fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14  }} >Instructions</Text>
 
 
           <View style={{ flexDirection: "row", marginTop: 20}} >
@@ -236,7 +236,7 @@ export default function CreateRecipeForm(props) {
 
               <TouchableOpacity onPress={handleInstructionSubmit} style = {{flexDirection: 'row'}} >
                 
-                <Image source={add} style={{width: 20, height: 20}}/> 
+                <Image source={add} style={{width: 20, height: 20, marginLeft: 14}}/> 
                 
                 <Text style = {{color : 'green', fontSize: 16, marginLeft: 5}}>
                     Add A Step

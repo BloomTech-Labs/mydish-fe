@@ -2,11 +2,11 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
   crForm: {
-    margin: 16
+   // margin: 16
   },              
     tagButtons: {
         borderRadius: 50,
-        width: 105,
+        width: '30%',
         alignItems: 'center',
         height: 40,
         paddingTop: 10,
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
     tagButtonPressed: {
         borderRadius: 50,
-        width: 105,
+        width: "30%",
         alignItems: 'center',
         height: 40,
         paddingTop: 10,
@@ -43,29 +43,34 @@ const styles = StyleSheet.create({
     titleText: {
       //   Recipe Title Name
       fontSize: 16,
-      color:  '#363838'
+      color:  '#363838',
     
     },
     textInputStyles: {
       fontSize: 14,
         color: '#363838',
-        marginBottom: 10
+        marginBottom: 10,
+        marginLeft: 14
+       
     },
     totalTimeContainer: {
-      width: 350,
       height: 40,
       borderRadius: 4,
       borderWidth: 0.8,
       borderColor: '#363838',
       padding: 10,
+      marginLeft: 14,
+      marginRight: 14,
+      marginBottom: 10, 
+      marginTop: 10,
     },
     notesContainer: { 
       height: 76,
-       width: 350,  
        padding: 10, 
        borderWidth: 0.8, 
        borderColor: '#363838',
         borderRadius: 4,
+        marginLeft: 14
       },
     container: {
       //   Typically for inputs
@@ -80,7 +85,6 @@ const styles = StyleSheet.create({
       borderWidth: 0.5,
       borderColor: 'black',
       fontSize: 18,
-      width: 350,
       marginTop: 15
     },
     dropdown: {
@@ -89,7 +93,6 @@ const styles = StyleSheet.create({
       borderWidth: 0.5,
       borderColor: 'black',
       fontSize: 15,
-      width: 120,
       marginTop: 15,
     },
     doneButton: {

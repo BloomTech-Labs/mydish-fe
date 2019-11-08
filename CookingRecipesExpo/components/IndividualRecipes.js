@@ -54,12 +54,12 @@ let IndividualRecipes = props => {
         if(store.img==null){
             return(
                 <Image source={{uri: Cereal}}
-                style={{width: 375, height: 345}} />
+                style={{width: '100%', height: 345}} />
             )
         }else{
             return(
                 <Image source={{uri: store.img}}
-                style={{width:375, height: 345}} />
+                style={{width:'100%', height: 345}} />
             )
         }
     }
@@ -135,7 +135,9 @@ let IndividualRecipes = props => {
                 </View>
             )
         })}
+        <View style={{paddingRight:'80%'}}>
         <Text style={ color.active.includes('Ingredients') ? styles.hidden : styles.notes}>NOTES</Text>
+       </View>
         <Text style={ color.active.includes('Ingredients') ? styles.hidden :styles.stepTextView}>{store.notes}</Text>
         </View>
 

@@ -13,9 +13,9 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
             // console.log('step: ', step);  
     }
 
-    const handleSubmit = async () => {
-        await setCount(oldCount => oldCount + 1);
-    }
+    // const handleSubmit = async () => {
+    //     await setCount(oldCount => oldCount + 1);
+    // }
 
     const handleBlur = (event) => {
         console.log('onBlur event triggered in <Instruction/>');
@@ -24,11 +24,17 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
 
     return (
         <>
-        <View>
-            <View style = {{width: 350, marginBottom: 20}}>
+        <View >
+            <View style = {{width: "98%", marginBottom: 20, borderWidth: 3, borderColor: "red"}}>
                 {/* <Text>Step </Text> */}
                 <TextInput 
-                    style={{ height: 76, width: 350,  padding: 10, borderWidth: 0.8, borderColor: '#363838', borderRadius: 4}}
+                    style={{  
+                        height: 76,
+                        padding: 10, 
+                        borderWidth: 0.8, 
+                        borderColor: '#363838',
+                         borderRadius: 4,
+                         marginLeft: 14}}
                     placeholder=" Add Instructions"
                     multiline={true}
                     onChangeText ={(event) => handleChange(event)}

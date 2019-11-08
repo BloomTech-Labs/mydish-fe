@@ -52,11 +52,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        // borderBottomWidth: 0.3,
-        // borderBottomColor: '#6B6F70',
         paddingBottom: 18,
-        width: 330,
         marginLeft: 14,
+        marginRight: 14,
     },
     editButton: {
         width: 25,
@@ -93,25 +91,29 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: '#047396',
-        width: '100%',
-        marginRight: '30%'
+        paddingLeft: "13%",
+        paddingRight: "13%"
+        //width: '100%',
+        //marginRight: '30%'
     },
     titlesViewBorderIngOff:{
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: 'white',
-        width: '100%',
-        marginRight: '30%'
+        paddingLeft: "13%",
+        paddingRight: "13%"
     },
     titlesViewBorderInst:{
         paddingTop: 10,
         paddingBottom: 10,
-        width: '250%',
+        paddingLeft: "13%",
+        paddingRight: "13%"
     },
     titlesViewBorderInstOn:{
         paddingTop: 10,
         paddingBottom: 10,
-        width: '250%',
+        paddingLeft: "13%",
+        paddingRight: "13%",
         backgroundColor: '#047396',
     },
     ingredientList: {
@@ -121,9 +123,10 @@ const styles = StyleSheet.create({
       marginTop: 10,
       marginBottom: 20,
       flexDirection: 'row-reverse',
-      width: 348,
       justifyContent: 'space-around',
       paddingRight: 10,
+      marginLeft: 14,
+      marginRight: 14
     },
     ingredientText: {
         color: '#1E1F20' ,
@@ -138,17 +141,18 @@ const styles = StyleSheet.create({
     }, 
     stepTextView: {
       backgroundColor: '#F4F8FA',
+      paddingLeft: 5,
       paddingTop: 9,
       paddingBottom: 9,
       marginTop: 10,
       marginBottom: 20,
-      width: 348,
+      width: "90%"
     },
     details:{
         alignItems: 'center'
     },
     notes: {
-        paddingRight: 300,
+       marginLeft: 14,
         fontSize: 14,
        fontWeight: '500'
     },
