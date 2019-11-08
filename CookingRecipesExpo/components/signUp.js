@@ -52,12 +52,14 @@ const SignUp = props => {
            value={signUp.password}
            onChangeText={event => SetSignUp({...signUp, password:event})}
            secureTextEntry={true}/>
+           <View style={{flexDirection: 'row-reverse',}}>
            <TouchableOpacity
              onPress={onPress}
              style={styles.createAccountButton}
            >
              <Text style={styles.createAccountText}>Create Account</Text>
            </TouchableOpacity>
+           </View>
         </View>
        </ScrollView>
       );

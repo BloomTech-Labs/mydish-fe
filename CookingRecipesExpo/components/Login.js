@@ -70,6 +70,7 @@ const Login = props => {
            onPress={() => props.navigation.navigate('SignUp')}>
            <Text style={styles.createAccountButton}>Create an Account</Text>
            </TouchableOpacity>
+           <View style={{flexDirection: 'row-reverse', marginRight: 16}}>
            <TouchableOpacity
              onPress={onPress}
              style={styles.loginButton}
@@ -78,7 +79,7 @@ const Login = props => {
              {/* <MyCookBook props={toke} style={{display: 'none'}}/> */}
              {/* <AxiosWithAuth token={toke}/> */}
            </TouchableOpacity>
-           
+           </View>
         </View>
        </ScrollView>
        
