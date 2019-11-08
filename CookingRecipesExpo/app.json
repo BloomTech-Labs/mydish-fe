@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TestTransfer",
-    "slug": "TestTransfer",
+    "name": "RecipeShare",
+    "slug": "RecipeShare",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
