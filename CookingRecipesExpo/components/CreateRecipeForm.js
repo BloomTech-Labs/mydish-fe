@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { Text, TextInput, View, Image, Button, Alert, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
+import React, {useState } from 'react';
+import { Text, TextInput, View, Image, Button, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../styles/createRecipeStyles.js'
 import Ingredient from './Ingredient';
 import Instruction from './Instruction';
 import TagButtons from './tagButtons.js';
 import add from '../assets/add_circle_32px.png';;
 import axios from 'axios';
-// import AsyncStorage from '@react-native-community/async-storage';
-// import AxiosWithAuth from './AxiosWithAuth.js';
+// import AxiosWithAuth from "./AxiosWithAuth";
+//import done from /assets/done_button.png;
+//import done from '../assets/done_button.png';
 import done from '../assets/done_button.png';
 
 
@@ -24,7 +25,16 @@ export default function CreateRecipeForm(props) {
     ancestor: null
   }  
 
- 
+  // const practice = {
+  //   title: 'bye',
+  //   minutes: 20,
+  //   notes: "aaahhhhhh",
+  //   categories: ['breakfast'],
+  //   ingredients: [{unit:'cups', quantity: 3, name: 'help'}],            
+  //   //likes: "",
+  //   steps: ['help'], 
+  //   ancestor: null
+  // }  
   const [recipe, setRecipe] = useState(initialFormState)
   
   const [ingList, setIngList] = useState([])
@@ -36,8 +46,6 @@ export default function CreateRecipeForm(props) {
   const [diet,] = useState(['Meatless','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
 
-
-  
   const addIngredients = () => {
     // console.log('addIngredients triggered');
     const IngredientComponents = [];
@@ -114,17 +122,20 @@ export default function CreateRecipeForm(props) {
       }
 
       props.navigation.navigate('Home')
+      setRecipe(initialFormState)
 
+
+    //  AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
+    //  .then(res => {console.log('response from post request',res); setRecipe(initialFormState)})
+    //  .catch(err => console.log(err));
   }
         
   return (  
     <View>  
- 
-           <TouchableOpacity 
-           onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}
-           >
-             <Text style={{color: '#3BA405'}}>Done</Text>
-           </TouchableOpacity>
+
+          <TouchableOpacity onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
+            <Text style={{color: '#3BA405'}}>Done</Text>
+          </TouchableOpacity>
 
     <ScrollView>
       <View style={styles.crForm}>
@@ -139,6 +150,18 @@ export default function CreateRecipeForm(props) {
           /> */}
           <Text style = {styles.titleText}> Create Recipe </Text>
 
+          <View style={{ marginLeft: 15 }}>
+            {/* <Text style={styles.titleText}>Honey Pancakes</Text> */}
+            {/* <TextInput
+              style={styles.titleText}
+              placeholder="Recipe Name"
+              onChangeText={event => setRecipe({ ...recipe, title: event })}
+              value={recipe.title}
+            /> */}
+
+            {/* <Text style={styles.baseText}>Recipe by: Lana Smith</Text> */}
+
+          </View>
 
         </View>
 
@@ -174,6 +197,12 @@ export default function CreateRecipeForm(props) {
               onChangeText={event => setRecipe({ ...recipe, minutes: Number(event) })}
               value={recipe.minutes} 
             />
+            {/* <NumTextInput
+              style={styles.totalTimeContainer}
+              placeholder="Cook Time (minutes only)"
+              onChangeText={text => setRecipe({...recipe, minutes: text})}
+              value={recipe.minutes.toString()}
+            /> */}
 
           </View>
 
@@ -261,10 +290,8 @@ export default function CreateRecipeForm(props) {
 
         </View>
 
-        <TouchableOpacity 
-         onPress = {postRecipe} style = {{alignItems: 'center', marginTop: 30}}
-         >
-            <Image source={done} style = {{width: 136, height: 40, marginLeft: 215, marginBottom: 20}                  }/> 
+        <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'center', marginTop: 30}}>
+            <Image source={done} style = {{width: 136, height: 40, marginLeft: 215, marginBottom: 20}}/> 
           </TouchableOpacity>
 
 {/* 

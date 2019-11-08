@@ -21,7 +21,7 @@ let IndividualRecipes = props => {
     //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
 
     const id =  props.navigation.getParam('paramsID', 'params not passed')
-    console.log("id in individualRecipe.js", id)
+    // console.log("id in individualRecipe.js", id)
 
     var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
@@ -83,7 +83,7 @@ let IndividualRecipes = props => {
     return (
      <ScrollView>
             {im()}
-            { console.log('img inside scrollview',store.img)}
+            {/* { console.log('img inside scrollview',store.img)} */}
             <Text style={styles.title}>{store.title}</Text>
             <View style={styles.time}>
                 <View style={{flexDirection: 'row'}}>

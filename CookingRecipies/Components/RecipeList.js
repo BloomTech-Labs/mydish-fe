@@ -12,6 +12,8 @@ const RecipeList = (props) => {
 
     useEffect(() =>{
         setRecipes(props.props)
+
+        // console.log("HELLLOOOOO",Math.floor(recipes.length/2)+1)
     },[]);
     
     const divideArray =()=>{
