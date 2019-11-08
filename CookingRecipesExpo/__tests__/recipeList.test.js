@@ -1,8 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-
-// import App from '../../components/RecipeList';
-import RecipeList from '../../components/RecipeList';
+import RecipeList from '../components/RecipeList';
 
 describe('<App />', () => {
     it('renders correctly', () => {
