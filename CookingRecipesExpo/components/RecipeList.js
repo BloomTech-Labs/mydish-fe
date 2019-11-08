@@ -54,11 +54,11 @@ const RecipeList = (props) => {
 
     return (
         <ScrollView>
-            <View style={{flexDirection: 'row', marginLeft:20, marginRight:10}}>
-                <View style={{flexDirection: 'column', flex:1}}>
+            <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'column', marginLeft: "5%" }}>
                  {recipes.slice(0, divideArray()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} cardHeight={LeftHeightAdjustment()}/>)}
                 </View>
-                 <View style={{flexDirection: 'column', flex: 1}}>
+                 <View style={{flexDirection: 'column', marginRight: "150%"}}>
                  {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} cardHeight={RightHeightAdjustment()}/>)}
                 </View>
             </View>
