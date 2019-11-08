@@ -24,7 +24,7 @@ const Recipe = (props) => {
                 <Image 
                 
                 source={{uri : Cereal}}
-                style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
+                style={{width: "50%", height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
                 resieMode="contain"
                 
             />
@@ -34,7 +34,7 @@ const Recipe = (props) => {
                 <Image 
                 
                 source={{uri : props.recipe.img}}
-                style={{width: 160, height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
+                style={{width: "50%", height: props.imageHeight, borderRadius: 3, paddingRight: 20 }}
                 resieMode="contain"
                 
             />
@@ -43,11 +43,7 @@ const Recipe = (props) => {
     }
 
 
-        const RecipeCard = styled.View`
-        `;
-
     const UserCard = styled.View`
-
     `;
 
     const Like = styled.View`
@@ -55,7 +51,7 @@ const Recipe = (props) => {
         position: absolute;
         left : 10;
         top: 5;
-        zIndex : 1;
+        Index : 1;
     `;
 
   
@@ -67,9 +63,7 @@ const Recipe = (props) => {
 
 
     return (
-        <>
-            {/* <View style={{flex: 1, minWidth: 160, alignItems: 'center'}}> */}
-            <RecipeCard style={{height: props.cardHeight}}>
+            <View style={{height: props.cardHeight, width: "240%"}}>
                <TouchableOpacity  
                onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
                >
@@ -88,8 +82,7 @@ const Recipe = (props) => {
                     </View>
                 </UserCard>
                  </TouchableOpacity>
-            </RecipeCard>
-        </>
+            </View>
     )
 }
 

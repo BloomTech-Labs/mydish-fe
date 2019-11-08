@@ -6,11 +6,11 @@ module.exports = StyleSheet.create({
   //   column-gap: 1em,
   // },
     text : {
-      marginTop: 5, 
+      marginTop: "3%", 
       fontSize: 13, 
       fontWeight: 'bold', 
       textAlign: 'left',
-      width: 300
+      width: "30%"
     },
     username : {
       fontSize : 11
@@ -19,7 +19,8 @@ module.exports = StyleSheet.create({
       // flex: 1, 
       flexDirection: 'row', 
       justifyContent: 'space-between',
-      width: 160
+      width: "50%",
+      marginBottom: "2%"
       // marginLeft : 5
       // borderTopWidth: 5, 
       // borderBottomWidth: 5
