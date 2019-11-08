@@ -44,7 +44,6 @@ const Recipe = (props) => {
 
 
         const RecipeCard = styled.View`
-        marginLeft: 10;
         `;
 
     const UserCard = styled.View`

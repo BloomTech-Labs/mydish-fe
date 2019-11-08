@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextInput, Button, View, TouchableOpacity, Image, Text, Picker} from 'react-native';
 import styles from '../styles/createRecipeStyles';
-import ScrollPicker from 'react-native-wheel-scroll-picker';
+// import ScrollPicker from 'react-native-wheel-scroll-picker';
 
 
 const Ingredient = (props) => {
