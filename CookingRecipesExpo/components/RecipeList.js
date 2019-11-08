@@ -4,7 +4,8 @@ import {ScrollView, View} from 'react-native';
 
 
 const RecipeList = (props) => {
-    let imageHeight = 0;
+    let LeftimageHeight = 0;
+    let RightimageHeight = 0;
     let LeftHeight = 0;
     let RightHeight= 0;
 
@@ -36,30 +37,39 @@ const RecipeList = (props) => {
     const RightHeightAdjustment = () => {     
         if(RightHeight === 2){  
             RightHeight= RightHeight +1
-            return 230
+            return 235
         }if(RightHeight===3){
             RightHeight = RightHeight -1
-            return 220
+            return 225
         }
     }
-    const adjustImageHeight = () => {  
-        if(imageHeight === 0){  
-            imageHeight= imageHeight +1
+    const LeftadjustImageHeight = () => {  
+        if(LeftimageHeight === 0){  
+            LeftimageHeight= LeftimageHeight +1
             return 150
-        }if(imageHeight===1){
-            imageHeight = imageHeight -1
+        }if(LeftimageHeight===1){
+            LeftimageHeight = LeftimageHeight -1
             return 185
+        }
+    }
+    const RightadjustImageHeight = () => {  
+        if(RightimageHeight === 0){  
+            RightimageHeight= RightimageHeight +1
+            return 185
+        }if(RightimageHeight===1){
+            RightimageHeight = RightimageHeight -1
+            return 150
         }
     }
 
     return (
-        <ScrollView>
-            <View style={{flexDirection: 'row', justifyContent: "center"}}>
-                <View style={{flexDirection: 'column', marginRight:"-35%", marginLeft:"37%"}}>
-                 {recipes.slice(0, divideArray()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} cardHeight={LeftHeightAdjustment()}/>)}
+        <ScrollView stryle={{width: "80%"}}>
+            <View style={{flexDirection: 'row', marginLeft: "4%"}}>
+                <View style={{flexDirection: 'column',width: "39%", marginRight:"10%"}}>
+                 {recipes.slice(0, divideArray()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={LeftadjustImageHeight()} cardHeight={LeftHeightAdjustment()}/>)}
                 </View>
-                 <View style={{flexDirection: 'column'}}>
-                 {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} cardHeight={RightHeightAdjustment()}/>)}
+                 <View style={{flexDirection: 'column', width: "39%"}}>
+                 {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={RightadjustImageHeight()} cardHeight={RightHeightAdjustment()}/>)}
                 </View>
             </View>
          </ScrollView>
