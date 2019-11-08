@@ -8,12 +8,15 @@ import {createStackNavigator} from "react-navigation-stack";
 import IndividualRecipes from './components/IndividualRecipes.js'
 import CreateRecipeForm from './components/CreateRecipeForm.js'
 import Search from './components/Search.js';
+import MyCookBook from "./components/MyCookBook";
+import CookBookFolder from "./components/CookBookFolder";
 import HomePage from './components/homePage.js'
 import Login from './components/Login.js';
 import SignUp from './components/signUp';
 import plus from './assets/add_circle_grey.png';
 import search from './assets/Union.png';
 import logout from './assets/account_circle.png';
+import fork from "./assets/restaurant_grey.png";
 
 
 class AuthLoadingScreen extends React.Component {
@@ -49,10 +52,10 @@ const CreateNavigator =  createStackNavigator({
   Home:  {screen: HomePage}
 }, {initialRouteName: "Create"})
 
-// const CookBookNavigator =  createStackNavigator({
-//   CookBook: {screen:  MyCookBook},
-//   FolderInCookBook:  {screen: CookBookFolder}
-// }, {initialRouteName: "CookBook"})
+const CookBookNavigator =  createStackNavigator({
+  CookBook: {screen:  MyCookBook},
+  Courses:  {screen: CookBookFolder}
+}, {initialRouteName: "CookBook"})
 
 const LoginNavigator = createStackNavigator({
   Login: {screen: Login},
@@ -87,6 +90,13 @@ const MainNavigator = createBottomTabNavigator({
             <Image style={{ width: 25, height: 25, paddingTop:10 }} source={plus}/>
       ),
     }},
+    CookBook: {screen: CookBookNavigator,
+      navigationOptions: {
+        tabBarLabel: 'CookBook',
+        tabBarIcon: (
+              <Image style={{ width: 25, height: 25, paddingTop:10 }} source={fork}/>
+        ),
+      }},
   Profile: {screen: Login,
     navigationOptions: {
       tabBarLabel: 'Sign Out', 

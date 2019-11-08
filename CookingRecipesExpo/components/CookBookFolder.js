@@ -3,22 +3,29 @@ import
 {View,TouchableOpacity, TextInput, Button, StyleSheet, Text} 
 from "react-native";
 import axios from 'axios'
+import RecipeList from "./RecipeList"
 
 const CookBookFolder = (props) =>{
+    const [store, setStored] = useState([])
+   
+    const course =  props.navigation.getParam('Courses', 'params not passed')
 
-    // const deleteRecipe = () => {
-    //     axios.delete('')
-    //     .then(res => console.log(res))
-    //     .catch(err => console.log(err))
-    // }
+
+    useEffect(() =>{
+        axios
+        .get(
+          `https://recipeshare-development.herokuapp.com/cookbook${course}`
+        )
+        .then(res => {
+            setStored(res.data);
+     })
+        .catch(err => console.log(err));
+        
+    },[]);
 
     return(
         <View>
-            <Text>{props.course}</Text>
-            {/* <RecipeList props={props.navigation.getParam.data}/> */}
-            {/* <Button
-            onPress={deleteRecipe}
-            >Delete Recipe</Button> */}
+            <RecipeList props={store}/>
         </View>
     )
 }

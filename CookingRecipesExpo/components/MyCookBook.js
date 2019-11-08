@@ -9,42 +9,43 @@ import RecipeList from "./RecipeList";
 
 const MyCookBook = (props) =>{
     
-    const[folderName, setFolderName] = useState([
-        {
-            course: '',
-            recipes:  []
-        }
-    ]);
-    const [savedRecipes,  setSavedRecipes] = useState([]);
+    const courses= ['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack'];
 
-  
- useEffect(()=> {
-            //console.log("true", props.props)
-            AxiosWithAuth()
-            .get(`https://recipeshare-development.herokuapp.com/cookbook`)
-            .then(res => {
-                console.log("mycookbook", res)
-                setSavedRecipes([res.data]);
-             
-            })
-            .catch(err => console.log(err));
-}, [])
-    
-    
-    // useEffect(()=>{
-    //     for(i in savedRecipes){
-    //         for(x in folderName){
-    //             if(i.course == folderName.course){
-    //                 setFolderName(...folderName, {...folderName.course, recpies: recpies.append(i)})
-    //             }
-    //             setFolderName(...folderName, {course: i.course, recpies: recpies.append(i)})
-    //         }
-    //     }
 
-    // },[]);
+    // useEffect(() =>{
+    //     axios
+    //     .get(
+    //       `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
+    //     )
+    //     .then(res => {
+    //         setRecipes([])
+    //         setRecipes(res.data);
+    //     })
+    //     .catch(err => console.log(err));
+
+    // },[dish]);
+
 
     return(
         <View style={ {alignSelf:'center', flexDirection: "column"}}>
+        	{/* <TextInput
+					style={styles.textInput}
+					placeholder="What are you looking for?"
+					placeholderTextColor="#D3D3D3"
+					value={dish}
+                    onChangeText={dish => setDish(dish)}
+				/> */}
+            <Text style={{fontSize: 20,fontWeight: 'bold', alignSelf: 'center', marginBottom: 5, color:`#3BA405`}}>Your Personal CookBook!</Text>
+            {courses.map(cour =>{
+                return(
+                <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour})}>
+                <Text style={{margin:"20%", alignSelf:"center", fontSize: 15}}>
+                    {cour}
+                </Text>
+                </TouchableOpacity>
+                )
+            })}
+            
             {/* <Text>{user.props.name}</Text> */}
             {/* {folderName.props.map(folder  => {
                 return (
@@ -59,15 +60,6 @@ const MyCookBook = (props) =>{
                 )
             })} */}
             {/* {savedRecipes.length>=1  && <RecipeList props={savedRecipes} /> */} 
-            <Text style={{fontSize: 20,fontWeight: 'bold', alignSelf: 'center', marginBottom: 5, color:`#3BA405`}}>Your Personal CookBook!</Text>
-            <Text style={{alignSelf:'center', marginBottom: 7, marginLeft:2, marginRight:2, paddingLeft:7, paddingRight: 7, backgroundColor: `#3BA405`, color: 'white'}}>"The painter, sculptor, writer, and musician are protected by law. So are inventors. But the chef has absolutely no redress for plagiarism on his work; on the contrary, the more the latter is liked and appreciated, the more will people clamour for his recipes."</Text>
-            <Image            
-                
-                source={{uri : "https://help.anylist.com/img/articles/add-recipe-ingredients-to-list-1.png"}}
-                style={{width: 350, height: 500, borderRadius: 20, paddingRight: 20, paddingLeft: 20,alignSelf: 'center'}}
-                resieMode="contain"
-                
-            />
         </View>
     )
 
