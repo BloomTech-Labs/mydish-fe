@@ -43,7 +43,7 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
 
     return (
         <>
-        <View >
+
             <View style = {{width: "98%", marginBottom: 20, borderWidth: 3, borderColor: "red"}}>
                 {/* <Text>Step </Text> */}
                 <TextInput 
@@ -62,21 +62,6 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
                 />
             </View>
 
-            <View>
-
-            {/* <TouchableOpacity onPress={handleSubmit} style = {{flexDirection: 'row'}} >
-                
-                <Image source={add} style={{width: 20, height: 20}}/> 
-                
-                <Text style = {{color : 'green', fontSize: 16, marginLeft: 5}}>
-                    Add A Steps
-                </Text>
-               
-            </TouchableOpacity>  */}
-                {/* <Button title="Add A Step" onPress={handleSubmit} /> */}
-            </View>
-
-        </View>
       </>
     )
 }

@@ -278,7 +278,7 @@ export default function CreateRecipeForm(props) {
 
         <View>
 
-            <Text style={{fontSize: 16, color: '#363838', marginTop: 25  }}>Notes: </Text>
+            <Text style={{fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14, marginBottom: 8  }}>Notes: </Text>
 
             <TextInput
               style={styles.notesContainer}
