@@ -6,24 +6,15 @@ import add from '../assets/add_circle_32px.png';
 const Instruction = ({ recipe, setRecipe, count, setCount}) => {
     let [step, setStep] = useState({text : ''});
     let [editedSteps, setEditedSteps] = useState([]);
-    // let [recipeSteps, setRecipeSteps] = useState(recipe.steps);
 
     const handleChange = async (event) => {
-            // console.log(event, 'event');
             await setStep({text : event});
-            // console.log('step: ', step);  
     }
 
-    // const handleSubmit = async () => {
-    //     await setCount(oldCount => oldCount + 1);
-    // }
 
     const handleBlur = (event) => {
         const recipeSteps = [...recipe.steps];
-        // console.log('onBlur event triggered in <Instruction/>');
         setEditedSteps([...editedSteps, step])
-        // console.log('editedSteps', editedSteps);
-        // console.log('recipeSteps before splicing',recipeSteps);
 
         if (editedSteps.length) {
             for (let i=0; i<editedSteps.length; i++) {
@@ -33,8 +24,6 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
                   }
                 }
             }
-            // console.log('recipeSteps after splice and insert',recipeSteps);
-            // console.log('there are edited steps')
             setRecipe({...recipe, steps : recipeSteps });
         } else {
             setRecipe({...recipe, steps : [...recipe.steps, step.text] });
@@ -44,7 +33,7 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
     return (
         <>
 
-            <View style = {{width: "98%", marginBottom: 20, borderWidth: 3, borderColor: "red"}}>
+            {/* <View style = {, marginBottom: 20, borderWidth: 3, borderColor: "red"}}> */}
                 {/* <Text>Step </Text> */}
                 <TextInput 
                     style={{  
@@ -53,14 +42,16 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
                         borderWidth: 0.8, 
                         borderColor: '#363838',
                          borderRadius: 4,
-                         marginLeft: 14}}
+                         marginLeft: 14, marginBottom: 20,
+                        marginRight: 14,
+                    marginTop: 20}}
                     placeholder=" Add Instructions"
                     multiline={true}
                     onChangeText ={(event) => handleChange(event)}
                     onBlur={handleBlur}
                     value={step.text}
                 />
-            </View>
+            {/* </View> */}
 
       </>
     )

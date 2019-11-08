@@ -233,14 +233,14 @@ export default function CreateRecipeForm(props) {
    
           {/* =============== Ingredients ===================== */}
 
-          <Text style={{ fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14 }} >Ingredients</Text>
+          <Text style={{ fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14, marginBottom: 20 }} >Ingredients</Text>
 
           {/* ========= Add Ingredients View ============== */}
 
+                 {addIngredients()}
+
           <View style={{ flexDirection: "row", marginTop: 20}} >
             {/* <Icon name='add' reverse={true}></Icon> */}
-            <View>
-                  {addIngredients()}
 
                   <TouchableOpacity onPress={handleSubmit} style = {{flexDirection: 'row'}} >
                 
@@ -252,16 +252,14 @@ export default function CreateRecipeForm(props) {
                
             </TouchableOpacity> 
 
-            </View>
           </View>
 
           <Text style={{fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14  }} >Instructions</Text>
 
 
+              {addInstructions()}
           <View style={{ flexDirection: "row", marginTop: 20}} >
 
-            <View>
-              {addInstructions()}
 
               <TouchableOpacity onPress={handleInstructionSubmit} style = {{flexDirection: 'row'}} >
                 
@@ -272,7 +270,6 @@ export default function CreateRecipeForm(props) {
                 </Text>
                
               </TouchableOpacity> 
-            </View>
 
           </View>
 
@@ -290,8 +287,8 @@ export default function CreateRecipeForm(props) {
 
         </View>
 
-        <TouchableOpacity onPress = {postRecipe} style = {{alignItems: 'center', marginTop: 30}}>
-            <Image source={done} style = {{width: 136, height: 40, marginLeft: 215, marginBottom: 20}}/> 
+        <TouchableOpacity onPress = {postRecipe} style = {{alignItems: "flex-end", marginTop: 30}}>
+            <Image source={done} style = {{width: 136, height: 40, marginBottom: 20, marginRight: 14}}/> 
           </TouchableOpacity>
 
 {/* 
