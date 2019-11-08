@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#047396',
     paddingBottom:50,
-    marginLeft: 300
+    alignSelf: 'flex-end',
+    marginRight: 14
    }
    
    });
