@@ -8,7 +8,7 @@ import {
   Button,
   AsyncStorage
 } from 'react-native';
-// import axios from 'axios'
+import axios from 'axios'
 // import AsyncStorage from '@react-native-community/async-storage'
 
 import styles from '../styles/signUpStyles.js'
@@ -22,11 +22,12 @@ const SignUp = props => {
     console.log(signUp)
     
     
-    const onPress = () => {
-     console.log("axios call goes here")
-      axios.post('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
+    const onPress = async () => {
+      await axios.post('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
       .then(res => console.log('response from sign up axios post', res))
       .catch(err => setErr(err))
+
+      props.navigation.navigate('Login')
     }
     
       return (
