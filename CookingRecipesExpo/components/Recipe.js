@@ -37,7 +37,7 @@ const Recipe = (props) => {
         console.log('liked?', like);
         const axiosAuth = await axiosWithAuth();
         console.log('axiosAuth', axiosAuth);
-        if (like) {
+        if (!like) {
             axiosAuth.post(`https://recipeshare-development.herokuapp.com/likes/${props.recipe.id}`,{})
                 .then(res => {
                     console.log('response from post like: ', res.data.message);

@@ -14,7 +14,7 @@ import IndividualRecipeIngredients from './individualRecipeIngredients';
 
 var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"
 
-let IndividualRecipes = props => {
+const IndividualRecipe = props => {
     const [store, setStored] = useState([])
 
     //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
@@ -145,4 +145,4 @@ let IndividualRecipes = props => {
     );
   };
 
-  export default IndividualRecipes;
+  export default IndividualRecipe;

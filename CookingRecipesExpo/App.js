@@ -5,12 +5,12 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from "react-navigation-stack";
 // import AsyncStorage from '@react-native-community/async-storage'
 
-import IndividualRecipes from './components/IndividualRecipes.js'
+import IndividualRecipe from './components/IndividualRecipe.js'
 import CreateRecipeForm from './components/CreateRecipeForm.js'
 import Search from './components/Search.js';
-import HomePage from './components/homePage.js'
+import HomePage from './components/HomePage.js'
 import Login from './components/Login.js';
-import SignUp from './components/signUp';
+import SignUp from './components/SignUp';
 import plus from './assets/add_circle_grey.png';
 import search from './assets/Union.png';
 import logout from './assets/account_circle.png';
@@ -64,7 +64,7 @@ const LoginNavigator = createStackNavigator({
 
 const RecipeNavigator = createStackNavigator({
   Home: {screen: HomePage},
-  IndividualR: {screen: IndividualRecipes}
+  IndividualR: {screen: IndividualRecipe}
 },
 {
   initialRouteName: 'Home',
