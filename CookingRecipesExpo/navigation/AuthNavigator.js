@@ -1,3 +1,5 @@
+import React from 'react';
+import {Image} from 'react-native';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import RecipeNavigator from './RecipeNavigator';
 import LoginNavigator from './LoginNavigator';
@@ -13,7 +15,7 @@ const AuthNavigator = createBottomTabNavigator({
             tabBarIcon : (<Image style={styles.authHomeTab} source={search}/>)
         }
     },
-    Create : {
+    Login : {
         screen : LoginNavigator,
         navigationOptions : {
             tabBarLabel : 'Login',

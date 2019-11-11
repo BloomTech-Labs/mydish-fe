@@ -1,7 +1,9 @@
+import React from 'react';
 import {Image, AsyncStorage} from 'react-native';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import RecipeNavigator from './RecipeNavigator';
-import CreateNavigator from './CreateNavigator'
+import CreateNavigator from './CreateNavigator';
+import Login from '../components/Login';
 import styles from '../styles/navigation.styles';
 import search from '../assets/Union.png';
 import plus from '../assets/add_circle_grey.png';
