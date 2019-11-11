@@ -16,7 +16,6 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from "react-navigation-stack";
 import IndividualRecipe from './components/IndividualRecipe.js'
 import CreateRecipeForm from './components/CreateRecipeForm.js'
-import Search from './components/Search.js';
 import HomePage from './components/HomePage.js'
 import Login from './components/Login.js';
 import SignUp from './components/SignUp';
