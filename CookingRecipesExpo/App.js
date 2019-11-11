@@ -17,24 +17,14 @@ import {createStackNavigator} from "react-navigation-stack";
 import IndividualRecipe from './components/IndividualRecipe.js'
 import CreateRecipeForm from './components/CreateRecipeForm.js'
 import Search from './components/Search.js';
-<<<<<<< HEAD
-import MyCookBook from "./components/MyCookBook";
-import CookBookFolder from "./components/CookBookFolder";
-import HomePage from './components/homePage.js'
-=======
 import HomePage from './components/HomePage.js'
->>>>>>> 1f3f4cb5a11061a6382c94f7c7b066eac8a86db6
 import Login from './components/Login.js';
 import SignUp from './components/SignUp';
 import plus from './assets/add_circle_grey.png';
 import search from './assets/Union.png';
 import logout from './assets/account_circle.png';
-<<<<<<< HEAD
-import fork from "./assets/restaurant_grey.png";
-=======
 import { StyleSheet, Text, View, Image, AsyncStorage, ActivityIndicator, StatusBar, SafeAreaView, ScrollView} from 'react-native';
 import {createAppContainer, createSwitchNavigator } from 'react-navigation';
->>>>>>> 1f3f4cb5a11061a6382c94f7c7b066eac8a86db6
 
 
 class AuthLoadingScreen extends React.Component {

@@ -16,6 +16,7 @@ var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-
 
 const IndividualRecipe = props => {
     const [store, setStored] = useState([])
+    const [token, setToken] = useState([])
 
     //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
 
@@ -23,6 +24,11 @@ const IndividualRecipe = props => {
     console.log("id in individualRecipe.js", id)
 
     var Cereal = "https://i.imgur.com/iYFK1mG.png"
+    
+    async function axiosWithAuth() {
+        const userToken = await AsyncStorage.getItem('userToken');
+        setToken(userToken)
+    }
 
 
     useEffect(() =>{
@@ -35,7 +41,7 @@ const IndividualRecipe = props => {
             // console.log('store in individual recipes',store)
      })
         .catch(err => console.log(err));
-        
+
     },[]);
 
     const [color, setColor] = useState({active: 'Ingredients'})
@@ -80,6 +86,7 @@ const IndividualRecipe = props => {
         <Text>{store.minutes} minutes</Text>
             </View>
             </View>
+            {token == true && <Text>TEST</Text>}
 
          <Text style={styles.tags}>Tags</Text>
              <View style={{borderBottomWidth: 0.3, borderBottomColor: '#6B6F70',}}>
