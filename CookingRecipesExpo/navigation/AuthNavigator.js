@@ -5,7 +5,6 @@ import styles from '../styles/navigation.styles';
 import search from '../assets/Union.png';
 import logout from '../assets/account_circle.png';
 
-
 const AuthNavigator = createBottomTabNavigator({
     Home : {
         screen : RecipeNavigator,

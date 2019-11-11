@@ -1,10 +1,19 @@
+// import React from 'react';
+// import AppContainer from './navigation/AppContainer'
+
+// const App = () => {
+//     return (
+//       <AppContainer/>
+//     )
+// }
+
+// export default App;
+
+//************************************************* */
+
 import React from 'react';
-import { StyleSheet, Text, View, Image, AsyncStorage, ActivityIndicator, StatusBar, SafeAreaView, ScrollView} from 'react-native';
-import {createAppContainer, createSwitchNavigator } from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from "react-navigation-stack";
-// import AsyncStorage from '@react-native-community/async-storage'
-
 import IndividualRecipe from './components/IndividualRecipe.js'
 import CreateRecipeForm from './components/CreateRecipeForm.js'
 import Search from './components/Search.js';
@@ -14,6 +23,8 @@ import SignUp from './components/SignUp';
 import plus from './assets/add_circle_grey.png';
 import search from './assets/Union.png';
 import logout from './assets/account_circle.png';
+import { StyleSheet, Text, View, Image, AsyncStorage, ActivityIndicator, StatusBar, SafeAreaView, ScrollView} from 'react-native';
+import {createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 
 class AuthLoadingScreen extends React.Component {
@@ -140,12 +151,11 @@ const AppContainer = createAppContainer(
   }) 
   );
 
+const App = () => {
+  return (
+    <AppContainer/>
+  )
+}
 
-
-export default App = () => {
-    return (
-      <AppContainer/>
-    )
-  }
-
+export default App;
 
