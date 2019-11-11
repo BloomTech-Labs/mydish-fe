@@ -1,16 +1,17 @@
 import React, {useState } from 'react';
-import { Text, TextInput, View, Image, Button, Alert, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, Image, Button, Alert, ScrollView, TouchableOpacity} from 'react-native';
 import styles from '../styles/createRecipeStyles.js'
 import Ingredient from './Ingredient';
 import Instruction from './Instruction';
 import TagButtons from './tagButtons.js';
 import add from '../assets/add_circle_32px.png';;
 import axios from 'axios';
+import axiosWithAuth from '../utils/axiosWithAuth';
+
 // import AxiosWithAuth from "./AxiosWithAuth";
 //import done from /assets/done_button.png;
 //import done from '../assets/done_button.png';
 import done from '../assets/done_button.png';
-
 
 export default function CreateRecipeForm(props) {
   // console.log('<CreateRecipeForm/> rendering');
@@ -106,20 +107,29 @@ export default function CreateRecipeForm(props) {
      
       console.log('recipe inside submit of <CreateREcipeForm/> ', recipe);
 
-      // console.log('axioswithauth', AxiosWithAuth());
-      const userToken = await AsyncStorage.getItem('userToken');
+      const axiosAuth = await axiosWithAuth();
 
       try {
-        const res  = await axios.post('https://recipeshare-development.herokuapp.com/recipes', recipe, {
-          headers: {
-            Authorization: userToken
-          }
-        })
+        const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
         console.log(res);
-      } 
-      catch (error) {
-        console.log(error);
+      } catch(err) {
+        console.log('error from adding new recipe', err);
       }
+
+      // const userToken = await AsyncStorage.getItem('userToken');
+
+
+      // try {
+      //   const res  = await axios.post('https://recipeshare-development.herokuapp.com/recipes', recipe, {
+      //     headers: {
+      //       Authorization: userToken
+      //     }
+      //   })
+      //   console.log(res);
+      // } 
+      // catch (error) {
+      //   console.log(error);
+      // }
 
       props.navigation.navigate('Home')
       setRecipe(initialFormState)
