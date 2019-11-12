@@ -1,11 +1,7 @@
 import React from 'react';
 import AppContainer from './navigation/AppContainer'
 
-const App = () => {
-    return (
-      <AppContainer/>
-    )
-}
+const App = () => <AppContainer/>
 
 export default App;
 
@@ -16,17 +12,15 @@ export default App;
 // import {createStackNavigator} from "react-navigation-stack";
 // import IndividualRecipe from './components/IndividualRecipe.js'
 // import CreateRecipeForm from './components/CreateRecipeForm.js'
+// import Search from './components/Search.js';
 // import HomePage from './components/HomePage.js'
 // import Login from './components/Login.js';
-// import SignUp from './components/SignUp.js';
+// import SignUp from './components/SignUp';
 // import plus from './assets/add_circle_grey.png';
 // import search from './assets/Union.png';
 // import logout from './assets/account_circle.png';
 // import { StyleSheet, Text, View, Image, AsyncStorage, ActivityIndicator, StatusBar, SafeAreaView, ScrollView} from 'react-native';
 // import {createAppContainer, createSwitchNavigator } from 'react-navigation';
-// import MyCookBook from "./components/MyCookBook";
-// import CookBookFolder from "./components/CookBookFolder";
-// import fork from "./assets/restaurant_grey.png"
 
 
 // class AuthLoadingScreen extends React.Component {
@@ -62,10 +56,10 @@ export default App;
 //   Home:  {screen: HomePage}
 // }, {initialRouteName: "Create"})
 
-// const CookBookNavigator =  createStackNavigator({
-//   CookBook: {screen:  MyCookBook},
-//   Courses:  {screen: CookBookFolder}
-// }, {initialRouteName: "CookBook"})
+// // const CookBookNavigator =  createStackNavigator({
+// //   CookBook: {screen:  MyCookBook},
+// //   FolderInCookBook:  {screen: CookBookFolder}
+// // }, {initialRouteName: "CookBook"})
 
 // const LoginNavigator = createStackNavigator({
 //   Login: {screen: Login},
@@ -100,13 +94,6 @@ export default App;
 //             <Image style={{ width: 25, height: 25, paddingTop:10 }} source={plus}/>
 //       ),
 //     }},
-//     CookBook: {screen: CookBookNavigator,
-//       navigationOptions: {
-//         tabBarLabel: 'CookBook',
-//         tabBarIcon: (
-//               <Image style={{ width: 25, height: 25, paddingTop:10 }} source={fork}/>
-//         ),
-//       }},
 //   Profile: {screen: Login,
 //     navigationOptions: {
 //       tabBarLabel: 'Sign Out', 

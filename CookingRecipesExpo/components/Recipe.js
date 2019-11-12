@@ -36,6 +36,7 @@ const Recipe = (props) => {
         await setLike(!like);
         console.log('liked?', like);
         const axiosAuth = await axiosWithAuth();
+        
         console.log('axiosAuth', axiosAuth);
         if (!like) {
             axiosAuth.post(`https://recipeshare-development.herokuapp.com/likes/${props.recipe.id}`,{})

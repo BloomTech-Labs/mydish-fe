@@ -5,6 +5,7 @@ from "react-native";
 import axios from 'axios'
 import RecipeList from "./RecipeList"
 import axiosWithAuth from "../utils/axiosWithAuth";
+import { withNavigation } from 'react-navigation'
 
 
 const CookBookFolder = (props) =>{
@@ -15,24 +16,24 @@ const CookBookFolder = (props) =>{
 
     console.log("COURSE", course)
 
-    useEffect(async () =>{
+    const grab=  async () =>{
         const axiosAuth = await axiosWithAuth();
-        axiosAuth
-        .get(
-          `https://recipeshare-development.herokuapp.com/cookbook?category=${course}`
-        )
-        .then(res => {
-            
-            setStored(res.data);
-     })
-        .catch(err => console.log(err));
-        
+       axiosAuth.get(`https://recipeshare-development.herokuapp.com/cookbook?category=${course}`)
+      .then(res => {
+          
+          setStored(res.data);
+   })
+      .catch(err => console.log(err));
+    }
+
+    useEffect( () =>{
+        grab()      
     },[]);
 
     console.log("DATA", store)
     return(
         <View>
-            {store.length > 1 && <RecipeList props={store} status={true}/>}
+            {store.length > 1 && <RecipeList props={store} status={True}/>}
             
         </View>
     )
