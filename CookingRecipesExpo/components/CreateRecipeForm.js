@@ -121,11 +121,6 @@ export default function CreateRecipeForm(props) {
 
       props.navigation.navigate('Home')
       setRecipe(initialFormState)
-
-
-    //  AxiosWithAuth().post('https://recipeshare-development.herokuapp.com/recipes', recipe)
-    //  .then(res => {console.log('response from post request',res); setRecipe(initialFormState)})
-    //  .catch(err => console.log(err));
   }
         
   return (  
@@ -149,15 +144,6 @@ export default function CreateRecipeForm(props) {
           <Text style = {styles.titleText}> Create Recipe </Text>
 
           <View style={{ marginLeft: 15 }}>
-            {/* <Text style={styles.titleText}>Honey Pancakes</Text> */}
-            {/* <TextInput
-              style={styles.titleText}
-              placeholder="Recipe Name"
-              onChangeText={event => setRecipe({ ...recipe, title: event })}
-              value={recipe.title}
-            /> */}
-
-            {/* <Text style={styles.baseText}>Recipe by: Lana Smith</Text> */}
 
           </View>
 
@@ -172,8 +158,6 @@ export default function CreateRecipeForm(props) {
 
           <TextInput
             style={styles.totalTimeContainer}
-            // multiline={true}
-            // numberOfLines={5}
             maxLength={55}
             placeholder='Enter Recipe Name'
             onChangeText={event => setRecipe({ ...recipe, title: event })}
