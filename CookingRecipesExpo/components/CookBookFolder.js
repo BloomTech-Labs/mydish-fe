@@ -27,13 +27,7 @@ const CookBookFolder = (props) =>{
     }
 
     useEffect( () =>{
-<<<<<<< HEAD
-        grab()
- 
-        
-=======
         grab()      
->>>>>>> 657f24e704a54960ddd45921823804d3f55bd76f
     },[]);
 
     console.log("DATA", store)
