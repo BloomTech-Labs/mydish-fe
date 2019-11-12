@@ -15,17 +15,19 @@ const CookBookFolder = (props) =>{
 
     console.log("COURSE", course)
 
-    useEffect(async () =>{
+    const grab=  async () =>{
         const axiosAuth = await axiosWithAuth();
-        axiosAuth
-        .get(
-          `https://recipeshare-development.herokuapp.com/cookbook?category=${course}`
-        )
-        .then(res => {
-            
-            setStored(res.data);
-     })
-        .catch(err => console.log(err));
+       axiosAuth.get(`https://recipeshare-development.herokuapp.com/cookbook?category=${course}`)
+      .then(res => {
+          
+          setStored(res.data);
+   })
+      .catch(err => console.log(err));
+    }
+
+    useEffect( () =>{
+        grab()
+ 
         
     },[]);
 
