@@ -7,7 +7,7 @@ import styles from '../styles/createRecipeStyles';
 const Ingredient = (props) => {
 
 
-    let {recipe, setRecipe} = props;
+    let {recipe, setRecipe, visible, setVisible} = props;
 
     let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
     const [toEdits, setToEdits] = React.useState([]);
@@ -54,7 +54,7 @@ const Ingredient = (props) => {
         }
     }
 
-    const [visible, setVisible] = useState({active: false})
+    // const [visible, setVisible] = useState({active: false})
 
     const scrollPickerDisplay = () => {
         // const newActive= !visible.active
@@ -82,19 +82,18 @@ const Ingredient = (props) => {
                 
                 {/* <TouchableWithoutFeedback onPress={() => setVisible({ active: false })}> */}
                 <TouchableOpacity onPress = {scrollPickerDisplay} style={{ height: 40, width: "16%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%",  }}>
-                <View >
-                <Text style={{alignContent: "center"}}>{ingredient.unit !== '' ? ingredient.unit : "unit"}</Text>
+                <View style={{alignItems: "center", paddingTop: '18%'}} >
+                <Text style={ ingredient.unit === '' ? {color: "#C7C7CD"} : ''}>{ingredient.unit !== '' ? ingredient.unit : "Unit"}</Text>
                <Modal
-               style={{backgroundColor: 'red'}}
                 animationType="fade"
                 transparent={true}
                 //presentationStyle={'pageSheet'}
                 visible={visible.active}>
                  <TouchableOpacity onPress={hidePickerDisplay}>
-                 <View style={{opacity:0, height: '45%'}}></View>
+                 <View style={{ height: '45%'}}></View>
             </TouchableOpacity> 
                <Picker 
-               style={visible.active ? {backgroundColor: 'white'} : {display: "none"}}
+               style={visible.active ? {backgroundColor: 'white', shadowOpacity: .3} : {display: "none"}}
                itemStyle={{height: 140, width: "80%", marginLeft: '10%'}}
                selectedValue={ingredient.unit}
                onValueChange={(itemValue, itemIndex) =>

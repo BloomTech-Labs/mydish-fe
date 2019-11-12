@@ -42,7 +42,7 @@ export default function CreateRecipeForm(props) {
   const [cuisines,] = useState(['American','Italian','Thai','Chinese','Mexican','Japanese']);
   const [diet,] = useState(['Meatless','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
-  
+  const [visible, setVisible] = useState({active: false})
 
   const addIngredients = () => {
     // console.log('addIngredients triggered');
@@ -50,10 +50,10 @@ export default function CreateRecipeForm(props) {
     // console.log('count in <CreateRecipeForm/>', ingCount);
 
       if (!ingCount) {  //if no added ingredients, render only a single ingredient
-        IngredientComponents.push(<Ingredient key={0} recipe={recipe} setRecipe={setRecipe}  />);
+        IngredientComponents.push(<Ingredient key={0} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible} />);
       } else {
         for (let i=0; i<ingCount; i++) {
-          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe}/>);
+          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible}/>);
         }
       }
     return IngredientComponents;
@@ -129,7 +129,7 @@ export default function CreateRecipeForm(props) {
   }
         
   return (  
-    <View>  
+    <View style={visible.active ? {backgroundColor: 'white', opacity: .4}: ''}>  
 
           <TouchableOpacity onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
             <Text style={{color: '#3BA405'}}>Done</Text>
