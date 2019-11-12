@@ -64,7 +64,8 @@ const CreateNavigator =  createStackNavigator({
 
 const CookBookNavigator =  createStackNavigator({
   CookBook: {screen:  MyCookBook},
-  Courses:  {screen: CookBookFolder}
+  Courses:  {screen: CookBookFolder},
+  IndividualR: {screen: IndividualRecipe}
 }, {initialRouteName: "CookBook"})
 
 const LoginNavigator = createStackNavigator({
