@@ -1,16 +1,11 @@
 import React, {useState } from 'react';
-import { Text, TextInput, View, Image, Button, Alert, ScrollView, TouchableOpacity} from 'react-native';
+import { Text, TextInput, View, Image, AsyncStorage, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../styles/createRecipeStyles.js'
 import Ingredient from './Ingredient';
 import Instruction from './Instruction';
 import TagButtons from './tagButtons.js';
 import add from '../assets/add_circle_32px.png';;
 import axios from 'axios';
-import axiosWithAuth from '../utils/axiosWithAuth';
-
-// import AxiosWithAuth from "./AxiosWithAuth";
-//import done from /assets/done_button.png;
-//import done from '../assets/done_button.png';
 import done from '../assets/done_button.png';
 
 export default function CreateRecipeForm(props) {
@@ -46,6 +41,7 @@ export default function CreateRecipeForm(props) {
   const [cuisines,] = useState(['American','Italian','Thai','Chinese','Mexican','Japanese']);
   const [diet,] = useState(['Meatless','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
+  const [visible, setVisible] = useState({active: false})
 
   const addIngredients = () => {
     // console.log('addIngredients triggered');
@@ -53,10 +49,10 @@ export default function CreateRecipeForm(props) {
     // console.log('count in <CreateRecipeForm/>', ingCount);
 
       if (!ingCount) {  //if no added ingredients, render only a single ingredient
-        IngredientComponents.push(<Ingredient key={0} recipe={recipe} setRecipe={setRecipe} ingList={ingList} setIngList={setIngList} setCount={setIngCount} count={ingCount}/>);
+        IngredientComponents.push(<Ingredient key={0} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible} />);
       } else {
         for (let i=0; i<ingCount; i++) {
-          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe} ingList={ingList} setIngList={setIngList} setCount={setIngCount} count={ingCount}/>);
+          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible}/>);
         }
       }
     return IngredientComponents;
@@ -141,7 +137,7 @@ export default function CreateRecipeForm(props) {
   }
         
   return (  
-    <View>  
+    <View style={visible.active ? {backgroundColor: 'white', opacity: .4}: ''}>  
 
           <TouchableOpacity onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
             <Text style={{color: '#3BA405'}}>Done</Text>

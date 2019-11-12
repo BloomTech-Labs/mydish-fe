@@ -10,13 +10,14 @@ import editIcon from '../assets/edit_icon.png';
 import clock from '../assets/timer.png';
 import logo from '../assets/background.png';
 import IndividualRecipeIngredients from './individualRecipeIngredients';
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 
 var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"
 
 const IndividualRecipe = props => {
     const [store, setStored] = useState([])
-    const [token, setToken] = useState([])
+    const [token, setToken] = useState()
 
     //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
 
@@ -25,9 +26,18 @@ const IndividualRecipe = props => {
 
     var Cereal = "https://i.imgur.com/iYFK1mG.png"
     
-    async function axiosWithAuth() {
-        const userToken = await AsyncStorage.getItem('userToken');
-        setToken(userToken)
+    const hello= async () => {
+        const axiosAuth = await axiosWithAuth()
+        if(axiosAuth ===true){
+            return(
+                <View>
+                <Text>
+                    HELLLOOO ITS MEEE
+                </Text>
+
+                </View>
+            )
+        }
     }
 
 
@@ -38,6 +48,7 @@ const IndividualRecipe = props => {
         )
         .then(res => {
             setStored(res.data);
+
             // console.log('store in individual recipes',store)
      })
         .catch(err => console.log(err));
@@ -69,7 +80,8 @@ const IndividualRecipe = props => {
             )
         }
     }
-      
+
+    console.log("token", hello())
     
     return (
      <ScrollView>
@@ -86,7 +98,7 @@ const IndividualRecipe = props => {
         <Text>{store.minutes} minutes</Text>
             </View>
             </View>
-            {token == true && <Text>TEST</Text>}
+            {hello()}
 
          <Text style={styles.tags}>Tags</Text>
              <View style={{borderBottomWidth: 0.3, borderBottomColor: '#6B6F70',}}>

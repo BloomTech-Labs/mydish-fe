@@ -24,6 +24,9 @@ import search from './assets/Union.png';
 import logout from './assets/account_circle.png';
 import { StyleSheet, Text, View, Image, AsyncStorage, ActivityIndicator, StatusBar, SafeAreaView, ScrollView} from 'react-native';
 import {createAppContainer, createSwitchNavigator } from 'react-navigation';
+import MyCookBook from "./components/MyCookBook";
+import CookBookFolder from "./components/CookBookFolder";
+import fork from "./assets/restaurant_grey.png"
 
 
 class AuthLoadingScreen extends React.Component {
