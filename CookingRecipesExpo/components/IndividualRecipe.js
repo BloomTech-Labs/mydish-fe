@@ -28,7 +28,7 @@ const IndividualRecipe = props => {
     const Delete = async () => {
         const axiosAuth = await axiosWithAuth();
         axiosAuth.delete(`https://recipeshare-development.herokuapp.com/likes/${id}`)
-        .then(res => console.log(res))
+        .then(res => console.log("CRAAAZY", res))
         .catch(err => console.log(err))
     }
 
@@ -36,6 +36,7 @@ const IndividualRecipe = props => {
         axios
         .get(
           `https://recipeshare-development.herokuapp.com/recipes/${id}`
+
         )
         .then(res => {
             setStored(res.data);
@@ -89,8 +90,8 @@ const IndividualRecipe = props => {
             </View>
             </View>
             {status === true &&                 
-                <TouchableOpacity onPress={Delete}>
-                    <View style={styles.likeView}>
+                <TouchableOpacity >
+                    <View style={styles.likeView} onPress={Delete}>
                         <Image source={saves} style={{width: 20, height: 20}}/>
                         <Text >DELETE</Text>
                     </View>

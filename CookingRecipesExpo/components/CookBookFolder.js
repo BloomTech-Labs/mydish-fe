@@ -32,7 +32,8 @@ const CookBookFolder = (props) =>{
     console.log("DATA", store)
     return(
         <View>
-            {store.length > 1 && <RecipeList props={store} status={true}/>}          
+            {store.length > 1 && <RecipeList props={store} status={true}/>}
+            
         </View>
     )
 }
