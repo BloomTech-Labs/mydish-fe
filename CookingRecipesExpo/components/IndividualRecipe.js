@@ -10,20 +10,27 @@ import editIcon from '../assets/edit_icon.png';
 import clock from '../assets/timer.png';
 import logo from '../assets/background.png';
 import IndividualRecipeIngredients from './individualRecipeIngredients';
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 
 var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"
 
-let IndividualRecipes = props => {
+const IndividualRecipe = props => {
     const [store, setStored] = useState([])
+    const [token, setToken] = useState()
 
     //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
 
     const id =  props.navigation.getParam('paramsID', 'params not passed')
+    const status =  props.navigation.getParam('status', 'params not passed')
     console.log("id in individualRecipe.js", id)
 
-    var Cereal = "https://i.imgur.com/iYFK1mG.png"
-
+    const Delete = async () => {
+        const axiosAuth = await axiosWithAuth();
+        axiosAuth.delete(`https://recipeshare-development.herokuapp.com/likes/${id}`)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
 
     useEffect(() =>{
         axios
@@ -32,10 +39,11 @@ let IndividualRecipes = props => {
         )
         .then(res => {
             setStored(res.data);
+
             // console.log('store in individual recipes',store)
      })
         .catch(err => console.log(err));
-        
+
     },[]);
 
     const [color, setColor] = useState({active: 'Ingredients'})
@@ -63,7 +71,7 @@ let IndividualRecipes = props => {
             )
         }
     }
-      
+
     
     return (
      <ScrollView>
@@ -80,7 +88,14 @@ let IndividualRecipes = props => {
         <Text>{store.minutes} minutes</Text>
             </View>
             </View>
-
+            {status === true &&                 
+                <TouchableOpacity onPress={Delete}>
+                    <View style={styles.likeView}>
+                        <Image source={saves} style={{width: 20, height: 20}}/>
+                        <Text >DELETE</Text>
+                    </View>
+                </TouchableOpacity>
+        }
          <Text style={styles.tags}>Tags</Text>
              <View style={{borderBottomWidth: 0.3, borderBottomColor: '#6B6F70',}}>
          <View style={styles.tagBox}>
@@ -145,4 +160,4 @@ let IndividualRecipes = props => {
     );
   };
 
-  export default IndividualRecipes;
+  export default IndividualRecipe;

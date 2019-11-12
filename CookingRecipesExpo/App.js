@@ -1,19 +1,32 @@
+// import React from 'react';
+// import AppContainer from './navigation/AppContainer'
+
+// const App = () => {
+//     return (
+//       <AppContainer/>
+//     )
+// }
+
+// export default App;
+
+//************************************************* */
+
 import React from 'react';
-import { StyleSheet, Text, View, Image, AsyncStorage, ActivityIndicator, StatusBar, SafeAreaView, ScrollView} from 'react-native';
-import {createAppContainer, createSwitchNavigator } from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from "react-navigation-stack";
-// import AsyncStorage from '@react-native-community/async-storage'
-
-import IndividualRecipes from './components/IndividualRecipes.js'
+import IndividualRecipe from './components/IndividualRecipe.js'
 import CreateRecipeForm from './components/CreateRecipeForm.js'
-import Search from './components/Search.js';
-import HomePage from './components/homePage.js'
+import HomePage from './components/HomePage.js'
 import Login from './components/Login.js';
-import SignUp from './components/signUp';
+import SignUp from './components/SignUp';
 import plus from './assets/add_circle_grey.png';
 import search from './assets/Union.png';
 import logout from './assets/account_circle.png';
+import { StyleSheet, Text, View, Image, AsyncStorage, ActivityIndicator, StatusBar, SafeAreaView, ScrollView} from 'react-native';
+import {createAppContainer, createSwitchNavigator } from 'react-navigation';
+import MyCookBook from "./components/MyCookBook";
+import CookBookFolder from "./components/CookBookFolder";
+import fork from "./assets/restaurant_grey.png"
 
 
 class AuthLoadingScreen extends React.Component {
@@ -23,7 +36,7 @@ class AuthLoadingScreen extends React.Component {
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
-    console.log('test for token userToken', userToken)
+    // console.log('test for token userToken', userToken)
     
   
     // This will switch to the App screen or Auth screen and this loading
@@ -49,10 +62,10 @@ const CreateNavigator =  createStackNavigator({
   Home:  {screen: HomePage}
 }, {initialRouteName: "Create"})
 
-// const CookBookNavigator =  createStackNavigator({
-//   CookBook: {screen:  MyCookBook},
-//   FolderInCookBook:  {screen: CookBookFolder}
-// }, {initialRouteName: "CookBook"})
+const CookBookNavigator =  createStackNavigator({
+  CookBook: {screen:  MyCookBook},
+  Courses:  {screen: CookBookFolder}
+}, {initialRouteName: "CookBook"})
 
 const LoginNavigator = createStackNavigator({
   Login: {screen: Login},
@@ -64,7 +77,7 @@ const LoginNavigator = createStackNavigator({
 
 const RecipeNavigator = createStackNavigator({
   Home: {screen: HomePage},
-  IndividualR: {screen: IndividualRecipes}
+  IndividualR: {screen: IndividualRecipe}
 },
 {
   initialRouteName: 'Home',
@@ -87,6 +100,13 @@ const MainNavigator = createBottomTabNavigator({
             <Image style={{ width: 25, height: 25, paddingTop:10 }} source={plus}/>
       ),
     }},
+    CookBook: {screen: CookBookNavigator,
+      navigationOptions: {
+        tabBarLabel: 'CookBook',
+        tabBarIcon: (
+              <Image style={{ width: 25, height: 25, paddingTop:10 }} source={fork}/>
+        ),
+      }},
   Profile: {screen: Login,
     navigationOptions: {
       tabBarLabel: 'Sign Out', 
@@ -140,12 +160,11 @@ const AppContainer = createAppContainer(
   }) 
   );
 
+const App = () => {
+  return (
+    <AppContainer/>
+  )
+}
 
-
-export default App = () => {
-    return (
-      <AppContainer/>
-    )
-  }
-
+export default App;
 

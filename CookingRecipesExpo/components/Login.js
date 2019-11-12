@@ -25,15 +25,12 @@ const Login = props => {
   const signInAsync = async (tok) => {
     await AsyncStorage.setItem('userToken', tok);
     props.navigation.navigate('App');
-    const token = await AsyncStorage.getItem('userToken')
-    console.log(token)
+    const token = await AsyncStorage.getItem('userToken');
   };
 
  
 
   const onPress = () => {
-    
-  console.log("axios call goes here")
     axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)
     .then(res => {signInAsync(res.data.token),  temp.push(res.data.token)})
       // console.log('response from login axios post', res.data.token)
