@@ -5,6 +5,7 @@ from "react-native";
 import axios from 'axios'
 import RecipeList from "./RecipeList"
 import axiosWithAuth from "../utils/axiosWithAuth";
+import { withNavigation } from 'react-navigation'
 
 
 const CookBookFolder = (props) =>{
@@ -26,9 +27,13 @@ const CookBookFolder = (props) =>{
     }
 
     useEffect( () =>{
+<<<<<<< HEAD
         grab()
  
         
+=======
+        grab()      
+>>>>>>> 657f24e704a54960ddd45921823804d3f55bd76f
     },[]);
 
     console.log("DATA", store)

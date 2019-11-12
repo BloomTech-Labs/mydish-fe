@@ -94,7 +94,7 @@ const Ingredient = (props) => {
             </TouchableOpacity> 
                <Picker 
                style={visible.active ? {backgroundColor: 'white', shadowOpacity: .3} : {display: "none"}}
-               itemStyle={{height: 140, width: "80%", marginLeft: '10%'}}
+               itemStyle={{height: 200, width: "80%", marginLeft: '10%'}}
                selectedValue={ingredient.unit}
                onValueChange={(itemValue, itemIndex) =>
                 handleChange('unit', itemValue)}

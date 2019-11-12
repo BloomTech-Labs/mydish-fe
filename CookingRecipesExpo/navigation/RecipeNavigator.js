@@ -5,7 +5,7 @@ import IndividualRecipe from '../components/IndividualRecipe';
 
 const RecipeNavigator = createStackNavigator({
     Home : {screen : HomePage},
-    IndividualRecipe : {screen : IndividualRecipe}
+    IndividualR : {screen : IndividualRecipe}
 },{initialRouteName : 'Home'})
 
 export default RecipeNavigator;

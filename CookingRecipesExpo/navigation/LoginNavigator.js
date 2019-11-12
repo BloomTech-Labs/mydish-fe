@@ -6,3 +6,5 @@ const LoginNavigator = createStackNavigator({
     Login : {screen : Login},
     Signup : {screen : Signup}
 })
+
+export default LoginNavigator;
