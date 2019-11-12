@@ -12,7 +12,7 @@ const RecipeList = (props) => {
     const [recipes, setRecipes] = React.useState([]);
 
     useEffect(() =>{
-        setRecipes(props.props)
+        setRecipes(props.recipes)
 
         // console.log("HELLLOOOOO",Math.floor(recipes.length/2)+1)
     },[]);

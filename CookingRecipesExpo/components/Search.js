@@ -6,7 +6,8 @@ import RecipeList from './RecipeList.js'
 
 const Search = () => {
     let [dish, setDish] = useState('')
-    let [recipe, setRecipes] = useState([])
+    let [recipes, setRecipes] = useState([])
+
 
     useEffect(() =>{
         axios
@@ -40,7 +41,7 @@ const Search = () => {
                     />
                 </TouchableOpacity> */}
                 <ScrollView>
-                    {recipe.length>=1  && <RecipeList props={recipe} /> }
+                    {recipes.length>=1  && <RecipeList recipes={recipes} /> }
                 </ScrollView>
         </View>
 
