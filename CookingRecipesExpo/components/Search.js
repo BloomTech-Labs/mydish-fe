@@ -7,6 +7,7 @@ import RecipeList from './RecipeList.js'
 const Search = () => {
     let [dish, setDish] = useState('')
     let [recipe, setRecipes] = useState([])
+    const False = false;
 
     useEffect(() =>{
         axios
@@ -22,7 +23,7 @@ const Search = () => {
     },[dish]);
 
     return(
-        <View>
+        <View >
 				 <TextInput
 					style={styles.textInput}
 					placeholder="What dish are you looking for?"
@@ -39,8 +40,8 @@ const Search = () => {
                     accessibilityLabel="Search"                   
                     />
                 </TouchableOpacity> */}
-                <ScrollView>
-                    {recipe.length>=1  && <RecipeList props={recipe} /> }
+                <ScrollView >
+                    {recipe.length>=1  && <RecipeList props={recipe} status={False} /> }
                 </ScrollView>
         </View>
 

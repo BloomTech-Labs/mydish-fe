@@ -22,24 +22,15 @@ const IndividualRecipe = props => {
     //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
 
     const id =  props.navigation.getParam('paramsID', 'params not passed')
+    const status =  props.navigation.getParam('status', 'params not passed')
     console.log("id in individualRecipe.js", id)
 
-    var Cereal = "https://i.imgur.com/iYFK1mG.png"
-    
-    const hello= async () => {
-        const axiosAuth = await axiosWithAuth()
-        if(axiosAuth ===true){
-            return(
-                <View>
-                <Text>
-                    HELLLOOO ITS MEEE
-                </Text>
-
-                </View>
-            )
-        }
+    const Delete = async () => {
+        const axiosAuth = await axiosWithAuth();
+        axiosAuth.delete(`https://recipeshare-development.herokuapp.com/likes/${id}`)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
-
 
     useEffect(() =>{
         axios
@@ -81,7 +72,6 @@ const IndividualRecipe = props => {
         }
     }
 
-    console.log("token", hello())
     
     return (
      <ScrollView>
@@ -98,8 +88,14 @@ const IndividualRecipe = props => {
         <Text>{store.minutes} minutes</Text>
             </View>
             </View>
-            {hello()}
-
+            {status === true &&                 
+                <TouchableOpacity onPress={Delete}>
+                    <View style={styles.likeView}>
+                        <Image source={saves} style={{width: 20, height: 20}}/>
+                        <Text >DELETE</Text>
+                    </View>
+                </TouchableOpacity>
+        }
          <Text style={styles.tags}>Tags</Text>
              <View style={{borderBottomWidth: 0.3, borderBottomColor: '#6B6F70',}}>
          <View style={styles.tagBox}>

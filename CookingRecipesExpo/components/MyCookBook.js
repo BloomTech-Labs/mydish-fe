@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from "react";
 import 
-{View,TouchableOpacity, TextInput, Button, StyleSheet, Text, Image} 
+{View,TouchableOpacity, TextInput, Button, StyleSheet, Text, Image, ScrollView} 
 from "react-native";
 import RecipeList from "./RecipeList";
-// import AxiosWithAuth from "./";
 
 
 
@@ -27,25 +26,28 @@ const MyCookBook = (props) =>{
 
 
     return(
-        <View style={ {alignSelf:'center', flexDirection: "column"}}>
+        <View style={ {flexDirection: "column", width:"90%", marginLeft:"5%"}}>
+        
         	{/* <TextInput
 					style={styles.textInput}
 					placeholder="What are you looking for?"
-					placeholderTextColor="#D3D3D3"
+                    placeholderTextColor="#D3D3D3
+                    "
 					value={dish}
                     onChangeText={dish => setDish(dish)}
 				/> */}
             <Text style={{fontSize: 20,fontWeight: 'bold', alignSelf: 'center', marginBottom: 5, color:`#3BA405`}}>Your Personal CookBook!</Text>
             {courses.map(cour =>{
                 return(
-                <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour})}>
-                <Text style={{margin:"20%", alignSelf:"center", fontSize: 15}}>
-                    {cour}
-                </Text>
+                <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour})} >
+                    <View style={{ backgroundColor: "#42C200", height:"30%"}}>
+                        <Text style={{alignSelf:'center', fontSize: 20, color: "white"}}>
+                            {cour}
+                        </Text>
+                    </View>
                 </TouchableOpacity>
                 )
             })}
-            
             {/* <Text>{user.props.name}</Text> */}
             {/* {folderName.props.map(folder  => {
                 return (
