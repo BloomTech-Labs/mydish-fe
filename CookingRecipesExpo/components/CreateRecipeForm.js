@@ -40,10 +40,10 @@ export default function CreateRecipeForm(props) {
     // console.log('count in <CreateRecipeForm/>', ingCount);
 
       if (!ingCount) {  //if no added ingredients, render only a single ingredient
-        IngredientComponents.push(<Ingredient key={0} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible} />);
+        IngredientComponents.push(<Ingredient key={0} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible} count={ingCount} />);
       } else {
         for (let i=0; i<ingCount; i++) {
-          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible}/>);
+          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible}  count ={stepCount}/>);
         }
       }
     return IngredientComponents;
@@ -192,12 +192,6 @@ export default function CreateRecipeForm(props) {
               onChangeText={event => setRecipe({ ...recipe, minutes: Number(event) })}
               value={recipe.minutes} 
             />
-            {/* <NumTextInput
-              style={styles.totalTimeContainer}
-              placeholder="Cook Time (minutes only)"
-              onChangeText={text => setRecipe({...recipe, minutes: text})}
-              value={recipe.minutes.toString()}
-            /> */}
 
           </View>
 
