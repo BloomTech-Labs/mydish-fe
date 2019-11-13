@@ -151,7 +151,7 @@ export default function CreateRecipeForm(props) {
       <View style={styles.crForm}>
 
            
-        <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 65 }}>
+        <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 20 }}>
 
           {/* <Image
             style={{ width: 125, height: 150, }}
