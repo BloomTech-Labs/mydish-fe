@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
-import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text, ScrollView} from "react-native";
+import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text, ScrollView, Image} from "react-native";
 import axios from "axios";
+
+import logo from '../assets/LogoGreen.png';
 
 import RecipeList from './RecipeList.js'
 
@@ -23,6 +25,11 @@ const Search = () => {
 
     return(
         <View>
+              <View style = {{flexDirection: 'row', justifyContent: 'center', textAlign: 'center', paddingBottom: 15}}>
+            <Image source={logo} style={{width: 42, height: 50}}/> 
+            <Text style={styles.Logo}>RecipeShare</Text>
+          </View>
+         
 				 <TextInput
 					style={styles.textInput}
 					placeholder="What dish are you looking for?"
@@ -48,6 +55,14 @@ const Search = () => {
 }
 
 const styles = StyleSheet.create({
+Logo: {textAlign: "center",
+    color: "#42C200",
+    fontSize: 30,
+    fontWeight: 'bold', 
+    // paddingBottom:14,
+    paddingTop: 13, 
+    paddingLeft: 10,
+},
 textInput: {
     //flex: 1,
     height: 40,

@@ -10,7 +10,9 @@ const styles = StyleSheet.create({
           color: "#42C200",
           fontSize: 30,
           fontWeight: 'bold', 
-          paddingBottom:14,
+          // paddingBottom:14,
+          paddingTop: 13, 
+          paddingLeft: 10
        },
        explanationText: {
         textAlign: 'left',

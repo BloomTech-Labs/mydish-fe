@@ -6,13 +6,16 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 import axios from 'axios'
 // import AsyncStorage from '@react-native-community/async-storage'
 // import MyCookBook from "./MyCookBook"
 // import AxiosWithAuth from './AxiosWithAuth.js'
 import styles from '../styles/loginStyles.js'
+import logo from '../assets/LogoGreen.png';
+
 
 export const wow=[]
 
@@ -46,7 +49,12 @@ const Login = props => {
           >
             <Text style={styles.exitButton}>x</Text>
           </TouchableOpacity>
-          <Text style={styles.title}>RecipeShare</Text>
+
+          <View style = {{flexDirection: 'row', justifyContent: 'center', textAlign: 'center', paddingBottom: 15}}>
+            <Image source={logo} style={{width: 42, height: 50}}/> 
+            <Text style={styles.title}>RecipeShare</Text>
+          </View>
+         
           <Text style={styles.explanationText}>Sign in or create a new account to save and edit your favorite recipes.</Text>
           <Text style={styles.loginText}>Log In</Text>
           <Text style={styles.emailText}>Username</Text>

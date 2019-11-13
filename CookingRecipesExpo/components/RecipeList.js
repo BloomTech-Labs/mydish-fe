@@ -4,6 +4,7 @@ import {ScrollView, View} from 'react-native';
 
 
 const RecipeList = (props) => {
+
     let LeftimageHeight = 0;
     let RightimageHeight = 0;
     let LeftHeight = 0;
@@ -73,7 +74,8 @@ const RecipeList = (props) => {
                 </View>
             </View>
          </ScrollView>
-    )  
+    ) 
+     
 }
 
 export default RecipeList;

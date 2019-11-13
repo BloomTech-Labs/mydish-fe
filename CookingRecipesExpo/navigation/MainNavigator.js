@@ -9,6 +9,10 @@ import search from '../assets/Union.png';
 import plus from '../assets/add_circle_grey.png';
 import logout from '../assets/account_circle.png';
 
+import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
+import homePage from '../components/homePage';
+import logo from '../assets/LogoGreen.png';
+
 const MainNavigator = createBottomTabNavigator({
     Home : {screen : RecipeNavigator,
             navigationOptions : {
@@ -31,5 +35,28 @@ const MainNavigator = createBottomTabNavigator({
                 }
             }
     }, {initialRouteName : 'Home'})
+
+    createMaterialTopTabNavigator({
+        Header : {screen : homePage,
+                navigationOptions : {
+                    tabBarLabel : 'RecipeShare',
+                    tabBarIcon : ( <Image source={logo}/>)
+                }},
+        // Create : {screen : CreateNavigator,
+        //         navigationOptions : {
+        //             tabBarLabel : 'Create',
+        //             tabBarIcon : (<Image style={styles.createTab} source={plus}/>)
+        //         }},
+        // Profile : {screen : Login, 
+        //             navigationOptions : {
+        //                 tabBarLabel : 'Sign Out',
+        //                 tabBarIcon : (<Image style={styles.loginTab} source={logout}/>),
+        //                 tabBarOnPress : async ({navigation}) => {
+        //                     await AsyncStorage.clear();
+        //                     navigation.navigate('Auth');
+        //                 }
+        //             }
+        //         }
+        }, {initialRouteName : 'Header'})
     
 export default MainNavigator;

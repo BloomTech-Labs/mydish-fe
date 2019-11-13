@@ -1,10 +1,10 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import Login from '../components/Login';
-import Signup from '../components/SignUp'
+import signup from '../components/signUp';
 
 const LoginNavigator = createStackNavigator({
     Login : {screen : Login},
-    Signup : {screen : Signup}
+    signup : {screen : signup}
 })
 
 export default LoginNavigator;

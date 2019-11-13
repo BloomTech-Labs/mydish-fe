@@ -309,4 +309,10 @@ export default function CreateRecipeForm(props) {
     </ScrollView>
   </View>   
   )
+  
  }
+ CreateRecipeForm.navigationOptions = {
+  tabBarLabel: 'create new recipe'
+}
+
+ 

@@ -1,10 +1,10 @@
 import {createStackNavigator} from 'react-navigation-stack';
-import HomePage from '../components/HomePage';
+import homePage from '../components/homePage';
 import IndividualRecipe from '../components/IndividualRecipe';
 
 
 const RecipeNavigator = createStackNavigator({
-    Home : {screen : HomePage},
+    Home : {screen : homePage},
     IndividualRecipe : {screen : IndividualRecipe}
 },{initialRouteName : 'Home'})
 
