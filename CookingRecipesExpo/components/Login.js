@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -13,10 +13,9 @@ import axios from 'axios'
 // import MyCookBook from "./MyCookBook"
 // import AxiosWithAuth from './AxiosWithAuth.js'
 import styles from '../styles/loginStyles.js'
+import MyCookBook from "./MyCookBook.js"
 
-export const wow=[]
 
-export const temp = []
 
 const Login = props => {
   const [login, SetLogin] = useState({username: '', password: ''})
@@ -28,7 +27,9 @@ const Login = props => {
     const token = await AsyncStorage.getItem('userToken');
   };
 
- 
+//  useEffect(()=>{
+//    <MyCookBook name={login.username}/>
+//  },[login.username])
 
   const onPress = () => {
     axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)

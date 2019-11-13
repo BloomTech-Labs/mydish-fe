@@ -3,27 +3,31 @@ import
 {View,TouchableOpacity, TextInput, Button, StyleSheet, Text, Image, ScrollView} 
 from "react-native";
 import RecipeList from "./RecipeList";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 
 
 const MyCookBook = (props) =>{
+    const [test, setTest] = useState([])
+    const [word, setWord] = useState('')
     
     const courses= ['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack'];
 
+    const grab=  async () =>{
+        const axiosAuth = await axiosWithAuth();
+        axiosAuth.get(`https://recipeshare-development.herokuapp.com/cookbook?category=${word}`)
+        .then(res => {
+            console.log("WOOOOW", res.data)
+            setTest(res.data);
+          
 
-    // useEffect(() =>{
-    //     axios
-    //     .get(
-    //       `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
-    //     )
-    //     .then(res => {
-    //         setRecipes([])
-    //         setRecipes(res.data);
-    //     })
-    //     .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
 
-    // },[dish]);
-
+    useEffect(() =>{
+        grab()
+    },[])
 
     return(
         <View style={ {flexDirection: "column", width:"90%", marginLeft:"5%"}}>
@@ -37,17 +41,22 @@ const MyCookBook = (props) =>{
                     onChangeText={dish => setDish(dish)}
 				/> */}
             <Text style={{fontSize: 20,fontWeight: 'bold', alignSelf: 'center', marginBottom: 5, color:`#3BA405`}}>Your Personal CookBook!</Text>
-            {courses.map(cour =>{
-                return(
-                <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour})} >
-                    <View style={{ backgroundColor: "#42C200", height:"30%"}}>
-                        <Text style={{alignSelf:'center', fontSize: 20, color: "white"}}>
-                            {cour}
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                )
-            })}
+            <ScrollView style={{height: "230%"}}>
+
+                {courses.map(cour =>{
+                    console.log("COURSE", cour)
+                    return(
+                    <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour})} >
+                        <View style={{ backgroundColor: "#42C200", height:"70%"}}>
+                            <Text style={{alignSelf:'center', fontSize: 20, color: "white"}}>
+                                {cour}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    )
+                })}
+
+            </ScrollView>
             {/* <Text>{user.props.name}</Text> */}
             {/* {folderName.props.map(folder  => {
                 return (
