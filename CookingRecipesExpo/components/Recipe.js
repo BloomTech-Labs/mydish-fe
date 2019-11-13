@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from 'react';
 import styles from '../styles/recipe-styles';
-import {View,Text,ScrollView, Image, TouchableOpacity, AsyncStorage} from 'react-native';
+import {View,Text,ScrollView, Image, TouchableOpacity, AsyncStorage, Modal, Alert} from 'react-native';
 import { withNavigation } from 'react-navigation'
 // import {Icon} from 'react-native-elements';
 // import Icon from "react-native-vector-icons/FontAwesome";
@@ -16,11 +16,12 @@ var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 const Recipe = (props) => {
     let {navigation, cardHeight, imageHeight, recipe} = props;
-    console.log('recipe prop in <Recipe/>', recipe);
+    // console.log('recipe prop in <Recipe/>', recipe);
     const [num, setNum]= useState(1)
-    let [like, setLike] = React.useState(recipe.likedByUser);
-    let [likeCount, setLikeCount] = React.useState(recipe.total_saves);
-    let [userToken,setUserToken] = React.useState(null);
+    let [like, setLike] = useState(recipe.likedByUser);
+    let [likeCount, setLikeCount] = useState(recipe.total_saves);
+    let [userToken,setUserToken] = useState(null);
+    let [warn, setWarn] = useState(false);
 
 
     // console.log('recipe in <Recipe/>', recipe);
@@ -49,7 +50,7 @@ const Recipe = (props) => {
         return token;
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         getToken();
         // console.log('liked? after set', like);
     },[like,likeCount])
@@ -57,6 +58,13 @@ const Recipe = (props) => {
     const likeIt = async () => {
         console.log('like pressed');
         console.log('recipe id: ', recipe.id);
+        console.log('recipe total_saves', recipe.total_saves, like);
+        if (recipe.total_saves == 1 && like === true) { // unliking will remove the recipe from the database
+            //popup a modal warning the recipe will be deleted from the entire database
+            setWarn(true);
+
+            return;
+        }
         let liked = !like;  //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
         console.log('liked? before set', like);  //false
         const axiosAuth = await axiosWithAuth();
@@ -89,15 +97,18 @@ const Recipe = (props) => {
 
     return (
             <View style={{height: cardHeight, width: "240%"}}>
+                <Modal animationType="slide" transparent={false} 
+                       visible={warn} onRequestClose={() => {
+                                    Alert.alert('Recipe has been completed removed from the database');}} 
+                />
                 {userToken && <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
                 </Like>}
-                
+              
                <TouchableOpacity  
                onPress={()  =>  navigation.navigate('IndividualR', {paramsID: recipe.id})}
                >
-                
                <Image 
                 source={{uri : (recipe.img ? recipe.img : Cereal)}}
                 style={{width: "50%", height: imageHeight, borderRadius: 3, paddingRight: 20 }}

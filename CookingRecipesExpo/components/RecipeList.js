@@ -17,7 +17,6 @@ const RecipeList = (props) => {
     const cookbookURL = 'https://recipeshare-development.herokuapp.com/cookbook/';
     // let cookbook = [];
 
-
     const likedByUser = cookbook => {
         // console.log('cookbook', cookbook);
         // console.log('props.recipes', props.recipes);
