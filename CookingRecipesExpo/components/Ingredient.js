@@ -21,10 +21,10 @@ const Ingredient = (props) => {
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     }
 
-    const handlePicker = async (u) => {
-        console.log('handlepicker triggered', unit);
-        await setUnits(u)
-    }
+    // const handlePicker = async (u) => {
+    //     console.log('handlepicker triggered', unit);
+    //     await setUnits(u)
+    // }
 
 
 
@@ -35,9 +35,9 @@ const Ingredient = (props) => {
         if (fullIng.length === 3) {
          await setToEdits([...toEdits, ingredient]);
         //  ingList.push(ingredient);
-         console.log('ingList in <Ingredient/>', toEdits);
-         console.log('recipe.ingredients in <Ingredient/>', recipe.ingredients);
-         console.log('ingredient in <Ingredient/>', ingredient);
+        //  console.log('ingList in <Ingredient/>', toEdits);
+        //  console.log('recipe.ingredients in <Ingredient/>', recipe.ingredients);
+        //  console.log('ingredient in <Ingredient/>', ingredient);
          const recipeIng = [...recipe.ingredients];
 
          for (let i=0; i<toEdits.length; i++) {
@@ -68,6 +68,9 @@ const Ingredient = (props) => {
         console.log('active', visible.active)
       }
 
+      console.log('update ingredients', ingredient)
+      console.log('update recipes', recipe.ingredients)
+
     return  (
         <View>
             <View style = {{ flexDirection: 'row', width: 350, marginBottom: 20}}>
@@ -80,21 +83,22 @@ const Ingredient = (props) => {
                     value={ingredient.quantity}
                 />
                 
-                {/* <TouchableWithoutFeedback onPress={() => setVisible({ active: false })}> */}
                 <TouchableOpacity onPress = {scrollPickerDisplay} style={{ height: 40, width: "16%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%",  }}>
                 <View style={{alignItems: "center", paddingTop: '18%'}} >
                 <Text style={ ingredient.unit === '' ? {color: "#C7C7CD"} : ''}>{ingredient.unit !== '' ? ingredient.unit : "Unit"}</Text>
                <Modal
                 animationType="fade"
                 transparent={true}
-                //presentationStyle={'pageSheet'}
                 visible={visible.active}>
                  <TouchableOpacity onPress={hidePickerDisplay}>
-                 <View style={{ height: '45%'}}></View>
+                 <View style={{ height: '51.5%'}}></View>
             </TouchableOpacity> 
+            <TouchableOpacity style={{backgroundColor: '#F7F9FA', shadowOpacity: .3, borderBottomWidth: .3, borderBottomColor: "#c7c7c7"}} onPress={hidePickerDisplay}>
+            <Text style={{color: 'red', marginLeft: '88%', paddingTop: "3%", paddingBottom: '3%', color: '#047396'}}>Done</Text>
+            </TouchableOpacity>
                <Picker 
-               style={visible.active ? {backgroundColor: 'white', shadowOpacity: .3} : {display: "none"}}
-               itemStyle={{height: 200, width: "80%", marginLeft: '10%'}}
+               style={visible.active ? {backgroundColor: '#F7F9FA', } : {display: "none"}}
+               itemStyle={{height: 190}}
                selectedValue={ingredient.unit}
                onValueChange={(itemValue, itemIndex) =>
                 handleChange('unit', itemValue)}
@@ -113,13 +117,12 @@ const Ingredient = (props) => {
                <Picker.Item label = "pint" value = "pint" />
                <Picker.Item label = "package" value = "package" />
             </Picker>
-            <TouchableOpacity onPress={hidePickerDisplay}>
+            {/* <TouchableOpacity onPress={hidePickerDisplay}>
                  <View style={{opacity:0, height: '35%'}}></View>
-            </TouchableOpacity> 
+            </TouchableOpacity>  */}
             </Modal>
             </View>
                 </TouchableOpacity>
-            {/* </TouchableWithoutFeedback> */}
 
 
                 <TextInput

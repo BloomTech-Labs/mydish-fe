@@ -7,6 +7,7 @@ import TagButtons from './tagButtons.js';
 import add from '../assets/add_circle_32px.png';;
 import axios from 'axios';
 import done from '../assets/done_button.png';
+import axiosWithAuth from '../utils/axiosWithAuth.js'
 
 export default function CreateRecipeForm(props) {
   // console.log('<CreateRecipeForm/> rendering');
@@ -21,16 +22,6 @@ export default function CreateRecipeForm(props) {
     ancestor: null
   }  
 
-  // const practice = {
-  //   title: 'bye',
-  //   minutes: 20,
-  //   notes: "aaahhhhhh",
-  //   categories: ['breakfast'],
-  //   ingredients: [{unit:'cups', quantity: 3, name: 'help'}],            
-  //   //likes: "",
-  //   steps: ['help'], 
-  //   ancestor: null
-  // }  
   const [recipe, setRecipe] = useState(initialFormState)
   
   const [ingList, setIngList] = useState([])
@@ -38,7 +29,7 @@ export default function CreateRecipeForm(props) {
   let [stepCount, setStepCount] = useState(1);
   let [steps, setSteps] = useState([0]);
   const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']);
-  const [cuisines,] = useState(['American','Italian','Thai','Chinese','Mexican','Japanese']);
+  const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese']);
   const [diet,] = useState(['Meatless','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
   const [visible, setVisible] = useState({active: false})
@@ -81,13 +72,42 @@ export default function CreateRecipeForm(props) {
       setColor({active: newActive})
     }
 
-      function tagsIncluded(tag) {
+  function tagsIncluded(tag) {
         //const check = recipe.categories.includes(tag) 
          const index= recipe.categories.indexOf(tag)
          const newTags= index !== -1 ?  recipe.categories.filter(activeTag => activeTag !== tag) : recipe.categories.concat(tag)
          setRecipe({...recipe, categories: newTags})
         }
+        
+ function toggleDifficultyColor(category){
+  let newCategory = color.active;
+  if(category === "Easy"){
+    newCategory = color.active.filter(activeCat => activeCat !== 'Intermediate').filter(activeCat => activeCat !== 'Difficult').concat(category)
+   }
+   else if(category === "Intermediate"){
+    newCategory = color.active.filter(activeCat => activeCat !== 'Easy').filter(activeCat => activeCat !== 'Difficult').concat(category)
+   }
+   else if(category === "Difficult"){
+    newCategory = color.active.filter(activeCat => activeCat !== 'Easy').filter(activeCat=> activeCat !== 'Intermediate').concat(category)
+   }
+    setColor({active: newCategory})
+        }
+  
+  const difficultyTags = (tag) => {
+    let newTags = recipe.categories;
+    if(tag === "Easy"){
+      newTags = recipe.categories.filter(activeTag => activeTag !== 'Intermediate').filter(activeTag => activeTag !== 'Difficult').concat(tag)
+     }
+     else if(tag === "Intermediate"){
+      newTags = recipe.categories.filter(activeTag => activeTag !== 'Easy').filter(activeTag => activeTag !== 'Difficult').concat(tag)
+     }
+     else if(tag === "Difficult"){
+      newTags = recipe.categories.filter(activeTag => activeTag !== 'Easy').filter(activeTag => activeTag !== 'Intermediate').concat(tag)
+     }
+          setRecipe({...recipe, categories: newTags})
+         }
 
+        console.log('categories', recipe.categories)
         
         const handleSubmit = async () => {
           console.log('<Ingredient/> handleSubmit triggered');
@@ -99,6 +119,8 @@ export default function CreateRecipeForm(props) {
         await setStepCount(oldCount => oldCount + 1);
     }
 
+    let recipeId;
+
   const postRecipe = async () => {
      
       console.log('recipe inside submit of <CreateREcipeForm/> ', recipe);
@@ -107,27 +129,14 @@ export default function CreateRecipeForm(props) {
 
       try {
         const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
-        console.log(res);
+        console.log('response from post',res.data.recipe_id);
+        recipeId = res.data.recipe_id
       } catch(err) {
         console.log('error from adding new recipe', err);
       }
 
-      // const userToken = await AsyncStorage.getItem('userToken');
 
-
-      // try {
-      //   const res  = await axios.post('https://recipeshare-development.herokuapp.com/recipes', recipe, {
-      //     headers: {
-      //       Authorization: userToken
-      //     }
-      //   })
-      //   console.log(res);
-      // } 
-      // catch (error) {
-      //   console.log(error);
-      // }
-
-      props.navigation.navigate('Home')
+      props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
       setRecipe(initialFormState)
   }
         
@@ -144,11 +153,7 @@ export default function CreateRecipeForm(props) {
            
         <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 65 }}>
 
-          {/* <Image
-            style={{ width: 125, height: 150, }}
-            // resizeMode='contain'
-            source={{ uri: 'https://visualpharm.com/assets/654/Add%20Camera-595b40b85ba036ed117dbeab.svg' }}
-          /> */}
+    
           <Text style = {styles.titleText}> Create Recipe </Text>
 
           <View style={{ marginLeft: 15 }}>
@@ -178,7 +183,7 @@ export default function CreateRecipeForm(props) {
           <View style={{ flexDirection: "column", justifyContent: 'space-between' }}>
 
     
-          <Text style={styles.textInputStyles}>Cook Time (minutes)</Text>
+          <Text style={styles.textInputStyles}>Total Cook Time (minutes)</Text>
 
             <TextInput
               style={styles.totalTimeContainer}
@@ -216,7 +221,7 @@ export default function CreateRecipeForm(props) {
 
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Difficulty</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {difficulty.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+            {difficulty.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
           </View>
 
           {/* ============= Total Time and Servings View =============== */}
