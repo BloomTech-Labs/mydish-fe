@@ -16,8 +16,9 @@ var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 const Recipe = (props) => {
     let {navigation, cardHeight, imageHeight, recipe} = props;
+    console.log('recipe prop in <Recipe/>', recipe);
     const [num, setNum]= useState(1)
-    let [like, setLike] = React.useState(false);
+    let [like, setLike] = React.useState(recipe.likedByUser);
     let [likeCount, setLikeCount] = React.useState(recipe.total_saves);
     let [userToken,setUserToken] = React.useState(null);
 

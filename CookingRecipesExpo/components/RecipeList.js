@@ -18,7 +18,7 @@ const RecipeList = (props) => {
     // let cookbook = [];
 
 
-    const likedByUser = async (cookbook) => {
+    const likedByUser = cookbook => {
         // console.log('cookbook', cookbook);
         // console.log('props.recipes', props.recipes);
         recipeList = recipeList.map(rec => {
@@ -32,7 +32,7 @@ const RecipeList = (props) => {
             }
           return rec;
         })
-        console.log('recipeList after liking', recipeList);
+        setRecipes(recipeList);
     }
 
     const getCookbook = async () => {
@@ -41,21 +41,10 @@ const RecipeList = (props) => {
         setCookbook(res.data);
         likedByUser(res.data);
     }
-
-    // const getCookbook = () => {
-    //     axiosWithAuth().get(cookbookURL)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             setCookbook(res.data);
-    //         })
-    //         .catch(err => console.log('error from get cookbook', err))
-    // }
-
     
-
     useEffect(() =>{
         getCookbook();
-        setRecipes(props.recipes);
+        console.log('recipes hopefully with the likedByUser key', recipes);
     },[]);
     
     const divideArray =()=>{
