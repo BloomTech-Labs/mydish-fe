@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import {TextInput, View, Picker, Text, TouchableOpacity, TouchableWithoutFeedback, Modal} from 'react-native';
 import styles from '../styles/createRecipeStyles';
-// import ScrollPicker from 'react-native-wheel-scroll-picker';
 
 
 const Ingredient = (props) => {
 
 
-    let {recipe, setRecipe, visible, setVisible} = props;
+    let {recipe, setRecipe, visible, setVisible, index} = props;
 
     let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
     const [toEdits, setToEdits] = React.useState([]);
@@ -15,18 +14,17 @@ const Ingredient = (props) => {
     const [unit, setUnit] = React.useState('g');
 
 
-    const handleChange = async (key,value) => {
+    const handleChange = (key,value) => {
         console.log('handleChange triggered in <Ingredient>')
-        await setIngredient({...ingredient, [key] : value});
+        setIngredient({...ingredient, [key] : value});
+        console.log('key and value from handlechange', key, value)
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     }
 
-    // const handlePicker = async (u) => {
-    //     console.log('handlepicker triggered', unit);
-    //     await setUnits(u)
-    // }
+  
 
 
+console.log('key', index)
 
     const handleBlur = async (event) => {
         console.log('handleBlur triggered in <Ingredient/>');
@@ -34,10 +32,6 @@ const Ingredient = (props) => {
         const fullIng = ingArr.filter(i => !!i);
         if (fullIng.length === 3) {
          await setToEdits([...toEdits, ingredient]);
-        //  ingList.push(ingredient);
-        //  console.log('ingList in <Ingredient/>', toEdits);
-        //  console.log('recipe.ingredients in <Ingredient/>', recipe.ingredients);
-        //  console.log('ingredient in <Ingredient/>', ingredient);
          const recipeIng = [...recipe.ingredients];
 
          for (let i=0; i<toEdits.length; i++) {
@@ -54,18 +48,15 @@ const Ingredient = (props) => {
         }
     }
 
-    // const [visible, setVisible] = useState({active: false})
 
     const scrollPickerDisplay = () => {
-        // const newActive= !visible.active
         setVisible({active: true})
-        console.log('active', visible.active)
+     
       }
 
       const hidePickerDisplay = () => {
-        // const newActive= !visible.active
         setVisible({active: false   })
-        console.log('active', visible.active)
+       
       }
 
       console.log('update ingredients', ingredient)

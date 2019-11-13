@@ -40,10 +40,10 @@ export default function CreateRecipeForm(props) {
     // console.log('count in <CreateRecipeForm/>', ingCount);
 
       if (!ingCount) {  //if no added ingredients, render only a single ingredient
-        IngredientComponents.push(<Ingredient key={0} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible} count={ingCount} />);
+        IngredientComponents.push(<Ingredient key={0} index={0} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible} />);
       } else {
         for (let i=0; i<ingCount; i++) {
-          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible}  count ={ingCount}/>);
+          IngredientComponents.push(<Ingredient key={i+1} index={i} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible} />);
         }
       }
     return IngredientComponents;
@@ -54,10 +54,10 @@ export default function CreateRecipeForm(props) {
     const InstructionComponents = [];
 
     if (!stepCount) {
-      InstructionComponents.push(<Instruction key={0} recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} count ={stepCount}/>)
+      InstructionComponents.push(<Instruction key={0} index={0} recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
     } else {
       for (let i=0; i<stepCount; i++) {
-        InstructionComponents.push(<Instruction key={i+1}recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} count ={stepCount}/>)
+        InstructionComponents.push(<Instruction key={i+1} index={i+1} recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
       }
     }
     // console.log(InstructionComponents);
