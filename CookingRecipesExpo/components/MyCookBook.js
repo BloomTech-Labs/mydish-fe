@@ -11,7 +11,7 @@ const MyCookBook = (props) =>{
     const [test, setTest] = useState([])
     const [word, setWord] = useState('')
     
-    const courses= ['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack'];
+    const Courses= [{course:'Breakfast', img:"https://d9hyo6bif16lx.cloudfront.net/live/img/production/detail/menu/breakfast_breakfast-classics_big-two-do-breakfast.jpg"},{course:'Brunch', img:"https://media.timeout.com/images/105500044/1024/576/image.jpg" },{course:'Lunch', img:"https://hips.hearstapps.com/del.h-cdn.co/assets/17/41/1600x1600/square-1507827786-buddha-bowls-delish-1.jpg?resize=640:*" },{course:'Dinner', img:"https://img1.cookinglight.timeinc.net/sites/default/files/styles/4_3_horizontal_-_900x675/public/image/2016/09/main/_1501p108-weeknight-lemon-chicken-skillet-dinner.jpg?itok=sGWzw71z" },{course:'Dessert', img:"https://cdn3.tmbi.com/toh/GoogleImages/exps19201_RDS011700016SC03_13_2b_WEB.jpg"},{course:'Snack', img:"https://data.thefeedfeed.com/recommended/post_4483824.jpeg"}]
 
     const grab=  async () =>{
         const axiosAuth = await axiosWithAuth();
@@ -29,6 +29,7 @@ const MyCookBook = (props) =>{
         grab()
     },[])
 
+    console.log("USERNAME", props.name)
     return(
         <View style={ {flexDirection: "column", width:"90%", marginLeft:"5%"}}>
         
@@ -41,16 +42,21 @@ const MyCookBook = (props) =>{
                     onChangeText={dish => setDish(dish)}
 				/> */}
             <Text style={{fontSize: 20,fontWeight: 'bold', alignSelf: 'center', marginBottom: 5, color:`#3BA405`}}>Your Personal CookBook!</Text>
-            <ScrollView style={{height: "230%"}}>
+            <ScrollView style={{height: "230%", marginBottom:"10%"}}>
 
-                {courses.map(cour =>{
+                {Courses.map(cour =>{
                     console.log("COURSE", cour)
                     return(
                     <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour})} >
-                        <View style={{ backgroundColor: "#42C200", height:"70%"}}>
-                            <Text style={{alignSelf:'center', fontSize: 20, color: "white"}}>
-                                {cour}
+                        <View style={{ height:"70%", marginBottom:"20%"}}>
+                            <Text style={{fontSize: 14}}>
+                                {cour.course}
                             </Text>
+                            <Image 
+                            source={{uri : cour.img}}
+                            style={{width: "100%", height: "130%", borderRadius: 4, paddingRight: 20 }}
+
+                            />
                         </View>
                     </TouchableOpacity>
                     )
