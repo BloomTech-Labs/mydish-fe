@@ -8,7 +8,6 @@ const Search = () => {
     let [dish, setDish] = useState('')
     let [recipes, setRecipes] = useState([])
 
-
     useEffect(() =>{
         axios
         .get(
@@ -19,7 +18,6 @@ const Search = () => {
             setRecipes(res.data);
         })
         .catch(err => console.log(err));
-
     },[dish]);
 
     return(

@@ -1,6 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Recipe from './Recipe';
 import {ScrollView, View} from 'react-native';
+import axiosWithAuth from '../utils/axiosWithAuth';
+import axios from 'axios';
 
 
 const RecipeList = (props) => {
@@ -8,13 +10,52 @@ const RecipeList = (props) => {
     let RightimageHeight = 0;
     let LeftHeight = 0;
     let RightHeight= 0;
+    let recipeList= props.recipes;
 
-    const [recipes, setRecipes] = React.useState([]);
+    const [recipes, setRecipes] = useState([]);
+    let [cookbook, setCookbook] = useState([]);
+    const cookbookURL = 'https://recipeshare-development.herokuapp.com/cookbook/';
+    // let cookbook = [];
+
+
+    const likedByUser = async (cookbook) => {
+        // console.log('cookbook', cookbook);
+        // console.log('props.recipes', props.recipes);
+        recipeList = recipeList.map(rec => {
+            // console.log('rec id', rec.id);
+            // console.log('found rec in cookbook', cookbook.find(({id}) => id === rec.id));
+            const match = cookbook.find(({id}) => id === rec.id);
+            if (match) {
+              rec.likedByUser = true;
+            } else {
+              rec.likedByUser = false;
+            }
+          return rec;
+        })
+        console.log('recipeList after liking', recipeList);
+    }
+
+    const getCookbook = async () => {
+        const axiosAuth = await axiosWithAuth();
+        const res = await axiosAuth.get(cookbookURL);
+        setCookbook(res.data);
+        likedByUser(res.data);
+    }
+
+    // const getCookbook = () => {
+    //     axiosWithAuth().get(cookbookURL)
+    //         .then(res => {
+    //             console.log(res.data);
+    //             setCookbook(res.data);
+    //         })
+    //         .catch(err => console.log('error from get cookbook', err))
+    // }
+
+    
 
     useEffect(() =>{
-        setRecipes(props.recipes)
-
-        // console.log("HELLLOOOOO",Math.floor(recipes.length/2)+1)
+        getCookbook();
+        setRecipes(props.recipes);
     },[]);
     
     const divideArray =()=>{

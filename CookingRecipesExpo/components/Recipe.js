@@ -50,11 +50,12 @@ const Recipe = (props) => {
 
     React.useEffect(() => {
         getToken();
-        console.log('liked? after set', like);
+        // console.log('liked? after set', like);
     },[like,likeCount])
 
     const likeIt = async () => {
         console.log('like pressed');
+        console.log('recipe id: ', recipe.id);
         let liked = !like;  //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
         console.log('liked? before set', like);  //false
         const axiosAuth = await axiosWithAuth();
@@ -68,7 +69,7 @@ const Recipe = (props) => {
                     setLikeCount(res.data.total_saves);
                     setLike(liked);
                 })
-                .catch(err => console.log('error in posting like', err.message))
+                .catch(err => console.log('error in posting like', err))
         } else {
             axiosAuth.delete(`https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`)
                 .then(res => {
@@ -79,7 +80,7 @@ const Recipe = (props) => {
                     setLikeCount(res.data.total_saves);
                     setLike(liked);
                 })
-                .catch(err => console.log('err from deleting like', err))
+                .catch(err => console.log('err in deleting like', err))
         }
 
         
