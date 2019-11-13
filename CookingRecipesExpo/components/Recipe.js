@@ -97,10 +97,10 @@ const Recipe = (props) => {
 
     return (
             <View style={{height: cardHeight, width: "240%"}}>
-                <Modal animationType="slide" transparent={false} 
+                <Modal animationType="slide" transparent={true} 
                        visible={warn} onRequestClose={() => {
                                     Alert.alert('Recipe has been completed removed from the database');}} 
-                />
+                > <Text>This is my Modal</Text></Modal>
                 {userToken && <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
