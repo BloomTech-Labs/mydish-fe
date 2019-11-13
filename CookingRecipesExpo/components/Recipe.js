@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from 'react';
 import styles from '../styles/recipe-styles';
-import {View,Text,ScrollView, Image, TouchableOpacity, AsyncStorage, Modal, Alert} from 'react-native';
+import {View,Text,ScrollView, Image, TouchableOpacity, AsyncStorage, Modal, Alert, Button} from 'react-native';
 import { withNavigation } from 'react-navigation'
 // import {Icon} from 'react-native-elements';
 // import Icon from "react-native-vector-icons/FontAwesome";
@@ -62,7 +62,6 @@ const Recipe = (props) => {
         if (recipe.total_saves == 1 && like === true) { // unliking will remove the recipe from the database
             //popup a modal warning the recipe will be deleted from the entire database
             setWarn(true);
-
             return;
         }
         let liked = !like;  //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
@@ -97,10 +96,10 @@ const Recipe = (props) => {
 
     return (
             <View style={{height: cardHeight, width: "240%"}}>
-                <Modal animationType="slide" transparent={true} 
-                       visible={warn} onRequestClose={() => {
-                                    Alert.alert('Recipe has been completed removed from the database');}} 
-                > <Text>This is my Modal</Text></Modal>
+                <Modal animationType="fade" transparent={true} visible={warn}>
+                    <Text style={{backgroundColor : 'red', marginTop: '50%'}}>This is a Modal</Text>
+                    <Button title="close me" onPress={() => setWarn(!warn)}/>
+                </Modal> 
                 {userToken && <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
