@@ -43,7 +43,7 @@ export default function CreateRecipeForm(props) {
         IngredientComponents.push(<Ingredient key={0} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible} count={ingCount} />);
       } else {
         for (let i=0; i<ingCount; i++) {
-          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible}  count ={stepCount}/>);
+          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible}  count ={ingCount}/>);
         }
       }
     return IngredientComponents;
@@ -54,10 +54,10 @@ export default function CreateRecipeForm(props) {
     const InstructionComponents = [];
 
     if (!stepCount) {
-      InstructionComponents.push(<Instruction key={0} recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
+      InstructionComponents.push(<Instruction key={0} recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} count ={stepCount}/>)
     } else {
       for (let i=0; i<stepCount; i++) {
-        InstructionComponents.push(<Instruction key={i+1}recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
+        InstructionComponents.push(<Instruction key={i+1}recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} count ={stepCount}/>)
       }
     }
     // console.log(InstructionComponents);
