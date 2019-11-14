@@ -8,8 +8,12 @@ import RecipeList from './RecipeList.js'
 
 const Search = () => {
     let [dish, setDish] = useState('')
+<<<<<<< HEAD
     let [recipe, setRecipes] = useState([])
     const False = false;
+=======
+    let [recipes, setRecipes] = useState([])
+>>>>>>> 6692060124b6ada24288c290d8a38c81e1731c09
 
     useEffect(() =>{
         axios
@@ -18,10 +22,10 @@ const Search = () => {
         )
         .then(res => {
             setRecipes([])
+            console.log('recipe count', res.data.length);
             setRecipes(res.data);
         })
         .catch(err => console.log(err));
-
     },[dish]);
 
     return(
@@ -47,8 +51,13 @@ const Search = () => {
                     accessibilityLabel="Search"                   
                     />
                 </TouchableOpacity> */}
+<<<<<<< HEAD
                 <ScrollView >
                     {recipe.length>=1  && <RecipeList props={recipe} status={False} /> }
+=======
+                <ScrollView>
+                    {recipes.length>=1  && <RecipeList recipes={recipes} setRecipes={setRecipes} /> }
+>>>>>>> 6692060124b6ada24288c290d8a38c81e1731c09
                 </ScrollView>
         </View>
 

@@ -1,6 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Recipe from './Recipe';
 import {ScrollView, View} from 'react-native';
+import axiosWithAuth from '../utils/axiosWithAuth';
+import axios from 'axios';
 
 
 const RecipeList = (props) => {
@@ -9,14 +11,47 @@ const RecipeList = (props) => {
     let RightimageHeight = 0;
     let LeftHeight = 0;
     let RightHeight= 0;
+    // console.log('props in <RecipeList>', props);
 
-    const [recipes, setRecipes] = React.useState([]);
+    let recipeList= props.recipes;
 
+<<<<<<< HEAD
 
     useEffect(() =>{
         setRecipes(props.props)
+=======
+    const [recipes, setRecipes] = useState([]); //namespace collision with the recipes in <Search/>
+    let [cookbook, setCookbook] = useState([]);
+    const cookbookURL = 'https://recipeshare-development.herokuapp.com/cookbook/';
+    // let cookbook = [];
 
-        // console.log("HELLLOOOOO",Math.floor(recipes.length/2)+1)
+    const likedByUser = cookbook => {
+        // console.log('cookbook', cookbook);
+        // console.log('props.recipes', props.recipes);
+        recipeList = recipeList.map(rec => {
+            // console.log('rec id', rec.id);
+            // console.log('found rec in cookbook', cookbook.find(({id}) => id === rec.id));
+            const match = cookbook.find(({id}) => id === rec.id);
+            if (match) {
+              rec.likedByUser = true;
+            } else {
+              rec.likedByUser = false;
+            }
+          return rec;
+        })
+        setRecipes(recipeList);
+    }
+>>>>>>> 6692060124b6ada24288c290d8a38c81e1731c09
+
+    const getCookbook = async () => {
+        const axiosAuth = await axiosWithAuth();
+        const res = await axiosAuth.get(cookbookURL);
+        setCookbook(res.data);
+        likedByUser(res.data);
+    }
+    
+    useEffect(() =>{
+        getCookbook();
     },[]);
     
     const divideArray =()=>{
@@ -67,11 +102,25 @@ const RecipeList = (props) => {
     return (
         <ScrollView >
             <View style={{flexDirection: 'row', marginLeft: "4%"}}>
+<<<<<<< HEAD
                 <View style={{flexDirection: 'column',width: "39%", marginRight:"10%", paddingBottom: "40%"}}>
                  {recipes.slice(0, divideArray()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={LeftadjustImageHeight()} cardHeight={LeftHeightAdjustment()} status={props.status}/>)}
                 </View>
                  <View style={{flexDirection: 'column', width: "39%", paddingBottom: "40%"}}>
                  {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={RightadjustImageHeight()} cardHeight={RightHeightAdjustment()} status={props.status}/>)}
+=======
+                <View style={{flexDirection: 'column',width: "39%", marginRight:"10%"}}>
+                 {
+                 recipes.slice(0, divideArray()).map( recp =>  
+                 <Recipe key={recp.id} 
+                 recipe={recp} recipeList={props.recipes} 
+                 setRecipeList={props.setRecipes} imageHeight={LeftadjustImageHeight()} 
+                 cardHeight={LeftHeightAdjustment()}/>)
+                 }
+                </View>
+                 <View style={{flexDirection: 'column', width: "39%"}}>
+                 {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} recipeList={props.recipes} setRecipeList={props.setRecipes} imageHeight={RightadjustImageHeight()} cardHeight={RightHeightAdjustment()}/>)}
+>>>>>>> 6692060124b6ada24288c290d8a38c81e1731c09
                 </View>
             </View>
          </ScrollView>
