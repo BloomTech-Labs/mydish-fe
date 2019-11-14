@@ -6,11 +6,13 @@ const styles = StyleSheet.create({
      
     },
     title:{
-        textAlign: "center",
-       color: "#42C200",
-       fontSize: 30,
-       fontWeight: 'bold', 
-       paddingBottom:100,
+      textAlign: "center",
+      color: "#42C200",
+      fontSize: 30,
+      fontWeight: 'bold', 
+      // paddingBottom:14,
+      paddingTop: 5, 
+      paddingLeft: 10
     },
     createAccountTitle: {
       textAlign: 'left',

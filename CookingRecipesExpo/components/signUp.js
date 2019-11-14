@@ -39,7 +39,12 @@ const SignUp = props => {
           >
             <Text style={styles.exitButton}>x</Text>
           </TouchableOpacity>
-          <Text style={styles.title}>RecipeShare</Text>
+          
+          <View style = {{flexDirection: 'row', justifyContent: 'center', textAlign: 'center', paddingBottom: 15}}>
+            <Image source={logo} style={{width: "10%", height: "105%"}}/> 
+            <Text style={styles.title}>RecipeShare</Text>
+          </View>
+          
           <Text style={styles.createAccountTitle}>Create Account</Text>
           <Text style={styles.emailText}>Username</Text>
           <TextInput

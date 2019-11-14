@@ -51,7 +51,7 @@ const Login = props => {
           </TouchableOpacity>
 
           <View style = {{flexDirection: 'row', justifyContent: 'center', textAlign: 'center', paddingBottom: 15}}>
-            <Image source={logo} style={{width: 35, height: 40}}/> 
+            <Image source={logo} style={{width: "10%", height: "105%"}}/> 
             <Text style={styles.title}>RecipeShare</Text>
           </View>
          
