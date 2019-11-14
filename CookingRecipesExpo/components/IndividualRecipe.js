@@ -83,18 +83,10 @@ const IndividualRecipe = props => {
                 <Text style={{marginLeft: 5}}>{store.innovator_name}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-            <Image source={clock} style={{width: 20, height: 20}}/> 
-        <Text>{store.minutes} minutes</Text>
+                    <Image source={clock} style={{width: 20, height: 20}}/> 
+                    <Text>{store.minutes} minutes</Text>
+                </View>
             </View>
-            </View>
-            {status === true &&                 
-                <TouchableOpacity >
-                    <View style={styles.likeView} onPress={Delete}>
-                        <Image source={saves} style={{width: 20, height: 20}}/>
-                        <Text >DELETE</Text>
-                    </View>
-                </TouchableOpacity>
-        }
          <Text style={styles.tags}>Tags</Text>
              <View style={{borderBottomWidth: 0.3, borderBottomColor: '#6B6F70',}}>
          <View style={styles.tagBox}>
