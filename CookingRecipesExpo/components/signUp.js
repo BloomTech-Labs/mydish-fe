@@ -6,13 +6,15 @@ import {
   TouchableOpacity,
   ScrollView,
   Button,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 import axios from 'axios'
 // import AsyncStorage from '@react-native-community/async-storage'
 
 import styles from '../styles/signUpStyles.js'
 
+import logo from '../assets/LogoGreen.png';
 
 
 const SignUp = props => {

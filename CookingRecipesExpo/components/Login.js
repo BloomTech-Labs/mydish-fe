@@ -14,12 +14,8 @@ import axios from 'axios'
 // import MyCookBook from "./MyCookBook"
 // import AxiosWithAuth from './AxiosWithAuth.js'
 import styles from '../styles/loginStyles.js'
-<<<<<<< HEAD
 import logo from '../assets/LogoGreen.png';
 
-=======
-import MyCookBook from "./MyCookBook.js"
->>>>>>> a0fa37828a25531aa56d77a58f1daee171dc2ac6
 
 
 

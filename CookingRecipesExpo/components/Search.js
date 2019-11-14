@@ -25,16 +25,12 @@ const Search = () => {
     },[dish]);
 
     return(
-<<<<<<< HEAD
-        <View>
-              <View style = {{flexDirection: 'row', justifyContent: 'left', textAlign: 'left', paddingBottom: 8, paddingTop: 5}}>
-            <Image source={logo} style={{width: "5%", height: "95%", marginLeft: "2%",}}/> 
-            <Text style={styles.Logo}>RecipeShare</Text>
-          </View>
-         
-=======
         <View  >
->>>>>>> a0fa37828a25531aa56d77a58f1daee171dc2ac6
+             <View style = {{flexDirection: 'row', justifyContent: 'left', textAlign: 'left', paddingBottom:"2%", marginTop: "2%"}}>
+            <Image source={logo} style={{width: "9%", height: "86%", marginLeft: "2%"}}/> 
+            <Text style={styles.title}>RecipeShare</Text>
+          </View>
+
 				 <TextInput
 					style={styles.textInput}
 					placeholder="What dish are you looking for?"
@@ -60,6 +56,15 @@ const Search = () => {
 }
 
 const styles = StyleSheet.create({
+    title: {
+        textAlign: "center",
+        color: "#42C200",
+        fontSize: 18,
+        fontWeight: 'bold', 
+        // paddingBottom:14,
+        paddingTop: 5, 
+        paddingLeft: 10
+    },
 Logo: {
     textAlign: 'left',
     color: "#42C200",

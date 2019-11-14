@@ -11,9 +11,7 @@ import plus from '../assets/add_circle_grey.png';
 import logout from '../assets/account_circle.png';
 import fork from '../assets/restaurant_grey.png'
 
-import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
-import homePage from '../components/homePage';
-import logo from '../assets/LogoGreen.png';
+
 
 const MainNavigator = createBottomTabNavigator({
     Home : {screen : RecipeNavigator,
@@ -44,12 +42,6 @@ const MainNavigator = createBottomTabNavigator({
             }
     }, {initialRouteName : 'Home'})
 
-    createMaterialTopTabNavigator({
-        Header : {screen : homePage,
-                navigationOptions : {
-                    tabBarLabel : 'RecipeShare',
-                    tabBarIcon : ( <Image source={logo}/>)
-                }},
-        }, {initialRouteName : 'Header'})
+  
     
 export default MainNavigator;
