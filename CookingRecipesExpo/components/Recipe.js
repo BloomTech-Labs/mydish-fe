@@ -15,14 +15,13 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 const Recipe = (props) => {
+    console.log('props in <Recipe/>', props.setRecipeList);
     let {navigation, cardHeight, imageHeight, recipe} = props;
-    // console.log('recipe prop in <Recipe/>', recipe);
     const [num, setNum]= useState(1)
     let [like, setLike] = useState(recipe.likedByUser);
     let [likeCount, setLikeCount] = useState(recipe.total_saves);
     let [userToken,setUserToken] = useState(null);
     let [warn, setWarn] = useState(false);
-
 
     // console.log('recipe in <Recipe/>', recipe);
 
@@ -42,10 +41,10 @@ const Recipe = (props) => {
         zIndex : 1;
     `;
 
-    const getToken = async () => {
+    const getToken = async () => {  
         const token = await AsyncStorage.getItem('userToken');
         if (token) {
-            setUserToken(token);
+            setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
         }
         return token;
     }
@@ -62,7 +61,7 @@ const Recipe = (props) => {
         if (recipe.total_saves == 1 && like === true) { // unliking will remove the recipe from the database
             //popup a modal warning the recipe will be deleted from the entire database
             setWarn(true);
-            return;
+            // return;
         }
         let liked = !like;  //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
         console.log('liked? before set', like);  //false
@@ -82,6 +81,14 @@ const Recipe = (props) => {
             axiosAuth.delete(`https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`)
                 .then(res => {
                     console.log('res from unlike', res.data);
+
+                    const filtered = props.recipeList.filter(rec => {
+                        return rec.id !== recipe.id;
+                    })
+                    console.log('filtered length vs original', filtered.length, props.recipeList.length);
+
+                    props.setRecipeList(filtered);
+
                     if (!res.data.total_saves) {
                         setLikeCount(0);
                     }
@@ -97,9 +104,14 @@ const Recipe = (props) => {
     return (
             <View style={{height: cardHeight, width: "240%"}}>
                 <Modal animationType="fade" transparent={true} visible={warn}>
-                    <Text style={{backgroundColor : 'red', marginTop: '50%'}}>This is a Modal</Text>
-                    <Button title="close me" onPress={() => setWarn(!warn)}/>
-                </Modal> 
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 50,}}>
+                        <View style={{borderWidth: 5, borderRadius: 10, backgroundColor: 'white', padding: 40}}>
+                            <Text style={{textAlign: 'center'}}>If you unlike this recipe, it will be permanently removed from the App.  Are you sure you want to do this?</Text>
+                            <Button title="Remove From App" color='red' onPress={() => setWarn(!warn)}/>
+                            <Button title="Keep it"/>
+                        </View>
+                    </View>
+                </Modal>  
                 {userToken && <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
@@ -119,7 +131,7 @@ const Recipe = (props) => {
                     <Text style={styles.username}>{recipe.username}</Text>
                     <Text style={styles.prep}>{recipe.minutes} min.</Text>
                 </UserPrepTime>
-                 </TouchableOpacity>
+                </TouchableOpacity>
             </View>
     )
 }

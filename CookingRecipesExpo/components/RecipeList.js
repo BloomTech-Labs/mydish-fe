@@ -10,9 +10,11 @@ const RecipeList = (props) => {
     let RightimageHeight = 0;
     let LeftHeight = 0;
     let RightHeight= 0;
+    // console.log('props in <RecipeList>', props);
+
     let recipeList= props.recipes;
 
-    const [recipes, setRecipes] = useState([]);
+    const [recipes, setRecipes] = useState([]); //namespace collision with the recipes in <Search/>
     let [cookbook, setCookbook] = useState([]);
     const cookbookURL = 'https://recipeshare-development.herokuapp.com/cookbook/';
     // let cookbook = [];
@@ -43,7 +45,6 @@ const RecipeList = (props) => {
     
     useEffect(() =>{
         getCookbook();
-        console.log('recipes hopefully with the likedByUser key', recipes);
     },[]);
     
     const divideArray =()=>{
@@ -95,10 +96,10 @@ const RecipeList = (props) => {
         <ScrollView stryle={{width: "80%"}}>
             <View style={{flexDirection: 'row', marginLeft: "4%"}}>
                 <View style={{flexDirection: 'column',width: "39%", marginRight:"10%"}}>
-                 {recipes.slice(0, divideArray()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={LeftadjustImageHeight()} cardHeight={LeftHeightAdjustment()}/>)}
+                 {recipes.slice(0, divideArray()).map( recp =>  <Recipe key={recp.id} recipe={recp} recipeList={props.recipes} setRecipeList={props.setRecipes} imageHeight={LeftadjustImageHeight()} cardHeight={LeftHeightAdjustment()}/>)}
                 </View>
                  <View style={{flexDirection: 'column', width: "39%"}}>
-                 {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={RightadjustImageHeight()} cardHeight={RightHeightAdjustment()}/>)}
+                 {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} recipeList={props.recipes} setRecipeList={props.setRecipes} imageHeight={RightadjustImageHeight()} cardHeight={RightHeightAdjustment()}/>)}
                 </View>
             </View>
          </ScrollView>

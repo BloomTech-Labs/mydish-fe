@@ -39,7 +39,7 @@ const Search = () => {
                     />
                 </TouchableOpacity> */}
                 <ScrollView>
-                    {recipes.length>=1  && <RecipeList recipes={recipes} /> }
+                    {recipes.length>=1  && <RecipeList recipes={recipes} setRecipes={setRecipes} /> }
                 </ScrollView>
         </View>
 
