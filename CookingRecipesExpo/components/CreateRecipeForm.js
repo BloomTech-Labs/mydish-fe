@@ -126,7 +126,7 @@ export default function CreateRecipeForm(props) {
       console.log('recipe inside submit of <CreateREcipeForm/> ', recipe);
 
       const axiosAuth = await axiosWithAuth();
-
+    // if(recipe.categories.includes()){}
       try {
         const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
         console.log('response from post',res.data);
