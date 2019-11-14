@@ -5706,6 +5706,11 @@ react-native-gesture-handler@~1.3.0:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-picker-module@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-picker-module/-/react-native-picker-module-1.2.3.tgz#1ad2de7f946ce178b7cbda7583af220313141c06"
+  integrity sha512-qGcXjKOq+NitvcBUO7eQNbrzfmjL/ZlaxsnAVs3czW2JuxgaBjutiTjIcwHQNrH0RWjcZVzMrrbDHFHfF/lWCg==
+
 react-native-reanimated@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.2.0.tgz#9219227a52a5dfa4d34c324596d6726ccd874293"
