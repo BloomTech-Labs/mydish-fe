@@ -10,17 +10,20 @@ import { withNavigation } from 'react-navigation'
 
 const CookBookFolder = (props) =>{
     const [store, setStored] = useState([])
-    const True = true;
+    let [cookbookRefresh, setCookbookRefresh] = useState('hi');
    
-    const course =  props.navigation.getParam('Course', 'params not passed')
+    let course =  props.navigation.getParam('Course', 'params not passed');
+    course = course.toLowerCase();
+    
 
-    console.log("COURSE", course)
+    console.log("COURSE", course);
 
     const grab=  async () =>{
+        console.log('course in grab', course);
         const axiosAuth = await axiosWithAuth();
        axiosAuth.get(`https://recipeshare-development.herokuapp.com/cookbook?category=${course}`)
       .then(res => {
-          
+            console.log('res.data cookbook', res.data);
           setStored(res.data);
    })
       .catch(err => console.log(err));
@@ -30,13 +33,12 @@ const CookBookFolder = (props) =>{
         grab()      
     },[]);
 
+    // console.log('store', store);
     
 
-    console.log("DATA", store)
     return(
-        <View>
-            {store.length >= 1 && <RecipeList recipes={store} status={True}/>}
-            
+        <View >
+            {store.length >= 1 && <RecipeList recipes={store} />}
         </View>
     )
 }

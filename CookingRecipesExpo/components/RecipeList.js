@@ -12,7 +12,7 @@ const RecipeList = (props) => {
     let LeftHeight = 0;
     let RightHeight= 0;
     // console.log('props in <RecipeList>', props);
-
+    // console.log('props in Recipelist', props);
     let recipeList= props.recipes;
 
     const [recipes, setRecipes] = useState([]); //namespace collision with the recipes in <Search/>
@@ -99,7 +99,6 @@ const RecipeList = (props) => {
         }
     }
 
-    console.log("Recipes ", recipes)
     return (
         <ScrollView >
             <View style={{flexDirection: 'row', marginLeft: "4%"}}>
@@ -108,11 +107,20 @@ const RecipeList = (props) => {
                  <Recipe key={recp.id} 
                  recipe={recp} recipeList={props.recipes} 
                  setRecipeList={props.setRecipes} imageHeight={LeftadjustImageHeight()} 
-                 cardHeight={LeftHeightAdjustment()}/>)
+                 cardHeight={LeftHeightAdjustment()}
+                 cookbookRefresh={props.cookbookRefresh} 
+                 setCookbookRefresh={props.setCookbookRefresh}
+                 />)
                  }
                 </View>
                  <View style={{flexDirection: 'column', width: "39%", paddingBottom: "60%"}}>
-                 {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp}  imageHeight={RightadjustImageHeight()} cardHeight={RightHeightAdjustment()}/>)}
+                 {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} 
+                 recipe={recp}  
+                 imageHeight={RightadjustImageHeight()} 
+                 cardHeight={RightHeightAdjustment()}
+                 cookbookRefresh={props.cookbookRefresh} 
+                 setCookbookRefresh={props.setCookbookRefresh}
+                 />)}
                 </View>
             </View>
          </ScrollView>

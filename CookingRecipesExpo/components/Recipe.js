@@ -16,12 +16,14 @@ var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 const Recipe = (props) => {
     // console.log('props in <Recipe/>', props.setRecipeList);
+    // console.log('cookbook refresh', props.cookbookRefresh);
     let {navigation, cardHeight, imageHeight, recipe} = props;
     const [num, setNum]= useState(1)
     let [like, setLike] = useState(recipe.likedByUser);
     let [likeCount, setLikeCount] = useState(recipe.total_saves);
     let [userToken,setUserToken] = useState(null);
     let [warn, setWarn] = useState(false);
+   
 
     // console.log('recipe in <Recipe/>', recipe);
 
@@ -46,7 +48,7 @@ const Recipe = (props) => {
         if (token) {
             setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
         }
-       console.log("get Token", token)
+      
        return token;
     }
 
@@ -61,11 +63,11 @@ const Recipe = (props) => {
         console.log('recipe total_saves', recipe.total_saves, like);
 
         let liked = !like;  //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
-        if (liked === true ) { // unliking will remove the recipe from the database
-            //popup a modal warning the recipe will be deleted from the entire database
-            setWarn(true);
-            // return;
-        }
+        // if (liked === true ) { // unliking will remove the recipe from the database
+        //     //popup a modal warning the recipe will be deleted from the entire database
+        //     setWarn(true);
+        //     // return;
+        // }
         console.log('liked? before set', like);  //false
         const axiosAuth = await axiosWithAuth();
         if (liked) {
@@ -80,19 +82,22 @@ const Recipe = (props) => {
             axiosAuth.delete(`https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`)
                 .then(res => {
                     console.log('res from unlike', res.data);
+                    
+                    // const filtered = props.recipeList.filter(rec => {
+                    //     return rec.id !== recipe.id;
+                    // })
+                    // console.log('filtered length vs original', filtered.length, props.recipeList.length);
 
-                    const filtered = props.recipeList.filter(rec => {
-                        return rec.id !== recipe.id;
-                    })
-                    console.log('filtered length vs original', filtered.length, props.recipeList.length);
-
-                    props.setRecipeList(filtered);
+                    // props.setRecipeList(filtered);
 
                     if (!res.data.total_saves) {
                         setLikeCount(0);
+                    } else {
+                        setLikeCount(res.data.total_saves);
                     }
-                    setLikeCount(res.data.total_saves);
+                    
                     setLike(liked);
+                    
                 })
                 .catch(err => console.log('err in deleting like', err))
         }
