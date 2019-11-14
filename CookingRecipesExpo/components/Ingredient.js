@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {TextInput, View, Picker, Text, TouchableOpacity, TouchableWithoutFeedback, Modal} from 'react-native';
 import styles from '../styles/createRecipeStyles';
 import ReactNativePickerModule from 'react-native-picker-module'
@@ -10,31 +10,31 @@ const Ingredient = (props) => {
 
   let {recipe, setRecipe, visible, setVisible, index} = props;
   
-  const [choices,] = useState(['tsp', 'tbsp', 'cup', 'g', 'md', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package'])
+  const [choices,] = useState(['tsp', 'tbsp', 'cup', 'g', 'mg', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package'])
     let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
     const [toEdits, setToEdits] = React.useState([]);
     // const ingList = [];
     const [unit, setUnit] = React.useState('g');
 
+    
+    useEffect(() => {
+      console.log('ingredient', ingredient);
+      console.log('recipe.ingredients', recipe.ingredients);
+    },[recipe.ingredients])
 
     const handleChange = (key,value) => {
         console.log('handleChange triggered in <Ingredient>')
-        setIngredient({...ingredient, [key] : value});
         console.log('key and value from handlechange', key, value)
+        setIngredient({...ingredient, [key] : value});
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     }
 
-  
-
-
-console.log('key', index)
-
-    const handleBlur = async (event) => {
+    const handleBlur = (event) => {
         console.log('handleBlur triggered in <Ingredient/>');
         const ingArr = Object.values(ingredient);
         const fullIng = ingArr.filter(i => !!i);
         if (fullIng.length === 3) {
-         await setToEdits([...toEdits, ingredient]);
+         setToEdits([...toEdits, ingredient]);
          const recipeIng = [...recipe.ingredients];
 
          for (let i=0; i<toEdits.length; i++) {
@@ -45,9 +45,9 @@ console.log('key', index)
             }
           }
 
-        console.log('recipeIng after splicing', recipeIng);
+        // console.log('recipeIng after splicing', recipeIng);
         
-           await setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
+           setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
         }
     }
 
@@ -91,9 +91,7 @@ console.log('key', index)
                 />
 
             </View>
-
             <View style = {{alignItems: 'center'}}> 
-
             </View>
         </View>
     
