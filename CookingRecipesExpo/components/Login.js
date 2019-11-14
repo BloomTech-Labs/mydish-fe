@@ -76,7 +76,7 @@ const Login = props => {
            secureTextEntry={true}/>
            {toke!=null && <Text style={{color:"red", marginLeft:100}}>Incorrect Username or Password</Text>}
            <TouchableOpacity
-           onPress={() => props.navigation.navigate('SignUp')}>
+           onPress={() => props.navigation.navigate('Signup')}>
            <Text style={styles.createAccountButton}>Create an Account</Text>
            </TouchableOpacity>
            <View style={{flexDirection: 'row-reverse', marginRight: 16}}>

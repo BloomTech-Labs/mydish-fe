@@ -5,6 +5,7 @@ import Signup from '../components/SignUp'
 const LoginNavigator = createStackNavigator({
     Login : {screen : Login},
     Signup : {screen : Signup}
-})
+},
+{initialRouteName : 'Login'})
 
 export default LoginNavigator;
