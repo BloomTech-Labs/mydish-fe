@@ -25,8 +25,8 @@ const Search = () => {
 
     return(
         <View>
-              <View style = {{flexDirection: 'row', justifyContent: 'center', textAlign: 'center', paddingBottom: 15}}>
-            <Image source={logo} style={{width: 42, height: 50}}/> 
+              <View style = {{flexDirection: 'row', justifyContent: 'left', textAlign: 'left', paddingBottom: 8, paddingTop: 5}}>
+            <Image source={logo} style={{width: 20, height: 22, marginLeft: 5,}}/> 
             <Text style={styles.Logo}>RecipeShare</Text>
           </View>
          
@@ -55,13 +55,14 @@ const Search = () => {
 }
 
 const styles = StyleSheet.create({
-Logo: {textAlign: "center",
+Logo: {
+    textAlign: 'left',
     color: "#42C200",
-    fontSize: 30,
+    fontSize: 18,
     fontWeight: 'bold', 
     // paddingBottom:14,
-    paddingTop: 13, 
-    paddingLeft: 10,
+    paddingTop: 1, 
+    paddingLeft: 5,
 },
 textInput: {
     //flex: 1,

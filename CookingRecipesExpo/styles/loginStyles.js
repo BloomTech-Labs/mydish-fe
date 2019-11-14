@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
           fontSize: 30,
           fontWeight: 'bold', 
           // paddingBottom:14,
-          paddingTop: 13, 
+          paddingTop: 5, 
           paddingLeft: 10
        },
        explanationText: {
