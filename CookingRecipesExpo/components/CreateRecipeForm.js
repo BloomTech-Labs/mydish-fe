@@ -107,7 +107,7 @@ export default function CreateRecipeForm(props) {
           setRecipe({...recipe, categories: newTags})
          }
 
-        console.log('categories', recipe.categories)
+        // console.log('categories', recipe.categories)
         
         const handleSubmit = async () => {
           console.log('<Ingredient/> handleSubmit triggered');
@@ -139,6 +139,8 @@ export default function CreateRecipeForm(props) {
       props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
       setRecipe(initialFormState)
   }
+
+  
         
   return (  
     <View style={visible.active ? {backgroundColor: 'white', opacity: .4}: ''}>  
@@ -189,7 +191,7 @@ export default function CreateRecipeForm(props) {
               style={styles.totalTimeContainer}
               placeholder='Cook Time (minutes only)'
               keyboardType={'numeric'}
-              onChangeText={event => setRecipe({ ...recipe, minutes: Number(event) })}
+              onChangeText={min => setRecipe({ ...recipe, minutes: min})}
               value={recipe.minutes} 
             />
 
