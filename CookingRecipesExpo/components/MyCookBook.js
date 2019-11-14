@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import 
-{View,TouchableOpacity, TextInput, Button, StyleSheet, Text, Image, ScrollView} 
+{View,TouchableOpacity, TextInput, Button, StyleSheet, Text, Image, ScrollView, FlatList} 
 from "react-native";
 import RecipeList from "./RecipeList";
 import axiosWithAuth from "../utils/axiosWithAuth";
@@ -28,55 +28,34 @@ const MyCookBook = (props) =>{
     useEffect(() =>{
         grab()
     },[])
-
-    console.log("USERNAME", props.name)
     return(
-        <ScrollView style={ {flexDirection: "column", width:"90%", marginLeft:"5%", marginBottom:"10%", flex:1}}>
+        <View style={ {width: "90%", marginLeft: "5%"}}>
         
-        	{/* <TextInput
-					style={styles.textInput}
-					placeholder="What are you looking for?"
-                    placeholderTextColor="#D3D3D3
-                    "
-					value={dish}
-                    onChangeText={dish => setDish(dish)}
-				/> */}
-            <Text style={{fontSize: 20,fontWeight: 'bold', alignSelf: 'center', marginBottom: 5, color:`#3BA405`}}>Your Personal CookBook!</Text>
-            
-                {Courses.map(cour =>{
-                    console.log("COURSE", cour)
-                    return(
-                    <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour.course})} >
-                        <View style={{ height:"50%", marginBottom:"10%"}}>
-                            <Text style={{fontSize: 14}}>
-                                {cour.course}
-                            </Text>
-                            <Image 
-                            source={{uri : cour.img}}
-                            style={{width: "100%", height: "130%", borderRadius: 4, paddingRight: 20 }}
+            <Text style={{fontSize: 24,fontWeight: 'bold', alignSelf: 'center', marginBottom: "5%", color:`#3BA405`}}>Your Personal CookBook!</Text>
+            <ScrollView style={{paddingBottom:"10%"}}>
+            {Courses.map(cour =>{
+                console.log("COURSE", cour)
+                return(
+                <View>
 
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    )
-                })}
+                <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour.course})} >
+                    <View style={{ height:200, marginBottom:"15%"}}>
+                        <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom:"2%"}}>
+                            {cour.course}
+                        </Text>
+                        <Image 
+                        source={{uri : cour.img}}
+                        style={{width: "100%", height: 200, borderRadius: 4, paddingRight: 20 }}
 
-    
-            {/* <Text>{user.props.name}</Text> */}
-            {/* {folderName.props.map(folder  => {
-                return (
-                    <TouchableOpacity style={styles.button}>
-                    <Butto n  
-                    color="white"    
-                    onPress={()  =>  props.navigation.navigate('CookBookFolder',  {data: folder})}
-                    title={folder.courses}
-                    accessibilityLabel="Search"                   
-                    />
+                        />
+                    </View>
                 </TouchableOpacity>
+                </View>
                 )
-            })} */}
-            {/* {savedRecipes.length>=1  && <RecipeList props={savedRecipes} /> */} 
-        </ScrollView>
+            })}
+            </ScrollView>
+   
+        </View>
     )
 
 }

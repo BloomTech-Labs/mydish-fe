@@ -23,7 +23,7 @@ const Search = () => {
     },[dish]);
 
     return(
-        <View >
+        <View  >
 				 <TextInput
 					style={styles.textInput}
 					placeholder="What dish are you looking for?"

@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/obaidaalbaroudi/Desktop/LambdaSchool/cooking-recipe-source-control-fe/CookingRecipesExpo/node_modules/@babel/core/node_modules/source-map/CHANGELOG.md'
+  Error: EACCES: permission denied, unlink '/Users/obaidaalbaroudi/Desktop/LambdaSchool/cooking-recipe-source-control-fe/CookingRecipesExpo/node_modules/@babel/core/node_modules/source-map/LICENSE'
 
 npm manifest: 
   {
@@ -35,6 +35,7 @@ npm manifest:
       "react-dom": "16.8.3",
       "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
       "react-native-gesture-handler": "~1.3.0",
+      "react-native-picker-module": "^1.2.3",
       "react-native-reanimated": "~1.2.0",
       "react-native-screens": "~1.0.0-alpha.23",
       "react-native-web": "^0.11.7",
@@ -5768,6 +5769,11 @@ Lockfile:
       hoist-non-react-statics "^2.3.1"
       invariant "^2.2.2"
       prop-types "^15.5.10"
+  
+  react-native-picker-module@^1.2.3:
+    version "1.2.3"
+    resolved "https://registry.yarnpkg.com/react-native-picker-module/-/react-native-picker-module-1.2.3.tgz#1ad2de7f946ce178b7cbda7583af220313141c06"
+    integrity sha512-qGcXjKOq+NitvcBUO7eQNbrzfmjL/ZlaxsnAVs3czW2JuxgaBjutiTjIcwHQNrH0RWjcZVzMrrbDHFHfF/lWCg==
   
   react-native-reanimated@~1.2.0:
     version "1.2.0"
