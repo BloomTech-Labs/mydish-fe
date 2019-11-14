@@ -129,7 +129,7 @@ export default function CreateRecipeForm(props) {
 
       try {
         const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
-        console.log('response from post',res.data.recipe_id);
+        console.log('response from post',res.data);
         recipeId = res.data.recipe_id
       } catch(err) {
         console.log('error from adding new recipe', err);
@@ -245,7 +245,7 @@ export default function CreateRecipeForm(props) {
 
           </View>
 
-          <Text style={{fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14  }} >Instructions</Text>
+          <Text style={{fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14 , marginBottom: 10 }} >Instructions</Text>
 
 
               {addInstructions()}

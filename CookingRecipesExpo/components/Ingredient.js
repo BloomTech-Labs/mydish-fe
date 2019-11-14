@@ -10,7 +10,7 @@ const Ingredient = (props) => {
 
   let {recipe, setRecipe, visible, setVisible, index} = props;
   
-  const [choices,] = useState(['tsp', 'tbsp', 'cup', 'g', 'mg', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package'])
+  const [choices,] = useState(['tsp', 'tbsp', 'cup', 'g', 'mg', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package', 'lbs'])
     let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
     const [toEdits, setToEdits] = React.useState([]);
     // const ingList = [];
@@ -18,19 +18,19 @@ const Ingredient = (props) => {
 
     
     useEffect(() => {
-      console.log('ingredient', ingredient);
-      console.log('recipe.ingredients', recipe.ingredients);
+      // console.log('ingredient', ingredient);
+      // console.log('recipe.ingredients', recipe.ingredients);
     },[recipe.ingredients])
 
     const handleChange = (key,value) => {
-        console.log('handleChange triggered in <Ingredient>')
-        console.log('key and value from handlechange', key, value)
+        // console.log('handleChange triggered in <Ingredient>')
+        // console.log('key and value from handlechange', key, value)
         setIngredient({...ingredient, [key] : value});
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     }
 
     const handleBlur = (event) => {
-        console.log('handleBlur triggered in <Ingredient/>');
+        //console.log('handleBlur triggered in <Ingredient/>');
         const ingArr = Object.values(ingredient);
         const fullIng = ingArr.filter(i => !!i);
         if (fullIng.length === 3) {
@@ -51,9 +51,6 @@ const Ingredient = (props) => {
         }
     }
 
-
-      console.log('update ingredients', ingredient)
-      console.log('update recipes', recipe.ingredients)
 
     return  (
         <View>

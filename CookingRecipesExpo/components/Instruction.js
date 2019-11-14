@@ -34,7 +34,7 @@ const Instruction = ({ recipe, setRecipe, index}) => {
         <>
 
             {/* <View style = {, marginBottom: 20, borderWidth: 3, borderColor: "red"}}> */}
-                <Text>Step {index}</Text>
+                <Text style={{marginLeft: 14}}>Step {index}</Text>
                 <TextInput 
                     style={{  
                         height: 76,
@@ -44,7 +44,7 @@ const Instruction = ({ recipe, setRecipe, index}) => {
                          borderRadius: 4,
                          marginLeft: 14, marginBottom: 20,
                         marginRight: 14,
-                    marginTop: 20}}
+                    marginTop: 10}}
                     placeholder=" Add Instructions"
                     multiline={true}
                     onChangeText ={(event) => handleChange(event)}
