@@ -15,7 +15,7 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 const Recipe = (props) => {
-    console.log('props in <Recipe/>', props.setRecipeList);
+    // console.log('props in <Recipe/>', props.setRecipeList);
     let {navigation, cardHeight, imageHeight, recipe} = props;
     const [num, setNum]= useState(1)
     let [like, setLike] = useState(recipe.likedByUser);
@@ -70,9 +70,6 @@ const Recipe = (props) => {
             axiosAuth.post(`https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`,{})
                 .then(res => {
                     console.log('response from post like: ', res.data);
-                    if (!res.data.total_saves) {
-                        setLikeCount(0);
-                    }
                     setLikeCount(res.data.total_saves);
                     setLike(liked);
                 })

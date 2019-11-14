@@ -15,6 +15,7 @@ const Search = () => {
         )
         .then(res => {
             setRecipes([])
+            console.log('recipe count', res.data.length);
             setRecipes(res.data);
         })
         .catch(err => console.log(err));

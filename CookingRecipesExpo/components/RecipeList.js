@@ -96,7 +96,13 @@ const RecipeList = (props) => {
         <ScrollView stryle={{width: "80%"}}>
             <View style={{flexDirection: 'row', marginLeft: "4%"}}>
                 <View style={{flexDirection: 'column',width: "39%", marginRight:"10%"}}>
-                 {recipes.slice(0, divideArray()).map( recp =>  <Recipe key={recp.id} recipe={recp} recipeList={props.recipes} setRecipeList={props.setRecipes} imageHeight={LeftadjustImageHeight()} cardHeight={LeftHeightAdjustment()}/>)}
+                 {
+                 recipes.slice(0, divideArray()).map( recp =>  
+                 <Recipe key={recp.id} 
+                 recipe={recp} recipeList={props.recipes} 
+                 setRecipeList={props.setRecipes} imageHeight={LeftadjustImageHeight()} 
+                 cardHeight={LeftHeightAdjustment()}/>)
+                 }
                 </View>
                  <View style={{flexDirection: 'column', width: "39%"}}>
                  {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} recipeList={props.recipes} setRecipeList={props.setRecipes} imageHeight={RightadjustImageHeight()} cardHeight={RightHeightAdjustment()}/>)}
