@@ -27,9 +27,9 @@ const Login = props => {
     const token = await AsyncStorage.getItem('userToken');
   };
 
- useEffect(()=>{
-   <MyCookBook name={login.username}/>
- },[login.username])
+//  useEffect(()=>{
+//    <MyCookBook name={login.username}/>
+//  },[login.username])
 
   const onPress = () => {
     axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)

@@ -40,8 +40,6 @@ const IndividualRecipe = props => {
         )
         .then(res => {
             setStored(res.data);
-
-            // console.log('store in individual recipes',store)
      })
         .catch(err => console.log(err));
 
@@ -73,7 +71,7 @@ const IndividualRecipe = props => {
         }
     }
 
-    
+    console.log('store in individual recipes',store)
     return (
      <ScrollView>
             {im()}

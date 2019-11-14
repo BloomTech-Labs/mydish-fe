@@ -1,9 +1,9 @@
 import React, {useState}from 'react';
-import {TextInput, Button, View, TouchableOpacity, Text, Image} from 'react-native';
+import {TextInput, Text, Image} from 'react-native';
 import styles from '../styles/createRecipeStyles';
 import add from '../assets/add_circle_32px.png';
 
-const Instruction = ({ recipe, setRecipe, count, setCount}) => {
+const Instruction = ({ recipe, setRecipe, index}) => {
     let [step, setStep] = useState({text : ''});
     let [editedSteps, setEditedSteps] = useState([]);
 
@@ -34,7 +34,7 @@ const Instruction = ({ recipe, setRecipe, count, setCount}) => {
         <>
 
             {/* <View style = {, marginBottom: 20, borderWidth: 3, borderColor: "red"}}> */}
-                {/* <Text>Step </Text> */}
+                <Text>Step {index}</Text>
                 <TextInput 
                     style={{  
                         height: 76,

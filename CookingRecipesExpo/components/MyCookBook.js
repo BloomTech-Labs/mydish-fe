@@ -31,7 +31,7 @@ const MyCookBook = (props) =>{
 
     console.log("USERNAME", props.name)
     return(
-        <View style={ {flexDirection: "column", width:"90%", marginLeft:"5%"}}>
+        <ScrollView style={ {flexDirection: "column", width:"90%", marginLeft:"5%", marginBottom:"10%", flex:1}}>
         
         	{/* <TextInput
 					style={styles.textInput}
@@ -42,13 +42,12 @@ const MyCookBook = (props) =>{
                     onChangeText={dish => setDish(dish)}
 				/> */}
             <Text style={{fontSize: 20,fontWeight: 'bold', alignSelf: 'center', marginBottom: 5, color:`#3BA405`}}>Your Personal CookBook!</Text>
-            <ScrollView style={{height: "230%", marginBottom:"10%"}}>
-
+            
                 {Courses.map(cour =>{
                     console.log("COURSE", cour)
                     return(
-                    <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour})} >
-                        <View style={{ height:"70%", marginBottom:"20%"}}>
+                    <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour.course})} >
+                        <View style={{ height:"50%", marginBottom:"10%"}}>
                             <Text style={{fontSize: 14}}>
                                 {cour.course}
                             </Text>
@@ -62,7 +61,7 @@ const MyCookBook = (props) =>{
                     )
                 })}
 
-            </ScrollView>
+    
             {/* <Text>{user.props.name}</Text> */}
             {/* {folderName.props.map(folder  => {
                 return (
@@ -77,7 +76,7 @@ const MyCookBook = (props) =>{
                 )
             })} */}
             {/* {savedRecipes.length>=1  && <RecipeList props={savedRecipes} /> */} 
-        </View>
+        </ScrollView>
     )
 
 }

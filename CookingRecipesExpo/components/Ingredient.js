@@ -1,43 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {TextInput, View, Picker, Text, TouchableOpacity, TouchableWithoutFeedback, Modal} from 'react-native';
 import styles from '../styles/createRecipeStyles';
-// import ScrollPicker from 'react-native-wheel-scroll-picker';
 
 
 const Ingredient = (props) => {
 
 
-    let {recipe, setRecipe, visible, setVisible} = props;
+    let {recipe, setRecipe, visible, setVisible, index} = props;
 
-    let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
-    const [toEdits, setToEdits] = React.useState([]);
+    let [ingredient, setIngredient] = useState({name : '', quantity : '', unit : '' });
+    const [toEdits, setToEdits] = useState([]);
     // const ingList = [];
     const [unit, setUnit] = React.useState('g');
 
+    
+    useEffect(() => {
+      console.log('ingredient', ingredient);
+      console.log('recipe.ingredients', recipe.ingredients);
+    },[recipe.ingredients])
 
-    const handleChange = async (key,value) => {
+    const handleChange = (key,value) => {
         console.log('handleChange triggered in <Ingredient>')
-        await setIngredient({...ingredient, [key] : value});
+        console.log('key and value from handlechange', key, value)
+        setIngredient({...ingredient, [key] : value});
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     }
 
-    // const handlePicker = async (u) => {
-    //     console.log('handlepicker triggered', unit);
-    //     await setUnits(u)
-    // }
-
-
-
-    const handleBlur = async (event) => {
+    const handleBlur = (event) => {
         console.log('handleBlur triggered in <Ingredient/>');
         const ingArr = Object.values(ingredient);
         const fullIng = ingArr.filter(i => !!i);
         if (fullIng.length === 3) {
-         await setToEdits([...toEdits, ingredient]);
-        //  ingList.push(ingredient);
-        //  console.log('ingList in <Ingredient/>', toEdits);
-        //  console.log('recipe.ingredients in <Ingredient/>', recipe.ingredients);
-        //  console.log('ingredient in <Ingredient/>', ingredient);
+         setToEdits([...toEdits, ingredient]);
          const recipeIng = [...recipe.ingredients];
 
          for (let i=0; i<toEdits.length; i++) {
@@ -48,28 +42,22 @@ const Ingredient = (props) => {
             }
           }
 
-        console.log('recipeIng after splicing', recipeIng);
+        // console.log('recipeIng after splicing', recipeIng);
         
-           await setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
+           setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
         }
     }
 
-    // const [visible, setVisible] = useState({active: false})
 
     const scrollPickerDisplay = () => {
-        // const newActive= !visible.active
         setVisible({active: true})
-        console.log('active', visible.active)
+     
       }
 
       const hidePickerDisplay = () => {
-        // const newActive= !visible.active
         setVisible({active: false   })
-        console.log('active', visible.active)
+       
       }
-
-      console.log('update ingredients', ingredient)
-      console.log('update recipes', recipe.ingredients)
 
     return  (
         <View>
@@ -100,9 +88,8 @@ const Ingredient = (props) => {
                style={visible.active ? {backgroundColor: '#F7F9FA', } : {display: "none"}}
                itemStyle={{height: 190}}
                selectedValue={ingredient.unit}
-               onValueChange={(itemValue, itemIndex) =>
-                handleChange('unit', itemValue)}
-                >
+               onValueChange={item =>handleChange('unit', item)}
+               >  
                <Picker.Item label = "tsp" value = "tsp" />
                <Picker.Item label = "tbsp" value = "tbsp" />
                <Picker.Item label = "cup" value = "cup" />
@@ -135,9 +122,7 @@ const Ingredient = (props) => {
                 />
 
             </View>
-
             <View style = {{alignItems: 'center'}}> 
-
             </View>
         </View>
     
