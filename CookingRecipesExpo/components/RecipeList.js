@@ -12,6 +12,7 @@ const RecipeList = (props) => {
 
     const [recipes, setRecipes] = React.useState([]);
 
+
     useEffect(() =>{
         setRecipes(props.props)
 
@@ -32,7 +33,7 @@ const RecipeList = (props) => {
             return 220
         }if(LeftHeight===1){
             LeftHeight = LeftHeight -1
-            return 230
+            return 240
         }
     }
     const RightHeightAdjustment = () => {     
@@ -64,13 +65,13 @@ const RecipeList = (props) => {
     }
 
     return (
-        <ScrollView stryle={{width: "80%"}}>
+        <ScrollView >
             <View style={{flexDirection: 'row', marginLeft: "4%"}}>
-                <View style={{flexDirection: 'column',width: "39%", marginRight:"10%"}}>
-                 {recipes.slice(0, divideArray()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={LeftadjustImageHeight()} cardHeight={LeftHeightAdjustment()}/>)}
+                <View style={{flexDirection: 'column',width: "39%", marginRight:"10%", paddingBottom: "40%"}}>
+                 {recipes.slice(0, divideArray()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={LeftadjustImageHeight()} cardHeight={LeftHeightAdjustment()} status={props.status}/>)}
                 </View>
-                 <View style={{flexDirection: 'column', width: "39%"}}>
-                 {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={RightadjustImageHeight()} cardHeight={RightHeightAdjustment()}/>)}
+                 <View style={{flexDirection: 'column', width: "39%", paddingBottom: "40%"}}>
+                 {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={RightadjustImageHeight()} cardHeight={RightHeightAdjustment()} status={props.status}/>)}
                 </View>
             </View>
          </ScrollView>

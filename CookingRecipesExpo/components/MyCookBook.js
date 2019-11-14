@@ -1,73 +1,60 @@
 import React, {useState, useEffect} from "react";
 import 
-{View,TouchableOpacity, TextInput, Button, StyleSheet, Text, Image} 
+{View,TouchableOpacity, TextInput, Button, StyleSheet, Text, Image, ScrollView, FlatList} 
 from "react-native";
 import RecipeList from "./RecipeList";
-// import AxiosWithAuth from "./";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 
 
 const MyCookBook = (props) =>{
+    const [test, setTest] = useState([])
+    const [word, setWord] = useState('')
     
-    const[folderName, setFolderName] = useState([
-        {
-            course: '',
-            recipes:  []
-        }
-    ]);
-    const [savedRecipes,  setSavedRecipes] = useState([]);
+    const Courses= [{course:'Breakfast', img:"https://d9hyo6bif16lx.cloudfront.net/live/img/production/detail/menu/breakfast_breakfast-classics_big-two-do-breakfast.jpg"},{course:'Brunch', img:"https://media.timeout.com/images/105500044/1024/576/image.jpg" },{course:'Lunch', img:"https://hips.hearstapps.com/del.h-cdn.co/assets/17/41/1600x1600/square-1507827786-buddha-bowls-delish-1.jpg?resize=640:*" },{course:'Dinner', img:"https://img1.cookinglight.timeinc.net/sites/default/files/styles/4_3_horizontal_-_900x675/public/image/2016/09/main/_1501p108-weeknight-lemon-chicken-skillet-dinner.jpg?itok=sGWzw71z" },{course:'Dessert', img:"https://cdn3.tmbi.com/toh/GoogleImages/exps19201_RDS011700016SC03_13_2b_WEB.jpg"},{course:'Snack', img:"https://data.thefeedfeed.com/recommended/post_4483824.jpeg"}]
 
-  
- useEffect(()=> {
-            //console.log("true", props.props)
-            AxiosWithAuth()
-            .get(`https://recipeshare-development.herokuapp.com/cookbook`)
-            .then(res => {
-                console.log("mycookbook", res)
-                setSavedRecipes([res.data]);
-             
-            })
-            .catch(err => console.log(err));
-}, [])
-    
-    
-    // useEffect(()=>{
-    //     for(i in savedRecipes){
-    //         for(x in folderName){
-    //             if(i.course == folderName.course){
-    //                 setFolderName(...folderName, {...folderName.course, recpies: recpies.append(i)})
-    //             }
-    //             setFolderName(...folderName, {course: i.course, recpies: recpies.append(i)})
-    //         }
-    //     }
+    const grab=  async () =>{
+        const axiosAuth = await axiosWithAuth();
+        axiosAuth.get(`https://recipeshare-development.herokuapp.com/cookbook?category=${word}`)
+        .then(res => {
+            console.log("WOOOOW", res.data)
+            setTest(res.data);
+          
 
-    // },[]);
+        })
+        .catch(err => console.log(err));
+    }
 
+    useEffect(() =>{
+        grab()
+    },[])
     return(
-        <View style={ {alignSelf:'center', flexDirection: "column"}}>
-            {/* <Text>{user.props.name}</Text> */}
-            {/* {folderName.props.map(folder  => {
-                return (
-                    <TouchableOpacity style={styles.button}>
-                    <Butto n  
-                    color="white"    
-                    onPress={()  =>  props.navigation.navigate('CookBookFolder',  {data: folder})}
-                    title={folder.courses}
-                    accessibilityLabel="Search"                   
-                    />
+        <View style={ {width: "90%", marginLeft: "5%"}}>
+        
+            <Text style={{fontSize: 24,fontWeight: 'bold', alignSelf: 'center', marginBottom: "5%", color:`#3BA405`}}>Your Personal CookBook!</Text>
+            <ScrollView style={{paddingBottom:"10%"}}>
+            {Courses.map(cour =>{
+                console.log("COURSE", cour)
+                return(
+                <View>
+
+                <TouchableOpacity onPress={()  =>  props.navigation.navigate('Courses', {Course: cour.course})} >
+                    <View style={{ height:200, marginBottom:"15%"}}>
+                        <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom:"2%"}}>
+                            {cour.course}
+                        </Text>
+                        <Image 
+                        source={{uri : cour.img}}
+                        style={{width: "100%", height: 200, borderRadius: 4, paddingRight: 20 }}
+
+                        />
+                    </View>
                 </TouchableOpacity>
+                </View>
                 )
-            })} */}
-            {/* {savedRecipes.length>=1  && <RecipeList props={savedRecipes} /> */} 
-            <Text style={{fontSize: 20,fontWeight: 'bold', alignSelf: 'center', marginBottom: 5, color:`#3BA405`}}>Your Personal CookBook!</Text>
-            <Text style={{alignSelf:'center', marginBottom: 7, marginLeft:2, marginRight:2, paddingLeft:7, paddingRight: 7, backgroundColor: `#3BA405`, color: 'white'}}>"The painter, sculptor, writer, and musician are protected by law. So are inventors. But the chef has absolutely no redress for plagiarism on his work; on the contrary, the more the latter is liked and appreciated, the more will people clamour for his recipes."</Text>
-            <Image            
-                
-                source={{uri : "https://help.anylist.com/img/articles/add-recipe-ingredients-to-list-1.png"}}
-                style={{width: 350, height: 500, borderRadius: 20, paddingRight: 20, paddingLeft: 20,alignSelf: 'center'}}
-                resieMode="contain"
-                
-            />
+            })}
+            </ScrollView>
+   
         </View>
     )
 

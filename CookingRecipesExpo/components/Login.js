@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -14,12 +14,14 @@ import axios from 'axios'
 // import MyCookBook from "./MyCookBook"
 // import AxiosWithAuth from './AxiosWithAuth.js'
 import styles from '../styles/loginStyles.js'
+<<<<<<< HEAD
 import logo from '../assets/LogoGreen.png';
 
+=======
+import MyCookBook from "./MyCookBook.js"
+>>>>>>> a0fa37828a25531aa56d77a58f1daee171dc2ac6
 
-export const wow=[]
 
-export const temp = []
 
 const Login = props => {
   const [login, SetLogin] = useState({username: '', password: ''})
@@ -28,14 +30,27 @@ const Login = props => {
   const signInAsync = async (tok) => {
     await AsyncStorage.setItem('userToken', tok);
     props.navigation.navigate('App');
-    const token = await AsyncStorage.getItem('userToken');
-  };
 
- 
+  };
+//   const signInAsync = async (tok) => {
+//     console.log("HELLLOOO")
+//     const  token = tok.token;
+//     const id = tok.cook_id;
+//     let keys = [['userToken', token], ['userId', id]];
+//     const multiSet= await AsyncStorage.multiSet(keys, err => {
+//       console.log("error", err);
+//     });
+//     console.log("Multiset", multiSet)
+//   props.navigation.navigate('App');
+// };
+  
+//  useEffect(()=>{
+//    <MyCookBook name={login.username}/>
+//  },[login.username])
 
   const onPress = () => {
     axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)
-    .then(res => {signInAsync(res.data.token),  temp.push(res.data.token)})
+    .then(res => {signInAsync(res.data.token)})
       // console.log('response from login axios post', res.data.token)
     .catch(err => setTok(err))
     } 
@@ -72,7 +87,7 @@ const Login = props => {
            secureTextEntry={true}/>
            {toke!=null && <Text style={{color:"red", marginLeft:100}}>Incorrect Username or Password</Text>}
            <TouchableOpacity
-           onPress={() => props.navigation.navigate('SignUp')}>
+           onPress={() => props.navigation.navigate('Signup')}>
            <Text style={styles.createAccountButton}>Create an Account</Text>
            </TouchableOpacity>
            <View style={{flexDirection: 'row-reverse', marginRight: 16}}>

@@ -10,32 +10,39 @@ import editIcon from '../assets/edit_icon.png';
 import clock from '../assets/timer.png';
 import logo from '../assets/background.png';
 import IndividualRecipeIngredients from './individualRecipeIngredients';
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 
-var Cereal = "https://image.shutterstock.com/z/stock-photo-cornflakes-with-milk-in-the-white-bowl-322906217.jpg"
+var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 const IndividualRecipe = props => {
     const [store, setStored] = useState([])
+    const [token, setToken] = useState()
 
     //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
 
     const id =  props.navigation.getParam('paramsID', 'params not passed')
+    const status =  props.navigation.getParam('status', 'params not passed')
     console.log("id in individualRecipe.js", id)
 
-    var Cereal = "https://i.imgur.com/iYFK1mG.png"
-
+    const Delete = async () => {
+        const axiosAuth = await axiosWithAuth();
+        axiosAuth.delete(`https://recipeshare-development.herokuapp.com/likes/${id}`)
+        .then(res => console.log("CRAAAZY", res))
+        .catch(err => console.log(err))
+    }
 
     useEffect(() =>{
         axios
         .get(
           `https://recipeshare-development.herokuapp.com/recipes/${id}`
+
         )
         .then(res => {
             setStored(res.data);
-            // console.log('store in individual recipes',store)
      })
         .catch(err => console.log(err));
-        
+
     },[]);
 
     const [color, setColor] = useState({active: 'Ingredients'})
@@ -63,8 +70,8 @@ const IndividualRecipe = props => {
             )
         }
     }
-      
-    
+
+    console.log('store in individual recipes',store)
     return (
      <ScrollView>
             {im()}
@@ -76,11 +83,10 @@ const IndividualRecipe = props => {
                 <Text style={{marginLeft: 5}}>{store.innovator_name}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-            <Image source={clock} style={{width: 20, height: 20}}/> 
-        <Text>{store.minutes} minutes</Text>
+                    <Image source={clock} style={{width: 20, height: 20}}/> 
+                    <Text>{store.minutes} minutes</Text>
+                </View>
             </View>
-            </View>
-
          <Text style={styles.tags}>Tags</Text>
              <View style={{borderBottomWidth: 0.3, borderBottomColor: '#6B6F70',}}>
          <View style={styles.tagBox}>

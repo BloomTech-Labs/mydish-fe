@@ -1,42 +1,40 @@
-import React from 'react';
-import {TextInput, Button, View, TouchableOpacity, Image, Text, Picker} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {TextInput, View, Picker, Text, TouchableOpacity, TouchableWithoutFeedback, Modal} from 'react-native';
 import styles from '../styles/createRecipeStyles';
-// import ScrollPicker from 'react-native-wheel-scroll-picker';
+import ReactNativePickerModule from 'react-native-picker-module'
+
+
 
 
 const Ingredient = (props) => {
 
-    let {recipe, setRecipe} = props;
-
+  let {recipe, setRecipe, visible, setVisible, index} = props;
+  
+  const [choices,] = useState(['tsp', 'tbsp', 'cup', 'g', 'mg', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package', 'lbs'])
     let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
     const [toEdits, setToEdits] = React.useState([]);
     // const ingList = [];
     const [unit, setUnit] = React.useState('g');
 
+    
+    useEffect(() => {
+      // console.log('ingredient', ingredient);
+      // console.log('recipe.ingredients', recipe.ingredients);
+    },[recipe.ingredients])
 
-    const handleChange = async (key,value) => {
-        console.log('handleChange triggered in <Ingredient>')
-        await setIngredient({...ingredient, [key] : value});
+    const handleChange = (key,value) => {
+        // console.log('handleChange triggered in <Ingredient>')
+        // console.log('key and value from handlechange', key, value)
+        setIngredient({...ingredient, [key] : value});
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     }
 
-    const handlePicker = async (u) => {
-        console.log('handlepicker triggered', unit);
-        await setUnits(u)
-    }
-
-
-
-    const handleBlur = async (event) => {
-        console.log('handleBlur triggered in <Ingredient/>');
+    const handleBlur = (event) => {
+        //console.log('handleBlur triggered in <Ingredient/>');
         const ingArr = Object.values(ingredient);
         const fullIng = ingArr.filter(i => !!i);
         if (fullIng.length === 3) {
-         await setToEdits([...toEdits, ingredient]);
-        //  ingList.push(ingredient);
-         console.log('ingList in <Ingredient/>', toEdits);
-         console.log('recipe.ingredients in <Ingredient/>', recipe.ingredients);
-         console.log('ingredient in <Ingredient/>', ingredient);
+         setToEdits([...toEdits, ingredient]);
          const recipeIng = [...recipe.ingredients];
 
          for (let i=0; i<toEdits.length; i++) {
@@ -47,11 +45,12 @@ const Ingredient = (props) => {
             }
           }
 
-        console.log('recipeIng after splicing', recipeIng);
+        // console.log('recipeIng after splicing', recipeIng);
         
-           await setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
+           setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
         }
     }
+
 
     return  (
         <View>
@@ -65,33 +64,18 @@ const Ingredient = (props) => {
                     value={ingredient.quantity}
                 />
                 
-                <TextInput
-                    style={{ height: 40, width: "16%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%"  }}
-                    placeholder="Unit"
-                    onChangeText ={event => handleChange('unit', event)}
-                    onBlur={handleBlur}
+                <TouchableOpacity  onPress={() => {pickerRef.show()}} style={{ height: 40, width: "16%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%",  }}>
+                <View style={{alignItems: "center", paddingTop: '18%'}} >
+                <Text style={ ingredient.unit === '' ? {color: "#C7C7CD"} : ''}>{ingredient.unit !== '' ? ingredient.unit : "Unit"}</Text>
+                <ReactNativePickerModule
+                    pickerRef={e => pickerRef = e}
                     value={ingredient.unit}
-                />
-
-                {/* <Picker 
-                    selectedValue={unit}
-                    style={{width: 100, height: 50}}
-                    onValueChange={ (unit,i) => handlePicker(unit)}
-                >
-                    <Picker.Item label="grams" value="g" />
-                    <Picker.Item label="cups" value="cups"/>
-                    <Picker.Item label="ounces" value="oz"/>
-                </Picker> */}
-
-                {/* <ScrollPicker 
-                    dataSource={['g','oz','cups']}
-                    selectedIndex={0}
-                    renderItem={()=>{}}
-                    onValueChange={ unit => handleChange('unit', unit)}
-                    activeItemColor={'green'}
-                    itemColor={'black'}
-                /> */}
-
+                    title={"Select a unit"}
+                    items={choices}
+                    onValueChange={(value) => handleChange('unit', value)}/>
+             
+            </View>
+                </TouchableOpacity>
 
 
                 <TextInput
@@ -104,9 +88,7 @@ const Ingredient = (props) => {
                 />
 
             </View>
-
             <View style = {{alignItems: 'center'}}> 
-
             </View>
         </View>
     

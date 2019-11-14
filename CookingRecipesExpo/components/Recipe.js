@@ -50,7 +50,6 @@ const Recipe = (props) => {
                 .catch(err => console.log('err from deleting like', err))
         }
     }
-
     return (
             <View style={{height: props.cardHeight, width: "240%"}}>
                 <Like onStartShouldSetResponder={likeIt}>
@@ -58,7 +57,7 @@ const Recipe = (props) => {
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
                 </Like>
                <TouchableOpacity  
-               onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id})}
+               onPress={()  =>  props.navigation.navigate('IndividualR', {paramsID: props.recipe.id, status: props.status})}
                >
                 
                <Image 
