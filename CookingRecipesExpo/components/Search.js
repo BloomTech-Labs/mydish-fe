@@ -22,10 +22,10 @@ const Search = () => {
         .catch(err => console.log(err));
     },[dish,recipeListRefresh]);
 
-    const refreshRecipeList = () => {
-        console.log('refreshRecipeList triggered');
-        setRecipeListRefresh(!recipeListRefresh);
-    }
+    // const refreshRecipeList = () => {
+    //     console.log('refreshRecipeList triggered');
+    //     setRecipeListRefresh(!recipeListRefresh);
+    // }
 
     return(
         <View>
@@ -42,9 +42,9 @@ const Search = () => {
 				/>
 
                 <ScrollView>
-                    <TouchableOpacity onPress={refreshRecipeList}>
+                    {/* <TouchableOpacity onPress={refreshRecipeList}> */}
                         {recipes.length>=1  && <RecipeList recipes={recipes} setRecipes={setRecipes} /> }
-                    </TouchableOpacity>
+                    {/* </TouchableOpacity> */}
                 </ScrollView>
         </View>
 

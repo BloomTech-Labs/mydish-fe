@@ -110,7 +110,8 @@ const Recipe = (props) => {
                     console.log('route in unlike', route);
                     if (route === "Courses") {
                         // props.navigation.pop();
-                       navigation.pop();
+                    //    navigation.pop();
+                       navigation.push('CookBook');
                     } 
                     // console.log('route', route);
                     // if (route == "Home") {

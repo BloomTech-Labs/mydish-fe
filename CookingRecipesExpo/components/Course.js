@@ -4,7 +4,7 @@ import {View, TouchableOpacity, Text, Image} from 'react-native';
 const Course = (props) => {
 
     const {course,navigation} = props;
-    console.log('props in Course', props);
+    // console.log('props in Course', props);
 
     return (
         <View>

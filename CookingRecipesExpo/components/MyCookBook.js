@@ -41,7 +41,7 @@ const MyCookBook = (props) =>{
         <View style={ {width: "90%", marginLeft: "5%"}}>
             <Text style={{fontSize: 24,fontWeight: 'bold', alignSelf: 'center', marginBottom: "5%", color:`#3BA405`}}>Your Personal CookBook!</Text>
             <ScrollView style={{paddingBottom:"10%"}}>
-            {Courses.map(course =><Course course={course} navigation={props.navigation} />)}
+            {Courses.map(course => <Course course={course} navigation={props.navigation} />)}
             </ScrollView>
         </View>
     )
