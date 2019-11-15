@@ -56,9 +56,9 @@ const Ingredient = (props) => {
 
     return  (
         <View>
-            <View style = {{ flexDirection: 'row', width: 350, marginBottom: 20}}>
+            <View style = {{ flexDirection: 'row', marginBottom: 20}}>
                 <TextInput
-                    style={{ height: 40, width: "16%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 14 }}
+                    style={{ height: 40, width: "19%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 14 }}
                     placeholder="Amount"
                     keyboardType={'numeric'}
                     onChangeText ={event => handleChange('quantity', event)}
@@ -66,8 +66,8 @@ const Ingredient = (props) => {
                     value={ingredient.quantity}
                 />
                 
-                <TouchableOpacity  onPress={() => {pickerRef.show()}} style={{ height: 40, width: "16%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%",  }}>
-                <View style={{alignItems: "center", paddingTop: '18%'}} >
+                <TouchableOpacity  onPress={() => {pickerRef.show()}} style={{ height: 40, width: "19%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%",  }}>
+                <View style={{alignItems: "center", paddingTop: '15%'}} >
                 <Text style={ ingredient.unit === '' ? {color: "#C7C7CD"} : ''}>{ingredient.unit !== '' ? ingredient.unit : "Unit"}</Text>
                 <ReactNativePickerModule
                     pickerRef={e => pickerRef = e}

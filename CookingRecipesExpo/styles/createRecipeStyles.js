@@ -57,8 +57,23 @@ const styles = StyleSheet.create({
         marginLeft: 14
        
     },
+    RecipeNameContainer: {
+      height: 40,
+      // width: '20%',
+      // textAlign : 'center',
+      borderRadius: 4,
+      borderWidth: 0.8,
+      borderColor: '#6B6F70',
+      padding: 10,
+      marginLeft: 14,
+      marginRight: 14,
+      marginBottom: 10, 
+      marginTop: 10,
+    },
     totalTimeContainer: {
       height: 40,
+      width: '20%',
+      textAlign : 'center',
       borderRadius: 4,
       borderWidth: 0.8,
       borderColor: '#6B6F70',

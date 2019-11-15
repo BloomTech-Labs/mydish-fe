@@ -169,7 +169,7 @@ export default function CreateRecipeForm(props) {
           <Text style={styles.textInputStyles}>Recipe Name</Text>
 
           <TextInput
-            style={styles.totalTimeContainer}
+            style={styles.RecipeNameContainer}
             maxLength={55}
             placeholder='Enter Recipe Name'
             onChangeText={event => setRecipe({ ...recipe, title: event })}
@@ -186,7 +186,7 @@ export default function CreateRecipeForm(props) {
 
             <TextInput
               style={styles.totalTimeContainer}
-              placeholder='Cook Time (minutes only)'
+              placeholder='Time'
               keyboardType={'numeric'}
               onChangeText={min => setRecipe({ ...recipe, minutes: min})}
               value={recipe.minutes} 
