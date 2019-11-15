@@ -156,7 +156,7 @@ const Recipe = (props) => {
                 {/* {im()} */}
                 <Text style={styles.text}>{recipe.title}</Text>
                 <UserPrepTime>
-                    <Text style={styles.username}>{recipe.username}</Text>
+                    <Text style={styles.username}>{recipe.username || recipe.author}</Text>
                     <Text style={styles.prep}>{recipe.minutes} min.</Text>
                 </UserPrepTime>
                 </TouchableOpacity>

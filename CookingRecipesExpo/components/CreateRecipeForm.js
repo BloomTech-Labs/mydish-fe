@@ -29,8 +29,8 @@ export default function CreateRecipeForm(props) {
   let [stepCount, setStepCount] = useState(1);
   let [steps, setSteps] = useState([0]);
   const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']);
-  const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese']);
-  const [diet,] = useState(['Meatless','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free']);
+  const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese','Middle-Eastern', 'Other']);
+  const [diet,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
   const [visible, setVisible] = useState({active: false})
 

@@ -137,8 +137,8 @@ const IndividualRecipe = props => {
          {store.steps && store.steps.map( (step, index) => {
             return(
                 <View key={step.ordinal} style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
-
-                    <Text style={styles.stepText}>{step.ordinal.split('.')[0]}. {step.body}</Text>
+                        {/* .split('.')[0] */}
+                    <Text style={styles.stepText}>{step.ordinal}. {step.body}</Text>
                 </View>
             )
         })}
