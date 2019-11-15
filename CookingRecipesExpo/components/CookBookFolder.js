@@ -26,13 +26,12 @@ const CookBookFolder = (props) =>{
             // console.log('res.data cookbook', res.data);
         //   setStored([]);
           setStored(res.data);
-          console.log('stored', store);
    })
       .catch(err => console.log(err));
     }
 
     useEffect( () =>{
-        console.log('useEffect triggered in CookBookFolder', cookbookRefresh);
+        // console.log('useEffect triggered in CookBookFolder', cookbookRefresh);
         grab()      
     },[cookbookRefresh]);
 

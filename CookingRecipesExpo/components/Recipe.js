@@ -61,7 +61,7 @@ const Recipe = (props) => {
         console.log('like pressed');
         console.log('recipe id: ', recipe.id);
         console.log('recipe total_saves', recipe.total_saves, like);
-
+        // console.log('props.navigation', props.navigation);
         let liked = !like;  //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
         // if (liked === true ) { // unliking will remove the recipe from the database
         //     //popup a modal warning the recipe will be deleted from the entire database
@@ -76,6 +76,13 @@ const Recipe = (props) => {
                     console.log('response from post like: ', res.data);
                     setLikeCount(res.data.total_saves);
                     setLike(liked);
+                    const route = props.navigation.state.routeName;
+                    // console.log('route', route);
+                    // if (route == "Home") {
+                    //     props.navigation.push('Home');
+                    // } else {
+                    //     props.navigation.push('Courses');
+                    // }
                 })
                 .catch(err => console.log('error in posting like', err))
         } else {
@@ -97,7 +104,17 @@ const Recipe = (props) => {
                     }
                     
                     setLike(liked);
-                    
+                    // props.navigation.pop();
+                    const route = props.navigation.state.routeName;
+                    if (route === "Courses") {
+                        props.navigation.pop();
+                    }
+                    // console.log('route', route);
+                    // if (route == "Home") {
+                    //     props.navigation.push('Home');
+                    // } else {
+                    //     props.navigation.push('Courses');
+                    // }
                 })
                 .catch(err => console.log('err in deleting like', err))
         }

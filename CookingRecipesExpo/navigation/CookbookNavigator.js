@@ -10,5 +10,3 @@ import IndividualRecipes from '../components/IndividualRecipe.js'
         },{initialRouteName: "CookBook"})
 
 export default CookBookNavigator;
-
-

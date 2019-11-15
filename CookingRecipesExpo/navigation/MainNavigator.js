@@ -11,13 +11,15 @@ import plus from '../assets/add_circle_grey.png';
 import logout from '../assets/account_circle.png';
 import fork from '../assets/restaurant_grey.png'
 
-
-
 const MainNavigator = createBottomTabNavigator({
     Home : {screen : RecipeNavigator,
             navigationOptions : {
                 tabBarLabel : 'Explore',
-                tabBarIcon : ( <Image style={styles.homeTab} source={search}/>)
+                tabBarIcon : ( <Image style={styles.homeTab} source={search}/>),
+                tabBarOnPress : (props) => {
+                    console.log('props in Explore onClick', props.navigation);
+                    props.navigation.push('Home');
+                }
             }},
     Create : {screen : CreateNavigator,
             navigationOptions : {

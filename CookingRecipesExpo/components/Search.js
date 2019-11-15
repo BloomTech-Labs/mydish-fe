@@ -18,7 +18,6 @@ const Search = () => {
         .then(res => {
             setRecipes([])          
             setRecipes(res.data);
-            
         })
         .catch(err => console.log(err));
     },[dish,recipeListRefresh]);
@@ -33,23 +32,15 @@ const Search = () => {
             <View style = {{flexDirection: 'row', justifyContent: 'left', textAlign: 'left', paddingBottom:"2%", marginTop: "2%"}}>
                 <Image source={logo} style={{width: "9%", height: "86%", marginLeft: "2%"}}/> 
                 <Text style={styles.title}>RecipeShare</Text>
-          </View>
+            </View>
 				 <TextInput
 					style={styles.textInput}
 					placeholder="What dish are you looking for?"
 					placeholderTextColor="#D3D3D3"
 					value={dish}
                     onChangeText={dish => setDish(dish)}
-                    //onSubmitEditing={grabRecipes}
 				/>
-                 {/* <TouchableOpacity style={styles.button}>
-                    <Button  
-                    color="white"    
-                    onPress={grabRecipes}
-                    title="Search"
-                    accessibilityLabel="Search"                   
-                    />
-                </TouchableOpacity> */}
+
                 <ScrollView>
                     <TouchableOpacity onPress={refreshRecipeList}>
                         {recipes.length>=1  && <RecipeList recipes={recipes} setRecipes={setRecipes} /> }
