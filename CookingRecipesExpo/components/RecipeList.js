@@ -4,8 +4,6 @@ import {ScrollView, View} from 'react-native';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import axios from 'axios';
 
-
-
 const RecipeList = (props) => {
     let LeftimageHeight = 0;
     let RightimageHeight = 0;
@@ -15,7 +13,7 @@ const RecipeList = (props) => {
 
     const [recipes, setRecipes] = useState([]); //namespace collision with the recipes in <Search/>
     let [cookbook, setCookbook] = useState([]);
-    let [refreshLikes, setRefreshLikes] = useState(false);
+    // let [refreshLikes, setRefreshLikes] = useState(false);
 
     const cookbookURL = 'https://recipeshare-development.herokuapp.com/cookbook/';
     // let cookbook = [];
@@ -52,9 +50,10 @@ const RecipeList = (props) => {
     
     useEffect(() =>{
         console.log('useEffect triggered in RecipeList');
-        setRefreshLikes(props.refresh);
+        
+        // setRefreshLikes(props.refresh);
         getCookbook();
-    },[refreshLikes]);
+    },[]);
     
     const divideArray =()=>{
         if(Math.floor(recipes.length/2)  ==0){
@@ -110,8 +109,9 @@ const RecipeList = (props) => {
                  recipe={recp} recipeList={props.recipes} 
                  setRecipeList={props.setRecipes} imageHeight={LeftadjustImageHeight()} 
                  cardHeight={LeftHeightAdjustment()}
-                 cookbookRefresh={props.cookbookRefresh} 
-                 setCookbookRefresh={props.setCookbookRefresh}
+                 courseType={props.courseType}
+                //  cookbookRefresh={props.cookbookRefresh} 
+                //  setCookbookRefresh={props.setCookbookRefresh}
                  />)
                  }
                 </View>
@@ -120,8 +120,9 @@ const RecipeList = (props) => {
                  recipe={recp}  
                  imageHeight={RightadjustImageHeight()} 
                  cardHeight={RightHeightAdjustment()}
-                 cookbookRefresh={props.cookbookRefresh} 
-                 setCookbookRefresh={props.setCookbookRefresh}
+                 courseType={props.courseType}
+                //  cookbookRefresh={props.cookbookRefresh} 
+                //  setCookbookRefresh={props.setCookbookRefresh}
                  />)}
                 </View>
             </View>

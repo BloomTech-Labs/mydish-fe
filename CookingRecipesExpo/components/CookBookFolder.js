@@ -14,7 +14,7 @@ const CookBookFolder = (props) =>{
    
     let course =  props.navigation.getParam('Course', 'params not passed');
     // course = course.toLowerCase();
-    console.log('course in "CookBookFolder', course);
+    // console.log('course in "CookBookFolder', course);
 
 
 
@@ -47,7 +47,7 @@ const CookBookFolder = (props) =>{
     return(
         <View>
             {/* <TouchableOpacity onPress={refreshCookbook}> */}
-                 {store.length >= 1 && <RecipeList store={store} recipes={store} />}
+                 {store.length >= 1 && <RecipeList recipes={store} courseType={course} />}
             {/* </TouchableOpacity> */}
         </View>
     )

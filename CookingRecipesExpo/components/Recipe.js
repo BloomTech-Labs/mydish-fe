@@ -23,6 +23,7 @@ const Recipe = (props) => {
     let [likeCount, setLikeCount] = useState(recipe.total_saves);
     let [userToken,setUserToken] = useState(null);
     let [warn, setWarn] = useState(false);
+    let [modal, setModal] = useState(false);
    
     // console.log('props in Recipe', props.navigation);
     // console.log('recipe in <Recipe/>', recipe);
@@ -55,6 +56,7 @@ const Recipe = (props) => {
     useEffect(() => {
         getToken();
         // console.log('liked? after set', like);
+        console.log('courseType in Recipe', props.courseType);
     },[like,likeCount])
 
     const likeIt = async () => {
@@ -75,15 +77,17 @@ const Recipe = (props) => {
                 .then(res => {
                     console.log('response from post like: ', res.data);
                     setLikeCount(res.data.total_saves);
-                    setLike(liked);
                     const route = props.navigation.state.routeName;
                     console.log('route in like <Recipe>, ',route);
+                    console.log('navigation in Recipe', navigation);
                     // console.log('route', route);
                     // if (route == "Home") {
-                    //     props.navigation.push('Home');
-                    // } else {
-                    //     props.navigation.push('Courses');
-                    // }
+                        //     props.navigation.push('Home');
+                        // } else {
+                            //     props.navigation.push('Courses');
+                            // }
+                    setLike(liked);
+                    setModal(!modal);
                 })
                 .catch(err => console.log('error in posting like', err))
         } else {
@@ -128,14 +132,15 @@ const Recipe = (props) => {
 
     return (
             <View style={{height: cardHeight, width: "240%"}}>
-                <Modal animationType="fade" transparent={true} visible={warn}>
-                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 50,}}>
+                {<Modal animationType="fade" transparent={true} visible={modal}>
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 50}}>
                         <View style={{borderWidth: 5, borderRadius: 10, backgroundColor: 'white', padding: 40}}>
-                            <Text style={{textAlign: 'center'}}>Recipe has been removed from your cook book!!</Text>
-                            <Button title="Got it!" color='#363838' onPress={() => setWarn(!warn)}/>
+                        <Text style={{textAlign: 'center'}}>Recipe has been added to your CookBook </Text>
+                        {/* <Text style={{textAlign: 'center'}}>{String(props.courseType)}</Text> */}
+                        <Button title="Got it!" color='#363838' onPress={() => setModal(!modal)}/>
                         </View>
                     </View>
-                </Modal>  
+                </Modal>  }
                 {userToken && <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
