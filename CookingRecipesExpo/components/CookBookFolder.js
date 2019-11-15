@@ -15,7 +15,7 @@ const CookBookFolder = (props) =>{
     let course =  props.navigation.getParam('Course', 'params not passed');
     // course = course.toLowerCase();
     console.log('course in "CookBookFolder', course);
-    
+
 
 
     // console.log("COURSE", course);

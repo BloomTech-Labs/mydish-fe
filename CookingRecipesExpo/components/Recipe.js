@@ -108,10 +108,10 @@ const Recipe = (props) => {
                     // props.navigation.pop();
                     const route = navigation.state.routeName;
                     console.log('route in unlike', route);
-                    if (route === "Courses") {
+                    if (route === "Folder") {
                         // props.navigation.pop();
-                    //    navigation.pop();
-                       navigation.push('CookBook');
+                       navigation.pop();
+                    //    navigation.push('CookBook');
                     } 
                     // console.log('route', route);
                     // if (route == "Home") {

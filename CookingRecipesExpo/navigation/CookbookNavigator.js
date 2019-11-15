@@ -6,8 +6,8 @@ import Course from '../components/Course';
 
     const CookBookNavigator =  createStackNavigator({
         CookBook : {screen: MyCookBook},
-        Courses : {screen : CookBookFolder},
-        RealCourses : {screen : Course},
+        Folder : {screen : CookBookFolder},
+        // RealCourses : {screen : Course},
         IndividualR : {screen : IndividualRecipes}
         },{initialRouteName: "CookBook"})
 
