@@ -27,7 +27,7 @@ const Search = () => {
     return(
         <View  >
              <View style = {{flexDirection: 'row', justifyContent: 'left', textAlign: 'left', paddingBottom:"2%", marginTop: "2%"}}>
-            <Image source={logo} style={{width: "9%", height: "86%", marginLeft: "2%"}}/> 
+            <Image source={logo} style={{width: "8%", height: "85%", marginLeft: "2%"}}/> 
             <Text style={styles.title}>RecipeShare</Text>
           </View>
 
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: "center",
         color: "#42C200",
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold', 
         // paddingBottom:14,
         paddingTop: 5, 
