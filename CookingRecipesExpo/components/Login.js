@@ -16,9 +16,6 @@ import axios from 'axios'
 import styles from '../styles/loginStyles.js'
 import logo from '../assets/LogoGreen.png';
 
-
-
-
 const Login = props => {
   const [login, SetLogin] = useState({username: '', password: ''})
   const [toke, setTok] = useState()

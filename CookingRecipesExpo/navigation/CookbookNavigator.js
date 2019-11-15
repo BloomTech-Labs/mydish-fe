@@ -5,10 +5,8 @@ import IndividualRecipes from '../components/IndividualRecipe.js'
 
     const CookBookNavigator =  createStackNavigator({
         CookBook : {screen: MyCookBook},
-        Courses : {screen : CookBookFolder},
+        Folder : {screen : CookBookFolder},
         IndividualR : {screen : IndividualRecipes}
         },{initialRouteName: "CookBook"})
 
 export default CookBookNavigator;
-
-

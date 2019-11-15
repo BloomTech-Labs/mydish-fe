@@ -10,33 +10,45 @@ import { withNavigation } from 'react-navigation'
 
 const CookBookFolder = (props) =>{
     const [store, setStored] = useState([])
-    const True = true;
+    // let [cookbookRefresh, setCookbookRefresh] = useState(false);
    
-    const course =  props.navigation.getParam('Course', 'params not passed')
+    let course =  props.navigation.getParam('Course', 'params not passed');
+    // course = course.toLowerCase();
+    // console.log('course in "CookBookFolder', course);
 
-    console.log("COURSE", course)
 
-    const grab=  async () =>{
+
+    // console.log("COURSE", course);
+
+    const grab =  async () =>{
+        // console.log('course in grab', course);
         const axiosAuth = await axiosWithAuth();
        axiosAuth.get(`https://recipeshare-development.herokuapp.com/cookbook?category=${course}`)
       .then(res => {
-          
+            // console.log('res.data cookbook', res.data);
+        //   setStored([]);
           setStored(res.data);
    })
       .catch(err => console.log(err));
     }
 
     useEffect( () =>{
+        // console.log('useEffect triggered in CookBookFolder', cookbookRefresh);
         grab()      
     },[]);
 
+    // console.log('store', store);
+
+    // const refreshCookbook = () => {
+    //     setCookbookRefresh(!cookbookRefresh);
+    // }
     
 
-    console.log("DATA", store)
     return(
         <View>
-            {store.length >= 1 && <RecipeList props={store} status={True}/>}
-            
+            {/* <TouchableOpacity onPress={refreshCookbook}> */}
+                 {store.length >= 1 && <RecipeList recipes={store} courseType={course} />}
+            {/* </TouchableOpacity> */}
         </View>
     )
 }

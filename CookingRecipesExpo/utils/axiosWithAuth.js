@@ -4,7 +4,7 @@ import {AsyncStorage} from 'react-native';
 
 async function axiosWithAuth() {
     const userToken = await AsyncStorage.getItem('userToken');
-    console.log('userToken', userToken);
+    // console.log('userToken', userToken);
     // return axios.create({headers : {'Content-Type': null, Authorization : userToken}})
     return axios.create({headers : {Authorization : userToken}})
 }

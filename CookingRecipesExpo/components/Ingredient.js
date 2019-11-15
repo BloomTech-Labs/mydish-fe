@@ -10,7 +10,8 @@ const Ingredient = (props) => {
 
   let {recipe, setRecipe, visible, setVisible, index} = props;
   
-  const [choices,] = useState(['tsp', 'tbsp', 'cup', 'g', 'mg', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package', 'lbs'])
+  const [choices,setChoices] = useState({selectedValue: null,
+    data : ['tsp', 'tbsp', 'cup', 'g', 'mg', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package', 'lbs']})
     let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
     const [toEdits, setToEdits] = React.useState([]);
     // const ingList = [];
@@ -22,9 +23,10 @@ const Ingredient = (props) => {
       // console.log('recipe.ingredients', recipe.ingredients);
     },[recipe.ingredients])
 
-    const handleChange = (key,value) => {
+    const handleChange = (key,value,i) => {
         // console.log('handleChange triggered in <Ingredient>')
         // console.log('key and value from handlechange', key, value)
+        setChoices({...choices, selectedValue : i})
         setIngredient({...ingredient, [key] : value});
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     }
@@ -54,9 +56,9 @@ const Ingredient = (props) => {
 
     return  (
         <View>
-            <View style = {{ flexDirection: 'row', width: 350, marginBottom: 20}}>
+            <View style = {{ flexDirection: 'row', marginBottom: 20}}>
                 <TextInput
-                    style={{ height: 40, width: "16%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 14 }}
+                    style={{ height: 40, width: "19%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 14 }}
                     placeholder="Amount"
                     keyboardType={'numeric'}
                     onChangeText ={event => handleChange('quantity', event)}
@@ -64,17 +66,16 @@ const Ingredient = (props) => {
                     value={ingredient.quantity}
                 />
                 
-                <TouchableOpacity  onPress={() => {pickerRef.show()}} style={{ height: 40, width: "16%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%",  }}>
-                <View style={{alignItems: "center", paddingTop: '18%'}} >
+                <TouchableOpacity  onPress={() => {pickerRef.show()}} style={{ height: 40, width: "19%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%",  }}>
+                <View style={{alignItems: "center", paddingTop: '15%'}} >
                 <Text style={ ingredient.unit === '' ? {color: "#C7C7CD"} : ''}>{ingredient.unit !== '' ? ingredient.unit : "Unit"}</Text>
                 <ReactNativePickerModule
                     pickerRef={e => pickerRef = e}
-                    value={ingredient.unit}
+                    selectedValue={choices.selectedValue}
                     title={"Select a unit"}
-                    items={choices}
-                    onValueChange={(value) => handleChange('unit', value)}/>
-             
-            </View>
+                    items={choices.data}
+                    onValueChange={(value,i) => handleChange('unit', value,i)}/>
+                </View>
                 </TouchableOpacity>
 
 

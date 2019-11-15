@@ -23,7 +23,7 @@ const IndividualRecipe = props => {
 
     const id =  props.navigation.getParam('paramsID', 'params not passed')
     const status =  props.navigation.getParam('status', 'params not passed')
-    console.log("id in individualRecipe.js", id)
+    // console.log("id in individualRecipe.js", id)
 
     const Delete = async () => {
         const axiosAuth = await axiosWithAuth();
@@ -33,6 +33,7 @@ const IndividualRecipe = props => {
     }
 
     useEffect(() =>{
+        // console.log('useEffect navigation props', props.navigation);
         axios
         .get(
           `https://recipeshare-development.herokuapp.com/recipes/${id}`
@@ -71,7 +72,7 @@ const IndividualRecipe = props => {
         }
     }
 
-    console.log('store in individual recipes',store)
+    // console.log('store in individual recipes',store)
     return (
      <ScrollView>
             {im()}
@@ -99,36 +100,18 @@ const IndividualRecipe = props => {
         })}
         </View>
         </View>
-         {/* <View style={styles.likes}>
-             <View style={styles.likeView}>
-            <Image source={clearBlackHeart} style={{width: 20, height: 20}}/>
-            <Text >{store.likes}</Text>
-            </View>
-                <TouchableOpacity>
-            <View style={styles.likeView}>
-            <Image source={saves} style={{width: 20, height: 20}}/>
-            <Text >Save</Text>
-            </View>
-            </TouchableOpacity>
-            </View> */}
-        {/* <View style={styles.editView}>
-        <TouchableOpacity>
-            <View style={styles.editButtonView}>
-        <Image source={editIcon} style={styles.editButton}/>
-        </View>
-        </TouchableOpacity>
-        </View > */}
+        
         <View style={styles.ingredients}> 
-        <TouchableOpacity onPress={() => tabsDisplay('Ingredients')}>
-        <View style={color.active.includes('Ingredients') ? styles.titlesViewBorderIng : styles.titlesViewBorderIngOff}>
-        <Text style={color.active.includes('Ingredients') ? styles.titlesColorWhite : styles.titlesColorBlue}>Ingredients</Text>
-        </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => tabsDisplay('Instructions')}>
-        <View style={color.active.includes('Instructions') ? styles.titlesViewBorderInstOn : styles.titlesViewBorderInst}>
-        <Text style={color.active.includes('Instructions') ? styles.titlesColorWhite : styles.titlesColorBlue}>Instructions</Text>
-        </View>
-        </TouchableOpacity>
+            <TouchableOpacity onPress={() => tabsDisplay('Ingredients')}>
+                <View style={color.active.includes('Ingredients') ? styles.titlesViewBorderIng : styles.titlesViewBorderIngOff}>
+                    <Text style={color.active.includes('Ingredients') ? styles.titlesColorWhite : styles.titlesColorBlue}>Ingredients</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => tabsDisplay('Instructions')}>
+                <View style={color.active.includes('Instructions') ? styles.titlesViewBorderInstOn : styles.titlesViewBorderInst}>
+                    <Text style={color.active.includes('Instructions') ? styles.titlesColorWhite : styles.titlesColorBlue}>Instructions</Text>
+                </View>
+            </TouchableOpacity>
         </View >
         <View style={styles.details}>
       {store.ingredients && store.ingredients.map( ing => { return <IndividualRecipeIngredients ing={ing} key={ing.name}color={color}/>})}
@@ -136,8 +119,8 @@ const IndividualRecipe = props => {
          {store.steps && store.steps.map( (step, index) => {
             return(
                 <View key={step.ordinal} style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
-
-                    <Text style={styles.stepText}>{step.ordinal.split('.')[0]}. {step.body}</Text>
+                        {/* .split('.')[0] */}
+                    <Text style={styles.stepText}>{step.ordinal}. {step.body}</Text>
                 </View>
             )
         })}

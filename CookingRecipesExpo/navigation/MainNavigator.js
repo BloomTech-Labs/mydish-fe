@@ -11,18 +11,22 @@ import plus from '../assets/add_circle_grey.png';
 import logout from '../assets/account_circle.png';
 import fork from '../assets/restaurant_grey.png'
 
-
-
 const MainNavigator = createBottomTabNavigator({
     Home : {screen : RecipeNavigator,
             navigationOptions : {
                 tabBarLabel : 'Explore',
-                tabBarIcon : ( <Image style={styles.homeTab} source={search}/>)
+                tabBarIcon : ( <Image style={styles.homeTab} source={search}/>),
+                tabBarOnPress : ({navigation}) => {
+                    navigation.push('Home');
+                }
             }},
     Create : {screen : CreateNavigator,
             navigationOptions : {
                 tabBarLabel : 'Create',
-                tabBarIcon : (<Image style={styles.createTab} source={plus}/>)
+                tabBarIcon : (<Image style={styles.createTab} source={plus}/>),
+                tabBarOnPress : ({navigation}) => {
+                    navigation.push('Create');
+                }
             }},
     CookBook : {screen: CookBookNavigator,
         navigationOptions : {
