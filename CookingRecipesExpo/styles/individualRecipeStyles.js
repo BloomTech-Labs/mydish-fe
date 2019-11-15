@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        paddingBottom: 18,
+        paddingBottom: 16.5,
         marginLeft: 14,
         marginRight: 14,
     },
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: '#047396',
-        paddingLeft: "13%",
-        paddingRight: "13%"
+        paddingLeft: "16.5%",
+        paddingRight: "16.5%"
         //width: '100%',
         //marginRight: '30%'
     },
@@ -100,20 +100,20 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: 'white',
-        paddingLeft: "13%",
-        paddingRight: "13%"
+        paddingLeft: "16.5%",
+        paddingRight: "16.5%"
     },
     titlesViewBorderInst:{
         paddingTop: 10,
         paddingBottom: 10,
-        paddingLeft: "13%",
-        paddingRight: "13%"
+        paddingLeft: "16.5%",
+        paddingRight: "16.5%"
     },
     titlesViewBorderInstOn:{
         paddingTop: 10,
         paddingBottom: 10,
-        paddingLeft: "13%",
-        paddingRight: "13%",
+        paddingLeft: "16.5%",
+        paddingRight: "16.5%",
         backgroundColor: '#047396',
     },
     ingredientList: {

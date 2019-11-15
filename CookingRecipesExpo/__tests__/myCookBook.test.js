@@ -1,9 +1,17 @@
-// import React from 'react';
-// import 'react-native';
-// import renderer from 'react-test-renderer';
-// import MyCookBook from '../Components/MyCookBook';
+import 'react-native';
+import React from 'react';
+import MyCookBook from '../components/MyCookBook';
+import renderer from 'react-test-renderer';
 
-// test.skip('Cookbook snapshot', () => {
-//     const CookbookSnap = renderer.create(<MyCookBook/>).toJSON();
-//     expect(CookbookSnap).toMatchSnapshot();
-// })
+
+it ('renders correctly', () => {
+    const tree = renderer.create(
+        <MyCookBook />
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+})
+
+
+
+
+

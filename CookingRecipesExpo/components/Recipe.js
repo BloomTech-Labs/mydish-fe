@@ -67,7 +67,7 @@ const Recipe = (props) => {
     const likeIt = async () => {
         console.log('like pressed');
         console.log('recipe id: ', recipe.id);
-        console.log('recipe total_saves', recipe.total_saves, like);
+        console.log('recipe total_saves and liked?', recipe.total_saves, like);
         // console.log('props.navigation', props.navigation);
         let liked = !like;  //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
         // if (liked === true ) { // unliking will remove the recipe from the database
@@ -173,7 +173,7 @@ const Recipe = (props) => {
                 {/* {im()} */}
                 <Text style={styles.text}>{recipe.title}</Text>
                 <UserPrepTime>
-                    <Text style={styles.username}>{recipe.username}</Text>
+                    <Text style={styles.username}>{recipe.username || recipe.author}</Text>
                     <Text style={styles.prep}>{recipe.minutes} min.</Text>
                 </UserPrepTime>
                 </TouchableOpacity>
