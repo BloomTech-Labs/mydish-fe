@@ -24,7 +24,7 @@ const Recipe = (props) => {
     let [userToken,setUserToken] = useState(null);
     let [warn, setWarn] = useState(false);
    
-
+    // console.log('props in Recipe', props.navigation);
     // console.log('recipe in <Recipe/>', recipe);
 
 
@@ -68,7 +68,7 @@ const Recipe = (props) => {
         //     setWarn(true);
         //     // return;
         // }
-        console.log('liked? before set', like);  //false
+        // console.log('liked? before set', like);  //false
         const axiosAuth = await axiosWithAuth();
         if (liked) {
             axiosAuth.post(`https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`,{})
@@ -77,6 +77,7 @@ const Recipe = (props) => {
                     setLikeCount(res.data.total_saves);
                     setLike(liked);
                     const route = props.navigation.state.routeName;
+                    console.log('route in like <Recipe>, ',route);
                     // console.log('route', route);
                     // if (route == "Home") {
                     //     props.navigation.push('Home');
@@ -105,10 +106,12 @@ const Recipe = (props) => {
                     
                     setLike(liked);
                     // props.navigation.pop();
-                    const route = props.navigation.state.routeName;
+                    const route = navigation.state.routeName;
+                    console.log('route in unlike', route);
                     if (route === "Courses") {
-                        props.navigation.pop();
-                    }
+                        // props.navigation.pop();
+                       navigation.pop();
+                    } 
                     // console.log('route', route);
                     // if (route == "Home") {
                     //     props.navigation.push('Home');

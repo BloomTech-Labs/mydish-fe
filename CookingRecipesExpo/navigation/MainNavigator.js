@@ -16,9 +16,9 @@ const MainNavigator = createBottomTabNavigator({
             navigationOptions : {
                 tabBarLabel : 'Explore',
                 tabBarIcon : ( <Image style={styles.homeTab} source={search}/>),
-                tabBarOnPress : (props) => {
-                    console.log('props in Explore onClick', props.navigation);
-                    props.navigation.push('Home');
+                tabBarOnPress : ({navigation}) => {
+                    console.log('props in Explore onClick', navigation);
+                    navigation.push('Home');
                 }
             }},
     Create : {screen : CreateNavigator,
