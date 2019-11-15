@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Text, Image} from 'react-native';
 
-const Course = (props) => {
+const CourseTitle = (props) => {
 
     const {course,img} = props.course;
     // console.log('props in Course', props);
@@ -25,4 +25,4 @@ const Course = (props) => {
    
 }
 
-export default Course;
+export default CourseTitle;

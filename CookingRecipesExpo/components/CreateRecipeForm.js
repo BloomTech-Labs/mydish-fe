@@ -113,7 +113,6 @@ export default function CreateRecipeForm(props) {
           console.log('<Ingredient/> handleSubmit triggered');
           // setIngList(() => [...ingList, ingredient]);
           await setIngCount( oldCount => oldCount + 1);
-          console.log('count in <Ingredient/>', count);
       }
       const handleInstructionSubmit = async () => {
         await setStepCount(oldCount => oldCount + 1);
