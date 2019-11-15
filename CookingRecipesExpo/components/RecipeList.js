@@ -11,12 +11,12 @@ const RecipeList = (props) => {
     let RightimageHeight = 0;
     let LeftHeight = 0;
     let RightHeight= 0;
-    // console.log('props in <RecipeList>', props);
-    // console.log('props in Recipelist', props);
     let recipeList= props.recipes;
 
     const [recipes, setRecipes] = useState([]); //namespace collision with the recipes in <Search/>
     let [cookbook, setCookbook] = useState([]);
+    let [refreshLikes, setRefreshLikes] = useState(false);
+
     const cookbookURL = 'https://recipeshare-development.herokuapp.com/cookbook/';
     // let cookbook = [];
 
@@ -51,8 +51,10 @@ const RecipeList = (props) => {
     }
     
     useEffect(() =>{
+        console.log('useEffect triggered in RecipeList');
+        setRefreshLikes(props.refresh);
         getCookbook();
-    },[]);
+    },[refreshLikes]);
     
     const divideArray =()=>{
         if(Math.floor(recipes.length/2)  ==0){

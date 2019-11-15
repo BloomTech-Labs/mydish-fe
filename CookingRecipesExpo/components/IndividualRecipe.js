@@ -23,7 +23,7 @@ const IndividualRecipe = props => {
 
     const id =  props.navigation.getParam('paramsID', 'params not passed')
     const status =  props.navigation.getParam('status', 'params not passed')
-    console.log("id in individualRecipe.js", id)
+    // console.log("id in individualRecipe.js", id)
 
     const Delete = async () => {
         const axiosAuth = await axiosWithAuth();
@@ -71,7 +71,7 @@ const IndividualRecipe = props => {
         }
     }
 
-    console.log('store in individual recipes',store)
+    // console.log('store in individual recipes',store)
     return (
      <ScrollView>
             {im()}

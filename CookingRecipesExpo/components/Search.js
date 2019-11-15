@@ -7,6 +7,8 @@ import RecipeList from './RecipeList.js'
 const Search = () => {
     let [dish, setDish] = useState('')
     let [recipes, setRecipes] = useState([])
+    let [recipeListRefresh, setRecipeListRefresh] = useState(false);
+
 
     useEffect(() =>{
         axios
@@ -19,7 +21,12 @@ const Search = () => {
             
         })
         .catch(err => console.log(err));
-    },[dish]);
+    },[dish,recipeListRefresh]);
+
+    const refreshRecipeList = () => {
+        console.log('refreshRecipeList triggered');
+        setRecipeListRefresh(!recipeListRefresh);
+    }
 
     return(
         <View>
@@ -44,7 +51,9 @@ const Search = () => {
                     />
                 </TouchableOpacity> */}
                 <ScrollView>
-                    {recipes.length>=1  && <RecipeList recipes={recipes} setRecipes={setRecipes} /> }
+                    <TouchableOpacity onPress={refreshRecipeList}>
+                        {recipes.length>=1  && <RecipeList recipes={recipes} setRecipes={setRecipes} /> }
+                    </TouchableOpacity>
                 </ScrollView>
         </View>
 
