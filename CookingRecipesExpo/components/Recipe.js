@@ -7,8 +7,8 @@ import { withNavigation } from 'react-navigation'
 // import ipad from '../assets/ipadrecipe.jpg';
 // const ipad = require('../assets/ipadrecipe.jpg');
 import styled from 'styled-components';
-import clearHeart from '../assets/clear-heart.png';
-import solidHeart from '../assets/solid-heart.png';
+import clearHeart from '../assets/orangeBorder.png';
+import solidHeart from '../assets/orangeFill.png';
 import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { setState } from 'expect/build/jestMatchersObject';
@@ -37,7 +37,7 @@ const Recipe = (props) => {
         flexDirection: row;
         justifyContent: space-between;
         width: 50%;
-        marginBottom: 2%;
+        marginBottom: 10%;
     `;
     
     const Like = styled.View`
@@ -148,7 +148,7 @@ const Recipe = (props) => {
           }})} 
           console.log("FOLDER", folder)
     return (
-            <View style={{height: cardHeight, width: "240%", marginBottom:"7%"}}>
+            <View style={{height: cardHeight, width: "240%"}}>
                 {<Modal animationType="fade" transparent={true} visible={modal}>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 50}}>
                         <View style={{borderWidth: 5, borderRadius: 10, backgroundColor: 'white', padding: 40, borderColor:"#8FCC70"}}>

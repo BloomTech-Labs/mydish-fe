@@ -70,7 +70,7 @@ const RecipeList = (props) => {
             return 220
         }if(LeftHeight===1){
             LeftHeight = LeftHeight -1
-            return 230
+            return 250
         }
     }
     const RightHeightAdjustment = () => {     
@@ -105,7 +105,8 @@ const RecipeList = (props) => {
         <ScrollView >
             <View style={{flexDirection: 'row', marginLeft: "4%"}}>
                 <View style={{flexDirection: 'column',width: "39%", marginRight:"10%", paddingBottom: "60%"}}>
-                 {recipes.slice(0, divideArray()).map( recp =>  
+                 {recipes.map( (recp, index) =>  index%2==0 
+                 &&
                  <Recipe key={recp.id} 
                  recipe={recp} recipeList={props.recipes} 
                  setRecipeList={props.setRecipes} imageHeight={LeftadjustImageHeight()} 
@@ -117,7 +118,7 @@ const RecipeList = (props) => {
                  }
                 </View>
                  <View style={{flexDirection: 'column', width: "39%", paddingBottom: "60%"}}>
-                 {recipes.slice(divideArray(), recipes.length+1).map( recp =>  <Recipe key={recp.id} 
+                 {recipes.map( (recp, index) => index%2 ==1 && <Recipe key={recp.id} 
                  recipe={recp}  
                  imageHeight={RightadjustImageHeight()} 
                  cardHeight={RightHeightAdjustment()}
