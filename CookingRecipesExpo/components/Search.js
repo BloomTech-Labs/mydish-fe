@@ -22,10 +22,15 @@ const Search = () => {
         .catch(err => console.log(err));
     },[dish,recipeListRefresh]);
 
-    // const refreshRecipeList = () => {
-    //     console.log('refreshRecipeList triggered');
-    //     setRecipeListRefresh(!recipeListRefresh);
+    // const handleBlur = () => {
+    //     console.log('handleBlur triggered in <Search>');
+    //     setDish('');
     // }
+    const focus = () => {
+        console.log('focus on your search!');
+        setDish('');
+    }
+
 
     return(
         <View>
@@ -39,6 +44,9 @@ const Search = () => {
 					placeholderTextColor="#D3D3D3"
 					value={dish}
                     onChangeText={dish => setDish(dish)}
+                    // clearTextOnFocus={true}
+                    // onBlur={handleBlur}
+                    onFocus={focus}
 				/>
 
                 <ScrollView>
