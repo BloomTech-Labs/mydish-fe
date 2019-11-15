@@ -138,21 +138,21 @@ const Recipe = (props) => {
         
         checkingForCourse()
     }
-    const checkingForCourse = ()=>{
-        console.log("categories", categories)
-        courses.map(cat =>{
-        console.log("cat before if statement", cat)
-          if(categories.includes(cat)){
-            console.log("cat before return", cat)
-            setFolder(...folder, cat)
-          }})} 
-          console.log("FOLDER", folder)
+    // const checkingForCourse = ()=>{
+    //     console.log("categories", categories)
+    //     courses.map(cat =>{
+    //     console.log("cat before if statement", cat)
+    //       if(categories.includes(cat)){
+    //         console.log("cat before return", cat)
+    //         setFolder(cat)
+    //       }})} 
+    //       console.log("FOLDER", folder)
     return (
             <View style={{height: cardHeight, width: "240%"}}>
                 {<Modal animationType="fade" transparent={true} visible={modal}>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 50}}>
                         <View style={{borderWidth: 5, borderRadius: 10, backgroundColor: 'white', padding: 40, borderColor:"#8FCC70"}}>
-                        <Text style={{textAlign: 'center'}}>This recipe can be found in the {folder} folder in CookBook!</Text>
+                        <Text style={{textAlign: 'center'}}>This recipe can be found in its respective folder in CookBook!</Text>
                         {/* <Text style={{textAlign: 'center'}}>{String(props.courseType)}</Text> */}
                         <Button title="Got it!" color='#8FCC70' borderColor="#8FCC70" onPress={() => setModal(!modal)}/>
                         </View>

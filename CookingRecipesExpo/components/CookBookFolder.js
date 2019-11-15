@@ -11,6 +11,7 @@ import { withNavigation } from 'react-navigation'
 
 const CookBookFolder = (props) =>{
     const [store, setStored] = useState([])
+    const [load, setLoad] = useState()
    
     let course =  props.navigation.getParam('Course', 'params not passed');
     // course = course.toLowerCase();
@@ -28,27 +29,31 @@ const CookBookFolder = (props) =>{
             // console.log('res.data cookbook', res.data);
         //   setStored([]);
           setStored(res.data);
+
    })
       .catch(err => console.log(err));
+  
+      
     }
 
     useEffect( () =>{
         // console.log('useEffect triggered in CookBookFolder', cookbookRefresh);
-        grab()      
-    },[cookbookRefresh]);
+        grab()   
+
+    },[]);
 
     // console.log('store', store);
 
     // const refreshCookbook = () => {
     //     setCookbookRefresh(!cookbookRefresh);
     // }
-    
 
     return(
         <View>
             {/* <TouchableOpacity onPress={refreshCookbook}> */}
-                 {store.length >= 1 && <RecipeList recipes={store} courseType={course}/>}
-                 {store.length <1 && <Text style={{justifyContent:"center", textAlign:"center", fontSize: 24,fontWeight: 'bold',marginTop:"40%"}}>No recipes saved in this Folder!</Text>}
+                {store.length>=1 &&  <RecipeList recipes={store} courseType={course}/> }
+                 {/* {<Text style={setTimeout() === 0 && {justifyContent:"center", textAlign:"center", fontSize: 24,fontWeight: 'bold',marginTop:"40%"}}>Waiting for recipe to be add to this Folder!</Text>} */}
+
             {/* </TouchableOpacity> */}
         </View>
     )

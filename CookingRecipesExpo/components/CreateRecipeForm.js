@@ -163,7 +163,7 @@ export default function CreateRecipeForm(props) {
           <TouchableOpacity onPress = {checkingForCourseThenPosts} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
             <Text style={{color: '#3BA405'}}>Done</Text>
           </TouchableOpacity>
-          {check == false && <Text style={{color:"red", marginLeft:"30%", marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>}
+          
 
     <ScrollView>
       <View style={styles.crForm}>
@@ -214,8 +214,9 @@ export default function CreateRecipeForm(props) {
             {courses.map(tag => <TagButtons key={tag} 
             tag={tag} recipe={recipe} setRecipe={setRecipe} 
             color={color} setColor={setColor} 
-            switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+            switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}           
           </View>
+          {check == false && <Text style={{color:"red", marginLeft:14, marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>}
 
           {/* ********************<Cuisines/>*************** */}
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Cuisine</Text>
@@ -303,7 +304,7 @@ export default function CreateRecipeForm(props) {
      style = {{alignItems: "flex-end", marginTop: 30}}>
             <Image source={done} style = {{width: 136, height: 40, marginBottom: 20, marginRight: 14}}/> 
           </TouchableOpacity>
-      {check == false && <Text style={{color:"red", marginLeft:"30%", marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>}
+     
 
 {/* 
           <Button title='Submit Recipe' onPress ={postRecipe}/> */}
