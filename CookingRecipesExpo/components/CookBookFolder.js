@@ -8,9 +8,9 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 import { withNavigation } from 'react-navigation'
 
 
+
 const CookBookFolder = (props) =>{
     const [store, setStored] = useState([])
-    // let [cookbookRefresh, setCookbookRefresh] = useState(false);
    
     let course =  props.navigation.getParam('Course', 'params not passed');
     // course = course.toLowerCase();
@@ -35,7 +35,7 @@ const CookBookFolder = (props) =>{
     useEffect( () =>{
         // console.log('useEffect triggered in CookBookFolder', cookbookRefresh);
         grab()      
-    },[]);
+    },[cookbookRefresh]);
 
     // console.log('store', store);
 
@@ -47,7 +47,8 @@ const CookBookFolder = (props) =>{
     return(
         <View>
             {/* <TouchableOpacity onPress={refreshCookbook}> */}
-                 {store.length >= 1 && <RecipeList recipes={store} courseType={course} />}
+                 {store.length >= 1 && <RecipeList recipes={store} courseType={course}/>}
+                 {store.length <1 && <Text style={{justifyContent:"center", textAlign:"center", fontSize: 24,fontWeight: 'bold',marginTop:"40%"}}>No recipes saved in this Folder!</Text>}
             {/* </TouchableOpacity> */}
         </View>
     )

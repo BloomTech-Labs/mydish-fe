@@ -25,13 +25,21 @@ const IndividualRecipe = props => {
     const status =  props.navigation.getParam('status', 'params not passed')
     // console.log("id in individualRecipe.js", id)
 
-    const Delete = async () => {
-        const axiosAuth = await axiosWithAuth();
-        axiosAuth.delete(`https://recipeshare-development.herokuapp.com/likes/${id}`)
-        .then(res => console.log("CRAAAZY", res))
-        .catch(err => console.log(err))
-    }
-
+    // const getToken = async () => {  
+    //     const token = await AsyncStorage.getItem('userToken');
+    //     if (token) {
+    //         setToken(token); //the token is used to determine if the <Like> component should be rendered or not
+    //     }
+      
+    //    return token;
+    // }
+    // const Delete = async () => {
+    //     const axiosAuth = await axiosWithAuth();
+    //     axiosAuth.delete(`https://recipeshare-development.herokuapp.com/likes/${id}`)
+    //     .then(res => console.log("CRAAAZY", res))
+    //     .catch(err => console.log(err))
+    // }
+    
     useEffect(() =>{
         axios
         .get(

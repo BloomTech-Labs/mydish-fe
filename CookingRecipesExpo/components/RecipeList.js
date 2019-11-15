@@ -4,6 +4,7 @@ import {ScrollView, View} from 'react-native';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import axios from 'axios';
 
+
 const RecipeList = (props) => {
     let LeftimageHeight = 0;
     let RightimageHeight = 0;
@@ -69,7 +70,7 @@ const RecipeList = (props) => {
             return 220
         }if(LeftHeight===1){
             LeftHeight = LeftHeight -1
-            return 240
+            return 230
         }
     }
     const RightHeightAdjustment = () => {     

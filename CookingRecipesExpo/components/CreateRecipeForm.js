@@ -23,6 +23,7 @@ export default function CreateRecipeForm(props) {
   }  
 
   const [recipe, setRecipe] = useState(initialFormState)
+  const [check, setCheck] =useState(true)
   
   const [ingList, setIngList] = useState([])
   let [ingCount, setIngCount] = useState(1)  //count is for the # of <Ingredient/>'s to render
@@ -140,14 +141,24 @@ export default function CreateRecipeForm(props) {
       setRecipe(initialFormState)
   }
 
+  const checkingForCourseThenPosts = ()=>{
+    courses.map(cat =>{
+      if(recipe.categories.includes(cat)){
+        setCheck(true)
+        postRecipe()
+      }else{
+          setCheck(false)
+      }})} 
+
   
         
   return (  
     <View style={visible.active ? {backgroundColor: 'white', opacity: .4}: ''}>  
 
-          <TouchableOpacity onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
+          <TouchableOpacity onPress = {checkingForCourseThenPosts} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
             <Text style={{color: '#3BA405'}}>Done</Text>
           </TouchableOpacity>
+          {check == false && <Text style={{color:"red", marginLeft:"30%", marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>}
 
     <ScrollView>
       <View style={styles.crForm}>
@@ -278,9 +289,11 @@ export default function CreateRecipeForm(props) {
 
         </View>
 
-        <TouchableOpacity onPress = {postRecipe} style = {{alignItems: "flex-end", marginTop: 30}}>
+        <TouchableOpacity onPress = {checkingForCourseThenPosts}
+     style = {{alignItems: "flex-end", marginTop: 30}}>
             <Image source={done} style = {{width: 136, height: 40, marginBottom: 20, marginRight: 14}}/> 
           </TouchableOpacity>
+      {check == false && <Text style={{color:"red", marginLeft:"30%", marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>}
 
 {/* 
           <Button title='Submit Recipe' onPress ={postRecipe}/> */}

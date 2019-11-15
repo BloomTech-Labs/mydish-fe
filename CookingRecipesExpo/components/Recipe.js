@@ -11,6 +11,7 @@ import clearHeart from '../assets/clear-heart.png';
 import solidHeart from '../assets/solid-heart.png';
 import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth';
+import { setState } from 'expect/build/jestMatchersObject';
 
 var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
@@ -24,7 +25,10 @@ const Recipe = (props) => {
     let [userToken,setUserToken] = useState(null);
     let [warn, setWarn] = useState(false);
     let [modal, setModal] = useState(false);
+    let [folder, setFolder] = useState([])
+    let [categories, setCategories] = useState([])
    
+    const courses = ['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack'];
     // console.log('props in Recipe', props.navigation);
     // console.log('recipe in <Recipe/>', recipe);
 
@@ -56,8 +60,9 @@ const Recipe = (props) => {
     useEffect(() => {
         getToken();
         // console.log('liked? after set', like);
-        console.log('courseType in Recipe', props.courseType);
     },[like,likeCount])
+
+
 
     const likeIt = async () => {
         console.log('like pressed');
@@ -75,11 +80,9 @@ const Recipe = (props) => {
         if (liked) {
             axiosAuth.post(`https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`,{})
                 .then(res => {
-                    console.log('response from post like: ', res.data);
                     setLikeCount(res.data.total_saves);
+                    
                     const route = props.navigation.state.routeName;
-                    console.log('route in like <Recipe>, ',route);
-                    console.log('navigation in Recipe', navigation);
                     // console.log('route', route);
                     // if (route == "Home") {
                         //     props.navigation.push('Home');
@@ -90,6 +93,7 @@ const Recipe = (props) => {
                     setModal(!modal);
                 })
                 .catch(err => console.log('error in posting like', err))
+                
         } else {
             axiosAuth.delete(`https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`)
                 .then(res => {
@@ -126,23 +130,36 @@ const Recipe = (props) => {
                 })
                 .catch(err => console.log('err in deleting like', err))
         }
-
+        axiosAuth.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`)
+        .then(res=>{
+            console.log("res.data from id in recipe", res.data.categories)
+            setCategories(res.data.categories);
+        }).catch(err => console.log("err in recipe categoried by id", err))
         
+        checkingForCourse()
     }
-
+    const checkingForCourse = ()=>{
+        console.log("categories", categories)
+        courses.map(cat =>{
+        console.log("cat before if statement", cat)
+          if(categories.includes(cat)){
+            console.log("cat before return", cat)
+            setFolder(...folder, cat)
+          }})} 
+          console.log("FOLDER", folder)
     return (
-            <View style={{height: cardHeight, width: "240%"}}>
+            <View style={{height: cardHeight, width: "240%", marginBottom:"7%"}}>
                 {<Modal animationType="fade" transparent={true} visible={modal}>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 50}}>
-                        <View style={{borderWidth: 5, borderRadius: 10, backgroundColor: 'white', padding: 40}}>
-                        <Text style={{textAlign: 'center'}}>Recipe has been added to your CookBook </Text>
+                        <View style={{borderWidth: 5, borderRadius: 10, backgroundColor: 'white', padding: 40, borderColor:"#8FCC70"}}>
+                        <Text style={{textAlign: 'center'}}>This recipe can be found in the {folder} folder in CookBook!</Text>
                         {/* <Text style={{textAlign: 'center'}}>{String(props.courseType)}</Text> */}
-                        <Button title="Got it!" color='#363838' onPress={() => setModal(!modal)}/>
+                        <Button title="Got it!" color='#8FCC70' borderColor="#8FCC70" onPress={() => setModal(!modal)}/>
                         </View>
                     </View>
                 </Modal>  }
                 {userToken && <Like onStartShouldSetResponder={likeIt}>
-                    <Image source={like ? solidHeart : clearHeart } style={{width: 20, height: 20}}/>
+                    <Image source={like ? solidHeart : clearHeart } style={{width: 30, height: 30}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
                 </Like>}
               
