@@ -33,6 +33,7 @@ const IndividualRecipe = props => {
     }
 
     useEffect(() =>{
+        // console.log('useEffect navigation props', props.navigation);
         axios
         .get(
           `https://recipeshare-development.herokuapp.com/recipes/${id}`

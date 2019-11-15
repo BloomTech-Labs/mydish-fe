@@ -17,14 +17,16 @@ const MainNavigator = createBottomTabNavigator({
                 tabBarLabel : 'Explore',
                 tabBarIcon : ( <Image style={styles.homeTab} source={search}/>),
                 tabBarOnPress : ({navigation}) => {
-                    console.log('props in Explore onClick', navigation);
                     navigation.push('Home');
                 }
             }},
     Create : {screen : CreateNavigator,
             navigationOptions : {
                 tabBarLabel : 'Create',
-                tabBarIcon : (<Image style={styles.createTab} source={plus}/>)
+                tabBarIcon : (<Image style={styles.createTab} source={plus}/>),
+                tabBarOnPress : ({navigation}) => {
+                    navigation.push('Create');
+                }
             }},
     CookBook : {screen: CookBookNavigator,
         navigationOptions : {

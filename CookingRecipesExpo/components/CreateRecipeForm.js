@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useState, useEffect } from 'react';
 import { Text, TextInput, View, Image, AsyncStorage, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../styles/createRecipeStyles.js'
 import Ingredient from './Ingredient';
@@ -33,6 +33,11 @@ export default function CreateRecipeForm(props) {
   const [diet,] = useState(['Meatless','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
   const [visible, setVisible] = useState({active: false})
+
+  useEffect(()=>{
+    console.log('useEffect in CreateRecipeForm');
+    // console.log('navigation', props.navigation);
+  },[recipe, ingCount, stepCount])
 
   const addIngredients = () => {
     // console.log('addIngredients triggered');
@@ -122,24 +127,23 @@ export default function CreateRecipeForm(props) {
 
   const postRecipe = async () => {
      
-      console.log('recipe inside submit of <CreateREcipeForm/> ', recipe);
+      console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
 
       const axiosAuth = await axiosWithAuth();
     // if(recipe.categories.includes()){}
       try {
         const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
         console.log('response from post',res.data);
-        recipeId = res.data.recipe_id
+        recipeId = res.data.recipe_id;
+        setRecipe(initialFormState)
+        // setIngCount(1);
+        // setStepCount(1);
+        props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
       } catch(err) {
         console.log('error from adding new recipe', err);
       }
-
-
-      props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
-      setRecipe(initialFormState)
+      // setRecipe(initialFormState)
   }
-
-  
         
   return (  
     <View style={visible.active ? {backgroundColor: 'white', opacity: .4}: ''}>  
@@ -153,14 +157,8 @@ export default function CreateRecipeForm(props) {
 
            
         <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 20 }}>
-
-    
           <Text style = {styles.titleText}> Create Recipe </Text>
-
-          <View style={{ marginLeft: 15 }}>
-
-          </View>
-
+          <View style={{ marginLeft: 15 }}></View>
         </View>
 
 
@@ -200,23 +198,34 @@ export default function CreateRecipeForm(props) {
           <Text style={{ marginTop: 16, fontSize: 16, color: "#363838", marginBottom: 16, marginLeft: 14 }}>Course Type</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5, alignItems:'stretch'
         }}>
-            {courses.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+            {courses.map(tag => <TagButtons key={tag} 
+            tag={tag} recipe={recipe} setRecipe={setRecipe} 
+            color={color} setColor={setColor} 
+            switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
           {/* ********************<Cuisines/>*************** */}
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Cuisine</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {cuisines.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+            {cuisines.map(tag => <TagButtons key={tag} tag={tag} 
+            recipe={recipe} setRecipe={setRecipe} 
+            color={color} setColor={setColor} 
+            switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </View>
 
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Diet</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {diet.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+            {diet.map(tag => <TagButtons key={tag} tag={tag} 
+            recipe={recipe} setRecipe={setRecipe} color={color} 
+            setColor={setColor} switchColor={toggleBackgroundColor} 
+            tagsIncluded={tagsIncluded}/>)}
           </View>
 
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Difficulty</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {difficulty.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
+            {difficulty.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} 
+            setRecipe={setRecipe} color={color} setColor={setColor} 
+            switchColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
           </View>
 
           {/* ============= Total Time and Servings View =============== */}

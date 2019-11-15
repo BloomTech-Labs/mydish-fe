@@ -3,7 +3,6 @@ import MyCookBook from '../components/MyCookBook';
 import CookBookFolder from '../components/CookBookFolder';
 import IndividualRecipes from '../components/IndividualRecipe.js'
 
-
     const CookBookNavigator =  createStackNavigator({
         CookBook : {screen: MyCookBook},
         Folder : {screen : CookBookFolder},
