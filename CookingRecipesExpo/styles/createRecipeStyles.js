@@ -1,9 +1,6 @@
 import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
-  crForm: {
-   // margin: 16
-  },
   errors : {
     color:"red", 
     marginLeft:14, 
@@ -51,18 +48,11 @@ const styles = StyleSheet.create({
       alignSelf: 'center'
   
     },
-    titleText: {
-      //   Recipe Title Name
-      fontSize: 16,
-      color:  '#363838',
-    
-    },
     textInputStyles: {
       fontSize: 14,
         color: '#363838',
         marginBottom: 10,
         marginLeft: 14
-       
     },
     RecipeNameContainer: {
       height: 40,
@@ -128,6 +118,7 @@ const styles = StyleSheet.create({
       padding: 30
     },
     doneCreateBtn : {width: 136, height: 40, marginBottom: 20, marginRight: 14},
+    doneText : {fontSize: 16,  color: '#3BA405'},
     add : {fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14 , marginBottom: 10},
     tagGroup : {marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14 }
 })

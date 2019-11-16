@@ -32,6 +32,16 @@ flexWrap: wrap;
 marginLeft: 5;
 `;
 
+export const Heading = styled.Text`
+fontSize: 16;
+color:  #363838;
+marginTop: 20;
+marginBottom: 20;
+marginLeft: 14;
+`;
+
+// color:  '#363838';
+
 
 
 export default function CreateRecipeForm(props) {
@@ -187,8 +197,7 @@ export default function CreateRecipeForm(props) {
               if(!recipe.steps.length) {
                 errs.push('recipe must have at least 1 step');
               }
-      
-              const courseTypes = ['Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Dessert', 'Snack'];
+
               let courseTypeCount = 0;
       
               courses.forEach( type => {
@@ -212,29 +221,27 @@ export default function CreateRecipeForm(props) {
           </TouchableOpacity> */}
 
           <Done onPress = {postRecipe}>
-            <Text style={{fontSize: 16,  color: '#3BA405'}}>Done</Text>
+            <Text style={styles.doneText}>Done</Text>
           </Done>
           
 
-      <ScrollView>
+    <ScrollView>
             
+           
             {/* <Text style = {styles.titleText}> Create Recipe </Text> */}
+      <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 10}}>
+        
+      {/* <Text style = {styles.titleText}> Create Recipe </Text> */}
+                {/* <View style={{ marginLeft: 15 }}></View> */}
+           
+        <Heading>Create Recipe</Heading>
 
-            
-
-            <View style={styles.crForm}>
-              <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 20 }}>
-                <Text style = {styles.titleText}> Create Recipe </Text>
-              <View style={{ marginLeft: 15 }}></View>
-            </View>
-
-
-        {/* ========= Inputs ========== */}
 
         <View >
           {errors.map(err => <Text style={styles.errors}>{err}</Text>)}
 
-          <Text style={styles.textInputStyles}>Recipe Name</Text>
+          {/* <Text style={styles.textInputStyles}>Recipe Name</Text> */}
+          <Heading>Recipe Name</Heading>
 
           <TextInput
             style={styles.RecipeNameContainer}
@@ -251,8 +258,9 @@ export default function CreateRecipeForm(props) {
           <View style={{ flexDirection: "column", justifyContent: 'space-between' }}>
 
     
-          <Text style={styles.textInputStyles}>Total Cook Time (minutes)</Text>
-
+          {/* <Text style={styles.textInputStyles}>Total Cook Time (minutes)</Text> */}
+          <Heading>Total Cook Time (minutes)</Heading>
+            
             <TextInput
               style={styles.totalTimeContainer}
               placeholder='Time'
@@ -263,21 +271,15 @@ export default function CreateRecipeForm(props) {
 
           </View>
 
-         {/* ********************<CourseTypes/>*************** */}
-          <Text style={{ marginTop: 16, fontSize: 16, color: "#363838", marginBottom: 16, marginLeft: 14 }}>Course Type</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5, alignItems:'stretch'
-        }}>
-            {courses.map(tag => <TagButton key={tag} 
-            tag={tag} recipe={recipe} setRecipe={setRecipe} 
-            color={color} setColor={setColor} 
-            switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}           
-          </View>
-          {/* {check == false && <Text style={{color:"red", marginLeft:14, marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>} */}
-          {/* {!errCourse && <Text style={{color:"red", marginLeft:14, marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>} */}
+          <Heading>Course Type</Heading>
+          <TagGroup>
+          {courses.map(tag => <TagButton  key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} 
+                                          color={color} setColor={setColor} 
+                                          switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)} 
+          </TagGroup>
 
-          {/* ********************<Cuisines/>*************** */}
-          {/* <Text style={styles.tagGroup}>Cuisine</Text> */}
-         
+
+          <Heading>Cuisine</Heading>
           <TagGroup>
             {cuisines.map(cuis => <TagButton key={cuis} tag={cuis} 
                                             recipe={recipe} setRecipe={setRecipe} 
@@ -285,9 +287,7 @@ export default function CreateRecipeForm(props) {
                                             switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </TagGroup>
         
-
-          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Diet</Text>
-          
+          <Heading>Diet</Heading>
           <TagGroup>
             {diet.map(di => <TagButton key={di} tag={di} 
                                         recipe={recipe} setRecipe={setRecipe} color={color} 
@@ -295,26 +295,20 @@ export default function CreateRecipeForm(props) {
                                         tagsIncluded={tagsIncluded}/>)}
           </TagGroup>
 
-
-          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Difficulty</Text>
-          
+          <Heading>Difficulty</Heading>
           <TagGroup>
             {difficulty.map(dif => <TagButton key={dif} tag={dif} recipe={recipe} 
                                               setRecipe={setRecipe} color={color} setColor={setColor} 
                                               switchColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
           </TagGroup>
 
-            <Text style={styles.add} >Ingredients</Text>
+            <Heading>Ingredients</Heading>
+              {addIngredients()}
+              <Add text="Add Ingredient" submit={ingSubmit} />
 
-            {addIngredients()}
-
-            <Add text="Add Ingredient" submit={ingSubmit} />
-
-            <Text style={styles.add} >Instructions</Text>
-
-            {addInstructions()}
-
-            <Add text="Add A Step" submit={stepSubmit} />
+            <Heading>Instructions</Heading>
+              {addInstructions()}
+              <Add text="Add A Step" submit={stepSubmit} />
 
             <Notes recipe={recipe} setRecipe={setRecipe} />
 

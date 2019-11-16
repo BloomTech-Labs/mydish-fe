@@ -1,12 +1,16 @@
 import React from 'react'; 
 import {View, Text, TextInput} from 'react-native';
 import styles from '../styles/createRecipeStyles';
+import {Heading} from './CreateRecipeForm';
+
+
 
 
 const Notes = ({recipe, setRecipe}) => {
     return (
         <View>
-                <Text style={styles.add}>Notes: </Text>
+                {/* <Text style={styles.add}>Notes: </Text> */}
+                <Heading>Notes : </Heading>
                 <TextInput
                 style={styles.notesContainer}
                 placeholder=''
