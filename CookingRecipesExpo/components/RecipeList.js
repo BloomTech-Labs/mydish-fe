@@ -51,7 +51,7 @@ const RecipeList = (props) => {
     
     useEffect(() =>{
         console.log('useEffect triggered in RecipeList');
-        console.log('props in RecipeList', props.recipes);
+        // console.log('props in RecipeList', props.recipes);
         // setRefreshLikes(props.refresh);
         getCookbook();
     },[]);

@@ -136,7 +136,7 @@ const Recipe = (props) => {
             setCategories(res.data.categories);
         }).catch(err => console.log("err in recipe categoried by id", err))
         
-        checkingForCourse()
+        // checkingForCourse()
     }
     // const checkingForCourse = ()=>{
     //     console.log("categories", categories)

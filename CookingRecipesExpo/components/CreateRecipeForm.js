@@ -5,7 +5,6 @@ import Ingredient from './Ingredient';
 import Instruction from './Instruction';
 import TagButtons from './tagButtons.js';
 import add from '../assets/add_circle_32px.png';;
-import axios from 'axios';
 import done from '../assets/done_button.png';
 import axiosWithAuth from '../utils/axiosWithAuth.js'
 
@@ -23,22 +22,84 @@ export default function CreateRecipeForm(props) {
   }  
 
   const [recipe, setRecipe] = useState(initialFormState)
-  const [check, setCheck] =useState(true)
-  
+  const [check, setCheck] =useState(true);
+
+  let [errors, setErrors] = useState([]);
+
   const [ingList, setIngList] = useState([])
-  let [ingCount, setIngCount] = useState(1)  //count is for the # of <Ingredient/>'s to render
+  let [ingCount, setIngCount] = useState(1)  
   let [stepCount, setStepCount] = useState(1);
   let [steps, setSteps] = useState([0]);
   const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']);
   const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese','Middle-Eastern', 'Other']);
   const [diet,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
-  const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
+  const [difficulty,] = useState(['Easy','Intermediate','Difficult']); 
   const [visible, setVisible] = useState({active: false})
 
   useEffect(()=>{
     console.log('useEffect in CreateRecipeForm');
-    // console.log('navigation', props.navigation);
+    
   },[recipe, ingCount, stepCount])
+
+  function validateFields() {
+    //recipe.title, recipe.minutes, recipe.ingredients, recipe.steps
+    console.log('recipe in validateFields', recipe);
+    const errs = [];
+
+        if (!recipe.title) {
+              errs.push('recipe must have a title');
+          }
+
+        if (!recipe.minutes) {
+          errs.push('recipe must have cook time specified');
+        }
+
+        if(!recipe.ingredients.length) {
+          errs.push('recipe must have at least 1 ingredient');
+        }
+
+        if(!recipe.steps.length) {
+          errs.push('recipe must have at least 1 step');
+        }
+
+        const courseTypes = ['Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Dessert', 'Snack'];
+        let courseTypeCount = 0;
+
+        courses.forEach( type => {
+          recipe.categories.includes(type) && courseTypeCount++  //if the courseType has been selected by the user increment a count variable.
+        })
+
+        console.log('courseTypeCount', courseTypeCount);
+
+        if (!courseTypeCount) {  // if no course types have been chosen by the user, render the error message
+          errs.push('recipe must have a Course Type selected ');
+        }
+
+        return errs;
+    }
+
+  async function postRecipe() {
+     
+    console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
+    const errMessages = validateFields();
+    if (errMessages.length) {
+      setErrors(errMessages);
+      return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
+    }
+
+    const axiosAuth = await axiosWithAuth();
+    try {
+      const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
+      console.log('response from post',res.data);
+      recipeId = res.data.recipe_id;
+      setRecipe(initialFormState)
+      props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
+    } catch(err) {
+      console.log('error from adding new recipe', err);
+    }
+}
+
+
 
   const addIngredients = () => {
     // console.log('addIngredients triggered');
@@ -115,36 +176,19 @@ export default function CreateRecipeForm(props) {
 
         // console.log('categories', recipe.categories)
         
-        const handleSubmit = async () => {
-          console.log('<Ingredient/> handleSubmit triggered');
-          // setIngList(() => [...ingList, ingredient]);
-          await setIngCount( oldCount => oldCount + 1);
-      }
+      const handleIngSubmit = async () => {
+        console.log('<Ingredient/> handleSubmit triggered');
+        // setIngList(() => [...ingList, ingredient]);
+        await setIngCount( oldCount => oldCount + 1);
+    }
+
       const handleInstructionSubmit = async () => {
         await setStepCount(oldCount => oldCount + 1);
     }
 
-    let recipeId;
+    // let recipeId;
 
-  const postRecipe = async () => {
-     
-      console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
-
-      const axiosAuth = await axiosWithAuth();
-    // if(recipe.categories.includes()){}
-      try {
-        const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
-        console.log('response from post',res.data);
-        recipeId = res.data.recipe_id;
-        setRecipe(initialFormState)
-        // setIngCount(1);
-        // setStepCount(1);
-        props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
-      } catch(err) {
-        console.log('error from adding new recipe', err);
-      }
-      // setRecipe(initialFormState)
-  }
+  
 
   const checkingForCourseThenPosts = ()=>{
     courses.map(cat =>{
@@ -160,8 +204,8 @@ export default function CreateRecipeForm(props) {
   return (  
     <View style={visible.active ? {backgroundColor: 'white', opacity: .4}: ''}>  
 
-          <TouchableOpacity onPress = {checkingForCourseThenPosts} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
-            <Text style={{color: '#3BA405'}}>Done</Text>
+          <TouchableOpacity onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
+            <Text style={{fontSize: 16,  color: '#3BA405'}}>Done</Text>
           </TouchableOpacity>
           
 
@@ -178,6 +222,7 @@ export default function CreateRecipeForm(props) {
         {/* ========= Inputs ========== */}
 
         <View >
+          {errors.map(err => <Text style={styles.errors}>{err}</Text>)}
 
           <Text style={styles.textInputStyles}>Recipe Name</Text>
 
@@ -187,6 +232,7 @@ export default function CreateRecipeForm(props) {
             placeholder='Enter Recipe Name'
             onChangeText={event => setRecipe({ ...recipe, title: event })}
             value={recipe.title} />
+
 
           <Text style={{ alignSelf: 'flex-end', color: "#363838", fontSize: 11, marginTop: 4, marginRight: 14}}>
             {recipe.title.length}/55
@@ -216,7 +262,8 @@ export default function CreateRecipeForm(props) {
             color={color} setColor={setColor} 
             switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}           
           </View>
-          {check == false && <Text style={{color:"red", marginLeft:14, marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>}
+          {/* {check == false && <Text style={{color:"red", marginLeft:14, marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>} */}
+          {/* {!errCourse && <Text style={{color:"red", marginLeft:14, marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>} */}
 
           {/* ********************<Cuisines/>*************** */}
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Cuisine</Text>
@@ -255,7 +302,7 @@ export default function CreateRecipeForm(props) {
           <View style={{ flexDirection: "row", marginTop: 20}} >
             {/* <Icon name='add' reverse={true}></Icon> */}
 
-                  <TouchableOpacity onPress={handleSubmit} style = {{flexDirection: 'row'}} >
+                  <TouchableOpacity onPress={handleIngSubmit} style = {{flexDirection: 'row'}} >
                 
                 <Image source={add} style={{width: 20, height: 20, marginLeft: 14}}/> 
                 
@@ -300,7 +347,7 @@ export default function CreateRecipeForm(props) {
 
         </View>
 
-        <TouchableOpacity onPress = {checkingForCourseThenPosts}
+        <TouchableOpacity onPress = {postRecipe}
      style = {{alignItems: "flex-end", marginTop: 30}}>
             <Image source={done} style = {{width: 136, height: 40, marginBottom: 20, marginRight: 14}}/> 
           </TouchableOpacity>

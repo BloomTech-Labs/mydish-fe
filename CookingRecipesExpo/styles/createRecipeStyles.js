@@ -3,6 +3,12 @@ import {StyleSheet} from 'react-native'
 const styles = StyleSheet.create({
   crForm: {
    // margin: 16
+  },
+  errors : {
+    color:"red", 
+    marginLeft:14, 
+    marginBottom: "5%", 
+    fontWeight: 'bold'
   },              
     tagButtons: {
         borderRadius: 50,
