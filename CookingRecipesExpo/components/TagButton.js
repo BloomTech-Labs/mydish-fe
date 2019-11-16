@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, Text} from 'react-native';
 import styles from '../styles/createRecipeStyles';
 
-export default function tagButtons({tag, color, switchColor, tagsIncluded}) {
+export default function TagButton({tag, color, switchColor, tagsIncluded}) {
 
     return (
         <TouchableOpacity style={color.active.includes(tag) ? styles.tagButtonPressed : styles.tagButtons} onPress = {() => {switchColor(tag); tagsIncluded(tag)}}>

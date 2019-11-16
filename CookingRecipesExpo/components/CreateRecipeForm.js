@@ -4,7 +4,7 @@ import styles from '../styles/createRecipeStyles.js'
 
 import Ingredient from './Ingredient';
 import Instruction from './Instruction';
-import TagButtons from './tagButtons.js';
+import TagButton from './TagButton.js';
 import Add from './Add';
 import Notes from './Notes';
 
@@ -60,43 +60,7 @@ export default function CreateRecipeForm(props) {
   //   console.log('useEffect in CreateRecipeForm');
   // },[])
 
-  function validateFields() {
-    //recipe.title, recipe.minutes, recipe.ingredients, recipe.steps
-    console.log('recipe in validateFields', recipe);
-    const errs = [];
-
-        if (!recipe.title) {
-              errs.push('recipe must have a title');
-          }
-
-        if (!recipe.minutes) {
-          errs.push('recipe must have cook time specified');
-        }
-
-        if(!recipe.ingredients.length) {
-          errs.push('recipe must have at least 1 ingredient');
-        }
-
-        if(!recipe.steps.length) {
-          errs.push('recipe must have at least 1 step');
-        }
-
-        const courseTypes = ['Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Dessert', 'Snack'];
-        let courseTypeCount = 0;
-
-        courses.forEach( type => {
-          recipe.categories.includes(type) && courseTypeCount++  //if the courseType has been selected by the user increment a count variable.
-        })
-
-        console.log('courseTypeCount', courseTypeCount);
-
-        if (!courseTypeCount) {  // if no course types have been chosen by the user, render the error message
-          errs.push('recipe must have a Course Type selected ');
-        }
-
-        return errs;
-    }
-
+  
      const postRecipe = async () => {
         
         console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
@@ -197,9 +161,43 @@ export default function CreateRecipeForm(props) {
 
         // console.log('categories', recipe.categories)
         
+        function validateFields() {
+          //recipe.title, recipe.minutes, recipe.ingredients, recipe.steps
+          console.log('recipe in validateFields', recipe);
+          const errs = [];
       
-  
-        
+              if (!recipe.title) {
+                    errs.push('recipe must have a title');
+                }
+      
+              if (!recipe.minutes) {
+                errs.push('recipe must have cook time specified');
+              }
+      
+              if(!recipe.ingredients.length) {
+                errs.push('recipe must have at least 1 ingredient');
+              }
+      
+              if(!recipe.steps.length) {
+                errs.push('recipe must have at least 1 step');
+              }
+      
+              const courseTypes = ['Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Dessert', 'Snack'];
+              let courseTypeCount = 0;
+      
+              courses.forEach( type => {
+                recipe.categories.includes(type) && courseTypeCount++  //if the courseType has been selected by the user increment a count variable.
+              })
+      
+              console.log('courseTypeCount', courseTypeCount);
+      
+              if (!courseTypeCount) {  // if no course types have been chosen by the user, render the error message
+                errs.push('recipe must have a Course Type selected ');
+              }
+      
+              return errs;
+          }
+
   return (  
     <View style={visible.active ? {backgroundColor: 'white', opacity: .4}: ''}>  
 
@@ -212,10 +210,15 @@ export default function CreateRecipeForm(props) {
           </Done>
           
 
-          <ScrollView>
+      <ScrollView>
+            
+            {/* <Text style = {styles.titleText}> Create Recipe </Text> */}
+
+            <Text style = {styles.titleText}> Create Recipe </Text>
+
             <View style={styles.crForm}>
               <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 20 }}>
-                <Text style = {styles.titleText}> Create Recipe </Text>
+                
               <View style={{ marginLeft: 15 }}></View>
             </View>
 
@@ -258,7 +261,7 @@ export default function CreateRecipeForm(props) {
           <Text style={{ marginTop: 16, fontSize: 16, color: "#363838", marginBottom: 16, marginLeft: 14 }}>Course Type</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5, alignItems:'stretch'
         }}>
-            {courses.map(tag => <TagButtons key={tag} 
+            {courses.map(tag => <TagButton key={tag} 
             tag={tag} recipe={recipe} setRecipe={setRecipe} 
             color={color} setColor={setColor} 
             switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}           
@@ -269,7 +272,7 @@ export default function CreateRecipeForm(props) {
           {/* ********************<Cuisines/>*************** */}
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Cuisine</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {cuisines.map(tag => <TagButtons key={tag} tag={tag} 
+            {cuisines.map(tag => <TagButton key={tag} tag={tag} 
             recipe={recipe} setRecipe={setRecipe} 
             color={color} setColor={setColor} 
             switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
@@ -277,7 +280,7 @@ export default function CreateRecipeForm(props) {
 
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Diet</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {diet.map(tag => <TagButtons key={tag} tag={tag} 
+            {diet.map(tag => <TagButton key={tag} tag={tag} 
             recipe={recipe} setRecipe={setRecipe} color={color} 
             setColor={setColor} switchColor={toggleBackgroundColor} 
             tagsIncluded={tagsIncluded}/>)}
@@ -285,7 +288,7 @@ export default function CreateRecipeForm(props) {
 
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Difficulty</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {difficulty.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} 
+            {difficulty.map(tag => <TagButton key={tag} tag={tag} recipe={recipe} 
             setRecipe={setRecipe} color={color} setColor={setColor} 
             switchColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
           </View>
@@ -304,26 +307,11 @@ export default function CreateRecipeForm(props) {
 
             <Notes recipe={recipe} setRecipe={setRecipe} />
 
-        {/* <View>
+            <DoneButton onPress = {postRecipe}>
+                <Image source={done} style={styles.doneCreateBtn} /> 
+            </DoneButton>
 
-            <Text style={styles.add}>Notes: </Text>
-
-            <TextInput
-              style={styles.notesContainer}
-              placeholder=''
-              multiline={true}
-              onChangeText={event => setRecipe({ ...recipe, notes: event })}
-              value={recipe.notes} 
-            />
-
-        </View> */}
-
-
-        <DoneButton onPress = {postRecipe}>
-            <Image source={done} style={styles.doneCreateBtn} /> 
-        </DoneButton>
-
-        {errors.map(err => <Text style={styles.errors}>{err}</Text>)}
+            {errors.map(err => <Text style={styles.errors}>{err}</Text>)}
      
         </View>
       </View>
