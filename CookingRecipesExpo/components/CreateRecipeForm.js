@@ -4,9 +4,26 @@ import styles from '../styles/createRecipeStyles.js'
 import Ingredient from './Ingredient';
 import Instruction from './Instruction';
 import TagButtons from './tagButtons.js';
+import Add from './Add';
 import add from '../assets/add_circle_32px.png';;
 import done from '../assets/done_button.png';
 import axiosWithAuth from '../utils/axiosWithAuth.js'
+import styled from 'styled-components';
+
+const Done = styled.TouchableOpacity`
+position: relative; 
+alignSelf: flex-end;  
+fontSize: 14; 
+paddingRight: 35; 
+backgroundColor: white;
+`;
+
+const DoneButton = styled.TouchableOpacity`
+alignItems: flex-end; 
+marginTop: 30;
+`;
+
+
 
 export default function CreateRecipeForm(props) {
   // console.log('<CreateRecipeForm/> rendering');
@@ -36,10 +53,9 @@ export default function CreateRecipeForm(props) {
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']); 
   const [visible, setVisible] = useState({active: false})
 
-  useEffect(()=>{
-    console.log('useEffect in CreateRecipeForm');
-    
-  },[recipe, ingCount, stepCount])
+  // useEffect(()=>{
+  //   console.log('useEffect in CreateRecipeForm');
+  // },[])
 
   function validateFields() {
     //recipe.title, recipe.minutes, recipe.ingredients, recipe.steps
@@ -78,40 +94,44 @@ export default function CreateRecipeForm(props) {
         return errs;
     }
 
-  async function postRecipe() {
-     
-    console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
-    const errMessages = validateFields();
-    if (errMessages.length) {
-      setErrors(errMessages);
-      return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
+     const postRecipe = async () => {
+        
+        console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
+        const errMessages = validateFields();
+        if (errMessages.length) {
+          setErrors(errMessages);
+          return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
+        }
+
+        const axiosAuth = await axiosWithAuth();
+        try {
+          const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
+          console.log('response from post',res.data);
+          recipeId = res.data.recipe_id;
+          setRecipe(initialFormState)
+          props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
+        } catch(err) {
+          console.log('error from adding new recipe', err);
+        }
     }
 
-    const axiosAuth = await axiosWithAuth();
-    try {
-      const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
-      console.log('response from post',res.data);
-      recipeId = res.data.recipe_id;
-      setRecipe(initialFormState)
-      props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
-    } catch(err) {
-      console.log('error from adding new recipe', err);
+    const ingSubmit = async () => {
+      console.log('<Ingredient/> Submit triggered');
+      // setIngList(() => [...ingList, ingredient]);
+      await setIngCount( oldCount => oldCount + 1);
     }
-}
 
-
+    const stepSubmit = async () => {
+      await setStepCount(oldCount => oldCount + 1);
+    }
 
   const addIngredients = () => {
-    // console.log('addIngredients triggered');
-    const IngredientComponents = [];
-    // console.log('count in <CreateRecipeForm/>', ingCount);
 
-      if (!ingCount) {  //if no added ingredients, render only a single ingredient
-        IngredientComponents.push(<Ingredient key={0} index={0} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible} />);
-      } else {
-        for (let i=0; i<ingCount; i++) {
-          IngredientComponents.push(<Ingredient key={i+1} index={i} recipe={recipe} setRecipe={setRecipe} visible={visible} setVisible={setVisible} />);
-        }
+    const IngredientComponents = [];
+
+      for (let i=0; i<ingCount; i++) {
+        IngredientComponents.push(<Ingredient key={i+1} index={i} recipe={recipe} setRecipe={setRecipe} 
+          visible={visible} setVisible={setVisible} />);
       }
     return IngredientComponents;
   }
@@ -120,14 +140,11 @@ export default function CreateRecipeForm(props) {
     // console.log('add instructions component generator triggered');
     const InstructionComponents = [];
 
-    if (!stepCount) {
-      InstructionComponents.push(<Instruction key={0} index={0} recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
-    } else {
-      for (let i=0; i<stepCount; i++) {
-        InstructionComponents.push(<Instruction key={i+1} index={i+1} recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
-      }
+    for (let i=0; i<stepCount; i++) {
+      InstructionComponents.push(<Instruction key={i+1} index={i+1} recipe={recipe} count={stepCount} 
+        setCount={setStepCount} setRecipe={setRecipe} />)
     }
-    // console.log(InstructionComponents);
+
     return InstructionComponents;
   }
   
@@ -158,7 +175,8 @@ export default function CreateRecipeForm(props) {
     newCategory = color.active.filter(activeCat => activeCat !== 'Easy').filter(activeCat=> activeCat !== 'Intermediate').concat(category)
    }
     setColor({active: newCategory})
-        }
+  
+  }
   
   const difficultyTags = (tag) => {
     let newTags = recipe.categories;
@@ -176,47 +194,27 @@ export default function CreateRecipeForm(props) {
 
         // console.log('categories', recipe.categories)
         
-      const handleIngSubmit = async () => {
-        console.log('<Ingredient/> handleSubmit triggered');
-        // setIngList(() => [...ingList, ingredient]);
-        await setIngCount( oldCount => oldCount + 1);
-    }
-
-      const handleInstructionSubmit = async () => {
-        await setStepCount(oldCount => oldCount + 1);
-    }
-
-    // let recipeId;
-
-  
-
-  const checkingForCourseThenPosts = ()=>{
-    courses.map(cat =>{
-      if(recipe.categories.includes(cat)){
-        setCheck(true)
-        postRecipe()
-      }else{
-          setCheck(false)
-      }})} 
-
+      
   
         
   return (  
     <View style={visible.active ? {backgroundColor: 'white', opacity: .4}: ''}>  
 
-          <TouchableOpacity onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
+          {/* <TouchableOpacity onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
             <Text style={{fontSize: 16,  color: '#3BA405'}}>Done</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
+          <Done onPress = {postRecipe}>
+            <Text style={{fontSize: 16,  color: '#3BA405'}}>Done</Text>
+          </Done>
           
 
-    <ScrollView>
-      <View style={styles.crForm}>
-
-           
-        <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 20 }}>
-          <Text style = {styles.titleText}> Create Recipe </Text>
-          <View style={{ marginLeft: 15 }}></View>
-        </View>
+          <ScrollView>
+            <View style={styles.crForm}>
+              <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 20 }}>
+                <Text style = {styles.titleText}> Create Recipe </Text>
+              <View style={{ marginLeft: 15 }}></View>
+            </View>
 
 
         {/* ========= Inputs ========== */}
@@ -302,7 +300,7 @@ export default function CreateRecipeForm(props) {
           <View style={{ flexDirection: "row", marginTop: 20}} >
             {/* <Icon name='add' reverse={true}></Icon> */}
 
-                  <TouchableOpacity onPress={handleIngSubmit} style = {{flexDirection: 'row'}} >
+                  <TouchableOpacity onPress={ingSubmit} style = {{flexDirection: 'row'}} >
                 
                 <Image source={add} style={{width: 20, height: 20, marginLeft: 14}}/> 
                 
@@ -318,10 +316,12 @@ export default function CreateRecipeForm(props) {
 
 
               {addInstructions()}
-          <View style={{ flexDirection: "row", marginTop: 20}} >
+
+          <Add text="Add A Step" submit={stepSubmit} />
+          {/* <View style={{ flexDirection: "row", marginTop: 20}} >
 
 
-              <TouchableOpacity onPress={handleInstructionSubmit} style = {{flexDirection: 'row'}} >
+              <TouchableOpacity onPress={stepSubmit} style = {{flexDirection: 'row'}} >
                 
                 <Image source={add} style={{width: 20, height: 20, marginLeft: 14}}/> 
                 
@@ -331,7 +331,8 @@ export default function CreateRecipeForm(props) {
                
               </TouchableOpacity> 
 
-          </View>
+          </View> */}
+          
 
         <View>
 
@@ -347,15 +348,13 @@ export default function CreateRecipeForm(props) {
 
         </View>
 
-        <TouchableOpacity onPress = {postRecipe}
-     style = {{alignItems: "flex-end", marginTop: 30}}>
-            <Image source={done} style = {{width: 136, height: 40, marginBottom: 20, marginRight: 14}}/> 
-          </TouchableOpacity>
+
+        <DoneButton onPress = {postRecipe}>
+            <Image source={done} style={styles.doneCreateBtn} /> 
+        </DoneButton>
+
+        {errors.map(err => <Text style={styles.errors}>{err}</Text>)}
      
-
-{/* 
-          <Button title='Submit Recipe' onPress ={postRecipe}/> */}
-
         </View>
       </View>
     </ScrollView>

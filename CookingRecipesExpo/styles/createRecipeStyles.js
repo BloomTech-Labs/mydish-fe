@@ -9,8 +9,9 @@ const styles = StyleSheet.create({
     marginLeft:14, 
     marginBottom: "5%", 
     fontWeight: 'bold'
-  },              
-    tagButtons: {
+  },
+                
+  tagButtons: {
         borderRadius: 50,
         //width: '30%',
         alignItems: 'center',
@@ -125,7 +126,8 @@ const styles = StyleSheet.create({
       width: 205,
       height: 60,
       padding: 30
-    }
+    },
+    doneCreateBtn : {width: 136, height: 40, marginBottom: 20, marginRight: 14}
 })
 
 module.exports = styles
