@@ -128,7 +128,8 @@ const styles = StyleSheet.create({
       padding: 30
     },
     doneCreateBtn : {width: 136, height: 40, marginBottom: 20, marginRight: 14},
-    add : {fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14 , marginBottom: 10}
+    add : {fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14 , marginBottom: 10},
+    tagGroup : {marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14 }
 })
 
 module.exports = styles

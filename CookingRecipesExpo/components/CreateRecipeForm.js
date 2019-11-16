@@ -26,6 +26,12 @@ alignItems: flex-end;
 marginTop: 30;
 `;
 
+const TagGroup = styled.View`
+flexDirection: row; 
+flexWrap: wrap; 
+marginLeft: 5;
+`;
+
 
 
 export default function CreateRecipeForm(props) {
@@ -214,11 +220,11 @@ export default function CreateRecipeForm(props) {
             
             {/* <Text style = {styles.titleText}> Create Recipe </Text> */}
 
-            <Text style = {styles.titleText}> Create Recipe </Text>
+            
 
             <View style={styles.crForm}>
               <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 20 }}>
-                
+                <Text style = {styles.titleText}> Create Recipe </Text>
               <View style={{ marginLeft: 15 }}></View>
             </View>
 
@@ -270,28 +276,33 @@ export default function CreateRecipeForm(props) {
           {/* {!errCourse && <Text style={{color:"red", marginLeft:14, marginBottom: "5%", fontWeight: 'bold'}}>Missing course type</Text>} */}
 
           {/* ********************<Cuisines/>*************** */}
-          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Cuisine</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {cuisines.map(tag => <TagButton key={tag} tag={tag} 
-            recipe={recipe} setRecipe={setRecipe} 
-            color={color} setColor={setColor} 
-            switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
-          </View>
+          {/* <Text style={styles.tagGroup}>Cuisine</Text> */}
+         
+          <TagGroup>
+            {cuisines.map(cuis => <TagButton key={cuis} tag={cuis} 
+                                            recipe={recipe} setRecipe={setRecipe} 
+                                            color={color} setColor={setColor} 
+                                            switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+          </TagGroup>
+        
 
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Diet</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {diet.map(tag => <TagButton key={tag} tag={tag} 
-            recipe={recipe} setRecipe={setRecipe} color={color} 
-            setColor={setColor} switchColor={toggleBackgroundColor} 
-            tagsIncluded={tagsIncluded}/>)}
-          </View>
+          
+          <TagGroup>
+            {diet.map(di => <TagButton key={di} tag={di} 
+                                        recipe={recipe} setRecipe={setRecipe} color={color} 
+                                        setColor={setColor} switchColor={toggleBackgroundColor} 
+                                        tagsIncluded={tagsIncluded}/>)}
+          </TagGroup>
+
 
           <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14  }}>Difficulty</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {difficulty.map(tag => <TagButton key={tag} tag={tag} recipe={recipe} 
-            setRecipe={setRecipe} color={color} setColor={setColor} 
-            switchColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
-          </View>
+          
+          <TagGroup>
+            {difficulty.map(dif => <TagButton key={dif} tag={dif} recipe={recipe} 
+                                              setRecipe={setRecipe} color={color} setColor={setColor} 
+                                              switchColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
+          </TagGroup>
 
             <Text style={styles.add} >Ingredients</Text>
 
