@@ -1,10 +1,13 @@
 import React, {useState, useEffect } from 'react';
 import { Text, TextInput, View, Image, AsyncStorage, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../styles/createRecipeStyles.js'
+
 import Ingredient from './Ingredient';
 import Instruction from './Instruction';
 import TagButtons from './tagButtons.js';
 import Add from './Add';
+import Notes from './Notes';
+
 import add from '../assets/add_circle_32px.png';;
 import done from '../assets/done_button.png';
 import axiosWithAuth from '../utils/axiosWithAuth.js'
@@ -287,56 +290,23 @@ export default function CreateRecipeForm(props) {
             switchColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
           </View>
 
-          {/* ============= Total Time and Servings View =============== */}
-   
-          {/* =============== Ingredients ===================== */}
+            <Text style={styles.add} >Ingredients</Text>
 
-          <Text style={{ fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14, marginBottom: 20 }} >Ingredients</Text>
+            {addIngredients()}
 
-          {/* ========= Add Ingredients View ============== */}
+            <Add text="Add Ingredient" submit={ingSubmit} />
 
-                 {addIngredients()}
+            <Text style={styles.add} >Instructions</Text>
 
-          <View style={{ flexDirection: "row", marginTop: 20}} >
-            {/* <Icon name='add' reverse={true}></Icon> */}
+            {addInstructions()}
 
-                  <TouchableOpacity onPress={ingSubmit} style = {{flexDirection: 'row'}} >
-                
-                <Image source={add} style={{width: 20, height: 20, marginLeft: 14}}/> 
-                
-                <Text style = {{color : 'green', fontSize: 16, marginLeft: 5}}>
-                    Add Ingredients
-                </Text>
-               
-            </TouchableOpacity> 
+            <Add text="Add A Step" submit={stepSubmit} />
 
-          </View>
+            <Notes recipe={recipe} setRecipe={setRecipe} />
 
-          <Text style={{fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14 , marginBottom: 10 }} >Instructions</Text>
+        {/* <View>
 
-
-              {addInstructions()}
-
-          <Add text="Add A Step" submit={stepSubmit} />
-          {/* <View style={{ flexDirection: "row", marginTop: 20}} >
-
-
-              <TouchableOpacity onPress={stepSubmit} style = {{flexDirection: 'row'}} >
-                
-                <Image source={add} style={{width: 20, height: 20, marginLeft: 14}}/> 
-                
-                <Text style = {{color : 'green', fontSize: 16, marginLeft: 5}}>
-                    Add A Step
-                </Text>
-               
-              </TouchableOpacity> 
-
-          </View> */}
-          
-
-        <View>
-
-            <Text style={{fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14, marginBottom: 8  }}>Notes: </Text>
+            <Text style={styles.add}>Notes: </Text>
 
             <TextInput
               style={styles.notesContainer}
@@ -346,7 +316,7 @@ export default function CreateRecipeForm(props) {
               value={recipe.notes} 
             />
 
-        </View>
+        </View> */}
 
 
         <DoneButton onPress = {postRecipe}>

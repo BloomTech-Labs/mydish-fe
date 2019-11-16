@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
       height: 60,
       padding: 30
     },
-    doneCreateBtn : {width: 136, height: 40, marginBottom: 20, marginRight: 14}
+    doneCreateBtn : {width: 136, height: 40, marginBottom: 20, marginRight: 14},
+    add : {fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14 , marginBottom: 10}
 })
 
 module.exports = styles
