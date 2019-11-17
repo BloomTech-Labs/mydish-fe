@@ -12,7 +12,7 @@ export function tagsIncluded(tag,recipe,setRecipe) {
        setRecipe({...recipe, categories: newTags})
       }
       
-export function toggleDifficultyColor(category){
+export function toggleDifficultyColor(category,color,setColor){
 let newCategory = color.active;
 if(category === "Easy"){
   newCategory = color.active.filter(activeCat => activeCat !== 'Intermediate').filter(activeCat => activeCat !== 'Difficult').concat(category)
@@ -26,7 +26,7 @@ if(category === "Easy"){
   setColor({active: newCategory})
 }
 
-export const difficultyTags = (tag) => {
+export const difficultyTags = (tag,recipe,setRecipe) => {
   let newTags = recipe.categories;
   if(tag === "Easy"){
     newTags = recipe.categories.filter(activeTag => activeTag !== 'Intermediate').filter(activeTag => activeTag !== 'Difficult').concat(tag)

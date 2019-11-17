@@ -15,7 +15,7 @@ import TagGroup from './StyledComponents/TagGroup';
 // import add from '../assets/add_circle_32px.png';;
 import done from '../assets/done_button.png';
 import axiosWithAuth from '../utils/axiosWithAuth.js'
-// import {toggleBackgroundColor,tagsIncluded,toggleDifficultyColor, difficultyTags} from '../utils/helperFunctions/tagFunctions'
+import {toggleBackgroundColor,tagsIncluded,toggleDifficultyColor, difficultyTags} from '../utils/helperFunctions/tagFunctions'
 
 
 //import styled from 'styled-components';
@@ -130,46 +130,46 @@ export default function CreateRecipeForm(props) {
   }
   
      
-  function toggleBackgroundColor(category){
-      const index= color.active.indexOf(category)
-      const newActive= index !== -1 ?  color.active.filter(activeCategory => activeCategory !== category) : color.active.concat(category)
-      setColor({active: newActive})
-    }
+//   function toggleBackgroundColor(category){
+//       const index= color.active.indexOf(category)
+//       const newActive= index !== -1 ?  color.active.filter(activeCategory => activeCategory !== category) : color.active.concat(category)
+//       setColor({active: newActive})
+//     }
 
-  function tagsIncluded(tag) {
-        //const check = recipe.categories.includes(tag) 
-         const index= recipe.categories.indexOf(tag)
-         const newTags= index !== -1 ?  recipe.categories.filter(activeTag => activeTag !== tag) : recipe.categories.concat(tag)
-         setRecipe({...recipe, categories: newTags})
-        }
+//   function tagsIncluded(tag) {
+//         //const check = recipe.categories.includes(tag) 
+//          const index= recipe.categories.indexOf(tag)
+//          const newTags= index !== -1 ?  recipe.categories.filter(activeTag => activeTag !== tag) : recipe.categories.concat(tag)
+//          setRecipe({...recipe, categories: newTags})
+//         }
         
- function toggleDifficultyColor(category){
-  let newCategory = color.active;
-  if(category === "Easy"){
-    newCategory = color.active.filter(activeCat => activeCat !== 'Intermediate').filter(activeCat => activeCat !== 'Difficult').concat(category)
-   }
-   else if(category === "Intermediate"){
-    newCategory = color.active.filter(activeCat => activeCat !== 'Easy').filter(activeCat => activeCat !== 'Difficult').concat(category)
-   }
-   else if(category === "Difficult"){
-    newCategory = color.active.filter(activeCat => activeCat !== 'Easy').filter(activeCat=> activeCat !== 'Intermediate').concat(category)
-   }
-    setColor({active: newCategory})
-  }
+//  function toggleDifficultyColor(category){
+//   let newCategory = color.active;
+//   if(category === "Easy"){
+//     newCategory = color.active.filter(activeCat => activeCat !== 'Intermediate').filter(activeCat => activeCat !== 'Difficult').concat(category)
+//    }
+//    else if(category === "Intermediate"){
+//     newCategory = color.active.filter(activeCat => activeCat !== 'Easy').filter(activeCat => activeCat !== 'Difficult').concat(category)
+//    }
+//    else if(category === "Difficult"){
+//     newCategory = color.active.filter(activeCat => activeCat !== 'Easy').filter(activeCat=> activeCat !== 'Intermediate').concat(category)
+//    }
+//     setColor({active: newCategory})
+//   }
   
-  const difficultyTags = (tag) => {
-    let newTags = recipe.categories;
-    if(tag === "Easy"){
-      newTags = recipe.categories.filter(activeTag => activeTag !== 'Intermediate').filter(activeTag => activeTag !== 'Difficult').concat(tag)
-     }
-     else if(tag === "Intermediate"){
-      newTags = recipe.categories.filter(activeTag => activeTag !== 'Easy').filter(activeTag => activeTag !== 'Difficult').concat(tag)
-     }
-     else if(tag === "Difficult"){
-      newTags = recipe.categories.filter(activeTag => activeTag !== 'Easy').filter(activeTag => activeTag !== 'Intermediate').concat(tag)
-     }
-          setRecipe({...recipe, categories: newTags})
-  }
+//   const difficultyTags = (tag) => {
+//     let newTags = recipe.categories;
+//     if(tag === "Easy"){
+//       newTags = recipe.categories.filter(activeTag => activeTag !== 'Intermediate').filter(activeTag => activeTag !== 'Difficult').concat(tag)
+//      }
+//      else if(tag === "Intermediate"){
+//       newTags = recipe.categories.filter(activeTag => activeTag !== 'Easy').filter(activeTag => activeTag !== 'Difficult').concat(tag)
+//      }
+//      else if(tag === "Difficult"){
+//       newTags = recipe.categories.filter(activeTag => activeTag !== 'Easy').filter(activeTag => activeTag !== 'Intermediate').concat(tag)
+//      }
+//           setRecipe({...recipe, categories: newTags})
+//   }
 
         // console.log('categories', recipe.categories)
         
@@ -250,7 +250,7 @@ export default function CreateRecipeForm(props) {
           <TagGroup>
           {courses.map((course,i) => <TagButton key={i} tag={course} recipe={recipe} setRecipe={setRecipe} 
                                           color={color} setColor={setColor} 
-                                          toggleBackgroundColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)} 
+                                          toggleColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)} 
           </TagGroup>
 
 
@@ -259,14 +259,14 @@ export default function CreateRecipeForm(props) {
             {cuisines.map((cuisine,i) => <TagButton key={i} tag={cuisine} 
                                             recipe={recipe} setRecipe={setRecipe} 
                                             color={color} setColor={setColor} 
-                                            switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+                                            toggleColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
           </TagGroup>
         
           <Heading>Diet</Heading>
           <TagGroup>
             {diets.map((diet,i)=> <TagButton key={i} tag={diet} 
                                         recipe={recipe} setRecipe={setRecipe} color={color} 
-                                        setColor={setColor} switchColor={toggleBackgroundColor} 
+                                        setColor={setColor} toggleColor={toggleBackgroundColor} 
                                         tagsIncluded={tagsIncluded}/>)}
           </TagGroup>
 
@@ -274,7 +274,7 @@ export default function CreateRecipeForm(props) {
           <TagGroup>
             {difficulty.map((dif,i) => <TagButton key={i} tag={dif} recipe={recipe} 
                                               setRecipe={setRecipe} color={color} setColor={setColor} 
-                                              switchColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
+                                              toggleColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
           </TagGroup>
 
             <Heading>Ingredients</Heading>
