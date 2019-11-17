@@ -1,11 +1,11 @@
 
-export function toggleBackgroundColor(category){
+export function toggleBackgroundColor(category,color, setColor){
     const index= color.active.indexOf(category)
     const newActive= index !== -1 ?  color.active.filter(activeCategory => activeCategory !== category) : color.active.concat(category)
     setColor({active: newActive})
   }
 
-export function tagsIncluded(tag) {
+export function tagsIncluded(tag,recipe,setRecipe) {
       //const check = recipe.categories.includes(tag) 
        const index= recipe.categories.indexOf(tag)
        const newTags= index !== -1 ?  recipe.categories.filter(activeTag => activeTag !== tag) : recipe.categories.concat(tag)

@@ -70,7 +70,7 @@ export default function CreateRecipeForm(props) {
   let [steps, setSteps] = useState([0]);
   const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']);
   const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese','Middle-Eastern', 'Other']);
-  const [diet,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
+  const [diets,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']); 
   const [visible, setVisible] = useState({active: false})
   const [color, setColor] = useState({active:[]})
@@ -211,32 +211,18 @@ export default function CreateRecipeForm(props) {
 
   return (  
     <View style={visible.active ? {backgroundColor: 'white', opacity: .4}: ''}>  
-
-          {/* <TouchableOpacity onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}>
-            <Text style={{fontSize: 16,  color: '#3BA405'}}>Done</Text>
-          </TouchableOpacity> */}
-
           <Done onPress = {postRecipe}>
             <Text style={styles.doneText}>Done</Text>
           </Done>
-          
-
     <ScrollView>
             
-           
-            {/* <Text style = {styles.titleText}> Create Recipe </Text> */}
       <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 10}}>
-        
-      {/* <Text style = {styles.titleText}> Create Recipe </Text> */}
-                {/* <View style={{ marginLeft: 15 }}></View> */}
            
         <Heading>Create Recipe</Heading>
-
 
         <View >
           {errors.map(err => <Text style={styles.errors}>{err}</Text>)}
 
-          {/* <Text style={styles.textInputStyles}>Recipe Name</Text> */}
           <Heading>Recipe Name</Heading>
 
           <TextInput
@@ -262,15 +248,15 @@ export default function CreateRecipeForm(props) {
 
           <Heading>Course Type</Heading>
           <TagGroup>
-          {courses.map(tag => <TagButton  key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} 
+          {courses.map((course,i) => <TagButton key={i} tag={course} recipe={recipe} setRecipe={setRecipe} 
                                           color={color} setColor={setColor} 
-                                          switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)} 
+                                          toggleBackgroundColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)} 
           </TagGroup>
 
 
           <Heading>Cuisine</Heading>
           <TagGroup>
-            {cuisines.map(cuis => <TagButton key={cuis} tag={cuis} 
+            {cuisines.map((cuisine,i) => <TagButton key={i} tag={cuisine} 
                                             recipe={recipe} setRecipe={setRecipe} 
                                             color={color} setColor={setColor} 
                                             switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
@@ -278,7 +264,7 @@ export default function CreateRecipeForm(props) {
         
           <Heading>Diet</Heading>
           <TagGroup>
-            {diet.map(di => <TagButton key={di} tag={di} 
+            {diets.map((diet,i)=> <TagButton key={i} tag={diet} 
                                         recipe={recipe} setRecipe={setRecipe} color={color} 
                                         setColor={setColor} switchColor={toggleBackgroundColor} 
                                         tagsIncluded={tagsIncluded}/>)}
@@ -286,7 +272,7 @@ export default function CreateRecipeForm(props) {
 
           <Heading>Difficulty</Heading>
           <TagGroup>
-            {difficulty.map(dif => <TagButton key={dif} tag={dif} recipe={recipe} 
+            {difficulty.map((dif,i) => <TagButton key={i} tag={dif} recipe={recipe} 
                                               setRecipe={setRecipe} color={color} setColor={setColor} 
                                               switchColor={toggleDifficultyColor} tagsIncluded={difficultyTags}/>)}
           </TagGroup>
