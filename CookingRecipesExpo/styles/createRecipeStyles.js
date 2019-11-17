@@ -120,7 +120,9 @@ const styles = StyleSheet.create({
     doneCreateBtn : {width: 136, height: 40, marginBottom: 20, marginRight: 14},
     doneText : {fontSize: 16,  color: '#3BA405'},
     add : {fontSize: 16, color: '#363838', marginTop: 25, marginLeft: 14 , marginBottom: 10},
-    tagGroup : {marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14 }
+    tagGroup : {marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16, marginLeft: 14 },
+    fiftyFive : { alignSelf: 'flex-end', color: "#363838", fontSize: 11, marginTop: 4, marginRight: 14},
+    createRecipeActive : {backgroundColor: 'white', opacity: .4}
 })
 
 module.exports = styles
