@@ -23,35 +23,24 @@ import {validateFields} from '../utils/helperFunctions/vaildateFields';
 
 
 function CreateRecipeForm(props) {
-  // console.log('<CreateRecipeForm/> rendering');
-  const initialFormState = {
-    title: '',
-    minutes: 0,
-    notes: "",
-    categories: [],
-    ingredients: [],            
-    //likes: "",
-    steps: [], 
-    ancestor: null
-  }  
+  const initialFormState = {title: '', minutes: 0, notes: "", 
+  categories: [], ingredients: [], steps: [], ancestor: null}  
 
   const [recipe, setRecipe] = useState(initialFormState)
-  const [check, setCheck] =useState(true);
-
   let [errors, setErrors] = useState([]);
-
-  // const [ingList, setIngList] = useState([])
   let [ingCount, setIngCount] = useState(1)  
   let [stepCount, setStepCount] = useState(1);
-  // let [steps, setSteps] = useState([0]);
   const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']);
   const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese','Middle-Eastern', 'Other']);
   const [diets,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']); 
   const [visible, setVisible] = useState({active: false})
   const [color, setColor] = useState({active:[]})
+  // let [steps, setSteps] = useState([0]);
+  // const [ingList, setIngList] = useState([])
+  // const [check, setCheck] =useState(true);
   
-     const postRecipe = async () => {
+  const postRecipe = async () => {
         
         console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
         const errMessages = validateFields(recipe,courses);
