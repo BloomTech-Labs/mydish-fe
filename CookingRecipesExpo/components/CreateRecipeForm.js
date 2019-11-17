@@ -7,42 +7,42 @@ import Instruction from './Instruction';
 import TagButton from './TagButton.js';
 import Add from './Add';
 import Notes from './Notes';
+import Done from './StyledComponents/Done'
+import DoneButton from './StyledComponents/DoneButton';
+import Heading from './StyledComponents/Heading';
+import TagGroup from './StyledComponents/TagGroup';
 
-import add from '../assets/add_circle_32px.png';;
+// import add from '../assets/add_circle_32px.png';;
 import done from '../assets/done_button.png';
 import axiosWithAuth from '../utils/axiosWithAuth.js'
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-const Done = styled.TouchableOpacity`
-position: relative; 
-alignSelf: flex-end;  
-fontSize: 14; 
-paddingRight: 35; 
-backgroundColor: white;
-`;
+// const Done = styled.TouchableOpacity`
+// position: relative; 
+// alignSelf: flex-end;  
+// fontSize: 14; 
+// paddingRight: 35; 
+// backgroundColor: white;
+// `;
 
-const DoneButton = styled.TouchableOpacity`
-alignItems: flex-end; 
-marginTop: 30;
-`;
+// const DoneButton = styled.TouchableOpacity`
+// alignItems: flex-end; 
+// marginTop: 30;
+// `;
 
-const TagGroup = styled.View`
-flexDirection: row; 
-flexWrap: wrap; 
-marginLeft: 5;
-`;
+// const TagGroup = styled.View`
+// flexDirection: row; 
+// flexWrap: wrap; 
+// marginLeft: 5;
+// `;
 
-export const Heading = styled.Text`
-fontSize: 16;
-color:  #363838;
-marginTop: 20;
-marginBottom: 20;
-marginLeft: 14;
-`;
-
-// color:  '#363838';
-
-
+// export const Heading = styled.Text`
+// fontSize: 16;
+// color:  #363838;
+// marginTop: 20;
+// marginBottom: 20;
+// marginLeft: 14;
+// `;
 
 export default function CreateRecipeForm(props) {
   // console.log('<CreateRecipeForm/> rendering');
@@ -71,11 +71,7 @@ export default function CreateRecipeForm(props) {
   const [diet,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']); 
   const [visible, setVisible] = useState({active: false})
-
-  // useEffect(()=>{
-  //   console.log('useEffect in CreateRecipeForm');
-  // },[])
-
+  const [color, setColor] = useState({active:[]})
   
      const postRecipe = async () => {
         
@@ -131,7 +127,6 @@ export default function CreateRecipeForm(props) {
     return InstructionComponents;
   }
   
-  const [color, setColor] = useState({active:[]})
      
   function toggleBackgroundColor(category){
       const index= color.active.indexOf(category)
@@ -158,7 +153,6 @@ export default function CreateRecipeForm(props) {
     newCategory = color.active.filter(activeCat => activeCat !== 'Easy').filter(activeCat=> activeCat !== 'Intermediate').concat(category)
    }
     setColor({active: newCategory})
-  
   }
   
   const difficultyTags = (tag) => {
@@ -173,7 +167,7 @@ export default function CreateRecipeForm(props) {
       newTags = recipe.categories.filter(activeTag => activeTag !== 'Easy').filter(activeTag => activeTag !== 'Intermediate').concat(tag)
      }
           setRecipe({...recipe, categories: newTags})
-         }
+  }
 
         // console.log('categories', recipe.categories)
         
@@ -255,12 +249,7 @@ export default function CreateRecipeForm(props) {
             {recipe.title.length}/55
           </Text>
 
-          <View style={{ flexDirection: "column", justifyContent: 'space-between' }}>
-
-    
-          {/* <Text style={styles.textInputStyles}>Total Cook Time (minutes)</Text> */}
-          <Heading>Total Cook Time (minutes)</Heading>
-            
+            <Heading>Total Cook Time (minutes)</Heading>
             <TextInput
               style={styles.totalTimeContainer}
               placeholder='Time'
@@ -268,8 +257,6 @@ export default function CreateRecipeForm(props) {
               onChangeText={min => setRecipe({ ...recipe, minutes: min})}
               value={recipe.minutes} 
             />
-
-          </View>
 
           <Heading>Course Type</Heading>
           <TagGroup>

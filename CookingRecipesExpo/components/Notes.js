@@ -1,10 +1,7 @@
 import React from 'react'; 
 import {View, Text, TextInput} from 'react-native';
 import styles from '../styles/createRecipeStyles';
-import {Heading} from './CreateRecipeForm';
-
-
-
+import Heading from './StyledComponents/Heading';
 
 const Notes = ({recipe, setRecipe}) => {
     return (
