@@ -15,8 +15,10 @@ import TagGroup from './StyledComponents/TagGroup';
 // import add from '../assets/add_circle_32px.png';;
 import done from '../assets/done_button.png';
 import axiosWithAuth from '../utils/axiosWithAuth.js'
-// import styled from 'styled-components';
+// import {toggleBackgroundColor,tagsIncluded,toggleDifficultyColor, difficultyTags} from '../utils/helperFunctions/tagFunctions'
 
+
+//import styled from 'styled-components';
 // const Done = styled.TouchableOpacity`
 // position: relative; 
 // alignSelf: flex-end;  

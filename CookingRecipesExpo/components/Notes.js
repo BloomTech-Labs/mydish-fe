@@ -6,7 +6,6 @@ import Heading from './StyledComponents/Heading';
 const Notes = ({recipe, setRecipe}) => {
     return (
         <View>
-                {/* <Text style={styles.add}>Notes: </Text> */}
                 <Heading>Notes : </Heading>
                 <TextInput
                 style={styles.notesContainer}
