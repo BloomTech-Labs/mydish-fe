@@ -26,7 +26,7 @@ const Recipe = (props) => {
     let [warn, setWarn] = useState(false);
     let [modal, setModal] = useState(false);
     let [folder, setFolder] = useState([])
-    let [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState([])
    
     const courses = ['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack'];
     // console.log('props in Recipe', props.navigation);
@@ -57,7 +57,19 @@ const Recipe = (props) => {
        return token;
     }
 
+    const getRecipe = async () => {
+       const res =  await axios.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`);
+       let {categories} = res.data;
+    //    console.log('categories', categories);
+       categories = categories.filter(cat => cat === 'Breakfast' || cat === 'Brunch' || cat === 'Lunch' || 
+                                cat === 'Dinner' || cat === 'Dessert' || cat === 'Snack'  );
+       console.log('filtered categories', categories);
+       setCategories(categories);
+    }
+
     useEffect(() => {
+        // console.log('recipe in <Recipe>', recipe)
+        getRecipe()
         getToken();
         // console.log('liked? after set', like);
     },[like,likeCount])
@@ -152,12 +164,13 @@ const Recipe = (props) => {
                 {<Modal animationType="fade" transparent={true} visible={modal}>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 50}}>
                         <View style={{borderWidth: 5, borderRadius: 10, backgroundColor: 'white', padding: 40, borderColor:"#8FCC70"}}>
-                        <Text style={{textAlign: 'center'}}>This recipe can be found in its respective folder in CookBook!</Text>
+                        <Text>Recipe added to Cookbook in: </Text>
+                        {categories.map((cat,i) => <Text key={i}>{cat}</Text>)}
                         {/* <Text style={{textAlign: 'center'}}>{String(props.courseType)}</Text> */}
                         <Button title="Got it!" color='#8FCC70' borderColor="#8FCC70" onPress={() => setModal(!modal)}/>
                         </View>
                     </View>
-                </Modal>  }
+                </Modal>}
                 {userToken && <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 30, height: 30}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>

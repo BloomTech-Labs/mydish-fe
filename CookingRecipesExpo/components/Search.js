@@ -3,14 +3,16 @@ import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text, ScrollView, 
 import axios from "axios";
 import logo from '../assets/LogoGreen.png';
 import RecipeList from './RecipeList.js'
+import styles from '../styles/search.styles';
 
-const Search = () => {
+const Search = (props) => {
     let [dish, setDish] = useState('')
     let [recipes, setRecipes] = useState([])
     let [recipeListRefresh, setRecipeListRefresh] = useState(false);
 
 
     useEffect(() =>{
+        console.log('props nav in Search', props);
         axios
         .get(
           `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
@@ -49,47 +51,11 @@ const Search = () => {
 				/>
 
                 <ScrollView>
-                    {/* <TouchableOpacity onPress={refreshRecipeList}> */}
                         {recipes.length>=1  && <RecipeList recipes={recipes} setRecipes={setRecipes} /> }
-                    {/* </TouchableOpacity> */}
                 </ScrollView>
         </View>
 
     )
 }
-
-const styles = StyleSheet.create({
-    title: {
-        textAlign: "center",
-        color: "#42C200",
-        fontSize: 20,
-        fontWeight: 'bold', 
-        // paddingBottom:14,
-        paddingTop: 5, 
-        paddingLeft: 10
-    },
-    textInput: {
-        //flex: 1,
-        height: 40,
-        //width: 300,
-        fontSize: 18,
-        margin: 7,
-        fontWeight: 'bold',
-        color: 'black',
-        paddingLeft: 3,
-        minHeight: '5%',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#d6d7da'
-    },
-    button: {
-        borderRadius: 4,
-        borderWidth: 2,
-        marginLeft: 100,
-        marginRight: 100,
-        borderColor: '#3BA405',
-        backgroundColor: `#3BA405`
-    }
-})
 
 export default Search;

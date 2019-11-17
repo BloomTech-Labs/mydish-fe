@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Recipe from './Recipe';
 import {ScrollView, View} from 'react-native';
 import axiosWithAuth from '../utils/axiosWithAuth';
-import axios from 'axios';
+// import axios from 'axios';
 
 
 const RecipeList = (props) => {
@@ -50,7 +50,7 @@ const RecipeList = (props) => {
     }
     
     useEffect(() =>{
-        console.log('useEffect triggered in RecipeList');
+        console.log('useEffect triggered in RecipeList & props:', props.navigation);
         // console.log('props in RecipeList', props.recipes);
         // setRefreshLikes(props.refresh);
         getCookbook();
