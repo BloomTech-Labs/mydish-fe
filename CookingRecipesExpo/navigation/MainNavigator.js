@@ -31,7 +31,10 @@ const MainNavigator = createBottomTabNavigator({
     CookBook : {screen: CookBookNavigator,
         navigationOptions : {
             tabBarLabel : 'CookBook',
-            tabBarIcon : (<Image style={styles.createTab} source={fork}/>)
+            tabBarIcon : (<Image style={styles.createTab} source={fork}/>),
+            tabBarOnPress : ({navigation}) => {
+                navigation.push('CookBook');
+            }
         }},
 
     Profile : {screen : Login, 

@@ -1,60 +1,39 @@
 import React, {useState, useEffect} from "react";
-import 
-{View,TouchableOpacity, TextInput, Button, StyleSheet, Text} 
-from "react-native";
-import axios from 'axios'
+import {View, Text, Button} from "react-native";
 import RecipeList from "./RecipeList"
 import axiosWithAuth from "../utils/axiosWithAuth";
-import { withNavigation } from 'react-navigation'
-
-
+import styles from '../styles/recipe-styles';
 
 const CookBookFolder = (props) =>{
-    const [store, setStored] = useState([])
-    const [load, setLoad] = useState()
+    const [folder, setFolder] = useState([])
+    const [loading, setLoading] = useState(false)
    
-    let course =  props.navigation.getParam('Course', 'params not passed');
-    // course = course.toLowerCase();
-    // console.log('course in "CookBookFolder', course);
-
-
-
-    // console.log("COURSE", course);
+    const course =  props.navigation.getParam('Course', 'params not passed');
 
     const grab =  async () =>{
         // console.log('course in grab', course);
         const axiosAuth = await axiosWithAuth();
        axiosAuth.get(`https://recipeshare-development.herokuapp.com/cookbook?category=${course}`)
       .then(res => {
-            // console.log('res.data cookbook', res.data);
-        //   setStored([]);
-          setStored(res.data);
-
+          setFolder(res.data);
    })
       .catch(err => console.log(err));
-  
-      
     }
 
     useEffect( () =>{
-        // console.log('useEffect triggered in CookBookFolder', cookbookRefresh);
-        grab()   
-
+        grab();
     },[]);
 
-    // console.log('store', store);
-
-    // const refreshCookbook = () => {
-    //     setCookbookRefresh(!cookbookRefresh);
-    // }
 
     return(
-        <View>
-            {/* <TouchableOpacity onPress={refreshCookbook}> */}
-                {store.length>=1 &&  <RecipeList recipes={store} courseType={course}/> }
-                 {/* {<Text style={setTimeout() === 0 && {justifyContent:"center", textAlign:"center", fontSize: 24,fontWeight: 'bold',marginTop:"40%"}}>Waiting for recipe to be add to this Folder!</Text>} */}
-
-            {/* </TouchableOpacity> */}
+        <View style={{alignItems : 'center', justifyContent: 'center'}}>
+            {folder.length ? 
+            <RecipeList recipes={folder} courseType={course}/> :
+            <>
+                <Text style={styles.noRecipes}>You have no saved recipes in this section of your Cookbook!</Text> 
+                <Button title="<- Back To My Cookbook" onPress={() => props.navigation.pop()} />
+            </>
+            }
         </View>
     )
 }

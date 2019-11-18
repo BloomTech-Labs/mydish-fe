@@ -1,62 +1,29 @@
 import React, {useState, useEffect}from 'react';
 import styles from '../styles/recipe-styles';
-import {View,Text,ScrollView, Image, TouchableOpacity, AsyncStorage, Modal, Alert, Button} from 'react-native';
+import {View,Text,Image, TouchableOpacity, AsyncStorage} from 'react-native';
 import { withNavigation } from 'react-navigation';
 import LikeModal from './LikekModal';
 import UnlikeModal from './UnlikeModal';
 import Like from './StyledComponents/Like';
 import UserPrepTime from './StyledComponents/UserPrepTime';
-
-// import {Icon} from 'react-native-elements';
-// import Icon from "react-native-vector-icons/FontAwesome";
-// import ipad from '../assets/ipadrecipe.jpg';
-// const ipad = require('../assets/ipadrecipe.jpg');
-// import styled from 'styled-components';
-
 import clearHeart from '../assets/orangeBorder.png';
 import solidHeart from '../assets/orangeFill.png';
 import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import placeholder from '../assets/recipe-image-placeholder.png';
-// import { setState } from 'expect/build/jestMatchersObject';
 
-// var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 const Recipe = (props) => {
     // console.log('props in <Recipe/>', props.setRecipeList);
     // console.log('cookbook refresh', props.cookbookRefresh);
     let {navigation, cardHeight, imageHeight, recipe} = props;
-    // const [num, setNum]= useState(1)
     let [like, setLike] = useState(recipe.likedByUser);
     let [likeCount, setLikeCount] = useState(recipe.total_saves);
     let [userToken,setUserToken] = useState(null);
-    // let [warn, setWarn] = useState(false);
     let [addModal, setAddModal] = useState(false);
     const [removeModal, setRemoveModal] = useState(false);
-    // let [folder, setFolder] = useState([])
     const [categories, setCategories] = useState([])
     const stylePlaceholder = {width: "50%", height: imageHeight, borderRadius: 3, paddingRight: 20 };
-
-   
-    // const courses = ['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack'];
-    // console.log('props in Recipe', props.navigation);
-    // console.log('recipe in <Recipe/>', recipe);
-
-
-    // const UserPrepTime = styled.View`
-    //     flexDirection: row;
-    //     justifyContent: space-between;
-    //     width: 50%;
-    //     marginBottom: 10%;
-    // `;
-    
-    // const Like = styled.View`
-    //     flexDirection: row;
-    //     position: absolute;
-    //     left : 10;
-    //     top: 5;
-    //     zIndex : 1;
-    // `;
 
     const getToken = async () => {  
         const token = await AsyncStorage.getItem('userToken');
@@ -83,8 +50,6 @@ const Recipe = (props) => {
         getRecipe()
         getToken();
     },[like,likeCount])
-
-
 
     const likeIt = async () => {
        
@@ -158,39 +123,3 @@ const Recipe = (props) => {
 }
 
 export default withNavigation(Recipe);
-
-
-             
-    // const im = ()=>{
-    //     if(recipe.img==null){
-    //         return(
-    //             <Image 
-                
-    //             source={{uri : Cereal}}
-    //             style={{width: "50%", height: imageHeight, borderRadius: 3, paddingRight: 20 }}
-    //             resieMode="contain"
-                
-    //         />
-    //         )
-    //     }else{
-    //         return(
-    //             <Image 
-                
-    //             source={{uri : recipe.img}}
-    //             style={{width: "50%", height: imageHeight, borderRadius: 3, paddingRight: 20 }}
-    //             resieMode="contain"
-                
-    //         />
-    //         )
-    //     }
-    // }
-
-        // const checkingForCourse = ()=>{
-    //     console.log("categories", categories)
-    //     courses.map(cat =>{
-    //     console.log("cat before if statement", cat)
-    //       if(categories.includes(cat)){
-    //         console.log("cat before return", cat)
-    //         setFolder(cat)
-    //       }})} 
-    //       console.log("FOLDER", folder)
