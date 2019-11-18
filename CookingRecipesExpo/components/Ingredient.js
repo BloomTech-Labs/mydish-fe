@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {TextInput, View, Picker, Text, TouchableOpacity, TouchableWithoutFeedback, Modal} from 'react-native';
-import styles from '../styles/createRecipeStyles';
-import ReactNativePickerModule from 'react-native-picker-module'
+import {TextInput, View,Text, TouchableOpacity,} from 'react-native';
+// import styles from '../styles/createRecipeStyles';
+// import ReactNativePickerModule from 'react-native-picker-module'
+import Picker from './Picker'
 
 
 
@@ -53,7 +54,7 @@ const Ingredient = (props) => {
         }
     }
 
-
+console.log('choices in ingredient', choices)
     return  (
         <View>
             <View style = {{ flexDirection: 'row', marginBottom: 20}}>
@@ -66,7 +67,9 @@ const Ingredient = (props) => {
                     value={ingredient.quantity}
                 />
                 
-                <TouchableOpacity  onPress={() => {pickerRef.show()}} style={{ height: 40, width: "19%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%",  }}>
+
+              <Picker choices={choices} handleChange={handleChange} ingredient={ingredient}/>
+                {/* <TouchableOpacity  onPress={() => {pickerRef.show()}} style={{ height: 40, width: "19%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%",  }}>
                 <View style={{alignItems: "center", paddingTop: '15%'}} >
                 <Text style={ ingredient.unit === '' ? {color: "#C7C7CD"} : ''}>{ingredient.unit !== '' ? ingredient.unit : "Unit"}</Text>
                 <ReactNativePickerModule
@@ -76,7 +79,7 @@ const Ingredient = (props) => {
                     items={choices.data}
                     onValueChange={(value,i) => handleChange('unit', value,i)}/>
                 </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
 
                 <TextInput
