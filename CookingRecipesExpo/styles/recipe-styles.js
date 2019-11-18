@@ -5,6 +5,20 @@ module.exports = StyleSheet.create({
   //   columnC: 4,
   //   column-gap: 1em,
   // },
+  modalOuter : {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    padding: 50
+  },
+  modalInner : {
+    alignItems: 'center', 
+    borderWidth: 5, 
+    borderRadius: 10, 
+    backgroundColor: 'white', 
+    padding: 40, 
+    borderColor:"#8FCC70"
+  },
     text : {
       marginTop: "3%", 
       fontSize: 13, 

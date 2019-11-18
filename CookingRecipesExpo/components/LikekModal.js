@@ -7,13 +7,7 @@ const LikeModal = (props) => {
     // console.log('modal: ', modal);
 
     const handlePress = () => {
-        console.log('button press in cookbook modal');
-        const modalcopy = !modal;
-       
-        // if (route === 'Home') {
-        //     return;
-        // }
-
+        console.log('button press in LikeModal');
         setModal(!modal)
     }
 
