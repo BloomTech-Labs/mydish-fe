@@ -1,4 +1,5 @@
 
+import React from 'react'
 import RNPickerSelect from 'react-native-picker-select';
  
 export default Picker = ({handleChange, ingredient}) => {
