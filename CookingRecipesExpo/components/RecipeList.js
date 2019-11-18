@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Recipe from './Recipe';
 import {ScrollView, View} from 'react-native';
 import axiosWithAuth from '../utils/axiosWithAuth';
+import styles from '../styles/recipe-styles';
+import RecipeListContainer from './StyledComponents/RecipeListContainer';
 import {LeftHeightAdjustment, RightHeightAdjustment, 
     LeftAdjustImageHeight, RightAdjustImageHeight} from '../utils/helperFunctions/recipeListStyleFunctions';
 
@@ -48,8 +50,8 @@ const RecipeList = (props) => {
 
     return (
         <ScrollView >
-            <View style={{flexDirection: 'row', marginLeft: "4%"}}>
-                <View style={{flexDirection: 'column',width: "39%", marginRight:"10%", paddingBottom: "60%"}}>
+            <RecipeListContainer>
+                <View style={styles.recipeContainer}>
                  {recipes.map( (recp, index) => index%2==0 &&
                         <Recipe key={recp.id} 
                                 recipe={recp} recipeList={props.recipes} 
@@ -59,7 +61,9 @@ const RecipeList = (props) => {
                         />)
                  }
                 </View>
-                 <View style={{flexDirection: 'column', width: "39%", paddingBottom: "60%"}}>
+
+                 {/* <View style={{flexDirection: 'column', width: "39%", paddingBottom: "60%"}}> */}
+                 <View style={styles.recipeContainer}>
                  {recipes.map( (recp, index) => index%2 ==1 && 
                         <Recipe key={recp.id} 
                                 recipe={recp}  
@@ -68,7 +72,7 @@ const RecipeList = (props) => {
                                 courseType={props.courseType}
                         />)}
                 </View>
-            </View>
+            </RecipeListContainer>
          </ScrollView>
     )  
 }

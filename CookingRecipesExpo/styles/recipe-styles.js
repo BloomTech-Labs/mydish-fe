@@ -5,6 +5,9 @@ module.exports = StyleSheet.create({
   //   columnC: 4,
   //   column-gap: 1em,
   // },
+  recipeContainer : {
+    flexDirection: 'column',width: "39%", marginRight:"10%", paddingBottom: "60%"
+  },
   noRecipes : {
     padding: 20, marginTop: '50%', fontSize: 30, textAlign: 'center'
   },

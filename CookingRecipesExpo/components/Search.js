@@ -12,22 +12,14 @@ const Search = (props) => {
 
 
     useEffect(() =>{
-        // console.log('props nav in Search', props);
-        axios
-        .get(
-          `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
-        )
-        .then(res => {
-            setRecipes([])          
-            setRecipes(res.data);
-        })
-        .catch(err => console.log(err));
+        axios.get(`https://recipeshare-development.herokuapp.com/recipes?title=${dish}`)
+            .then(res => {
+                setRecipes([])          
+                setRecipes(res.data);
+            })
+            .catch(err => console.log(err));
     },[dish,recipeListRefresh]);
 
-    // const handleBlur = () => {
-    //     console.log('handleBlur triggered in <Search>');
-    //     setDish('');
-    // }
     const focus = () => {
         console.log('focus on your search!');
         setDish('');
