@@ -6,7 +6,13 @@ import {
 } from 'react-native';
 
 
-const HomePage = () => {
+const HomePage = (props) => {
+
+  React.useEffect(() => {
+    // console.log('props in HomePage', props.navigation);
+  },[])
+
+  
   return (
       <SafeAreaView>
         <Search/>

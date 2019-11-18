@@ -6,13 +6,15 @@ import {
   TouchableOpacity,
   ScrollView,
   Button,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
-// import axios from 'axios'
+import axios from 'axios'
 // import AsyncStorage from '@react-native-community/async-storage'
 
 import styles from '../styles/signUpStyles.js'
 
+import logo from '../assets/LogoGreen.png';
 
 
 const SignUp = props => {
@@ -22,11 +24,12 @@ const SignUp = props => {
     console.log(signUp)
     
     
-    const onPress = () => {
-     console.log("axios call goes here")
-      axios.post('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
+    const onPress = async () => {
+      await axios.post('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
       .then(res => console.log('response from sign up axios post', res))
       .catch(err => setErr(err))
+
+      props.navigation.navigate('Login')
     }
     
       return (
@@ -38,7 +41,12 @@ const SignUp = props => {
           >
             <Text style={styles.exitButton}>x</Text>
           </TouchableOpacity>
-          <Text style={styles.title}>RecipeShare</Text>
+          
+          <View style = {{flexDirection: 'row', justifyContent: 'center', textAlign: 'center', paddingBottom: 15}}>
+            <Image source={logo} style={{width: "10%", height: "105%"}}/> 
+            <Text style={styles.title}>RecipeShare</Text>
+          </View>
+          
           <Text style={styles.createAccountTitle}>Create Account</Text>
           <Text style={styles.emailText}>Username</Text>
           <TextInput
@@ -52,12 +60,14 @@ const SignUp = props => {
            value={signUp.password}
            onChangeText={event => SetSignUp({...signUp, password:event})}
            secureTextEntry={true}/>
+           <View style={{flexDirection: 'row-reverse',}}>
            <TouchableOpacity
              onPress={onPress}
              style={styles.createAccountButton}
            >
              <Text style={styles.createAccountText}>Create Account</Text>
            </TouchableOpacity>
+           </View>
         </View>
        </ScrollView>
       );

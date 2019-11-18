@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,17 +6,15 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 import axios from 'axios'
 // import AsyncStorage from '@react-native-community/async-storage'
 // import MyCookBook from "./MyCookBook"
 // import AxiosWithAuth from './AxiosWithAuth.js'
 import styles from '../styles/loginStyles.js'
-
-export const wow=[]
-
-export const temp = []
+import logo from '../assets/LogoGreen.png';
 
 const Login = props => {
   const [login, SetLogin] = useState({username: '', password: ''})
@@ -25,17 +23,27 @@ const Login = props => {
   const signInAsync = async (tok) => {
     await AsyncStorage.setItem('userToken', tok);
     props.navigation.navigate('App');
-    const token = await AsyncStorage.getItem('userToken')
-    console.log(token)
-  };
 
- 
+  };
+//   const signInAsync = async (tok) => {
+//     console.log("HELLLOOO")
+//     const  token = tok.token;
+//     const id = tok.cook_id;
+//     let keys = [['userToken', token], ['userId', id]];
+//     const multiSet= await AsyncStorage.multiSet(keys, err => {
+//       console.log("error", err);
+//     });
+//     console.log("Multiset", multiSet)
+//   props.navigation.navigate('App');
+// };
+  
+//  useEffect(()=>{
+//    <MyCookBook name={login.username}/>
+//  },[login.username])
 
   const onPress = () => {
-    
-  console.log("axios call goes here")
     axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)
-    .then(res => {signInAsync(res.data.token),  temp.push(res.data.token)})
+    .then(res => {signInAsync(res.data.token)})
       // console.log('response from login axios post', res.data.token)
     .catch(err => setTok(err))
     } 
@@ -49,7 +57,12 @@ const Login = props => {
           >
             <Text style={styles.exitButton}>x</Text>
           </TouchableOpacity>
-          <Text style={styles.title}>RecipeShare</Text>
+
+          <View style = {{flexDirection: 'row', justifyContent: 'center', textAlign: 'center', paddingBottom: 15}}>
+            <Image source={logo} style={{width: "10%", height: "105%"}}/> 
+            <Text style={styles.title}>RecipeShare</Text>
+          </View>
+         
           <Text style={styles.explanationText}>Sign in or create a new account to save and edit your favorite recipes.</Text>
           <Text style={styles.loginText}>Log In</Text>
           <Text style={styles.emailText}>Username</Text>
@@ -67,9 +80,10 @@ const Login = props => {
            secureTextEntry={true}/>
            {toke!=null && <Text style={{color:"red", marginLeft:100}}>Incorrect Username or Password</Text>}
            <TouchableOpacity
-           onPress={() => props.navigation.navigate('SignUp')}>
+           onPress={() => props.navigation.navigate('Signup')}>
            <Text style={styles.createAccountButton}>Create an Account</Text>
            </TouchableOpacity>
+           <View style={{flexDirection: 'row-reverse', marginRight: 16}}>
            <TouchableOpacity
              onPress={onPress}
              style={styles.loginButton}
@@ -78,7 +92,7 @@ const Login = props => {
              {/* <MyCookBook props={toke} style={{display: 'none'}}/> */}
              {/* <AxiosWithAuth token={toke}/> */}
            </TouchableOpacity>
-           
+           </View>
         </View>
        </ScrollView>
        
