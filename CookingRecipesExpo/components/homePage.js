@@ -20,5 +20,6 @@ const HomePage = (props) => {
   );
 };
 
+//capitalize H in homePage
 
 export default HomePage;

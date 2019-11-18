@@ -73,5 +73,6 @@ const SignUp = props => {
       );
     }
     
+//capitalize S in signUp
 
 export default SignUp;
