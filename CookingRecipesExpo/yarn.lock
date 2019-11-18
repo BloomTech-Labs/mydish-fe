@@ -4327,6 +4327,11 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+
 lodash.pad@^4.1.0:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/lodash.pad/-/lodash.pad-4.5.1.tgz#4330949a833a7c8da22cc20f6a26c4d59debba70"
@@ -5710,6 +5715,13 @@ react-native-picker-module@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/react-native-picker-module/-/react-native-picker-module-1.2.3.tgz#1ad2de7f946ce178b7cbda7583af220313141c06"
   integrity sha512-qGcXjKOq+NitvcBUO7eQNbrzfmjL/ZlaxsnAVs3czW2JuxgaBjutiTjIcwHQNrH0RWjcZVzMrrbDHFHfF/lWCg==
+
+react-native-picker-select@^6.3.3:
+  version "6.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-6.3.3.tgz#ea4d20a385041a2f4ead3eb3398b08511d7d6c2a"
+  integrity sha512-9cSXWonugev+e0EHrV8FhzwkjAhpipLFXsGMv+Ns5xI47T9fyNrOXpSeSfgnmycbuAbWRVlJRhJZ9eDGUaNk7w==
+  dependencies:
+    lodash.isequal "^4.5.0"
 
 react-native-reanimated@~1.2.0:
   version "1.2.0"

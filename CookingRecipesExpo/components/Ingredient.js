@@ -54,7 +54,7 @@ const Ingredient = (props) => {
         }
     }
 
-console.log('choices in ingredient', choices)
+
     return  (
         <View>
             <View style = {{ flexDirection: 'row', marginBottom: 20}}>
