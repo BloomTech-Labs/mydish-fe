@@ -1,106 +1,61 @@
 import React, {useState, useEffect} from "react";
-import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text, ScrollView} from "react-native";
+import {View,TouchableOpacity, TextInput, Button, StyleSheet, Text, ScrollView, Image} from "react-native";
 import axios from "axios";
-
+import logo from '../assets/LogoGreen.png';
 import RecipeList from './RecipeList.js'
+import styles from '../styles/search.styles';
 
-const Search = () => {
+const Search = (props) => {
     let [dish, setDish] = useState('')
-    let [recipe, setRecipes] = useState([])
+    let [recipes, setRecipes] = useState([])
+    let [recipeListRefresh, setRecipeListRefresh] = useState(false);
+
 
     useEffect(() =>{
+        // console.log('props nav in Search', props);
         axios
         .get(
-          `https://recipeshare-development.herokuapp.com/recipes/all`
+          `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
         )
         .then(res => {
-          setRecipes(res.data);
+            setRecipes([])          
+            setRecipes(res.data);
         })
         .catch(err => console.log(err));
+    },[dish,recipeListRefresh]);
 
-    },[]);
-    
-    let grabRecipes = async (d) => {
-        // e.preventDefault();
-        await setDish(d)
-        // if(dish.length!==0){
-            axios
-            .get(
-              `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
-            )
-            .then(res => {
-             setRecipes([]);
-              setRecipes(res.data);
-              //setDish('')
-              
-            })
-            .catch(err => console.log(err));
-        // };
-        // if(dish.length==0){
-        //     axios
-        //     .get(
-        //       `https://recipeshare-development.herokuapp.com/recipes/all`
-        //     )
-        //     .then(res => {
-        //         setRecipes([]);
-        //         setRecipes(res.data);
-        //         //setDish('')
-        //     })
-        //     .catch(err => console.log(err));
-        // }
- 
-    };
-
+    // const handleBlur = () => {
+    //     console.log('handleBlur triggered in <Search>');
+    //     setDish('');
+    // }
+    const focus = () => {
+        console.log('focus on your search!');
+        setDish('');
+    }
 
     return(
         <View>
+            <View style = {{flexDirection: 'row', justifyContent: 'left', textAlign: 'left', paddingBottom:"2%", marginTop: "2%"}}>
+                <Image source={logo} style={{width: "8%", height: "85%", marginLeft: "2%"}}/> 
+                <Text style={styles.title}>RecipeShare</Text>
+            </View>
 				 <TextInput
 					style={styles.textInput}
 					placeholder="What dish are you looking for?"
 					placeholderTextColor="#D3D3D3"
 					value={dish}
-                    onChangeText={dish => grabRecipes(dish)}
-                    //onSubmitEditing={grabRecipes}
+                    onChangeText={dish => setDish(dish)}
+                    // clearTextOnFocus={true}
+                    // onBlur={handleBlur}
+                    onFocus={focus}
 				/>
-                 {/* <TouchableOpacity style={styles.button}>
-                    <Button  
-                    color="white"    
-                    onPress={grabRecipes}
-                    title="Search"
-                    accessibilityLabel="Search"                   
-                    />
-                </TouchableOpacity> */}
+
                 <ScrollView>
-                    {recipe.length>=1  && <RecipeList props={recipe} /> }
+                        {recipes.length>=1  && <RecipeList recipes={recipes} setRecipes={setRecipes} /> }
                 </ScrollView>
         </View>
 
     )
 }
-
-const styles = StyleSheet.create({
-textInput: {
-    //flex: 1,
-    height: 40,
-    //width: 300,
-    fontSize: 18,
-    margin: 7,
-    fontWeight: 'bold',
-    color: 'black',
-    paddingLeft: 3,
-    minHeight: '5%',
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#d6d7da'
-},
-button: {
-    borderRadius: 4,
-    borderWidth: 2,
-    marginLeft: 100,
-    marginRight: 100,
-    borderColor: '#3BA405',
-    backgroundColor: `#3BA405`
-}
-})
 
 export default Search;

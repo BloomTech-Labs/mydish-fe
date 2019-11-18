@@ -1,54 +1,84 @@
-import React, { useState } from 'react';
-import { Text, TextInput, View, Image, Button, Alert, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
+import React, {useState, useEffect } from 'react';
+import { Text, TextInput, View, Image, AsyncStorage, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../styles/createRecipeStyles.js'
+
+import RecipeName from './RecipeName';
 import Ingredient from './Ingredient';
 import Instruction from './Instruction';
-import TagButtons from './tagButtons.js';
-import add from '../assets/add_circle_32px.png';;
-import axios from 'axios';
-// import AsyncStorage from '@react-native-community/async-storage';
-// import AxiosWithAuth from './AxiosWithAuth.js';
+import TagButton from './TagButton.js';
+import Add from './Add';
+import Notes from './Notes';
+import RecipeFormContainer from './StyledComponents/RecipeFormContainer';
+import Done from './StyledComponents/Done'
+import DoneButton from './StyledComponents/DoneButton';
+import Heading from './StyledComponents/Heading';
+import TagGroup from './StyledComponents/TagGroup';
+
+
+// import add from '../assets/add_circle_32px.png';;
 import done from '../assets/done_button.png';
+import axiosWithAuth from '../utils/axiosWithAuth.js'
+import {toggleBackgroundColor,tagsIncluded,toggleDifficultyColor, difficultyTags} from '../utils/helperFunctions/tagFunctions'
+import {validateFields} from '../utils/helperFunctions/vaildateFields';
 
 
-export default function CreateRecipeForm(props) {
-  // console.log('<CreateRecipeForm/> rendering');
-  const initialFormState = {
-    title: '',
-    minutes: 0,
-    notes: "",
-    categories: [],
-    ingredients: [],            
-    //likes: "",
-    steps: [], 
-    ancestor: null
-  }  
+function CreateRecipeForm(props) {
+  const initialFormState = {title: '', minutes: 0, notes: "", 
+  categories: [], ingredients: [], steps: [], ancestor: null}  
 
- 
   const [recipe, setRecipe] = useState(initialFormState)
-  
-  const [ingList, setIngList] = useState([])
-  let [ingCount, setIngCount] = useState(1)  //count is for the # of <Ingredient/>'s to render
+  let [errors, setErrors] = useState([]);
+  let [ingCount, setIngCount] = useState(1)  
   let [stepCount, setStepCount] = useState(1);
-  let [steps, setSteps] = useState([0]);
   const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']);
-  const [cuisines,] = useState(['American','Italian','Thai','Chinese','Mexican','Japanese']);
-  const [diet,] = useState(['Meatless','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free']);
-  const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
-
-
+  const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese','Middle-Eastern', 'Other']);
+  const [diets,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
+  const [difficulty,] = useState(['Easy','Intermediate','Difficult']); 
+  const [visible, setVisible] = useState({active: false})
+  const [color, setColor] = useState({active:[]})
+  // let [steps, setSteps] = useState([0]);
+  // const [ingList, setIngList] = useState([])
+  // const [check, setCheck] =useState(true);
   
-  const addIngredients = () => {
-    // console.log('addIngredients triggered');
-    const IngredientComponents = [];
-    // console.log('count in <CreateRecipeForm/>', ingCount);
+  const postRecipe = async () => {
+        
+        console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
+        const errMessages = validateFields(recipe,courses);
 
-      if (!ingCount) {  //if no added ingredients, render only a single ingredient
-        IngredientComponents.push(<Ingredient key={0} recipe={recipe} setRecipe={setRecipe} ingList={ingList} setIngList={setIngList} setCount={setIngCount} count={ingCount}/>);
-      } else {
-        for (let i=0; i<ingCount; i++) {
-          IngredientComponents.push(<Ingredient key={i+1} recipe={recipe} setRecipe={setRecipe} ingList={ingList} setIngList={setIngList} setCount={setIngCount} count={ingCount}/>);
+        if (errMessages.length) {
+          setErrors(errMessages);
+          return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
         }
+
+        const axiosAuth = await axiosWithAuth();
+        try {
+          const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
+          console.log('response from post',res.data);
+          recipeId = res.data.recipe_id;
+          setRecipe(initialFormState)
+          props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
+        } catch(err) {
+          console.log('error from adding new recipe', err);
+        }
+    }
+
+    const ingSubmit = async () => {
+      console.log('<Ingredient/> Submit triggered');
+      // setIngList(() => [...ingList, ingredient]);
+      await setIngCount( oldCount => oldCount + 1);
+    }
+
+    const stepSubmit = async () => {
+      await setStepCount(oldCount => oldCount + 1);
+    }
+
+  const addIngredients = () => {
+
+    const IngredientComponents = [];
+
+      for (let i=0; i<ingCount; i++) {
+        IngredientComponents.push(<Ingredient key={i+1} index={i} recipe={recipe} setRecipe={setRecipe} 
+          visible={visible} setVisible={setVisible} />);
       }
     return IngredientComponents;
   }
@@ -57,222 +87,95 @@ export default function CreateRecipeForm(props) {
     // console.log('add instructions component generator triggered');
     const InstructionComponents = [];
 
-    if (!stepCount) {
-      InstructionComponents.push(<Instruction key={0} recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
-    } else {
-      for (let i=0; i<stepCount; i++) {
-        InstructionComponents.push(<Instruction key={i+1}recipe={recipe} count={stepCount} setCount={setStepCount} setRecipe={setRecipe} />)
-      }
+    for (let i=0; i<stepCount; i++) {
+      InstructionComponents.push(<Instruction key={i+1} index={i+1} recipe={recipe} count={stepCount} 
+        setCount={setStepCount} setRecipe={setRecipe} />)
     }
-    // console.log(InstructionComponents);
+
     return InstructionComponents;
-  }
-  
-  const [color, setColor] = useState({active:[]})
-     
-  function toggleBackgroundColor(category){
-      const index= color.active.indexOf(category)
-      const newActive= index !== -1 ?  color.active.filter(activeCategory => activeCategory !== category) : color.active.concat(category)
-      setColor({active: newActive})
-    }
-
-      function tagsIncluded(tag) {
-        //const check = recipe.categories.includes(tag) 
-         const index= recipe.categories.indexOf(tag)
-         const newTags= index !== -1 ?  recipe.categories.filter(activeTag => activeTag !== tag) : recipe.categories.concat(tag)
-         setRecipe({...recipe, categories: newTags})
-        }
-
-        
-        const handleSubmit = async () => {
-          console.log('<Ingredient/> handleSubmit triggered');
-          // setIngList(() => [...ingList, ingredient]);
-          await setIngCount( oldCount => oldCount + 1);
-          console.log('count in <Ingredient/>', count);
-      }
-      const handleInstructionSubmit = async () => {
-        await setStepCount(oldCount => oldCount + 1);
-    }
-
-  const postRecipe = async () => {
-     
-      console.log('recipe inside submit of <CreateREcipeForm/> ', recipe);
-
-      // console.log('axioswithauth', AxiosWithAuth());
-      const userToken = await AsyncStorage.getItem('userToken');
-
-      try {
-        const res  = await axios.post('https://recipeshare-development.herokuapp.com/recipes', recipe, {
-          headers: {
-            Authorization: userToken
-          }
-        })
-        console.log(res);
-      } 
-      catch (error) {
-        console.log(error);
-      }
-
-      props.navigation.navigate('Home')
-
   }
         
   return (  
-    <View>  
- 
-           <TouchableOpacity 
-           onPress = {postRecipe} style = {{position: 'relative', alignSelf: 'flex-end',  fontSize: 14, paddingRight: 35, backgroundColor: 'white'}}
-           >
-             <Text style={{color: '#3BA405'}}>Done</Text>
-           </TouchableOpacity>
-
-    <ScrollView>
-      <View style={styles.crForm}>
-
-           
-        <View style={{ flexDirection: "column", padding: 15, alignItems: 'center', marginTop: 65 }}>
-
-          {/* <Image
-            style={{ width: 125, height: 150, }}
-            // resizeMode='contain'
-            source={{ uri: 'https://visualpharm.com/assets/654/Add%20Camera-595b40b85ba036ed117dbeab.svg' }}
-          /> */}
-          <Text style = {styles.titleText}> Create Recipe </Text>
-
-
-        </View>
-
-
-        {/* ========= Inputs ========== */}
-
-        <View style={{ alignSelf: 'center', width: 350 }}>
-
-          <Text style={styles.textInputStyles}>Recipe Name</Text>
-
-          <TextInput
-            style={styles.totalTimeContainer}
-            // multiline={true}
-            // numberOfLines={5}
-            maxLength={55}
-            placeholder='Enter Recipe Name'
-            onChangeText={event => setRecipe({ ...recipe, title: event })}
-            value={recipe.title} />
-
-          <Text style={{ alignSelf: 'flex-end', color: "#363838", fontSize: 11, marginTop: 8}}>
-            {recipe.title.length}/55
-          </Text>
-
-          <View style={{ flexDirection: "column", justifyContent: 'space-between' }}>
-
+    <View style={visible.active ? styles.createRecipeActive : ''}>  
+        
+      <Done onPress = {postRecipe}>
+        <Text style={styles.doneText}>Done</Text>
+      </Done>
     
-          <Text style={styles.textInputStyles}>Cook Time (minutes)</Text>
+      <ScrollView>
 
-            <TextInput
-              style={styles.totalTimeContainer}
-              placeholder='Cook Time (minutes only)'
-              keyboardType={'numeric'}
-              onChangeText={event => setRecipe({ ...recipe, minutes: Number(event) })}
-              value={recipe.minutes} 
-            />
+          <RecipeFormContainer>
+                <Heading>Create Recipe</Heading>
+          
+                <View >
+                  {errors.map( (err,i) => <Text key={i} style={styles.errors}>{err}</Text>)}
 
-          </View>
+                  <RecipeName recipe={recipe} setRecipe={setRecipe} />
 
-         {/* ********************<CourseTypes/>*************** */}
-          <Text style={{ marginTop: 16, fontSize: 16, color: "#363838", marginBottom: 16 }}>Course Type</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5, alignItems:'stretch'
-        }}>
-            {courses.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
-          </View>
+                  <Heading>Total Cook Time (minutes)</Heading>
+                  <TextInput style={styles.totalTimeContainer} placeholder='Time'
+                    keyboardType={'numeric'} onChangeText={min => setRecipe({ ...recipe, minutes: min})}
+                    value={recipe.minutes} 
+                  />
 
-          {/* ********************<Cuisines/>*************** */}
-          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16  }}>Cuisine</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {cuisines.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
-          </View>
+                  <Heading>Course Type</Heading>
+                  <TagGroup>
+                  {courses.map((course,i) => <TagButton key={i} tag={course} recipe={recipe} setRecipe={setRecipe} 
+                                                  color={color} setColor={setColor} 
+                                                  toggleColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)} 
+                  </TagGroup>
 
-          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16  }}>Diet</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {diet.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
-          </View>
 
-          <Text style={{ marginTop: 15, fontSize: 16, color: '#363838', marginBottom: 16  }}>Difficulty</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', marginLeft: 5}}>
-            {difficulty.map(tag => <TagButtons key={tag} tag={tag} recipe={recipe} setRecipe={setRecipe} color={color} setColor={setColor} switchColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
-          </View>
-
-          {/* ============= Total Time and Servings View =============== */}
-   
-          {/* =============== Ingredients ===================== */}
-
-          <Text style={{ fontSize: 16, color: '#363838', marginTop: 25 }} >Ingredients</Text>
-
-          {/* ========= Add Ingredients View ============== */}
-
-          <View style={{ flexDirection: "row", marginTop: 20}} >
-            {/* <Icon name='add' reverse={true}></Icon> */}
-            <View>
-                  {addIngredients()}
-
-                  <TouchableOpacity onPress={handleSubmit} style = {{flexDirection: 'row'}} >
+                  <Heading>Cuisine</Heading>
+                  <TagGroup>
+                    {cuisines.map((cuisine,i) => <TagButton key={i} tag={cuisine} 
+                                                    recipe={recipe} setRecipe={setRecipe} 
+                                                    color={color} setColor={setColor} 
+                                                    toggleColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+                  </TagGroup>
                 
-                <Image source={add} style={{width: 20, height: 20}}/> 
-                
-                <Text style = {{color : 'green', fontSize: 16, marginLeft: 5}}>
-                    Add Ingredients
-                </Text>
-               
-            </TouchableOpacity> 
+                  <Heading>Diet</Heading>
+                  <TagGroup>
+                    {diets.map((diet,i)=> <TagButton key={i} tag={diet} 
+                                                recipe={recipe} setRecipe={setRecipe} color={color} 
+                                                setColor={setColor} toggleColor={toggleBackgroundColor} 
+                                                tagsIncluded={tagsIncluded}/>)}
+                  </TagGroup>
 
-            </View>
-          </View>
+                  <Heading>Difficulty</Heading>
+                  <TagGroup>
+                    {difficulty.map((dif,i) => <TagButton key={i} tag={dif} recipe={recipe} 
+                                                      setRecipe={setRecipe} color={color} setColor={setColor} 
+                                                      toggleColor={toggleDifficultyColor} 
+                                                      tagsIncluded={difficultyTags}/>)}
+                  </TagGroup>
 
-          <Text style={{fontSize: 16, color: '#363838', marginTop: 25  }} >Instructions</Text>
+                    <Heading>Ingredients</Heading>
+                      {addIngredients()}
+                      <Add text="Add Ingredient" submit={ingSubmit} />
 
+                    <Heading>Instructions</Heading>
+                      {addInstructions()}
+                      <Add text="Add A Step" submit={stepSubmit} />
 
-          <View style={{ flexDirection: "row", marginTop: 20}} >
+                    <Notes recipe={recipe} setRecipe={setRecipe} />
 
-            <View>
-              {addInstructions()}
+                    <DoneButton onPress = {postRecipe}>
+                        <Image source={done} style={styles.doneCreateBtn} /> 
+                    </DoneButton>
 
-              <TouchableOpacity onPress={handleInstructionSubmit} style = {{flexDirection: 'row'}} >
-                
-                <Image source={add} style={{width: 20, height: 20}}/> 
-                
-                <Text style = {{color : 'green', fontSize: 16, marginLeft: 5}}>
-                    Add A Step
-                </Text>
-               
-              </TouchableOpacity> 
-            </View>
-
-          </View>
-
-        <View>
-
-            <Text style={{fontSize: 16, color: '#363838', marginTop: 25  }}>Notes: </Text>
-
-            <TextInput
-              style={styles.notesContainer}
-              placeholder=''
-              multiline={true}
-              onChangeText={event => setRecipe({ ...recipe, notes: event })}
-              value={recipe.notes} 
-            />
-
-        </View>
-
-        <TouchableOpacity 
-         onPress = {postRecipe} style = {{alignItems: 'center', marginTop: 30}}
-         >
-            <Image source={done} style = {{width: 136, height: 40, marginLeft: 215, marginBottom: 20}                  }/> 
-          </TouchableOpacity>
-
-{/* 
-          <Button title='Submit Recipe' onPress ={postRecipe}/> */}
-
-        </View>
-      </View>
+                    {errors.map((err,i) => <Text key={i} style={styles.errors}>{err}</Text>)}
+                </View>
+            </RecipeFormContainer>
     </ScrollView>
   </View>   
   )
+  
  }
+ CreateRecipeForm.navigationOptions = {
+  tabBarLabel: 'create new recipe'
+}
+
+export default CreateRecipeForm;
+
+ 

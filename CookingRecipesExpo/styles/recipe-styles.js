@@ -5,12 +5,26 @@ module.exports = StyleSheet.create({
   //   columnC: 4,
   //   column-gap: 1em,
   // },
+  modalOuter : {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    padding: 50
+  },
+  modalInner : {
+    alignItems: 'center', 
+    borderWidth: 5, 
+    borderRadius: 10, 
+    backgroundColor: 'white', 
+    padding: 40, 
+    borderColor:"#8FCC70"
+  },
     text : {
-      marginTop: 5, 
+      marginTop: "3%", 
       fontSize: 13, 
       fontWeight: 'bold', 
       textAlign: 'left',
-      width: 300
+      width: "30%"
     },
     username : {
       fontSize : 11
@@ -19,7 +33,8 @@ module.exports = StyleSheet.create({
       // flex: 1, 
       flexDirection: 'row', 
       justifyContent: 'space-between',
-      width: 160
+      width: "50%",
+      marginBottom: "2%"
       // marginLeft : 5
       // borderTopWidth: 5, 
       // borderBottomWidth: 5

@@ -1,102 +1,130 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Recipe from './Recipe';
 import {ScrollView, View} from 'react-native';
+import axiosWithAuth from '../utils/axiosWithAuth';
+// import axios from 'axios';
 
 
 const RecipeList = (props) => {
-    let imageHeight = 0;
+    let LeftimageHeight = 0;
+    let RightimageHeight = 0;
     let LeftHeight = 0;
     let RightHeight= 0;
-    let Margin =0
+    let recipeList= props.recipes;
 
-    const [recipes, setRecipes] = React.useState([]);
+    const [recipes, setRecipes] = useState([]); //namespace collision with the recipes in <Search/>
+    let [cookbook, setCookbook] = useState([]);
+    // let [refreshLikes, setRefreshLikes] = useState(false);
 
+    const cookbookURL = 'https://recipeshare-development.herokuapp.com/cookbook/';
+    // let cookbook = [];
+
+    const likedByUser = cookbook => {
+        // console.log('cookbook', cookbook);
+        // console.log('props.recipes', props.recipes);
+        recipeList = recipeList.map(rec => {
+            // console.log('rec id', rec.id);
+            // console.log('found rec in cookbook', cookbook.find(({id}) => id === rec.id));
+            const match = cookbook.find(({id}) => id === rec.id);
+            if (match) {
+              rec.likedByUser = true;
+            } else {
+              rec.likedByUser = false;
+            }
+          return rec;
+        })
+        setRecipes(recipeList);
+    }
+
+    const getCookbook = async () => {
+        try{
+            const axiosAuth = await axiosWithAuth();
+            const res = await axiosAuth.get(cookbookURL);
+            setCookbook(res.data);
+            likedByUser(res.data);
+
+        }catch(err){
+            setRecipes(recipeList)
+        }
+        
+    }
+    
     useEffect(() =>{
-        setRecipes(props.props)
-
-        // console.log("HELLLOOOOO",Math.floor(recipes.length/2)+1)
+        // console.log('props in RecipeList', props.recipes);
+        // setRefreshLikes(props.refresh);
+        getCookbook();
     },[]);
-    // const imgSizer = () => {
-    //     const width = Math.floor(100 + Math.random()*100);
-    //     console.log(width);
-    //     return width;
-    // }
-    const wow =()=>{
+    
+    const divideArray =()=>{
         if(Math.floor(recipes.length/2)  ==0){
             return 1
         }else{
             return Math.floor(recipes.length/2) 
-        }
-        
+        }      
     }
     
-
-    // console.log("WOW", recipes.slice(0, wow))
-    // console.log("NOW", recipes.slice(wow, recipes.length+1))
-    
-    const adjust1 = () => {
-        Height = !Height;
-        return Height ? 200 : 300;
-    }
-    const LeftHeightAdjustment = () => {
-        
+    const LeftHeightAdjustment = () => {    
         if(LeftHeight === 0){  
-            // console.log("LeftHeight 0", LeftHeight)
             LeftHeight= LeftHeight +1
             return 220
         }if(LeftHeight===1){
-            // console.log("LeftHeight 1", LeftHeight)
             LeftHeight = LeftHeight -1
-            return 230
+            return 250
         }
     }
-    const RightHeightAdjustment = () => {
-        
-        if(RightHeight === 0){  
-            // console.log("RightHeight 0", RightHeight)
+    const RightHeightAdjustment = () => {     
+        if(RightHeight === 2){  
             RightHeight= RightHeight +1
-            return 230
-        }if(RightHeight===1){
-            // console.log("RightHeight 1", RightHeight)
+            return 235
+        }if(RightHeight===3){
             RightHeight = RightHeight -1
-            return 220
+            return 225
         }
     }
-    const adjustImageHeight = () => {  
-        if(imageHeight === 0){  
-            // console.log("imageHeight 0", imageHeight)
-            imageHeight= imageHeight +1
+    const LeftadjustImageHeight = () => {  
+        if(LeftimageHeight === 0){  
+            LeftimageHeight= LeftimageHeight +1
             return 150
-        }if(imageHeight===1){
-            // console.log("imageHeight 1", imageHeight)
-            imageHeight = imageHeight -1
+        }if(LeftimageHeight===1){
+            LeftimageHeight = LeftimageHeight -1
             return 185
         }
     }
-
-    const adjustMargin = () =>{
-        if(Margin === 0){ 
-            // console.log("Margin 0", Margin)
-            Margin= Margin +1
-            return 0
-        }if(Margin===1){
-            // console.log("Margin 1", Margin)
-            Margin= Margin -1
-            return 0
+    const RightadjustImageHeight = () => {  
+        if(RightimageHeight === 0){  
+            RightimageHeight= RightimageHeight +1
+            return 185
+        }if(RightimageHeight===1){
+            RightimageHeight = RightimageHeight -1
+            return 150
         }
-
     }
-    // console.log("recipes", recipes.slice(0, wow))
 
     return (
-        <ScrollView>
-            <View style={{flexDirection: 'row'}}>
-                {/* {recipes.length==1 && <Recipe key={props.title} recipe={recipes} height={adjustHeight()} marg={adjustMargin()}/>} */}
-                <View style={{flexDirection: 'column', marginRight: -140, marginLeft: 12}}>
-                 {recipes.slice(0, wow()).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={LeftHeightAdjustment()}/>)}
+        <ScrollView >
+            <View style={{flexDirection: 'row', marginLeft: "4%"}}>
+                <View style={{flexDirection: 'column',width: "39%", marginRight:"10%", paddingBottom: "60%"}}>
+                 {recipes.map( (recp, index) =>  index%2==0 
+                 &&
+                 <Recipe key={recp.id} 
+                 recipe={recp} recipeList={props.recipes} 
+                 setRecipeList={props.setRecipes} imageHeight={LeftadjustImageHeight()} 
+                 cardHeight={LeftHeightAdjustment()}
+                 courseType={props.courseType}
+                //  cookbookRefresh={props.cookbookRefresh} 
+                //  setCookbookRefresh={props.setCookbookRefresh}
+                 />)
+                 }
                 </View>
-                 <View style={{flexDirection: 'column'}}>
-                 {recipes.slice(wow(), recipes.length+1).map( recp =>  <Recipe key={recp.id} recipe={recp} imageHeight={adjustImageHeight()} marg={adjustMargin()} cardHeight={RightHeightAdjustment()}/>)}
+                 <View style={{flexDirection: 'column', width: "39%", paddingBottom: "60%"}}>
+                 {recipes.map( (recp, index) => index%2 ==1 && <Recipe key={recp.id} 
+                 recipe={recp}  
+                 imageHeight={RightadjustImageHeight()} 
+                 cardHeight={RightHeightAdjustment()}
+                 courseType={props.courseType}
+                //  cookbookRefresh={props.cookbookRefresh} 
+                //  setCookbookRefresh={props.setCookbookRefresh}
+                 />)}
                 </View>
             </View>
          </ScrollView>
@@ -104,7 +132,3 @@ const RecipeList = (props) => {
 }
 
 export default RecipeList;
-
-
-
-

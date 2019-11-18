@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.2",
@@ -15,6 +16,7 @@
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-gesture-handler": "~1.3.0",
+    "react-native-picker-module": "^1.2.3",
     "react-native-reanimated": "~1.2.0",
     "react-native-screens": "~1.0.0-alpha.23",
     "react-native-web": "^0.11.7",
@@ -23,8 +25,16 @@
     "react-navigation-tabs": "^2.5.6",
     "styled-components": "^4.4.1"
   },
+  "private": true,
   "devDependencies": {
-    "babel-preset-expo": "^7.1.0"
+    "jest-expo": "^35.0.0",
+    "react-native-testing-library": "^1.11.1",
+    "react-test-renderer": "^16.11.0"
   },
-  "private": true
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|sentry-expo|native-base)"
+    ]
+  }
 }
