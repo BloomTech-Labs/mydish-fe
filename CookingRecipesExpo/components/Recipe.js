@@ -1,7 +1,9 @@
 import React, {useState, useEffect}from 'react';
 import styles from '../styles/recipe-styles';
 import {View,Text,ScrollView, Image, TouchableOpacity, AsyncStorage, Modal, Alert, Button} from 'react-native';
-import { withNavigation } from 'react-navigation'
+import { withNavigation } from 'react-navigation';
+import LikeModal from './LikekModal';
+import UnlikeModal from './UnlikeModal';
 // import {Icon} from 'react-native-elements';
 // import Icon from "react-native-vector-icons/FontAwesome";
 // import ipad from '../assets/ipadrecipe.jpg';
@@ -24,7 +26,8 @@ const Recipe = (props) => {
     let [likeCount, setLikeCount] = useState(recipe.total_saves);
     let [userToken,setUserToken] = useState(null);
     let [warn, setWarn] = useState(false);
-    let [modal, setModal] = useState(false);
+    let [addModal, setAddModal] = useState(false);
+    const [removeModal, setRemoveModal] = useState(false);
     let [folder, setFolder] = useState([])
     const [categories, setCategories] = useState([])
    
@@ -62,13 +65,12 @@ const Recipe = (props) => {
        let {categories} = res.data;
     //    console.log('categories', categories);
        categories = categories.filter(cat => cat === 'Breakfast' || cat === 'Brunch' || cat === 'Lunch' || 
-                                cat === 'Dinner' || cat === 'Dessert' || cat === 'Snack'  );
-       console.log('filtered categories', categories);
+                                      cat === 'Dinner' || cat === 'Dessert' || cat === 'Snack');
        setCategories(categories);
     }
 
     useEffect(() => {
-        // console.log('recipe in <Recipe>', recipe)
+        // console.log('props in <Recipe>', navigation.state.routeName);
         getRecipe()
         getToken();
         // console.log('liked? after set', like);
@@ -78,31 +80,18 @@ const Recipe = (props) => {
 
     const likeIt = async () => {
         console.log('like pressed');
-        console.log('recipe id: ', recipe.id);
-        console.log('recipe total_saves and liked?', recipe.total_saves, like);
-        // console.log('props.navigation', props.navigation);
+        // console.log('recipe id: ', recipe.id);
+        // console.log('recipe total_saves and liked?', recipe.total_saves, like);
+       
         let liked = !like;  //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
-        // if (liked === true ) { // unliking will remove the recipe from the database
-        //     //popup a modal warning the recipe will be deleted from the entire database
-        //     setWarn(true);
-        //     // return;
-        // }
-        // console.log('liked? before set', like);  //false
+       
         const axiosAuth = await axiosWithAuth();
         if (liked) {
             axiosAuth.post(`https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`,{})
                 .then(res => {
                     setLikeCount(res.data.total_saves);
-                    
-                    const route = props.navigation.state.routeName;
-                    // console.log('route', route);
-                    // if (route == "Home") {
-                        //     props.navigation.push('Home');
-                        // } else {
-                            //     props.navigation.push('Courses');
-                            // }
                     setLike(liked);
-                    setModal(!modal);
+                    setAddModal(!addModal);
                 })
                 .catch(err => console.log('error in posting like', err))
                 
@@ -110,13 +99,6 @@ const Recipe = (props) => {
             axiosAuth.delete(`https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`)
                 .then(res => {
                     console.log('res from unlike', res.data);
-                    
-                    // const filtered = props.recipeList.filter(rec => {
-                    //     return rec.id !== recipe.id;
-                    // })
-                    // console.log('filtered length vs original', filtered.length, props.recipeList.length);
-
-                    // props.setRecipeList(filtered);
 
                     if (!res.data.total_saves) {
                         setLikeCount(0);
@@ -125,70 +107,55 @@ const Recipe = (props) => {
                     }
                     
                     setLike(liked);
-                    // props.navigation.pop();
+
                     const route = navigation.state.routeName;
                     console.log('route in unlike', route);
-                    if (route === "Folder") {
-                        // props.navigation.pop();
-                       navigation.pop();
-                    //    navigation.push('CookBook');
-                    } 
-                    // console.log('route', route);
-                    // if (route == "Home") {
-                    //     props.navigation.push('Home');
-                    // } else {
-                    //     props.navigation.push('Courses');
-                    // }
+
+                    if (route === 'Home') {
+                        return;
+                    }
+                    setRemoveModal(!removeModal);
+
+                    // if (route === "Folder") {
+                    //    navigation.pop();
+                    // } 
                 })
                 .catch(err => console.log('err in deleting like', err))
         }
         axiosAuth.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`)
         .then(res=>{
-            console.log("res.data from id in recipe", res.data.categories)
+            // console.log("res.data from id in recipe", res.data.categories)
             setCategories(res.data.categories);
         }).catch(err => console.log("err in recipe categoried by id", err))
-        
-        // checkingForCourse()
     }
-    // const checkingForCourse = ()=>{
-    //     console.log("categories", categories)
-    //     courses.map(cat =>{
-    //     console.log("cat before if statement", cat)
-    //       if(categories.includes(cat)){
-    //         console.log("cat before return", cat)
-    //         setFolder(cat)
-    //       }})} 
-    //       console.log("FOLDER", folder)
+
     return (
             <View style={{height: cardHeight, width: "240%"}}>
-                {<Modal animationType="fade" transparent={true} visible={modal}>
-                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 50}}>
-                        <View style={{borderWidth: 5, borderRadius: 10, backgroundColor: 'white', padding: 40, borderColor:"#8FCC70"}}>
-                        <Text>Recipe added to Cookbook in: </Text>
-                        {categories.map((cat,i) => <Text key={i}>{cat}</Text>)}
-                        {/* <Text style={{textAlign: 'center'}}>{String(props.courseType)}</Text> */}
-                        <Button title="Got it!" color='#8FCC70' borderColor="#8FCC70" onPress={() => setModal(!modal)}/>
-                        </View>
-                    </View>
-                </Modal>}
+
+                <LikeModal  categories={categories} text="Recipe added to: " 
+                                modal={addModal} setModal={setAddModal}
+                                route={navigation.state.routeName}/>
+
+                <UnlikeModal  categories={categories} text="Recipe removed from: "
+                                modal={removeModal} setModal={setRemoveModal}  
+                                route={navigation.state.routeName} navigate={navigation.pop}/>
+
                 {userToken && <Like onStartShouldSetResponder={likeIt}>
                     <Image source={like ? solidHeart : clearHeart } style={{width: 30, height: 30}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
                 </Like>}
               
-               <TouchableOpacity  
-               onPress={()  =>  navigation.navigate('IndividualR', {paramsID: recipe.id})}
-               >
-               <Image 
-                source={{uri : (recipe.img ? recipe.img : Cereal)}}
-                style={{width: "50%", height: imageHeight, borderRadius: 3, paddingRight: 20 }}
-                />
-                {/* {im()} */}
-                <Text style={styles.text}>{recipe.title}</Text>
-                <UserPrepTime>
-                    <Text style={styles.username}>{recipe.username || recipe.author}</Text>
-                    <Text style={styles.prep}>{recipe.minutes} min.</Text>
-                </UserPrepTime>
+               <TouchableOpacity  onPress={()  =>  navigation.navigate('IndividualR', {paramsID: recipe.id})}>
+                    <Image 
+                        source={{uri : (recipe.img ? recipe.img : Cereal)}}
+                        style={{width: "50%", height: imageHeight, borderRadius: 3, paddingRight: 20 }}
+                        />
+                        {/* {im()} */}
+                        <Text style={styles.text}>{recipe.title}</Text>
+                        <UserPrepTime>
+                            <Text style={styles.username}>{recipe.username || recipe.author}</Text>
+                            <Text style={styles.prep}>{recipe.minutes} min.</Text>
+                        </UserPrepTime>
                 </TouchableOpacity>
             </View>
     )
@@ -221,3 +188,13 @@ export default withNavigation(Recipe);
     //         )
     //     }
     // }
+
+        // const checkingForCourse = ()=>{
+    //     console.log("categories", categories)
+    //     courses.map(cat =>{
+    //     console.log("cat before if statement", cat)
+    //       if(categories.includes(cat)){
+    //         console.log("cat before return", cat)
+    //         setFolder(cat)
+    //       }})} 
+    //       console.log("FOLDER", folder)

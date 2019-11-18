@@ -12,7 +12,7 @@ const Search = (props) => {
 
 
     useEffect(() =>{
-        console.log('props nav in Search', props);
+        // console.log('props nav in Search', props);
         axios
         .get(
           `https://recipeshare-development.herokuapp.com/recipes?title=${dish}`
