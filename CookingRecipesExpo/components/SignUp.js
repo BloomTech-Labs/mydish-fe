@@ -1,29 +1,15 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Button,
-  AsyncStorage,
-  Image
-} from 'react-native';
+import {View,Text,TextInput,TouchableOpacity,ScrollView,Image} from 'react-native';
 import axios from 'axios'
-// import AsyncStorage from '@react-native-community/async-storage'
-
 import styles from '../styles/signUpStyles.js'
-
 import logo from '../assets/LogoGreen.png';
-
 
 const SignUp = props => {
     const [signUp, SetSignUp] = useState({username: '', password: ''})
     const [err, setErr] = useState()
 
-    console.log(signUp)
-    
-    
+    // console.log(signUp)
+
     const onPress = async () => {
       await axios.post('https://recipeshare-development.herokuapp.com/cooks/register', signUp)
       .then(res => console.log('response from sign up axios post', res))
