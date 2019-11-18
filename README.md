@@ -1,10 +1,4 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
-
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by.  Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
-# Title: RecipeShare
+# RecipeShare
 
 You can find the deployed project at WORK IN PROGRESS(REACT-NATIVE) [🚫URL NAME GOES HERE](🚫copy and paste URL here).
 
@@ -13,7 +7,7 @@ You can find the deployed project at WORK IN PROGRESS(REACT-NATIVE) [🚫URL NAM
 |                                       [Amir](https://github.com/ayunas)                                        |                                       [Kenya](https://github.com/Kenya-a)                                        |                                       [Hannah](https://github.com/hannahtuttle)                                        |                                       [Obaida](https://github.com/Obaida-Albaroudi)                                        |                                       [Heymi UX]                                        |
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
 |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |
-|                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)            |          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)           |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)             |
+|                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ayunas)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Kenya-a)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/hannahtuttle)            |          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Obaida-Albaroudi)           |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)             |
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) |
 
 <br>
@@ -143,7 +137,21 @@ In order for the app to function correctly, the user must set up their own envir
 
 #  Installation Instructions
 
-🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
+Install Expo Globally: 
+
+   ```npm install -g expo-cli```
+   
+   [Expo Installation](https://docs.expo.io/versions/v35.0.0/get-started/installation/)
+  
+ Clone this repository: 
+ 
+   1. ``` cd cooking-recipe-source-control-fe ```
+   
+   2. ``` cd CookingRecipesExpo ```
+   
+   3. ``` yarn install  ``` or   ``` yarn  ```
+   
+   4. ``` yarn start ```
 
 ## Other Scripts
  -   "android": "react-native run-android",
