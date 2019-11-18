@@ -5,6 +5,9 @@ module.exports = StyleSheet.create({
   //   columnC: 4,
   //   column-gap: 1em,
   // },
+  noRecipes : {
+    padding: 20, marginTop: '50%', fontSize: 30, textAlign: 'center'
+  },
   modalOuter : {
     flex: 1, 
     justifyContent: 'center', 
