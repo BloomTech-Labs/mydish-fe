@@ -27,7 +27,7 @@ const Search = (props) => {
 
     return(
         <View>
-            <View style = {{flexDirection: 'row', justifyContent: 'left', textAlign: 'left', paddingBottom:"2%", marginTop: "2%"}}>
+            <View style = {{flexDirection: 'row', justifyContent: 'flex-start', textAlign: 'left', paddingBottom:"2%", marginTop: "2%"}}>
                 <Image source={logo} style={{width: "8%", height: "85%", marginLeft: "2%"}}/> 
                 <Text style={styles.title}>RecipeShare</Text>
             </View>

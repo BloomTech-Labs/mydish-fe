@@ -1,5 +1,6 @@
 
 import React from 'react'
+import {StyleSheet} from 'react-native'
 import RNPickerSelect from 'react-native-picker-select';
  
 export default Picker = ({handleChange, ingredient}) => {
@@ -15,10 +16,10 @@ export default Picker = ({handleChange, ingredient}) => {
 // <Text style={ ingredient.unit === '' ? {color: "#C7C7CD"} : ''}>{ingredient.unit !== '' ? ingredient.unit : "Unit"}</Text>
     <RNPickerSelect
         placeholder={placeholder}
-                onValueChange={(value => handleChange(value))}
+                onValueChange={(value => handleChange('unit',value))}
                 value={ingredient.unit}
                 useNativeAndroidPickerStyle={false}
-                style={{ height: 40, width: "19%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%",  }}
+                style={pickerSelectStyles}
                 items={[
                     { label: 'tsp', value: 'tsp' },
                     { label: 'tbsp', value: 'tbsp' },
@@ -41,3 +42,32 @@ export default Picker = ({handleChange, ingredient}) => {
 // </TouchableOpacity>)
        
 };
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 4,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+
+    inputAndroid: {
+        height: 40,
+        // width: "19%",
+        marginLeft: '10%',
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 0.8,
+      borderColor: '#363838',
+      borderRadius: 4,
+      textAlign: 'center',
+     color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+  });
+
+  //style={{ height: 40, width: "19%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 14 }}
