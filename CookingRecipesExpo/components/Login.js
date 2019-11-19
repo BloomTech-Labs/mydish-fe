@@ -10,9 +10,7 @@ import {
   Image
 } from 'react-native';
 import axios from 'axios'
-// import AsyncStorage from '@react-native-community/async-storage'
-// import MyCookBook from "./MyCookBook"
-// import AxiosWithAuth from './AxiosWithAuth.js'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from '../styles/loginStyles.js'
 import logo from '../assets/LogoGreen.png';
 
@@ -25,32 +23,17 @@ const Login = props => {
     props.navigation.navigate('App');
 
   };
-//   const signInAsync = async (tok) => {
-//     console.log("HELLLOOO")
-//     const  token = tok.token;
-//     const id = tok.cook_id;
-//     let keys = [['userToken', token], ['userId', id]];
-//     const multiSet= await AsyncStorage.multiSet(keys, err => {
-//       console.log("error", err);
-//     });
-//     console.log("Multiset", multiSet)
-//   props.navigation.navigate('App');
-// };
-  
-//  useEffect(()=>{
-//    <MyCookBook name={login.username}/>
-//  },[login.username])
+
 
   const onPress = () => {
     axios.post('https://recipeshare-development.herokuapp.com/cooks/login', login)
     .then(res => {signInAsync(res.data.token)})
-      // console.log('response from login axios post', res.data.token)
     .catch(err => setTok(err))
     } 
 
-    //console.log("tiktok",toke)
+  
   return (
-    <ScrollView>
+    <KeyboardAwareScrollView>
     <View style={styles.signUp}>
       <TouchableOpacity
           onPress={() => props.navigation.navigate('Home')}
@@ -94,7 +77,7 @@ const Login = props => {
            </TouchableOpacity>
            </View>
         </View>
-       </ScrollView>
+       </KeyboardAwareScrollView>
        
       );
     }

@@ -1,6 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import { Text, TextInput, View, Image,ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import {Header} from 'react-navigation-stack'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from '../styles/createRecipeStyles.js'
 
 import RecipeName from './RecipeName';
@@ -97,9 +98,7 @@ function CreateRecipeForm(props) {
   }
         
   return (  
-     <KeyboardAvoidingView behavior= {(Platform.OS === 'ios')? "padding" : null} enabled 
-                           keyboardVerticalOffset={Header.HEIGHT + 70}
-     >
+     <KeyboardAwareScrollView >
     <View style={visible.active ? styles.createRecipeActive : ''}>  
         
       <Done onPress = {postRecipe}>
@@ -174,7 +173,7 @@ function CreateRecipeForm(props) {
             </RecipeFormContainer>
     </ScrollView>
   </View>   
-                      </KeyboardAvoidingView>
+ </KeyboardAwareScrollView>
   )
   
  }

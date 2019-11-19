@@ -10,7 +10,7 @@ import {
   Image
 } from 'react-native';
 import axios from 'axios'
-// import AsyncStorage from '@react-native-community/async-storage'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import styles from '../styles/signUpStyles.js'
 
@@ -34,7 +34,7 @@ const SignUp = props => {
     
       return (
 
-       <ScrollView>
+       <KeyboardAwareScrollView>
         <View style={styles.signUp}>
           <TouchableOpacity
           onPress={() => props.navigation.navigate('Home')}
@@ -69,7 +69,7 @@ const SignUp = props => {
            </TouchableOpacity>
            </View>
         </View>
-       </ScrollView>
+       </KeyboardAwareScrollView>
       );
     }
     
