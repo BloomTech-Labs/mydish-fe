@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from 'react';
-import { Text, TextInput, View, Image, AsyncStorage, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, Image,ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import {Header} from 'react-navigation-stack'
 import styles from '../styles/createRecipeStyles.js'
 
 import RecipeName from './RecipeName';
@@ -73,7 +74,7 @@ function CreateRecipeForm(props) {
     }
 
   const addIngredients = () => {
-
+    
     const IngredientComponents = [];
 
       for (let i=0; i<ingCount; i++) {
@@ -96,6 +97,9 @@ function CreateRecipeForm(props) {
   }
         
   return (  
+     <KeyboardAvoidingView behavior= {(Platform.OS === 'ios')? "padding" : null} enabled 
+                           keyboardVerticalOffset={Header.HEIGHT + 70}
+     >
     <View style={visible.active ? styles.createRecipeActive : ''}>  
         
       <Done onPress = {postRecipe}>
@@ -151,6 +155,7 @@ function CreateRecipeForm(props) {
                   </TagGroup>
 
                     <Heading>Ingredients</Heading>
+
                       {addIngredients()}
                       <Add text="Add Ingredient" submit={ingSubmit} />
 
@@ -169,6 +174,7 @@ function CreateRecipeForm(props) {
             </RecipeFormContainer>
     </ScrollView>
   </View>   
+                      </KeyboardAvoidingView>
   )
   
  }
