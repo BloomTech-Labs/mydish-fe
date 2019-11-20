@@ -137,10 +137,19 @@ In order for the app to function correctly, the user must set up their own envir
 
 #  Installation Instructions
 
-Install Expo Globally: 
+To run simulator on macintosh:
+1 clone repository
+2 yarn install
+3 install xcode (developer tools) from the "App Store"
+4 Install Expo Globally: 
 
    ```npm install -g expo-cli```
-   
+5 expo start or yarn start
+6 a browser will open up a new tab, launching the app
+
+
+
+To run app on mobile:   
    [Expo Installation](https://docs.expo.io/versions/v35.0.0/get-started/installation/)
   
  Clone this repository: 
@@ -152,6 +161,13 @@ Install Expo Globally:
    3. ``` yarn install  ``` or   ``` yarn  ```
    
    4. ``` yarn start ```
+
+
+
+To run simulator on android studio:
+1: install android studio from the web https://developer.android.com/studio?gclid=CjwKCAiAws7uBRAkEiwAMlbZjmxCuPt9DRNnTgRU4p8q-Yxhie6PvOmcMYmoThEsB-4-3WU6vIFOYRoC_zUQAvD_BwE
+2. Find steps to run on react-native documentation https://facebook.github.io/react-native/docs/getting-started
+
 
 ## Other Scripts
  -   "android": "react-native run-android",
