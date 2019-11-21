@@ -6,7 +6,7 @@ import styles from '../styles/createRecipeStyles.js'
 
 import RecipeName from './RecipeName';
 import Ingredient from './Ingredient';
-import Instruction from './Instruction';
+import EditInstruction from './EditInstruction';
 import TagButton from './TagButton.js';
 import Add from './Add';
 import Notes from './Notes';
@@ -32,9 +32,9 @@ function EditForm(props) {
     const stepsArray = stepsArrayWithOrdinal.map(step => step.body)
 
 
- console.log('recipe passed from individual recipe params', recipeToEdit)
+ //console.log('recipe passed from individual recipe params', recipeToEdit)
  //console.log('steps from params', stepsArrayWithOrdinal)
- console.log('new steps array', stepsArray)
+ //console.log('new steps array', stepsArray)
 
   const initialFormState = {title: recipeToEdit.title, minutes: recipeToEdit.minutes, notes: recipeToEdit.notes, 
   categories: recipeToEdit.categories, ingredients: [], steps: stepsArray, ancestor: recipeToEdit.id}  
@@ -48,7 +48,7 @@ function EditForm(props) {
   const [visible, setVisible] = useState({active: false})
   const [color, setColor] = useState({active: recipeToEdit.categories})
   
-console.log('checking pre-populated recipe', recipe)
+//console.log('checking pre-populated recipe', recipe)
 
   const postRecipe = async () => {
         
@@ -73,7 +73,7 @@ console.log('checking pre-populated recipe', recipe)
     }
 
     const ingSubmit = async () => {
-      console.log('<Ingredient/> Submit triggered');
+      //console.log('<Ingredient/> Submit triggered');
       // setIngList(() => [...ingList, ingredient]);
       await setIngCount( oldCount => oldCount + 1);
     }
@@ -98,7 +98,7 @@ console.log('checking pre-populated recipe', recipe)
     const InstructionComponents = [];
 
     for (let i=0; i<stepCount; i++) {
-      InstructionComponents.push(<Instruction key={i+1} index={i+1} recipe={recipe} count={stepCount} 
+      InstructionComponents.push(<EditInstruction key={i+1} index={i} recipe={recipe} count={stepCount} 
         setCount={setStepCount} setRecipe={setRecipe} />)
     }
 

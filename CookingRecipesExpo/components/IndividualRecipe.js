@@ -41,7 +41,7 @@ const IndividualRecipe = props => {
     // }
     
     useEffect(() =>{
-        console.log('useEffect navigation props in <IndividualRecipe/>', props.navigation);
+       // console.log('useEffect navigation props in <IndividualRecipe/>', props.navigation);
         axios
         .get(
           `https://recipeshare-development.herokuapp.com/recipes/${id}`
@@ -89,7 +89,6 @@ const IndividualRecipe = props => {
     return (
      <ScrollView>
             {im()}
-            { console.log('img inside scrollview',store.img)}
             <Text style={styles.title}>{store.title}</Text>
             <View style={styles.time}>
                 <View style={{flexDirection: 'row'}}>

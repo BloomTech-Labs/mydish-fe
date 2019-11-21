@@ -3,14 +3,14 @@ import {TextInput, Text, Image} from 'react-native';
 import styles from '../styles/createRecipeStyles';
 import add from '../assets/add_circle_32px.png';
 
-const Instruction = ({ recipe, setRecipe, index}) => {
-//     output = [];
-// for (i = 0; i < recipe.steps.length; i++) {
-//     obj = {text: recipe.steps[i]};
+const EditInstruction = ({ recipe, setRecipe, index}) => {
+    output = [];
+for (i = 0; i < recipe.steps.length; i++) {
+    obj = {text: recipe.steps[i]};
 
-//     output.push(obj);
+    output.push(obj);
 
-// }
+}
 //console.log('testing function for steps', output)
 
     let [step, setStep] = useState({text : ''});
@@ -20,7 +20,7 @@ const Instruction = ({ recipe, setRecipe, index}) => {
 
     const handleChange = async (event) => {
             await setStep({text : event});
-            // console.log('step inside handlechange',step)
+            //console.log('step inside handlechange',step)
         }
         
         
@@ -28,7 +28,9 @@ const Instruction = ({ recipe, setRecipe, index}) => {
         const handleBlur = (event) => {
             const recipeSteps = [...recipe.steps];
             setEditedSteps([...editedSteps, step])
-            // console.log('editedSteps in the handleblur function', editedSteps)
+            console.log('editedSteps in the handleblur function', editedSteps)
+            console.log('recipe.steps in the instruction component', recipe.steps)
+            console.log('new step', step)
 
         if (editedSteps.length) {
             for (let i=0; i<editedSteps.length; i++) {
@@ -42,15 +44,16 @@ const Instruction = ({ recipe, setRecipe, index}) => {
         } else {
             setRecipe({...recipe, steps : [...recipe.steps, step.text] });
         }
+        
     }
-    
-    console.log('recipe.steps in the instruction component', recipe.steps)
+
+    //console.log('recipe.steps in the instruction component', recipe.steps)
 
     return (
         <>
 
             {/* <View style = {, marginBottom: 20, borderWidth: 3, borderColor: "red"}}> */}
-                <Text style={{marginLeft: 14}}>Step {index}</Text>
+                <Text style={{marginLeft: 14}}>Step {index + 1}</Text>
                 <TextInput 
                     style={{  
                         height: 76,
@@ -65,7 +68,7 @@ const Instruction = ({ recipe, setRecipe, index}) => {
                     multiline={true}
                     onChangeText ={(event) => handleChange(event)}
                     onBlur={handleBlur}
-                    value={step.text} 
+                    value={step.text ? step.text : editedSteps[index].text} 
                 />
             {/* </View> */}
 
@@ -74,4 +77,4 @@ const Instruction = ({ recipe, setRecipe, index}) => {
 }
 
 
-export default Instruction;
+export default EditInstruction;
