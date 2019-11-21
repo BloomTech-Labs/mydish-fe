@@ -5,11 +5,12 @@ import add from '../assets/add_circle_32px.png';
 
 const Instruction = ({ recipe, setRecipe, index}) => {
     let [step, setStep] = useState({text : ''});
-    let [editedSteps, setEditedSteps] = useState([]);
+    let [editedSteps, setEditedSteps] = useState(recipe.steps);
 
     const handleChange = async (event) => {
             await setStep({text : event});
     }
+
 
 
     const handleBlur = (event) => {
@@ -29,6 +30,8 @@ const Instruction = ({ recipe, setRecipe, index}) => {
             setRecipe({...recipe, steps : [...recipe.steps, step.text] });
         }
     }
+
+    console.log('recipe.isteps in the instruction component', recipe.steps)
 
     return (
         <>

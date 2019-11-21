@@ -80,6 +80,11 @@ const IndividualRecipe = props => {
         }
     }
 
+
+    const NavigateToEdits = () => {
+        props.navigation.navigate('Edit', {recipe: store})
+    }
+
     // console.log('store in individual recipes',store)
     return (
      <ScrollView>
@@ -108,6 +113,15 @@ const IndividualRecipe = props => {
         })}
         </View>
         </View>
+
+        <TouchableOpacity onPress={NavigateToEdits}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={styles.editButtonView}>
+        <Image source={editIcon} style={styles.editButton}/> 
+        </View>
+            <Text style={{marginLeft: 10}}>Make changes to recipe</Text>
+        </View>
+        </TouchableOpacity>
         
         <View style={styles.ingredients}> 
             <TouchableOpacity onPress={() => tabsDisplay('Ingredients')}>
