@@ -37,7 +37,7 @@ function EditForm(props) {
  //console.log('new steps array', stepsArray)
 
   const initialFormState = {title: recipeToEdit.title, minutes: recipeToEdit.minutes, notes: recipeToEdit.notes, 
-  categories: recipeToEdit.categories, ingredients: [], steps: stepsArray, ancestor: recipeToEdit.id}  
+  categories: recipeToEdit.categories, ingredients: [], steps: [], ancestor: recipeToEdit.id}  
 
   const [recipe, setRecipe] = useState(initialFormState)
   let [errors, setErrors] = useState([]);
@@ -99,7 +99,7 @@ function EditForm(props) {
 
     for (let i=0; i<stepCount; i++) {
       InstructionComponents.push(<EditInstruction key={i+1} index={i} recipe={recipe} count={stepCount} 
-        setCount={setStepCount} setRecipe={setRecipe} />)
+        setCount={setStepCount} setRecipe={setRecipe} stepsArray={stepsArray}/>)
     }
 
     return InstructionComponents;

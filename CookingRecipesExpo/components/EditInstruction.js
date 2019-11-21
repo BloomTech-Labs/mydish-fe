@@ -3,10 +3,10 @@ import {TextInput, Text, Image} from 'react-native';
 import styles from '../styles/createRecipeStyles';
 import add from '../assets/add_circle_32px.png';
 
-const EditInstruction = ({ recipe, setRecipe, index}) => {
+const EditInstruction = ({ recipe, setRecipe, index, stepsArray}) => {
     output = [];
-for (i = 0; i < recipe.steps.length; i++) {
-    obj = {text: recipe.steps[i]};
+for (i = 0; i < stepsArray.length; i++) {
+    obj = {text: stepsArray[i]};
 
     output.push(obj);
 
