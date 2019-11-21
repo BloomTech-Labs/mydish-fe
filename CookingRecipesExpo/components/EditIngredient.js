@@ -4,22 +4,21 @@ import {TextInput, View,Text, TouchableOpacity,} from 'react-native';
 // import ReactNativePickerModule from 'react-native-picker-module'
 import Picker from './Picker'
 
-
-
-
-const Ingredient = (props) => {
+const EditIngredient = (props) => {
 
   let {recipe, setRecipe, visible, setVisible, index} = props;
   
   const [choices,setChoices] = useState({selectedValue: null,
     data : ['tsp', 'tbsp', 'cup', 'g', 'mg', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package', 'lbs']})
-    let [ingredient, setIngredient] = React.useState({name : '', quantity : '', unit : '' });
+    let [ingredient, setIngredient] = React.useState(props.ingredient);
     const [toEdits, setToEdits] = React.useState([]);
     // const ingList = [];
     const [unit, setUnit] = React.useState('g');
 
     
     useEffect(() => {
+      console.log(`ingredient quantity for ${ingredient.name} in <EditIngredient>`, ingredient.quantity);
+    //   console.log('ingredient in <EditIngredient/>', props.ingredient);
       // console.log('recipe.ingredients', recipe.ingredients);
     },[recipe.ingredients])
 
@@ -63,12 +62,13 @@ const Ingredient = (props) => {
                     keyboardType={'numeric'}
                     onChangeText ={event => handleChange('quantity', event)}
                     onBlur={handleBlur}
-                    value={ingredient.quantity}
+                    value={String(ingredient.quantity)}
                 />
                 
 
               <Picker choices={choices} handleChange={handleChange} ingredient={ingredient}/>
 
+                {/* <TextInput placeholder="Dummy Test" onChangeText={() => console.log(`cant change ${ingredient.quantity} this`)} value={String(ingredient.quantity)} /> */}
 
                 <TextInput
                     style={{ height: 40, width: "42%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%", marginRight: 14  }}
@@ -87,4 +87,4 @@ const Ingredient = (props) => {
     )
 }
 
-export default Ingredient;
+export default EditIngredient;

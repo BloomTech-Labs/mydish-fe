@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import styles from '../styles/createRecipeStyles.js'
 
 import RecipeName from './RecipeName';
-import Ingredient from './Ingredient';
+import EditIngredient from './EditIngredient';
 import EditInstruction from './EditInstruction';
 import TagButton from './TagButton.js';
 import Add from './Add';
@@ -25,8 +25,8 @@ import {validateFields} from '../utils/helperFunctions/vaildateFields';
 
 
 function EditForm(props) {
-
-    const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed')
+  const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed')
+  // console.log(recipeToEdit);
     const stepsArrayWithOrdinal = recipeToEdit.steps
 
     const stepsArray = stepsArrayWithOrdinal.map(step => step.body)
@@ -36,10 +36,17 @@ function EditForm(props) {
  //console.log('steps from params', stepsArrayWithOrdinal)
  //console.log('new steps array', stepsArray)
 
-  const initialFormState = {title: recipeToEdit.title, minutes: recipeToEdit.minutes, notes: recipeToEdit.notes, 
-  categories: recipeToEdit.categories, ingredients: [], steps: stepsArray, ancestor: recipeToEdit.id}  
+  const initialFormState = {title: '', minutes: '', notes: '', 
+  categories: [], ingredients: [], steps: []};  
 
-  const [recipe, setRecipe] = useState(initialFormState)
+  useEffect(() => {
+    // console.log(initialFormState);
+    // console.log('recipeToEdit ingredients', recipeToEdit.ingredients);  //arr of objs
+  },[])
+  
+  
+  // const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed')
+  const [recipe, setRecipe] = useState(recipeToEdit)
   let [errors, setErrors] = useState([]);
   let [ingCount, setIngCount] = useState(recipeToEdit.ingredients.length)  
   let [stepCount, setStepCount] = useState(recipeToEdit.steps.length);
@@ -85,9 +92,9 @@ function EditForm(props) {
   const addIngredients = () => {
     
     const IngredientComponents = [];
-
+    
       for (let i=0; i<ingCount; i++) {
-        IngredientComponents.push(<Ingredient key={i+1} index={i} recipe={recipe} setRecipe={setRecipe} 
+        IngredientComponents.push(<EditIngredient key={i+1} index={i} ingredient={recipeToEdit.ingredients[i]} recipe={recipe} setRecipe={setRecipe} 
           visible={visible} setVisible={setVisible} />);
       }
     return IngredientComponents;
@@ -119,7 +126,7 @@ function EditForm(props) {
                 <Heading>Edit Recipe</Heading>
           
                 <View >
-                  {errors.map( (err,i) => <Text key={i} style={styles.errors}>{err}</Text>)}
+                  {/* {errors.map( (err,i) => <Text key={i} style={styles.errors}>{err}</Text>)} */}
 
                   <RecipeName recipe={recipe} setRecipe={setRecipe} />
 
