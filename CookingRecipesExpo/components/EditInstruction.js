@@ -16,7 +16,15 @@ const EditInstruction = (props) => {
         }
         
     const handleBlur = () => {
-        const instructions = recipe.steps;
+        // let instructions = recipe.steps.map(st => st.body);
+        // // instructions = instructions.map(ins => ins.body);
+        // console.log('instructions', instructions);
+
+        // instructions[index] = step.body;
+        // console.log('instructions after replacement', instructions);
+        // setRecipe({...recipe, steps : instructions});
+
+        let instructions = recipe.steps;
         instructions[index] = step;
         setRecipe({...recipe, steps : instructions});
         // console.log("handle blur triggered in <EditInstruction>");

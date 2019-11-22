@@ -54,9 +54,12 @@ function EditForm(props) {
 
   const postRecipe = async () => {
         recipe.ancestor = recipeToEdit.id;
+
         // console.log('ancestor: ', recipeToEdit.id);
-        console.log('posting recipe steps: ', recipe);
-        // console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
+        // console.log('posting recipe steps: ', recipe);
+        const instructions = recipe.steps.map(step => step.body);
+        recipe.steps = instructions;
+        console.log('recipe in post', recipe);
         const errMessages = validateFields(recipe,courses);
         // console.log('errMessages', errMessages);
         return;
