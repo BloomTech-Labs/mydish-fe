@@ -26,7 +26,7 @@ export function validateFields(recipe,courses) {
           recipe.categories.includes(type) && courseTypeCount++  //if the courseType has been selected by the user increment a count variable.
         })
 
-        console.log('courseTypeCount', courseTypeCount);
+        // console.log('courseTypeCount', courseTypeCount);
 
         if (!courseTypeCount) {  // if no course types have been chosen by the user, render the error message
           errs.push('recipe must have a Course Type selected ');

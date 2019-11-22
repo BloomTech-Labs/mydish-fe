@@ -26,9 +26,9 @@ import {validateFields} from '../utils/helperFunctions/vaildateFields';
 
 function EditForm(props) {
   const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed')
-  console.log('recipeToEdit', recipeToEdit);
+  // console.log('recipeToEdit', recipeToEdit);
 
-  const stepsArray = recipeToEdit.steps.map(step => step.body);
+  // const stepsArray = recipeToEdit.steps.map(step => step.body);
 
   const initialFormState = {title: '', minutes: '', notes: '', 
   categories: [], ingredients: [], steps: []};  
@@ -55,7 +55,7 @@ function EditForm(props) {
   const postRecipe = async () => {
         recipe.ancestor = recipeToEdit.id;
         // console.log('ancestor: ', recipeToEdit.id);
-        console.log('posting recipe recipe: ', recipe);
+        console.log('posting recipe steps: ', recipe);
         // console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
         const errMessages = validateFields(recipe,courses);
         // console.log('errMessages', errMessages);
@@ -101,9 +101,9 @@ function EditForm(props) {
   const addInstructions = () => {
     // console.log('add instructions component generator triggered');
     const InstructionComponents = [];
-
+    // step={stepsArray[i]}
     for (let i=0; i<stepCount; i++) {
-      InstructionComponents.push(<EditInstruction key={i+1} index={i} recipe={recipe} step={stepsArray[i]} count={stepCount} 
+      InstructionComponents.push(<EditInstruction key={i+1} index={i} recipe={recipe} step={recipe.steps[i]} count={stepCount} 
         setCount={setStepCount} setRecipe={setRecipe} />)
     }
 

@@ -27,7 +27,6 @@ const EditIngredient = (props) => {
     const handleChange = (key,value,i) => {
         // console.log('handleChange triggered in <Ingredient>')
         console.log('key and value from handlechange', key, value)
-    
         setChoices({...choices, selectedValue : i})
         setIngredient({...ingredient, [key] : value});
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
@@ -38,22 +37,30 @@ const EditIngredient = (props) => {
         // console.log('recipe.ingredients in handleblur', recipe.ingredients);
         const ingArr = Object.values(ingredient);
         const fullIng = ingArr.filter(i => !!i);
+        
         if (fullIng.length === 3) {
-         setToEdits([...toEdits, ingredient]);
-        //  console.log('toEdits in EditIngred',toEdits);
-         const recipeIng = [...recipe.ingredients];
 
-         for (let i=0; i<toEdits.length; i++) {
-            for (let j=0; j<recipeIng.length; j++) {
-              if (toEdits[i].name === recipeIng[j].name) {
-                recipeIng.splice(j,1);
-              }
-            }
-          }
+          const things = recipe.ingredients;
+          things[index] = ingredient;
+
+          setRecipe({...recipe, ingredients: things});
+
+
+        //  setToEdits([...toEdits, ingredient]);
+        // //  console.log('toEdits in EditIngred',toEdits);
+        //  const recipeIng = [...recipe.ingredients];
+
+        //  for (let i=0; i<toEdits.length; i++) {
+        //     for (let j=0; j<recipeIng.length; j++) {
+        //       if (toEdits[i].name === recipeIng[j].name) {
+        //         recipeIng.splice(j,1);
+        //       }
+        //     }
+        //   }
 
         // console.log('recipeIng after splicing', recipeIng);
         
-           setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
+          //  setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
         }
     }
 
