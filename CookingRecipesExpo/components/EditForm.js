@@ -58,6 +58,7 @@ function EditForm(props) {
         console.log('recipe in post', recipe);
         const errMessages = validateFields(recipe,courses);
         console.log('errMessages', errMessages);
+        return;
         if (errMessages.length) {
           setErrors(errMessages);
           return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
@@ -90,13 +91,29 @@ function EditForm(props) {
       setRecipe({...recipe, steps: [...recipe.steps, {body: ''}]});
     }
 
+    const ingDelete = (ind) => {
+        console.log('<Ingredient/> Delete triggered');
+        // setIngList(() => [...ingList, ingredient]);
+        setIngCount(ingCount - 1);
+        let filtered = recipe.ingredients.filter((ing, index) => index !== ind)
+        setRecipe({...recipe, ingredients: filtered})
+      }
+
+      const stepDelete = (ind) => {
+        console.log('step submit triggered', stepSubmit);
+        setStepCount(oldCount => oldCount - 1);
+        let filteredSteps = recipe.steps.filter((step, index) => index !== ind)
+        setRecipe({...recipe, steps: filteredSteps});
+      }
+  
+
   const addIngredients = () => {
     
     const IngredientComponents = [];
     
       for (let i=0; i<ingCount; i++) {
         IngredientComponents.push(<EditIngredient key={i+1} index={i} ingredient={recipe.ingredients[i]} recipe={recipe} setRecipe={setRecipe} 
-          visible={visible} setVisible={setVisible} />);
+          visible={visible} setVisible={setVisible} ingDelete={ingDelete}/>);
       }
     return IngredientComponents;
   }
@@ -107,7 +124,7 @@ function EditForm(props) {
     // step={stepsArray[i]}
     for (let i=0; i<stepCount; i++) {
       InstructionComponents.push(<EditInstruction key={i+1} index={i} recipe={recipe} step={recipe.steps[i]} count={stepCount} 
-        setCount={setStepCount} setRecipe={setRecipe} />)
+        setCount={setStepCount} setRecipe={setRecipe} stepDelete={stepDelete}/>)
     }
 
     return InstructionComponents;

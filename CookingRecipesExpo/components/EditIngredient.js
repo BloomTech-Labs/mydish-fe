@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react';
 import {TextInput, View,Text, TouchableOpacity,} from 'react-native';
 // import styles from '../styles/createRecipeStyles';
 // import ReactNativePickerModule from 'react-native-picker-module'
-import Picker from './Picker'
+//import Picker from './Picker'
 
 const EditIngredient = (props) => {
 
-  let {recipe, setRecipe, visible, setVisible, index} = props;
+  let { recipe, setRecipe, index, ingDelete} = props;
   
   const [choices,setChoices] = useState({selectedValue: null,
     data : ['tsp', 'tbsp', 'cup', 'g', 'mg', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package', 'lbs']})
@@ -19,9 +19,7 @@ const EditIngredient = (props) => {
     
     useEffect(() => {
       setRecipe({...recipe, ingredients : recipe.ingredients})
-    //   console.log(`ingredient quantity for ${ingredient.name} in <EditIngredient>`, ingredient.quantity);
-    //   console.log('ingredient in <EditIngredient/>', props.ingredient);
-      // console.log('recipe.ingredients', recipe.ingredients);
+   
     },[recipe.ingredients])
 
     const handleChange = (key,value,i) => {
@@ -45,30 +43,18 @@ const EditIngredient = (props) => {
 
           setRecipe({...recipe, ingredients: things});
 
-
-        //  setToEdits([...toEdits, ingredient]);
-        // //  console.log('toEdits in EditIngred',toEdits);
-        //  const recipeIng = [...recipe.ingredients];
-
-        //  for (let i=0; i<toEdits.length; i++) {
-        //     for (let j=0; j<recipeIng.length; j++) {
-        //       if (toEdits[i].name === recipeIng[j].name) {
-        //         recipeIng.splice(j,1);
-        //       }
-        //     }
-        //   }
-
-        // console.log('recipeIng after splicing', recipeIng);
-        
-          //  setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
         }
+    }
+
+    const deleteButton = () => {
+      ingDelete(index)
     }
 
 
     return  (
         <View>
             <View style = {{ flexDirection: 'row', marginBottom: 20}}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={deleteButton}>
               <View style={{borderWidth: 0.8, borderColor: '#363838', borderRadius:50, width: 24, height: 24,  marginTop: 8, marginLeft: 14, alignContent: 'center'}}>
                 <View style={{borderTopWidth: 0.8, borderColor: 'red', width: 15, marginTop: '50%', marginLeft: 3.3}}></View>
                 </View>

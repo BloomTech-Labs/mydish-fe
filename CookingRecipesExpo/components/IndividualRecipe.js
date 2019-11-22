@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View,Text,ScrollView, Image, TouchableOpacity, Button} from 'react-native';
+import {View,Text,ScrollView, Image, TouchableOpacity, AsyncStorage} from 'react-native';
 import axios from 'axios'
 
 // import StockPhoto from '../assets/stock_photo.jpg'
@@ -17,16 +17,24 @@ var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 const IndividualRecipe = props => {
     const [recipe, setRecipe] = useState([])
-    const [token, setToken] = useState()
+    let [userToken,setUserToken] = useState(null);
 
-    //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
 
     const id =  props.navigation.getParam('recipeID', 'params not passed')
-    // const status =  props.navigation.getParam('status', 'params not passed')
-   console.log('id from navigation in <IndividualRecipe>', id);
+
+    const getToken = async () => {  
+        const token = await AsyncStorage.getItem('userToken');
+        if (token) {
+            setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
+        }
+      
+       return token;
+    }
+    
 
     useEffect(() =>{
        // console.log('useEffect navigation props in <IndividualRecipe/>', props.navigation);
+       getToken()
         axios.get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
         .then(res => setRecipe(res.data))
         .catch(err => console.log(err));
@@ -57,6 +65,8 @@ const IndividualRecipe = props => {
             )
         }
     }
+
+    
 
     const navigateToEdits = () => {
         props.navigation.navigate('Edit', {recipe} )
@@ -90,7 +100,7 @@ const IndividualRecipe = props => {
         })}
         </View>
         </View>
-
+        {userToken &&
         <TouchableOpacity onPress={navigateToEdits}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={styles.editButtonView}>
@@ -98,7 +108,7 @@ const IndividualRecipe = props => {
         </View>
             <Text style={{marginLeft: 10}}>Make changes to recipe</Text>
         </View>
-        </TouchableOpacity>
+        </TouchableOpacity>}
         
         <View style={styles.ingredients}> 
             <TouchableOpacity onPress={() => tabsDisplay('Ingredients')}>
