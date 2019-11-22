@@ -53,12 +53,13 @@ function EditForm(props) {
 //console.log('checking pre-populated recipe', recipe)
 
   const postRecipe = async () => {
-        recipe.ancestor = recipeToEdit.id;
+        
 
         // console.log('ancestor: ', recipeToEdit.id);
         // console.log('posting recipe steps: ', recipe);
         const instructions = recipe.steps.map(step => step.body);
         recipe.steps = instructions;
+        recipe.ancestor = recipeToEdit.id;
         console.log('recipe in post', recipe);
         const errMessages = validateFields(recipe,courses);
         // console.log('errMessages', errMessages);
@@ -80,14 +81,15 @@ function EditForm(props) {
         }
     }
 
-    const ingSubmit = async () => {
-      //console.log('<Ingredient/> Submit triggered');
+    const ingSubmit = () => {
+      console.log('<Ingredient/> Submit triggered');
       // setIngList(() => [...ingList, ingredient]);
-      await setIngCount( oldCount => oldCount + 1);
+      setIngCount(ingCount + 1);
     }
 
-    const stepSubmit = async () => {
-      await setStepCount(oldCount => oldCount + 1);
+    const stepSubmit =  () => {
+      console.log('step submit triggered', stepSubmit);
+      setStepCount(oldCount => oldCount + 1);
     }
 
   const addIngredients = () => {
