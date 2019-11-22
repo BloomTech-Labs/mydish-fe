@@ -1,12 +1,12 @@
-import React, {useState,}from 'react';
+import React, {useState, useEffect}from 'react';
 import {TextInput, Text, Image} from 'react-native';
 import styles from '../styles/createRecipeStyles';
 import add from '../assets/add_circle_32px.png';
 
-const EditInstruction = ({ recipe, setRecipe, index, stepsArray}) => {
+const EditInstruction = ({ recipe, setRecipe, index, count}) => {
     output = [];
-for (i = 0; i < stepsArray.length; i++) {
-    obj = {text: stepsArray[i]};
+for (i = 0; i < recipe.steps.length; i++) {
+    obj = {text: recipe.steps[i]};
 
     output.push(obj);
 
@@ -22,8 +22,14 @@ for (i = 0; i < stepsArray.length; i++) {
             await setStep({text : event});
             //console.log('step inside handlechange',step)
         }
+
+        useEffect(() => {
+            count.length > editedSteps.length ? setEditedSteps([...editedSteps, {text : ''}]): '';
+            console.log('edited steps inside useEffect',editedSteps)
+        }, [count]) ;
         
-        
+        const dynamicValue = editedSteps.length === count ? (step.text ? step.text : editedSteps[index].text) 
+                            : step.text;
         
         const handleBlur = (event) => {
             const recipeSteps = [...recipe.steps];
@@ -68,7 +74,7 @@ for (i = 0; i < stepsArray.length; i++) {
                     multiline={true}
                     onChangeText ={(event) => handleChange(event)}
                     onBlur={handleBlur}
-                    value={step.text ? step.text : editedSteps[index].text} 
+                    value={dynamicValue} 
                 />
             {/* </View> */}
 
