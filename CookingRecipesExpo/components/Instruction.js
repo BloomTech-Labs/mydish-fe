@@ -14,7 +14,7 @@ const Instruction = ({ recipe, setRecipe, index}) => {
 //console.log('testing function for steps', output)
 
     let [step, setStep] = useState({text : ''});
-    let [editedSteps, setEditedSteps] = useState(output);
+    let [editedSteps, setEditedSteps] = useState([]);
 
 //console.log('edited steps', editedSteps)
 
@@ -22,9 +22,7 @@ const Instruction = ({ recipe, setRecipe, index}) => {
             await setStep({text : event});
             // console.log('step inside handlechange',step)
         }
-        
-        
-        
+    
         const handleBlur = (event) => {
             const recipeSteps = [...recipe.steps];
             setEditedSteps([...editedSteps, step])

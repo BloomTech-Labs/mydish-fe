@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import styles from '../styles/createRecipeStyles.js'
 
 import RecipeName from './RecipeName';
-import Ingredient from './Ingredient';
+import EditIngredient from './EditIngredient';
 import EditInstruction from './EditInstruction';
 import TagButton from './TagButton.js';
 import Add from './Add';
@@ -25,26 +25,37 @@ import {validateFields} from '../utils/helperFunctions/vaildateFields';
 
 
 function EditForm(props) {
+  const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed')
+  // console.log('recipeToEdit', recipeToEdit);
 
-    const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed')
-    const stepsArrayWithOrdinal = recipeToEdit.steps
+  // const stepsArray = recipeToEdit.steps.map(step => step.body);
 
-    const stepsArray = stepsArrayWithOrdinal.map(step => step.body)
+  const initialFormState = {title: '', minutes: '', notes: '', 
+  categories: [], ingredients: [], steps: []};  
 
 
  //console.log('recipe passed from individual recipe params', recipeToEdit)
  //console.log('steps from params', stepsArrayWithOrdinal)
  //console.log('new steps array', stepsArray)
 
-  const initialFormState = {title: recipeToEdit.title, minutes: recipeToEdit.minutes, notes: recipeToEdit.notes, 
-  categories: recipeToEdit.categories, ingredients: recipeToEdit.ingredients, steps: stepsArray, ancestor: recipeToEdit.id}  
+//   const initialFormState = {title: recipeToEdit.title, minutes: recipeToEdit.minutes, notes: recipeToEdit.notes, 
+//   categories: recipeToEdit.categories, ingredients: recipeToEdit.ingredients, steps: stepsArray, ancestor: recipeToEdit.id}  
 
-  const [recipe, setRecipe] = useState(initialFormState)
+  //const [recipe, setRecipe] = useState(initialFormState)
+  useEffect(() => {
+    // console.log(initialFormState);
+    // console.log('recipeToEdit ingredients', recipeToEdit.ingredients);  //arr of objs
+  },[])
+  
+  
+  // const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed')
+  const [recipe, setRecipe] = useState(recipeToEdit)
   let [errors, setErrors] = useState([]);
   let [ingCount, setIngCount] = useState(recipeToEdit.ingredients.length)  
   let [stepCount, setStepCount] = useState(recipeToEdit.steps.length);
   const [diets,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
-  const [difficulty,] = useState(['Easy','Intermediate','Difficult']); 
+  const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
+  const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']); 
   const [visible, setVisible] = useState({active: false})
   const [color, setColor] = useState({active: recipeToEdit.categories})
   
@@ -52,9 +63,15 @@ function EditForm(props) {
 
   const postRecipe = async () => {
         
-        console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
-        const errMessages = validateFields(recipe,courses);
 
+        // console.log('ancestor: ', recipeToEdit.id);
+        // console.log('posting recipe steps: ', recipe);
+        const instructions = recipe.steps.map(step => step.body);
+        recipe.steps = instructions;
+        recipe.ancestor = recipeToEdit.id;
+        console.log('recipe in post', recipe);
+        const errMessages = validateFields(recipe,courses);
+        console.log('errMessages', errMessages);
         if (errMessages.length) {
           setErrors(errMessages);
           return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
@@ -72,22 +89,25 @@ function EditForm(props) {
         }
     }
 
-    const ingSubmit = async () => {
-      //console.log('<Ingredient/> Submit triggered');
+    const ingSubmit = () => {
+      console.log('<Ingredient/> Submit triggered');
       // setIngList(() => [...ingList, ingredient]);
-      await setIngCount( oldCount => oldCount + 1);
+      setIngCount(ingCount + 1);
+      setRecipe({...recipe, ingredients: [...recipe.ingredients, {name: '', unit: '', quantity: ''}]})
     }
 
-    const stepSubmit = async () => {
-      await setStepCount(oldCount => oldCount + 1);
+    const stepSubmit =  () => {
+      console.log('step submit triggered', stepSubmit);
+      setStepCount(oldCount => oldCount + 1);
+      setRecipe({...recipe, steps: [...recipe.steps, {body: ''}]});
     }
 
   const addIngredients = () => {
     
     const IngredientComponents = [];
-
+    
       for (let i=0; i<ingCount; i++) {
-        IngredientComponents.push(<Ingredient key={i+1} index={i} recipe={recipe} setRecipe={setRecipe} 
+        IngredientComponents.push(<EditIngredient key={i+1} index={i} ingredient={recipe.ingredients[i]} recipe={recipe} setRecipe={setRecipe} 
           visible={visible} setVisible={setVisible} />);
       }
     return IngredientComponents;
@@ -96,9 +116,9 @@ function EditForm(props) {
   const addInstructions = () => {
     // console.log('add instructions component generator triggered');
     const InstructionComponents = [];
-
+    // step={stepsArray[i]}
     for (let i=0; i<stepCount; i++) {
-      InstructionComponents.push(<EditInstruction key={i+1} index={i} recipe={recipe} count={stepCount} 
+      InstructionComponents.push(<EditInstruction key={i+1} index={i} recipe={recipe} step={recipe.steps[i]} count={stepCount} 
         setCount={setStepCount} setRecipe={setRecipe} />)
     }
 

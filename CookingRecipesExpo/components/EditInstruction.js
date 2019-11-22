@@ -1,59 +1,65 @@
-import React, {useState, useEffect}from 'react';
+import React, {useState,useEffect}from 'react';
 import {TextInput, Text, Image} from 'react-native';
-import styles from '../styles/createRecipeStyles';
-import add from '../assets/add_circle_32px.png';
+// import styles from '../styles/createRecipeStyles';
+// import add from '../assets/add_circle_32px.png';
 
-const EditInstruction = ({ recipe, setRecipe, index, count}) => {
-    output = [];
-for (i = 0; i < recipe.steps.length; i++) {
-    obj = {text: recipe.steps[i]};
+ 
+const EditInstruction = (props) => {
+    const { recipe, setRecipe, index, count} = props;
 
-    output.push(obj);
+    const [step, setStep] = useState(props.step);
+    // const [editedSteps, setEditedSteps] = useState(recipe.steps);
 
-}
-//console.log('testing function for steps', output)
+//    output = [];
+// for (i = 0; i < recipe.steps.length; i++) {
+//     obj = {text: recipe.steps[i]};
+// }
 
-    let [step, setStep] = useState({text : ''});
-    let [editedSteps, setEditedSteps] = useState(output);
-
-//console.log('edited steps', editedSteps)
-
-    const handleChange = async (event) => {
-            await setStep({text : event});
+    const handleChange = (step) => {
+            setStep({body : step});
             //console.log('step inside handlechange',step)
         }
+        
+        // const dynamicValue = editedSteps.length === count ? (step.text ? step.text : editedSteps[index].text) 
+        //                     : step.text;
+        
+       
+    const handleBlur = () => {
+        // let instructions = recipe.steps.map(st => st.body);
+        // // instructions = instructions.map(ins => ins.body);
+        // console.log('instructions', instructions);
 
-        useEffect(() => {
-            count.length > editedSteps.length ? setEditedSteps([...editedSteps, {text : ''}]): '';
-            console.log('edited steps inside useEffect',editedSteps)
-        }, [count]) ;
-        
-        const dynamicValue = editedSteps.length === count ? (step.text ? step.text : editedSteps[index].text) 
-                            : step.text;
-        
-        const handleBlur = (event) => {
-            const recipeSteps = [...recipe.steps];
-            setEditedSteps([...editedSteps, step])
-            console.log('editedSteps in the handleblur function', editedSteps)
-            console.log('recipe.steps in the instruction component', recipe.steps)
-            console.log('new step', step)
+        // instructions[index] = step.body;
+        // console.log('instructions after replacement', instructions);
+        // setRecipe({...recipe, steps : instructions});
 
-        if (editedSteps.length) {
-            for (let i=0; i<editedSteps.length; i++) {
-                for (let j=0; j<recipeSteps.length; j++) {
-                    if (editedSteps[i].text === recipeSteps[j]) {
-                        recipeSteps.splice(j,1,step.text);
-                    }
-                }
-            }
-            setRecipe({...recipe, steps : recipeSteps });
-        } else {
-            setRecipe({...recipe, steps : [...recipe.steps, step.text] });
-        }
-        
+        let instructions = recipe.steps;
+        instructions[index] = step;
+        setRecipe({...recipe, steps : instructions});
+        // console.log("handle blur triggered in <EditInstruction>");
+        // const recipeSteps = [...recipe.steps];
+        // setEditedSteps([...editedSteps, step]);
+        // const edits = [...editedSteps, step];
+        // console.log('new step', step);
+        // // console.log('edits', edits);
+        // console.log('recipe.steps in the <EditInstruction/> component', recipeSteps);
+        // console.log('edits in the handleblur function', edits.length, edits);
+        // setRecipe({...recipe, steps : [...recipe.steps, step] });
+        // if (edits.length) {
+        //     for (let i=0; i<edits.length; i++) {
+        //         for (let j=0; j<recipeSteps.length; j++) {
+        //             console.log(`edits[${i}]`, edits[i]);
+        //             console.log(`recipeSteps[${j}]`, recipeSteps[j]);
+        //             if (edits[i].body === recipeSteps[j].body) {
+        //                 recipeSteps.splice(j,1, step);
+        //             }
+        //         }
+        //     }
+        //     setRecipe({...recipe, steps : recipeSteps });
+        // } else {
+        //     setRecipe({...recipe, steps : [...recipe.steps, step] });
+        // }
     }
-
-    //console.log('recipe.steps in the instruction component', recipe.steps)
 
     return (
         <>
@@ -72,9 +78,9 @@ for (i = 0; i < recipe.steps.length; i++) {
                     marginTop: 10}}
                     placeholder=" Add Instructions"
                     multiline={true}
-                    onChangeText ={(event) => handleChange(event)}
+                    onChangeText ={text => handleChange(text)}
                     onBlur={handleBlur}
-                    value={dynamicValue} 
+                    value={step.body} 
                 />
             {/* </View> */}
 
