@@ -51,17 +51,23 @@ function EditForm(props) {
   let [ingCount, setIngCount] = useState(recipeToEdit.ingredients.length)  
   let [stepCount, setStepCount] = useState(recipeToEdit.steps.length);
   const [diets,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
-  const [difficulty,] = useState(['Easy','Intermediate','Difficult']); 
+  const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
+  const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']); 
   const [visible, setVisible] = useState({active: false})
   const [color, setColor] = useState({active: recipeToEdit.categories})
   
 //console.log('checking pre-populated recipe', recipe)
 
   const postRecipe = async () => {
-        
-        console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
-        const errMessages = validateFields(recipe,courses);
+        recipe.ancestor = recipeToEdit.id;
+        // console.log('ancestor: ', recipeToEdit.id);
+        console.log('posting recipe recipe: ', recipe);
 
+
+        // console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
+        const errMessages = validateFields(recipe,courses);
+        // console.log('errMessages', errMessages);
+        return;
         if (errMessages.length) {
           setErrors(errMessages);
           return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
@@ -105,7 +111,7 @@ function EditForm(props) {
     const InstructionComponents = [];
 
     for (let i=0; i<stepCount; i++) {
-      InstructionComponents.push(<EditInstruction key={i+1} index={i} recipe={recipe} count={stepCount} 
+      InstructionComponents.push(<EditInstruction key={i+1} index={i} recipe={recipe} step={recipeToEdit.steps[i]} count={stepCount} 
         setCount={setStepCount} setRecipe={setRecipe} />)
     }
 
@@ -126,7 +132,7 @@ function EditForm(props) {
                 <Heading>Edit Recipe</Heading>
           
                 <View >
-                  {/* {errors.map( (err,i) => <Text key={i} style={styles.errors}>{err}</Text>)} */}
+                  {errors.map( (err,i) => <Text key={i} style={styles.errors}>{err}</Text>)}
 
                   <RecipeName recipe={recipe} setRecipe={setRecipe} />
 

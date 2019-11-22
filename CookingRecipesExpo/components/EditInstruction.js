@@ -1,50 +1,55 @@
-import React, {useState,}from 'react';
+import React, {useState,useEffect}from 'react';
 import {TextInput, Text, Image} from 'react-native';
 import styles from '../styles/createRecipeStyles';
 import add from '../assets/add_circle_32px.png';
 
-const EditInstruction = ({ recipe, setRecipe, index}) => {
-    output = [];
-for (i = 0; i < recipe.steps.length; i++) {
-    obj = {text: recipe.steps[i]};
+const EditInstruction = (props) => {
+    const { recipe, setRecipe, index} = props;
+    // console.log('instructions in Edit Instruction', props.step);
 
-    output.push(obj);
 
-}
+//     output = [];
+// for (i = 0; i < recipe.steps.length; i++) {
+//     obj = {text: recipe.steps[i]};
+
+//     output.push(obj);
+
+// }
 //console.log('testing function for steps', output)
 
-    let [step, setStep] = useState({text : ''});
-    let [editedSteps, setEditedSteps] = useState(output);
+    let [step, setStep] = useState(props.step);
+    let [editedSteps, setEditedSteps] = useState([]);
 
 //console.log('edited steps', editedSteps)
 
-    const handleChange = async (event) => {
-            await setStep({text : event});
+    const handleChange = (step) => {
+            setStep({body : step});
             //console.log('step inside handlechange',step)
         }
         
+        // useEffect(()=>{
+        //     // console.log('step in <EditInstruction/>', step);
+        // },[step])
         
-        
-        const handleBlur = (event) => {
+        const handleBlur = () => {
             const recipeSteps = [...recipe.steps];
             setEditedSteps([...editedSteps, step])
-            console.log('editedSteps in the handleblur function', editedSteps)
-            console.log('recipe.steps in the instruction component', recipe.steps)
             console.log('new step', step)
+            console.log('recipe.steps in the instruction component', recipe.steps)
+            console.log('editedSteps in the handleblur function', editedSteps)
 
         if (editedSteps.length) {
             for (let i=0; i<editedSteps.length; i++) {
                 for (let j=0; j<recipeSteps.length; j++) {
-                    if (editedSteps[i].text === recipeSteps[j]) {
-                        recipeSteps.splice(j,1,step.text);
+                    if (editedSteps[i].body === recipeSteps[j]) {
+                        recipeSteps.splice(j,1, step.body);
                     }
                 }
             }
             setRecipe({...recipe, steps : recipeSteps });
         } else {
-            setRecipe({...recipe, steps : [...recipe.steps, step.text] });
+            setRecipe({...recipe, steps : [...recipe.steps, step.body] });
         }
-        
     }
 
     //console.log('recipe.steps in the instruction component', recipe.steps)
@@ -68,7 +73,7 @@ for (i = 0; i < recipe.steps.length; i++) {
                     multiline={true}
                     onChangeText ={(event) => handleChange(event)}
                     onBlur={handleBlur}
-                    value={step.text ? step.text : editedSteps[index].text} 
+                    value={step.body} 
                 />
             {/* </View> */}
 

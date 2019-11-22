@@ -1,7 +1,7 @@
 
 export function validateFields(recipe,courses) {
     //recipe.title, recipe.minutes, recipe.ingredients, recipe.steps
-    console.log('recipe in validateFields', recipe);
+    // console.log('recipe in validateFields', recipe);
     const errs = [];
 
         if (!recipe.title) {

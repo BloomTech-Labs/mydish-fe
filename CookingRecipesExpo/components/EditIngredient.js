@@ -11,20 +11,23 @@ const EditIngredient = (props) => {
   const [choices,setChoices] = useState({selectedValue: null,
     data : ['tsp', 'tbsp', 'cup', 'g', 'mg', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package', 'lbs']})
     let [ingredient, setIngredient] = React.useState(props.ingredient);
+    // const [toEdits, setToEdits] = React.useState(recipe.ingredients);
     const [toEdits, setToEdits] = React.useState([]);
     // const ingList = [];
     const [unit, setUnit] = React.useState('g');
 
     
     useEffect(() => {
-      console.log(`ingredient quantity for ${ingredient.name} in <EditIngredient>`, ingredient.quantity);
+      setRecipe({...recipe, ingredients : recipe.ingredients})
+    //   console.log(`ingredient quantity for ${ingredient.name} in <EditIngredient>`, ingredient.quantity);
     //   console.log('ingredient in <EditIngredient/>', props.ingredient);
       // console.log('recipe.ingredients', recipe.ingredients);
     },[recipe.ingredients])
 
     const handleChange = (key,value,i) => {
         // console.log('handleChange triggered in <Ingredient>')
-        // console.log('key and value from handlechange', key, value)
+        console.log('key and value from handlechange', key, value)
+    
         setChoices({...choices, selectedValue : i})
         setIngredient({...ingredient, [key] : value});
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
@@ -32,10 +35,12 @@ const EditIngredient = (props) => {
 
     const handleBlur = (event) => {
         //console.log('handleBlur triggered in <Ingredient/>');
+        // console.log('recipe.ingredients in handleblur', recipe.ingredients);
         const ingArr = Object.values(ingredient);
         const fullIng = ingArr.filter(i => !!i);
         if (fullIng.length === 3) {
          setToEdits([...toEdits, ingredient]);
+         console.log('toEdits in EditIngred',toEdits);
          const recipeIng = [...recipe.ingredients];
 
          for (let i=0; i<toEdits.length; i++) {
@@ -66,7 +71,11 @@ const EditIngredient = (props) => {
                 />
                 
 
-              <Picker choices={choices} handleChange={handleChange} ingredient={ingredient}/>
+              {/* <Picker choices={choices} handleChange={handleChange} ingredient={ingredient}/> */}
+                 <TextInput placeholder="Units" 
+                        onChangeText ={unit => handleChange('unit', unit)} 
+                        onBlur={handleBlur} value={ingredient.unit}
+                />
 
                 {/* <TextInput placeholder="Dummy Test" onChangeText={() => console.log(`cant change ${ingredient.quantity} this`)} value={String(ingredient.quantity)} /> */}
 
