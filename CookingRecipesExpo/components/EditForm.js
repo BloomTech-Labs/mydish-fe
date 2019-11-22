@@ -87,7 +87,7 @@ function EditForm(props) {
       setIngCount(ingCount + 1);
     }
 
-    const stepSubmit =  () => {
+    const stepSubmit = () => {
       console.log('step submit triggered', stepSubmit);
       setStepCount(oldCount => oldCount + 1);
     }
@@ -128,7 +128,7 @@ function EditForm(props) {
           <RecipeFormContainer>
                 <Heading>Edit Recipe</Heading>
           
-                <View >
+                <View>
                   {errors.map( (err,i) => <Text key={i} style={styles.errors}>{err}</Text>)}
 
                   <RecipeName recipe={recipe} setRecipe={setRecipe} />
