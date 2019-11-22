@@ -6,6 +6,7 @@ import add from '../assets/add_circle_32px.png';
 const EditInstruction = (props) => {
     const { recipe, setRecipe, index} = props;
     // console.log('instructions in Edit Instruction', props.step);
+    console.log('props.step', props.step);
 
 
 //     output = [];
@@ -35,7 +36,7 @@ const EditInstruction = (props) => {
             const recipeSteps = [...recipe.steps];
             setEditedSteps([...editedSteps, step])
             console.log('new step', step)
-            console.log('recipe.steps in the instruction component', recipe.steps)
+            console.log('recipe.steps in the <EditInstruction/> component', recipe.steps)
             console.log('editedSteps in the handleblur function', editedSteps)
 
         if (editedSteps.length) {

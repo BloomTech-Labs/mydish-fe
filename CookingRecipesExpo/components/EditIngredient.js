@@ -40,7 +40,7 @@ const EditIngredient = (props) => {
         const fullIng = ingArr.filter(i => !!i);
         if (fullIng.length === 3) {
          setToEdits([...toEdits, ingredient]);
-         console.log('toEdits in EditIngred',toEdits);
+        //  console.log('toEdits in EditIngred',toEdits);
          const recipeIng = [...recipe.ingredients];
 
          for (let i=0; i<toEdits.length; i++) {
