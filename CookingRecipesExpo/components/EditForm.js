@@ -33,6 +33,15 @@ function EditForm(props) {
   const initialFormState = {title: '', minutes: '', notes: '', 
   categories: [], ingredients: [], steps: []};  
 
+
+ //console.log('recipe passed from individual recipe params', recipeToEdit)
+ //console.log('steps from params', stepsArrayWithOrdinal)
+ //console.log('new steps array', stepsArray)
+
+//   const initialFormState = {title: recipeToEdit.title, minutes: recipeToEdit.minutes, notes: recipeToEdit.notes, 
+//   categories: recipeToEdit.categories, ingredients: recipeToEdit.ingredients, steps: stepsArray, ancestor: recipeToEdit.id}  
+
+  //const [recipe, setRecipe] = useState(initialFormState)
   useEffect(() => {
     // console.log(initialFormState);
     // console.log('recipeToEdit ingredients', recipeToEdit.ingredients);  //arr of objs
@@ -62,8 +71,7 @@ function EditForm(props) {
         recipe.ancestor = recipeToEdit.id;
         console.log('recipe in post', recipe);
         const errMessages = validateFields(recipe,courses);
-        // console.log('errMessages', errMessages);
-        return;
+        console.log('errMessages', errMessages);
         if (errMessages.length) {
           setErrors(errMessages);
           return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
@@ -85,11 +93,13 @@ function EditForm(props) {
       console.log('<Ingredient/> Submit triggered');
       // setIngList(() => [...ingList, ingredient]);
       setIngCount(ingCount + 1);
+      setRecipe({...recipe, ingredients: [...recipe.ingredients, {name: '', unit: '', quantity: ''}]})
     }
 
     const stepSubmit = () => {
       console.log('step submit triggered', stepSubmit);
       setStepCount(oldCount => oldCount + 1);
+      setRecipe({...recipe, steps: [...recipe.steps, {body: ''}]});
     }
 
   const addIngredients = () => {
@@ -97,7 +107,7 @@ function EditForm(props) {
     const IngredientComponents = [];
     
       for (let i=0; i<ingCount; i++) {
-        IngredientComponents.push(<EditIngredient key={i+1} index={i} ingredient={recipeToEdit.ingredients[i]} recipe={recipe} setRecipe={setRecipe} 
+        IngredientComponents.push(<EditIngredient key={i+1} index={i} ingredient={recipe.ingredients[i]} recipe={recipe} setRecipe={setRecipe} 
           visible={visible} setVisible={setVisible} />);
       }
     return IngredientComponents;

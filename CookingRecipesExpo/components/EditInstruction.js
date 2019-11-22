@@ -3,18 +3,27 @@ import {TextInput, Text, Image} from 'react-native';
 // import styles from '../styles/createRecipeStyles';
 // import add from '../assets/add_circle_32px.png';
 
+ 
 const EditInstruction = (props) => {
-    const { recipe, setRecipe, index} = props;
+    const { recipe, setRecipe, index, count} = props;
 
     const [step, setStep] = useState(props.step);
     // const [editedSteps, setEditedSteps] = useState(recipe.steps);
 
+//    output = [];
+// for (i = 0; i < recipe.steps.length; i++) {
+//     obj = {text: recipe.steps[i]};
+// }
 
     const handleChange = (step) => {
             setStep({body : step});
             //console.log('step inside handlechange',step)
         }
         
+        // const dynamicValue = editedSteps.length === count ? (step.text ? step.text : editedSteps[index].text) 
+        //                     : step.text;
+        
+       
     const handleBlur = () => {
         // let instructions = recipe.steps.map(st => st.body);
         // // instructions = instructions.map(ins => ins.body);
