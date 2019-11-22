@@ -33,20 +33,6 @@ function EditForm(props) {
   const initialFormState = {title: '', minutes: '', notes: '', 
   categories: [], ingredients: [], steps: []};  
 
-
- //console.log('recipe passed from individual recipe params', recipeToEdit)
- //console.log('steps from params', stepsArrayWithOrdinal)
- //console.log('new steps array', stepsArray)
-
-//   const initialFormState = {title: recipeToEdit.title, minutes: recipeToEdit.minutes, notes: recipeToEdit.notes, 
-//   categories: recipeToEdit.categories, ingredients: recipeToEdit.ingredients, steps: stepsArray, ancestor: recipeToEdit.id}  
-
-  //const [recipe, setRecipe] = useState(initialFormState)
-  useEffect(() => {
-    // console.log(initialFormState);
-    // console.log('recipeToEdit ingredients', recipeToEdit.ingredients);  //arr of objs
-  },[])
-  
   
   // const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed')
   const [recipe, setRecipe] = useState(recipeToEdit)
@@ -80,10 +66,12 @@ function EditForm(props) {
         const axiosAuth = await axiosWithAuth();
         try {
           const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
-          console.log('response from post',res.data);
-          recipeId = res.data.recipe_id;
-          setRecipe(initialFormState)
-          props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
+          console.log('response from post recipe',res.data);
+          recipeID = res.data.recipe_id;
+          console.log('recipeID', recipeID);
+
+          setRecipe(initialFormState);
+          props.navigation.navigate('IndividualR', {recipeID})
         } catch(err) {
           console.log('error from adding new recipe', err);
         }
