@@ -42,6 +42,7 @@ function EditForm(props) {
   const [diets,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']);
   const [courses,] = useState(['Breakfast','Brunch','Lunch','Dinner','Dessert','Snack']); 
+  const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese','Middle-Eastern', 'Other']);
   const [visible, setVisible] = useState({active: false})
   const [color, setColor] = useState({active: recipeToEdit.categories})
   
@@ -49,26 +50,29 @@ function EditForm(props) {
 
   const postRecipe = async () => {
         
-
         // console.log('ancestor: ', recipeToEdit.id);
         // console.log('posting recipe steps: ', recipe);
         const instructions = recipe.steps.map(step => step.body);
         recipe.steps = instructions;
         recipe.ancestor = recipeToEdit.id;
+        delete recipe.id;
+
         console.log('recipe in post', recipe);
-        const errMessages = validateFields(recipe,courses);
+        const errMessages = validateFields(recipe,courses, true);
         console.log('errMessages', errMessages);
         if (errMessages.length) {
           setErrors(errMessages);
           return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
         }
 
+        
+
         const axiosAuth = await axiosWithAuth();
         try {
           const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
           console.log('response from post recipe',res.data);
           recipeID = res.data.recipe_id;
-          console.log('recipeID', recipeID);
+          console.log('recipeID in <EditForm> after successful post', recipeID);
 
           setRecipe(initialFormState);
           props.navigation.navigate('IndividualR', {recipeID})
@@ -137,6 +141,22 @@ function EditForm(props) {
                     value={`${recipe.minutes}`} 
                   />
 
+                  {/* <Heading>Course Type</Heading>
+                  <TagGroup>
+                  {courses.map((course,i) => <TagButton key={i} tag={course} recipe={recipe} setRecipe={setRecipe} 
+                                                  color={color} setColor={setColor} 
+                                                  toggleColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)} 
+                  </TagGroup>
+
+
+                  <Heading>Cuisine</Heading>
+                  <TagGroup>
+                    {cuisines.map((cuisine,i) => <TagButton key={i} tag={cuisine} 
+                                                    recipe={recipe} setRecipe={setRecipe} 
+                                                    color={color} setColor={setColor} 
+                                                    toggleColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
+                  </TagGroup> */}
+
                 
                   <Heading>Diet</Heading>
                   <TagGroup>
@@ -147,15 +167,15 @@ function EditForm(props) {
                   </TagGroup>
 
                   <Heading>Difficulty</Heading>
-                  <TagGroup>
-                    {difficulty.map((dif,i) => <TagButton key={i} tag={dif} recipe={recipe} 
-                                                      setRecipe={setRecipe} color={color} setColor={setColor} 
-                                                      toggleColor={toggleDifficultyColor} 
-                                                      tagsIncluded={difficultyTags}/>)}
-                  </TagGroup>
+                    <TagGroup>
+                      {difficulty.map((dif,i) => <TagButton key={i} tag={dif} recipe={recipe} 
+                                                        setRecipe={setRecipe} color={color} setColor={setColor} 
+                                                        toggleColor={toggleDifficultyColor} 
+                                                        tagsIncluded={difficultyTags}/>)}
+                    </TagGroup>
 
+                    
                     <Heading>Ingredients</Heading>
-
                       {addIngredients()}
                       <Add text="Add Ingredient" submit={ingSubmit} />
 

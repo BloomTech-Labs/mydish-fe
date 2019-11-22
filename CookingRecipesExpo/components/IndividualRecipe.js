@@ -17,7 +17,9 @@ var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 const IndividualRecipe = props => {
     const [recipe, setRecipe] = useState([])
-    const [token, setToken] = useState()
+    // const [token, setToken] = useState();
+    // const [id] = useState(props.navigation.getParam('recipeID', 'params not passed'))
+
 
     //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
 
@@ -27,10 +29,12 @@ const IndividualRecipe = props => {
 
     useEffect(() =>{
        // console.log('useEffect navigation props in <IndividualRecipe/>', props.navigation);
+       console.log('recipe.id: ', recipe.id);
+       console.log('ancestor: ', recipe.ancestor);
         axios.get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
         .then(res => setRecipe(res.data))
         .catch(err => console.log(err));
-    },[]);
+    },[id]);
 
     const [color, setColor] = useState({active: 'Ingredients'})
 
@@ -117,7 +121,7 @@ const IndividualRecipe = props => {
          
          {recipe.steps && recipe.steps.map( (step, index) => {
             return(
-                <View key={step.ordinal} style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
+                <View key={index} style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
                         {/* .split('.')[0] */}
                     <Text style={styles.stepText}>{step.ordinal}. {step.body}</Text>
                 </View>
