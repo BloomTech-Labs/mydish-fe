@@ -68,8 +68,13 @@ const EditIngredient = (props) => {
     return  (
         <View>
             <View style = {{ flexDirection: 'row', marginBottom: 20}}>
+              <TouchableOpacity>
+              <View style={{borderWidth: 0.8, borderColor: '#363838', borderRadius:50, width: 24, height: 24,  marginTop: 8, marginLeft: 14, alignContent: 'center'}}>
+                <View style={{borderTopWidth: 0.8, borderColor: 'red', width: 15, marginTop: '50%', marginLeft: 3.3}}></View>
+                </View>
+               </TouchableOpacity>
                 <TextInput
-                    style={{ height: 40, width: "19%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 14 }}
+                    style={{ height: 40, width: "17%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "1%"}}
                     placeholder="Amount"
                     keyboardType={'numeric'}
                     onChangeText ={event => handleChange('quantity', event)}
@@ -80,6 +85,7 @@ const EditIngredient = (props) => {
 
               {/* <Picker choices={choices} handleChange={handleChange} ingredient={ingredient}/> */}
                  <TextInput placeholder="Units" 
+                 style={{ height: 40, width: "17%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%"}}
                         onChangeText ={unit => handleChange('unit', unit)} 
                         onBlur={handleBlur} value={ingredient.unit}
                 />
@@ -87,7 +93,7 @@ const EditIngredient = (props) => {
                 {/* <TextInput placeholder="Dummy Test" onChangeText={() => console.log(`cant change ${ingredient.quantity} this`)} value={String(ingredient.quantity)} /> */}
 
                 <TextInput
-                    style={{ height: 40, width: "42%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%", marginRight: 14  }}
+                    style={{ height: 40, width: "42%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%" }}
                     placeholder="Ingredient Name"
                     // onChangeText ={event => addIng({...ingredient, name: event})}
                     onChangeText ={event => handleChange('name', event)}
