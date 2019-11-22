@@ -106,7 +106,7 @@ const Recipe = (props) => {
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
                 </Like>}
               
-               <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {paramsID: recipe.id})}>
+               <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id})}>
                     <Image  source={recipe.img ? {uri : recipe.img} : placeholder}
                             style={stylePlaceholder}/>
 

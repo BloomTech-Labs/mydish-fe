@@ -16,42 +16,20 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 var Cereal = "https://i.imgur.com/iYFK1mG.png"
 
 const IndividualRecipe = props => {
-    const [store, setStored] = useState([])
+    const [recipe, setRecipe] = useState([])
     const [token, setToken] = useState()
 
     //console.log("id in individualRecipe.js", props.navigation.getParam('paramsID', 'params not passed'))
 
-    const id =  props.navigation.getParam('paramsID', 'params not passed')
-    const status =  props.navigation.getParam('status', 'params not passed')
-    // console.log("id in individualRecipe.js", id)
+    const id =  props.navigation.getParam('recipeID', 'params not passed')
+    // const status =  props.navigation.getParam('status', 'params not passed')
+   console.log('id from navigation in <IndividualRecipe>', id);
 
-    // const getToken = async () => {  
-    //     const token = await AsyncStorage.getItem('userToken');
-    //     if (token) {
-    //         setToken(token); //the token is used to determine if the <Like> component should be rendered or not
-    //     }
-      
-    //    return token;
-    // }
-    // const Delete = async () => {
-    //     const axiosAuth = await axiosWithAuth();
-    //     axiosAuth.delete(`https://recipeshare-development.herokuapp.com/likes/${id}`)
-    //     .then(res => console.log("CRAAAZY", res))
-    //     .catch(err => console.log(err))
-    // }
-    
     useEffect(() =>{
        // console.log('useEffect navigation props in <IndividualRecipe/>', props.navigation);
-        axios
-        .get(
-          `https://recipeshare-development.herokuapp.com/recipes/${id}`
-
-        )
-        .then(res => {
-            setStored(res.data);
-     })
+        axios.get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
+        .then(res => setRecipe(res.data))
         .catch(err => console.log(err));
-
     },[]);
 
     const [color, setColor] = useState({active: 'Ingredients'})
@@ -67,43 +45,43 @@ const IndividualRecipe = props => {
       }
 
       const im = ()=>{
-        if(store.img==null){
+        if(recipe.img==null){
             return(
                 <Image source={{uri: Cereal}}
                 style={{width: '100%', height: 345}} />
             )
         }else{
             return(
-                <Image source={{uri: store.img}}
+                <Image source={{uri: recipe.img}}
                 style={{width:'100%', height: 345}} />
             )
         }
     }
 
-
-    const NavigateToEdits = () => {
-        props.navigation.navigate('Edit', {recipe: store})
+    const navigateToEdits = () => {
+        props.navigation.navigate('Edit', {recipe} )
     }
 
-    // console.log('store in individual recipes',store)
+    // console.log('recipe in individual recipes',recipe)
     return (
      <ScrollView>
             {im()}
-            <Text style={styles.title}>{store.title}</Text>
+
+            <Text style={styles.title}>{recipe.title}</Text>
             <View style={styles.time}>
                 <View style={{flexDirection: 'row'}}>
                 <Image source={logo} style={{width: 20, height: 20}}/> 
-                <Text style={{marginLeft: 5}}>{store.innovator_name}</Text>
+                <Text style={{marginLeft: 5}}>{recipe.innovator_name}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
                     <Image source={clock} style={{width: 20, height: 20}}/> 
-                    <Text>{store.minutes} minutes</Text>
+                    <Text>{recipe.minutes} minutes</Text>
                 </View>
             </View>
          <Text style={styles.tags}>Tags</Text>
              <View style={{borderBottomWidth: 0.3, borderBottomColor: '#6B6F70',}}>
          <View style={styles.tagBox}>
-        {store.categories && store.categories.map( cat => {
+        {recipe.categories && recipe.categories.map( cat => {
             return(
                 <View key={cat}>
                     <Text style={styles.individualTags}>{capitalize(cat)}</Text>
@@ -113,7 +91,7 @@ const IndividualRecipe = props => {
         </View>
         </View>
 
-        <TouchableOpacity onPress={NavigateToEdits}>
+        <TouchableOpacity onPress={navigateToEdits}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={styles.editButtonView}>
         <Image source={editIcon} style={styles.editButton}/> 
@@ -135,9 +113,9 @@ const IndividualRecipe = props => {
             </TouchableOpacity>
         </View >
         <View style={styles.details}>
-      {store.ingredients && store.ingredients.map( ing => { return <IndividualRecipeIngredients ing={ing} key={ing.name}color={color}/>})}
+      {recipe.ingredients && recipe.ingredients.map( ing => { return <IndividualRecipeIngredients ing={ing} key={ing.name}color={color}/>})}
          
-         {store.steps && store.steps.map( (step, index) => {
+         {recipe.steps && recipe.steps.map( (step, index) => {
             return(
                 <View key={step.ordinal} style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
                         {/* .split('.')[0] */}
@@ -148,7 +126,7 @@ const IndividualRecipe = props => {
         <View style={{paddingRight:'80%'}}>
         <Text style={ color.active.includes('Ingredients') ? styles.hidden : styles.notes}>NOTES</Text>
        </View>
-        <Text style={ color.active.includes('Ingredients') ? styles.hidden :styles.stepTextView}>{store.notes}</Text>
+        <Text style={ color.active.includes('Ingredients') ? styles.hidden :styles.stepTextView}>{recipe.notes}</Text>
         </View>
 
     </ScrollView>
