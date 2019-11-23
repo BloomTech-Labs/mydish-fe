@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {TextInput, View,Text, TouchableOpacity,} from 'react-native';
-// import styles from '../styles/createRecipeStyles';
+import styles from '../styles/createRecipeStyles';
 // import ReactNativePickerModule from 'react-native-picker-module'
 //import Picker from './Picker'
 
@@ -39,7 +39,7 @@ const EditIngredient = (props) => {
         if (fullIng.length === 3) {
 
           const things = recipe.ingredients;
-          things[index] = ingredient;
+          things[index] = props.ingredient;
 
           setRecipe({...recipe, ingredients: things});
 
@@ -50,13 +50,15 @@ const EditIngredient = (props) => {
       ingDelete(index)
     }
 
+//console.log('ingredient in edit ingredients', 'index:',index, ingredient)
+//console.log('props.ingredient inside edit ingredients at index:', index, props.ingredient)
 
     return  (
         <View>
             <View style = {{ flexDirection: 'row', marginBottom: 20}}>
               <TouchableOpacity onPress={deleteButton}>
-              <View style={{borderWidth: 0.8, borderColor: '#363838', borderRadius:50, width: 24, height: 24,  marginTop: 8, marginLeft: 14, alignContent: 'center'}}>
-                <View style={{borderTopWidth: 0.8, borderColor: 'red', width: 15, marginTop: '50%', marginLeft: 3.3}}></View>
+              <View style={styles.deleteButtonIngredient}>
+                <View style={styles.deleteRedLine}></View>
                 </View>
                </TouchableOpacity>
                 <TextInput
@@ -65,7 +67,7 @@ const EditIngredient = (props) => {
                     keyboardType={'numeric'}
                     onChangeText ={event => handleChange('quantity', event)}
                     onBlur={handleBlur}
-                    value={String(ingredient.quantity)}
+                    value={String(props.ingredient.quantity)}
                 />
                 
 
@@ -73,7 +75,7 @@ const EditIngredient = (props) => {
                  <TextInput placeholder="Units" 
                  style={{ height: 40, width: "17%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%"}}
                         onChangeText ={unit => handleChange('unit', unit)} 
-                        onBlur={handleBlur} value={ingredient.unit}
+                        onBlur={handleBlur} value={props.ingredient.unit}
                 />
 
                 {/* <TextInput placeholder="Dummy Test" onChangeText={() => console.log(`cant change ${ingredient.quantity} this`)} value={String(ingredient.quantity)} /> */}
@@ -84,7 +86,7 @@ const EditIngredient = (props) => {
                     // onChangeText ={event => addIng({...ingredient, name: event})}
                     onChangeText ={event => handleChange('name', event)}
                     onBlur={handleBlur}
-                    value={ingredient.name}
+                    value={props.ingredient.name}
                 />
 
             </View>

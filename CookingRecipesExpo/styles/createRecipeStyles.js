@@ -18,6 +18,32 @@ const styles = StyleSheet.create({
        marginRight: 14,
         marginTop: 10
     },
+    deleteButtonIngredient: {
+      borderWidth: 0.8, 
+      borderColor: '#363838',
+      borderRadius:50, 
+      width: 24,
+      height: 24,  
+      marginTop: 8,
+      marginLeft: 14, 
+      alignContent: 'center'
+    },
+deleteRedLine: {
+  borderTopWidth: 0.8, 
+  borderColor: 'red', 
+  width: 15, 
+  marginTop: '50%', 
+  marginLeft: 3.3
+},
+deleteButtonIngredient: {
+  borderWidth: 0.8, 
+  borderColor: '#363838', 
+  borderRadius:50, 
+  width: 24, 
+  height: 24,  
+  marginLeft: 14, 
+  alignContent: 'center'
+},
   tagButtons: {
         borderRadius: 50,
         //width: '30%',

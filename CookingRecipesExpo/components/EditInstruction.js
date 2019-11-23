@@ -29,8 +29,8 @@ const EditInstruction = (props) => {
             {/* <View style = {, marginBottom: 20, borderWidth: 3, borderColor: "red"}}> */}
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <TouchableOpacity onPress={deleteButton}>
-              <View style={{borderWidth: 0.8, borderColor: '#363838', borderRadius:50, width: 24, height: 24,  marginLeft: 14, alignContent: 'center'}}>
-                <View style={{borderTopWidth: 0.8, borderColor: 'red', width: 15, marginTop: '50%', marginLeft: 3.3}}></View>
+              <View style={styles.deleteButtonIngredient}>
+                <View style={styles.deleteRedLine}></View>
                 </View>
                </TouchableOpacity>
                 <Text style={{marginLeft: 8}}>Step {index + 1}</Text>
