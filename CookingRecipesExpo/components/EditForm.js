@@ -57,15 +57,13 @@ function EditForm(props) {
         recipe.ancestor = recipeToEdit.id;
         delete recipe.id;
 
-        console.log('recipe in post', recipe);
-        const errMessages = validateFields(recipe,courses, true);
+        // console.log('recipe in post', recipe);
+        const errMessages = validateFields(recipe,courses, edit=true);
         console.log('errMessages', errMessages);
         if (errMessages.length) {
           setErrors(errMessages);
           return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
         }
-
-        
 
         const axiosAuth = await axiosWithAuth();
         try {
@@ -83,7 +81,7 @@ function EditForm(props) {
 
     const ingSubmit = () => {
       console.log('<Ingredient/> Submit triggered');
-      // setIngList(() => [...ingList, ingredient]);
+
       setIngCount(ingCount + 1);
       setRecipe({...recipe, ingredients: [...recipe.ingredients, {name: '', unit: '', quantity: ''}]})
     }

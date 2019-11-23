@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
         marginLeft: 14,
         //textAlign: 'center'
     },
-    time: {
+    icon : {width: 20, height: 20, marginRight: 5},
+    innovatorTime: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingRight: 30,
@@ -161,7 +162,8 @@ const styles = StyleSheet.create({
     },
     hidden: {
         display: 'none'
-    }
+    },
+    placeholder : {width: '100%', height: 345}
 })
 
 module.exports = styles

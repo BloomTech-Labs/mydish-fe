@@ -26,7 +26,7 @@ const EditIngredient = (props) => {
 
     const handleChange = (key,value,i) => {
         // console.log('handleChange triggered in <Ingredient>')
-        console.log('key and value from handlechange', key, value)
+        // console.log('key and value from handlechange', key, value)
         setChoices({...choices, selectedValue : i})
         setIngredient({...ingredient, [key] : value});
         // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
