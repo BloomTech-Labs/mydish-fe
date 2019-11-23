@@ -55,7 +55,7 @@ const EditIngredient = (props) => {
 
     return  (
         <View>
-            <View style = {{ flexDirection: 'row', marginBottom: 20}}>
+            <View style = {{ flexDirection: 'row', marginBottom: 20, alignItems: 'center'}}>
               <TouchableOpacity onPress={deleteButton}>
               <View style={styles.deleteButtonIngredient}>
                 <View style={styles.deleteRedLine}></View>

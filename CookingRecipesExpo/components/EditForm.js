@@ -59,7 +59,6 @@ useEffect(() => {
         console.log('recipe in post', recipe);
         const errMessages = validateFields(recipe,courses);
         console.log('errMessages', errMessages);
-        return;
         if (errMessages.length) {
           setErrors(errMessages);
           return;  //if any missing fields exists, do not submit the data and set the errors state variable array.

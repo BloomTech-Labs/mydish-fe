@@ -7,11 +7,11 @@ import styles from '../styles/createRecipeStyles';
 const EditInstruction = (props) => {
     const { recipe, setRecipe, index, stepDelete} = props;
 
-    const [step, setStep] = useState(props.step);
+    let [step, setStep] = useState(props.step);
 
 useEffect(() => {
     setStep(props.step)
-}, recipe.steps)
+}, [recipe.steps])
 
     const handleChange = (step) => {
             setStep({body : step});
