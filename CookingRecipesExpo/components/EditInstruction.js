@@ -9,6 +9,10 @@ const EditInstruction = (props) => {
 
     const [step, setStep] = useState(props.step);
 
+useEffect(() => {
+    setStep(props.step)
+}, recipe.steps)
+
     const handleChange = (step) => {
             setStep({body : step});
             //console.log('step inside handlechange',step)

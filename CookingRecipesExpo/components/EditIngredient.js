@@ -19,7 +19,7 @@ const EditIngredient = (props) => {
     
     useEffect(() => {
       setRecipe({...recipe, ingredients : recipe.ingredients})
-   
+      setIngredient(props.ingredient)
     },[recipe.ingredients])
 
     const handleChange = (key,value,i) => {
@@ -39,7 +39,7 @@ const EditIngredient = (props) => {
         if (fullIng.length === 3) {
 
           const things = recipe.ingredients;
-          things[index] = props.ingredient;
+          things[index] = ingredient;
 
           setRecipe({...recipe, ingredients: things});
 
@@ -67,7 +67,7 @@ const EditIngredient = (props) => {
                     keyboardType={'numeric'}
                     onChangeText ={event => handleChange('quantity', event)}
                     onBlur={handleBlur}
-                    value={String(props.ingredient.quantity)}
+                    value={String(ingredient.quantity)}
                 />
                 
 
@@ -75,7 +75,7 @@ const EditIngredient = (props) => {
                  <TextInput placeholder="Units" 
                  style={{ height: 40, width: "17%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%"}}
                         onChangeText ={unit => handleChange('unit', unit)} 
-                        onBlur={handleBlur} value={props.ingredient.unit}
+                        onBlur={handleBlur} value={ingredient.unit}
                 />
 
                 {/* <TextInput placeholder="Dummy Test" onChangeText={() => console.log(`cant change ${ingredient.quantity} this`)} value={String(ingredient.quantity)} /> */}
@@ -86,7 +86,7 @@ const EditIngredient = (props) => {
                     // onChangeText ={event => addIng({...ingredient, name: event})}
                     onChangeText ={event => handleChange('name', event)}
                     onBlur={handleBlur}
-                    value={props.ingredient.name}
+                    value={ingredient.name}
                 />
 
             </View>
