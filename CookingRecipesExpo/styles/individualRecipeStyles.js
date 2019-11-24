@@ -60,13 +60,14 @@ const styles = StyleSheet.create({
     editButton: {
         width: 25,
         height: 25,
-        marginLeft: 3,
-        marginBottom: 2
+        marginLeft: 5,
+        marginTop: 4.5,
     },
     editButtonView: {
         backgroundColor: '#8FCC70',
         borderRadius: 50,
-        width: '13%',
+        width: 48,
+        height: 48,
         padding: 6,
         marginBottom: 15,
         marginLeft: 14,

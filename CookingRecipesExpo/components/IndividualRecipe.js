@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View,Text,ScrollView, Image, TouchableOpacity, Button} from 'react-native';
+import {View,Text,ScrollView, Image, TouchableOpacity, AsyncStorage} from 'react-native';
 import axios from 'axios'
 import styles from '../styles/individualRecipeStyles.js'
 import editIcon from '../assets/edit_icon.png';
@@ -20,12 +20,23 @@ const CookTime = styled.View`
 
 const IndividualRecipe = props => {
     const [recipe, setRecipe] = useState([])
+    const [userToken,setUserToken] = useState(null);
     const [color, setColor] = useState({active: 'Ingredients'})
     const id =  props.navigation.getParam('recipeID', 'params not passed')
-    console.log('id from navigation in <IndividualRecipe>', id);
+
+    const getToken = async () => {  
+        const token = await AsyncStorage.getItem('userToken');
+        if (token) {
+            setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
+        }
+      
+       return token;
+    }
+    
 
     useEffect(() =>{
        // console.log('useEffect navigation props in <IndividualRecipe/>', props.navigation);
+       getToken();
         axios.get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
         .then(res => setRecipe(res.data))
         .catch(err => console.log(err));
@@ -79,7 +90,7 @@ const IndividualRecipe = props => {
         })}
         </View>
         </View>
-
+        {userToken &&
         <TouchableOpacity onPress={navigateToEdits}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={styles.editButtonView}>
@@ -87,7 +98,7 @@ const IndividualRecipe = props => {
         </View>
             <Text style={{marginLeft: 10}}>Make changes to recipe</Text>
         </View>
-        </TouchableOpacity>
+        </TouchableOpacity>}
         
         <View style={styles.ingredients}> 
             <TouchableOpacity onPress={() => tabsDisplay('Ingredients')}>

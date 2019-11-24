@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {TextInput, View,Text, TouchableOpacity,} from 'react-native';
-// import styles from '../styles/createRecipeStyles';
+import styles from '../styles/createRecipeStyles';
 // import ReactNativePickerModule from 'react-native-picker-module'
-import Picker from './Picker'
+//import Picker from './Picker'
 
 const EditIngredient = (props) => {
 
-  let {recipe, setRecipe, visible, setVisible, index} = props;
+  let { recipe, setRecipe, index, ingDelete} = props;
   
   const [choices,setChoices] = useState({selectedValue: null,
     data : ['tsp', 'tbsp', 'cup', 'g', 'mg', 'oz', 'pinch', 'L', 'ml', 'can', 'whole', 'pint', 'package', 'lbs']})
@@ -19,9 +19,7 @@ const EditIngredient = (props) => {
     
     useEffect(() => {
       setRecipe({...recipe, ingredients : recipe.ingredients})
-    //   console.log(`ingredient quantity for ${ingredient.name} in <EditIngredient>`, ingredient.quantity);
-    //   console.log('ingredient in <EditIngredient/>', props.ingredient);
-      // console.log('recipe.ingredients', recipe.ingredients);
+      setIngredient(props.ingredient)
     },[recipe.ingredients])
 
     const handleChange = (key,value,i) => {
@@ -45,31 +43,26 @@ const EditIngredient = (props) => {
 
           setRecipe({...recipe, ingredients: things});
 
-
-        //  setToEdits([...toEdits, ingredient]);
-        // //  console.log('toEdits in EditIngred',toEdits);
-        //  const recipeIng = [...recipe.ingredients];
-
-        //  for (let i=0; i<toEdits.length; i++) {
-        //     for (let j=0; j<recipeIng.length; j++) {
-        //       if (toEdits[i].name === recipeIng[j].name) {
-        //         recipeIng.splice(j,1);
-        //       }
-        //     }
-        //   }
-
-        // console.log('recipeIng after splicing', recipeIng);
-        
-          //  setRecipe({...recipe, ingredients: [...recipeIng, ingredient]})
         }
     }
 
+    const deleteButton = () => {
+      ingDelete(index)
+    }
+
+//console.log('ingredient in edit ingredients', 'index:',index, ingredient)
+//console.log('props.ingredient inside edit ingredients at index:', index, props.ingredient)
 
     return  (
         <View>
-            <View style = {{ flexDirection: 'row', marginBottom: 20}}>
+            <View style = {{ flexDirection: 'row', marginBottom: 20, alignItems: 'center'}}>
+              <TouchableOpacity onPress={deleteButton}>
+              <View style={styles.deleteButtonIngredient}>
+                <View style={styles.deleteRedLine}></View>
+                </View>
+               </TouchableOpacity>
                 <TextInput
-                    style={{ height: 40, width: "19%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: 14 }}
+                    style={{ height: 40, width: "17%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "1%"}}
                     placeholder="Amount"
                     keyboardType={'numeric'}
                     onChangeText ={event => handleChange('quantity', event)}
@@ -80,6 +73,7 @@ const EditIngredient = (props) => {
 
               {/* <Picker choices={choices} handleChange={handleChange} ingredient={ingredient}/> */}
                  <TextInput placeholder="Units" 
+                 style={{ height: 40, width: "17%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%"}}
                         onChangeText ={unit => handleChange('unit', unit)} 
                         onBlur={handleBlur} value={ingredient.unit}
                 />
@@ -87,7 +81,7 @@ const EditIngredient = (props) => {
                 {/* <TextInput placeholder="Dummy Test" onChangeText={() => console.log(`cant change ${ingredient.quantity} this`)} value={String(ingredient.quantity)} /> */}
 
                 <TextInput
-                    style={{ height: 40, width: "42%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%", marginRight: 14  }}
+                    style={{ height: 40, width: "42%", borderWidth: 0.8, borderColor: '#363838', borderRadius: 4, textAlign: 'center', marginLeft: "3%" }}
                     placeholder="Ingredient Name"
                     // onChangeText ={event => addIng({...ingredient, name: event})}
                     onChangeText ={event => handleChange('name', event)}

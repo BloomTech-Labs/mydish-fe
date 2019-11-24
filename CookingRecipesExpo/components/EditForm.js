@@ -17,7 +17,6 @@ import Heading from './StyledComponents/Heading';
 import TagGroup from './StyledComponents/TagGroup';
 
 
-// import add from '../assets/add_circle_32px.png';;
 import done from '../assets/done_button.png';
 import axiosWithAuth from '../utils/axiosWithAuth.js'
 import {toggleBackgroundColor,tagsIncluded,toggleDifficultyColor, difficultyTags} from '../utils/helperFunctions/tagFunctions'
@@ -26,9 +25,7 @@ import {validateFields} from '../utils/helperFunctions/vaildateFields';
 
 function EditForm(props) {
   const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed')
-  // console.log('recipeToEdit', recipeToEdit);
-
-  // const stepsArray = recipeToEdit.steps.map(step => step.body);
+ 
 
   const initialFormState = {title: '', minutes: '', notes: '', 
   categories: [], ingredients: [], steps: []};  
@@ -48,10 +45,17 @@ function EditForm(props) {
   
 //console.log('checking pre-populated recipe', recipe)
 
+useEffect(() => {
+    //console.log('recipe.ingredients in use effect of Edit Form', recipe.ingredients)
+   
+    //console.log('recipe.ingredients in use effect of Edit Form after addIngredient', recipe.ingredients)
+}, [recipe.ingredients])
+
   const postRecipe = async () => {
         
         // console.log('ancestor: ', recipeToEdit.id);
         // console.log('posting recipe steps: ', recipe);
+
         const instructions = recipe.steps.map(step => step.body);
         recipe.steps = instructions;
         recipe.ancestor = recipeToEdit.id;
@@ -92,13 +96,32 @@ function EditForm(props) {
       setRecipe({...recipe, steps: [...recipe.steps, {body: ''}]});
     }
 
-  const addIngredients = () => {
+    function ingDelete (ind) {
+        console.log('<Ingredient/> Delete triggered');
+        // setIngList(() => [...ingList, ingredient]);
+        setIngCount(ingCount - 1);
+        //console.log('before filter ingredient', recipe.ingredients)
+        let filtered = recipe.ingredients.filter((ing, index) => index !== ind)
+        //console.log('after filtered ingredients', filtered)
+        setRecipe({...recipe, ingredients: filtered})
+      }
+
+      const stepDelete = (ind) => {
+        console.log('step delete triggered', stepSubmit);
+        setStepCount(oldCount => oldCount - 1);
+        let filteredSteps = recipe.steps.filter((step, index) => index !== ind)
+        setRecipe({...recipe, steps: filteredSteps});
+      }
+  
+
+  function addIngredients() {
     
     const IngredientComponents = [];
     
       for (let i=0; i<ingCount; i++) {
+          //console.log(`inside for loop recipe.ingredients[${i}]`, recipe.ingredients[i])
         IngredientComponents.push(<EditIngredient key={i+1} index={i} ingredient={recipe.ingredients[i]} recipe={recipe} setRecipe={setRecipe} 
-          visible={visible} setVisible={setVisible} />);
+          visible={visible} setVisible={setVisible} ingDelete={ingDelete}/>);
       }
     return IngredientComponents;
   }
@@ -109,7 +132,7 @@ function EditForm(props) {
     // step={stepsArray[i]}
     for (let i=0; i<stepCount; i++) {
       InstructionComponents.push(<EditInstruction key={i+1} index={i} recipe={recipe} step={recipe.steps[i]} count={stepCount} 
-        setCount={setStepCount} setRecipe={setRecipe} />)
+        setCount={setStepCount} setRecipe={setRecipe} stepDelete={stepDelete}/>)
     }
 
     return InstructionComponents;
