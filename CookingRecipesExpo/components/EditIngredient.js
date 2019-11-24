@@ -19,7 +19,8 @@ const EditIngredient = (props) => {
     
     useEffect(() => {
       setRecipe({...recipe, ingredients : recipe.ingredients})
-      setIngredient(props.ingredient)
+      setIngredient(props.ingredient || {name:'', quantity: '', unit: ''});
+      
     },[recipe.ingredients])
 
     const handleChange = (key,value,i) => {
@@ -52,7 +53,7 @@ const EditIngredient = (props) => {
 
 //console.log('ingredient in edit ingredients', 'index:',index, ingredient)
 //console.log('props.ingredient inside edit ingredients at index:', index, props.ingredient)
-
+console.log('ingredient.quantity in <EditIngredient>', ingredient.quantity);
     return  (
         <View>
             <View style = {{ flexDirection: 'row', marginBottom: 20, alignItems: 'center'}}>

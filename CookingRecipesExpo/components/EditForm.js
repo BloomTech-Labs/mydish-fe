@@ -42,19 +42,11 @@ function EditForm(props) {
   const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese','Middle-Eastern', 'Other']);
   const [visible, setVisible] = useState({active: false})
   const [color, setColor] = useState({active: recipeToEdit.categories})
-  
-//console.log('checking pre-populated recipe', recipe)
-
-useEffect(() => {
-    //console.log('recipe.ingredients in use effect of Edit Form', recipe.ingredients)
-   
-    //console.log('recipe.ingredients in use effect of Edit Form after addIngredient', recipe.ingredients)
-}, [recipe.ingredients])
 
   const postRecipe = async () => {
         
         // console.log('ancestor: ', recipeToEdit.id);
-        // console.log('posting recipe steps: ', recipe);
+        console.log('posting recipe in <EditForm>: ', recipe);
 
         const instructions = recipe.steps.map(step => step.body);
         recipe.steps = instructions;
@@ -64,6 +56,7 @@ useEffect(() => {
         // console.log('recipe in post', recipe);
         const errMessages = validateFields(recipe,courses, edit=true);
         console.log('errMessages', errMessages);
+
         if (errMessages.length) {
           setErrors(errMessages);
           return;  //if any missing fields exists, do not submit the data and set the errors state variable array.
@@ -75,7 +68,6 @@ useEffect(() => {
           console.log('response from post recipe',res.data);
           recipeID = res.data.recipe_id;
           console.log('recipeID in <EditForm> after successful post', recipeID);
-
           setRecipe(initialFormState);
           props.navigation.navigate('IndividualR', {recipeID})
         } catch(err) {

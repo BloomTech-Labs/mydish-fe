@@ -10,7 +10,7 @@ const EditInstruction = (props) => {
     let [step, setStep] = useState(props.step);
 
 useEffect(() => {
-    setStep(props.step)
+    setStep(props.step || {body: ''});
 }, [recipe.steps])
 
     const handleChange = (step) => {
