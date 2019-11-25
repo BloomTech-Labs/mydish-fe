@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View,Text,ScrollView, Image, TouchableOpacity, AsyncStorage} from 'react-native';
+import {View,Text, ScrollView, FlatList, Image, TouchableOpacity, AsyncStorage} from 'react-native';
 import axios from 'axios'
 import styles from '../styles/individualRecipeStyles.js'
 import editIcon from '../assets/edit_icon.png';
@@ -9,14 +9,8 @@ import IndividualRecipeIngredients from './individualRecipeIngredients';
 import placeholder from '../assets/recipe-image-placeholder.png';
 import styled from 'styled-components';
 import Version from './Version';
-
-const Innovator = styled.View`
-    flexDirection : row;
-`;
-
-const CookTime = styled.View`
-    flexDirection : row;
-`;
+import Innovator from './StyledComponents/Innovator';
+import CookTime from './StyledComponents/CookTime';
 
 
 const IndividualRecipe = props => {
@@ -158,16 +152,18 @@ const IndividualRecipe = props => {
         <Text style={ color.active.includes('Ingredients') ? styles.hidden :styles.stepTextView}>{recipe.notes}</Text>
         </View>
 
-    {/* {forked && forked.map(child => <Text>{child.title}</Text>)} */}
-    {forked && forked.map(child => <Version key={child.id} 
-            recipe={child} recipeList={recipeList} 
-            setRecipeList={setRecipeList} 
-            // courseType={props.courseType}
-    />)}
-    
-    
-
-
+    <ScrollView>
+            <View style={{flexDirection:'row', justifyContent: 'center', flexWrap: 'wrap'}}>
+                
+                    {forked && forked.map(child => <Version key={child.id} navigation={props.navigation}
+                                                            recipe={child} recipeList={recipeList} 
+                                                            setRecipeList={setRecipeList} 
+                                                    />)}
+                    
+            </View>
+    </ScrollView>
+        
+        
     </ScrollView>
     );
   };
