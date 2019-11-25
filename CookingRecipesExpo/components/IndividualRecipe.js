@@ -8,6 +8,7 @@ import logo from '../assets/background.png';
 import IndividualRecipeIngredients from './individualRecipeIngredients';
 import placeholder from '../assets/recipe-image-placeholder.png';
 import styled from 'styled-components';
+import Version from './Version';
 
 const Innovator = styled.View`
     flexDirection : row;
@@ -22,25 +23,53 @@ const IndividualRecipe = props => {
     const [recipe, setRecipe] = useState([])
     const [userToken,setUserToken] = useState(null);
     const [color, setColor] = useState({active: 'Ingredients'})
-    const id =  props.navigation.getParam('recipeID', 'params not passed')
+    const id =  props.navigation.getParam('recipeID', 'params not passed');
+    const [recipeList, setRecipeList] = useState(props.navigation.getParam('recipeList', 'no recipeList param found'));
+    
+    // console.log('recipeList in <IndividualRecipe>', recipeList);
+    const [forked, setForked] = useState([])
 
     const getToken = async () => {  
         const token = await AsyncStorage.getItem('userToken');
         if (token) {
             setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
         }
-      
-       return token;
+        
+        return token;
     }
     
-
+    
     useEffect(() =>{
-       // console.log('useEffect navigation props in <IndividualRecipe/>', props.navigation);
-       getToken();
+        // console.log('useEffect navigation props in <IndividualRecipe/>', props.navigation);
+        console.log('id in <IndividualRecipe>', id);
+        const rl = props.navigation.getParam('recipeList', 'no recipeList param found');
+        setRecipeList(rl);
+        getToken();
         axios.get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
-        .then(res => setRecipe(res.data))
+        .then(res => {
+            // console.log('recipe in <IndividualRecipe>', res.data); 
+            setRecipe(res.data)
+        })
         .catch(err => console.log(err));
+        forking();
     },[id]);
+
+   async function forking() {
+        // console.log('recipeList in forked() of <IndividualRecipe>', recipeList);
+        const children = [];
+
+        for (const recipe of recipeList) {
+            const res = await axios.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`)
+            console.log(res.data.ancestor === id);
+            if (res.data.ancestor === id) {
+                children.push(res.data);
+                // console.log(children); //prints out data
+            }
+        }
+        console.log(`children of recipe with id: ${id}`, children.length);
+          //prints an empty array
+        setForked(children);
+    }
 
 
     const tabsDisplay = (cat) => {
@@ -128,6 +157,16 @@ const IndividualRecipe = props => {
        </View>
         <Text style={ color.active.includes('Ingredients') ? styles.hidden :styles.stepTextView}>{recipe.notes}</Text>
         </View>
+
+    {/* {forked && forked.map(child => <Text>{child.title}</Text>)} */}
+    {forked && forked.map(child => <Version key={child.id} 
+            recipe={child} recipeList={recipeList} 
+            setRecipeList={setRecipeList} 
+            // courseType={props.courseType}
+    />)}
+    
+    
+
 
     </ScrollView>
     );
