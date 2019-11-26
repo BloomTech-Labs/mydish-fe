@@ -4,12 +4,15 @@ import UserPrepTime from './StyledComponents/UserPrepTime';
 import placeholder from '../assets/recipe-image-placeholder.png';
 import styles from '../styles/recipe-styles';
 
-function Version({recipe, recipeList, navigation}) {
+function Version(props) {
+    const {recipe, recipeList, navigation} = props;
 
-
+   
     return (
         <View>
-           <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipeList : recipeList})}>
+            <Image source={placeholder} style={{width: 100, height: 100}}/>
+            <Text>{recipe.title}</Text>
+           {/* <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipeList : recipeList})}>
                 <Image  source={recipe.img ? {uri : recipe.img} : placeholder} style={{width: 100, height: 100}}/>
 
                 <Text style={styles.text}>{recipe.title}</Text>
@@ -19,7 +22,7 @@ function Version({recipe, recipeList, navigation}) {
                     <Text style={styles.prep}>{recipe.minutes} min.</Text>
                 </UserPrepTime>
 
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     )
 } 
