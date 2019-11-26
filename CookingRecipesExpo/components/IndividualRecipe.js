@@ -151,40 +151,12 @@ const IndividualRecipe = props => {
        </View>
         <Text style={ color.active.includes('Ingredients') ? styles.hidden :styles.stepTextView}>{recipe.notes}</Text>
         </View>
-
-       
-            <View style={{flexDirection:'row', justifyContent: 'center', flexWrap: 'nowrap'}}>
-                            {/* {forked && forked.map(child => <Version key={child.id} navigation={props.navigation}
-                                                                    recipe={child} recipeList={recipeList} 
-                                                                    setRecipeList={setRecipeList} 
-                                                            />)} */}
-                        {/* <Text>{forked.length && console.log('forked', forked)}</Text> */}
-                    {/* <FlatList horizontal={true} data={[{key: 1},{key:2},{key:3}]} renderItem={({item}) => <Text>{item.key}</Text>}/> */}
-                    {/* <FlatList horizontal={true} data={forked.length && forked} renderItem={({fork}) => <Text>{JSON.stringify(fork)}</Text>}/> */}
-                    {/* <FlatList horizontal={true} 
-                            data={forked.length && forked} 
-                            renderItem={({fork}) => <Text>{JSON.stringify(fork)}</Text>} 
-                    /> */}
-                    
-                    <FlatList horizontal={true} 
-                    data={forked} 
-                    renderItem={({item}) => <Version recipe={item}/> } />
-                                                            
-            </View>
-
-
-        {/* <FlatList
-        data={forked ? forked : []}
-        renderItem={({ child }) => <Version key={child.id} navigation={props.navigation}
-                                            recipe={child} recipeList={recipeList} 
-                                            setRecipeList={setRecipeList}  />}
-        keyExtractor={item => item.id}
-      /> */}
-            
-
-
-        
-        
+                  
+        <FlatList horizontal={true} 
+        data={forked} 
+        renderItem={({item}) => <Version key={item.id} recipe={item} 
+                                        recipeList={recipeList} 
+                                        navigation={props.navigation}/> } />
     </ScrollView>
     );
   };

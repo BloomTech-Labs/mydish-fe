@@ -9,9 +9,11 @@ function Version(props) {
 
    
     return (
-        <View>
-            <Image source={placeholder} style={{width: 100, height: 100}}/>
-            <Text>{recipe.title}</Text>
+        <View style={{margin: 20, width: 100}}>
+            <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipeList : recipeList})}>
+                    <Image source={recipe.img ? {uri : recipe.img} : placeholder} style={{width: 100, height: 100}}/>
+                    <Text style={{textAlign: 'center', marginTop: 10}}>{recipe.title}</Text>
+            </TouchableOpacity>
            {/* <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipeList : recipeList})}>
                 <Image  source={recipe.img ? {uri : recipe.img} : placeholder} style={{width: 100, height: 100}}/>
 
