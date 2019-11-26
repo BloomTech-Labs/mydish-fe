@@ -53,14 +53,21 @@ const IndividualRecipe = props => {
         const children = [];
 
         for (const recipe of recipeList) {
-            const res = await axios.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`)
-            console.log(res.data.ancestor === id);
-            if (res.data.ancestor === id) {
-                children.push(res.data);
+            try {
+                const res = await axios.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`)
+                console.log(res.data.ancestor === id);
+                if (res.data.ancestor === id) {
+                    children.push(res.data);
                 // console.log(children); //prints out data
+                } else {
+                    continue;
+                }
+            } catch(err) {
+                console.log('err getting recipe', err);
             }
+            
         }
-        console.log(`children of recipe with id: ${id}`, children.length);
+        console.log(`${children.length} children of the recipe with id: ${id}`, );
           //prints an empty array
         setForked(children);
     }
@@ -156,26 +163,12 @@ const IndividualRecipe = props => {
         data={forked} 
         renderItem={({item}) => <Version key={item.id} recipe={item} 
                                         recipeList={recipeList} 
-                                        navigation={props.navigation}/> } />
+                                        navigation={props.navigation}/> } 
+                                        keyExtractor={item => String(item.id)}
+        />
+
     </ScrollView>
     );
   };
 
   export default IndividualRecipe;
-
-
-
-
-//   const im = ()=>{
-    //     if(recipe.img==null){
-    //         return(
-    //             <Image source={placeholder}
-    //             style={{width: '100%', height: 345}} />
-    //         )
-    //     }else{
-    //         return(
-    //             <Image source={{uri: recipe.img}}
-    //             style={{width:'100%', height: 345}} />
-    //         )
-    //     }
-    // }
