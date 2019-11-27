@@ -16,7 +16,8 @@ import placeholder from '../assets/recipe-image-placeholder.png';
 const Recipe = (props) => {
     // console.log('props in <Recipe/>', props.setRecipeList);
     // console.log('cookbook refresh', props.cookbookRefresh);
-    let {navigation, cardHeight, imageHeight, recipe} = props;
+    const {navigation, cardHeight, imageHeight, recipe} = props;
+    const [forks, setForks] = useState([]);
     let [like, setLike] = useState(recipe.likedByUser);
     let [likeCount, setLikeCount] = useState(recipe.total_saves);
     let [userToken,setUserToken] = useState(null);
@@ -46,7 +47,21 @@ const Recipe = (props) => {
         }
     }
 
+    function getForks() {
+        axios.get(`https://recipeshare-development.herokuapp.com/recipes/all`)
+            .then(res => {
+                const allRecipes = res.data;
+                // console.log('allRecipes in getForks() of <Recipe>', allRecipes);
+                // allRecipes.forEach(rec => console.log(rec.ancestor))
+                const children = allRecipes.filter(rec => rec.ancestor === recipe.id);
+                console.log(`forks in getForks() for recipe: ${recipe.id}`, children);
+                setForks(children);
+            })
+            .catch(err => console.log(err));
+    }
+
     useEffect(() => {
+        getForks();
         getRecipe()
         getToken();
     },[like,likeCount])
@@ -78,7 +93,7 @@ const Recipe = (props) => {
                     setLike(liked);
 
                     const route = navigation.state.routeName;
-                    console.log('route in unlike', route);
+                    // console.log('route in unlike', route);
 
                     if (route === 'Home') {
                         return;
@@ -106,7 +121,7 @@ const Recipe = (props) => {
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
                 </Like>}
               
-               <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipeList : props.recipeList})}>
+               <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipe, recipeList: forks})}>
                     <Image  source={recipe.img ? {uri : recipe.img} : placeholder}
                             style={stylePlaceholder}/>
 

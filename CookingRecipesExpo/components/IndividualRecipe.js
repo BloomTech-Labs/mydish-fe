@@ -14,12 +14,13 @@ import CookTime from './StyledComponents/CookTime';
 
 
 const IndividualRecipe = props => {
-    const [recipe, setRecipe] = useState([])
+    const [recipe, setRecipe] = useState(props.navigation.getParam('recipe', 'no recipe param found'))
     const [userToken,setUserToken] = useState(null);
     const [color, setColor] = useState({active: 'Ingredients'})
     const id =  props.navigation.getParam('recipeID', 'params not passed');
     const [recipeList, setRecipeList] = useState(props.navigation.getParam('recipeList', 'no recipeList param found'));
-    
+    // console.log('recipeList in <IndividualRecipe>', recipeList);
+    // console.log('recipe in <IndividualRecipe>', recipe);
     // console.log('recipeList in <IndividualRecipe>', recipeList);
     const [forked, setForked] = useState([])
 
@@ -35,10 +36,14 @@ const IndividualRecipe = props => {
     
     useEffect(() =>{
         // console.log('useEffect navigation props in <IndividualRecipe/>', props.navigation);
-        console.log('id in <IndividualRecipe>', id);
+        // console.log('id in <IndividualRecipe>', id);
+        // console.log('recipeList in <IndividualRecipes> useEffect', recipeList)
         const rl = props.navigation.getParam('recipeList', 'no recipeList param found');
         setRecipeList(rl);
+        const rec = props.navigation.getParam('recipe', 'no recipe param found');
+        setRecipe(rec);
         getToken();
+
         axios.get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
         .then(res => {
             // console.log('recipe in <IndividualRecipe>', res.data); 
@@ -49,27 +54,32 @@ const IndividualRecipe = props => {
     },[id]);
 
    async function forking() {
-        // console.log('recipeList in forked() of <IndividualRecipe>', recipeList);
-        const children = [];
+    //    console.log('recipe in forking() of <IndividualRecipe>', recipe);
+    //    console.log('recipeList in forking() of <IndividualRecipe>', recipeList);
+        
+        // if (recipeList && recipeList.length) {
+            const children = recipeList.filter(rec => rec.ancestor === id);
+            console.log(`${children.length} children of the recipe with id: ${id}`, );
+            setForked(children);
+        // }
+        
 
-        for (const recipe of recipeList) {
-            try {
-                const res = await axios.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`)
-                console.log(res.data.ancestor === id);
-                if (res.data.ancestor === id) {
-                    children.push(res.data);
-                // console.log(children); //prints out data
-                } else {
-                    continue;
-                }
-            } catch(err) {
-                console.log('err getting recipe', err);
-            }
+        // for (const recipe of recipeList) {
+        //     try {
+        //         const res = await axios.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`)
+        //         // console.log(res.data.ancestor === id);
+        //         if (res.data.ancestor === id) {
+        //             children.push(res.data);
+        //         // console.log(children); //prints out data
+        //         } else {
+        //             continue;
+        //         }
+        //     } catch(err) {
+        //         console.log('err getting recipe', err);
+        //     }
             
-        }
-        console.log(`${children.length} children of the recipe with id: ${id}`, );
-          //prints an empty array
-        setForked(children);
+        // }
+        
     }
 
 

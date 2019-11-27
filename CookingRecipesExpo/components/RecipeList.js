@@ -55,7 +55,8 @@ const RecipeList = (props) => {
                  {recipes.map( (recp, index) => index%2==0 &&
                         <Recipe key={recp.id} 
                                 recipe={recp} recipeList={props.recipes} 
-                                setRecipeList={props.setRecipes} imageHeight={LeftAdjustImageHeight()} 
+                                setRecipeList={props.setRecipes} 
+                                imageHeight={LeftAdjustImageHeight()} 
                                 cardHeight={LeftHeightAdjustment()}
                                 courseType={props.courseType}
                         />)
@@ -66,7 +67,8 @@ const RecipeList = (props) => {
                  <View style={styles.recipeContainer}>
                  {recipes.map( (recp, index) => index%2 ==1 && 
                         <Recipe key={recp.id} 
-                                recipe={recp}  
+                                recipe={recp} recipeList={props.recipes} 
+                                setRecipeList={props.setRecipes} 
                                 imageHeight={RightAdjustImageHeight()} 
                                 cardHeight={RightHeightAdjustment()}
                                 courseType={props.courseType}

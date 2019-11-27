@@ -7,18 +7,26 @@ import styles from '../styles/search.styles';
 
 const Search = (props) => {
     let [dish, setDish] = useState('')
-    let [recipes, setRecipes] = useState([])
-    let [recipeListRefresh, setRecipeListRefresh] = useState(false);
+    const [recipes, setRecipes] = useState([])
+    // let [recipeListRefresh, setRecipeListRefresh] = useState(false);
 
 
     useEffect(() =>{
+        getRecipes();
+    },[dish]);
+
+    function getRecipes() {
         axios.get(`https://recipeshare-development.herokuapp.com/recipes?title=${dish}`)
             .then(res => {
-                setRecipes([])          
-                setRecipes(res.data);
+                setRecipes([]); 
+                const allRecipes = res.data;
+                // console.log('allRecipes', allRecipes);
+                // allRecipes.forEach(rec => console.log(rec.ancestor))
+                // const masters = allRecipes.filter(rec => !rec.ancestor);
+                setRecipes(allRecipes);
             })
             .catch(err => console.log(err));
-    },[dish,recipeListRefresh]);
+    }
 
     const focus = () => {
         console.log('focus on your search!');
@@ -43,7 +51,7 @@ const Search = (props) => {
 				/>
 
                 <ScrollView>
-                        {recipes.length>=1  && <RecipeList recipes={recipes} setRecipes={setRecipes} /> }
+                        {recipes.length > 1 && <RecipeList recipes={recipes} setRecipes={setRecipes} /> }
                 </ScrollView>
         </View>
 

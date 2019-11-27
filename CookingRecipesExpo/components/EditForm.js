@@ -47,6 +47,7 @@ function EditForm(props) {
         
         // console.log('ancestor: ', recipeToEdit.id);
         console.log('posting recipe in <EditForm>: ', recipe);
+        
 
         const instructions = recipe.steps.map(step => step.body);
         recipe.steps = instructions;

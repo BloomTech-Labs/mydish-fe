@@ -45,6 +45,7 @@ function CreateRecipeForm(props) {
   const postRecipe = async () => {
         
         console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
+
         const errMessages = validateFields(recipe,courses, edit=false);
 
         if (errMessages.length) {
