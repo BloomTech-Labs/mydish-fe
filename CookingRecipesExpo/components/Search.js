@@ -10,7 +10,6 @@ const Search = (props) => {
     const [recipes, setRecipes] = useState([])
     // let [recipeListRefresh, setRecipeListRefresh] = useState(false);
 
-
     useEffect(() =>{
         getRecipes();
     },[dish]);
@@ -21,9 +20,9 @@ const Search = (props) => {
                 setRecipes([]); 
                 const allRecipes = res.data;
                 // console.log('allRecipes', allRecipes);
-                // allRecipes.forEach(rec => console.log(rec.ancestor))
-                // const masters = allRecipes.filter(rec => !rec.ancestor);
-                setRecipes(allRecipes);
+                allRecipes.forEach(rec => console.log('recipe.ancestor in <Search>,', rec.ancestor))
+                const masterRecipes = allRecipes.filter(rec => !rec.ancestor);
+                setRecipes(masterRecipes);
             })
             .catch(err => console.log(err));
     }

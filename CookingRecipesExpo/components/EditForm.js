@@ -134,13 +134,13 @@ function EditForm(props) {
         
   return (  
      <KeyboardAwareScrollView >
-    <View style={visible.active ? styles.createRecipeActive : ''}>  
+        <View style={visible.active ? styles.createRecipeActive : ''}>  
+            
+          <Done onPress = {postRecipe}>
+            <Text style={styles.doneText}>Done</Text>
+          </Done>
         
-      <Done onPress = {postRecipe}>
-        <Text style={styles.doneText}>Done</Text>
-      </Done>
-    
-      <ScrollView>
+          <ScrollView>
 
           <RecipeFormContainer>
                 <Heading>Edit Recipe</Heading>
@@ -155,23 +155,6 @@ function EditForm(props) {
                     keyboardType={'numeric'} onChangeText={min => setRecipe({ ...recipe, minutes: min})}
                     value={`${recipe.minutes}`} 
                   />
-
-                  {/* <Heading>Course Type</Heading>
-                  <TagGroup>
-                  {courses.map((course,i) => <TagButton key={i} tag={course} recipe={recipe} setRecipe={setRecipe} 
-                                                  color={color} setColor={setColor} 
-                                                  toggleColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)} 
-                  </TagGroup>
-
-
-                  <Heading>Cuisine</Heading>
-                  <TagGroup>
-                    {cuisines.map((cuisine,i) => <TagButton key={i} tag={cuisine} 
-                                                    recipe={recipe} setRecipe={setRecipe} 
-                                                    color={color} setColor={setColor} 
-                                                    toggleColor={toggleBackgroundColor} tagsIncluded={tagsIncluded}/>)}
-                  </TagGroup> */}
-
                 
                   <Heading>Diet</Heading>
                   <TagGroup>
@@ -207,8 +190,8 @@ function EditForm(props) {
                     {errors.map((err,i) => <Text key={i} style={styles.errors}>{err}</Text>)}
                 </View>
             </RecipeFormContainer>
-    </ScrollView>
-  </View>   
+        </ScrollView>
+      </View>   
  </KeyboardAwareScrollView>
   )
   
