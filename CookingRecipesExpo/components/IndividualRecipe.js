@@ -157,14 +157,6 @@ const IndividualRecipe = props => {
         keyExtractor={(item) => String(item.id)}
         />
 
-        {/* <FlatList horizontal={true} 
-        data={[{recipe: 'cheerios'},{recipe: 'tuna sandwich'}]} 
-        renderItem={({item}) => {console.log('item in renderItem', item); return <Version recipe={item} navigation={props.navigation}/>} } 
-        keyExtractor={() => Date.now()}
-        /> */}
-
-        {/* {console.log('forks in <IndividualRecipe>', forks)} */}
-
     </ScrollView>
     );
   };

@@ -11,15 +11,19 @@ import solidHeart from '../assets/orangeFill.png';
 import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import placeholder from '../assets/recipe-image-placeholder.png';
+import forkLogo from '../assets/background.png';
 
 
 const Recipe = (props) => {
     // console.log('props in <Recipe/>', props.setRecipeList);
     // console.log('cookbook refresh', props.cookbookRefresh);
-    const {navigation, cardHeight, imageHeight, recipe} = props;
-    const [forks, setForks] = useState([]);
+    const {navigation, cardHeight, imageHeight, recipe, forks} = props;
+    console.log('forks in <Recipe>', forks);
+
+    // const [forks, setForks] = useState([]);
     let [like, setLike] = useState(recipe.likedByUser);
     let [likeCount, setLikeCount] = useState(recipe.total_saves);
+    const [forkCount, setForkCount] = useState(0);
     let [userToken,setUserToken] = useState(null);
     let [addModal, setAddModal] = useState(false);
     const [removeModal, setRemoveModal] = useState(false);
@@ -47,24 +51,16 @@ const Recipe = (props) => {
         }
     }
 
-    // function getForks() {
-    //     axios.get(`https://recipeshare-development.herokuapp.com/recipes/all`)
-    //         .then(res => {
-    //             const allRecipes = res.data;
-    //             // console.log('allRecipes in getForks() of <Recipe>', allRecipes);
-    //             // allRecipes.forEach(rec => console.log(rec.ancestor))
-    //             const children = allRecipes.filter(rec => rec.ancestor === recipe.id);
-    //             console.log(`forks in getForks() for <Recipe>: ${recipe.id}`, children);
-    //             setForks(children);
-    //         })
-    //         .catch(err => console.log(err));
-    // }
 
     useEffect(() => {
-        // getForks();
         getRecipe()
         getToken();
+        getForkCounts();
     },[like,likeCount])
+
+    function getForkCounts() {
+        console.log('get the fork counts!');
+    }
 
     const likeIt = async () => {
        
@@ -120,12 +116,18 @@ const Recipe = (props) => {
                     <Image source={like ? solidHeart : clearHeart } style={{width: 30, height: 30}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
                 </Like>}
+                
+                {/* <Text>Next</Text>
+                <Text>Previous</Text> */}
               
                <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipe})}>
+                    
                     <Image  source={recipe.img ? {uri : recipe.img} : placeholder}
                             style={stylePlaceholder}/>
 
                     <Text style={styles.text}>{recipe.title}</Text>
+
+                    <Image source={forkLogo} style={{width:50,height:50}} />
 
                     <UserPrepTime>
                         <Text style={styles.username}>{recipe.username || recipe.author}</Text>

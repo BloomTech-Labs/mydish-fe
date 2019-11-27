@@ -54,7 +54,7 @@ const RecipeList = (props) => {
                 <View style={styles.recipeContainer}>
                  {recipes.map( (recp, index) => index%2==0 &&
                         <Recipe key={recp.id} 
-                                recipe={recp} recipeList={props.recipes} 
+                                recipe={recp} recipeList={props.recipes} forks={props.forks}
                                 setRecipeList={props.setRecipes} 
                                 imageHeight={LeftAdjustImageHeight()} 
                                 cardHeight={LeftHeightAdjustment()}
