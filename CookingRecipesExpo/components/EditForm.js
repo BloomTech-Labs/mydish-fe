@@ -45,15 +45,16 @@ function EditForm(props) {
 
   const postRecipe = async () => {
         
-        // console.log('ancestor: ', recipeToEdit.id);
-        console.log('posting recipe in <EditForm>: ', recipe);
+        // console.log('recipeToEdit.id: ', recipeToEdit.id);
         
-
+        
+        
         const instructions = recipe.steps.map(step => step.body);
         recipe.steps = instructions;
         recipe.ancestor = recipeToEdit.id;
-        delete recipe.id;
 
+        delete recipe.id;
+        console.log('posting recipe in <EditForm>: ', recipe);
         // console.log('recipe in post', recipe);
         const errMessages = validateFields(recipe,courses, edit=true);
         console.log('errMessages', errMessages);

@@ -14,76 +14,54 @@ import CookTime from './StyledComponents/CookTime';
 
 
 const IndividualRecipe = props => {
-    const [recipe, setRecipe] = useState(props.navigation.getParam('recipe', 'no recipe param found'))
+    const [recipe, setRecipe] = useState({});
+    // const [recipe, setRecipe] = useState(props.navigation.getParam('recipe'));
+    const naviRecipe = props.navigation.getParam('recipe');
+    console.log('recipe from navigation', naviRecipe.title);
     const [userToken,setUserToken] = useState(null);
     const [color, setColor] = useState({active: 'Ingredients'})
     const id =  props.navigation.getParam('recipeID', 'params not passed');
-    const [recipeList, setRecipeList] = useState(props.navigation.getParam('recipeList', 'no recipeList param found'));
-    // console.log('recipeList in <IndividualRecipe>', recipeList);
-    // console.log('recipe in <IndividualRecipe>', recipe);
-    // console.log('recipeList in <IndividualRecipe>', recipeList);
-    const [forked, setForked] = useState([])
+    const [forks, setForks] = useState([]);
 
-    const getToken = async () => {  
+    useEffect(() =>{     
+        getToken();
+        getSingleRecipe();
+        getForks();
+        console.log('recipe useEffect <IndividualRecipe>', recipe.title);   
+    },[id]);
+
+    
+   
+    async function getToken() {  
         const token = await AsyncStorage.getItem('userToken');
         if (token) {
             setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
         }
-        
         return token;
     }
-    
-    
-    useEffect(() =>{
-        // console.log('useEffect navigation props in <IndividualRecipe/>', props.navigation);
-        // console.log('id in <IndividualRecipe>', id);
-        // console.log('recipeList in <IndividualRecipes> useEffect', recipeList)
-        const rl = props.navigation.getParam('recipeList', 'no recipeList param found');
-        console.log('recipeList in <IndividualRecipe>', rl);
-        setRecipeList(rl);
-        const rec = props.navigation.getParam('recipe', 'no recipe param found');
-        console.log('recipe in <IndividualRecipe>', rec);
-        setRecipe(rec);
-        getToken();
 
+    function getSingleRecipe() {
         axios.get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
-        .then(res => {
-            // console.log('recipe in <IndividualRecipe>', res.data); 
-            setRecipe(res.data)
-        })
-        .catch(err => console.log(err));
-        forking();
-    },[id]);
-
-   async function forking() {
-    //    console.log('recipe in forking() of <IndividualRecipe>', recipe);
-    //    console.log('recipeList in forking() of <IndividualRecipe>', recipeList);
-        
-        // if (recipeList && recipeList.length) {
-            const children = recipeList.filter(rec => rec.ancestor === id);
-            console.log(`${children.length} children of the recipe with id: ${id}`, );
-            setForked(children);
-        // }
-        
-
-        // for (const recipe of recipeList) {
-        //     try {
-        //         const res = await axios.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`)
-        //         // console.log(res.data.ancestor === id);
-        //         if (res.data.ancestor === id) {
-        //             children.push(res.data);
-        //         // console.log(children); //prints out data
-        //         } else {
-        //             continue;
-        //         }
-        //     } catch(err) {
-        //         console.log('err getting recipe', err);
-        //     }
-            
-        // }
-        
+                .then(res => {
+                    setRecipe(res.data);
+                })
+                .catch(err => console.log(err));
     }
 
+    async function getForks() {
+        try {
+            const res = await axios.get(`https://recipeshare-development.herokuapp.com/recipes/all`)
+            const allRecipes = res.data;
+            const children = allRecipes.filter(rec => rec.ancestor === naviRecipe.id);
+            setForks(children);
+        } 
+        catch(err) {
+            console.log(err)
+        }
+    }
+    
+    
+    
 
     const tabsDisplay = (cat) => {
         const newActive= cat
@@ -170,14 +148,22 @@ const IndividualRecipe = props => {
        </View>
         <Text style={ color.active.includes('Ingredients') ? styles.hidden :styles.stepTextView}>{recipe.notes}</Text>
         </View>
+
+        {/* {console.log('forks in return of <IndivdiualRecipe>', forks)} */}
                   
         <FlatList horizontal={true} 
-        data={forked} 
-        renderItem={({item}) => <Version key={item.id} recipe={item} 
-                                        recipeList={recipeList} 
-                                        navigation={props.navigation}/> } 
-                                        keyExtractor={item => String(item.id)}
+        data={forks} 
+        renderItem={({item}) => <Version recipe={item} navigation={props.navigation}/>} 
+        keyExtractor={(item) => String(item.id)}
         />
+
+        {/* <FlatList horizontal={true} 
+        data={[{recipe: 'cheerios'},{recipe: 'tuna sandwich'}]} 
+        renderItem={({item}) => {console.log('item in renderItem', item); return <Version recipe={item} navigation={props.navigation}/>} } 
+        keyExtractor={() => Date.now()}
+        /> */}
+
+        {/* {console.log('forks in <IndividualRecipe>', forks)} */}
 
     </ScrollView>
     );

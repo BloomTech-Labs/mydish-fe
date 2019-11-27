@@ -47,21 +47,21 @@ const Recipe = (props) => {
         }
     }
 
-    function getForks() {
-        axios.get(`https://recipeshare-development.herokuapp.com/recipes/all`)
-            .then(res => {
-                const allRecipes = res.data;
-                // console.log('allRecipes in getForks() of <Recipe>', allRecipes);
-                // allRecipes.forEach(rec => console.log(rec.ancestor))
-                const children = allRecipes.filter(rec => rec.ancestor === recipe.id);
-                console.log(`forks in getForks() for recipe: ${recipe.id}`, children);
-                setForks(children);
-            })
-            .catch(err => console.log(err));
-    }
+    // function getForks() {
+    //     axios.get(`https://recipeshare-development.herokuapp.com/recipes/all`)
+    //         .then(res => {
+    //             const allRecipes = res.data;
+    //             // console.log('allRecipes in getForks() of <Recipe>', allRecipes);
+    //             // allRecipes.forEach(rec => console.log(rec.ancestor))
+    //             const children = allRecipes.filter(rec => rec.ancestor === recipe.id);
+    //             console.log(`forks in getForks() for <Recipe>: ${recipe.id}`, children);
+    //             setForks(children);
+    //         })
+    //         .catch(err => console.log(err));
+    // }
 
     useEffect(() => {
-        getForks();
+        // getForks();
         getRecipe()
         getToken();
     },[like,likeCount])
@@ -121,7 +121,7 @@ const Recipe = (props) => {
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
                 </Like>}
               
-               <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipe, recipeList: forks})}>
+               <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipe})}>
                     <Image  source={recipe.img ? {uri : recipe.img} : placeholder}
                             style={stylePlaceholder}/>
 
