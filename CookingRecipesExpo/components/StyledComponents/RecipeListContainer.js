@@ -3,7 +3,12 @@ import styled from 'styled-components';
 
 const RecipeListContainer = styled.View`
     flexDirection: row; 
-    marginLeft: 4%;
+    flexWrap: wrap;
+    marginLeft: 2%;
+    marginRight: 2%;
 `;
 
+    // borderWidth: 10;
+    // backgroundColor: yellow;
 export default RecipeListContainer;
+

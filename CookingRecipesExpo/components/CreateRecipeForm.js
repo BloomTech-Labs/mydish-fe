@@ -57,9 +57,9 @@ function CreateRecipeForm(props) {
         try {
           const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
           console.log('response from post',res.data);
-          recipeId = res.data.recipe_id;
+          recipeID = res.data.recipe_id;
           setRecipe(initialFormState)
-          props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
+          props.navigation.navigate('IndividualR', {recipeID})
         } catch(err) {
           console.log('error from adding new recipe', err);
         }

@@ -5,7 +5,9 @@ import { withNavigation } from 'react-navigation';
 import LikeModal from './LikekModal';
 import UnlikeModal from './UnlikeModal';
 import Like from './StyledComponents/Like';
+import Fork from './StyledComponents/Fork';
 import UserPrepTime from './StyledComponents/UserPrepTime';
+import RecipeContainer from './StyledComponents/RecipeContainer';
 import clearHeart from '../assets/orangeBorder.png';
 import solidHeart from '../assets/orangeFill.png';
 import axios from 'axios';
@@ -18,7 +20,7 @@ const Recipe = (props) => {
     // console.log('props in <Recipe/>', props.setRecipeList);
     // console.log('cookbook refresh', props.cookbookRefresh);
     const {navigation, cardHeight, imageHeight, recipe, forks} = props;
-    console.log('forks in <Recipe>', forks);
+    // console.log('forks in <Recipe>', forks);
 
     // const [forks, setForks] = useState([]);
     let [like, setLike] = useState(recipe.likedByUser);
@@ -101,8 +103,7 @@ const Recipe = (props) => {
     }
 
     return (
-            <View style={{height: cardHeight, width: "240%"}}>
-
+           <RecipeContainer>
                 <LikeModal  categories={categories} text="Recipe added to: " 
                                 modal={addModal} setModal={setAddModal}
                                 route={navigation.state.routeName}/>
@@ -111,20 +112,21 @@ const Recipe = (props) => {
                                 modal={removeModal} setModal={setRemoveModal}  
                                 route={navigation.state.routeName} navigate={navigation.pop}/>
 
-                {userToken && 
-                <Like onStartShouldSetResponder={likeIt}>
-                    <Image source={like ? solidHeart : clearHeart } style={{width: 30, height: 30}}/>
-                    <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
-                </Like>}
-                <Image source={forkLogo} style={{width:30,height:30}} />
-                
-                {/* <Text>Next</Text>
-                <Text>Previous</Text> */}
+                <View style={{flexDirection: 'column', justifyContent: 'center', zIndex: 1, marginRight: 10}}>
+                    {userToken && 
+                    <Like onStartShouldSetResponder={likeIt}>
+                        <Image source={like ? solidHeart : clearHeart } style={{width: 30, height: 30}}/>
+                        <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
+                    </Like>}
+                    <Fork>
+                        <Image source={forkLogo} style={{width:30,height:30}} />
+                        <Text style={{color : 'black', fontWeight: 'bold'}}>{String(forkCount)}</Text>
+                    </Fork>
+                </View>
               
                <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipe})}>
                     
-                    <Image  source={recipe.img ? {uri : recipe.img} : placeholder}
-                            style={stylePlaceholder}/>
+                    <Image source={recipe.img ? {uri : recipe.img} : placeholder} style={{width: '100%', height: 200}}/>
 
                     <Text style={styles.text}>{recipe.title}</Text>
 
@@ -135,7 +137,8 @@ const Recipe = (props) => {
                     </UserPrepTime>
 
                 </TouchableOpacity>
-            </View>
+           
+            </RecipeContainer>
     )
 }
 

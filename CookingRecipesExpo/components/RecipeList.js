@@ -51,20 +51,18 @@ const RecipeList = (props) => {
     return (
         <ScrollView >
             <RecipeListContainer>
-                <View style={styles.recipeContainer}>
-                 {recipes.map( (recp, index) => index%2==0 &&
-                        <Recipe key={recp.id} 
+               
+                 {recipes.map( (recp, index) => <Recipe key={recp.id} 
                                 recipe={recp} recipeList={props.recipes} forks={props.forks}
                                 setRecipeList={props.setRecipes} 
-                                imageHeight={LeftAdjustImageHeight()} 
-                                cardHeight={LeftHeightAdjustment()}
+                                // imageHeight={LeftAdjustImageHeight()} 
+                                // cardHeight={LeftHeightAdjustment()}
                                 courseType={props.courseType}
                         />)
                  }
-                </View>
 
                  {/* <View style={{flexDirection: 'column', width: "39%", paddingBottom: "60%"}}> */}
-                 <View style={styles.recipeContainer}>
+                 {/* <View style={styles.recipeContainer}>
                  {recipes.map( (recp, index) => index%2 ==1 && 
                         <Recipe key={recp.id} 
                                 recipe={recp} recipeList={props.recipes} 
@@ -73,7 +71,7 @@ const RecipeList = (props) => {
                                 cardHeight={RightHeightAdjustment()}
                                 courseType={props.courseType}
                         />)}
-                </View>
+                </View> */}
             </RecipeListContainer>
          </ScrollView>
     )  

@@ -36,7 +36,7 @@ const Search = (props) => {
     }
 
     return(
-        <View>
+        <View style={{height: '100%'}}>
             <View style = {{flexDirection: 'row', justifyContent: 'flex-start', textAlign: 'left', paddingBottom:"2%", marginTop: "2%"}}>
                 <Image source={logo} style={{width: "8%", height: "85%", marginLeft: "2%"}}/> 
                 <Text style={styles.title}>RecipeShare</Text>
@@ -51,7 +51,7 @@ const Search = (props) => {
                     // onBlur={handleBlur}
                     onFocus={focus}
 				/>
-                {console.log('children recipes in <Search>', children)}
+                {/* {console.log('children recipes in <Search>', children)} */}
                 <ScrollView>
                         {recipes.length > 1 && <RecipeList recipes={recipes} forks={children} setRecipes={setRecipes} /> }
                 </ScrollView>
