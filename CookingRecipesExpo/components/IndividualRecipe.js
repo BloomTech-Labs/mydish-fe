@@ -39,8 +39,10 @@ const IndividualRecipe = props => {
         // console.log('id in <IndividualRecipe>', id);
         // console.log('recipeList in <IndividualRecipes> useEffect', recipeList)
         const rl = props.navigation.getParam('recipeList', 'no recipeList param found');
+        console.log('recipeList in <IndividualRecipe>', rl);
         setRecipeList(rl);
         const rec = props.navigation.getParam('recipe', 'no recipe param found');
+        console.log('recipe in <IndividualRecipe>', rec);
         setRecipe(rec);
         getToken();
 
