@@ -116,6 +116,7 @@ const Recipe = (props) => {
                     <Image source={like ? solidHeart : clearHeart } style={{width: 30, height: 30}}/>
                     <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
                 </Like>}
+                <Image source={forkLogo} style={{width:30,height:30}} />
                 
                 {/* <Text>Next</Text>
                 <Text>Previous</Text> */}
@@ -127,7 +128,6 @@ const Recipe = (props) => {
 
                     <Text style={styles.text}>{recipe.title}</Text>
 
-                    <Image source={forkLogo} style={{width:50,height:50}} />
 
                     <UserPrepTime>
                         <Text style={styles.username}>{recipe.username || recipe.author}</Text>
