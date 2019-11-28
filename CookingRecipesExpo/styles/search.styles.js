@@ -7,14 +7,11 @@ export default StyleSheet.create({
         color: "#42C200",
         fontSize: 20,
         fontWeight: 'bold', 
-        // paddingBottom:14,
-        paddingTop: 5, 
-        paddingLeft: 10
+        padding: 15,
+        textAlignVertical: 'center'
     },
     textInput: {
-        //flex: 1,
         height: 40,
-        //width: 300,
         fontSize: 18,
         margin: 7,
         fontWeight: 'bold',

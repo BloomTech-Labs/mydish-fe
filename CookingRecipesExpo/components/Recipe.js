@@ -58,11 +58,11 @@ const Recipe = (props) => {
     },[like,likeCount])
 
     function getForkCounts() {
-        console.log('get the fork counts!');
-        console.log(`recipe.id: ${recipe.id}`);
+        // console.log('get the fork counts!');
+        // console.log(`recipe.id: ${recipe.id}`);
         // console.log('forks in <Recipe>', forks);
         const matches = forks.filter(rec => rec.ancestor === recipe.id);
-        console.log(`matches.length for recipe: ${recipe.title}`, matches.length);
+        // console.log(`matches.length for recipe: ${recipe.title}`, matches.length);
         setForkCount(matches.length);
     }
 

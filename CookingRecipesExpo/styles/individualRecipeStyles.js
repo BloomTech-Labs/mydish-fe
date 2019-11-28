@@ -82,16 +82,37 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
-    titlesColorWhite: {
+    showTab : {
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: '#047396',
+        paddingLeft: "16.5%",
+        paddingRight: "16.5%",
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: 'bold',
+    },
+    hideTab : {
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: 'white',
+        paddingLeft: "16.5%",
+        paddingRight: "16.5%",
+        color: '#047396',
+        fontWeight: 'bold'
+    },
+
+    tabTextWhite: {
         textAlign: 'center',
          color: 'white',
          fontWeight: 'bold',
     },
-    titlesColorBlue: {
+    tabTextBlue: {
         textAlign: 'center',
          color: '#047396',
          fontWeight: 'bold'
     },
+
     titlesViewBorderIng:{
         paddingTop: 10,
         paddingBottom: 10,

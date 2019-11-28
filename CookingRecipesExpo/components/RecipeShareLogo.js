@@ -14,7 +14,6 @@ function RecipeShareLogo() {
             {/* </TouchableOpacity> */}
         </RecipeShareStyle>
     )
-
 }
 
 export default RecipeShareLogo;

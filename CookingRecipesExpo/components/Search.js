@@ -21,7 +21,7 @@ const Search = (props) => {
             .then(res => {
                 setRecipes([]); 
                 const allRecipes = res.data;
-                allRecipes.forEach(rec => console.log('recipe.ancestor in <Search>,', rec.ancestor))
+                // allRecipes.forEach(rec => console.log('recipe.ancestor in <Search>,', rec.ancestor))
                 const masterRecipes = allRecipes.filter(rec => !rec.ancestor);
                 const childrenRecipes = allRecipes.filter(rec => rec.ancestor);
                 setChildren(childrenRecipes);

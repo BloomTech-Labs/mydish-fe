@@ -2,22 +2,27 @@ import React, {useState, useEffect} from "react";
 import {View,Text, ScrollView, FlatList, Image, TouchableOpacity, AsyncStorage} from 'react-native';
 import axios from 'axios'
 import styles from '../styles/individualRecipeStyles.js'
-import editIcon from '../assets/edit_icon.png';
 import clock from '../assets/timer.png';
 import logo from '../assets/background.png';
-import IndividualRecipeIngredients from './individualRecipeIngredients';
+import IndividualRecipeIngredient from './IndividualRecipeIngredient';
+import IndividualRecipeInstruction from './IndividualRecipeInstruction';
+import IndividualRecipeNotes from './IndividualRecipeNotes';
+import EditButton from './EditButton';
+import Tab from './Tab';
 import placeholder from '../assets/recipe-image-placeholder.png';
-import styled from 'styled-components';
 import Version from './Version';
 import Innovator from './StyledComponents/Innovator';
 import CookTime from './StyledComponents/CookTime';
+import RecipeTabs from './StyledComponents/RecipeTabs';
+import Details from './StyledComponents/Details';
+import TagBox from './StyledComponents/TagBox';
 
 
-const IndividualRecipe = props => {
+
+function IndividualRecipe(props) {
     const [recipe, setRecipe] = useState({});
-    // const [recipe, setRecipe] = useState(props.navigation.getParam('recipe'));
     const naviRecipe = props.navigation.getParam('recipe');
-    console.log('recipe from navigation', naviRecipe.title);
+    // console.log('recipe from navigation', naviRecipe.title);
     const [userToken,setUserToken] = useState(null);
     const [color, setColor] = useState({active: 'Ingredients'})
     const id =  props.navigation.getParam('recipeID', 'params not passed');
@@ -27,11 +32,9 @@ const IndividualRecipe = props => {
         getToken();
         getSingleRecipe();
         getForks();
-        console.log('recipe useEffect <IndividualRecipe>', recipe.title);   
+        console.log('recipe in useEffect of <IndividualRecipe>', naviRecipe.title);   
     },[id]);
 
-    
-   
     async function getToken() {  
         const token = await AsyncStorage.getItem('userToken');
         if (token) {
@@ -60,9 +63,6 @@ const IndividualRecipe = props => {
         }
     }
     
-    
-    
-
     const tabsDisplay = (cat) => {
         const newActive= cat
         setColor({active: newActive})
@@ -97,65 +97,38 @@ const IndividualRecipe = props => {
             </View>
 
 
-            
-         <Text style={styles.tags}>Tags</Text>
-             <View style={{borderBottomWidth: 0.3, borderBottomColor: '#6B6F70',}}>
-         <View style={styles.tagBox}>
-        {recipe.categories && recipe.categories.map( cat => {
-            return(
-                <View key={cat}>
-                    <Text style={styles.individualTags}>{capitalize(cat)}</Text>
-                </View>
-            )
-        })}
-        </View>
-        </View>
-        {userToken &&
-        <TouchableOpacity onPress={navigateToEdits}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={styles.editButtonView}>
-        <Image source={editIcon} style={styles.editButton}/> 
-        </View>
-            <Text style={{marginLeft: 10}}>Make changes to recipe</Text>
-        </View>
-        </TouchableOpacity>}
-        
-        <View style={styles.ingredients}> 
-            <TouchableOpacity onPress={() => tabsDisplay('Ingredients')}>
-                <View style={color.active.includes('Ingredients') ? styles.titlesViewBorderIng : styles.titlesViewBorderIngOff}>
-                    <Text style={color.active.includes('Ingredients') ? styles.titlesColorWhite : styles.titlesColorBlue}>Ingredients</Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => tabsDisplay('Instructions')}>
-                <View style={color.active.includes('Instructions') ? styles.titlesViewBorderInstOn : styles.titlesViewBorderInst}>
-                    <Text style={color.active.includes('Instructions') ? styles.titlesColorWhite : styles.titlesColorBlue}>Instructions</Text>
-                </View>
-            </TouchableOpacity>
-        </View >
-        <View style={styles.details}>
-      {recipe.ingredients && recipe.ingredients.map( ing => { return <IndividualRecipeIngredients ing={ing} key={ing.name}color={color}/>})}
-         
-         {recipe.steps && recipe.steps.map( (step, index) => {
-            return(
-                <View key={index} style={color.active.includes('Ingredients') ? styles.hidden : styles.stepTextView}>
-                        {/* .split('.')[0] */}
-                    <Text style={styles.stepText}>{step.ordinal}. {step.body}</Text>
-                </View>
-            )
-        })}
-        <View style={{paddingRight:'80%'}}>
-        <Text style={ color.active.includes('Ingredients') ? styles.hidden : styles.notes}>NOTES</Text>
-       </View>
-        <Text style={ color.active.includes('Ingredients') ? styles.hidden :styles.stepTextView}>{recipe.notes}</Text>
-        </View>
+            {/* {console.log('recipe categories', recipe.categories)}  */}
 
-        {/* {console.log('forks in return of <IndivdiualRecipe>', forks)} */}
-                  
-        <FlatList horizontal={true} 
-        data={forks} 
-        renderItem={({item}) => <Version recipe={item} navigation={props.navigation}/>} 
-        keyExtractor={(item) => String(item.id)}
-        />
+            <Text style={styles.tags}>Tags</Text>
+                <TagBox>
+                    {recipe.categories && 
+                    recipe.categories.map( cat => <Text key={cat} style={styles.individualTags}>{capitalize(cat)}</Text>)}
+                    {/* Why do we have to capitalize every category with a function? They already appear to be capitalized.. */}
+                </TagBox>
+                    
+        
+            {userToken && <EditButton navigate={navigateToEdits}/>}
+
+            <RecipeTabs>
+                <Tab text="Ingredients" color={color} toggleTab={tabsDisplay} />
+                <Tab text="Instructions" color={color} toggleTab={tabsDisplay} />
+            </RecipeTabs>
+
+            <Details>
+                {recipe.ingredients && 
+                recipe.ingredients.map(ing => <IndividualRecipeIngredient key={ing.name} ing={ing} color={color}/>)}
+                
+                {recipe.steps && 
+                recipe.steps.map( step => <IndividualRecipeInstruction key={step.ordinal} step={step} color={color} />)}
+
+                <IndividualRecipeNotes color={color} notes={recipe.notes} />
+            </Details>
+
+            <FlatList horizontal={true} 
+            data={forks} 
+            renderItem={({item}) => <Version recipe={item} navigation={props.navigation}/>} 
+            keyExtractor={(item) => String(item.id)}
+            />
 
     </ScrollView>
     );
