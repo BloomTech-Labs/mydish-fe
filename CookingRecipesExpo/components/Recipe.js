@@ -20,9 +20,6 @@ const Recipe = (props) => {
     // console.log('props in <Recipe/>', props.setRecipeList);
     // console.log('cookbook refresh', props.cookbookRefresh);
     const {navigation, cardHeight, imageHeight, recipe, forks} = props;
-    // console.log('forks in <Recipe>', forks);
-
-    // const [forks, setForks] = useState([]);
     let [like, setLike] = useState(recipe.likedByUser);
     let [likeCount, setLikeCount] = useState(recipe.total_saves);
     const [forkCount, setForkCount] = useState(0);
@@ -62,6 +59,11 @@ const Recipe = (props) => {
 
     function getForkCounts() {
         console.log('get the fork counts!');
+        console.log(`recipe.id: ${recipe.id}`);
+        // console.log('forks in <Recipe>', forks);
+        const matches = forks.filter(rec => rec.ancestor === recipe.id);
+        console.log(`matches.length for recipe: ${recipe.title}`, matches.length);
+        setForkCount(matches.length);
     }
 
     const likeIt = async () => {
@@ -114,14 +116,24 @@ const Recipe = (props) => {
 
                 <View style={{flexDirection: 'column', justifyContent: 'center', zIndex: 1, marginRight: 10}}>
                     {userToken && 
-                    <Like onStartShouldSetResponder={likeIt}>
-                        <Image source={like ? solidHeart : clearHeart } style={{width: 30, height: 30}}/>
-                        <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
-                    </Like>}
-                    <Fork>
-                        <Image source={forkLogo} style={{width:30,height:30}} />
-                        <Text style={{color : 'black', fontWeight: 'bold'}}>{String(forkCount)}</Text>
-                    </Fork>
+                    <>
+                        <Like onStartShouldSetResponder={likeIt}>
+                            <Image source={like ? solidHeart : clearHeart } style={{width: 30, height: 30}}/>
+                            <Text style={{color : 'white', fontWeight: 'bold'}}>{String(likeCount)}</Text>
+                        </Like>
+
+                        {forkCount >= 1 &&  
+                        <Fork>
+                            <Image source={forkLogo} style={{width:30,height:30}} />
+                            <Text style={{color : 'black', fontWeight: 'bold'}}>{String(forkCount)}</Text>
+                        </Fork>
+                        }
+                    </>
+                    }
+                    
+
+                   
+
                 </View>
               
                <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipe})}>

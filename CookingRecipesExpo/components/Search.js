@@ -9,7 +9,6 @@ const Search = (props) => {
     let [dish, setDish] = useState('')
     const [recipes, setRecipes] = useState([])
     const [children,setChildren] = useState([]);
-    // let [recipeListRefresh, setRecipeListRefresh] = useState(false);
 
     useEffect(() =>{
         getRecipes();
@@ -20,7 +19,6 @@ const Search = (props) => {
             .then(res => {
                 setRecipes([]); 
                 const allRecipes = res.data;
-                // console.log('allRecipes', allRecipes);
                 allRecipes.forEach(rec => console.log('recipe.ancestor in <Search>,', rec.ancestor))
                 const masterRecipes = allRecipes.filter(rec => !rec.ancestor);
                 const childrenRecipes = allRecipes.filter(rec => rec.ancestor);
@@ -51,7 +49,6 @@ const Search = (props) => {
                     // onBlur={handleBlur}
                     onFocus={focus}
 				/>
-                {/* {console.log('children recipes in <Search>', children)} */}
                 <ScrollView>
                         {recipes.length > 1 && <RecipeList recipes={recipes} forks={children} setRecipes={setRecipes} /> }
                 </ScrollView>

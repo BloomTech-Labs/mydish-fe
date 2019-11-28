@@ -6,7 +6,7 @@ import styles from '../styles/recipe-styles';
 
 function Version(props) {
     const {recipe,navigation} = props;
-    console.log('recipe.id:', recipe.id, 'recipe in <Version>', recipe );
+    // console.log('recipe.id:', recipe.id, 'recipe in <Version>', recipe );
 
 
     return (
