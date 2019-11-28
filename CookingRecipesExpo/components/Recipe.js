@@ -130,10 +130,6 @@ const Recipe = (props) => {
                         }
                     </>
                     }
-                    
-
-                   
-
                 </View>
               
                <TouchableOpacity onPress={() => navigation.navigate('IndividualR', {recipeID: recipe.id, recipe})}>
