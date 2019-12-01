@@ -42,7 +42,7 @@ const Instruction = ({ recipe, setRecipe, index}) => {
         }
     }
     
-    console.log('recipe.steps in the instruction component', recipe.steps)
+    // console.log('recipe.steps in the instruction component', recipe.steps)
 
     return (
         <>

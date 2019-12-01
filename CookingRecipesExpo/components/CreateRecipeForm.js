@@ -10,11 +10,14 @@ import Instruction from './Instruction';
 import TagButton from './TagButton.js';
 import Add from './Add';
 import Notes from './Notes';
+
 import RecipeFormContainer from './StyledComponents/RecipeFormContainer';
-import Done from './StyledComponents/Done'
+import Done from './StyledComponents/Done';
 import DoneButton from './StyledComponents/DoneButton';
 import Heading from './StyledComponents/Heading';
 import TagGroup from './StyledComponents/TagGroup';
+import ImageUpload from './ImageUpload';
+
 
 
 // import add from '../assets/add_circle_32px.png';;
@@ -110,11 +113,15 @@ function CreateRecipeForm(props) {
 
           <RecipeFormContainer>
                 <Heading>Create Recipe</Heading>
+
+                <ImageUpload />
           
                 <View >
                   {errors.map( (err,i) => <Text key={i} style={styles.errors}>{err}</Text>)}
 
                   <RecipeName recipe={recipe} setRecipe={setRecipe} />
+
+                 
 
                   <Heading>Total Cook Time (minutes)</Heading>
                   <TextInput style={styles.totalTimeContainer} placeholder='Time'
@@ -123,6 +130,7 @@ function CreateRecipeForm(props) {
                   />
 
                   <Heading>Course Type</Heading>
+
                   <TagGroup>
                   {courses.map((course,i) => <TagButton key={i} tag={course} recipe={recipe} setRecipe={setRecipe} 
                                                   color={color} setColor={setColor} 
