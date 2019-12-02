@@ -30,7 +30,7 @@ function IndividualRecipe(props) {
         getToken();
         getSingleRecipe();
         getForks();
-        console.log('recipe in useEffect of <IndividualRecipe>', naviRecipe.title);   
+        console.log('recipe in useEffect of <IndividualRecipe>', naviRecipe.title, naviRecipe.id);   
     },[id]);
 
     async function getToken() {  

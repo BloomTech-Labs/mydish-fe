@@ -53,7 +53,7 @@ function CreateRecipeForm(props) {
         recipe.img = pic;
         console.log('recipe inside post of <CreateRecipeForm/> ', recipe);
 
-        const errMessages = validateFields(recipe,courses, edit=false);
+        const errMessages = validateFields(recipe,courses, edit=false, {});
 
         if (errMessages.length) {
           setErrors(errMessages);
