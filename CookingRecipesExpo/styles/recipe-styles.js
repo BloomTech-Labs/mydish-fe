@@ -30,8 +30,8 @@ module.exports = StyleSheet.create({
       marginTop: "3%", 
       fontSize: 13, 
       fontWeight: 'bold', 
-      textAlign: 'left'
-      // width: "30%"
+      textAlign: 'left',
+      width: "80%"
     },
     username : {
       fontSize : 11

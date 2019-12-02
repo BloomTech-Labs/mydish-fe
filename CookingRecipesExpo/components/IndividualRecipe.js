@@ -17,8 +17,6 @@ import RecipeTabs from './StyledComponents/RecipeTabs';
 import Details from './StyledComponents/Details';
 import TagBox from './StyledComponents/TagBox';
 
-
-
 function IndividualRecipe(props) {
     const [recipe, setRecipe] = useState({});
     const naviRecipe = props.navigation.getParam('recipe');

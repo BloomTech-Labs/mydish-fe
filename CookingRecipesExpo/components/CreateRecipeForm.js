@@ -39,15 +39,19 @@ function CreateRecipeForm(props) {
   const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese','Middle-Eastern', 'Other']);
   const [diets,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']); 
-  const [visible, setVisible] = useState({active: false})
-  const [color, setColor] = useState({active:[]})
+  const [visible, setVisible] = useState({active: false});
+  const [color, setColor] = useState({active:[]});
+  const [pic, setPic] = useState(null);
   // let [steps, setSteps] = useState([0]);
   // const [ingList, setIngList] = useState([])
   // const [check, setCheck] =useState(true);
+
+
   
   const postRecipe = async () => {
         
-        console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
+        recipe.img = pic;
+        console.log('recipe inside post of <CreateRecipeForm/> ', recipe);
 
         const errMessages = validateFields(recipe,courses, edit=false);
 
@@ -62,7 +66,7 @@ function CreateRecipeForm(props) {
           console.log('response from post',res.data);
           recipeID = res.data.recipe_id;
           setRecipe(initialFormState)
-          props.navigation.navigate('IndividualR', {recipeID})
+          props.navigation.navigate('IndividualR', {recipe, recipeID})
         } catch(err) {
           console.log('error from adding new recipe', err);
         }
@@ -112,9 +116,9 @@ function CreateRecipeForm(props) {
       <ScrollView>
 
           <RecipeFormContainer>
-                <Heading>Create Recipe</Heading>
+                <Heading fontSize={24}>Create Recipe</Heading>
 
-                <ImageUpload />
+                <ImageUpload recipe={recipe} setRecipe={setRecipe} setPic={setPic} />
           
                 <View >
                   {errors.map( (err,i) => <Text key={i} style={styles.errors}>{err}</Text>)}

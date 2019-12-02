@@ -56,6 +56,7 @@ function EditForm(props) {
         delete recipe.id;
         console.log('posting recipe in <EditForm>: ', recipe);
         // console.log('recipe in post', recipe);
+        // return;
         const errMessages = validateFields(recipe,courses, edit=true);
         console.log('errMessages', errMessages);
 
@@ -71,7 +72,7 @@ function EditForm(props) {
           recipeID = res.data.recipe_id;
           console.log('recipeID in <EditForm> after successful post', recipeID);
           setRecipe(initialFormState);
-          props.navigation.navigate('IndividualR', {recipeID})
+          props.navigation.navigate('IndividualR', {recipe, recipeID})
         } catch(err) {
           console.log('error from adding new recipe', err);
         }
