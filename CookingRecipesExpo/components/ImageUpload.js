@@ -102,7 +102,7 @@ function ImageUpload({setPic}) {
         // setHasCameraPermission(status === "granted");
         getPermissionAsync();
     },[])
-
+    
     async function getPermissionAsync() {
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -113,11 +113,13 @@ function ImageUpload({setPic}) {
     }
 
     async function s3Upload(uri) {
+        console.log('uri in s3Upload', uri);
         const file = {
             uri,
-            name : uri.match(/.{12}.jpg/)[0],
-            type : "image/png"
+            name : uri.match(/.{12}\.(png|jpg|jpeg)$/)[0]
+            // type : `image/${this.name.match(/.{3,4}$/)}`
         };
+        file.type = `image/${file.name.match(/\w{3,4}$/)}`  //sets the filetype to be depending on the type of image.  png/jpg/jpeg
 
         const options = { keyPrefix: "public/", bucket, region, 
         accessKey, secretKey, successActionStatus: 201}
