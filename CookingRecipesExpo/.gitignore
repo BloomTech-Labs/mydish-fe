@@ -9,7 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
-./auth.js
+auth.js
 
 # macOS
 .DS_Store
