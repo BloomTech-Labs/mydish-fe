@@ -1,10 +1,14 @@
 
-export function validateFields(recipe,courses, edit) {
+export function validateFields(recipe,courses, edit, oldRecipe) {
     //recipe.title, recipe.minutes, recipe.ingredients, recipe.steps
     // console.log('recipe in validateFields', recipe);
     console.log('edit in validateFields', edit);
 
     const errs = [];
+
+        if (recipe.title === oldRecipe.title) {
+          errs.push('Forked recipe must not have the same title as the master recipe');
+        }
 
         if (!recipe.title) {
               errs.push('recipe must have a title');

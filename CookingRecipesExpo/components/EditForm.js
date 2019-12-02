@@ -24,8 +24,9 @@ import {validateFields} from '../utils/helperFunctions/vaildateFields';
 
 
 function EditForm(props) {
-  const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed')
- 
+  const recipeToEdit =  props.navigation.getParam('recipe', ' recipe params not passed');
+  console.log('recipetoedit in EditForm', recipeToEdit.id);
+
 
   const initialFormState = {title: '', minutes: '', notes: '', 
   categories: [], ingredients: [], steps: []};  
@@ -46,8 +47,7 @@ function EditForm(props) {
   const postRecipe = async () => {
         
         // console.log('recipeToEdit.id: ', recipeToEdit.id);
-        
-        
+
         
         const instructions = recipe.steps.map(step => step.body);
         recipe.steps = instructions;
@@ -57,7 +57,7 @@ function EditForm(props) {
         console.log('posting recipe in <EditForm>: ', recipe);
         // console.log('recipe in post', recipe);
         // return;
-        const errMessages = validateFields(recipe,courses, edit=true);
+        const errMessages = validateFields(recipe, courses, edit=true, recipeToEdit);
         console.log('errMessages', errMessages);
 
         if (errMessages.length) {
