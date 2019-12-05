@@ -1,5 +1,7 @@
 import React, {useState, useEffect } from 'react';
-import { Text, TextInput, View, Image, AsyncStorage, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, Image,ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import {Header} from 'react-navigation-stack'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from '../styles/createRecipeStyles.js'
 
 import RecipeName from './RecipeName';
@@ -8,11 +10,14 @@ import Instruction from './Instruction';
 import TagButton from './TagButton.js';
 import Add from './Add';
 import Notes from './Notes';
+
 import RecipeFormContainer from './StyledComponents/RecipeFormContainer';
-import Done from './StyledComponents/Done'
+import Done from './StyledComponents/Done';
 import DoneButton from './StyledComponents/DoneButton';
 import Heading from './StyledComponents/Heading';
 import TagGroup from './StyledComponents/TagGroup';
+import ImageUpload from './ImageUpload';
+
 
 
 // import add from '../assets/add_circle_32px.png';;
@@ -34,16 +39,21 @@ function CreateRecipeForm(props) {
   const [cuisines,] = useState(['American','Thai','Chinese','Italian','Mexican','Japanese','Middle-Eastern', 'Other']);
   const [diets,] = useState(['Alcohol-Free','Nut-free','Vegan','Gluten-Free','Vegetarian','Sugar-Free', 'Paleo']);
   const [difficulty,] = useState(['Easy','Intermediate','Difficult']); 
-  const [visible, setVisible] = useState({active: false})
-  const [color, setColor] = useState({active:[]})
+  const [visible, setVisible] = useState({active: false});
+  const [color, setColor] = useState({active:[]});
+  const [pic, setPic] = useState(null);
   // let [steps, setSteps] = useState([0]);
   // const [ingList, setIngList] = useState([])
   // const [check, setCheck] =useState(true);
+
+
   
   const postRecipe = async () => {
         
-        console.log('recipe inside post of <CreateREcipeForm/> ', recipe);
-        const errMessages = validateFields(recipe,courses);
+        recipe.img = pic;
+        console.log('recipe inside post of <CreateRecipeForm/> ', recipe);
+
+        const errMessages = validateFields(recipe,courses, edit=false, {});
 
         if (errMessages.length) {
           setErrors(errMessages);
@@ -54,9 +64,9 @@ function CreateRecipeForm(props) {
         try {
           const res = await axiosAuth.post('https://recipeshare-development.herokuapp.com/recipes', recipe)
           console.log('response from post',res.data);
-          recipeId = res.data.recipe_id;
+          recipeID = res.data.recipe_id;
           setRecipe(initialFormState)
-          props.navigation.navigate('IndividualR', {paramsID: recipeId, status: props.status})
+          props.navigation.navigate('IndividualR', {recipe, recipeID})
         } catch(err) {
           console.log('error from adding new recipe', err);
         }
@@ -73,7 +83,7 @@ function CreateRecipeForm(props) {
     }
 
   const addIngredients = () => {
-
+    
     const IngredientComponents = [];
 
       for (let i=0; i<ingCount; i++) {
@@ -96,6 +106,7 @@ function CreateRecipeForm(props) {
   }
         
   return (  
+     <KeyboardAwareScrollView >
     <View style={visible.active ? styles.createRecipeActive : ''}>  
         
       <Done onPress = {postRecipe}>
@@ -105,12 +116,16 @@ function CreateRecipeForm(props) {
       <ScrollView>
 
           <RecipeFormContainer>
-                <Heading>Create Recipe</Heading>
+                <Heading fontSize={24}>Create Recipe</Heading>
+
+                <ImageUpload recipe={recipe} setRecipe={setRecipe} setPic={setPic} />
           
                 <View >
                   {errors.map( (err,i) => <Text key={i} style={styles.errors}>{err}</Text>)}
 
                   <RecipeName recipe={recipe} setRecipe={setRecipe} />
+
+                 
 
                   <Heading>Total Cook Time (minutes)</Heading>
                   <TextInput style={styles.totalTimeContainer} placeholder='Time'
@@ -119,6 +134,7 @@ function CreateRecipeForm(props) {
                   />
 
                   <Heading>Course Type</Heading>
+
                   <TagGroup>
                   {courses.map((course,i) => <TagButton key={i} tag={course} recipe={recipe} setRecipe={setRecipe} 
                                                   color={color} setColor={setColor} 
@@ -151,6 +167,7 @@ function CreateRecipeForm(props) {
                   </TagGroup>
 
                     <Heading>Ingredients</Heading>
+
                       {addIngredients()}
                       <Add text="Add Ingredient" submit={ingSubmit} />
 
@@ -169,6 +186,7 @@ function CreateRecipeForm(props) {
             </RecipeFormContainer>
     </ScrollView>
   </View>   
+ </KeyboardAwareScrollView>
   )
   
  }

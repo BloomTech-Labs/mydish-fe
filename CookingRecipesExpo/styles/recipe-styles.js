@@ -5,6 +5,10 @@ module.exports = StyleSheet.create({
   //   columnC: 4,
   //   column-gap: 1em,
   // },
+  // paddingBottom: "60%"
+  recipeContainer : {
+    flexDirection: 'row', flexWrap: 'wrap',
+  },
   noRecipes : {
     padding: 20, marginTop: '50%', fontSize: 30, textAlign: 'center'
   },
@@ -27,7 +31,7 @@ module.exports = StyleSheet.create({
       fontSize: 13, 
       fontWeight: 'bold', 
       textAlign: 'left',
-      width: "30%"
+      width: "80%"
     },
     username : {
       fontSize : 11

@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Recipe from './Recipe';
 import {ScrollView, View} from 'react-native';
 import axiosWithAuth from '../utils/axiosWithAuth';
+import styles from '../styles/recipe-styles';
+import RecipeListContainer from './StyledComponents/RecipeListContainer';
 import {LeftHeightAdjustment, RightHeightAdjustment, 
     LeftAdjustImageHeight, RightAdjustImageHeight} from '../utils/helperFunctions/recipeListStyleFunctions';
 
@@ -45,30 +47,33 @@ const RecipeList = (props) => {
         getCookbook();
     },[]);
     
-
+    
     return (
+
         <ScrollView >
-            <View style={{flexDirection: 'row', marginLeft: "4%"}}>
-                <View style={{flexDirection: 'column',width: "39%", marginRight:"10%", paddingBottom: "60%"}}>
-                 {recipes.map( (recp, index) => index%2==0 &&
-                        <Recipe key={recp.id} 
-                                recipe={recp} recipeList={props.recipes} 
-                                setRecipeList={props.setRecipes} imageHeight={LeftAdjustImageHeight()} 
-                                cardHeight={LeftHeightAdjustment()}
+            <RecipeListContainer>
+               
+                 {recipes.map( (recp, index) => <Recipe key={recp.id} 
+                                recipe={recp} recipeList={props.recipes} forks={props.forks}
+                                setRecipeList={props.setRecipes} 
+                                // imageHeight={LeftAdjustImageHeight()} 
+                                // cardHeight={LeftHeightAdjustment()}
                                 courseType={props.courseType}
                         />)
                  }
-                </View>
-                 <View style={{flexDirection: 'column', width: "39%", paddingBottom: "60%"}}>
+
+                 {/* <View style={{flexDirection: 'column', width: "39%", paddingBottom: "60%"}}> */}
+                 {/* <View style={styles.recipeContainer}>
                  {recipes.map( (recp, index) => index%2 ==1 && 
                         <Recipe key={recp.id} 
-                                recipe={recp}  
+                                recipe={recp} recipeList={props.recipes} 
+                                setRecipeList={props.setRecipes} 
                                 imageHeight={RightAdjustImageHeight()} 
                                 cardHeight={RightHeightAdjustment()}
                                 courseType={props.courseType}
                         />)}
-                </View>
-            </View>
+                </View> */}
+            </RecipeListContainer>
          </ScrollView>
     )  
 }

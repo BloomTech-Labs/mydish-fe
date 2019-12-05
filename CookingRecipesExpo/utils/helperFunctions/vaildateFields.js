@@ -1,8 +1,14 @@
 
-export function validateFields(recipe,courses) {
+export function validateFields(recipe,courses, edit, oldRecipe) {
     //recipe.title, recipe.minutes, recipe.ingredients, recipe.steps
-    console.log('recipe in validateFields', recipe);
+    // console.log('recipe in validateFields', recipe);
+    console.log('edit in validateFields', edit);
+
     const errs = [];
+
+        if (recipe.title === oldRecipe.title) {
+          errs.push('Forked recipe must not have the same title as the master recipe');
+        }
 
         if (!recipe.title) {
               errs.push('recipe must have a title');
@@ -26,9 +32,9 @@ export function validateFields(recipe,courses) {
           recipe.categories.includes(type) && courseTypeCount++  //if the courseType has been selected by the user increment a count variable.
         })
 
-        console.log('courseTypeCount', courseTypeCount);
+        // console.log('courseTypeCount', courseTypeCount);
 
-        if (!courseTypeCount) {  // if no course types have been chosen by the user, render the error message
+        if (!courseTypeCount && !edit) {  // if no course types have been chosen by the user, render the error message
           errs.push('recipe must have a Course Type selected ');
         }
 

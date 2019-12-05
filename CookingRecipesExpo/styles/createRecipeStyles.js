@@ -7,7 +7,43 @@ const styles = StyleSheet.create({
     marginBottom: "5%", 
     fontWeight: 'bold'
   },
-                
+  editInstruction : {  
+      height: 76,
+      padding: 10, 
+      borderWidth: 0.8, 
+      borderColor: '#363838',
+      borderRadius: 4,
+      marginLeft: 42,
+       marginBottom: 20,
+       marginRight: 14,
+        marginTop: 10
+    },
+    deleteButtonIngredient: {
+      borderWidth: 0.8, 
+      borderColor: '#363838',
+      borderRadius:50, 
+      width: 24,
+      height: 24,  
+     // marginTop: 14,
+      marginLeft: 14, 
+      alignContent: 'center'
+    },
+deleteRedLine: {
+  borderTopWidth: 0.8, 
+  borderColor: 'red', 
+  width: 15, 
+  marginTop: '50%', 
+  marginLeft: 3.3
+},
+deleteButtonIngredient: {
+  borderWidth: 0.8, 
+  borderColor: '#363838', 
+  borderRadius:50, 
+  width: 24, 
+  height: 24,  
+  marginLeft: 14, 
+  alignContent: 'center'
+},
   tagButtons: {
         borderRadius: 50,
         //width: '30%',

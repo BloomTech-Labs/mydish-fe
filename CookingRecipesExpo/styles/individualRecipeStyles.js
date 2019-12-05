@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
         marginLeft: 14,
         //textAlign: 'center'
     },
-    time: {
+    icon : {width: 20, height: 20, marginRight: 5},
+    innovatorTime: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingRight: 30,
@@ -59,14 +60,18 @@ const styles = StyleSheet.create({
     editButton: {
         width: 25,
         height: 25,
-        marginLeft: 30,
-        marginBottom: 5
+        marginLeft: 5,
+        marginTop: 4.5,
     },
     editButtonView: {
         backgroundColor: '#8FCC70',
         borderRadius: 50,
-        width: 88,
+        width: 48,
+        height: 48,
+        padding: 6,
         marginBottom: 15,
+        marginLeft: 14,
+        marginTop: 15,
     },
     editView: {
         paddingLeft: 300,
@@ -77,16 +82,37 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
-    titlesColorWhite: {
+    showTab : {
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: '#047396',
+        paddingLeft: "16.5%",
+        paddingRight: "16.5%",
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: 'bold',
+    },
+    hideTab : {
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: 'white',
+        paddingLeft: "16.5%",
+        paddingRight: "16.5%",
+        color: '#047396',
+        fontWeight: 'bold'
+    },
+
+    tabTextWhite: {
         textAlign: 'center',
          color: 'white',
          fontWeight: 'bold',
     },
-    titlesColorBlue: {
+    tabTextBlue: {
         textAlign: 'center',
          color: '#047396',
          fontWeight: 'bold'
     },
+
     titlesViewBorderIng:{
         paddingTop: 10,
         paddingBottom: 10,
@@ -158,7 +184,8 @@ const styles = StyleSheet.create({
     },
     hidden: {
         display: 'none'
-    }
+    },
+    placeholder : {width: '100%', height: 345}
 })
 
 module.exports = styles
