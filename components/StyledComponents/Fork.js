@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 const Fork = styled.View`
-    flexdirection: row;
-    justifycontent: flex-end;
+    flexDirection: row;
+    justifyContent: flex-end;
     position: absolute;
     left: 145;
     top: 205;
-    zindex: 1;
+    zIndex: 1;
 `;
 
 export default Fork;

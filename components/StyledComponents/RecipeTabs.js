@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
 export default RecipeTabs = styled.View`
-    flexdirection: row;
-    alignitems: center;
+    flexDirection: row;
+    alignItems: center;
 `;

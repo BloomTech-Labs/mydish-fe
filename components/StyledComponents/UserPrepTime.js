@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const UserPrepTime = styled.View`
-    flexdirection: row;
-    justifycontent: space-between;
+    flexDirection: row;
+    justifyContent: space-between;
     width: 50%;
 `;
 

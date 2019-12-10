@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Innovator = styled.View`
-    flexdirection: row;
+    flexDirection: row;
 `;
 
 export default Innovator;

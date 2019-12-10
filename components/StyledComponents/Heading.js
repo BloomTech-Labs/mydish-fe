@@ -15,11 +15,11 @@ import styled from "styled-components";
 // const font = 16;
 
 const Heading = styled.Text`
-    fontsize: ${props => props.fontSize || 16};
+    fontSize: ${props => props.fontSize || 16};
     color: #363838;
-    margintop: 20;
-    marginbottom: 20;
-    marginleft: 14;
+    marginTop: 20;
+    marginBottom: 20;
+    marginLeft: 14;
 `;
 
 export default Heading;
