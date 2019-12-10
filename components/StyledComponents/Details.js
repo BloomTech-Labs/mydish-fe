@@ -1,8 +1,5 @@
-import styled from 'styled-components'
-
+import styled from "styled-components";
 
 export default Details = styled.View`
-    alignItems : center;
+    alignitems: center;
 `;
-
-

@@ -1,12 +1,11 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 const Done = styled.TouchableOpacity`
-position: relative; 
-alignSelf: flex-end;  
-fontSize: 14; 
-paddingRight: 35; 
-backgroundColor: white;
+    position: relative;
+    alignself: flex-end;
+    fontsize: 14;
+    paddingright: 35;
+    backgroundcolor: white;
 `;
 
 export default Done;

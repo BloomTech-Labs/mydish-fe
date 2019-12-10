@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 const CookTime = styled.View`
-flexDirection : row;
+    flexdirection: row;
 `;
 
 export default CookTime;

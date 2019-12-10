@@ -1,12 +1,11 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 const RecipeFormContainer = styled.View`
-flexDirection: column; 
+    flexdirection: column;
 
-alignItems: center; 
-marginTop: 10;
+    alignitems: center;
+    margintop: 10;
 `;
 
-// padding: 15; 
+// padding: 15;
 export default RecipeFormContainer;

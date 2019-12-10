@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const DoneButton = styled.TouchableOpacity`
-alignItems: flex-end; 
-marginTop: 30;
+    alignitems: flex-end;
+    margintop: 30;
 `;
 
 export default DoneButton;

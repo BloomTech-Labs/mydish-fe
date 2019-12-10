@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const RecipeContainer = styled.View`
-width: 50%;
-paddingLeft: 5;
-paddingRight: 5;
-paddingTop: 5;
-paddingBottom: 5;
+    width: 50%;
+    paddingleft: 5;
+    paddingright: 5;
+    paddingtop: 5;
+    paddingbottom: 5;
 `;
 
 // borderWidth: 1;
