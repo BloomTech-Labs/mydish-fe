@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import styles from '../styles/individualRecipeStyles';
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import styles from "../styles/individualRecipeStyles";
 
-
-function TabIngredients({text, toggleTab, color}) {
+function TabIngredients({ text, toggleTab, color }) {
     // const [color, setColor] = useState({active: text})
-    console.log('Tab rendered', text);
+    console.log("Tab rendered", text);
 
     // const tabsDisplay = cat => {
     //     console.log('category in tabsDisplay', cat);
@@ -14,12 +13,25 @@ function TabIngredients({text, toggleTab, color}) {
 
     return (
         <TouchableOpacity onPress={() => toggleTab(text)}>
-                <View style={color.active.includes(text) ? styles.titlesViewBorderIng : styles.titlesViewBorderIngOff}>
-                    <Text style={color.active.includes(text) ? styles.titlesColorWhite : styles.titlesColorBlue}>{text}</Text>
-                </View>
+            <View
+                style={
+                    color.active.includes(text)
+                        ? styles.titlesViewBorderIng
+                        : styles.titlesViewBorderIngOff
+                }
+            >
+                <Text
+                    style={
+                        color.active.includes(text)
+                            ? styles.titlesColorWhite
+                            : styles.titlesColorBlue
+                    }
+                >
+                    {text}
+                </Text>
+            </View>
         </TouchableOpacity>
-    )
-
+    );
 }
 
 export default TabIngredients;
