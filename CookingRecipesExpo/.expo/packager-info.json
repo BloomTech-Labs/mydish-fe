@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19003,
-  "packagerPid": 51864,
-  "expoServerNgrokUrl": "https://yu-x54.anonymous.cookingrecipesexpo.exp.direct",
-  "packagerNgrokUrl": "https://packager.yu-x54.anonymous.cookingrecipesexpo.exp.direct",
-  "ngrokPid": 51885
+  "packagerPort": 19001,
+  "packagerPid": 19492,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

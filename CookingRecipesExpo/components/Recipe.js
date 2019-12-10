@@ -17,6 +17,8 @@ import forkLogo from '../assets/background.png';
 
 
 const Recipe = (props) => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
     // console.log('props in <Recipe/>', props.setRecipeList);
     // console.log('cookbook refresh', props.cookbookRefresh);
     const {navigation, cardHeight, imageHeight, recipe, forks} = props;
@@ -40,12 +42,13 @@ const Recipe = (props) => {
 
     const getRecipe = async () => {
         try {
-            const res =  await axios.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`);
-            let {categories} = res.data;
-            categories = categories.filter(cat => cat === 'Breakfast' || cat === 'Brunch' || cat === 'Lunch' || 
-                                            cat === 'Dinner' || cat === 'Dessert' || cat === 'Snack');
-            setCategories(categories);
+            const res =  await axios.get(`https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`, {cancelToken: source.token});
+                let {categories} = res.data;
+                categories = categories.filter(cat => cat === 'Breakfast' || cat === 'Brunch' || cat === 'Lunch' || 
+                                                cat === 'Dinner' || cat === 'Dessert' || cat === 'Snack');
+                setCategories(categories);
         } catch(err) {
+            if (axios.isCancel(err)) console.log("We cancelled the single.")
             console.log('error in getting recipe by id', recipe.id);
         }
     }
@@ -55,6 +58,10 @@ const Recipe = (props) => {
         getRecipe()
         getToken();
         getForkCounts();
+        return () => {
+            console.log("Single closing")
+            source.cancel()
+        }
     },[like,likeCount])
 
     function getForkCounts() {

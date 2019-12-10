@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import axios from "axios";
 import Recipe from './Recipe';
 import {ScrollView, View} from 'react-native';
 import axiosWithAuth from '../utils/axiosWithAuth';
@@ -8,6 +9,9 @@ import {LeftHeightAdjustment, RightHeightAdjustment,
     LeftAdjustImageHeight, RightAdjustImageHeight} from '../utils/helperFunctions/recipeListStyleFunctions';
 
 const RecipeList = (props) => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
     let recipeList= props.recipes;
 
     const [recipes, setRecipes] = useState([]); //namespace collision with the recipes in <Search/>
@@ -33,11 +37,12 @@ const RecipeList = (props) => {
     const getCookbook = async () => {
         try{
             const axiosAuth = await axiosWithAuth();
-            const res = await axiosAuth.get(cookbookURL);
-            setCookbook(res.data);
-            likedByUser(res.data);
+            const res = await axiosAuth.get(cookbookURL, {cancelToken: source.token});
+                setCookbook(res.data);
+                likedByUser(res.data);
 
         }catch(err){
+            if (axios.isCancel(err)) console.log("We cancelled the list.")
             setRecipes(recipeList)
         }
         
@@ -45,7 +50,11 @@ const RecipeList = (props) => {
     
     useEffect(() =>{
         getCookbook();
-    },[]);
+        return () => {
+            console.log("List closing")
+            source.cancel()
+        }
+    },[props.recipes]);
     
     
     return (

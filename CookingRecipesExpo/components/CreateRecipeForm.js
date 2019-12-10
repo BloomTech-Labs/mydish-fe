@@ -16,7 +16,7 @@ import Done from './StyledComponents/Done';
 import DoneButton from './StyledComponents/DoneButton';
 import Heading from './StyledComponents/Heading';
 import TagGroup from './StyledComponents/TagGroup';
-import ImageUpload from './ImageUpload';
+// import ImageUpload from './ImageUpload';
 
 
 
@@ -118,7 +118,7 @@ function CreateRecipeForm(props) {
           <RecipeFormContainer>
                 <Heading fontSize={24}>Create Recipe</Heading>
 
-                <ImageUpload recipe={recipe} setRecipe={setRecipe} setPic={setPic} />
+                {/* <ImageUpload recipe={recipe} setRecipe={setRecipe} setPic={setPic} /> */}
           
                 <View >
                   {errors.map( (err,i) => <Text key={i} style={styles.errors}>{err}</Text>)}
