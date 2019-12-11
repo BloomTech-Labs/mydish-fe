@@ -10,7 +10,7 @@ npm-debug.*
 web-build/
 web-report/
 auth.js
-# .env
+.env
 .vscode
 
 # macOS
