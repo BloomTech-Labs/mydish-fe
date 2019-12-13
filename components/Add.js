@@ -4,8 +4,8 @@ import add from "../assets/add_circle_32px.png";
 import styled from "styled-components";
 
 const Step = styled.View`
-    flexdirection: row;
-    margintop: 20;
+    flexDirection: row;
+    marginTop: 20;
 `;
 
 const Add = props => {
