@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    AsyncStorage,
-    Image,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -14,8 +7,8 @@ import { loginUser } from "../store/auth/authActions";
 import styles from "../styles/loginStyles.js";
 import logo from "../assets/LogoGreen.png";
 
-const Login = props => {
-    const [login, SetLogin] = useState({ username: "", password: "" });
+const Login = ({ navigation }) => {
+    const [login, setLogin] = useState({ username: "", password: "" });
     const errorMsg = useSelector(state => state.auth.error);
     const dispatch = useDispatch();
 
@@ -23,16 +16,14 @@ const Login = props => {
         const success = await dispatch(loginUser(login));
 
         if (success) {
-            props.navigation.navigate("App");
+            navigation.navigate("App");
         }
     };
 
     return (
         <KeyboardAwareScrollView>
             <View style={styles.signUp}>
-                <TouchableOpacity
-                    onPress={() => props.navigation.navigate("Home")}
-                >
+                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                     <Text style={styles.exitButton}>x</Text>
                 </TouchableOpacity>
 
@@ -62,7 +53,7 @@ const Login = props => {
                     name="username"
                     value={login.username}
                     onChangeText={event =>
-                        SetLogin({ ...login, username: event })
+                        setLogin({ ...login, username: event })
                     }
                 />
                 <Text style={styles.passwordText}>Password</Text>
@@ -71,7 +62,7 @@ const Login = props => {
                     name="password"
                     value={login.password}
                     onChangeText={event =>
-                        SetLogin({ ...login, password: event })
+                        setLogin({ ...login, password: event })
                     }
                     secureTextEntry={true}
                 />
@@ -83,11 +74,7 @@ const Login = props => {
 
                 <TouchableOpacity
                     onPress={() => {
-                        console.log(
-                            "props.navigation create an account button press in <Login>:",
-                            props.navigation.state.routeName,
-                        );
-                        props.navigation.navigate("Signup");
+                        navigation.navigate("Signup");
                     }}
                 >
                     <Text style={styles.createAccountButton}>
@@ -101,8 +88,6 @@ const Login = props => {
                         style={styles.loginButton}
                     >
                         <Text style={styles.loginButtonText}>Login</Text>
-                        {/* <MyCookBook props={toke} style={{display: 'none'}}/> */}
-                        {/* <AxiosWithAuth token={toke}/> */}
                     </TouchableOpacity>
                 </View>
             </View>
