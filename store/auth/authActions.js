@@ -1,20 +1,27 @@
 import axios from "axios";
+import { AsyncStorage } from "react-native";
 
 export const START_LOGIN = "START_LOGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
-export const loginUser = (username, password) => async dispatch => {
+export const loginUser = userInfo => async dispatch => {
     dispatch({ type: START_LOGIN });
+    let success = false;
+
     try {
         const res = await axios.post(
             "https://recipeshare-development.herokuapp.com/cooks/login",
-            login,
+            userInfo,
         );
 
-        AsyncStorage.setItem("userToken", res.data.toekn);
-        //navigate to App
+        AsyncStorage.setItem("userToken", res.data.token);
+        dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+
+        success = true;
     } catch (err) {
-        dispatch((type: LOGIN_FAILURE), (payload: err));
+        dispatch({ type: LOGIN_FAILURE, payload: err.response.data.message });
+    } finally {
+        return success;
     }
 };
 

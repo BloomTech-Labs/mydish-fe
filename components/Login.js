@@ -7,30 +7,24 @@ import {
     AsyncStorage,
     Image,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { loginUser } from "../store/auth/authActions";
 import styles from "../styles/loginStyles.js";
 import logo from "../assets/LogoGreen.png";
 
 const Login = props => {
     const [login, SetLogin] = useState({ username: "", password: "" });
-    const [toke, setTok] = useState();
+    const errorMsg = useSelector(state => state.auth.error);
+    const dispatch = useDispatch();
 
-    const signInAsync = async tok => {
-        await AsyncStorage.setItem("userToken", tok);
-        props.navigation.navigate("App");
-    };
+    const onPress = async () => {
+        const success = await dispatch(loginUser(login));
 
-    const onPress = () => {
-        axios
-            .post(
-                "https://recipeshare-development.herokuapp.com/cooks/login",
-                login,
-            )
-            .then(res => {
-                signInAsync(res.data.token);
-            })
-            .catch(err => setTok(err));
+        if (success) {
+            props.navigation.navigate("App");
+        }
     };
 
     return (
@@ -81,9 +75,9 @@ const Login = props => {
                     }
                     secureTextEntry={true}
                 />
-                {toke != null && (
+                {errorMsg != null && (
                     <Text style={{ color: "red", marginLeft: 100 }}>
-                        Incorrect Username or Password
+                        {errorMsg}
                     </Text>
                 )}
 
