@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 
 import { authReducer as auth } from "./auth/authReducer";
-import { recipeReducer as allRecipes } from "./auth/recipeReducer";
+import { recipeReducer as allRecipes } from "./recipes/recipeReducer";
 
 const rootReducer = combineReducers({ auth, allRecipes });
 
