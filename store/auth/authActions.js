@@ -28,7 +28,29 @@ export const loginUser = userInfo => async dispatch => {
 export const START_REGISTER = "START_REGISTER";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAILURE = "REGISTER_FAILURE";
-export const registerUser = registerUser => dispatch => {};
+export const registerUser = userInfo => async dispatch => {
+    dispatch({ type: START_REGISTER });
+    let success = false;
+
+    try {
+        const res = await axios.post(
+            "https://recipeshare-development.herokuapp.com/cooks/register",
+            userInfo,
+        );
+
+        AsyncStorage.setItem("userToken", res.data.token);
+        dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+
+        success = true;
+    } catch (err) {
+        dispatch({
+            type: REGISTER_FAILURE,
+            payload: err.response.data.message,
+        });
+    } finally {
+        return success;
+    }
+};
 
 export const START_LOGOUT = "START_LOGOUT";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
