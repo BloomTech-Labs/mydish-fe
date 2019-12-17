@@ -25,6 +25,8 @@ import RecipeTabs from "./StyledComponents/RecipeTabs";
 import Details from "./StyledComponents/Details";
 import TagBox from "./StyledComponents/TagBox";
 
+import Title from "./EditRecipeComponents/Title";
+
 function IndividualRecipe(props) {
     const [recipe, setRecipe] = useState({});
     const [userToken, setUserToken] = useState(null);
@@ -62,9 +64,7 @@ function IndividualRecipe(props) {
                 `https://recipeshare-development.herokuapp.com/recipes/all`,
             );
             const allRecipes = res.data;
-            const children = allRecipes.filter(
-                rec => rec.ancestor === id,
-            );
+            const children = allRecipes.filter(rec => rec.ancestor === id);
             setForks(children);
         } catch (err) {
             console.log(err);
@@ -92,7 +92,8 @@ function IndividualRecipe(props) {
                 style={styles.placeholder}
             />
 
-            <Text style={styles.title}>{recipe.title}</Text>
+            {/* <Text style={styles.title}>{recipe.title}</Text> */}
+            <Title title={recipe.title} />
 
             <View style={styles.innovatorTime}>
                 <Innovator>
