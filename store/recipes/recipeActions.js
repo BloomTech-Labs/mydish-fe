@@ -13,5 +13,5 @@ export const fetchRecipes = searchQuery => dispatch => {
         .then(res => {
             dispatch({ type: FETCH_RECIPES_SUCCESS, payload: res.data });
         })
-        .catch(err => dispatch({ type: FETCH_RECIPES_SUCCESS, payload: err }));
+        .catch(err => dispatch({ type: FETCH_RECIPES_FAILURE, payload: err }));
 };
