@@ -1,20 +1,24 @@
 import React from "react";
 import Search from "./Search.js";
 
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, ScrollView, View } from "react-native";
+import RecipeShareLogo from "./RecipeShareLogo.js";
+import RecipeList from "./RecipeList.js";
 
-const HomePage = props => {
-    React.useEffect(() => {
-        // console.log('props in HomePage', props.navigation);
-    }, []);
-
+const HomePage = () => {
     return (
         <SafeAreaView>
-            <Search />
+            <View style={{ height: "100%" }}>
+                <RecipeShareLogo />
+
+                <Search />
+
+                <ScrollView>
+                    <RecipeList />
+                </ScrollView>
+            </View>
         </SafeAreaView>
     );
 };
-
-//capitalize H in homePage
 
 export default HomePage;
