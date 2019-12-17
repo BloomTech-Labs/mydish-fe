@@ -1,44 +1,28 @@
 import React, { useState, useEffect } from "react";
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    AsyncStorage,
-    Image,
-} from "react-native";
-import axios from "axios";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { loginUser } from "../store/auth/authActions";
 import styles from "../styles/loginStyles.js";
 import logo from "../assets/LogoGreen.png";
 
-const Login = props => {
-    const [login, SetLogin] = useState({ username: "", password: "" });
-    const [toke, setTok] = useState();
+const Login = ({ navigation }) => {
+    const [login, setLogin] = useState({ username: "", password: "" });
+    const errorMsg = useSelector(state => state.auth.error);
+    const dispatch = useDispatch();
 
-    const signInAsync = async tok => {
-        await AsyncStorage.setItem("userToken", tok);
-        props.navigation.navigate("App");
-    };
+    const onPress = async () => {
+        const success = await dispatch(loginUser(login));
 
-    const onPress = () => {
-        axios
-            .post(
-                "https://recipeshare-development.herokuapp.com/cooks/login",
-                login,
-            )
-            .then(res => {
-                signInAsync(res.data.token);
-            })
-            .catch(err => setTok(err));
+        if (success) {
+            navigation.navigate("App");
+        }
     };
 
     return (
         <KeyboardAwareScrollView>
             <View style={styles.signUp}>
-                <TouchableOpacity
-                    onPress={() => props.navigation.navigate("Home")}
-                >
+                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                     <Text style={styles.exitButton}>x</Text>
                 </TouchableOpacity>
 
@@ -68,7 +52,7 @@ const Login = props => {
                     name="username"
                     value={login.username}
                     onChangeText={event =>
-                        SetLogin({ ...login, username: event })
+                        setLogin({ ...login, username: event })
                     }
                 />
                 <Text style={styles.passwordText}>Password</Text>
@@ -77,23 +61,19 @@ const Login = props => {
                     name="password"
                     value={login.password}
                     onChangeText={event =>
-                        SetLogin({ ...login, password: event })
+                        setLogin({ ...login, password: event })
                     }
                     secureTextEntry={true}
                 />
-                {toke != null && (
+                {errorMsg != null && (
                     <Text style={{ color: "red", marginLeft: 100 }}>
-                        Incorrect Username or Password
+                        {errorMsg}
                     </Text>
                 )}
 
                 <TouchableOpacity
                     onPress={() => {
-                        console.log(
-                            "props.navigation create an account button press in <Login>:",
-                            props.navigation.state.routeName,
-                        );
-                        props.navigation.navigate("Signup");
+                        navigation.navigate("Signup");
                     }}
                 >
                     <Text style={styles.createAccountButton}>
@@ -107,8 +87,6 @@ const Login = props => {
                         style={styles.loginButton}
                     >
                         <Text style={styles.loginButtonText}>Login</Text>
-                        {/* <MyCookBook props={toke} style={{display: 'none'}}/> */}
-                        {/* <AxiosWithAuth token={toke}/> */}
                     </TouchableOpacity>
                 </View>
             </View>

@@ -7,37 +7,28 @@ import {
     KeyboardAwareScrollView,
     Image,
 } from "react-native";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../store/auth/authActions";
 import styles from "../styles/signUpStyles.js";
 import logo from "../assets/LogoGreen.png";
 
-function SignUp(props) {
-    const [signUp, SetSignUp] = useState({ username: "", password: "" });
-    const [err, setErr] = useState();
-
-    console.log(
-        "props.navigation in <SignUp>",
-        props.navigation.state.routeName,
-    );
-
-    // console.log(signUp)
+const SignUp = ({ navigation }) => {
+    const [signUp, setSignUp] = useState({ username: "", password: "" });
+    const errorMsg = useSelector(state => state.auth.error);
+    const dispatch = useDispatch();
 
     const onPress = async () => {
-        await axios
-            .post(
-                "https://recipeshare-development.herokuapp.com/cooks/register",
-                signUp,
-            )
-            .then(res => console.log("response from sign up axios post", res))
-            .catch(err => setErr(err));
+        const success = await dispatch(registerUser(signUp));
 
-        props.navigation.navigate("Login");
+        if (success) {
+            navigation.navigate("App");
+        }
     };
 
     return (
         // <KeyboardAwareScrollView>
         <View style={styles.signUp}>
-            <TouchableOpacity onPress={() => props.navigation.navigate("Home")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                 <Text style={styles.exitButton}>x</Text>
             </TouchableOpacity>
 
@@ -59,10 +50,10 @@ function SignUp(props) {
                 style={styles.inputFeilds}
                 value={signUp.username}
                 onChangeText={event =>
-                    SetSignUp({ ...signUp, username: event })
+                    setSignUp({ ...signUp, username: event })
                 }
             />
-            {err != null && (
+            {errorMsg != null && (
                 <Text style={{ marginLeft: 150, color: "red" }}>
                     Username already exists
                 </Text>
@@ -72,7 +63,7 @@ function SignUp(props) {
                 style={styles.inputFeilds}
                 value={signUp.password}
                 onChangeText={event =>
-                    SetSignUp({ ...signUp, password: event })
+                    setSignUp({ ...signUp, password: event })
                 }
                 secureTextEntry={true}
             />
@@ -88,6 +79,6 @@ function SignUp(props) {
         </View>
         // </KeyboardAwareScrollView>
     );
-}
+};
 
 export default SignUp;
