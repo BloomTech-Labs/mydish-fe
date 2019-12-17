@@ -1,7 +1,7 @@
 import {
-    START_COOKBOOK_RECIPES,
-    COOKBOOK_RECIPES_SUCCESS,
-    COOKBOOK_RECIPES_FAILURE,
+    START_FETCH_COOKBOOK,
+    FETCH_COOKBOOK_SUCCESS,
+    FETCH_COOKBOOK_FAILURE,
 } from "./cookbookAction";
 
 const initState = {
@@ -12,19 +12,19 @@ const initState = {
 
 export const cookbookReducer = (state = initState, action) => {
     switch (action.type) {
-        case START_COOKBOOK_RECIPES:
+        case START_FETCH_COOKBOOK:
             return {
                 ...state,
                 isLoading: true,
                 error: null,
             };
-        case COOKBOOK_RECIPES_SUCCESS:
+        case FETCH_COOKBOOK_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 cookbookRecipes: action.payload,
             };
-        case COOKBOOK_RECIPES_FAILURE:
+        case FETCH_COOKBOOK_FAILURE:
             return {
                 ...state,
                 isLoading: false,
