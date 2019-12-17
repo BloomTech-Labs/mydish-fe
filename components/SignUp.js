@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../store/auth/authActions";
-import axios from "axios";
 import styles from "../styles/signUpStyles.js";
 import logo from "../assets/LogoGreen.png";
 

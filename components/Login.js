@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser } from "../store/auth/authActions";
 import styles from "../styles/loginStyles.js";
