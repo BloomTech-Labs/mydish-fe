@@ -22,24 +22,13 @@ import placeholder from "../assets/recipe-image-placeholder.png";
 import forkLogo from "../assets/background.png";
 
 const Recipe = props => {
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();
-    // console.log('props in <Recipe/>', props.setRecipeList);
-    // console.log('cookbook refresh', props.cookbookRefresh);
-    const { navigation, cardHeight, imageHeight, recipe, forks } = props;
+    const { navigation, recipe } = props;
     let [like, setLike] = useState(recipe.likedByUser);
     let [likeCount, setLikeCount] = useState(recipe.total_saves);
-    const [forkCount, setForkCount] = useState(0);
     let [userToken, setUserToken] = useState(null);
     let [addModal, setAddModal] = useState(false);
     const [removeModal, setRemoveModal] = useState(false);
     const [categories, setCategories] = useState([]);
-    const stylePlaceholder = {
-        width: "50%",
-        height: imageHeight,
-        borderRadius: 3,
-        paddingRight: 20,
-    };
 
     const getToken = async () => {
         const token = await AsyncStorage.getItem("userToken");
@@ -54,7 +43,6 @@ const Recipe = props => {
         try {
             const res = await axios.get(
                 `https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`,
-                { cancelToken: source.token },
             );
             let { categories } = res.data;
             categories = categories.filter(
@@ -68,7 +56,6 @@ const Recipe = props => {
             );
             setCategories(categories);
         } catch (err) {
-            if (axios.isCancel(err)) console.log("We cancelled the single.");
             console.log("error in getting recipe by id", recipe.id);
         }
     };
@@ -76,22 +63,9 @@ const Recipe = props => {
     useEffect(() => {
         getRecipe();
         getToken();
-        getForkCounts();
-        return () => {
-            console.log("Single closing");
-            source.cancel();
-        };
     }, [like, likeCount]);
 
-    function getForkCounts() {
-        // console.log('get the fork counts!');
-        // console.log(`recipe.id: ${recipe.id}`);
-        // console.log('forks in <Recipe>', forks);
-        const matches = forks.filter(rec => rec.ancestor === recipe.id);
-        // console.log(`matches.length for recipe: ${recipe.title}`, matches.length);
-        setForkCount(matches.length);
-    }
-
+    // TODO: Make this an action
     const likeIt = async () => {
         let liked = !like; //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
 
@@ -163,7 +137,10 @@ const Recipe = props => {
             >
                 {userToken && (
                     <>
-                        <Like onStartShouldSetResponder={likeIt}>
+                        <Like
+                            onPress={likeIt}
+                            onStartShouldSetResponder={likeIt}
+                        >
                             <Image
                                 source={like ? solidHeart : clearHeart}
                                 style={{ width: 30, height: 30 }}
@@ -174,6 +151,10 @@ const Recipe = props => {
                                 {String(likeCount)}
                             </Text>
                         </Like>
+                        {/* TODO: 
+                            If the backend can send recipes with a forkCount, 
+                            we can use this section of code.
+                            If not, we can just delete it.
 
                         {forkCount >= 1 && (
                             <Fork>
@@ -190,7 +171,7 @@ const Recipe = props => {
                                     {String(forkCount)}
                                 </Text>
                             </Fork>
-                        )}
+                        )} */}
                     </>
                 )}
             </View>
