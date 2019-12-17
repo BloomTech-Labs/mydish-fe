@@ -1,17 +1,20 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import MainNavigator from "./MainNavigator";
 import AuthNavigator from "./AuthNavigator";
-import AuthLoadingScreen from "./AuthLoadingScreen";
+import { AsyncStorage } from "react-native";
 
-const Navigation = createSwitchNavigator(
+const Navigation = tokenBool => createSwitchNavigator(
     {
-        AuthLoading: AuthLoadingScreen,
         App: MainNavigator,
         Auth: AuthNavigator,
     },
-    { initialRouteName: "AuthLoading" },
+    { initialRouteName: tokenBool ? "App" : "Auth" },
 );
 
-const AppContainer = createAppContainer(Navigation);
+const checkToken = async () => {
+    return await AsyncStorage.getItem("userToken");
+};
+
+const AppContainer = createAppContainer(Navigation(checkToken()));
 
 export default AppContainer;
