@@ -27,8 +27,6 @@ import TagBox from "./StyledComponents/TagBox";
 
 function IndividualRecipe(props) {
     const [recipe, setRecipe] = useState({});
-    const naviRecipe = props.navigation.getParam("recipe");
-    // console.log('recipe from navigation', naviRecipe.title);
     const [userToken, setUserToken] = useState(null);
     const [color, setColor] = useState({ active: "Ingredients" });
     const id = props.navigation.getParam("recipeID", "params not passed");
@@ -38,11 +36,7 @@ function IndividualRecipe(props) {
         getToken();
         getSingleRecipe();
         getForks();
-        console.log(
-            "recipe in useEffect of <IndividualRecipe>",
-            naviRecipe.title,
-            naviRecipe.id,
-        );
+        console.log("recipe id of <IndividualRecipe>", id);
     }, [id]);
 
     async function getToken() {
@@ -69,7 +63,7 @@ function IndividualRecipe(props) {
             );
             const allRecipes = res.data;
             const children = allRecipes.filter(
-                rec => rec.ancestor === naviRecipe.id,
+                rec => rec.ancestor === id,
             );
             setForks(children);
         } catch (err) {

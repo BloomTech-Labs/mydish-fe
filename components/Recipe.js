@@ -199,7 +199,6 @@ const Recipe = props => {
                 onPress={() =>
                     navigation.navigate("IndividualR", {
                         recipeID: recipe.id,
-                        recipe,
                     })
                 }
             >
