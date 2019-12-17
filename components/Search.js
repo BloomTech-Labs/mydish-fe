@@ -1,18 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-    View,
-    TouchableOpacity,
-    TextInput,
-    Button,
-    StyleSheet,
-    Text,
-    ScrollView,
-    Image,
-} from "react-native";
-import logo from "../assets/LogoGreen.png";
-import RecipeList from "./RecipeList.js";
-// import RecipeShareLogo from './StyledComponents/RecipeShareLogo';
-import RecipeShareLogo from "./RecipeShareLogo";
+import { TextInput } from "react-native";
 import styles from "../styles/search.styles";
 import { useDispatch } from "react-redux";
 import { fetchRecipes } from "../store/recipes/recipeActions";
