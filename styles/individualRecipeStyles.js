@@ -1,16 +1,16 @@
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         color: '#363838',
-        fontWeight: 'bold', 
+        fontWeight: 'bold',
         marginTop: 5,
         marginBottom: 12,
         marginLeft: 14,
         //textAlign: 'center'
     },
-    icon : {width: 20, height: 20, marginRight: 5},
+    icon: { width: 20, height: 20, marginRight: 5 },
     innovatorTime: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
-    showTab : {
+    showTab: {
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: '#047396',
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
     },
-    hideTab : {
+    hideTab: {
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: 'white',
@@ -104,16 +104,16 @@ const styles = StyleSheet.create({
 
     tabTextWhite: {
         textAlign: 'center',
-         color: 'white',
-         fontWeight: 'bold',
+        color: 'white',
+        fontWeight: 'bold',
     },
     tabTextBlue: {
         textAlign: 'center',
-         color: '#047396',
-         fontWeight: 'bold'
+        color: '#047396',
+        fontWeight: 'bold'
     },
 
-    titlesViewBorderIng:{
+    titlesViewBorderIng: {
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: '#047396',
@@ -122,20 +122,20 @@ const styles = StyleSheet.create({
         //width: '100%',
         //marginRight: '30%'
     },
-    titlesViewBorderIngOff:{
+    titlesViewBorderIngOff: {
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: 'white',
         paddingLeft: "16.5%",
         paddingRight: "16.5%"
     },
-    titlesViewBorderInst:{
+    titlesViewBorderInst: {
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: "16.5%",
         paddingRight: "16.5%"
     },
-    titlesViewBorderInstOn:{
+    titlesViewBorderInstOn: {
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: "16.5%",
@@ -143,49 +143,99 @@ const styles = StyleSheet.create({
         backgroundColor: '#047396',
     },
     ingredientList: {
-      backgroundColor: '#F4F8FA',
-      paddingTop: 9,
-      paddingBottom: 9,
-      marginTop: 10,
-      marginBottom: 20,
-      flexDirection: 'row-reverse',
-      justifyContent: 'space-around',
-      paddingRight: 10,
-      marginLeft: 14,
-      marginRight: 14
+        backgroundColor: '#F4F8FA',
+        paddingTop: 9,
+        paddingBottom: 9,
+        marginTop: 10,
+        marginBottom: 20,
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-around',
+        paddingRight: 10,
+        marginLeft: 14,
+        marginRight: 14,
+        borderColor: "blue"
     },
     ingredientText: {
-        color: '#1E1F20' ,
+        color: '#1E1F20',
         fontSize: 16,
     },
     ingredientView: {
-        width: '50%'
+        width: '50%',
+        // height: 50,
+
+        // borderColor: "blue",
+        // borderWidth: 1,
+
     },
     stepText: {
-        color: '#1E1F20' ,
+        color: '#1E1F20',
         fontSize: 16,
-    }, 
-    stepTextView: {
-      backgroundColor: '#F4F8FA',
-      paddingLeft: 5,
-      paddingTop: 9,
-      paddingBottom: 9,
-      marginTop: 10,
-      marginBottom: 20,
-      width: "90%"
     },
-    details:{
+    stepTextView: {
+        backgroundColor: '#F4F8FA',
+        paddingLeft: 5,
+        paddingTop: 9,
+        paddingBottom: 9,
+        marginTop: 10,
+        marginBottom: 20,
+        width: "90%"
+    },
+    details: {
         alignItems: 'center'
     },
     notes: {
-       marginLeft: 14,
+        marginLeft: 14,
         fontSize: 14,
-       fontWeight: '500'
+        fontWeight: '500'
     },
     hidden: {
-        display: 'none'
+        display: 'none',
     },
-    placeholder : {width: '100%', height: 345}
+    placeholder: { width: '100%', height: 345 },
+    editButton: {
+        backgroundColor: "#76A21E",
+        padding: 5,
+        alignItems: "center",
+        justifyContent: "center",
+        width: 60,
+        height: 30
+
+
+    },
+    deleteButton: {
+        backgroundColor: "#C00000",
+        padding: 5,
+        alignItems: "center",
+        justifyContent: "center",
+        width: 60,
+        height: 30
+    },
+
+    titleContainer: {
+        backgroundColor: "white",
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        alignItems: 'center'
+
+    },
+    input: {
+        borderBottomColor: "black",
+        borderBottomWidth: 1,
+        width: '100%',
+        height: 40
+    },
+    ingredientContainer: {
+        width: '100%',
+        height: 40
+
+    },
+    swipeableContainer: {
+        width: '100%',
+        // borderColor: "pink",
+        // borderWidth: 2,
+
+    }
 })
 
 module.exports = styles

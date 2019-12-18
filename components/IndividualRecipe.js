@@ -13,7 +13,7 @@ import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
-import IndividualRecipeIngredient from "./IndividualRecipeIngredient";
+import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
 import IndividualRecipeInstruction from "./IndividualRecipeInstruction";
 import IndividualRecipeNotes from "./IndividualRecipeNotes";
 import EditButton from "./EditButton";
@@ -141,6 +141,7 @@ function IndividualRecipe(props) {
                                 key={ing.name}
                                 ing={ing}
                                 color={color}
+                                mainEditing={mainEditing} setMainEditing={setMainEditing}
                             />
                         ))}
 
