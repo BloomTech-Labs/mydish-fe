@@ -50,6 +50,7 @@ const Login = ({ navigation }) => {
                 <TextInput
                     style={styles.inputFeilds}
                     name="username"
+                    testID="username"
                     value={login.username}
                     onChangeText={event =>
                         setLogin({ ...login, username: event })
@@ -59,6 +60,7 @@ const Login = ({ navigation }) => {
                 <TextInput
                     style={styles.inputFeilds}
                     name="password"
+                    testID="password"
                     value={login.password}
                     onChangeText={event =>
                         setLogin({ ...login, password: event })

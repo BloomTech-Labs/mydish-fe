@@ -154,6 +154,7 @@ exports[`login snapshot 1`] = `
             "paddingLeft": 3,
           }
         }
+        testID="username"
         underlineColorAndroid="transparent"
         value=""
       />
@@ -187,6 +188,7 @@ exports[`login snapshot 1`] = `
             "paddingLeft": 3,
           }
         }
+        testID="password"
         underlineColorAndroid="transparent"
         value=""
       />
