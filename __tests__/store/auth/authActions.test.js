@@ -8,6 +8,7 @@ describe("LoginUser action creator", () => {
         //     we can instead check for our dispatch
         //     "toHaveBeenCalledWith" the correct action.
         const dispatch = jest.fn();
+        axios.post = jest.fn(() => ({}));
         authActions.loginUser()(dispatch);
 
         expect(dispatch).toHaveBeenCalledWith({
@@ -15,7 +16,7 @@ describe("LoginUser action creator", () => {
         });
     });
 
-    test("dispatches LOGIN_SUCCESS upon a successful request", async () => {
+    test("dispatches LOGIN_SUCCESS and a true success upon a successful request", async () => {
         const dispatch = jest.fn();
 
         // Our test responseData, and our mocked axios.post() function
@@ -26,7 +27,7 @@ describe("LoginUser action creator", () => {
             };
         });
 
-        await authActions.loginUser()(dispatch);
+        const success = await authActions.loginUser()(dispatch);
 
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenCalledWith({
@@ -36,9 +37,10 @@ describe("LoginUser action creator", () => {
             type: authActions.LOGIN_SUCCESS,
             payload: responseData,
         });
+        expect(success).toBe(true);
     });
 
-    test("dispatches LOGIN_FAILURE upon an unsuccessful request", async () => {
+    test("dispatches LOGIN_FAILURE and a false success upon an unsuccessful request", async () => {
         const dispatch = jest.fn();
 
         // Our test responseData, and our mocked axios.post() function
@@ -49,7 +51,7 @@ describe("LoginUser action creator", () => {
             };
         });
 
-        await authActions.loginUser()(dispatch);
+        const success = await authActions.loginUser()(dispatch);
 
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenCalledWith({
@@ -59,5 +61,6 @@ describe("LoginUser action creator", () => {
             type: authActions.LOGIN_FAILURE,
             payload: errorMessage,
         });
+        expect(success).toBe(false);
     });
 });
