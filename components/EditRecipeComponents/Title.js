@@ -10,13 +10,19 @@ const Title = props => {
         setRecipeTitle(props.title);
     }, []);
 
+    updateRef = ref => {
+        this._swipeableRow = ref;
+    };
+
     const editHandler = () => {
         setEditing(true);
         props.setMainEditing(true)
+        this._swipeableRow.close()
     };
 
     return (
         <Swipeable
+            ref={this.updateRef}
             close={editing && true}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>
@@ -39,6 +45,7 @@ const Title = props => {
                     />
                 </View>
             ) : (
+
                     <View style={styles.titleContainer}>
                         <Text style={styles.title}>
                             {recipeTitle ? recipeTitle : props.title}
