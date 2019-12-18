@@ -1,0 +1,271 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`login snapshot 1`] = `
+<RCTScrollView
+  automaticallyAdjustContentInsets={false}
+  contentInset={
+    Object {
+      "bottom": 0,
+    }
+  }
+  enableAutomaticScroll={true}
+  enableOnAndroid={false}
+  enableResetScrollToCoords={true}
+  extraHeight={75}
+  extraScrollHeight={0}
+  getScrollResponder={[Function]}
+  handleOnScroll={[Function]}
+  keyboardDismissMode="interactive"
+  keyboardOpeningTime={250}
+  keyboardSpace={0}
+  onScroll={[Function]}
+  resetKeyboardSpace={[Function]}
+  scrollEventThrottle={1}
+  scrollForExtraHeightOnAndroid={[Function]}
+  scrollIntoView={[Function]}
+  scrollToEnd={[Function]}
+  scrollToFocusedInput={[Function]}
+  scrollToPosition={[Function]}
+  showsVerticalScrollIndicator={true}
+  update={[Function]}
+  viewIsInsideTabBar={false}
+>
+  <View>
+    <View
+      style={Object {}}
+    >
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "alignSelf": "flex-end",
+              "color": "#047396",
+              "fontSize": 20,
+              "fontWeight": "500",
+              "marginRight": 14,
+              "paddingBottom": 50,
+            }
+          }
+        >
+          x
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "paddingBottom": 15,
+            "textAlign": "center",
+          }
+        }
+      >
+        <Image
+          source={1}
+          style={
+            Object {
+              "height": "105%",
+              "width": "10%",
+            }
+          }
+        />
+        <Text
+          style={
+            Object {
+              "color": "#42C200",
+              "fontSize": 30,
+              "fontWeight": "bold",
+              "paddingLeft": 10,
+              "paddingTop": 5,
+              "textAlign": "center",
+            }
+          }
+        >
+          RecipeShare
+        </Text>
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "#363838",
+            "fontSize": 16,
+            "marginBottom": 29,
+            "marginLeft": 16,
+            "textAlign": "left",
+          }
+        }
+      >
+        Sign in or create a new account to save and edit your favorite recipes.
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#363838",
+            "fontSize": 18,
+            "fontWeight": "500",
+            "marginBottom": 16,
+            "marginLeft": 16,
+            "textAlign": "left",
+          }
+        }
+      >
+        Log In
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#363838",
+            "marginLeft": 16,
+          }
+        }
+      >
+        Username
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        name="username"
+        onChangeText={[Function]}
+        rejectResponderTermination={true}
+        style={
+          Object {
+            "borderColor": "#d6d7da",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "height": 40,
+            "marginBottom": 10,
+            "marginLeft": 16,
+            "marginRight": 16,
+            "marginTop": 10,
+            "minHeight": "5%",
+            "paddingLeft": 3,
+          }
+        }
+        underlineColorAndroid="transparent"
+        value=""
+      />
+      <Text
+        style={
+          Object {
+            "color": "#363838",
+            "marginLeft": 16,
+          }
+        }
+      >
+        Password
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        name="password"
+        onChangeText={[Function]}
+        rejectResponderTermination={true}
+        secureTextEntry={true}
+        style={
+          Object {
+            "borderColor": "#d6d7da",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "height": 40,
+            "marginBottom": 10,
+            "marginLeft": 16,
+            "marginRight": 16,
+            "marginTop": 10,
+            "minHeight": "5%",
+            "paddingLeft": 3,
+          }
+        }
+        underlineColorAndroid="transparent"
+        value=""
+      />
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#047396",
+              "fontSize": 14,
+              "fontWeight": "500",
+              "marginLeft": 16,
+            }
+          }
+        >
+          Create an Account
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row-reverse",
+            "marginRight": 16,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#3BA405",
+              "borderRadius": 50,
+              "height": 40,
+              "justifyContent": "center",
+              "marginBottom": 10,
+              "marginRight": 16,
+              "marginTop": 31,
+              "opacity": 1,
+              "paddingTop": 10,
+              "width": 120,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "paddingBottom": 10,
+                "textAlign": "center",
+              }
+            }
+          >
+            Login
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
