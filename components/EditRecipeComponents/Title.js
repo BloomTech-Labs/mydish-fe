@@ -12,6 +12,7 @@ const Title = props => {
 
     const editHandler = () => {
         setEditing(true);
+        props.setMainEditing(true)
     };
 
     return (
@@ -28,7 +29,8 @@ const Title = props => {
                 </View>
             )}
         >
-            {editing ? (
+            {/*TextInput */}
+            {editing && props.mainEditing ? (
                 <View style={styles.titleContainer}>
                     <TextInput
                         value={recipeTitle ? recipeTitle : props.title}
@@ -37,12 +39,12 @@ const Title = props => {
                     />
                 </View>
             ) : (
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}>
-                        {recipeTitle ? recipeTitle : props.title}
-                    </Text>
-                </View>
-            )}
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.title}>
+                            {recipeTitle ? recipeTitle : props.title}
+                        </Text>
+                    </View>
+                )}
         </Swipeable>
     );
 };

@@ -7,6 +7,7 @@ import {
     Image,
     TouchableOpacity,
     AsyncStorage,
+    TouchableWithoutFeedback
 } from "react-native";
 import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
@@ -33,6 +34,7 @@ function IndividualRecipe(props) {
     const [color, setColor] = useState({ active: "Ingredients" });
     const id = props.navigation.getParam("recipeID", "params not passed");
     const [forks, setForks] = useState([]);
+    const [mainEditing, setMainEditing] = useState(false)
 
     useEffect(() => {
         getToken();
@@ -86,82 +88,84 @@ function IndividualRecipe(props) {
     };
 
     return (
-        <ScrollView>
-            <Image
-                source={recipe.img ? { uri: recipe.img } : placeholder}
-                style={styles.placeholder}
-            />
-
-            {/* <Text style={styles.title}>{recipe.title}</Text> */}
-            <Title title={recipe.title} />
-
-            <View style={styles.innovatorTime}>
-                <Innovator>
-                    <Image source={logo} style={styles.icon} />
-                    <Text>{recipe.innovator_name}</Text>
-                </Innovator>
-
-                <CookTime>
-                    <Image source={clock} style={styles.icon} />
-                    <Text>{recipe.minutes} minutes</Text>
-                </CookTime>
-            </View>
-
-            {/* {console.log('recipe categories', recipe.categories)}  */}
-
-            <Text style={styles.tags}>Tags</Text>
-            <TagBox>
-                {recipe.categories &&
-                    recipe.categories.map(cat => (
-                        <Text key={cat} style={styles.individualTags}>
-                            {capitalize(cat)}
-                        </Text>
-                    ))}
-                {/* Why do we have to capitalize every category with a function? They already appear to be capitalized.. */}
-            </TagBox>
-
-            {userToken && <EditButton navigate={navigateToEdits} />}
-
-            <RecipeTabs>
-                <Tab text="Ingredients" color={color} toggleTab={tabsDisplay} />
-                <Tab
-                    text="Instructions"
-                    color={color}
-                    toggleTab={tabsDisplay}
+        <TouchableWithoutFeedback onPress={() => setMainEditing(false)}>
+            <ScrollView>
+                <Image
+                    source={recipe.img ? { uri: recipe.img } : placeholder}
+                    style={styles.placeholder}
                 />
-            </RecipeTabs>
 
-            <Details>
-                {recipe.ingredients &&
-                    recipe.ingredients.map(ing => (
-                        <IndividualRecipeIngredient
-                            key={ing.name}
-                            ing={ing}
-                            color={color}
-                        />
-                    ))}
+                {/* <Text style={styles.title}>{recipe.title}</Text> */}
+                <Title title={recipe.title} mainEditing={mainEditing} setMainEditing={setMainEditing} />
 
-                {recipe.steps &&
-                    recipe.steps.map(step => (
-                        <IndividualRecipeInstruction
-                            key={step.ordinal}
-                            step={step}
-                            color={color}
-                        />
-                    ))}
+                <View style={styles.innovatorTime}>
+                    <Innovator>
+                        <Image source={logo} style={styles.icon} />
+                        <Text>{recipe.innovator_name}</Text>
+                    </Innovator>
 
-                <IndividualRecipeNotes color={color} notes={recipe.notes} />
-            </Details>
+                    <CookTime>
+                        <Image source={clock} style={styles.icon} />
+                        <Text>{recipe.minutes} minutes</Text>
+                    </CookTime>
+                </View>
 
-            <FlatList
-                horizontal={true}
-                data={forks}
-                renderItem={({ item }) => (
-                    <Version recipe={item} navigation={props.navigation} />
-                )}
-                keyExtractor={item => String(item.id)}
-            />
-        </ScrollView>
+                {/* {console.log('recipe categories', recipe.categories)}  */}
+
+                <Text style={styles.tags}>Tags</Text>
+                <TagBox>
+                    {recipe.categories &&
+                        recipe.categories.map(cat => (
+                            <Text key={cat} style={styles.individualTags}>
+                                {capitalize(cat)}
+                            </Text>
+                        ))}
+                    {/* Why do we have to capitalize every category with a function? They already appear to be capitalized.. */}
+                </TagBox>
+
+                {userToken && <EditButton navigate={navigateToEdits} />}
+
+                <RecipeTabs>
+                    <Tab text="Ingredients" color={color} toggleTab={tabsDisplay} />
+                    <Tab
+                        text="Instructions"
+                        color={color}
+                        toggleTab={tabsDisplay}
+                    />
+                </RecipeTabs>
+
+                <Details>
+                    {recipe.ingredients &&
+                        recipe.ingredients.map(ing => (
+                            <IndividualRecipeIngredient
+                                key={ing.name}
+                                ing={ing}
+                                color={color}
+                            />
+                        ))}
+
+                    {recipe.steps &&
+                        recipe.steps.map(step => (
+                            <IndividualRecipeInstruction
+                                key={step.ordinal}
+                                step={step}
+                                color={color}
+                            />
+                        ))}
+
+                    <IndividualRecipeNotes color={color} notes={recipe.notes} />
+                </Details>
+
+                <FlatList
+                    horizontal={true}
+                    data={forks}
+                    renderItem={({ item }) => (
+                        <Version recipe={item} navigation={props.navigation} />
+                    )}
+                    keyExtractor={item => String(item.id)}
+                />
+            </ScrollView>
+        </TouchableWithoutFeedback>
     );
 }
 

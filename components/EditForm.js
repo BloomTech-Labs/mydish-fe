@@ -299,6 +299,7 @@ function EditForm(props) {
                 </ScrollView>
             </View>
         </KeyboardAwareScrollView>
+
     );
 }
 //  .navigationOptions = {
