@@ -228,7 +228,9 @@ const styles = StyleSheet.create({
     },
     ingredientContainer: {
         width: '100%',
-        height: 40
+        height: 40,
+        flexDirection: 'row',
+        justifyContent: "space-around"
 
     },
     swipeableContainer: {

@@ -40,7 +40,7 @@ const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing })
                 {editing && mainEditing ? (
                     <View style={styles.ingredientContainer}>
 
-                        {/* <TextInput
+                        <TextInput
                             value={recipeIng.ingName ? recipeIng.ingName : ing.name}
 
                             onChangeText={name => setRecipeIng({
@@ -49,7 +49,7 @@ const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing })
 
                             })}
                             style={styles.input}
-                        /> */}
+                        />
                         <TextInput
                             value={recipeIng.quantity ? recipeIng.quantity : ing.quantity}
 
