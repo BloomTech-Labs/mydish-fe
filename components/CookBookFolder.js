@@ -12,31 +12,19 @@ const CookBookFolder = props => {
     const course = props.navigation.getParam("Course", "params not passed");
 
     const grab = async () => {
-        // console.log('course in grab', course);
-        const axiosAuth = await axiosWithAuth();
         try {
-            const courses = await axiosAuth.get(
-                `https://recipeshare-development.herokuapp.com/cookbook?category=${course}`,
+            const courses = await axiosWithAuth().get(
+                `cookbook?category=${course}`,
             );
-            // console.log('res.data recipes by course', courses.data);
+
             setFolder(courses.data);
-            const { data } = await axiosAuth.get(
-                `https://recipeshare-development.herokuapp.com/recipes/all`,
-            );
+            const { data } = await axiosWithAuth().get(`recipes/all`);
             const childrenRecipes = data.filter(rec => rec.ancestor);
-            console.log(
-                "children with an ancestor in <CookBookFolder>",
-                childrenRecipes,
-            );
+
             setChildren(childrenRecipes);
         } catch (err) {
             console.log("err in getting recipes by course", err);
         }
-
-        //       .then(res => {
-        //           setFolder(res.data);
-        //    })
-        //       .catch(err => console.log(err));
     };
 
     useEffect(() => {
