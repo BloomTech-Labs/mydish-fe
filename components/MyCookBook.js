@@ -53,21 +53,19 @@ const MyCookBook = props => {
     ];
 
     const grab = async () => {
-        const axiosAuth = await axiosWithAuth();
-        axiosAuth
-            .get(
-                `https://recipeshare-development.herokuapp.com/cookbook?category=${word}`,
-            )
-            .then(res => {
-                // console.log("WOOOOW", res.data)
-                setTest(res.data);
-            })
-            .catch(err => console.log(err));
+        try {
+            const res = axiosWithAuth().get(`cookbook?category=${word}`);
+
+            setTest(res.data);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     useEffect(() => {
         grab();
     }, []);
+
     return (
         <View style={{ width: "90%", marginLeft: "5%" }}>
             <Text
