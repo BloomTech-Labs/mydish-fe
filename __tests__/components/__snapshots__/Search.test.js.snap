@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<TextInput
+  allowFontScaling={true}
+  onChangeText={[Function]}
+  placeholder="What dish are you looking for?"
+  placeholderTextColor="#D3D3D3"
+  rejectResponderTermination={true}
+  style={
+    Object {
+      "borderColor": "#d6d7da",
+      "borderRadius": 4,
+      "borderWidth": 1,
+      "color": "black",
+      "fontSize": 18,
+      "fontWeight": "bold",
+      "height": 40,
+      "margin": 7,
+      "minHeight": "5%",
+      "paddingLeft": 3,
+    }
+  }
+  underlineColorAndroid="transparent"
+  value=""
+/>
+`;

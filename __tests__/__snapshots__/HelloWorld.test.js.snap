@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HelloWorld snapshot hello world 1`] = `
-<Text>
-  Hello World
-</Text>
+<View>
+  <Text
+    testID="hw"
+  >
+    Hello undefined
+  </Text>
+</View>
 `;
