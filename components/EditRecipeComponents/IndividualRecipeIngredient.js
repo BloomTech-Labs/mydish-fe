@@ -51,7 +51,7 @@ const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing })
                             style={styles.input}
                         />
                         <TextInput
-                            value={recipeIng.quantity ? recipeIng.quantity : ing.quantity}
+                            value={recipeIng.quantity ? recipeIng.quantity : String(ing.quantity)}
 
                             onChangeText={qty => setRecipeIng({
                                 ...recipeIng,
