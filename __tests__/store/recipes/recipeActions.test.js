@@ -1,14 +1,37 @@
 import * as recipeActions from "../../../store/recipes/recipeActions";
-import axios from "axios";
+import axiosWithAuth from "../../../utils/axiosWithAuth";
+jest.mock("../../../utils/axiosWithAuth");
+
+beforeEach(() => {
+    jest.resetAllMocks();
+});
+
+test("axiosWithAuth is mocked", () => {
+    // Test to make sure we can mock our axiosWithAuth
+    //     function to return an object with a get method
+    axiosWithAuth.mockImplementation(() => {
+        return {
+            get: () => ({}),
+        };
+    });
+    const test = axiosWithAuth();
+    expect(typeof test).toBe("object");
+    expect(typeof test.get).toBe("function");
+    expect(test.get()).toEqual({});
+});
 
 describe("fetchRecipes action creator", () => {
     test("dispatches START_FETCH_RECIPES", () => {
+        axiosWithAuth.mockImplementation(() => {
+            return {
+                get: () => ({}),
+            };
+        });
         // Turn dispatch into a simple jest function.
         // This means that we won't dash to our reducer, and
         //     we can instead check for our dispatch
         //     "toHaveBeenCalledWith" the correct action.
         const dispatch = jest.fn();
-        axios.get = jest.fn(() => new Promise(res => res()));
         recipeActions.fetchRecipes()(dispatch);
 
         expect(dispatch).toHaveBeenCalledWith({
@@ -21,10 +44,10 @@ describe("fetchRecipes action creator", () => {
 
         // Our test responseData, and our mocked axios.get() function
         const responseData = [{ title: "testRecipe" }];
-        axios.get = jest.fn(() => {
-            return Promise.resolve({
-                data: responseData,
-            });
+        axiosWithAuth.mockImplementation(() => {
+            return {
+                get: () => ({ data: responseData }),
+            };
         });
 
         await recipeActions.fetchRecipes()(dispatch);
@@ -44,8 +67,12 @@ describe("fetchRecipes action creator", () => {
 
         // Our test responseData, and our mocked axios.get() function
         const errorMessage = "testError";
-        axios.get = jest.fn(() => {
-            Promise.reject(errorMessage);
+        axiosWithAuth.mockImplementation(() => {
+            return {
+                get: () => {
+                    throw errorMessage;
+                },
+            };
         });
 
         await recipeActions.fetchRecipes()(dispatch);
