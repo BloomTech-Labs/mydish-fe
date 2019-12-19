@@ -132,13 +132,13 @@ describe("Register actions return the correct state object", () => {
             error: null,
         };
         const expectedStore = {
-            userId: 123,
+            userId: 789,
             isAuthorizing: false,
             error: null,
         };
         const action = {
             type: authTypes.REGISTER_SUCCESS,
-            payload: { cook_id: 123 },
+            payload: { cook_id: 789 },
         };
 
         const returnStore = authReducer(initStore, action);
@@ -146,13 +146,13 @@ describe("Register actions return the correct state object", () => {
 
         // Let's test with a different userId!
         const expectedStore2 = {
-            userId: 456,
+            userId: 012,
             isAuthorizing: false,
             error: null,
         };
         const action2 = {
             type: authTypes.REGISTER_SUCCESS,
-            payload: { cook_id: 456 },
+            payload: { cook_id: 012 },
         };
         const returnStore2 = authReducer(returnStore, action2);
         expect(returnStore2).toEqual(expectedStore2);
