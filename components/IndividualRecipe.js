@@ -7,8 +7,11 @@ import {
     Image,
     TouchableOpacity,
     AsyncStorage,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRecipe } from "../store/singleRecipe/singleRecipeActions";
+
 import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
 import clock from "../assets/timer.png";
@@ -26,22 +29,25 @@ import Details from "./StyledComponents/Details";
 import TagBox from "./StyledComponents/TagBox";
 
 import Title from "./EditRecipeComponents/Title";
-import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction"
+import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction";
 
 function IndividualRecipe(props) {
-    const [recipe, setRecipe] = useState({});
+    // const [recipe, setRecipe] = useState({});
     const [userToken, setUserToken] = useState(null);
     const [color, setColor] = useState({ active: "Ingredients" });
     const id = props.navigation.getParam("recipeID", "params not passed");
     const [forks, setForks] = useState([]);
-    const [mainEditing, setMainEditing] = useState(false)
+    const [mainEditing, setMainEditing] = useState(false);
+    const dispatch = useDispatch();
+    const recipe = useSelector(state => state.singleRecipe.recipe);
+    const isLoading = useSelector(state => state.singleRecipe.isLoading);
 
     useEffect(() => {
         getToken();
-        getSingleRecipe();
+        dispatch(fetchRecipe(id));
+        // getSingleRecipe();
         getForks();
-        console.log("recipe id of <IndividualRecipe>", id);
-    }, [id]);
+    }, []);
 
     async function getToken() {
         const token = await AsyncStorage.getItem("userToken");
@@ -51,14 +57,14 @@ function IndividualRecipe(props) {
         return token;
     }
 
-    function getSingleRecipe() {
-        axios
-            .get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
-            .then(res => {
-                setRecipe(res.data);
-            })
-            .catch(err => console.log(err));
-    }
+    // function getSingleRecipe() {
+    //     axios
+    //         .get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
+    //         .then(res => {
+    //             setRecipe(res.data);
+    //         })
+    //         .catch(err => console.log(err));
+    // }
 
     async function getForks() {
         try {
@@ -87,6 +93,14 @@ function IndividualRecipe(props) {
         props.navigation.navigate("Edit", { recipe });
     };
 
+    if (!recipe) {
+        return (
+            <View>
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
+
     return (
         <TouchableWithoutFeedback onPress={() => setMainEditing(false)}>
             <ScrollView>
@@ -96,7 +110,11 @@ function IndividualRecipe(props) {
                 />
 
                 {/* <Text style={styles.title}>{recipe.title}</Text> */}
-                <Title title={recipe.title} mainEditing={mainEditing} setMainEditing={setMainEditing} />
+                <Title
+                    title={recipe.title}
+                    mainEditing={mainEditing}
+                    setMainEditing={setMainEditing}
+                />
 
                 <View style={styles.innovatorTime}>
                     <Innovator>
@@ -126,7 +144,11 @@ function IndividualRecipe(props) {
                 {userToken && <EditButton navigate={navigateToEdits} />}
 
                 <RecipeTabs>
-                    <Tab text="Ingredients" color={color} toggleTab={tabsDisplay} />
+                    <Tab
+                        text="Ingredients"
+                        color={color}
+                        toggleTab={tabsDisplay}
+                    />
                     <Tab
                         text="Instructions"
                         color={color}
@@ -141,7 +163,8 @@ function IndividualRecipe(props) {
                                 key={ing.name}
                                 ing={ing}
                                 color={color}
-                                mainEditing={mainEditing} setMainEditing={setMainEditing}
+                                mainEditing={mainEditing}
+                                setMainEditing={setMainEditing}
                             />
                         ))}
 
@@ -151,7 +174,8 @@ function IndividualRecipe(props) {
                                 key={step.ordinal}
                                 step={step}
                                 color={color}
-                                mainEditing={mainEditing} setMainEditing={setMainEditing}
+                                mainEditing={mainEditing}
+                                setMainEditing={setMainEditing}
                             />
                         ))}
 
