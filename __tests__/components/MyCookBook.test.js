@@ -1,9 +1,9 @@
 import "react-native";
 import React from "react";
-import MyCookBook from "../components/MyCookBook";
+import MyCookBook from "../../components/MyCookBook";
 import renderer from "react-test-renderer";
 
-it("renders correctly", () => {
+it("matches snapshot", () => {
     const tree = renderer.create(<MyCookBook />).toJSON();
     expect(tree).toMatchSnapshot();
 });
