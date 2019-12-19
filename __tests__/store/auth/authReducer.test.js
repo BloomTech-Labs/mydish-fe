@@ -146,13 +146,13 @@ describe("Register actions return the correct state object", () => {
 
         // Let's test with a different userId!
         const expectedStore2 = {
-            userId: 012,
+            userId: 12,
             isAuthorizing: false,
             error: null,
         };
         const action2 = {
             type: authTypes.REGISTER_SUCCESS,
-            payload: { cook_id: 012 },
+            payload: { cook_id: 12 },
         };
         const returnStore2 = authReducer(returnStore, action2);
         expect(returnStore2).toEqual(expectedStore2);
