@@ -238,6 +238,9 @@ const styles = StyleSheet.create({
         // borderColor: "pink",
         // borderWidth: 2,
 
+    },
+    instructionInput: {
+        width: '90%'
     }
 })
 

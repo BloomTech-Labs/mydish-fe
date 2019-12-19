@@ -14,7 +14,6 @@ import styles from "../styles/individualRecipeStyles.js";
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
 import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
-import IndividualRecipeInstruction from "./IndividualRecipeInstruction";
 import IndividualRecipeNotes from "./IndividualRecipeNotes";
 import EditButton from "./EditButton";
 import Tab from "./Tab";
@@ -27,6 +26,7 @@ import Details from "./StyledComponents/Details";
 import TagBox from "./StyledComponents/TagBox";
 
 import Title from "./EditRecipeComponents/Title";
+import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction"
 
 function IndividualRecipe(props) {
     const [recipe, setRecipe] = useState({});
@@ -151,6 +151,7 @@ function IndividualRecipe(props) {
                                 key={step.ordinal}
                                 step={step}
                                 color={color}
+                                mainEditing={mainEditing} setMainEditing={setMainEditing}
                             />
                         ))}
 
