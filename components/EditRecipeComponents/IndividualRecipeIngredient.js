@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { View, Text, TextInput } from "react-native";
 
 import styles from "../../styles/individualRecipeStyles";
@@ -12,16 +12,19 @@ const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing })
         unit: null
     })
 
+    const swipeableEl = useRef(null)
+
     const editHandler = () => {
         setEditing(true)
         setMainEditing(true)
+        swipeableEl.current.close()
 
     }
 
     return (
         <View style={styles.swipeableContainer}>
             <Swipeable
-
+                ref={swipeableEl}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <View style={styles.editButton}>
@@ -37,7 +40,7 @@ const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing })
                 {editing && mainEditing ? (
                     <View style={styles.ingredientContainer}>
 
-                        <TextInput
+                        {/* <TextInput
                             value={recipeIng.ingName ? recipeIng.ingName : ing.name}
 
                             onChangeText={name => setRecipeIng({
@@ -46,7 +49,18 @@ const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing })
 
                             })}
                             style={styles.input}
+                        /> */}
+                        <TextInput
+                            value={recipeIng.quantity ? recipeIng.quantity : ing.quantity}
+
+                            onChangeText={qty => setRecipeIng({
+                                ...recipeIng,
+                                quantity: qty
+
+                            })}
+                            style={styles.input}
                         />
+
 
                     </View>
                 ) : (
@@ -59,7 +73,7 @@ const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing })
                         >
                             <View style={styles.ingredientView}>
                                 <Text style={styles.ingredientText}>
-                                    {ing.quantity} {ing.unit}
+                                    {recipeIng.quantity ? recipeIng.quantity : ing.quantity} {ing.unit}
                                 </Text>
                             </View>
                             <View style={styles.ingredientView}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 
@@ -10,19 +10,21 @@ const Title = props => {
         setRecipeTitle(props.title);
     }, []);
 
-    updateRef = ref => {
-        this._swipeableRow = ref;
-    };
+    // updateRef = ref => {
+    //     this._swipeableRow = ref;
+    // };
 
+    const swipeableEl = useRef(null)
     const editHandler = () => {
         setEditing(true);
         props.setMainEditing(true)
-        this._swipeableRow.close()
+        swipeableEl.current.close()
+
     };
 
     return (
         <Swipeable
-            ref={this.updateRef}
+            ref={swipeableEl}
             close={editing && true}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>

@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         marginLeft: 14,
         marginRight: 14,
-        borderColor: "blue"
+
     },
     ingredientText: {
         color: '#1E1F20',
@@ -178,7 +178,8 @@ const styles = StyleSheet.create({
         paddingBottom: 9,
         marginTop: 10,
         marginBottom: 20,
-        width: "90%"
+        width: "90%",
+
     },
     details: {
         alignItems: 'center'
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
     input: {
         borderBottomColor: "black",
         borderBottomWidth: 1,
-        width: '100%',
+        width: '20%',
         height: 40
     },
     ingredientContainer: {
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
 
     },
     swipeableContainer: {
-        width: '100%',
+        width: '95%',
         // borderColor: "pink",
         // borderWidth: 2,
 
