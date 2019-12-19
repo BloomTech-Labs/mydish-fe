@@ -46,7 +46,7 @@ describe("fetchCookbook action creator", () => {
         const responseData = [{ title: "testCookbookTitle" }];
         axiosWithAuth.mockImplementation(() => {
             return {
-                get: () => responseData,
+                get: () => ({ data: responseData }),
             };
         });
 
