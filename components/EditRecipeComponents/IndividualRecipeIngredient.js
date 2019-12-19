@@ -60,6 +60,16 @@ const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing })
                             })}
                             style={styles.input}
                         />
+                        <TextInput
+                            value={recipeIng.unit ? recipeIng.unit : ing.unit}
+
+                            onChangeText={unit => setRecipeIng({
+                                ...recipeIng,
+                                unit: unit
+
+                            })}
+                            style={styles.input}
+                        />
 
 
                     </View>
@@ -73,7 +83,9 @@ const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing })
                         >
                             <View style={styles.ingredientView}>
                                 <Text style={styles.ingredientText}>
-                                    {recipeIng.quantity ? recipeIng.quantity : ing.quantity} {ing.unit}
+
+
+                                    {recipeIng.quantity ? recipeIng.quantity : ing.quantity} {recipeIng.unit ? recipeIng.unit : ing.unit}
                                 </Text>
                             </View>
                             <View style={styles.ingredientView}>

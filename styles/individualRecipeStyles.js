@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     input: {
         borderBottomColor: "black",
         borderBottomWidth: 1,
-        width: '20%',
+        width: '30%',
         height: 40
     },
     ingredientContainer: {
