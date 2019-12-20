@@ -6,7 +6,7 @@ import styles from "../../styles/individualRecipeStyles";
 import { useSelector, useDispatch } from "react-redux";
 import {
     startEdit,
-    editRecipe,
+    editTitle,
 } from "../../store/singleRecipe/singleRecipeActions";
 
 const Title = props => {
@@ -57,9 +57,7 @@ const Title = props => {
                 <View style={styles.titleContainer}>
                     <TextInput
                         value={recipeTitle ? recipeTitle : props.title}
-                        onChangeText={title =>
-                            dispatch(editRecipe("title", title))
-                        }
+                        onChangeText={title => dispatch(editTitle(title))}
                         style={{ ...styles.title, ...styles.input }}
                     />
                 </View>

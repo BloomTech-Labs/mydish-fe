@@ -5,7 +5,7 @@ import {
     RESET_RECIPE,
     START_EDIT,
     STOP_EDIT,
-    EDIT_RECIPE,
+    EDIT_TITLE,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -48,10 +48,10 @@ export const singleRecipeReducer = (state = initState, action) => {
                 isLoading: false,
                 error: action.payload,
             };
-        case EDIT_RECIPE:
+        case EDIT_TITLE:
             return {
                 ...state,
-                recipe: { ...state.recipe, [action.name]: action.payload },
+                recipe: { ...state.recipe, title: action.payload },
             };
         case START_EDIT:
             return { ...state, editing: true };

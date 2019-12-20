@@ -22,12 +22,11 @@ export const resetRecipe = () => {
     };
 };
 
-export const EDIT_RECIPE = "EDIT_RECIPE";
-export const editRecipe = (name, value) => {
+export const EDIT_TITLE = "EDIT_TITLE";
+export const editTitle = (value) => {
     return {
-        type: EDIT_RECIPE,
+        type: EDIT_TITLE,
         payload: value,
-        name,
     };
 };
 
