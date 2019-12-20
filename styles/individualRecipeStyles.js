@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
         marginLeft: 14,
     },
     icon: { width: 20, height: 20, marginRight: 5 },
+    editIcon: {
+        marginRight: 5,
+    },
     innovatorTime: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -20,17 +23,6 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         marginBottom: 10,
     },
-    // likes: {
-    //     flexDirection: 'row',
-    //     //borderTopWidth: 0.3,
-    //     borderBottomWidth: 0.3,
-    //     borderTopColor: '#6B6F70',
-    //     borderBottomColor: '#6B6F70',
-    //     paddingBottom: 25,
-    //     paddingTop: 25,
-    //     marginBottom: 16,
-    //     justifyContent: 'space-around'
-    // },
     likeView: {
         flexDirection: "row",
     },
