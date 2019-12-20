@@ -4,6 +4,17 @@ const styles = StyleSheet.create({
     recipeContainer: {
         marginBottom: 200,
     },
+    titleWrapper: {
+        backgroundColor: "grey",
+    },
+    titleContainer: {
+        backgroundColor: "white",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+    },
     title: {
         fontSize: 24,
         color: "#363838",
@@ -191,15 +202,12 @@ const styles = StyleSheet.create({
         width: 60,
         height: 30,
     },
-    titleContainer: {
-        backgroundColor: "white",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
     buttonContainer: {
         flexDirection: "row",
+        justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "grey",
+        width: 50,
     },
     input: {
         borderBottomColor: "black",

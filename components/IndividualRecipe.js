@@ -75,9 +75,9 @@ function IndividualRecipe(props) {
                         source={recipe.img ? { uri: recipe.img } : placeholder}
                         style={styles.image}
                     />
-
-                    <Title />
-
+                    <View style={{ backgroundColor: "grey" }}>
+                        <Title />
+                    </View>
                     <View style={styles.innovatorTime}>
                         <View style={styles.innovatorContainer}>
                             <Image source={logo} style={styles.icon} />
