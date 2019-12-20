@@ -33,29 +33,28 @@ import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipe
 
 function IndividualRecipe(props) {
     // const [recipe, setRecipe] = useState({});
-    const [userToken, setUserToken] = useState(null);
+    // const [userToken, setUserToken] = useState(null);
     const [color, setColor] = useState({ active: "Ingredients" });
     const id = props.navigation.getParam("recipeID", "params not passed");
     const [forks, setForks] = useState([]);
     const [mainEditing, setMainEditing] = useState(false);
     const dispatch = useDispatch();
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    const isLoading = useSelector(state => state.singleRecipe.isLoading);
 
     useEffect(() => {
-        getToken();
-        dispatch(fetchRecipe(id));
+        // getToken();
         // getSingleRecipe();
+        dispatch(fetchRecipe(id));
         getForks();
     }, []);
 
-    async function getToken() {
-        const token = await AsyncStorage.getItem("userToken");
-        if (token) {
-            setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
-        }
-        return token;
-    }
+    // async function getToken() {
+    //     const token = await AsyncStorage.getItem("userToken");
+    //     if (token) {
+    //         setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
+    //     }
+    //     return token;
+    // }
 
     // function getSingleRecipe() {
     //     axios
@@ -141,7 +140,7 @@ function IndividualRecipe(props) {
                     {/* Why do we have to capitalize every category with a function? They already appear to be capitalized.. */}
                 </TagBox>
 
-                {userToken && <EditButton navigate={navigateToEdits} />}
+                {/* {userToken && <EditButton navigate={navigateToEdits} />} */}
 
                 <RecipeTabs>
                     <Tab

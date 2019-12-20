@@ -5,7 +5,20 @@ import {
 } from "./singleRecipeActions";
 
 const initState = {
-    recipe: null,
+    recipe: {
+        ancestor: null,
+        categories: [],
+        id: null,
+        img: null,
+        ingredients: [],
+        innovator: null,
+        innovator_name: null,
+        minutes: null,
+        notes: null,
+        steps: [],
+        title: null,
+        total_saves: null,
+    },
     isLoading: false,
     error: null,
 };
