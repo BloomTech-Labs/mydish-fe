@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         marginBottom: 200,
     },
     titleWrapper: {
-        backgroundColor: "grey",
+        backgroundColor: "#8FCC70",
     },
     titleContainer: {
         backgroundColor: "white",
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "grey",
+        backgroundColor: "#8FCC70",
         width: 50,
     },
     input: {
