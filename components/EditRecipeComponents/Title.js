@@ -48,6 +48,7 @@ const Title = props => {
                         size={32}
                         color="#2E2E2E"
                         style={styles.editIcon}
+                        onPress={editHandler}
                     />
                 </View>
             )}
