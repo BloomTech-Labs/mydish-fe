@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import styles from "../../styles/individualRecipeStyles";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -43,12 +43,11 @@ const Title = props => {
             close={editing && true}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>
-                    <View style={styles.editButton}>
-                        <Text onPress={editHandler}>Edit</Text>
-                    </View>
-                    <View style={styles.deleteButton}>
-                        <Text>Delete</Text>
-                    </View>
+                    <FontAwesome
+                        name="pencil-square-o"
+                        size={32}
+                        color="grey"
+                    />
                 </View>
             )}
         >
