@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     icon: { width: 20, height: 20, marginRight: 5 },
     editIcon: {
-        marginRight: 5,
+        marginRight: 0,
     },
     innovatorContainer: {
         flexDirection: "row",
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#8FCC70",
-        width: 50,
+        width: 42,
     },
     input: {
         borderBottomColor: "black",
