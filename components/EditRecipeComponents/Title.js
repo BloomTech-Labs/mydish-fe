@@ -8,18 +8,17 @@ const Title = props => {
 
     useEffect(() => {
         setRecipeTitle(props.title);
-    }, []);
+    }, [props.title]);
 
     // updateRef = ref => {
     //     this._swipeableRow = ref;
     // };
 
-    const swipeableEl = useRef(null)
+    const swipeableEl = useRef(null);
     const editHandler = () => {
         setEditing(true);
-        props.setMainEditing(true)
-        swipeableEl.current.close()
-
+        props.setMainEditing(true);
+        swipeableEl.current.close();
     };
 
     return (
@@ -47,13 +46,12 @@ const Title = props => {
                     />
                 </View>
             ) : (
-
-                    <View style={styles.titleContainer}>
-                        <Text style={styles.title}>
-                            {recipeTitle ? recipeTitle : props.title}
-                        </Text>
-                    </View>
-                )}
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>
+                        {recipeTitle ? recipeTitle : props.title}
+                    </Text>
+                </View>
+            )}
         </Swipeable>
     );
 };

@@ -10,8 +10,14 @@ export const fetchRecipe = id => dispatch => {
     axios
         .get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
         .then(res => {
-            console.log("RECIPE RES.DATA", res.data);
             dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res.data });
         })
         .catch(err => dispatch({ type: FETCH_RECIPE_FAILURE, payload: err }));
 };
+
+export const RESET_RECIPE = "RESET_RECIPE";
+export const resetRecipe = () => {
+    return {
+        type: RESET_RECIPE
+    }
+}

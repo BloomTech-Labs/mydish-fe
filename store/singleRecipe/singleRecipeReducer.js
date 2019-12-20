@@ -2,6 +2,7 @@ import {
     START_FETCH_RECIPE,
     FETCH_RECIPE_SUCCESS,
     FETCH_RECIPE_FAILURE,
+    RESET_RECIPE
 } from "./singleRecipeActions";
 
 const initState = {
@@ -32,6 +33,7 @@ export const singleRecipeReducer = (state = initState, action) => {
                 isLoading: true,
             };
         case FETCH_RECIPE_SUCCESS:
+            console.log("ACTION.PAYLOAD", action.payload);
             return {
                 ...state,
                 isLoading: false,
@@ -43,6 +45,8 @@ export const singleRecipeReducer = (state = initState, action) => {
                 isLoading: false,
                 error: action.payload,
             };
+        case RESET_RECIPE:
+            return initState;
 
         default:
             return state;

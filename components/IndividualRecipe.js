@@ -10,7 +10,7 @@ import {
     TouchableWithoutFeedback,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecipe } from "../store/singleRecipe/singleRecipeActions";
+import { fetchRecipe, resetRecipe } from "../store/singleRecipe/singleRecipeActions";
 
 import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
@@ -46,6 +46,8 @@ function IndividualRecipe(props) {
         // getSingleRecipe();
         dispatch(fetchRecipe(id));
         getForks();
+
+        return () => dispatch(resetRecipe())
     }, []);
 
     // async function getToken() {
