@@ -79,7 +79,7 @@ function IndividualRecipe(props) {
                     source={recipe.img ? { uri: recipe.img } : placeholder}
                     style={styles.placeholder}
                 />
-                <Title title={recipe.title} setMainEditing={setMainEditing} />
+                <Title />
 
                 <View style={styles.innovatorTime}>
                     <Innovator>
@@ -118,9 +118,10 @@ function IndividualRecipe(props) {
 
                 <Details>
                     {recipe.ingredients &&
-                        recipe.ingredients.map(ing => (
+                        recipe.ingredients.map((ing, i) => (
                             <IndividualRecipeIngredient
                                 key={ing.name}
+                                index={i}
                                 ing={ing}
                                 color={color}
                                 mainEditing={mainEditing}
@@ -132,6 +133,7 @@ function IndividualRecipe(props) {
                         recipe.steps.map(step => (
                             <IndividualRecipeInstruction
                                 key={step.ordinal}
+                                index={i}
                                 step={step}
                                 color={color}
                                 mainEditing={mainEditing}
