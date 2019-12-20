@@ -99,13 +99,9 @@ function CreateRecipeForm(props) {
             return; //if any missing fields exists, do not submit the data and set the errors state variable array.
         }
 
-        const axiosAuth = await axiosWithAuth();
         try {
-            const res = await axiosAuth.post(
-                "https://recipeshare-development.herokuapp.com/recipes",
-                recipe,
-            );
-            console.log("response from post", res.data);
+            const res = await axiosWithAuth().post("recipes", recipe);
+
             recipeID = res.data.recipe_id;
             setRecipe(initialFormState);
             props.navigation.navigate("IndividualR", { recipe, recipeID });

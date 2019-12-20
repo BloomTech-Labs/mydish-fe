@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosWithAuth from "../../utils/axiosWithAuth";
 import { AsyncStorage } from "react-native";
 
 export const START_LOGIN = "START_LOGIN";
@@ -9,10 +9,7 @@ export const loginUser = userInfo => async dispatch => {
     let success = false;
 
     try {
-        const res = await axios.post(
-            "https://recipeshare-development.herokuapp.com/cooks/login",
-            userInfo,
-        );
+        const res = await axiosWithAuth().post("cooks/login", userInfo);
 
         AsyncStorage.setItem("userToken", res.data.token);
         dispatch({ type: LOGIN_SUCCESS, payload: res.data });
@@ -33,10 +30,7 @@ export const registerUser = userInfo => async dispatch => {
     let success = false;
 
     try {
-        const res = await axios.post(
-            "https://recipeshare-development.herokuapp.com/cooks/register",
-            userInfo,
-        );
+        const res = await axiosWithAuth().post("cooks/register", userInfo);
 
         AsyncStorage.setItem("userToken", res.data.token);
         dispatch({ type: REGISTER_SUCCESS, payload: res.data });

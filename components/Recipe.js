@@ -16,7 +16,6 @@ import UserPrepTime from "./StyledComponents/UserPrepTime";
 import RecipeContainer from "./StyledComponents/RecipeContainer";
 import clearHeart from "../assets/orangeBorder.png";
 import solidHeart from "../assets/orangeFill.png";
-import axios from "axios";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import placeholder from "../assets/recipe-image-placeholder.png";
 import forkLogo from "../assets/background.png";
@@ -41,9 +40,7 @@ const Recipe = props => {
 
     const getRecipe = async () => {
         try {
-            const res = await axios.get(
-                `https://recipeshare-development.herokuapp.com/recipes/${recipe.id}`,
-            );
+            const res = await axiosWithAuth.get(`recipes/${recipe.id}`);
             let { categories } = res.data;
             categories = categories.filter(
                 cat =>
@@ -69,13 +66,9 @@ const Recipe = props => {
     const likeIt = async () => {
         let liked = !like; //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
 
-        const axiosAuth = await axiosWithAuth();
         if (liked) {
-            axiosAuth
-                .post(
-                    `https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`,
-                    {},
-                )
+            axiosWithAuth()
+                .post(`cookbook/${recipe.id}`, {})
                 .then(res => {
                     setLikeCount(res.data.total_saves);
                     setLike(liked);
@@ -83,10 +76,8 @@ const Recipe = props => {
                 })
                 .catch(err => console.log("error in posting like", err));
         } else {
-            axiosAuth
-                .delete(
-                    `https://recipeshare-development.herokuapp.com/cookbook/${recipe.id}`,
-                )
+            axiosWithAuth()
+                .delete(`cookbook/${recipe.id}`)
                 .then(res => {
                     if (!res.data.total_saves) {
                         setLikeCount(0);
@@ -97,7 +88,6 @@ const Recipe = props => {
                     setLike(liked);
 
                     const route = navigation.state.routeName;
-                    // console.log('route in unlike', route);
 
                     if (route === "Home") {
                         return;
