@@ -23,11 +23,6 @@ import IndividualRecipeNotes from "./IndividualRecipeNotes";
 import Tab from "./Tab";
 import placeholder from "../assets/recipe-image-placeholder.png";
 import Version from "./Version";
-import Innovator from "./StyledComponents/Innovator";
-import CookTime from "./StyledComponents/CookTime";
-import RecipeTabs from "./StyledComponents/RecipeTabs";
-import Details from "./StyledComponents/Details";
-import TagBox from "./StyledComponents/TagBox";
 
 import Title from "./EditRecipeComponents/Title";
 import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction";
@@ -82,15 +77,15 @@ function IndividualRecipe(props) {
                 <Title />
 
                 <View style={styles.innovatorTime}>
-                    <Innovator>
+                    <View style={styles.innovatorContainer}>
                         <Image source={logo} style={styles.icon} />
                         <Text>{recipe.innovator_name}</Text>
-                    </Innovator>
+                    </View>
 
-                    <CookTime>
+                    <View style={styles.timeContainer}>
                         <Image source={clock} style={styles.icon} />
                         <Text>{recipe.minutes} minutes</Text>
-                    </CookTime>
+                    </View>
                 </View>
 
                 <Text style={styles.tags}>Tags</Text>
@@ -103,7 +98,7 @@ function IndividualRecipe(props) {
                         ))}
                 </View>
 
-                <RecipeTabs>
+                <View style={styles.tabsContainer}>
                     <Tab
                         text="Ingredients"
                         color={color}
@@ -114,9 +109,9 @@ function IndividualRecipe(props) {
                         color={color}
                         toggleTab={tabsDisplay}
                     />
-                </RecipeTabs>
+                </View>
 
-                <Details>
+                <View style={styles.recipeDetails}>
                     {recipe.ingredients &&
                         recipe.ingredients.map((ing, i) => (
                             <IndividualRecipeIngredient
@@ -136,7 +131,7 @@ function IndividualRecipe(props) {
                         ))}
 
                     <IndividualRecipeNotes color={color} notes={recipe.notes} />
-                </Details>
+                </View>
 
                 <FlatList
                     horizontal={true}

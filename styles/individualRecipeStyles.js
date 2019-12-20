@@ -13,6 +13,12 @@ const styles = StyleSheet.create({
     editIcon: {
         marginRight: 5,
     },
+    innovatorContainer: {
+        flexDirection: "row",
+    },
+    timeContainer: {
+        flexDirection: "row",
+    },
     innovatorTime: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -32,8 +38,6 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         marginLeft: 13,
         marginBottom: 8,
-        // borderTopWidth: 0.3,
-        // borderTopColor: '#6B6F70',
     },
     individualTags: {
         fontSize: 14,
@@ -42,36 +46,19 @@ const styles = StyleSheet.create({
     },
     tagBox: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "space-evenly",
         flexWrap: "wrap",
         paddingBottom: 16.5,
         marginLeft: 14,
         marginRight: 14,
     },
-    // editButton: {
-    //     width: 25,
-    //     height: 25,
-    //     marginLeft: 5,
-    //     marginTop: 4.5,
-    // },
-    // editButtonView: {
-    //     backgroundColor: "#8FCC70",
-    //     borderRadius: 50,
-    //     width: 48,
-    //     height: 48,
-    //     padding: 6,
-    //     marginBottom: 15,
-    //     marginLeft: 14,
-    //     marginTop: 15,
-    // },
-    // editView: {
-    //     paddingLeft: 300,
-    //     marginTop: 20,
-    //     alignContent: "center",
-    // },
     ingredients: {
         alignItems: "center",
         flexDirection: "row",
+    },
+    tabsContainer: {
+        flexDirection: "row",
+        alignItems: "center",
     },
     showTab: {
         paddingTop: 10,
@@ -99,7 +86,6 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 5,
     },
-
     tabTextWhite: {
         textAlign: "center",
         color: "white",
@@ -110,15 +96,15 @@ const styles = StyleSheet.create({
         color: "#047396",
         fontWeight: "bold",
     },
-
+    recipeDetails: {
+        alignItems: "center",
+    },
     titlesViewBorderIng: {
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: "#047396",
         paddingLeft: "16.5%",
         paddingRight: "16.5%",
-        //width: '100%',
-        //marginRight: '30%'
     },
     titlesViewBorderIngOff: {
         paddingTop: 10,
@@ -158,10 +144,6 @@ const styles = StyleSheet.create({
     },
     ingredientView: {
         width: "50%",
-        // height: 50,
-
-        // borderColor: "blue",
-        // borderWidth: 1,
     },
     stepText: {
         color: "#1E1F20",
@@ -204,7 +186,6 @@ const styles = StyleSheet.create({
         width: 60,
         height: 30,
     },
-
     titleContainer: {
         backgroundColor: "white",
         flexDirection: "row",
@@ -229,8 +210,6 @@ const styles = StyleSheet.create({
     },
     swipeableContainer: {
         width: "95%",
-        // borderColor: "pink",
-        // borderWidth: 2,
     },
     instructionInput: {
         width: "90%",
