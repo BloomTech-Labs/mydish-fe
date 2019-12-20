@@ -7,7 +7,8 @@ export const fetchCookbook = () => async dispatch => {
     dispatch({ type: START_FETCH_COOKBOOK });
 
     try {
-        const res = await axiosWithAuth().get("cookbook/");
+        const axiosCustom = await axiosWithAuth();
+        const res = await axiosCustom.get("cookbook/");
 
         dispatch({ type: FETCH_COOKBOOK_SUCCESS, payload: res.data });
     } catch (err) {
