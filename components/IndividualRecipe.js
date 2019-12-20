@@ -125,12 +125,11 @@ function IndividualRecipe(props) {
                                 ing={ing}
                                 color={color}
                                 mainEditing={mainEditing}
-                                setMainEditing={setMainEditing}
                             />
                         ))}
 
                     {recipe.steps &&
-                        recipe.steps.map(step => (
+                        recipe.steps.map((step, i) => (
                             <IndividualRecipeInstruction
                                 key={step.ordinal}
                                 index={i}
