@@ -46,7 +46,8 @@ const Title = props => {
                     <FontAwesome
                         name="pencil-square-o"
                         size={32}
-                        color="grey"
+                        color="#2E2E2E"
+                        style={styles.editIcon}
                     />
                 </View>
             )}
