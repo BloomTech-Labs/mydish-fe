@@ -13,12 +13,13 @@ const CookBookFolder = props => {
 
     const grab = async () => {
         try {
-            const courses = await axiosWithAuth().get(
+            const axiosCustom = await axiosWithAuth();
+            const courses = await axiosCustom.get(
                 `cookbook?category=${course}`,
             );
 
             setFolder(courses.data);
-            const { data } = await axiosWithAuth().get(`recipes/all`);
+            const { data } = await axiosCustom.get(`recipes/all`);
             const childrenRecipes = data.filter(rec => rec.ancestor);
 
             setChildren(childrenRecipes);
