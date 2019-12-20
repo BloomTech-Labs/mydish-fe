@@ -10,7 +10,10 @@ import {
     TouchableWithoutFeedback,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecipe, resetRecipe } from "../store/singleRecipe/singleRecipeActions";
+import {
+    fetchRecipe,
+    resetRecipe,
+} from "../store/singleRecipe/singleRecipeActions";
 
 import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
@@ -42,30 +45,10 @@ function IndividualRecipe(props) {
     const recipe = useSelector(state => state.singleRecipe.recipe);
 
     useEffect(() => {
-        // getToken();
-        // getSingleRecipe();
         dispatch(fetchRecipe(id));
         getForks();
-
-        return () => dispatch(resetRecipe())
+        return () => dispatch(resetRecipe());
     }, []);
-
-    // async function getToken() {
-    //     const token = await AsyncStorage.getItem("userToken");
-    //     if (token) {
-    //         setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
-    //     }
-    //     return token;
-    // }
-
-    // function getSingleRecipe() {
-    //     axios
-    //         .get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
-    //         .then(res => {
-    //             setRecipe(res.data);
-    //         })
-    //         .catch(err => console.log(err));
-    // }
 
     async function getForks() {
         try {
@@ -85,15 +68,6 @@ function IndividualRecipe(props) {
         setColor({ active: newActive });
     };
 
-    const capitalize = string => {
-        const newString = string.replace(/^\w/, c => c.toUpperCase());
-        return newString;
-    };
-
-    const navigateToEdits = () => {
-        props.navigation.navigate("Edit", { recipe });
-    };
-
     if (!recipe) {
         return (
             <View>
@@ -109,8 +83,6 @@ function IndividualRecipe(props) {
                     source={recipe.img ? { uri: recipe.img } : placeholder}
                     style={styles.placeholder}
                 />
-
-                {/* <Text style={styles.title}>{recipe.title}</Text> */}
                 <Title
                     title={recipe.title}
                     mainEditing={mainEditing}
@@ -129,20 +101,15 @@ function IndividualRecipe(props) {
                     </CookTime>
                 </View>
 
-                {/* {console.log('recipe categories', recipe.categories)}  */}
-
                 <Text style={styles.tags}>Tags</Text>
                 <TagBox>
                     {recipe.categories &&
                         recipe.categories.map(cat => (
                             <Text key={cat} style={styles.individualTags}>
-                                {capitalize(cat)}
+                                {cat}
                             </Text>
                         ))}
-                    {/* Why do we have to capitalize every category with a function? They already appear to be capitalized.. */}
                 </TagBox>
-
-                {/* {userToken && <EditButton navigate={navigateToEdits} />} */}
 
                 <RecipeTabs>
                     <Tab
