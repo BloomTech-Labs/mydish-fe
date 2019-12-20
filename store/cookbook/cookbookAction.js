@@ -1,4 +1,4 @@
-import axioswithAuth from "../../utils/axiosWithAuth";
+import axiosWithAuth from "../../utils/axiosWithAuth";
 
 export const START_FETCH_COOKBOOK = "START_COOKBOOK_RECIPES";
 export const FETCH_COOKBOOK_SUCCESS = "FETCH_COOKBOOK_SUCCESS";
