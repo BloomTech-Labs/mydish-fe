@@ -23,7 +23,6 @@
         "react-dom": "16.8.3",
         "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
         "react-native-aws3": "^0.0.9",
-        "react-native-dotenv": "^0.2.0",
         "react-native-gesture-handler": "~1.3.0",
         "react-native-keyboard-aware-scroll-view": "^0.9.1",
         "react-native-picker-module": "^1.2.3",
