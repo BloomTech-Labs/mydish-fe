@@ -10,7 +10,7 @@ import {
     TouchableWithoutFeedback,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecipe, resetRecipe } from "../store/singleRecipe/singleRecipeActions";
+import { fetchRecipe, resetRecipe, stopEdit } from "../store/singleRecipe/singleRecipeActions";
 
 import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
@@ -103,7 +103,7 @@ function IndividualRecipe(props) {
     }
 
     return (
-        <TouchableWithoutFeedback onPress={() => setMainEditing(false)}>
+        <TouchableWithoutFeedback onPress={() => dispatch(stopEdit())}>
             <ScrollView>
                 <Image
                     source={recipe.img ? { uri: recipe.img } : placeholder}
@@ -113,7 +113,6 @@ function IndividualRecipe(props) {
                 {/* <Text style={styles.title}>{recipe.title}</Text> */}
                 <Title
                     title={recipe.title}
-                    mainEditing={mainEditing}
                     setMainEditing={setMainEditing}
                 />
 
