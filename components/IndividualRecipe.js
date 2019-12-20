@@ -94,14 +94,14 @@ function IndividualRecipe(props) {
                 </View>
 
                 <Text style={styles.tags}>Tags</Text>
-                <TagBox>
+                <View style={styles.tagBox}>
                     {recipe.categories &&
                         recipe.categories.map(cat => (
                             <Text key={cat} style={styles.individualTags}>
                                 {cat}
                             </Text>
                         ))}
-                </TagBox>
+                </View>
 
                 <RecipeTabs>
                     <Tab

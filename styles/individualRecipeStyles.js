@@ -48,27 +48,27 @@ const styles = StyleSheet.create({
         marginLeft: 14,
         marginRight: 14,
     },
-    editButton: {
-        width: 25,
-        height: 25,
-        marginLeft: 5,
-        marginTop: 4.5,
-    },
-    editButtonView: {
-        backgroundColor: "#8FCC70",
-        borderRadius: 50,
-        width: 48,
-        height: 48,
-        padding: 6,
-        marginBottom: 15,
-        marginLeft: 14,
-        marginTop: 15,
-    },
-    editView: {
-        paddingLeft: 300,
-        marginTop: 20,
-        alignContent: "center",
-    },
+    // editButton: {
+    //     width: 25,
+    //     height: 25,
+    //     marginLeft: 5,
+    //     marginTop: 4.5,
+    // },
+    // editButtonView: {
+    //     backgroundColor: "#8FCC70",
+    //     borderRadius: 50,
+    //     width: 48,
+    //     height: 48,
+    //     padding: 6,
+    //     marginBottom: 15,
+    //     marginLeft: 14,
+    //     marginTop: 15,
+    // },
+    // editView: {
+    //     paddingLeft: 300,
+    //     marginTop: 20,
+    //     alignContent: "center",
+    // },
     ingredients: {
         alignItems: "center",
         flexDirection: "row",
@@ -82,6 +82,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "white",
         fontWeight: "bold",
+        borderTopRightRadius: 5,
+        borderTopLeftRadius: 5,
     },
     hideTab: {
         paddingTop: 10,
@@ -91,6 +93,11 @@ const styles = StyleSheet.create({
         paddingRight: "16.5%",
         color: "#047396",
         fontWeight: "bold",
+        shadowColor: "grey",
+        shadowOpacity: 0.26,
+        shadowOffset: { width: 0, height: -2 },
+        shadowRadius: 5,
+        elevation: 5,
     },
 
     tabTextWhite: {
@@ -200,6 +207,9 @@ const styles = StyleSheet.create({
 
     titleContainer: {
         backgroundColor: "white",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     buttonContainer: {
         flexDirection: "row",
@@ -224,6 +234,9 @@ const styles = StyleSheet.create({
     },
     instructionInput: {
         width: "90%",
+    },
+    swipeable: {
+        flexDirection: "row",
     },
 });
 

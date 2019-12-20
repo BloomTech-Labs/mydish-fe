@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../../styles/individualRecipeStyles";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -67,6 +67,11 @@ const Title = props => {
                     <Text style={styles.title}>
                         {recipeTitle ? recipeTitle : props.title}
                     </Text>
+                    <MaterialCommunityIcons
+                        name="drag-vertical"
+                        size={32}
+                        color="#2E2E2E"
+                    />
                 </View>
             )}
         </Swipeable>
