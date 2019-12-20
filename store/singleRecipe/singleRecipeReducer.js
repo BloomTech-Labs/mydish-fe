@@ -5,6 +5,7 @@ import {
     RESET_RECIPE,
     START_EDIT,
     STOP_EDIT,
+    EDIT_RECIPE,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -36,7 +37,6 @@ export const singleRecipeReducer = (state = initState, action) => {
                 isLoading: true,
             };
         case FETCH_RECIPE_SUCCESS:
-            console.log("ACTION.PAYLOAD", action.payload);
             return {
                 ...state,
                 isLoading: false,
@@ -47,6 +47,11 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 isLoading: false,
                 error: action.payload,
+            };
+        case EDIT_RECIPE:
+            return {
+                ...state,
+                recipe: { ...state.recipe, [action.name]: action.payload },
             };
         case START_EDIT:
             return { ...state, editing: true };
