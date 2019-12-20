@@ -5,8 +5,6 @@ import {
     ScrollView,
     FlatList,
     Image,
-    TouchableOpacity,
-    AsyncStorage,
     TouchableWithoutFeedback,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +19,6 @@ import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
 import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
 import IndividualRecipeNotes from "./IndividualRecipeNotes";
-import EditButton from "./EditButton";
 import Tab from "./Tab";
 import placeholder from "../assets/recipe-image-placeholder.png";
 import Version from "./Version";
@@ -35,8 +32,6 @@ import Title from "./EditRecipeComponents/Title";
 import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction";
 
 function IndividualRecipe(props) {
-    // const [recipe, setRecipe] = useState({});
-    // const [userToken, setUserToken] = useState(null);
     const [color, setColor] = useState({ active: "Ingredients" });
     const id = props.navigation.getParam("recipeID", "params not passed");
     const [forks, setForks] = useState([]);

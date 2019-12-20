@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 12,
         marginLeft: 14,
-        //textAlign: 'center'
     },
     icon: { width: 20, height: 20, marginRight: 5 },
     innovatorTime: {

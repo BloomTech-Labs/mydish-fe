@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
+import { Ionicons } from "@expo/vector-icons";
+import styles from "../../styles/individualRecipeStyles";
 
 const Title = props => {
     const [editing, setEditing] = useState(false);
@@ -9,10 +11,6 @@ const Title = props => {
     useEffect(() => {
         setRecipeTitle(props.title);
     }, [props.title]);
-
-    // updateRef = ref => {
-    //     this._swipeableRow = ref;
-    // };
 
     const swipeableEl = useRef(null);
     const editHandler = () => {
@@ -55,40 +53,5 @@ const Title = props => {
         </Swipeable>
     );
 };
-
-const styles = StyleSheet.create({
-    title: {
-        fontSize: 24,
-        color: "#363838",
-        fontWeight: "bold",
-        marginTop: 5,
-        marginBottom: 12,
-        marginLeft: 14,
-    },
-    input: {
-        borderBottomColor: "black",
-        borderBottomWidth: 1,
-    },
-    buttonContainer: {
-        flexDirection: "row",
-    },
-    editButton: {
-        backgroundColor: "#76A21E",
-        padding: 5,
-        alignItems: "center",
-        justifyContent: "center",
-        width: 60,
-    },
-    deleteButton: {
-        backgroundColor: "#C00000",
-        padding: 5,
-        alignItems: "center",
-        justifyContent: "center",
-        width: 60,
-    },
-    titleContainer: {
-        backgroundColor: "white",
-    },
-});
 
 export default Title;
