@@ -23,10 +23,20 @@ export const resetRecipe = () => {
 };
 
 export const EDIT_TITLE = "EDIT_TITLE";
-export const editTitle = (value) => {
+export const editTitle = value => {
     return {
         type: EDIT_TITLE,
         payload: value,
+    };
+};
+
+export const EDIT_INGRED = "EDIT_INGRED";
+export const editIngred = (index, value) => {
+    console.log(value);
+    return {
+        type: EDIT_INGRED,
+        payload: value,
+        index: index,
     };
 };
 

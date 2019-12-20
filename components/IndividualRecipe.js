@@ -120,11 +120,9 @@ function IndividualRecipe(props) {
                     {recipe.ingredients &&
                         recipe.ingredients.map((ing, i) => (
                             <IndividualRecipeIngredient
-                                key={ing.name}
+                                key={i}
                                 index={i}
-                                ing={ing}
                                 color={color}
-                                mainEditing={mainEditing}
                             />
                         ))}
 

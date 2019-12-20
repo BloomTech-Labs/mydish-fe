@@ -3,23 +3,29 @@ import { View, Text, TextInput } from "react-native";
 
 import styles from "../../styles/individualRecipeStyles";
 import { Swipeable } from "react-native-gesture-handler";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    startEdit,
+    editIngred,
+} from "../../store/singleRecipe/singleRecipeActions";
 
-const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing }) => {
-    const [editing, setEditing] = useState(false)
-    const [recipeIng, setRecipeIng] = useState({
-        ingName: null,
-        quantity: null,
-        unit: null
-    })
+const IndividualRecipeIngredient = ({ index, color }) => {
+    const dispatch = useDispatch();
+    const mainEditing = useSelector(state => state.singleRecipe.editing);
+    const ingredients = useSelector(
+        state => state.singleRecipe.recipe.ingredients,
+    );
+    const recipeIng =
+        ingredients && ingredients[index] ? ingredients[index] : {};
+    const [editing, setEditing] = useState(false);
 
-    const swipeableEl = useRef(null)
+    const swipeableEl = useRef(null);
 
     const editHandler = () => {
-        setEditing(true)
-        setMainEditing(true)
-        swipeableEl.current.close()
-
-    }
+        setEditing(true);
+        dispatch(startEdit());
+        swipeableEl.current.close();
+    };
 
     return (
         <View style={styles.swipeableContainer}>
@@ -33,72 +39,76 @@ const IndividualRecipeIngredient = ({ ing, color, setMainEditing, mainEditing })
                         <View style={styles.deleteButton}>
                             <Text>Delete</Text>
                         </View>
-                    </View>)}>
-
-
+                    </View>
+                )}
+            >
                 {/*Text Input*/}
                 {editing && mainEditing ? (
                     <View style={styles.ingredientContainer}>
-
                         <TextInput
-                            value={recipeIng.ingName ? recipeIng.ingName : ing.name}
-
-                            onChangeText={name => setRecipeIng({
-                                ...recipeIng,
-                                ingName: name
-
-                            })}
+                            value={recipeIng.name}
+                            onChangeText={name =>
+                                dispatch(
+                                    editIngred(index, {
+                                        ...recipeIng,
+                                        name,
+                                    }),
+                                )
+                            }
                             style={styles.input}
                         />
                         <TextInput
-                            value={recipeIng.quantity ? recipeIng.quantity : String(ing.quantity)}
-
-                            onChangeText={qty => setRecipeIng({
-                                ...recipeIng,
-                                quantity: qty
-
-                            })}
+                            keyboardType="decimal-pad"
+                            value={String(recipeIng.quantity)}
+                            onChangeText={qty =>
+                                dispatch(
+                                    editIngred(index, {
+                                        ...recipeIng,
+                                        // If our quantity isn't a number, it'll turn into NaN! Danger!
+                                        quantity: isNaN(Number(qty))
+                                            ? recipeIng.quantity
+                                            : qty,
+                                    }),
+                                )
+                            }
                             style={styles.input}
                         />
                         <TextInput
-                            value={recipeIng.unit ? recipeIng.unit : ing.unit}
-
-                            onChangeText={unit => setRecipeIng({
-                                ...recipeIng,
-                                unit: unit
-
-                            })}
+                            value={recipeIng.unit}
+                            onChangeText={unit =>
+                                dispatch(
+                                    editIngred(index, {
+                                        ...recipeIng,
+                                        unit: unit,
+                                    }),
+                                )
+                            }
                             style={styles.input}
                         />
-
-
                     </View>
                 ) : (
-                        <View
-                            style={
-                                color.active.includes("Instructions")
-                                    ? styles.hidden
-                                    : styles.ingredientList
-                            }
-                        >
-                            <View style={styles.ingredientView}>
-                                <Text style={styles.ingredientText}>
-
-
-                                    {recipeIng.quantity ? recipeIng.quantity : ing.quantity} {recipeIng.unit ? recipeIng.unit : ing.unit}
-                                </Text>
-                            </View>
-                            <View style={styles.ingredientView}>
-                                <Text style={styles.ingredientText}>{recipeIng.ingName ? recipeIng.ingName : ing.name}</Text>
-                            </View>
+                    <View
+                        style={
+                            color.active.includes("Instructions")
+                                ? styles.hidden
+                                : styles.ingredientList
+                        }
+                    >
+                        <View style={styles.ingredientView}>
+                            <Text style={styles.ingredientText}>
+                                {recipeIng.quantity} {recipeIng.unit}
+                            </Text>
                         </View>
-                    )
-                }
-
-            </Swipeable >
+                        <View style={styles.ingredientView}>
+                            <Text style={styles.ingredientText}>
+                                {recipeIng.name}
+                            </Text>
+                        </View>
+                    </View>
+                )}
+            </Swipeable>
         </View>
     );
 };
 
 export default IndividualRecipeIngredient;
-
