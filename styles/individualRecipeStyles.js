@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "white",
         fontWeight: "bold",
-        borderTopRightRadius: 5,
-        borderTopLeftRadius: 5,
+        borderTopRightRadius: 8,
+        borderTopLeftRadius: 8,
     },
     hideTab: {
         paddingTop: 10,
@@ -82,9 +82,11 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         shadowColor: "grey",
         shadowOpacity: 0.26,
-        shadowOffset: { width: 0, height: -2 },
+        shadowOffset: { width: 0, height: -4 },
         shadowRadius: 5,
         elevation: 5,
+        borderTopRightRadius: 8,
+        borderTopLeftRadius: 8,
     },
     tabTextWhite: {
         textAlign: "center",
