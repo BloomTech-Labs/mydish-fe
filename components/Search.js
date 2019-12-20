@@ -9,7 +9,11 @@ const Search = () => {
     let [dish, setDish] = useState("");
 
     useEffect(() => {
-        dispatch(fetchRecipes(dish || ""));
+        const timer = setTimeout(() => {
+            dispatch(fetchRecipes(dish));
+        }, 600);
+
+        return () => clearTimeout(timer);
     }, [dish]);
 
     return (
@@ -18,7 +22,7 @@ const Search = () => {
             placeholder="What dish are you looking for?"
             placeholderTextColor="#D3D3D3"
             value={dish}
-            onChangeText={dish => setDish(dish)}
+            onChangeText={text => setDish(text)}
         />
     );
 };
