@@ -18,6 +18,18 @@ export const fetchRecipe = id => dispatch => {
 export const RESET_RECIPE = "RESET_RECIPE";
 export const resetRecipe = () => {
     return {
-        type: RESET_RECIPE
-    }
-}
+        type: RESET_RECIPE,
+    };
+};
+
+export const EDIT_RECIPE = "EDIT_RECIPE";
+export const editRecipe = (name, value) => {
+    return {
+        type: EDIT_RECIPE,
+        payload: value,
+        name,
+    };
+};
+
+export const STOP_EDIT = "STOP_EDIT";
+export const stopEdit = () => ({ type: STOP_EDIT });
