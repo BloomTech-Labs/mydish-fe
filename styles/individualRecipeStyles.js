@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+    recipeContainer: {
+        marginBottom: 200,
+    },
     title: {
         fontSize: 24,
         color: "#363838",
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
     hidden: {
         display: "none",
     },
-    placeholder: { width: "100%", height: 345 },
+    image: { width: "100%", height: 300, resizeMode: "cover" },
     editButton: {
         backgroundColor: "#76A21E",
         padding: 5,
