@@ -40,6 +40,16 @@ export const editIngred = (index, value) => {
     };
 };
 
+export const EDIT_INSTRUCT = "EDIT_INSTRUCT";
+export const editInstruct = (index, value) => {
+    console.log(value);
+    return {
+        type: EDIT_INSTRUCT,
+        payload: value,
+        index: index,
+    };
+};
+
 export const STOP_EDIT = "STOP_EDIT";
 export const stopEdit = () => ({ type: STOP_EDIT });
 

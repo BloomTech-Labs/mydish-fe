@@ -131,10 +131,7 @@ function IndividualRecipe(props) {
                             <IndividualRecipeInstruction
                                 key={step.ordinal}
                                 index={i}
-                                step={step}
                                 color={color}
-                                mainEditing={mainEditing}
-                                setMainEditing={setMainEditing}
                             />
                         ))}
 

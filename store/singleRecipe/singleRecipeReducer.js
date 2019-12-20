@@ -3,10 +3,11 @@ import {
     FETCH_RECIPE_SUCCESS,
     FETCH_RECIPE_FAILURE,
     RESET_RECIPE,
-    EDIT_INGRED,
     START_EDIT,
     STOP_EDIT,
     EDIT_TITLE,
+    EDIT_INGRED,
+    EDIT_INSTRUCT,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -56,6 +57,13 @@ export const singleRecipeReducer = (state = initState, action) => {
                 } else return val;
             });
             return { ...state, recipe: { ...state.recipe, ingredients } };
+        case EDIT_INSTRUCT:
+            const steps = state.recipe.steps.map((val, i) => {
+                if (i === action.index) {
+                    return action.payload;
+                } else return val;
+            });
+            return { ...state, recipe: { ...state.recipe, steps } };
         case EDIT_TITLE:
             return {
                 ...state,
