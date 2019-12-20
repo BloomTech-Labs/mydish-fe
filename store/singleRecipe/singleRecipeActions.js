@@ -33,3 +33,6 @@ export const editRecipe = (name, value) => {
 
 export const STOP_EDIT = "STOP_EDIT";
 export const stopEdit = () => ({ type: STOP_EDIT });
+
+export const START_EDIT = "START_EDIT";
+export const startEdit = () => ({ type: START_EDIT });

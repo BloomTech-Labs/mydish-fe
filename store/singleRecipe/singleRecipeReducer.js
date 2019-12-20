@@ -2,7 +2,8 @@ import {
     START_FETCH_RECIPE,
     FETCH_RECIPE_SUCCESS,
     FETCH_RECIPE_FAILURE,
-    RESET_RECIPE
+    RESET_RECIPE,
+    STOP_EDIT,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -22,6 +23,7 @@ const initState = {
     },
     isLoading: false,
     error: null,
+    editing: false,
 };
 
 export const singleRecipeReducer = (state = initState, action) => {
@@ -45,6 +47,10 @@ export const singleRecipeReducer = (state = initState, action) => {
                 isLoading: false,
                 error: action.payload,
             };
+        case START_EDIT:
+            return { ...state, editing: true };
+        case STOP_EDIT:
+            return { ...state, editing: false };
         case RESET_RECIPE:
             return initState;
 
