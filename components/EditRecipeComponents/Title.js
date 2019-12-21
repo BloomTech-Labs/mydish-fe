@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
+import { Keyboard, View, Text, TextInput } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../../styles/individualRecipeStyles";
@@ -20,15 +20,20 @@ const Title = props => {
     const recipeTitle = useSelector(state => state.singleRecipe.recipe.title);
     const [editing, setEditing] = useState(false);
 
+    // useEffect(() => {
+    //     // If our mainEditing variable is false,
+    //     // setEditing to false as well.
+    //     // This makes sure that this individual component doesn't also
+    //     //     enter edit mode if we start editing a different swipeale
+    //     if (!mainEditing) {
+    //         setEditing(false);
+    //     }
+    // }, [mainEditing]);
+
+    //I think we no longer need mainEdit? this useEffect sets the editing to false when the keyboard hides
     useEffect(() => {
-        // If our mainEditing variable is false,
-        // setEditing to false as well.
-        // This makes sure that this individual component doesn't also
-        //     enter edit mode if we start editing a different swipeale
-        if (!mainEditing) {
-            setEditing(false);
-        }
-    }, [mainEditing]);
+        Keyboard.addListener("keyboardDidHide", () => setEditing(false));
+    }, [editing]);
 
     const swipeableEl = useRef(null);
     const editHandler = () => {
@@ -54,7 +59,8 @@ const Title = props => {
             )}
         >
             {/*TextInput */}
-            {editing && mainEditing ? (
+            {/* removed && mainEditing */}
+            {editing ? (
                 <View style={styles.titleContainer}>
                     <TextInput
                         value={recipeTitle ? recipeTitle : props.title}

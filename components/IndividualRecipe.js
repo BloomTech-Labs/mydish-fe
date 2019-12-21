@@ -38,6 +38,8 @@ function IndividualRecipe(props) {
     useEffect(() => {
         dispatch(fetchRecipe(id));
         getForks();
+        //below is a cleanup that resets the initState of singleRecipe to null values,
+        //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
     }, []);
 
