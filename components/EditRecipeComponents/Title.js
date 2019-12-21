@@ -60,6 +60,9 @@ const Title = props => {
                         value={recipeTitle ? recipeTitle : props.title}
                         onChangeText={title => dispatch(editTitle(title))}
                         style={{ ...styles.title, ...styles.input }}
+                        returnKeyType="done"
+                        autoFocus={true}
+                        enablesReturnKeyAutomatically={true}
                     />
                 </View>
             ) : (

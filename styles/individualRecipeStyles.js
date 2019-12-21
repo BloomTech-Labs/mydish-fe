@@ -14,6 +14,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10,
+        marginRight: 3,
+        paddingVertical: 3,
     },
     title: {
         fontSize: 24,
