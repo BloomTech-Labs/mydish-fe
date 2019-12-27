@@ -36,7 +36,7 @@ export const authReducer = (state = authStore, { type, payload }) => {
                 error: null,
             };
         case REGISTER_FAILURE:
-            return { ...state, isAuthorizing: false, erorr: payload };
+            return { ...state, isAuthorizing: false, error: payload };
         default:
             return state;
     }
