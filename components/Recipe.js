@@ -40,12 +40,8 @@ const Recipe = props => {
 
     const getRecipe = async () => {
         try {
-<<<<<<< HEAD
             const axiosCustom = await axiosWithAuth();
             const res = await axiosCustom.get(`recipes/${recipe.id}`);
-=======
-            const res = await axiosWithAuth().get(`recipes/${recipe.id}`);
->>>>>>> origin
             let { categories } = res.data;
             categories = categories.filter(
                 cat =>
