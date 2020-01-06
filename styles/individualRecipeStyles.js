@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
     icon: { width: 20, height: 20, marginRight: 5 },
     editIcon: {
-        marginRight: 0,
+        marginRight: 20,
     },
     innovatorContainer: {
         flexDirection: "row",
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     },
     image: { width: "100%", height: 300, resizeMode: "cover" },
     editButton: {
-        backgroundColor: "#76A21E",
+        backgroundColor: "#8FCC70",
         padding: 5,
         alignItems: "center",
         justifyContent: "center",
@@ -204,12 +204,18 @@ const styles = StyleSheet.create({
         width: 60,
         height: 30,
     },
-    buttonContainer: {
-        flexDirection: "row",
+    titleButtonContainer: {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#8FCC70",
-        width: 42,
+        width: 25,
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        // backgroundColor: "#8FCC70",
+        width: 150,
     },
     input: {
         borderBottomColor: "black",

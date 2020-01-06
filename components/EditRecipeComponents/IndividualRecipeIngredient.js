@@ -8,6 +8,7 @@ import {
     startEdit,
     editIngred,
 } from "../../store/singleRecipe/singleRecipeActions";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const IndividualRecipeIngredient = ({ index, color }) => {
     const dispatch = useDispatch();
@@ -44,10 +45,22 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <View style={styles.editButton}>
-                            <Text onPress={editHandler}>Edit</Text>
+                            <FontAwesome
+                                name="pencil-square-o"
+                                size={20}
+                                color="white"
+                                style={styles.icon}
+                                onPress={editHandler}
+                            />
                         </View>
                         <View style={styles.deleteButton}>
-                            <Text>Delete</Text>
+                            <FontAwesome
+                                name="trash-o"
+                                size={20}
+                                color="white"
+                                style={styles.icon}
+                                onPress={editHandler}
+                            />
                         </View>
                     </View>
                 )}
@@ -97,25 +110,25 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                         />
                     </View>
                 ) : (
-                    <View
-                        style={
-                            color.active.includes("Instructions")
-                                ? styles.hidden
-                                : styles.ingredientList
-                        }
-                    >
-                        <View style={styles.ingredientView}>
-                            <Text style={styles.ingredientText}>
-                                {recipeIng.quantity} {recipeIng.unit}
-                            </Text>
+                        <View
+                            style={
+                                color.active.includes("Instructions")
+                                    ? styles.hidden
+                                    : styles.ingredientList
+                            }
+                        >
+                            <View style={styles.ingredientView}>
+                                <Text style={styles.ingredientText}>
+                                    {recipeIng.quantity} {recipeIng.unit}
+                                </Text>
+                            </View>
+                            <View style={styles.ingredientView}>
+                                <Text style={styles.ingredientText}>
+                                    {recipeIng.name}
+                                </Text>
+                            </View>
                         </View>
-                        <View style={styles.ingredientView}>
-                            <Text style={styles.ingredientText}>
-                                {recipeIng.name}
-                            </Text>
-                        </View>
-                    </View>
-                )}
+                    )}
             </Swipeable>
         </View>
     );

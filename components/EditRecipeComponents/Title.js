@@ -72,17 +72,17 @@ const Title = props => {
                     />
                 </View>
             ) : (
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}>
-                        {recipeTitle ? recipeTitle : props.title}
-                    </Text>
-                    <MaterialCommunityIcons
-                        name="drag-vertical"
-                        size={32}
-                        color="#2E2E2E"
-                    />
-                </View>
-            )}
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.title}>
+                            {recipeTitle ? recipeTitle : props.title}
+                        </Text>
+                        <MaterialCommunityIcons
+                            name="drag-vertical"
+                            size={32}
+                            color="#2E2E2E"
+                        />
+                    </View>
+                )}
         </Swipeable>
     );
 };
