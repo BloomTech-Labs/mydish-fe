@@ -1,18 +1,37 @@
-import axios from "axios";
+import axiosWithAuth from "../../utils/axiosWithAuth";
 
 export const START_FETCH_RECIPE = "START_FETCH_RECIPE";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
 
-export const fetchRecipe = id => dispatch => {
+export const fetchRecipe = id => async dispatch => {
     dispatch({ type: START_FETCH_RECIPE });
 
-    axios
-        .get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
-        .then(res => {
-            dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res.data });
-        })
-        .catch(err => dispatch({ type: FETCH_RECIPE_FAILURE, payload: err }));
+    try {
+        const axiosCustom = await axiosWithAuth();
+        const res = await axiosCustom.get(`recipes/${id}`);
+
+        dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res.data });
+    } catch (err) {
+        dispatch({ type: FETCH_RECIPE_FAILURE, payload: err });
+    }
+};
+
+export const START_SAVE_NEW_RECIPE = "START_SAVE_NEW_RECIPE";
+export const SAVE_NEW_RECIPE_SUCCESS = "SAVE_NEW_RECIPE_SUCCESS";
+export const SAVE_NEW_RECIPE_FAILURE = "SAVE_NEW_RECIPE_FAILURE";
+
+export const saveNewRecipe = recipeInfo => async dispatch => {
+    dispatch({ type: START_SAVE_NEW_RECIPE });
+
+    try {
+        const axiosCustom = await axiosWithAuth();
+        const res = await axiosCustom.post("recipes/");
+
+        dispatch({ type: SAVE_NEW_RECIPE_SUCCESS });
+    } catch (err) {
+        dispatch({ type: SAVE_NEW_RECIPE_FAILURE, payload: err });
+    }
 };
 
 export const RESET_RECIPE = "RESET_RECIPE";
