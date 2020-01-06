@@ -8,7 +8,7 @@ import {
     startEdit,
     editIngred,
 } from "../../store/singleRecipe/singleRecipeActions";
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 const IndividualRecipeIngredient = ({ index, color }) => {
     const dispatch = useDispatch();
