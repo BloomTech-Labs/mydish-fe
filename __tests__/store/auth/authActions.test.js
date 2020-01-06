@@ -1,4 +1,5 @@
 import * as authActions from "../../../store/auth/authActions";
+import { AsyncStorage } from "react-native";
 import axiosWithAuth from "../../../utils/axiosWithAuth";
 jest.mock("../../../utils/axiosWithAuth");
 
@@ -43,7 +44,7 @@ describe("LoginUser action creator", () => {
     test("dispatches LOGIN_SUCCESS and a true success upon a successful request", async () => {
         const dispatch = jest.fn();
 
-        // Our test responseData, and our mocked 
+        // Our test responseData, and our mocked
         //     axiosWithAuth().post() function
         const responseData = { token: "testToken" };
         axiosWithAuth.mockImplementation(() => {
@@ -51,6 +52,8 @@ describe("LoginUser action creator", () => {
                 post: () => ({ data: responseData }),
             };
         });
+        // Our AsyncStorage mock
+        AsyncStorage.setItem = jest.fn(() => {})
 
         const success = await authActions.loginUser()(dispatch);
 
@@ -118,6 +121,8 @@ describe("registerUser action creator", () => {
                 post: () => ({ data: responseData }),
             };
         });
+        // Our AsyncStorage mock
+        AsyncStorage.setItem = jest.fn(() => {})
 
         const success = await authActions.registerUser()(dispatch);
 
@@ -135,7 +140,7 @@ describe("registerUser action creator", () => {
     test("dispatches REGISTER_FAILURE and a false success upon an unsuccessful request", async () => {
         const dispatch = jest.fn();
 
-        // Our test responseData, and our mocked 
+        // Our test responseData, and our mocked
         //     axiosWithAuth().post() function
         const errorMessage = "testError";
         axiosWithAuth.mockImplementation(() => {

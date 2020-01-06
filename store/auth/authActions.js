@@ -9,9 +9,10 @@ export const loginUser = userInfo => async dispatch => {
     let success = false;
 
     try {
-        const res = await axiosWithAuth().post("cooks/login", userInfo);
+        const axiosCustom = await axiosWithAuth();
+        const res = await axiosCustom.post("cooks/login", userInfo);
 
-        AsyncStorage.setItem("userToken", res.data.token);
+        await AsyncStorage.setItem("userToken", res.data.token);
         dispatch({ type: LOGIN_SUCCESS, payload: res.data });
 
         success = true;
@@ -30,9 +31,10 @@ export const registerUser = userInfo => async dispatch => {
     let success = false;
 
     try {
-        const res = await axiosWithAuth().post("cooks/register", userInfo);
+        const axiosCustom = await axiosWithAuth();
+        const res = await axiosCustom.post("cooks/register", userInfo);
 
-        AsyncStorage.setItem("userToken", res.data.token);
+        await AsyncStorage.setItem("userToken", res.data.token);
         dispatch({ type: REGISTER_SUCCESS, payload: res.data });
 
         success = true;
