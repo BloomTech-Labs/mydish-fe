@@ -7,7 +7,8 @@ export const fetchRecipes = searchQuery => async dispatch => {
     dispatch({ type: START_FETCH_RECIPES });
 
     try {
-        const res = await axiosWithAuth().get(`recipes?title=${searchQuery}`);
+        const axiosCustom = await axiosWithAuth();
+        const res = await axiosCustom.get(`recipes?title=${searchQuery}`);
 
         dispatch({ type: FETCH_RECIPES_SUCCESS, payload: res.data });
     } catch (err) {

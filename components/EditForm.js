@@ -112,7 +112,8 @@ function EditForm(props) {
         }
 
         try {
-            const res = await axiosWithAuth().post("recipes", recipe);
+            const axiosCustom = await axiosWithAuth();
+            const res = await axiosCustom.post("recipes", recipe);
 
             recipeID = res.data.recipe_id;
 
