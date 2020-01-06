@@ -59,7 +59,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 size={20}
                                 color="white"
                                 style={styles.icon}
-                                onPress={editHandler}
+                                onPress={() => { }}
                             />
                         </View>
                     </View>
