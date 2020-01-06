@@ -162,6 +162,9 @@ const styles = StyleSheet.create({
     },
     ingredientView: {
         width: "50%",
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        alignItems: 'center'
     },
     stepText: {
         color: "#1E1F20",
@@ -216,12 +219,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         // backgroundColor: "#8FCC70",
         width: 150,
+        height: '100%'
     },
     input: {
         borderBottomColor: "black",
         borderBottomWidth: 1,
         width: "30%",
-        height: 40,
     },
     ingredientContainer: {
         width: "100%",

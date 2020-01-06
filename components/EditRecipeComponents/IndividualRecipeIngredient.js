@@ -8,7 +8,7 @@ import {
     startEdit,
     editIngred,
 } from "../../store/singleRecipe/singleRecipeActions";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const IndividualRecipeIngredient = ({ index, color }) => {
     const dispatch = useDispatch();
@@ -80,6 +80,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                             }
                             style={styles.input}
                         />
+
                         <TextInput
                             keyboardType="decimal-pad"
                             value={String(recipeIng.quantity)}
@@ -121,6 +122,11 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 <Text style={styles.ingredientText}>
                                     {recipeIng.quantity} {recipeIng.unit}
                                 </Text>
+                                <MaterialCommunityIcons
+                                    name="drag-vertical"
+                                    size={32}
+                                    color="#2E2E2E"
+                                />
                             </View>
                             <View style={styles.ingredientView}>
                                 <Text style={styles.ingredientText}>
