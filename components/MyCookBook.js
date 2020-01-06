@@ -54,7 +54,8 @@ const MyCookBook = props => {
 
     const grab = async () => {
         try {
-            const res = axiosWithAuth().get(`cookbook?category=${word}`);
+            const axiosCustom = await axiosWithAuth();
+            const res = axiosCustom.get(`cookbook?category=${word}`);
 
             setTest(res.data);
         } catch (err) {

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Recipe from "./Recipe";
 import { ScrollView, View } from "react-native";
-import axiosWithAuth from "../utils/axiosWithAuth";
 import styles from "../styles/recipe-styles";
 import RecipeListContainer from "./StyledComponents/RecipeListContainer";
 import { fetchCookbook } from "../store/cookbook/cookbookAction";
@@ -11,9 +10,9 @@ const RecipeList = props => {
     const dispatch = useDispatch();
     const recipeList = useSelector(store => store.allRecipes.recipeList);
     const cookbook = useSelector(store => store.cookbook.cookbookRecipes);
-    
+
     const [recipes, setRecipes] = useState([]);
-    
+
     const likedByUser = () => {
         newRecipeList = recipeList.map(rec => {
             const match = cookbook.find(({ id }) => id === rec.id);
@@ -33,7 +32,6 @@ const RecipeList = props => {
         }
         likedByUser();
     }, [cookbook, recipeList]);
-
 
     // TODO: Talk with backend - If we can get each recipe to have an
     //       extra property called "forkCount", we can pass the forkCount

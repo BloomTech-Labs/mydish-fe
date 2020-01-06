@@ -100,7 +100,8 @@ function CreateRecipeForm(props) {
         }
 
         try {
-            const res = await axiosWithAuth().post("recipes", recipe);
+            const axiosCustom = await axiosWithAuth();
+            const res = await axiosCustom.post("recipes", recipe);
 
             recipeID = res.data.recipe_id;
             setRecipe(initialFormState);
@@ -139,7 +140,6 @@ function CreateRecipeForm(props) {
     };
 
     const addInstructions = () => {
-        // console.log('add instructions component generator triggered');
         const InstructionComponents = [];
 
         for (let i = 0; i < stepCount; i++) {
