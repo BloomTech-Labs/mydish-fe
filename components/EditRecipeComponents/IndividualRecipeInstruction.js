@@ -8,7 +8,7 @@ import {
     editInstruct,
     startEdit,
 } from "../../store/singleRecipe/singleRecipeActions";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const IndividualRecipeInstruction = ({ index, color }) => {
     const dispatch = useDispatch();
@@ -84,6 +84,12 @@ const IndividualRecipeInstruction = ({ index, color }) => {
                             <Text style={styles.stepText}>
                                 {instruction.ordinal}. {instruction.body}
                             </Text>
+                            <MaterialCommunityIcons
+                                name="drag-vertical"
+                                size={32}
+                                color="#2E2E2E"
+                            />
+
                         </View>
                     )}
             </Swipeable>

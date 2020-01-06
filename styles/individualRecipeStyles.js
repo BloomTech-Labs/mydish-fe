@@ -171,13 +171,26 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     stepTextView: {
+        // backgroundColor: "#F4F8FA",
+        // paddingLeft: 5,
+        // paddingTop: 9,
+        // paddingBottom: 9,
+        // marginTop: 10,
+        // marginBottom: 20,
+        // width: "90%",
+        // flexDirection: "row",
+        // justifyContent: "space-around",
+
         backgroundColor: "#F4F8FA",
-        paddingLeft: 5,
         paddingTop: 9,
         paddingBottom: 9,
         marginTop: 10,
         marginBottom: 20,
-        width: "90%",
+        flexDirection: 'row',
+        justifyContent: "space-around",
+        paddingRight: 10,
+        marginLeft: 14,
+        marginRight: 14,
     },
     details: {
         alignItems: "center",
@@ -225,6 +238,7 @@ const styles = StyleSheet.create({
         borderBottomColor: "black",
         borderBottomWidth: 1,
         width: "30%",
+        height: '100%'
     },
     ingredientContainer: {
         width: "100%",
@@ -234,12 +248,14 @@ const styles = StyleSheet.create({
     },
     swipeableContainer: {
         width: "95%",
+
     },
     instructionInput: {
         width: "90%",
     },
     swipeable: {
         flexDirection: "row",
+
     },
 });
 
