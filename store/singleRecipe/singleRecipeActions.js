@@ -1,5 +1,11 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
 
+export const STOP_EDIT = "STOP_EDIT";
+export const stopEdit = () => ({ type: STOP_EDIT });
+
+export const START_EDIT = "START_EDIT";
+export const startEdit = () => ({ type: START_EDIT });
+
 export const START_FETCH_RECIPE = "START_FETCH_RECIPE";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
@@ -43,16 +49,16 @@ export const resetRecipe = () => {
 
 export const EDIT_TITLE = "EDIT_TITLE";
 export const editTitle = value => {
+    if (value.charCodeAt(value.length - 1) === 10) {
+        return {
+            type: STOP_EDIT,
+        };
+    }
     return {
         type: EDIT_TITLE,
         payload: value,
     };
 };
-export const STOP_EDIT = "STOP_EDIT";
-export const stopEdit = () => ({ type: STOP_EDIT });
-
-export const START_EDIT = "START_EDIT";
-export const startEdit = () => ({ type: START_EDIT });
 
 export const EDIT_INGRED = "EDIT_INGRED";
 export const editIngred = (index, value) => {

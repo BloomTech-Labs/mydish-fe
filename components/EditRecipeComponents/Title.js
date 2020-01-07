@@ -69,8 +69,11 @@ const Title = props => {
                 <View style={styles.titleContainer}>
                     <TextInput
                         value={recipeTitle ? recipeTitle : props.title}
-                        onChangeText={title => dispatch(editTitle(title))}
+                        onChangeText={title => {
+                            dispatch(editTitle(title));
+                        }}
                         style={styles.title}
+                        multiline
                         returnKeyType="done"
                         autoFocus={true}
                         enablesReturnKeyAutomatically={true}
