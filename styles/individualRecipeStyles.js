@@ -181,14 +181,15 @@ const styles = StyleSheet.create({
         marginLeft: 14,
         marginRight: 14,
         flexDirection: "row",
-        justifyContent: "space-between",
+        // justifyContent: "space-between",
         alignItems: "center",
+
     },
     details: {
         alignItems: "center",
     },
     notes: {
-        marginLeft: 14,
+        // marginLeft: 14,
         fontSize: 14,
         fontWeight: "500",
     },

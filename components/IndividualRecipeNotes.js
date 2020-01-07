@@ -52,15 +52,27 @@ export default function IndividualRecipeNotes({ color, notes }) {
                             </View>
                         </View>
                     )}>
-                    <Text
-                        style={
-                            color.active.includes("Ingredients")
-                                ? styles.hidden
-                                : styles.stepTextView
-                        }
-                    >
-                        {notes}
-                    </Text>
+                    <View style={
+                        color.active.includes("Ingredients")
+                            ? styles.hidden
+                            : styles.stepTextView
+                    }>
+                        <Text
+                            numberOfLines={3}
+                            style={styles.stepText}
+                        >
+                            {notes}
+
+                        </Text>
+                        <MaterialCommunityIcons
+                            name="drag-vertical"
+                            size={32}
+                            color="#2E2E2E"
+
+                        />
+
+                    </View>
+
                 </Swipeable>
             </View>
         </>
