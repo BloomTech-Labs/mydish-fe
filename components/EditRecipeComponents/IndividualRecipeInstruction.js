@@ -8,17 +8,18 @@ import {
     editInstruct,
     startEdit,
 } from "../../store/singleRecipe/singleRecipeActions";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const IndividualRecipeInstruction = ({ index, color }) => {
     const dispatch = useDispatch();
     const mainEditing = useSelector(state => state.singleRecipe.editing);
-    
+
     // Two steps here to grab our specific instruction.
     // This just makes sure that, if there's only an empty array,
     // `instruction` is still an object, so the page will load.
     const steps = useSelector(state => state.singleRecipe.recipe.steps);
     const instruction = steps && steps[index] ? steps[index] : {};
-    
+
     const [editing, setEditing] = useState(false);
 
     const swipeableEl = useRef(null);
@@ -46,20 +47,46 @@ const IndividualRecipeInstruction = ({ index, color }) => {
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <View style={styles.editButton}>
-                            <Text onPress={editHandler}>Edit</Text>
+                            <FontAwesome
+                                name="pencil-square-o"
+                                size={20}
+                                color="white"
+                                style={styles.icon}
+                                onPress={editHandler}
+                            />
                         </View>
                         <View style={styles.deleteButton}>
-                            <Text>Delete</Text>
+                            <FontAwesome
+                                name="trash-o"
+                                size={20}
+                                color="white"
+                                style={styles.icon}
+                                onPress={() => {}}
+                            />
                         </View>
                     </View>
                 )}
             >
                 {editing && mainEditing ? (
-                    <TextInput
-                        value={instruction.body}
-                        onChangeText={step => dispatch(editInstruct(step))}
-                        style={styles.instructionInput}
-                    />
+                    <View style={styles.stepTextView}>
+                        <Text>{instruction.ordinal}.</Text>
+                        <TextInput
+                            value={instruction.body}
+                            onChangeText={body =>
+                                dispatch(
+                                    editInstruct(index, {
+                                        ordinal: instruction.ordinal,
+                                        body,
+                                    }),
+                                )
+                            }
+                            style={styles.instructionInput}
+                            multiline
+                            returnKeyType="done"
+                            autoFocus={true}
+                            enablesReturnKeyAutomatically={true}
+                        />
+                    </View>
                 ) : (
                     <View
                         style={
@@ -71,6 +98,11 @@ const IndividualRecipeInstruction = ({ index, color }) => {
                         <Text style={styles.stepText}>
                             {instruction.ordinal}. {instruction.body}
                         </Text>
+                        <MaterialCommunityIcons
+                            name="drag-vertical"
+                            size={32}
+                            color="#2E2E2E"
+                        />
                     </View>
                 )}
             </Swipeable>

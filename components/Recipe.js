@@ -40,7 +40,8 @@ const Recipe = props => {
 
     const getRecipe = async () => {
         try {
-            const res = await axiosWithAuth().get(`recipes/${recipe.id}`);
+            const axiosCustom = await axiosWithAuth();
+            const res = await axiosCustom.get(`recipes/${recipe.id}`);
             let { categories } = res.data;
             categories = categories.filter(
                 cat =>
@@ -65,9 +66,10 @@ const Recipe = props => {
     // TODO: Make this an action
     const likeIt = async () => {
         let liked = !like; //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
+        const axiosCustom = await axiosWithAuth();
 
         if (liked) {
-            axiosWithAuth()
+            axiosCustom
                 .post(`cookbook/${recipe.id}`, {})
                 .then(res => {
                     setLikeCount(res.data.total_saves);
@@ -76,7 +78,7 @@ const Recipe = props => {
                 })
                 .catch(err => console.log("error in posting like", err));
         } else {
-            axiosWithAuth()
+            axiosCustom
                 .delete(`cookbook/${recipe.id}`)
                 .then(res => {
                     if (!res.data.total_saves) {

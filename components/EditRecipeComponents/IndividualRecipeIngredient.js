@@ -8,6 +8,7 @@ import {
     startEdit,
     editIngred,
 } from "../../store/singleRecipe/singleRecipeActions";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const IndividualRecipeIngredient = ({ index, color }) => {
     const dispatch = useDispatch();
@@ -44,10 +45,22 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <View style={styles.editButton}>
-                            <Text onPress={editHandler}>Edit</Text>
+                            <FontAwesome
+                                name="pencil-square-o"
+                                size={20}
+                                color="white"
+                                style={styles.icon}
+                                onPress={editHandler}
+                            />
                         </View>
                         <View style={styles.deleteButton}>
-                            <Text>Delete</Text>
+                            <FontAwesome
+                                name="trash-o"
+                                size={20}
+                                color="white"
+                                style={styles.icon}
+                                onPress={() => {}}
+                            />
                         </View>
                     </View>
                 )}
@@ -66,7 +79,11 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 )
                             }
                             style={styles.input}
+                            returnKeyType="done"
+                            autoFocus={true}
+                            enablesReturnKeyAutomatically={true}
                         />
+
                         <TextInput
                             keyboardType="decimal-pad"
                             value={String(recipeIng.quantity)}
@@ -108,6 +125,11 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                             <Text style={styles.ingredientText}>
                                 {recipeIng.quantity} {recipeIng.unit}
                             </Text>
+                            <MaterialCommunityIcons
+                                name="drag-vertical"
+                                size={32}
+                                color="#2E2E2E"
+                            />
                         </View>
                         <View style={styles.ingredientView}>
                             <Text style={styles.ingredientText}>

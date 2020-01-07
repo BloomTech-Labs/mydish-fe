@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
+import { Keyboard, View, Text, TextInput } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../../styles/individualRecipeStyles";
@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     startEdit,
     editTitle,
+    stopEdit,
 } from "../../store/singleRecipe/singleRecipeActions";
 
 const Title = props => {
@@ -30,6 +31,14 @@ const Title = props => {
         }
     }, [mainEditing]);
 
+    //I think we no longer need mainEdit? this useEffect sets the editing to false when the keyboard hides
+    useEffect(() => {
+        Keyboard.addListener("keyboardDidHide", () => {
+            setEditing(false);
+            dispatch(stopEdit());
+        });
+    }, [editing]);
+
     const swipeableEl = useRef(null);
     const editHandler = () => {
         setEditing(true);
@@ -41,6 +50,7 @@ const Title = props => {
         <Swipeable
             ref={swipeableEl}
             close={editing && true}
+            // onSwipeableOpen={() => alert("WOW")}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>
                     <FontAwesome
@@ -54,12 +64,19 @@ const Title = props => {
             )}
         >
             {/*TextInput */}
-            {editing && mainEditing ? (
+            {/* removed && mainEditing */}
+            {editing ? (
                 <View style={styles.titleContainer}>
                     <TextInput
                         value={recipeTitle ? recipeTitle : props.title}
-                        onChangeText={title => dispatch(editTitle(title))}
-                        style={{ ...styles.title, ...styles.input }}
+                        onChangeText={title => {
+                            dispatch(editTitle(title));
+                        }}
+                        style={styles.title}
+                        multiline
+                        returnKeyType="done"
+                        autoFocus={true}
+                        enablesReturnKeyAutomatically={true}
                     />
                 </View>
             ) : (
