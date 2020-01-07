@@ -86,6 +86,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
 
                         <TextInput
                             keyboardType="decimal-pad"
+                            returnKeyType="done"
                             value={String(recipeIng.quantity)}
                             onChangeText={qty =>
                                 dispatch(
@@ -111,6 +112,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 )
                             }
                             style={styles.input}
+                            returnKeyType="done"
                         />
                     </View>
                 ) : (
