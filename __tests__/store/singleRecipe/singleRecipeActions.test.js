@@ -184,7 +184,7 @@ describe("editTitle action creator", () => {
         expect(dispatch).toHaveBeenCalled();
         expect(dispatch).toHaveBeenCalledWith(expectedDispatch);
     });
-    test.todo("dispatches stopEdit() function when last character of the input is '\\n'", () => {
+    test.skip("dispatches stopEdit() function when last character of the input is '\\n'", () => {
         const input = "Charlie horse\n";
         const dispatch = jest.fn(cb => cb.toString());
 
