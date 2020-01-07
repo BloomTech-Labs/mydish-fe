@@ -161,35 +161,26 @@ const styles = StyleSheet.create({
     },
     ingredientView: {
         width: "50%",
-        flexDirection: 'row',
+        flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: 'center'
+        alignItems: "center",
     },
     stepText: {
         color: "#1E1F20",
         fontSize: 16,
     },
     stepTextView: {
-        // backgroundColor: "#F4F8FA",
-        // paddingLeft: 5,
-        // paddingTop: 9,
-        // paddingBottom: 9,
-        // marginTop: 10,
-        // marginBottom: 20,
-        // width: "90%",
-        // flexDirection: "row",
-        // justifyContent: "space-around",
-
         backgroundColor: "#F4F8FA",
-        paddingTop: 9,
-        paddingBottom: 9,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
         marginTop: 10,
         marginBottom: 20,
-        flexDirection: 'row',
-        justifyContent: "space-around",
-        paddingRight: 10,
         marginLeft: 14,
         marginRight: 14,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     details: {
         alignItems: "center",
@@ -231,13 +222,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         // backgroundColor: "#8FCC70",
         width: 150,
-        height: '100%'
+        height: "100%",
     },
     input: {
         borderBottomColor: "black",
         borderBottomWidth: 1,
         width: "30%",
-        height: '100%'
+        height: "100%",
     },
     ingredientContainer: {
         width: "100%",
@@ -247,14 +238,13 @@ const styles = StyleSheet.create({
     },
     swipeableContainer: {
         width: "95%",
-
     },
     instructionInput: {
         width: "90%",
+        fontSize: 16,
     },
     swipeable: {
         flexDirection: "row",
-
     },
 });
 

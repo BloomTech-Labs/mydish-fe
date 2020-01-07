@@ -61,37 +61,41 @@ const IndividualRecipeInstruction = ({ index, color }) => {
                                 size={20}
                                 color="white"
                                 style={styles.icon}
-                                onPress={() => { }}
+                                onPress={() => {}}
                             />
                         </View>
                     </View>
                 )}
             >
                 {editing && mainEditing ? (
-                    <TextInput
-                        value={instruction.body}
-                        onChangeText={step => dispatch(editInstruct(step))}
-                        style={styles.instructionInput}
-                    />
+                    <View style={styles.stepTextView}>
+                        <TextInput
+                            value={instruction.body}
+                            onChangeText={step => dispatch(editInstruct(step))}
+                            style={styles.instructionInput}
+                            returnKeyType="done"
+                            autoFocus={true}
+                            enablesReturnKeyAutomatically={true}
+                        />
+                    </View>
                 ) : (
-                        <View
-                            style={
-                                color.active.includes("Ingredients")
-                                    ? styles.hidden
-                                    : styles.stepTextView
-                            }
-                        >
-                            <Text style={styles.stepText}>
-                                {instruction.ordinal}. {instruction.body}
-                            </Text>
-                            <MaterialCommunityIcons
-                                name="drag-vertical"
-                                size={32}
-                                color="#2E2E2E"
-                            />
-
-                        </View>
-                    )}
+                    <View
+                        style={
+                            color.active.includes("Ingredients")
+                                ? styles.hidden
+                                : styles.stepTextView
+                        }
+                    >
+                        <Text style={styles.stepText}>
+                            {instruction.ordinal}. {instruction.body}
+                        </Text>
+                        <MaterialCommunityIcons
+                            name="drag-vertical"
+                            size={32}
+                            color="#2E2E2E"
+                        />
+                    </View>
+                )}
             </Swipeable>
         </View>
     );
