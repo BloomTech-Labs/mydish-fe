@@ -2,6 +2,9 @@ import {
     START_FETCH_RECIPE,
     FETCH_RECIPE_SUCCESS,
     FETCH_RECIPE_FAILURE,
+    START_UPDATE_RECIPE,
+    UPDATE_RECIPE_FAILURE,
+    UPDATE_RECIPE_SUCCESS,
     RESET_RECIPE,
     START_EDIT,
     STOP_EDIT,
@@ -31,13 +34,16 @@ const initState = {
 };
 
 export const singleRecipeReducer = (state = initState, action) => {
+    console.log(action.type)
     switch (action.type) {
+        case START_UPDATE_RECIPE:
         case START_FETCH_RECIPE:
             return {
                 ...state,
                 error: null,
                 isLoading: true,
             };
+        case UPDATE_RECIPE_SUCCESS:
         case FETCH_RECIPE_SUCCESS:
             return {
                 ...state,
@@ -45,6 +51,13 @@ export const singleRecipeReducer = (state = initState, action) => {
                 recipe: action.payload,
             };
         case FETCH_RECIPE_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload,
+            };
+        case UPDATE_RECIPE_FAILURE:
+            if (action.recipe) state.recipe = action.recipe;
             return {
                 ...state,
                 isLoading: false,
