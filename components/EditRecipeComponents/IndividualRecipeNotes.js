@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import { View, Text, TextInput } from "react-native";
-import styles from "../styles/individualRecipeStyles";
+import styles from "../../styles/individualRecipeStyles";
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
 import {
     startEdit,
     editNotes,
-} from "../store/singleRecipe/singleRecipeActions"
+} from "../../store/singleRecipe/singleRecipeActions"
 
 export default function IndividualRecipeNotes({ color }) {
 
