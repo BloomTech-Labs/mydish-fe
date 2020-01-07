@@ -72,7 +72,14 @@ const IndividualRecipeInstruction = ({ index, color }) => {
                         <Text>{instruction.ordinal}.</Text>
                         <TextInput
                             value={instruction.body}
-                            onChangeText={step => dispatch(editInstruct(step))}
+                            onChangeText={body =>
+                                dispatch(
+                                    editInstruct(index, {
+                                        ordinal: instruction.ordinal,
+                                        body,
+                                    }),
+                                )
+                            }
                             style={styles.instructionInput}
                             multiline
                             returnKeyType="done"

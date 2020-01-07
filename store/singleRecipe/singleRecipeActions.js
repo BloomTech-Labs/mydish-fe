@@ -48,6 +48,11 @@ export const editTitle = value => {
         payload: value,
     };
 };
+export const STOP_EDIT = "STOP_EDIT";
+export const stopEdit = () => ({ type: STOP_EDIT });
+
+export const START_EDIT = "START_EDIT";
+export const startEdit = () => ({ type: START_EDIT });
 
 export const EDIT_INGRED = "EDIT_INGRED";
 export const editIngred = (index, value) => {
@@ -61,16 +66,15 @@ export const editIngred = (index, value) => {
 
 export const EDIT_INSTRUCT = "EDIT_INSTRUCT";
 export const editInstruct = (index, value) => {
-    console.log(value);
+    if (value.body.charCodeAt(value.body.length - 1) === 10) {
+        return {
+            type: STOP_EDIT,
+        };
+    }
+
     return {
         type: EDIT_INSTRUCT,
         payload: value,
         index: index,
     };
 };
-
-export const STOP_EDIT = "STOP_EDIT";
-export const stopEdit = () => ({ type: STOP_EDIT });
-
-export const START_EDIT = "START_EDIT";
-export const startEdit = () => ({ type: START_EDIT });
