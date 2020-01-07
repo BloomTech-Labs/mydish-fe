@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    Image,
+    SafeAreaView,
+    KeyboardAvoidingView,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser } from "../store/auth/authActions";
@@ -21,77 +29,88 @@ const Login = ({ navigation }) => {
 
     return (
         <KeyboardAwareScrollView>
-            <View style={styles.signUp}>
-                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-                    <Text style={styles.exitButton}>x</Text>
-                </TouchableOpacity>
+            <KeyboardAvoidingView
+                behavior="position"
+                keyboardVerticalOffset={70}
+                style={{ flex: 1 }}
+            >
+                <SafeAreaView>
+                    <View>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                paddingBottom: 15,
+                            }}
+                        >
+                            <Image
+                                source={logo}
+                                style={{ width: "10%", height: "105%" }}
+                            />
+                            <Text style={styles.title}>RecipeShare</Text>
+                        </View>
 
-                <View
-                    style={{
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        textAlign: "center",
-                        paddingBottom: 15,
-                    }}
-                >
-                    <Image
-                        source={logo}
-                        style={{ width: "10%", height: "105%" }}
-                    />
-                    <Text style={styles.title}>RecipeShare</Text>
-                </View>
+                        <Text style={styles.explanationText}>
+                            Sign in or create a new account to save and edit
+                            your favorite recipes.
+                        </Text>
+                        <Text style={styles.loginText}>Log In</Text>
+                        <Text style={styles.emailText}>Username</Text>
+                        <TextInput
+                            style={styles.inputFeilds}
+                            name="username"
+                            testID="username"
+                            value={login.username}
+                            onChangeText={event =>
+                                setLogin({ ...login, username: event })
+                            }
+                        />
+                        <Text style={styles.passwordText}>Password</Text>
+                        <TextInput
+                            style={styles.inputFeilds}
+                            name="password"
+                            testID="password"
+                            value={login.password}
+                            onChangeText={event =>
+                                setLogin({ ...login, password: event })
+                            }
+                            secureTextEntry={true}
+                        />
+                        {errorMsg != null && (
+                            <Text style={{ color: "red", marginLeft: 100 }}>
+                                {errorMsg}
+                            </Text>
+                        )}
 
-                <Text style={styles.explanationText}>
-                    Sign in or create a new account to save and edit your
-                    favorite recipes.
-                </Text>
-                <Text style={styles.loginText}>Log In</Text>
-                <Text style={styles.emailText}>Username</Text>
-                <TextInput
-                    style={styles.inputFeilds}
-                    name="username"
-                    testID="username"
-                    value={login.username}
-                    onChangeText={event =>
-                        setLogin({ ...login, username: event })
-                    }
-                />
-                <Text style={styles.passwordText}>Password</Text>
-                <TextInput
-                    style={styles.inputFeilds}
-                    name="password"
-                    testID="password"
-                    value={login.password}
-                    onChangeText={event =>
-                        setLogin({ ...login, password: event })
-                    }
-                    secureTextEntry={true}
-                />
-                {errorMsg != null && (
-                    <Text style={{ color: "red", marginLeft: 100 }}>
-                        {errorMsg}
-                    </Text>
-                )}
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigation.navigate("Signup");
+                            }}
+                        >
+                            <Text style={styles.createAccountButton}>
+                                Create an Account
+                            </Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate("Signup");
-                    }}
-                >
-                    <Text style={styles.createAccountButton}>
-                        Create an Account
-                    </Text>
-                </TouchableOpacity>
-
-                <View style={{ flexDirection: "row-reverse", marginRight: 16 }}>
-                    <TouchableOpacity
-                        onPress={onPress}
-                        style={styles.loginButton}
-                    >
-                        <Text style={styles.loginButtonText}>Login</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+                        <View
+                            style={{
+                                flexDirection: "row-reverse",
+                                marginRight: 16,
+                            }}
+                        >
+                            <TouchableOpacity
+                                onPress={onPress}
+                                style={styles.loginButton}
+                            >
+                                <Text style={styles.loginButtonText}>
+                                    Login
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </SafeAreaView>
+            </KeyboardAvoidingView>
         </KeyboardAwareScrollView>
     );
 };
