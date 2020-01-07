@@ -136,9 +136,12 @@ export const editInstruct = (index, value) => dispatch => {
 
 export const EDIT_NOTES = "EDIT_NOTES"
 export const editNotes = (notes) => dispatch => {
-    dispatch({
-        type: EDIT_NOTES,
-        notes: notes
-
-    })
+    if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit())
+    else {
+        dispatch({
+            type: EDIT_NOTES,
+            notes: notes
+    
+        })
+    }
 }

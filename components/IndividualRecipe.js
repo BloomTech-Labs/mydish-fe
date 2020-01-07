@@ -22,7 +22,7 @@ import styles from "../styles/individualRecipeStyles.js";
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
 import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
-import IndividualRecipeNotes from "./IndividualRecipeNotes";
+import IndividualRecipeNotes from "./EditRecipeComponents/IndividualRecipeNotes";
 import Tab from "./Tab";
 import placeholder from "../assets/recipe-image-placeholder.png";
 import Version from "./Version";
