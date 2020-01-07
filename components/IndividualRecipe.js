@@ -74,7 +74,7 @@ function IndividualRecipe(props) {
 
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "position" : null}
+            behavior={"position"}
             style={{ flex: 1 }}
         >
             <SafeAreaView>
