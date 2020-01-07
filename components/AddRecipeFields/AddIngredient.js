@@ -4,7 +4,7 @@ import { View, Text, TextInput } from "react-native";
 import styles from "../../styles/individualRecipeStyles";
 
 import Add from "../Add";
-import Picker from "../Picker.ios";
+import Picker from "../Picker";
 
 const AddIngredient = () => {
     const [adding, setAdding] = useState(false);
@@ -45,20 +45,6 @@ const AddIngredient = () => {
     return (
         <View>
             {adding && (
-                // <View>
-                //     <TextInput
-                //         ref={nameInput}
-                //         autoFocus
-                //         onSubmitEditing={() => quantityInput.current.focus()}
-                //     />
-                //     <TextInput ref={quantityInput} />
-                //     <Picker ref={unitInput}>
-                //         <Picker.Item label="cups" />
-                //         <Picker.Item label="tbs" />
-                //         <Picker.Item label="tsp" />
-                //         <Picker.Item label="oz" />
-                //     </Picker>
-                // </View>
                 <View style={{ flexDirection: "row", marginBottom: 20 }}>
                     <TextInput
                         ref={nameInput}
@@ -105,6 +91,8 @@ const AddIngredient = () => {
                         handleChange={handleChange}
                         ingredient={ingredient}
                         visible={visible}
+                        setAdding={setAdding}
+                        setIngredient={setIngredient}
                     />
                 </View>
             )}
