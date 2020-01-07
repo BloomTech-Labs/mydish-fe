@@ -58,7 +58,6 @@ export default function IndividualRecipeNotes({ color, notes }) {
                             : styles.stepTextView
                     }>
                         <Text
-                            numberOfLines={3}
                             style={styles.stepText}
                         >
                             {notes}

@@ -3,10 +3,14 @@ import { View, Text, TextInput } from "react-native";
 import styles from "../styles/createRecipeStyles";
 import Heading from "./StyledComponents/Heading";
 
+
 const Notes = ({ recipe, setRecipe }) => {
+
     return (
         <View>
+
             <Heading>Notes : </Heading>
+
             <TextInput
                 style={styles.notesContainer}
                 placeholder=""
@@ -14,6 +18,7 @@ const Notes = ({ recipe, setRecipe }) => {
                 onChangeText={event => setRecipe({ ...recipe, notes: event })}
                 value={recipe.notes}
             />
+
         </View>
     );
 };
