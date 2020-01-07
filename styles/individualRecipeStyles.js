@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
         width: "95%",
     },
     instructionInput: {
-        width: "90%",
+        width: "95%",
         fontSize: 16,
     },
     swipeable: {

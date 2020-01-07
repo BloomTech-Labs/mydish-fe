@@ -69,10 +69,12 @@ const IndividualRecipeInstruction = ({ index, color }) => {
             >
                 {editing && mainEditing ? (
                     <View style={styles.stepTextView}>
+                        <Text>{instruction.ordinal}.</Text>
                         <TextInput
                             value={instruction.body}
                             onChangeText={step => dispatch(editInstruct(step))}
                             style={styles.instructionInput}
+                            multiline
                             returnKeyType="done"
                             autoFocus={true}
                             enablesReturnKeyAutomatically={true}
