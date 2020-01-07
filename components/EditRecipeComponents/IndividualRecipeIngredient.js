@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     startEdit,
     editIngred,
+    stopEdit,
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -82,6 +83,9 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                             returnKeyType="done"
                             autoFocus={true}
                             enablesReturnKeyAutomatically={true}
+                            onSubmitEditing={() => {
+                                dispatch(stopEdit());
+                            }}
                         />
 
                         <TextInput
@@ -100,6 +104,9 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 )
                             }
                             style={styles.input}
+                            onSubmitEditing={() => {
+                                dispatch(stopEdit());
+                            }}
                         />
                         <TextInput
                             value={recipeIng.unit}
@@ -113,6 +120,9 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                             }
                             style={styles.input}
                             returnKeyType="done"
+                            onSubmitEditing={() => {
+                                dispatch(stopEdit());
+                            }}
                         />
                     </View>
                 ) : (
