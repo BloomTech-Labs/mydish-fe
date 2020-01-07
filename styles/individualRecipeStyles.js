@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
         width: "90%",
         fontSize: 16,
     },
+
     stepTextView: {
         backgroundColor: "#F4F8FA",
         width: "90%",

@@ -132,3 +132,13 @@ export const editInstruct = (index, value) => dispatch => {
         });
     }
 };
+
+
+export const EDIT_NOTES = "EDIT_NOTES"
+export const editNotes = (notes) => dispatch => {
+    dispatch({
+        type: EDIT_NOTES,
+        notes: notes
+
+    })
+}

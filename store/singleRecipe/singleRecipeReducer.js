@@ -11,6 +11,7 @@ import {
     EDIT_TITLE,
     EDIT_INGRED,
     EDIT_INSTRUCT,
+    EDIT_NOTES
 } from "./singleRecipeActions";
 
 const initState = {
@@ -82,6 +83,13 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 recipe: { ...state.recipe, title: action.payload },
             };
+
+        case EDIT_NOTES:
+            return {
+                ...state,
+                recipe: { ...state.recipe, notes: action.notes }
+            }
+
         case START_EDIT:
             return { ...state, editing: true };
         case STOP_EDIT:
