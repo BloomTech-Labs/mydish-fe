@@ -2,7 +2,11 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import ReactNativePickerModule from "react-native-picker-module";
 
-const Picker = ({ handleChange, ingredient, choices }) => {
+const Picker = ({ handleChange, ingredient, choices, visible }) => {
+    if (visible) {
+        pickerRef.show();
+    }
+
     return (
         <TouchableOpacity
             onPress={() => {
