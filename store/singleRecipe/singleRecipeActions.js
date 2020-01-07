@@ -86,8 +86,7 @@ export const resetRecipe = () => {
     };
 };
 
-
-// When editing our individual recipe, if we ever stop editing 
+// When editing our individual recipe, if we ever stop editing
 // - The title
 // - An ingredient
 // - An instruction
@@ -133,15 +132,21 @@ export const editInstruct = (index, value) => dispatch => {
     }
 };
 
-
-export const EDIT_NOTES = "EDIT_NOTES"
-export const editNotes = (notes) => dispatch => {
-    if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit())
+export const EDIT_NOTES = "EDIT_NOTES";
+export const editNotes = notes => dispatch => {
+    if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit());
     else {
         dispatch({
             type: EDIT_NOTES,
-            notes: notes
-    
-        })
+            notes: notes,
+        });
     }
-}
+};
+
+export const ADD_INGREDIENT = "ADD_INGREDIENT";
+export const addIngredient = ingredient => dispatch => {
+    dispatch({
+        type: ADD_INGREDIENT,
+        payload: ingredient,
+    });
+};
