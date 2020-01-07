@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import ReactNativePickerModule from "react-native-picker-module";
 
 const Picker = ({ handleChange, ingredient, choices, visible }) => {
-    if (visible) {
-        pickerRef.show();
-    }
+    useEffect(() => {
+        if (visible) {
+            pickerRef.show();
+        }
+    }, [visible]);
 
     return (
         <TouchableOpacity
