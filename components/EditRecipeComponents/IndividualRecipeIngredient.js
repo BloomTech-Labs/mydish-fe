@@ -59,7 +59,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 size={20}
                                 color="white"
                                 style={styles.icon}
-                                onPress={() => { }}
+                                onPress={() => {}}
                             />
                         </View>
                     </View>
@@ -79,6 +79,9 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 )
                             }
                             style={styles.input}
+                            returnKeyType="done"
+                            autoFocus={true}
+                            enablesReturnKeyAutomatically={true}
                         />
 
                         <TextInput
@@ -111,30 +114,30 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                         />
                     </View>
                 ) : (
-                        <View
-                            style={
-                                color.active.includes("Instructions")
-                                    ? styles.hidden
-                                    : styles.ingredientList
-                            }
-                        >
-                            <View style={styles.ingredientView}>
-                                <Text style={styles.ingredientText}>
-                                    {recipeIng.quantity} {recipeIng.unit}
-                                </Text>
-                                <MaterialCommunityIcons
-                                    name="drag-vertical"
-                                    size={32}
-                                    color="#2E2E2E"
-                                />
-                            </View>
-                            <View style={styles.ingredientView}>
-                                <Text style={styles.ingredientText}>
-                                    {recipeIng.name}
-                                </Text>
-                            </View>
+                    <View
+                        style={
+                            color.active.includes("Instructions")
+                                ? styles.hidden
+                                : styles.ingredientList
+                        }
+                    >
+                        <View style={styles.ingredientView}>
+                            <Text style={styles.ingredientText}>
+                                {recipeIng.quantity} {recipeIng.unit}
+                            </Text>
+                            <MaterialCommunityIcons
+                                name="drag-vertical"
+                                size={32}
+                                color="#2E2E2E"
+                            />
                         </View>
-                    )}
+                        <View style={styles.ingredientView}>
+                            <Text style={styles.ingredientText}>
+                                {recipeIng.name}
+                            </Text>
+                        </View>
+                    </View>
+                )}
             </Swipeable>
         </View>
     );

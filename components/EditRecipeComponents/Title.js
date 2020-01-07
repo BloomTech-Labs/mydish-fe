@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     startEdit,
     editTitle,
+    stopEdit,
 } from "../../store/singleRecipe/singleRecipeActions";
 
 const Title = props => {
@@ -20,19 +21,22 @@ const Title = props => {
     const recipeTitle = useSelector(state => state.singleRecipe.recipe.title);
     const [editing, setEditing] = useState(false);
 
-    // useEffect(() => {
-    //     // If our mainEditing variable is false,
-    //     // setEditing to false as well.
-    //     // This makes sure that this individual component doesn't also
-    //     //     enter edit mode if we start editing a different swipeale
-    //     if (!mainEditing) {
-    //         setEditing(false);
-    //     }
-    // }, [mainEditing]);
+    useEffect(() => {
+        // If our mainEditing variable is false,
+        // setEditing to false as well.
+        // This makes sure that this individual component doesn't also
+        //     enter edit mode if we start editing a different swipeale
+        if (!mainEditing) {
+            setEditing(false);
+        }
+    }, [mainEditing]);
 
     //I think we no longer need mainEdit? this useEffect sets the editing to false when the keyboard hides
     useEffect(() => {
-        Keyboard.addListener("keyboardDidHide", () => setEditing(false));
+        Keyboard.addListener("keyboardDidHide", () => {
+            setEditing(false);
+            dispatch(stopEdit());
+        });
     }, [editing]);
 
     const swipeableEl = useRef(null);
@@ -46,6 +50,7 @@ const Title = props => {
         <Swipeable
             ref={swipeableEl}
             close={editing && true}
+            // onSwipeableOpen={() => alert("WOW")}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>
                     <FontAwesome
@@ -65,24 +70,24 @@ const Title = props => {
                     <TextInput
                         value={recipeTitle ? recipeTitle : props.title}
                         onChangeText={title => dispatch(editTitle(title))}
-                        style={{ ...styles.title, ...styles.input }}
+                        style={styles.title}
                         returnKeyType="done"
                         autoFocus={true}
                         enablesReturnKeyAutomatically={true}
                     />
                 </View>
             ) : (
-                    <View style={styles.titleContainer}>
-                        <Text style={styles.title}>
-                            {recipeTitle ? recipeTitle : props.title}
-                        </Text>
-                        <MaterialCommunityIcons
-                            name="drag-vertical"
-                            size={32}
-                            color="#2E2E2E"
-                        />
-                    </View>
-                )}
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>
+                        {recipeTitle ? recipeTitle : props.title}
+                    </Text>
+                    <MaterialCommunityIcons
+                        name="drag-vertical"
+                        size={32}
+                        color="#2E2E2E"
+                    />
+                </View>
+            )}
         </Swipeable>
     );
 };
