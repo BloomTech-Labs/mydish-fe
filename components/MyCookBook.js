@@ -80,7 +80,7 @@ const MyCookBook = props => {
             >
                 Your Personal CookBook!
             </Text> */}
-            <ScrollView style={{ paddingBottom: "10%" }}>
+            <ScrollView style={{ paddingBottom: "10%", marginTop: '5%' }}>
                 {Courses.map((course, index) => (
                     <CourseTitle
                         key={index}
