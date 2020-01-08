@@ -13,6 +13,7 @@ import {
     EDIT_INSTRUCT,
     EDIT_NOTES,
     ADD_INGREDIENT,
+    DELETE_INGREDIENT,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -100,6 +101,15 @@ export const singleRecipeReducer = (state = initState, action) => {
                     ingredients: [...state.recipe.ingredients, action.payload],
                 },
             };
+        
+        case DELETE_INGREDIENT:
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    ingredients: state.recipe.ingredients.filter((val, i) => i !== action.payload 
+                    )}
+            }
 
         case START_EDIT:
             return { ...state, editing: true };
