@@ -29,6 +29,7 @@ const initState = {
         steps: [],
         title: null,
         total_saves: null,
+        editable: true,
     },
     isLoading: false,
     error: null,
