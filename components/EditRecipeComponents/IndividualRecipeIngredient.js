@@ -70,7 +70,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                 {/*Text Input*/}
                 {editing && mainEditing ? (
                     <View style={{ marginTop: 10 }}>
-                        <Ingredient autoFocus />
+                        <Ingredient autoFocus recipeIng={recipeIng} />
                     </View>
                 ) : (
                     // <View style={styles.ingredientContainer}>
