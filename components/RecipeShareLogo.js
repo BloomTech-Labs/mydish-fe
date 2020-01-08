@@ -11,6 +11,7 @@ function RecipeShareLogo() {
             <Image
                 source={logo}
                 style={{ width: 30, height: 30, marginLeft: 10 }}
+                color='#3BA405'
             />
             <Text style={styles.title}>RecipeShare</Text>
             {/* </TouchableOpacity> */}
