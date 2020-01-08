@@ -107,7 +107,6 @@ const Ingredient = props => {
                         marginRight: 14,
                     }}
                     placeholder="Ingredient Name"
-                    // onChangeText ={event => addIng({...ingredient, name: event})}
                     onChangeText={event => handleChange("name", event)}
                     onBlur={handleBlur}
                     value={ingredient.name}

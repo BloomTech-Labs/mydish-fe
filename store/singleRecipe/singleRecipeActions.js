@@ -35,8 +35,9 @@ export const stopEdit = () => async (dispatch, getState) => {
                 payload: err,
                 recipe: data.currentRecipe,
             });
+        } else {
+            dispatch({ type: UPDATE_RECIPE_FAILURE, payload: err });
         }
-        dispatch({ type: UPDATE_RECIPE_FAILURE, payload: err });
     } finally {
         calling = false;
     }
@@ -48,6 +49,9 @@ export const startEdit = () => ({ type: START_EDIT });
 export const START_FETCH_RECIPE = "START_FETCH_RECIPE";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
+export const START_DELETE_INGREDIENT = "START_DELETE_INGREDIENT";
+export const FETCH_INGREDIENT_DELETE_SUCCESS = "FETCH_INGREDIENT_DELETE_SUCCESS";
+export const FETCH_INGREDIENT_DELETE_FAILURE = "FETCH_INGREDIENT_DELETE_FAILURE";
 
 export const fetchRecipe = id => async dispatch => {
     dispatch({ type: START_FETCH_RECIPE });
@@ -61,6 +65,30 @@ export const fetchRecipe = id => async dispatch => {
         dispatch({ type: FETCH_RECIPE_FAILURE, payload: err });
     }
 };
+
+export const deleteIngredient = (ing_index, ingredient, recipe, ingredients) => async dispatch =>{
+    
+    console.log('****DELLETING***')
+    console.log(ing_index)
+    console.log(ingredient)
+    console.log('RECIPE ID');
+    //console.log(recipe.recipe.id)
+    console.log(recipe)
+    console.log('ingredients')
+    console.log(ingredients)
+    //dispatch({type: START_DELETE_INGREDIENT});
+    console.log('REC ID => ' + recipe.recipe.id);
+    delete recipe.recipe.ingredients[ing_index] //reload
+
+    try {
+        const axiosCustom = await axiosWithAuth();
+        const res = await axiosCustom.put(`recipes`, recipe.recipe); // wtf
+        //dispatch({type:FETCH_INGREDIENT_DELETE_SUCCESS, payload: res.data});
+    } catch (err) {
+        //dispatch({ type: FETCH_INGREDIENT_DELETE_FAILURE, payload:err });
+        console.log(err)
+    }
+}
 
 export const START_SAVE_NEW_RECIPE = "START_SAVE_NEW_RECIPE";
 export const SAVE_NEW_RECIPE_SUCCESS = "SAVE_NEW_RECIPE_SUCCESS";
@@ -86,8 +114,7 @@ export const resetRecipe = () => {
     };
 };
 
-
-// When editing our individual recipe, if we ever stop editing 
+// When editing our individual recipe, if we ever stop editing
 // - The title
 // - An ingredient
 // - An instruction
@@ -109,13 +136,12 @@ export const editTitle = value => dispatch => {
 
 export const EDIT_INGRED = "EDIT_INGRED";
 export const editIngred = (index, value) => dispatch => {
-    console.log(value);
     if (value.name.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
     else {
         dispatch({
             type: EDIT_INGRED,
             payload: value,
-            index: index,
+            index,
         });
     }
 };
@@ -128,7 +154,26 @@ export const editInstruct = (index, value) => dispatch => {
         dispatch({
             type: EDIT_INSTRUCT,
             payload: value,
-            index: index,
+            index,
         });
     }
+};
+
+export const EDIT_NOTES = "EDIT_NOTES";
+export const editNotes = notes => dispatch => {
+    if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit());
+    else {
+        dispatch({
+            type: EDIT_NOTES,
+            notes: notes,
+        });
+    }
+};
+
+export const ADD_INGREDIENT = "ADD_INGREDIENT";
+export const addIngredient = ingredient => dispatch => {
+    dispatch({
+        type: ADD_INGREDIENT,
+        payload: ingredient,
+    });
 };

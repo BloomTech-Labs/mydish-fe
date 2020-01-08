@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import ReactNativePickerModule from "react-native-picker-module";
+import { addIngredient } from "../store/singleRecipe/singleRecipeActions";
 
-const Picker = ({ handleChange, ingredient, choices }) => {
+const Picker = ({
+    handleChange,
+    ingredient,
+    choices,
+    visible,
+    setAdding,
+    setIngredient,
+    setVisible,
+}) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (visible) {
+            pickerRef.show();
+        }
+    }, [visible]);
+
     return (
         <TouchableOpacity
             onPress={() => {
@@ -29,7 +47,16 @@ const Picker = ({ handleChange, ingredient, choices }) => {
                     selectedValue={choices.selectedValue}
                     title={"Select a unit"}
                     items={choices.data}
-                    onValueChange={(value, i) => handleChange("unit", value, i)}
+                    onValueChange={(value, i) => {
+                        console.log("VALUE", value);
+                        handleChange("unit", value, i);
+                    }}
+                    onDismiss={() => {
+                        dispatch(addIngredient(ingredient));
+                        setIngredient({ name: "", quantity: null, unit: "" });
+                        setAdding(false);
+                        setVisible(false);
+                    }}
                 />
             </View>
         </TouchableOpacity>

@@ -8,7 +8,6 @@ import {
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
     SafeAreaView,
-    Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,25 +15,26 @@ import {
     resetRecipe,
     stopEdit,
 } from "../store/singleRecipe/singleRecipeActions";
-
 import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
+
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
-import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
-import IndividualRecipeNotes from "./IndividualRecipeNotes";
-import Tab from "./Tab";
 import placeholder from "../assets/recipe-image-placeholder.png";
-import Version from "./Version";
 
 import Title from "./EditRecipeComponents/Title";
+import Tab from "./Tab";
+import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
+import AddIngredient from "./AddRecipeFields/AddIngredient";
+import Add from "./Add";
 import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction";
+import IndividualRecipeNotes from "./EditRecipeComponents/IndividualRecipeNotes";
+import Version from "./Version";
 
 function IndividualRecipe(props) {
     const [color, setColor] = useState({ active: "Ingredients" });
     const id = props.navigation.getParam("recipeID", "params not passed");
     const [forks, setForks] = useState([]);
-    const [mainEditing, setMainEditing] = useState(false);
     const dispatch = useDispatch();
     const recipe = useSelector(state => state.singleRecipe.recipe);
 
@@ -73,10 +73,7 @@ function IndividualRecipe(props) {
     }
 
     return (
-        <KeyboardAvoidingView
-            behavior={"position"}
-            style={{ flex: 1 }}
-        >
+        <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
             <SafeAreaView>
                 <TouchableWithoutFeedback onPress={() => dispatch(stopEdit())}>
                     <ScrollView>
@@ -139,6 +136,7 @@ function IndividualRecipe(props) {
                                             color={color}
                                         />
                                     ))}
+                                <AddIngredient />
 
                                 {recipe.steps &&
                                     recipe.steps.map((step, i) => (

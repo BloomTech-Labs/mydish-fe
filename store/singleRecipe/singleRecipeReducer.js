@@ -11,6 +11,8 @@ import {
     EDIT_TITLE,
     EDIT_INGRED,
     EDIT_INSTRUCT,
+    EDIT_NOTES,
+    ADD_INGREDIENT,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -34,7 +36,7 @@ const initState = {
 };
 
 export const singleRecipeReducer = (state = initState, action) => {
-    console.log(action.type)
+    console.log(action.type);
     switch (action.type) {
         case START_UPDATE_RECIPE: // UPDATE and FETCH are the same
         case START_FETCH_RECIPE:
@@ -82,6 +84,22 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 recipe: { ...state.recipe, title: action.payload },
             };
+
+        case EDIT_NOTES:
+            return {
+                ...state,
+                recipe: { ...state.recipe, notes: action.notes },
+            };
+
+        case ADD_INGREDIENT:
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    ingredients: [...state.recipe.ingredients, action.payload],
+                },
+            };
+
         case START_EDIT:
             return { ...state, editing: true };
         case STOP_EDIT:

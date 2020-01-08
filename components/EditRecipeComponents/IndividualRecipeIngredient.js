@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     startEdit,
     editIngred,
+    stopEdit,
+    deleteIngredient
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -16,6 +18,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
     const ingredients = useSelector(
         state => state.singleRecipe.recipe.ingredients,
     );
+    const recipe = useSelector(state => state.singleRecipe);
     const recipeIng =
         ingredients && ingredients[index] ? ingredients[index] : {};
     const [editing, setEditing] = useState(false);
@@ -59,7 +62,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 size={20}
                                 color="white"
                                 style={styles.icon}
-                                onPress={() => {}}
+                                onPress={deleteIngredient(index, recipeIng, recipe, ingredients)} //nothing
                             />
                         </View>
                     </View>
@@ -82,10 +85,15 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                             returnKeyType="done"
                             autoFocus={true}
                             enablesReturnKeyAutomatically={true}
+                            onSubmitEditing={() => {
+                                dispatch(stopEdit());
+                            }}
                         />
 
                         <TextInput
                             keyboardType="decimal-pad"
+                            returnKeyType="done"
+                            enablesReturnKeyAutomatically={true}
                             value={String(recipeIng.quantity)}
                             onChangeText={qty =>
                                 dispatch(
@@ -99,6 +107,9 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 )
                             }
                             style={styles.input}
+                            onSubmitEditing={() => {
+                                dispatch(stopEdit());
+                            }}
                         />
                         <TextInput
                             value={recipeIng.unit}
@@ -111,33 +122,37 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 )
                             }
                             style={styles.input}
+                            returnKeyType="done"
+                            onSubmitEditing={() => {
+                                dispatch(stopEdit());
+                            }}
                         />
                     </View>
                 ) : (
-                    <View
-                        style={
-                            color.active.includes("Instructions")
-                                ? styles.hidden
-                                : styles.ingredientList
-                        }
-                    >
-                        <View style={styles.ingredientView}>
-                            <Text style={styles.ingredientText}>
-                                {recipeIng.quantity} {recipeIng.unit}
-                            </Text>
-                            <MaterialCommunityIcons
-                                name="drag-vertical"
-                                size={32}
-                                color="#2E2E2E"
-                            />
+                        <View
+                            style={
+                                color.active.includes("Instructions")
+                                    ? styles.hidden
+                                    : styles.ingredientList
+                            }
+                        >
+                            <View style={styles.ingredientView}>
+                                <Text style={styles.ingredientText}>
+                                    {recipeIng.quantity} {recipeIng.unit}
+                                </Text>
+                                <MaterialCommunityIcons
+                                    name="drag-vertical"
+                                    size={32}
+                                    color="#2E2E2E"
+                                />
+                            </View>
+                            <View style={styles.ingredientView}>
+                                <Text style={styles.ingredientText}>
+                                    {recipeIng.name}
+                                </Text>
+                            </View>
                         </View>
-                        <View style={styles.ingredientView}>
-                            <Text style={styles.ingredientText}>
-                                {recipeIng.name}
-                            </Text>
-                        </View>
-                    </View>
-                )}
+                    )}
             </Swipeable>
         </View>
     );
