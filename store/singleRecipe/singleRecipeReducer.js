@@ -30,6 +30,7 @@ const initState = {
         steps: [],
         title: null,
         total_saves: null,
+        editable: false,
     },
     isLoading: false,
     error: null,
@@ -100,15 +101,17 @@ export const singleRecipeReducer = (state = initState, action) => {
                     ingredients: [...state.recipe.ingredients, action.payload],
                 },
             };
-        
+
         case DELETE_INGREDIENT:
             return {
                 ...state,
                 recipe: {
                     ...state.recipe,
-                    ingredients: state.recipe.ingredients.filter((val, i) => i !== action.payload 
-                    )}
-            }
+                    ingredients: state.recipe.ingredients.filter(
+                        (val, i) => i !== action.payload,
+                    ),
+                },
+            };
 
         case START_EDIT:
             return { ...state, editing: true };
