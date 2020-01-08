@@ -6,11 +6,12 @@ import styles from "../../styles/individualRecipeStyles";
 import Add from "../Add";
 import Ingredient from "../Ingredient";
 
-const AddIngredient = () => {
+const AddIngredient = ({ color }) => {
     const [adding, setAdding] = useState(false);
+    console.log("COLOR:", color.active);
 
     return (
-        <View>
+        <View style={color.active !== "Ingredients" && { display: "none" }}>
             {adding && (
                 <View>
                     <Ingredient

@@ -149,7 +149,8 @@ function IndividualRecipe(props) {
                                                 color={color}
                                             />
                                         ))}
-                                    <AddIngredient />
+
+                                    <AddIngredient color={color} />
 
                                     {recipe.steps &&
                                         recipe.steps.map((step, i) => (
