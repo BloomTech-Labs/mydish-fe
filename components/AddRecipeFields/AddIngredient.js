@@ -17,6 +17,7 @@ const AddIngredient = () => {
                     setRecipe={() => ({})}
                     setAdding={setAdding}
                 />
+                //cancel and submit buttons to dispatch
             )}
             <Add text="Add Ingredient" submit={() => setAdding(true)} />
         </View>

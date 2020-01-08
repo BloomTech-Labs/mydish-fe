@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { TextInput, View, Text, TouchableOpacity } from "react-native";
 // import styles from '../styles/createRecipeStyles';
 // import ReactNativePickerModule from 'react-native-picker-module'
-import Picker from "./Picker";
+import Picker from "./Picker.android";
 
 const Ingredient = ({ recipe, setRecipe, autoFocus, setAdding }) => {
     const [visible, setVisible] = useState(false);
@@ -66,18 +66,22 @@ const Ingredient = ({ recipe, setRecipe, autoFocus, setAdding }) => {
 
     return (
         <View>
-            <View style={{ flexDirection: "row", marginBottom: 20 }}>
+            <View
+                style={{
+                    flexDirection: "row",
+                    marginBottom: 20,
+                    justifyContent: "space-between",
+                }}
+            >
                 <TextInput
                     ref={nameInput}
                     style={{
                         height: 40,
-                        width: "42%",
+                        width: "50%",
                         borderWidth: 0.8,
                         borderColor: "#363838",
                         borderRadius: 4,
                         textAlign: "center",
-                        marginLeft: "3%",
-                        marginRight: 14,
                     }}
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
@@ -96,7 +100,6 @@ const Ingredient = ({ recipe, setRecipe, autoFocus, setAdding }) => {
                         borderColor: "#363838",
                         borderRadius: 4,
                         textAlign: "center",
-                        marginLeft: 14,
                     }}
                     placeholder="Amount"
                     keyboardType={"numeric"}

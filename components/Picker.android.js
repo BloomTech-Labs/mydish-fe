@@ -43,7 +43,7 @@ export default Picker = ({ handleChange, ingredient }) => {
 const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
         fontSize: 16,
-        paddingVertical: 12,
+        height: 40,
         paddingHorizontal: 10,
         borderWidth: 1,
         borderColor: "gray",
@@ -55,7 +55,6 @@ const pickerSelectStyles = StyleSheet.create({
     inputAndroid: {
         height: 40,
         // width: "19%",
-        marginLeft: "10%",
         paddingHorizontal: 10,
         paddingVertical: 8,
         borderWidth: 0.8,
