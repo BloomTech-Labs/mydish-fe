@@ -9,7 +9,7 @@ import {
     startEdit,
     editIngred,
     stopEdit,
-    deleteIngredient
+    deleteIngredient,
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -63,11 +63,9 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 size={20}
                                 color="white"
                                 style={styles.icon}
-<<<<<<< HEAD
-                                onPress={() => dispatch(deleteIngredient(index))} 
-=======
-                                onPress={() => {}}
->>>>>>> afd1774ceff1af22e7d65692c86197f93855320f
+                                onPress={() =>
+                                    dispatch(deleteIngredient(index))
+                                }
                             />
                         </View>
                     </View>

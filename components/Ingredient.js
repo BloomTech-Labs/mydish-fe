@@ -1,10 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TextInput, View, Text, TouchableOpacity } from "react-native";
+import { TextInput, View, Text, TouchableOpacity, Button } from "react-native";
+import { useDispatch } from "react-redux";
+import { addIngredient } from "../store/singleRecipe/singleRecipeActions";
 // import styles from '../styles/createRecipeStyles';
 // import ReactNativePickerModule from 'react-native-picker-module'
 import Picker from "./Picker.android";
 
-const Ingredient = ({ recipeIng, recipe, setRecipe, autoFocus, setAdding }) => {
+const Ingredient = ({
+    recipeIng,
+    recipe,
+    setRecipe,
+    autoFocus,
+    setAdding,
+    parent,
+}) => {
+    const dispatch = useDispatch();
     const [visible, setVisible] = useState(false);
 
     const [choices, setChoices] = useState({
@@ -68,11 +78,17 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, autoFocus, setAdding }) => {
                     }
                 }
             }
-
-            // console.log('recipeIng after splicing', recipeIng);
-
             setRecipe({ ...recipe, ingredients: [...recipeIng, ingredient] });
         }
+    };
+
+    const cancelAdd = () => {
+        setAdding(false);
+    };
+
+    const submitAdd = () => {
+        setAdding(false);
+        dispatch(addIngredient(ingredient));
     };
 
     return (
@@ -136,6 +152,18 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, autoFocus, setAdding }) => {
                     setAdding={setAdding}
                 />
             </View>
+            {parent === "AddIngredient" && (
+                <View
+                    style={{
+                        flexDirection: "row",
+                        width: "90%",
+                        justifyContent: "space-evenly",
+                    }}
+                >
+                    <Button title="Cancel" onPress={cancelAdd} />
+                    <Button title="Submit" onPress={submitAdd} />
+                </View>
+            )}
         </View>
     );
 };
