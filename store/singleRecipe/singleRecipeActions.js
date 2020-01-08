@@ -49,7 +49,7 @@ export const startEdit = () => ({ type: START_EDIT });
 export const START_FETCH_RECIPE = "START_FETCH_RECIPE";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
-export const START_DELETE_INGREDIENT = "START_DELETE_INGREDIENT";
+export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
 export const FETCH_INGREDIENT_DELETE_SUCCESS = "FETCH_INGREDIENT_DELETE_SUCCESS";
 export const FETCH_INGREDIENT_DELETE_FAILURE = "FETCH_INGREDIENT_DELETE_FAILURE";
 
@@ -66,28 +66,9 @@ export const fetchRecipe = id => async dispatch => {
     }
 };
 
-export const deleteIngredient = (ing_index, ingredient, recipe, ingredients) => async dispatch =>{
-    
-    console.log('****DELLETING***')
-    console.log(ing_index)
-    console.log(ingredient)
-    console.log('RECIPE ID');
-    //console.log(recipe.recipe.id)
-    console.log(recipe)
-    console.log('ingredients')
-    console.log(ingredients)
-    //dispatch({type: START_DELETE_INGREDIENT});
-    console.log('REC ID => ' + recipe.recipe.id);
-    delete recipe.recipe.ingredients[ing_index] //reload
-
-    try {
-        const axiosCustom = await axiosWithAuth();
-        const res = await axiosCustom.put(`recipes`, recipe.recipe); // wtf
-        //dispatch({type:FETCH_INGREDIENT_DELETE_SUCCESS, payload: res.data});
-    } catch (err) {
-        //dispatch({ type: FETCH_INGREDIENT_DELETE_FAILURE, payload:err });
-        console.log(err)
-    }
+export const deleteIngredient = (ing_index) => dispatch =>{
+    dispatch({type:DELETE_INGREDIENT, payload: ing_index});
+    dispatch(stopEdit());
 }
 
 export const START_SAVE_NEW_RECIPE = "START_SAVE_NEW_RECIPE";

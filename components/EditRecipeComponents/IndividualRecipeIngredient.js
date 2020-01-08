@@ -62,7 +62,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 size={20}
                                 color="white"
                                 style={styles.icon}
-                                onPress={deleteIngredient(index, recipeIng, recipe, ingredients)} //nothing
+                                onPress={() => dispatch(deleteIngredient(index))} 
                             />
                         </View>
                     </View>
