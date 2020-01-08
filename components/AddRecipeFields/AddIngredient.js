@@ -15,7 +15,7 @@ const AddIngredient = () => {
         unit: "",
     });
     const [choices, setChoices] = useState({
-        selectedValue: null,
+        selectedValue: 1,
         data: [
             "tsp",
             "tbsp",
@@ -79,8 +79,11 @@ const AddIngredient = () => {
                         placeholder="Amount"
                         keyboardType={"numeric"}
                         returnKeyType="done"
-                        onChangeText={quantity =>
-                            handleChange("quantity", quantity)
+                        onChangeText={qty =>
+                            handleChange(
+                                "quantity",
+                                isNaN(Number(qty)) ? ingredient.quantity : qty,
+                            )
                         }
                         value={ingredient.quantity}
                         onSubmitEditing={() => setVisible(true)}
@@ -93,6 +96,7 @@ const AddIngredient = () => {
                         visible={visible}
                         setAdding={setAdding}
                         setIngredient={setIngredient}
+                        setVisible={setVisible}
                     />
                 </View>
             )}
