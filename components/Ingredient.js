@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { TextInput, View, Text, TouchableOpacity } from "react-native";
 // import styles from '../styles/createRecipeStyles';
 // import ReactNativePickerModule from 'react-native-picker-module'
 import Picker from "./Picker";
 
-const Ingredient = props => {
-    let { recipe, setRecipe, visible, setVisible, index } = props;
+const Ingredient = ({ recipe, setRecipe, autoFocus, setAdding }) => {
+    const [visible, setVisible] = useState(false);
 
     const [choices, setChoices] = useState({
         selectedValue: null,
@@ -26,28 +26,23 @@ const Ingredient = props => {
             "lbs",
         ],
     });
-    let [ingredient, setIngredient] = React.useState({
+    const [ingredient, setIngredient] = useState({
         name: "",
         quantity: "",
         unit: "",
     });
-    const [toEdits, setToEdits] = React.useState([]);
-    // const ingList = [];
-    const [unit, setUnit] = React.useState("g");
+    const [toEdits, setToEdits] = useState([]);
 
-    useEffect(() => {
-        // console.log('recipe.ingredients', recipe.ingredients);
-    }, [recipe.ingredients]);
+    const nameInput = useRef(null);
+    const quantityInput = useRef(null);
 
     const handleChange = (key, value, i) => {
-        // console.log('handleChange triggered in <Ingredient>')
-        // console.log('key and value from handlechange', key, value)
         setChoices({ ...choices, selectedValue: i });
         setIngredient({ ...ingredient, [key]: value });
-        // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     };
 
     const handleBlur = event => {
+        if (!recipe) return;
         //console.log('handleBlur triggered in <Ingredient/>');
         const ingArr = Object.values(ingredient);
         const fullIng = ingArr.filter(i => !!i);
@@ -73,29 +68,7 @@ const Ingredient = props => {
         <View>
             <View style={{ flexDirection: "row", marginBottom: 20 }}>
                 <TextInput
-                    style={{
-                        height: 40,
-                        width: "19%",
-                        borderWidth: 0.8,
-                        borderColor: "#363838",
-                        borderRadius: 4,
-                        textAlign: "center",
-                        marginLeft: 14,
-                    }}
-                    placeholder="Amount"
-                    keyboardType={"numeric"}
-                    onChangeText={event => handleChange("quantity", event)}
-                    onBlur={handleBlur}
-                    value={ingredient.quantity}
-                />
-
-                <Picker
-                    choices={choices}
-                    handleChange={handleChange}
-                    ingredient={ingredient}
-                />
-
-                <TextInput
+                    ref={nameInput}
                     style={{
                         height: 40,
                         width: "42%",
@@ -108,11 +81,47 @@ const Ingredient = props => {
                     }}
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
+                    returnKeyType="next"
                     onBlur={handleBlur}
                     value={ingredient.name}
+                    autoFocus={autoFocus ? true : false}
+                    onSubmitEditing={() => quantityInput.current.focus()}
+                />
+                <TextInput
+                    ref={quantityInput}
+                    style={{
+                        height: 40,
+                        width: "19%",
+                        borderWidth: 0.8,
+                        borderColor: "#363838",
+                        borderRadius: 4,
+                        textAlign: "center",
+                        marginLeft: 14,
+                    }}
+                    placeholder="Amount"
+                    keyboardType={"numeric"}
+                    onChangeText={qty =>
+                        handleChange(
+                            "quantity",
+                            isNaN(Number(qty)) ? ingredient.quantity : qty,
+                        )
+                    }
+                    returnKeyType="done"
+                    onBlur={handleBlur}
+                    value={ingredient.quantity}
+                    onSubmitEditing={() => setVisible(true)}
+                />
+
+                <Picker
+                    choices={choices}
+                    handleChange={handleChange}
+                    ingredient={ingredient}
+                    setVisible={setVisible}
+                    visible={visible}
+                    setIngredient={setIngredient}
+                    setAdding={setAdding}
                 />
             </View>
-            <View style={{ alignItems: "center" }}></View>
         </View>
     );
 };
