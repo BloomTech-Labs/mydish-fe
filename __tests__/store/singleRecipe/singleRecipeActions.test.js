@@ -195,3 +195,59 @@ describe("editTitle action creator", () => {
         expect(dispatch).toHaveBeenCalledWith(actions.stopEdit());
     });
 });
+
+describe("editIngred action creator", () => {
+    test("dispatches object with index and input value", () => {
+        const input = { name: "v = dx/dt" };
+        const index = 2;
+        const expectedDispatch = {
+            type: actions.EDIT_INGRED,
+            payload: input,
+            index,
+        };
+        const dispatch = jest.fn();
+
+        actions.editIngred(2, input)(dispatch);
+
+        expect(dispatch).toHaveBeenCalled();
+        expect(dispatch).toHaveBeenCalledWith(expectedDispatch);
+    });
+    test.todo("dispatches stopEdit() function when last character of the input is '\\n'")
+});
+
+describe("editInstruct action creator", () => {
+    test("dispatches object with index and input value", () => {
+        const input = { body: "F=m*a" };
+        const index = 2;
+        const expectedDispatch = {
+            type: actions.EDIT_INSTRUCT,
+            payload: input,
+            index,
+        };
+        const dispatch = jest.fn();
+
+        actions.editInstruct(2, input)(dispatch);
+
+        expect(dispatch).toHaveBeenCalled();
+        expect(dispatch).toHaveBeenCalledWith(expectedDispatch);
+    });
+    test.todo("dispatches stopEdit() function when last character of the input is '\\n'")
+});
+
+describe("editNotes action creator", () => {
+    test("dispatches object with index and input value", () => {
+        const input = "test notes";
+        const index = 2;
+        const expectedDispatch = {
+            type: actions.EDIT_NOTES,
+            notes: input,
+        };
+        const dispatch = jest.fn();
+
+        actions.editNotes(input)(dispatch);
+
+        expect(dispatch).toHaveBeenCalled();
+        expect(dispatch).toHaveBeenCalledWith(expectedDispatch);
+    });
+    test.todo("dispatches stopEdit() function when last character of the input is '\\n'")
+});
