@@ -31,14 +31,6 @@ const Title = props => {
         }
     }, [mainEditing]);
 
-    //I think we no longer need mainEdit? this useEffect sets the editing to false when the keyboard hides
-    useEffect(() => {
-        Keyboard.addListener("keyboardDidHide", () => {
-            setEditing(false);
-            dispatch(stopEdit());
-        });
-    }, [editing]);
-
     const swipeableEl = useRef(null);
     const editHandler = () => {
         setEditing(true);
