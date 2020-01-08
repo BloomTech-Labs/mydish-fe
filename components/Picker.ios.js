@@ -11,6 +11,7 @@ const Picker = ({
     visible,
     setAdding,
     setIngredient,
+    setVisible,
 }) => {
     const dispatch = useDispatch();
 
@@ -46,11 +47,15 @@ const Picker = ({
                     selectedValue={choices.selectedValue}
                     title={"Select a unit"}
                     items={choices.data}
-                    onValueChange={(value, i) => handleChange("unit", value, i)}
+                    onValueChange={(value, i) => {
+                        console.log("VALUE", value);
+                        handleChange("unit", value, i);
+                    }}
                     onDismiss={() => {
                         dispatch(addIngredient(ingredient));
                         setIngredient({ name: "", quantity: null, unit: "" });
                         setAdding(false);
+                        setVisible(false);
                     }}
                 />
             </View>
