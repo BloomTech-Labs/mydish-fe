@@ -35,8 +35,9 @@ export const stopEdit = () => async (dispatch, getState) => {
                 payload: err,
                 recipe: data.currentRecipe,
             });
+        } else {
+            dispatch({ type: UPDATE_RECIPE_FAILURE, payload: err });
         }
-        dispatch({ type: UPDATE_RECIPE_FAILURE, payload: err });
     } finally {
         calling = false;
     }
