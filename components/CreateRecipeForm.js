@@ -161,13 +161,13 @@ function CreateRecipeForm(props) {
     return (
         <KeyboardAwareScrollView>
             <View style={visible.active ? styles.createRecipeActive : ""}>
-                <Done onPress={postRecipe}>
-                    <Text style={styles.doneText}>Done</Text>
-                </Done>
 
                 <ScrollView>
                     <RecipeFormContainer>
-                        <Heading fontSize={24}>Create Recipe</Heading>
+
+                        <Done onPress={postRecipe}>
+                            <Text style={styles.doneText}>Done</Text>
+                        </Done>
 
                         {/* <ImageUpload recipe={recipe} setRecipe={setRecipe} setPic={setPic} /> */}
 
@@ -287,7 +287,13 @@ function CreateRecipeForm(props) {
     );
 }
 CreateRecipeForm.navigationOptions = {
-    tabBarLabel: "create new recipe",
+    // tabBarLabel: "create new recipe",
+    headerTitle: "Create Recipe",
+    headerTitleStyle: {
+        color: "#42C200"
+        , fontSize: 21
+    },
+    headerBackTitle: "Back"
 };
 
 export default CreateRecipeForm;
