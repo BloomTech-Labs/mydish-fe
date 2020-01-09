@@ -22,103 +22,9 @@ import forkLogo from "../assets/background.png";
 
 const Recipe = props => {
     const { navigation, recipe } = props;
-    let [like, setLike] = useState(recipe.likedByUser);
-    let [likeCount, setLikeCount] = useState(recipe.total_saves);
-    let [userToken, setUserToken] = useState(null);
-    let [addModal, setAddModal] = useState(false);
-    const [removeModal, setRemoveModal] = useState(false);
-    const [categories, setCategories] = useState([]);
-
-    const getToken = async () => {
-        const token = await AsyncStorage.getItem("userToken");
-        if (token) {
-            setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
-        }
-
-        return token;
-    };
-
-    const getRecipe = async () => {
-        try {
-            const axiosCustom = await axiosWithAuth();
-            const res = await axiosCustom.get(`recipes/${recipe.id}`);
-            let { categories } = res.data;
-            categories = categories.filter(
-                cat =>
-                    cat === "Breakfast" ||
-                    cat === "Brunch" ||
-                    cat === "Lunch" ||
-                    cat === "Dinner" ||
-                    cat === "Dessert" ||
-                    cat === "Snack",
-            );
-            setCategories(categories);
-        } catch (err) {
-            console.log("error in getting recipe by id", recipe.id);
-        }
-    };
-
-    useEffect(() => {
-        getRecipe();
-        getToken();
-    }, [like, likeCount]);
-
-    // TODO: Make this an action
-    const likeIt = async () => {
-        let liked = !like; //like is the state variable. it gets set after execution of the function likeIt() declared a temp liked variable to execute the logic of this function.
-        const axiosCustom = await axiosWithAuth();
-
-        if (liked) {
-            axiosCustom
-                .post(`cookbook/${recipe.id}`, {})
-                .then(res => {
-                    setLikeCount(res.data.total_saves);
-                    setLike(liked);
-                    setAddModal(!addModal);
-                })
-                .catch(err => console.log("error in posting like", err));
-        } else {
-            axiosCustom
-                .delete(`cookbook/${recipe.id}`)
-                .then(res => {
-                    if (!res.data.total_saves) {
-                        setLikeCount(0);
-                    } else {
-                        setLikeCount(res.data.total_saves);
-                    }
-
-                    setLike(liked);
-
-                    const route = navigation.state.routeName;
-
-                    if (route === "Home") {
-                        return;
-                    }
-                    setRemoveModal(!removeModal);
-                })
-                .catch(err => console.log("err in deleting like", err));
-        }
-    };
 
     return (
         <RecipeContainer>
-            <LikeModal
-                categories={categories}
-                text="Recipe added to: "
-                modal={addModal}
-                setModal={setAddModal}
-                route={navigation.state.routeName}
-            />
-
-            <UnlikeModal
-                categories={categories}
-                text="Recipe removed from: "
-                modal={removeModal}
-                setModal={setRemoveModal}
-                route={navigation.state.routeName}
-                navigate={navigation.pop}
-            />
-
             <View
                 style={{
                     flexDirection: "column",
@@ -126,47 +32,7 @@ const Recipe = props => {
                     zIndex: 1,
                     marginRight: 10,
                 }}
-            >
-                {userToken && (
-                    <>
-                        <Like
-                            onPress={likeIt}
-                            onStartShouldSetResponder={likeIt}
-                        >
-                            <Image
-                                source={like ? solidHeart : clearHeart}
-                                style={{ width: 30, height: 30 }}
-                            />
-                            <Text
-                                style={{ color: "white", fontWeight: "bold" }}
-                            >
-                                {String(likeCount)}
-                            </Text>
-                        </Like>
-                        {/* TODO: 
-                            If the backend can send recipes with a forkCount, 
-                            we can use this section of code.
-                            If not, we can just delete it.
-
-                        {forkCount >= 1 && (
-                            <Fork>
-                                <Image
-                                    source={forkLogo}
-                                    style={{ width: 30, height: 30 }}
-                                />
-                                <Text
-                                    style={{
-                                        color: "black",
-                                        fontWeight: "bold",
-                                    }}
-                                >
-                                    {String(forkCount)}
-                                </Text>
-                            </Fork>
-                        )} */}
-                    </>
-                )}
-            </View>
+            ></View>
 
             <TouchableOpacity
                 onPress={() =>
