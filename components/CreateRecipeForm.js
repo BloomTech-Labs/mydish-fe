@@ -161,13 +161,13 @@ function CreateRecipeForm(props) {
     return (
         <KeyboardAwareScrollView>
             <View style={visible.active ? styles.createRecipeActive : ""}>
+                <Done onPress={postRecipe}>
+                    <Text style={styles.doneText}>Done</Text>
+                </Done>
 
                 <ScrollView>
                     <RecipeFormContainer>
-
-                        <Done onPress={postRecipe}>
-                            <Text style={styles.doneText}>Done</Text>
-                        </Done>
+                        <Heading fontSize={24}>Create Recipe</Heading>
 
                         {/* <ImageUpload recipe={recipe} setRecipe={setRecipe} setPic={setPic} /> */}
 
@@ -185,10 +185,11 @@ function CreateRecipeForm(props) {
                                 style={styles.totalTimeContainer}
                                 placeholder="Time"
                                 keyboardType={"numeric"}
-                                onChangeText={min =>
+                                onChangeText={min => {
+                                    if (isNaN(Number(min))) return;
                                     setRecipe({ ...recipe, minutes: min })
-                                }
-                                value={recipe.minutes}
+                                }}
+                                value={String(recipe.minutes)}
                             />
 
                             <Heading>Course Type</Heading>
@@ -287,13 +288,7 @@ function CreateRecipeForm(props) {
     );
 }
 CreateRecipeForm.navigationOptions = {
-    // tabBarLabel: "create new recipe",
-    headerTitle: "Create Recipe",
-    headerTitleStyle: {
-        color: "#42C200"
-        , fontSize: 21
-    },
-    headerBackTitle: "Back"
+    tabBarLabel: "create new recipe",
 };
 
 export default CreateRecipeForm;

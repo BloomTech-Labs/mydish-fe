@@ -69,7 +69,7 @@ const MyCookBook = props => {
 
     return (
         <View style={{ width: "90%", marginLeft: "5%" }}>
-            {/* <Text
+            <Text
                 style={{
                     fontSize: 24,
                     fontWeight: "bold",
@@ -79,8 +79,8 @@ const MyCookBook = props => {
                 }}
             >
                 Your Personal CookBook!
-            </Text> */}
-            <ScrollView style={{ paddingBottom: "10%", marginTop: '5%' }}>
+            </Text>
+            <ScrollView style={{ paddingBottom: "10%" }}>
                 {Courses.map((course, index) => (
                     <CourseTitle
                         key={index}
@@ -92,14 +92,5 @@ const MyCookBook = props => {
         </View>
     );
 };
-
-MyCookBook.navigationOptions = {
-    headerTitle: "Your Personal Cookbook!",
-    headerTitleStyle: {
-        color: "#42C200"
-        , fontSize: 21
-    },
-    headerBackTitle: "Back"
-}
 
 export default MyCookBook;

@@ -7,10 +7,13 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     editInstruct,
     startEdit,
+    stopEdit,
+    setCurrentActive,
+    resetCurrentActive,
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const IndividualRecipeInstruction = ({ index, color }) => {
+const IndividualRecipeInstruction = ({ index }) => {
     const dispatch = useDispatch();
     const mainEditing = useSelector(state => state.singleRecipe.editing);
 
@@ -19,16 +22,15 @@ const IndividualRecipeInstruction = ({ index, color }) => {
     // `instruction` is still an object, so the page will load.
     const steps = useSelector(state => state.singleRecipe.recipe.steps);
     const instruction = steps && steps[index] ? steps[index] : {};
+    const currentActive = useSelector(
+        state => state.singleRecipe.currentActive,
+    );
 
     const [editing, setEditing] = useState(false);
 
     const swipeableEl = useRef(null);
 
-    const editHandler = () => {
-        setEditing(true);
-        dispatch(startEdit());
-        swipeableEl.current.close();
-    };
+    const close = () => swipeableEl.current.close();
 
     useEffect(() => {
         // If our mainEditing variable is false,
@@ -37,13 +39,55 @@ const IndividualRecipeInstruction = ({ index, color }) => {
         //     enter edit mode if we start editing a different swipeale
         if (!mainEditing) {
             setEditing(false);
+            dispatch(resetCurrentActive());
         }
     }, [mainEditing]);
+
+    const editHandler = () => {
+        setEditing(true);
+        dispatch(startEdit());
+        close();
+    };
+
+    const checkActive = () => {
+        if (currentActive.field && currentActive.field !== "instruction")
+            return;
+        if (currentActive.field && currentActive.index !== index) return;
+        else {
+            return false;
+        }
+    };
+
+    const makeActive = () => {
+        dispatch(
+            setCurrentActive({
+                field: "instruction",
+                index,
+                close,
+            }),
+        );
+    };
+
+    const handleWillOpen = () => {
+        if (checkActive() !== false) {
+            currentActive.close();
+        }
+        dispatch(stopEdit());
+    };
+
+    const handleClose = () => {
+        if (checkActive() === false) {
+            dispatch(resetCurrentActive());
+        }
+    };
 
     return (
         <View style={styles.swipeableContainer}>
             <Swipeable
                 ref={swipeableEl}
+                onSwipeableWillOpen={handleWillOpen}
+                onSwipeableOpen={makeActive}
+                onSwipeableClose={handleClose}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <View style={styles.editButton}>
@@ -88,13 +132,7 @@ const IndividualRecipeInstruction = ({ index, color }) => {
                         />
                     </View>
                 ) : (
-                    <View
-                        style={
-                            color.active.includes("Ingredients")
-                                ? styles.hidden
-                                : styles.stepTextView
-                        }
-                    >
+                    <View style={styles.stepTextView}>
                         <Text style={styles.stepText}>
                             {instruction.ordinal}. {instruction.body}
                         </Text>

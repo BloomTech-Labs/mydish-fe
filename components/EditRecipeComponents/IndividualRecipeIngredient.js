@@ -4,18 +4,25 @@ import { View, Text, TextInput } from "react-native";
 import styles from "../../styles/individualRecipeStyles";
 import { Swipeable } from "react-native-gesture-handler";
 import { useSelector, useDispatch } from "react-redux";
+import Ingredient from "../Ingredient";
 import {
     startEdit,
     editIngred,
     stopEdit,
+    deleteIngredient,
+    setCurrentActive,
+    resetCurrentActive,
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const IndividualRecipeIngredient = ({ index, color }) => {
+const IndividualRecipeIngredient = ({ index }) => {
     const dispatch = useDispatch();
     const mainEditing = useSelector(state => state.singleRecipe.editing);
     const ingredients = useSelector(
         state => state.singleRecipe.recipe.ingredients,
+    );
+    const currentActive = useSelector(
+        state => state.singleRecipe.currentActive,
     );
     const recipeIng =
         ingredients && ingredients[index] ? ingredients[index] : {};
@@ -23,11 +30,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
 
     const swipeableEl = useRef(null);
 
-    const editHandler = () => {
-        setEditing(true);
-        dispatch(startEdit());
-        swipeableEl.current.close();
-    };
+    const close = () => swipeableEl.current.close();
 
     useEffect(() => {
         // If our mainEditing variable is false,
@@ -36,13 +39,48 @@ const IndividualRecipeIngredient = ({ index, color }) => {
         //     enter edit mode if we start editing a different swipeale
         if (!mainEditing) {
             setEditing(false);
+            dispatch(resetCurrentActive());
         }
     }, [mainEditing]);
+
+    const editHandler = () => {
+        setEditing(true);
+        dispatch(startEdit());
+        close();
+    };
+
+    const checkActive = () => {
+        if (currentActive.field && currentActive.field !== "ingredient") return;
+        if (currentActive.field && currentActive.index !== index) return;
+        else {
+            return false;
+        }
+    };
+
+    const makeActive = () => {
+        dispatch(setCurrentActive({ field: "ingredient", index, close }));
+    };
+
+    const handleWillOpen = () => {
+        if (checkActive() !== false) {
+            currentActive.close();
+        }
+        dispatch(stopEdit());
+    };
+
+    const handleClose = () => {
+        if (checkActive() === false) {
+            dispatch(resetCurrentActive());
+        }
+    };
 
     return (
         <View style={styles.swipeableContainer}>
             <Swipeable
                 ref={swipeableEl}
+                onSwipeableWillOpen={handleWillOpen}
+                onSwipeableOpen={makeActive}
+                onSwipeableClose={handleClose}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <View style={styles.editButton}>
@@ -60,7 +98,9 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                                 size={20}
                                 color="white"
                                 style={styles.icon}
-                                onPress={() => { }}
+                                onPress={() =>
+                                    dispatch(deleteIngredient(index))
+                                }
                             />
                         </View>
                     </View>
@@ -68,89 +108,31 @@ const IndividualRecipeIngredient = ({ index, color }) => {
             >
                 {/*Text Input*/}
                 {editing && mainEditing ? (
-                    <View style={styles.ingredientContainer}>
-                        <TextInput
-                            value={recipeIng.name}
-                            onChangeText={name =>
-                                dispatch(
-                                    editIngred(index, {
-                                        ...recipeIng,
-                                        name,
-                                    }),
-                                )
-                            }
-                            style={styles.input}
-                            returnKeyType="done"
-                            autoFocus={true}
-                            enablesReturnKeyAutomatically={true}
-                            onSubmitEditing={() => {
-                                dispatch(stopEdit());
-                            }}
-                        />
-
-                        <TextInput
-                            keyboardType="decimal-pad"
-                            returnKeyType="done"
-                            enablesReturnKeyAutomatically={true}
-                            value={String(recipeIng.quantity)}
-                            onChangeText={qty =>
-                                dispatch(
-                                    editIngred(index, {
-                                        ...recipeIng,
-                                        // If our quantity isn't a number, it'll turn into NaN! Danger!
-                                        quantity: isNaN(Number(qty))
-                                            ? recipeIng.quantity
-                                            : qty,
-                                    }),
-                                )
-                            }
-                            style={styles.input}
-                            onSubmitEditing={() => {
-                                dispatch(stopEdit());
-                            }}
-                        />
-                        <TextInput
-                            value={recipeIng.unit}
-                            onChangeText={unit =>
-                                dispatch(
-                                    editIngred(index, {
-                                        ...recipeIng,
-                                        unit: unit,
-                                    }),
-                                )
-                            }
-                            style={styles.input}
-                            returnKeyType="done"
-                            onSubmitEditing={() => {
-                                dispatch(stopEdit());
-                            }}
+                    <View style={{ marginTop: 10 }}>
+                        <Ingredient
+                            recipeIng={recipeIng}
+                            parent="IndividualRecipeIngredient"
                         />
                     </View>
                 ) : (
-                        <View
-                            style={
-                                color.active.includes("Instructions")
-                                    ? styles.hidden
-                                    : styles.ingredientList
-                            }
-                        >
-                            <View style={styles.ingredientView}>
-                                <Text style={styles.ingredientText}>
-                                    {recipeIng.quantity} {recipeIng.unit}
-                                </Text>
-                                <MaterialCommunityIcons
-                                    name="drag-vertical"
-                                    size={32}
-                                    color="#2E2E2E"
-                                />
-                            </View>
-                            <View style={styles.ingredientView}>
-                                <Text style={styles.ingredientText}>
-                                    {recipeIng.name}
-                                </Text>
-                            </View>
+                    <View style={styles.ingredientList}>
+                        <View style={styles.ingredientView}>
+                            <Text style={styles.ingredientText}>
+                                {recipeIng.quantity} {recipeIng.unit}
+                            </Text>
+                            <MaterialCommunityIcons
+                                name="drag-vertical"
+                                size={32}
+                                color="#2E2E2E"
+                            />
                         </View>
-                    )}
+                        <View style={styles.ingredientView}>
+                            <Text style={styles.ingredientText}>
+                                {recipeIng.name}
+                            </Text>
+                        </View>
+                    </View>
+                )}
             </Swipeable>
         </View>
     );

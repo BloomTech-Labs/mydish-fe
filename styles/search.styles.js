@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 
 export default StyleSheet.create({
@@ -10,9 +10,9 @@ export default StyleSheet.create({
     title: {
         textAlign: "center",
         color: "#42C200",
-        fontSize: 25,
-        fontWeight: 'bold',
-        paddingLeft: 15,
+        fontSize: 20,
+        fontWeight: 'bold', 
+        padding: 15,
         textAlignVertical: 'center'
     },
     textInput: {
