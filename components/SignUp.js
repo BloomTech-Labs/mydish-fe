@@ -83,6 +83,16 @@ const SignUp = ({ navigation }) => {
                         secureTextEntry={true}
                     />
 
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate("Login");
+                        }}
+                    >
+                        <Text style={styles.loginButton}>
+                            Have an account? Login
+                        </Text>
+                    </TouchableOpacity>
+
                     <View style={{ flexDirection: "row-reverse" }}>
                         <TouchableOpacity
                             onPress={register}
