@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
-import { View, Text, TextInput, Button } from "react-native";
-
-import styles from "../../styles/individualRecipeStyles";
+import React, { useState } from "react";
+import { View } from "react-native";
 
 import Add from "../Add";
 import Ingredient from "../Ingredient";
 
 const AddIngredient = ({ color }) => {
     const [adding, setAdding] = useState(false);
-    console.log("COLOR:", color.active);
 
     return (
         <View style={color.active !== "Ingredients" && { display: "none" }}>
