@@ -25,6 +25,6 @@ export default HomePage;
 
 
 HomePage.navigationOptions = {
-    headerBackground: (<RecipeShareLogo />),
+    headerTitle: (<RecipeShareLogo />),
 
 }

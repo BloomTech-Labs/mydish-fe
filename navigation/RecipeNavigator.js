@@ -9,7 +9,10 @@ const RecipeNavigator = createStackNavigator(
         IndividualR: { screen: IndividualRecipe },
         Edit: { screen: EditForm },
     },
-    { initialRouteName: "Home" },
+    {
+        initialRouteName: "Home",
+        headerLayoutPreset: 'center'
+    },
 );
 
 export default RecipeNavigator;
