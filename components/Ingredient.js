@@ -107,7 +107,8 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
                 style={{
                     flexDirection: "row",
                     marginBottom: 20,
-                    justifyContent: "space-between",
+                    justifyContent: "space-evenly",
+                    width: "100%",
                 }}
             >
                 <TextInput
@@ -131,7 +132,7 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
                     ref={quantityInput}
                     style={{
                         height: 40,
-                        width: "19%",
+                        width: "20%",
                         borderWidth: highlighted.quantity ? 1 : 0.8,
                         borderColor: highlighted.quantity
                             ? "#FF0000"
@@ -167,7 +168,7 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
                 <View
                     style={{
                         flexDirection: "row",
-                        width: "90%",
+                        width: "100%",
                         justifyContent: "space-evenly",
                     }}
                 >
