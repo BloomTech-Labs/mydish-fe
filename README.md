@@ -1,4 +1,3 @@
-
 # RecipeShare React Native App
 
 # MyDish App
@@ -29,13 +28,13 @@
 
 ## Authors
 
-- [Dustin Snoap](https://github.com/olympiawoj)
-- [Devin Warrick](https://github.com/olympiawoj)
-- [James Bishop](https://github.com/olympiawoj)
-- [Katie Mcknight](https://github.com/olympiawoj)
-- [Megan Miller](https://github.com/olympiawoj)
+- [Dustin Snoap](https://github.com/dustinsnoap)
+- [Devin Warrick](https://github.com/DevWarr)
+- [James Bishop](https://github.com/jambis)
+- [Katie Mcknight](https://github.com/kmcknight1)
+- [Megan Miller](https://github.com/Celaira)
 - [Olympia Wojcik](https://github.com/olympiawoj)
-- [Winnie Song](https://github.com/olympiawoj)
+- [Winnie Song](https://github.com/windixxie)
 
 
 
