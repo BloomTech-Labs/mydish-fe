@@ -42,6 +42,7 @@ function IndividualRecipe(props) {
     const [forks, setForks] = useState([]);
     const dispatch = useDispatch();
     const recipe = useSelector(state => state.singleRecipe.recipe);
+    const userId = useSelector(state => state.auth.userId)
 
     useEffect(() => {
         dispatch(fetchRecipe(id));
@@ -296,7 +297,7 @@ function IndividualRecipe(props) {
         );
     };
 
-    return recipe.editable ? editableRecipeDisplay() : nonEditableRecipeDisplay();
+    return userId === recipe.innovator ? editableRecipeDisplay() : nonEditableRecipeDisplay();
 }
 
 export default IndividualRecipe;
