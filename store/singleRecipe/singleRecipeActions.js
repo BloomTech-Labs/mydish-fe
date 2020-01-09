@@ -49,11 +49,6 @@ export const startEdit = () => ({ type: START_EDIT });
 export const START_FETCH_RECIPE = "START_FETCH_RECIPE";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
-export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
-export const FETCH_INGREDIENT_DELETE_SUCCESS =
-    "FETCH_INGREDIENT_DELETE_SUCCESS";
-export const FETCH_INGREDIENT_DELETE_FAILURE =
-    "FETCH_INGREDIENT_DELETE_FAILURE";
 
 export const fetchRecipe = id => async dispatch => {
     dispatch({ type: START_FETCH_RECIPE });
@@ -66,11 +61,6 @@ export const fetchRecipe = id => async dispatch => {
     } catch (err) {
         dispatch({ type: FETCH_RECIPE_FAILURE, payload: err });
     }
-};
-
-export const deleteIngredient = ing_index => dispatch => {
-    dispatch({ type: DELETE_INGREDIENT, payload: ing_index });
-    dispatch(stopEdit());
 };
 
 export const START_SAVE_NEW_RECIPE = "START_SAVE_NEW_RECIPE";
@@ -95,26 +85,6 @@ export const resetRecipe = () => {
     return {
         type: RESET_RECIPE,
     };
-};
-
-// currentActive indicates a recipe field that is currently swiped/open. It is set
-// onSwipeableOpen and given 3 properties: the field name, an index, and a close function.
-// Each component has a check to see if the current active is another field and if
-// it is, when swiping, the close function of the currentActive is called, closing the
-// currently active field.
-export const SET_CURRENT_ACTIVE = "SET_CURRENT_ACTIVE";
-export const setCurrentActive = field => dispatch => {
-    dispatch({
-        type: SET_CURRENT_ACTIVE,
-        payload: field,
-    });
-};
-
-export const RESET_CURRENT_ACTIVE = "RESET_CURRENT_ACTIVE";
-export const resetCurrentActive = () => dispatch => {
-    dispatch({
-        type: RESET_CURRENT_ACTIVE,
-    });
 };
 
 // When editing our individual recipe, if we ever stop editing
@@ -179,22 +149,4 @@ export const addIngredient = ingredient => dispatch => {
         type: ADD_INGREDIENT,
         payload: ingredient,
     });
-    dispatch(stopEdit());
 };
-
-export const ADD_INSTRUCTION = "ADD_INSTRUCTION";
-export const addInstruction = instruction => dispatch => {
-    dispatch({
-        type: ADD_INSTRUCTION,
-        payload: instruction,
-    });
-    dispatch(stopEdit());
-};
-
-export const ADD_NOTE = "ADD_NOTE";
-export const addNote = note => dispatch => {
-    dispatch({
-        type: ADD_NOTE,
-        payload: note
-    })
-}

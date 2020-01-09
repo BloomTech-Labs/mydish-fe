@@ -17,7 +17,7 @@ const CookBookFolder = props => {
             const courses = await axiosCustom.get(
                 `cookbook?category=${course}`,
             );
-            
+
             setFolder(courses.data);
             const { data } = await axiosCustom.get(`recipes/all`);
             const childrenRecipes = data.filter(rec => rec.ancestor);
