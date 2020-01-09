@@ -23,7 +23,10 @@ const CreateNavigator = createStackNavigator(
             },
         },
     },
-    { initialRouteName: "Create" },
+    {
+        initialRouteName: "Create",
+        headerLayoutPreset: 'center'
+    },
 );
 
 export default CreateNavigator;
