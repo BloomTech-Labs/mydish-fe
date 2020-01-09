@@ -141,32 +141,42 @@ function IndividualRecipe(props) {
                                 </View>
 
                                 <View style={styles.recipeDetails}>
-                                    {recipe.ingredients &&
-                                        recipe.ingredients.map((ing, i) => (
-                                            <IndividualRecipeIngredient
-                                                key={i}
-                                                index={i}
+                                    {color.active === "Ingredients" && (
+                                        <>
+                                            {recipe.ingredients &&
+                                                recipe.ingredients.map(
+                                                    (ing, i) => (
+                                                        <IndividualRecipeIngredient
+                                                            key={i}
+                                                            index={i}
+                                                            color={color}
+                                                        />
+                                                    ),
+                                                )}
+
+                                            <AddIngredient color={color} />
+                                        </>
+                                    )}
+
+                                    {color.active === "Instructions" && (
+                                        <>
+                                            {recipe.steps &&
+                                                recipe.steps.map((step, i) => (
+                                                    <IndividualRecipeInstruction
+                                                        key={step.ordinal}
+                                                        index={i}
+                                                        color={color}
+                                                    />
+                                                ))}
+
+                                            <AddInstruction color={color} />
+
+                                            <IndividualRecipeNotes
                                                 color={color}
+                                                notes={recipe.notes}
                                             />
-                                        ))}
-
-                                    <AddIngredient color={color} />
-
-                                    {recipe.steps &&
-                                        recipe.steps.map((step, i) => (
-                                            <IndividualRecipeInstruction
-                                                key={step.ordinal}
-                                                index={i}
-                                                color={color}
-                                            />
-                                        ))}
-
-                                    <AddInstruction color={color} />    
-
-                                    <IndividualRecipeNotes
-                                        color={color}
-                                        notes={recipe.notes}
-                                    />
+                                        </>
+                                    )}
                                 </View>
 
                                 <FlatList
@@ -241,27 +251,35 @@ function IndividualRecipe(props) {
                         </View>
 
                         <View style={styles.recipeDetails}>
-                            {recipe.ingredients &&
-                                recipe.ingredients.map((ing, i) => (
-                                    <DisplayRecipeIngredient
-                                        key={i}
-                                        index={i}
-                                        color={color}
-                                    />
-                                ))}
-                            {recipe.steps &&
-                                recipe.steps.map((step, i) => (
-                                    <DisplayRecipeInstruction
-                                        key={step.ordinal}
-                                        index={i}
-                                        color={color}
-                                    />
-                                ))}
+                            {color.active === "Ingredients" && (
+                                <>
+                                    {recipe.ingredients &&
+                                        recipe.ingredients.map((ing, i) => (
+                                            <DisplayRecipeIngredient
+                                                key={i}
+                                                index={i}
+                                                color={color}
+                                            />
+                                        ))}
+                                </>
+                            )}
+                            {color.active === "Instructions" && (
+                                <>
+                                    {recipe.steps &&
+                                        recipe.steps.map((step, i) => (
+                                            <DisplayRecipeInstruction
+                                                key={step.ordinal}
+                                                index={i}
+                                                color={color}
+                                            />
+                                        ))}
 
-                            <DisplayRecipeNotes
-                                color={color}
-                                notes={recipe.notes}
-                            />
+                                    <DisplayRecipeNotes
+                                        color={color}
+                                        notes={recipe.notes}
+                                    />
+                                </>
+                            )}
                         </View>
 
                         <FlatList
