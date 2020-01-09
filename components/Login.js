@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, userEffect, useRef, useEffect } from "react";
 import {
     View,
     Text,
@@ -17,15 +17,18 @@ import logo from "../assets/LogoGreen.png";
 const Login = ({ navigation }) => {
     const [login, setLogin] = useState({ username: "", password: "" });
     const errorMsg = useSelector(state => state.auth.error);
+    const userId = useSelector(state => state.auth.userId);
+    console.log(userId)
     const dispatch = useDispatch();
+    const usernameInput = useRef(null);
+    const passwordInput = useRef(null);
 
-    const onPress = async () => {
-        const success = await dispatch(loginUser(login));
+    // This has an underscore to differentiate it from the loginUser action
+    const _loginUser = () => dispatch(loginUser(login));
 
-        if (success) {
-            navigation.navigate("App");
-        }
-    };
+    useEffect(() => {
+        if (userId) navigation.navigate("App");
+    }, [userId]);
 
     return (
         <KeyboardAwareScrollView>
@@ -58,20 +61,28 @@ const Login = ({ navigation }) => {
                         <Text style={styles.loginText}>Log In</Text>
                         <Text style={styles.emailText}>Username</Text>
                         <TextInput
+                            ref={usernameInput}
                             style={styles.inputFeilds}
                             name="username"
                             testID="username"
                             value={login.username}
+                            returnKeyType="next"
+                            onSubmitEditing={() =>
+                                passwordInput.current.focus()
+                            }
                             onChangeText={event =>
                                 setLogin({ ...login, username: event })
                             }
                         />
                         <Text style={styles.passwordText}>Password</Text>
                         <TextInput
+                            ref={passwordInput}
                             style={styles.inputFeilds}
                             name="password"
                             testID="password"
                             value={login.password}
+                            returnKeyType="done"
+                            onSubmitEditing={_loginUser}
                             onChangeText={event =>
                                 setLogin({ ...login, password: event })
                             }
@@ -100,7 +111,7 @@ const Login = ({ navigation }) => {
                             }}
                         >
                             <TouchableOpacity
-                                onPress={onPress}
+                                onPress={_loginUser}
                                 style={styles.loginButton}
                             >
                                 <Text style={styles.loginButtonText}>

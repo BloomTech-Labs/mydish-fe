@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     View,
     Text,
@@ -17,15 +17,16 @@ import logo from "../assets/LogoGreen.png";
 const SignUp = ({ navigation }) => {
     const [signUp, setSignUp] = useState({ username: "", password: "" });
     const errorMsg = useSelector(state => state.auth.error);
+    const userId = useSelector(state => state.auth.userId);
     const dispatch = useDispatch();
+    const usernameInput = useRef(null);
+    const passwordInput = useRef(null);
 
-    const onPress = async () => {
-        const success = await dispatch(registerUser(signUp));
+    const register = () => dispatch(registerUser(signUp));
 
-        if (success) {
-            navigation.navigate("App");
-        }
-    };
+    useEffect(() => {
+        if (userId) navigation.navigate("App");
+    }, [userId]);
 
     return (
         <KeyboardAvoidingView
@@ -55,8 +56,11 @@ const SignUp = ({ navigation }) => {
                     </Text>
                     <Text style={styles.emailText}>Username</Text>
                     <TextInput
+                        ref={usernameInput}
                         style={styles.inputFeilds}
                         value={signUp.username}
+                        returnKeyType="next"
+                        onSubmitEditing={() => passwordInput.current.focus()}
                         onChangeText={event =>
                             setSignUp({ ...signUp, username: event })
                         }
@@ -68,8 +72,11 @@ const SignUp = ({ navigation }) => {
                     )}
                     <Text style={styles.passwordText}>Password</Text>
                     <TextInput
+                        ref={passwordInput}
                         style={styles.inputFeilds}
                         value={signUp.password}
+                        returnKeyType="done"
+                        onSubmitEditing={register}
                         onChangeText={event =>
                             setSignUp({ ...signUp, password: event })
                         }
@@ -78,7 +85,7 @@ const SignUp = ({ navigation }) => {
 
                     <View style={{ flexDirection: "row-reverse" }}>
                         <TouchableOpacity
-                            onPress={onPress}
+                            onPress={register}
                             style={styles.createAccountButton}
                         >
                             <Text style={styles.createAccountText}>
