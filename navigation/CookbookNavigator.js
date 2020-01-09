@@ -9,7 +9,8 @@ const CookBookNavigator = createStackNavigator(
         Folder: { screen: CookBookFolder },
         IndividualR: { screen: IndividualRecipes },
     },
-    { initialRouteName: "CookBook" },
+    { initialRouteName: "CookBook",
+    headerLayoutPreset: 'center' },
 );
 
 export default CookBookNavigator;
