@@ -25,6 +25,15 @@ export default HomePage;
 
 
 HomePage.navigationOptions = {
-    headerTitle: (<RecipeShareLogo />)
+    headerBackground: (<RecipeShareLogo />),
+    headerTitleStyle: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+        textAlign: 'center',
+        flex: 1
+
+
+    },
+    headerTitleAlign: 'center'
 
 }

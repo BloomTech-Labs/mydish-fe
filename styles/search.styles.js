@@ -2,6 +2,11 @@ import { StyleSheet } from 'react-native';
 
 
 export default StyleSheet.create({
+    logo: {
+        alignSelf: 'center',
+        textAlign: 'center',
+        marginTop: 40
+    },
     title: {
         textAlign: "center",
         color: "#42C200",
