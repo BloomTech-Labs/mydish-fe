@@ -26,8 +26,8 @@ import Title from "./EditRecipeComponents/Title";
 import Tab from "./Tab";
 import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
 import AddIngredient from "./AddRecipeFields/AddIngredient";
-import Add from "./Add";
 import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction";
+import AddInstruction from "./AddRecipeFields/AddInstruction";
 import IndividualRecipeNotes from "./EditRecipeComponents/IndividualRecipeNotes";
 import Version from "./Version";
 import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngredient";
@@ -160,6 +160,8 @@ function IndividualRecipe(props) {
                                                 color={color}
                                             />
                                         ))}
+
+                                    <AddInstruction color={color} />    
 
                                     <IndividualRecipeNotes
                                         color={color}
