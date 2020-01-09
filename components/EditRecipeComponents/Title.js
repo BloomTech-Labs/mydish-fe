@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Keyboard, View, Text, TextInput } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../../styles/individualRecipeStyles";
@@ -7,7 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     startEdit,
     editTitle,
-    stopEdit,
+    setCurrentActive,
+    resetCurrentActive,
 } from "../../store/singleRecipe/singleRecipeActions";
 
 const Title = props => {
@@ -19,7 +20,13 @@ const Title = props => {
     //     and then this component knows to stop editing.
     const mainEditing = useSelector(state => state.singleRecipe.editing);
     const recipeTitle = useSelector(state => state.singleRecipe.recipe.title);
+    const currentActive = useSelector(
+        state => state.singleRecipe.currentActive,
+    );
     const [editing, setEditing] = useState(false);
+    const swipeableEl = useRef(null);
+
+    const close = () => swipeableEl.current.close();
 
     useEffect(() => {
         // If our mainEditing variable is false,
@@ -28,21 +35,48 @@ const Title = props => {
         //     enter edit mode if we start editing a different swipeale
         if (!mainEditing) {
             setEditing(false);
+            dispatch(resetCurrentActive());
         }
     }, [mainEditing]);
 
-    const swipeableEl = useRef(null);
     const editHandler = () => {
         setEditing(true);
         dispatch(startEdit());
-        swipeableEl.current.close();
+        close();
+    };
+
+    const checkActive = () => {
+        if (currentActive.field && currentActive.field !== "title") return;
+        else {
+            return false;
+        }
     };
 
     return (
         <Swipeable
             ref={swipeableEl}
+            onSwipeableWillOpen={() => {
+                if (checkActive() !== false) {
+                    currentActive.close();
+                }
+            }}
+            onSwipeableOpen={() =>
+                dispatch(
+                    setCurrentActive({
+                        field: "title",
+                        index: 1,
+                        close: () => {
+                            close();
+                        },
+                    }),
+                )
+            }
+            onSwipeableClose={() => {
+                if (checkActive() === false) {
+                    dispatch(resetCurrentActive());
+                }
+            }}
             close={editing && true}
-            // onSwipeableOpen={() => alert("WOW")}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>
                     <FontAwesome
