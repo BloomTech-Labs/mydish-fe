@@ -13,12 +13,13 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { loginUser } from "../store/auth/authActions";
 import styles from "../styles/loginStyles.js";
 import logo from "../assets/LogoGreen.png";
+import RecipeShareLogo from "./RecipeShareLogo.js";
 
 const Login = ({ navigation }) => {
     const [login, setLogin] = useState({ username: "", password: "" });
     const errorMsg = useSelector(state => state.auth.error);
     const userId = useSelector(state => state.auth.userId);
-    console.log(userId)
+    console.log(userId);
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
@@ -31,34 +32,15 @@ const Login = ({ navigation }) => {
     }, [userId]);
 
     return (
-        <KeyboardAwareScrollView>
-            <KeyboardAvoidingView
-                behavior="position"
-                keyboardVerticalOffset={70}
-                style={{ flex: 1 }}
-            >
-                <SafeAreaView>
-                    <View>
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                justifyContent: "center",
-                                textAlign: "center",
-                                paddingBottom: 15,
-                            }}
-                        >
-                            <Image
-                                source={logo}
-                                style={{ width: "10%", height: "105%" }}
-                            />
-                            <Text style={styles.title}>RecipeShare</Text>
-                        </View>
+        <SafeAreaView>
+            <KeyboardAwareScrollView>
+                <KeyboardAvoidingView behavior="position" style={{ flex: 1 }}>
+                    <View style={{ flex: 1 }}>
+                        <Text style={styles.title}>Log In</Text>
 
                         <Text style={styles.explanationText}>
-                            Sign in or create a new account to save and edit
-                            your favorite recipes.
+                            Sign into save and edit your favorite recipes.
                         </Text>
-                        <Text style={styles.loginText}>Log In</Text>
                         <Text style={styles.emailText}>Username</Text>
                         <TextInput
                             ref={usernameInput}
@@ -82,7 +64,6 @@ const Login = ({ navigation }) => {
                             testID="password"
                             value={login.password}
                             returnKeyType="done"
-                            onSubmitEditing={_loginUser}
                             onChangeText={event =>
                                 setLogin({ ...login, password: event })
                             }
@@ -120,10 +101,13 @@ const Login = ({ navigation }) => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </SafeAreaView>
-            </KeyboardAvoidingView>
-        </KeyboardAwareScrollView>
+                </KeyboardAvoidingView>
+            </KeyboardAwareScrollView>
+        </SafeAreaView>
     );
+};
+Login.navigationOptions = {
+    headerTitle: <RecipeShareLogo />,
 };
 
 export default Login;
