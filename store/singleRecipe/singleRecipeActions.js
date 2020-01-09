@@ -184,10 +184,17 @@ export const addIngredient = ingredient => dispatch => {
 
 export const ADD_INSTRUCTION = "ADD_INSTRUCTION";
 export const addInstruction = instruction => dispatch => {
-    console.log("INSTRUCTION:", instruction);
     dispatch({
         type: ADD_INSTRUCTION,
         payload: instruction,
     });
     dispatch(stopEdit());
 };
+
+export const ADD_NOTE = "ADD_NOTE";
+export const addNote = note => dispatch => {
+    dispatch({
+        type: ADD_NOTE,
+        payload: note
+    })
+}

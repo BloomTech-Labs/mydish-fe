@@ -16,6 +16,7 @@ import {
     EDIT_NOTES,
     ADD_INGREDIENT,
     ADD_INSTRUCTION,
+    ADD_NOTE,
     DELETE_INGREDIENT,
 } from "./singleRecipeActions";
 
@@ -124,6 +125,15 @@ export const singleRecipeReducer = (state = initState, action) => {
                     steps: [...state.recipe.steps, action.payload],
                 },
             };
+
+        case ADD_NOTE:
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    notes: action.payload
+                }
+            }
 
         case DELETE_INGREDIENT:
             return {
