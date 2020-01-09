@@ -18,6 +18,8 @@ import {
     ADD_INSTRUCTION,
     ADD_NOTE,
     DELETE_INGREDIENT,
+    DELETE_NOTE,
+    DELETE_RECIPE
 } from "./singleRecipeActions";
 
 const initState = {
@@ -144,6 +146,15 @@ export const singleRecipeReducer = (state = initState, action) => {
                         (val, i) => i !== action.payload,
                     ),
                 },
+            };
+        
+        case DELETE_NOTE:
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    notes: null
+                    }
             };
 
         case START_EDIT:
