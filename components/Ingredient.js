@@ -68,9 +68,6 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
     const handleChange = (key, value, i) => {
         setChoices({ ...choices, selectedValue: i });
         setIngredient({ ...ingredient, [key]: value });
-        if (Platform.OS === "android") {
-            onClosePicker();
-        }
     };
 
     const onClosePicker = () => {
