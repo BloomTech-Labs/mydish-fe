@@ -10,7 +10,7 @@ function RecipeShareLogo() {
             {/* <TouchableOpacity onPress={() => console.log('RecipeShareStyle clicked')}> */}
             <Image
                 source={logo}
-                style={{ width: 40, height: 50, marginLeft: 10 }}
+                style={{ width: 30, height: 30 }}
             />
             <Text style={styles.title}>RecipeShare</Text>
             {/* </TouchableOpacity> */}
