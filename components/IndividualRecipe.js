@@ -269,9 +269,7 @@ function IndividualRecipe(props) {
                                             />
                                         ))}
 
-                                    <DisplayRecipeNotes
-                                        notes={recipe.notes}
-                                    />
+                                    <DisplayRecipeNotes notes={recipe.notes} />
                                 </>
                             )}
                         </View>
@@ -293,7 +291,7 @@ function IndividualRecipe(props) {
         );
     };
 
-    return false ? editableRecipeDisplay() : nonEditableRecipeDisplay();
+    return true ? editableRecipeDisplay() : nonEditableRecipeDisplay();
 }
 
 export default IndividualRecipe;

@@ -74,7 +74,7 @@ const Title = props => {
         <Swipeable
             ref={swipeableEl}
             onSwipeableWillOpen={handleWillOpen}
-            onSwipeableOpen={() => makeActive()}
+            onSwipeableOpen={makeActive}
             onSwipeableClose={handleClose}
             close={editing && true}
             renderRightActions={() => (

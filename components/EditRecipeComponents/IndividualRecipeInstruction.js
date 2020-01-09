@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     editInstruct,
     startEdit,
+    stopEdit,
     setCurrentActive,
     resetCurrentActive,
 } from "../../store/singleRecipe/singleRecipeActions";
@@ -38,6 +39,7 @@ const IndividualRecipeInstruction = ({ index }) => {
         //     enter edit mode if we start editing a different swipeale
         if (!mainEditing) {
             setEditing(false);
+            dispatch(resetCurrentActive());
         }
     }, [mainEditing]);
 
@@ -56,29 +58,36 @@ const IndividualRecipeInstruction = ({ index }) => {
         }
     };
 
+    const makeActive = () => {
+        dispatch(
+            setCurrentActive({
+                field: "instruction",
+                index,
+                close,
+            }),
+        );
+    };
+
+    const handleWillOpen = () => {
+        if (checkActive() !== false) {
+            currentActive.close();
+        }
+        dispatch(stopEdit());
+    };
+
+    const handleClose = () => {
+        if (checkActive() === false) {
+            dispatch(resetCurrentActive());
+        }
+    };
+
     return (
         <View style={styles.swipeableContainer}>
             <Swipeable
                 ref={swipeableEl}
-                onSwipeableWillOpen={() => {
-                    if (checkActive() !== false) {
-                        currentActive.close();
-                    }
-                }}
-                onSwipeableOpen={() => {
-                    dispatch(
-                        setCurrentActive({
-                            field: "instruction",
-                            index,
-                            close,
-                        }),
-                    );
-                }}
-                onSwipeableClose={() => {
-                    if (checkActive() === false) {
-                        dispatch(resetCurrentActive());
-                    }
-                }}
+                onSwipeableWillOpen={handleWillOpen}
+                onSwipeableOpen={makeActive}
+                onSwipeableClose={handleClose}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <View style={styles.editButton}>

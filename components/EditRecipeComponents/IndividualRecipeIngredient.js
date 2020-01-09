@@ -39,6 +39,7 @@ const IndividualRecipeIngredient = ({ index }) => {
         //     enter edit mode if we start editing a different swipeale
         if (!mainEditing) {
             setEditing(false);
+            dispatch(resetCurrentActive());
         }
     }, [mainEditing]);
 
@@ -56,25 +57,30 @@ const IndividualRecipeIngredient = ({ index }) => {
         }
     };
 
+    const makeActive = () => {
+        dispatch(setCurrentActive({ field: "ingredient", index, close }));
+    };
+
+    const handleWillOpen = () => {
+        if (checkActive() !== false) {
+            currentActive.close();
+        }
+        dispatch(stopEdit());
+    };
+
+    const handleClose = () => {
+        if (checkActive() === false) {
+            dispatch(resetCurrentActive());
+        }
+    };
+
     return (
         <View style={styles.swipeableContainer}>
             <Swipeable
                 ref={swipeableEl}
-                onSwipeableWillOpen={() => {
-                    if (checkActive() !== false) {
-                        currentActive.close();
-                    }
-                }}
-                onSwipeableOpen={() => {
-                    dispatch(
-                        setCurrentActive({ field: "ingredient", index, close }),
-                    );
-                }}
-                onSwipeableClose={() => {
-                    if (checkActive() === false) {
-                        dispatch(resetCurrentActive());
-                    }
-                }}
+                onSwipeableWillOpen={handleWillOpen}
+                onSwipeableOpen={makeActive}
+                onSwipeableClose={handleClose}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <View style={styles.editButton}>
