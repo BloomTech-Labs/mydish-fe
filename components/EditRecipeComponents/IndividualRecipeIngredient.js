@@ -13,7 +13,7 @@ import {
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const IndividualRecipeIngredient = ({ index, color }) => {
+const IndividualRecipeIngredient = ({ index }) => {
     const dispatch = useDispatch();
     const mainEditing = useSelector(state => state.singleRecipe.editing);
     const ingredients = useSelector(
@@ -80,13 +80,7 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                         />
                     </View>
                 ) : (
-                    <View
-                        style={
-                            color.active.includes("Instructions")
-                                ? styles.hidden
-                                : styles.ingredientList
-                        }
-                    >
+                    <View style={styles.ingredientList}>
                         <View style={styles.ingredientView}>
                             <Text style={styles.ingredientText}>
                                 {recipeIng.quantity} {recipeIng.unit}
