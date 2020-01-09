@@ -1,7 +1,14 @@
 import React from "react";
 import RNPickerSelect from "react-native-picker-select";
+import { stopEdit } from "../store/singleRecipe/singleRecipeActions";
+import { useDispatch } from "react-redux";
 
-export default Picker = ({ handleChange, ingredient, highlighted }) => {
+export default Picker = ({
+    handleChange,
+    ingredient,
+    highlighted,
+    onClose,
+}) => {
     const placeholder = {
         label: "unit",
     };
@@ -19,6 +26,7 @@ export default Picker = ({ handleChange, ingredient, highlighted }) => {
 
     return (
         <RNPickerSelect
+            onClose={onClose}
             placeholder={placeholder}
             onValueChange={value => handleChange("unit", value)}
             value={ingredient.unit}

@@ -1,7 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TextInput, View, Text, TouchableOpacity, Button } from "react-native";
+import {
+    TextInput,
+    View,
+    Text,
+    TouchableOpacity,
+    Button,
+    Platform,
+} from "react-native";
 import { useDispatch } from "react-redux";
-import { addIngredient } from "../store/singleRecipe/singleRecipeActions";
+import {
+    addIngredient,
+    stopEdit,
+} from "../store/singleRecipe/singleRecipeActions";
 // import styles from '../styles/createRecipeStyles';
 // import ReactNativePickerModule from 'react-native-picker-module'
 import Picker from "./Picker.android";
@@ -58,6 +68,13 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
     const handleChange = (key, value, i) => {
         setChoices({ ...choices, selectedValue: i });
         setIngredient({ ...ingredient, [key]: value });
+        if (Platform.OS === "android") {
+            onClosePicker();
+        }
+    };
+
+    const onClosePicker = () => {
+        dispatch(stopEdit());
     };
 
     const handleBlur = event => {
@@ -155,6 +172,7 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
                 />
 
                 <Picker
+                    onClose={onClosePicker}
                     choices={choices}
                     handleChange={handleChange}
                     ingredient={ingredient}
