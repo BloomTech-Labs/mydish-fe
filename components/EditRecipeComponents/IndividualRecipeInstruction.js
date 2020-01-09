@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     editInstruct,
     startEdit,
+    setCurrentActive,
+    resetCurrentActive,
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -19,16 +21,15 @@ const IndividualRecipeInstruction = ({ index, color }) => {
     // `instruction` is still an object, so the page will load.
     const steps = useSelector(state => state.singleRecipe.recipe.steps);
     const instruction = steps && steps[index] ? steps[index] : {};
+    const currentActive = useSelector(
+        state => state.singleRecipe.currentActive,
+    );
 
     const [editing, setEditing] = useState(false);
 
     const swipeableEl = useRef(null);
 
-    const editHandler = () => {
-        setEditing(true);
-        dispatch(startEdit());
-        swipeableEl.current.close();
-    };
+    const close = () => swipeableEl.current.close();
 
     useEffect(() => {
         // If our mainEditing variable is false,
@@ -40,10 +41,44 @@ const IndividualRecipeInstruction = ({ index, color }) => {
         }
     }, [mainEditing]);
 
+    const editHandler = () => {
+        setEditing(true);
+        dispatch(startEdit());
+        close();
+    };
+
+    const checkActive = () => {
+        if (currentActive.field && currentActive.field !== "instruction")
+            return;
+        if (currentActive.field && currentActive.index !== index) return;
+        else {
+            return false;
+        }
+    };
+
     return (
         <View style={styles.swipeableContainer}>
             <Swipeable
                 ref={swipeableEl}
+                onSwipeableWillOpen={() => {
+                    if (checkActive() !== false) {
+                        currentActive.close();
+                    }
+                }}
+                onSwipeableOpen={() => {
+                    dispatch(
+                        setCurrentActive({
+                            field: "instruction",
+                            index,
+                            close,
+                        }),
+                    );
+                }}
+                onSwipeableClose={() => {
+                    if (checkActive() === false) {
+                        dispatch(resetCurrentActive());
+                    }
+                }}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <View style={styles.editButton}>
