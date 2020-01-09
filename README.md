@@ -29,7 +29,7 @@
 - [Dustin Snoap](https://github.com/dustinsnoap)
 - [Devin Warrick](https://github.com/DevWarr)
 - [James Bishop](https://github.com/jambis)
-- [Katie Mcknight](https://github.com/kmcknight1)
+- [Katie McKnight](https://github.com/kmcknight1)
 - [Megan Miller](https://github.com/Celaira)
 - [Olympia Wojcik](https://github.com/olympiawoj)
 - [Winnie Song](https://github.com/windixxie)
