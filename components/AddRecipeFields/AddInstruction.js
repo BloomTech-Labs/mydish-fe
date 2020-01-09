@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import { View, TextInput, Button } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { addInstruction } from "../../store/singleRecipe/singleRecipeActions";
 
 import Add from "../Add";
 
 const AddInstruction = ({ color }) => {
+    const dispatch = useDispatch();
     const [adding, setAdding] = useState(false);
     const [instruction, setInstruction] = useState("");
+    const steps = useSelector(state => state.singleRecipe.recipe.steps);
+    const ordinal = steps.length + 1;
 
     const cancelAdd = () => {
         setAdding(false);
     };
 
-    const submitAdd = () => {};
+    const submitAdd = () => {
+        dispatch(addInstruction({ ordinal, body: instruction }));
+    };
 
     return (
         <View style={color.active !== "Instructions" && { display: "none" }}>

@@ -161,3 +161,13 @@ export const addIngredient = ingredient => dispatch => {
     });
     dispatch(stopEdit());
 };
+
+export const ADD_INSTRUCTION = "ADD_INSTRUCTION";
+export const addInstruction = instruction => dispatch => {
+    console.log("INSTRUCTION:", instruction);
+    dispatch({
+        type: ADD_INSTRUCTION,
+        payload: instruction,
+    });
+    // dispatch(stopEdit());
+};
