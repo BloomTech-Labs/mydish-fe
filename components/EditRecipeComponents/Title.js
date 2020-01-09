@@ -6,6 +6,7 @@ import styles from "../../styles/individualRecipeStyles";
 import { useSelector, useDispatch } from "react-redux";
 import {
     startEdit,
+    stopEdit,
     editTitle,
     setCurrentActive,
     resetCurrentActive,
@@ -52,30 +53,29 @@ const Title = props => {
         }
     };
 
+    const makeActive = () => {
+        dispatch(setCurrentActive({ field: "title", index: 1, close }));
+    };
+
+    const handleWillOpen = () => {
+        if (checkActive() !== false) {
+            currentActive.close();
+        }
+        dispatch(stopEdit());
+    };
+
+    const handleClose = () => {
+        if (checkActive() === false) {
+            dispatch(resetCurrentActive());
+        }
+    };
+
     return (
         <Swipeable
             ref={swipeableEl}
-            onSwipeableWillOpen={() => {
-                if (checkActive() !== false) {
-                    currentActive.close();
-                }
-            }}
-            onSwipeableOpen={() =>
-                dispatch(
-                    setCurrentActive({
-                        field: "title",
-                        index: 1,
-                        close: () => {
-                            close();
-                        },
-                    }),
-                )
-            }
-            onSwipeableClose={() => {
-                if (checkActive() === false) {
-                    dispatch(resetCurrentActive());
-                }
-            }}
+            onSwipeableWillOpen={handleWillOpen}
+            onSwipeableOpen={() => makeActive()}
+            onSwipeableClose={handleClose}
             close={editing && true}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>
