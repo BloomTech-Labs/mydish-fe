@@ -167,7 +167,6 @@ function CreateRecipeForm(props) {
 
                 <ScrollView>
                     <RecipeFormContainer>
-                        <Heading fontSize={24}>Create Recipe</Heading>
 
                         {/* <ImageUpload recipe={recipe} setRecipe={setRecipe} setPic={setPic} /> */}
 
@@ -289,6 +288,11 @@ function CreateRecipeForm(props) {
 }
 CreateRecipeForm.navigationOptions = {
     tabBarLabel: "create new recipe",
+    headerTitle: "Create Recipe",
+    headerTitleStyle: {
+        fontSize: 22,
+        color: '#42C200'
+    }
 };
 
 export default CreateRecipeForm;
