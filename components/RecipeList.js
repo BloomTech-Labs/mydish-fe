@@ -6,9 +6,9 @@ import styles from "../styles/recipe-styles";
 import RecipeListContainer from "./StyledComponents/RecipeListContainer";
 import { fetchCookbook } from "../store/cookbook/cookbookAction";
 
-const RecipeList = props => {
+const RecipeList = ({parent, folder}) => {
     const dispatch = useDispatch();
-    const recipeList = useSelector(store => store.allRecipes.recipeList);
+    const recipeList = parent === "cookbook" ? folder : useSelector(store => store.allRecipes.recipeList);
     const cookbook = useSelector(store => store.cookbook.cookbookRecipes);
 
     const [recipes, setRecipes] = useState([]);
@@ -27,7 +27,7 @@ const RecipeList = props => {
     };
 
     useEffect(() => {
-        if (!cookbook.length) {
+        if (!cookbook.length || parent !== "cookbook") {
             dispatch(fetchCookbook);
         }
         likedByUser();
