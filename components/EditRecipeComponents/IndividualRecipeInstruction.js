@@ -12,7 +12,7 @@ import {
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const IndividualRecipeInstruction = ({ index, color }) => {
+const IndividualRecipeInstruction = ({ index }) => {
     const dispatch = useDispatch();
     const mainEditing = useSelector(state => state.singleRecipe.editing);
 
@@ -123,13 +123,7 @@ const IndividualRecipeInstruction = ({ index, color }) => {
                         />
                     </View>
                 ) : (
-                    <View
-                        style={
-                            color.active.includes("Ingredients")
-                                ? styles.hidden
-                                : styles.stepTextView
-                        }
-                    >
+                    <View style={styles.stepTextView}>
                         <Text style={styles.stepText}>
                             {instruction.ordinal}. {instruction.body}
                         </Text>

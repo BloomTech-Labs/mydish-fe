@@ -5,7 +5,7 @@ import { addInstruction } from "../../store/singleRecipe/singleRecipeActions";
 
 import Add from "../Add";
 
-const AddInstruction = ({ color }) => {
+const AddInstruction = () => {
     const dispatch = useDispatch();
     const [adding, setAdding] = useState(false);
     const [instruction, setInstruction] = useState("");
@@ -28,7 +28,7 @@ const AddInstruction = ({ color }) => {
     };
 
     return (
-        <View style={color.active !== "Instructions" && { display: "none" }}>
+        <View>
             {adding && (
                 <View>
                     <TextInput

@@ -4,11 +4,11 @@ import { View } from "react-native";
 import Add from "../Add";
 import Ingredient from "../Ingredient";
 
-const AddIngredient = ({ color }) => {
+const AddIngredient = () => {
     const [adding, setAdding] = useState(false);
 
     return (
-        <View style={color.active !== "Ingredients" && { display: "none" }}>
+        <View>
             {adding && (
                 <View>
                     <Ingredient
