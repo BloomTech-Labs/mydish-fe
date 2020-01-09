@@ -5,6 +5,7 @@ import {
     START_REGISTER,
     REGISTER_SUCCESS,
     REGISTER_FAILURE,
+    LOGOUT,
 } from "./authActions";
 
 const authStore = {
@@ -14,6 +15,7 @@ const authStore = {
 };
 
 export const authReducer = (state = authStore, { type, payload }) => {
+    console.log(type)
     switch (type) {
         case START_LOGIN:
             return { ...state, isAuthorizing: true, error: null };
@@ -37,6 +39,8 @@ export const authReducer = (state = authStore, { type, payload }) => {
             };
         case REGISTER_FAILURE:
             return { ...state, isAuthorizing: false, error: payload };
+        case LOGOUT:
+            return { ...state, userId: null };
         default:
             return state;
     }
