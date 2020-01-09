@@ -185,10 +185,11 @@ function CreateRecipeForm(props) {
                                 style={styles.totalTimeContainer}
                                 placeholder="Time"
                                 keyboardType={"numeric"}
-                                onChangeText={min =>
+                                onChangeText={min => {
+                                    if (isNaN(Number(min))) return;
                                     setRecipe({ ...recipe, minutes: min })
-                                }
-                                value={recipe.minutes}
+                                }}
+                                value={String(recipe.minutes)}
                             />
 
                             <Heading>Course Type</Heading>
