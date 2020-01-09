@@ -149,12 +149,11 @@ function IndividualRecipe(props) {
                                                         <IndividualRecipeIngredient
                                                             key={i}
                                                             index={i}
-                                                            color={color}
                                                         />
                                                     ),
                                                 )}
 
-                                            <AddIngredient color={color} />
+                                            <AddIngredient />
                                         </>
                                     )}
 
@@ -165,14 +164,12 @@ function IndividualRecipe(props) {
                                                     <IndividualRecipeInstruction
                                                         key={step.ordinal}
                                                         index={i}
-                                                        color={color}
                                                     />
                                                 ))}
 
-                                            <AddInstruction color={color} />
+                                            <AddInstruction />
 
                                             <IndividualRecipeNotes
-                                                color={color}
                                                 notes={recipe.notes}
                                             />
                                         </>
@@ -258,7 +255,6 @@ function IndividualRecipe(props) {
                                             <DisplayRecipeIngredient
                                                 key={i}
                                                 index={i}
-                                                color={color}
                                             />
                                         ))}
                                 </>
@@ -270,12 +266,10 @@ function IndividualRecipe(props) {
                                             <DisplayRecipeInstruction
                                                 key={step.ordinal}
                                                 index={i}
-                                                color={color}
                                             />
                                         ))}
 
                                     <DisplayRecipeNotes
-                                        color={color}
                                         notes={recipe.notes}
                                     />
                                 </>
@@ -299,7 +293,7 @@ function IndividualRecipe(props) {
         );
     };
 
-    return true ? editableRecipeDisplay() : nonEditableRecipeDisplay();
+    return false ? editableRecipeDisplay() : nonEditableRecipeDisplay();
 }
 
 export default IndividualRecipe;
