@@ -18,7 +18,9 @@ const AddIngredient = ({ color }) => {
                     />
                 </View>
             )}
-            <Add text="Add Ingredient" submit={() => setAdding(true)} />
+            {!adding && (
+                <Add text="Add Ingredient" submit={() => setAdding(true)} />
+            )}
         </View>
     );
 };

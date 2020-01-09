@@ -17,6 +17,7 @@ const AddInstruction = ({ color }) => {
     };
 
     const submitAdd = () => {
+        setAdding(false);
         dispatch(addInstruction({ ordinal, body: instruction }));
     };
 
@@ -26,7 +27,14 @@ const AddInstruction = ({ color }) => {
                 <View>
                     <TextInput
                         multiline
-                        style={{ borderWidth: 1, borderColor: "#363838" }}
+                        returnKeyType="done"
+                        onSubmitEditing={submitAdd}
+                        style={{
+                            borderWidth: 1,
+                            borderColor: "#363838",
+                            borderRadius: 4,
+                            padding: 5,
+                        }}
                         onChangeText={instruction =>
                             setInstruction(instruction)
                         }
@@ -43,7 +51,9 @@ const AddInstruction = ({ color }) => {
                     </View>
                 </View>
             )}
-            <Add text="Add Instruction" submit={() => setAdding(true)} />
+            {!adding && (
+                <Add text="Add Instruction" submit={() => setAdding(true)} />
+            )}
         </View>
     );
 };
