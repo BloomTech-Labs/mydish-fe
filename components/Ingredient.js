@@ -81,6 +81,7 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
     };
 
     const cancelAdd = () => {
+        setHighlighted({ name: false, quantity: false, unit: false });
         setAdding(false);
     };
 

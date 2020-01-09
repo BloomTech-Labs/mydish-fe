@@ -9,16 +9,22 @@ const AddInstruction = ({ color }) => {
     const dispatch = useDispatch();
     const [adding, setAdding] = useState(false);
     const [instruction, setInstruction] = useState("");
+    const [highlighted, setHighlighted] = useState(false);
     const steps = useSelector(state => state.singleRecipe.recipe.steps);
     const ordinal = steps.length + 1;
 
     const cancelAdd = () => {
         setAdding(false);
+        setHighlighted(false);
     };
 
     const submitAdd = () => {
-        setAdding(false);
-        dispatch(addInstruction({ ordinal, body: instruction }));
+        if (!instruction.length) {
+            setHighlighted(true);
+        } else {
+            setAdding(false);
+            dispatch(addInstruction({ ordinal, body: instruction }));
+        }
     };
 
     return (
@@ -30,8 +36,8 @@ const AddInstruction = ({ color }) => {
                         returnKeyType="done"
                         onSubmitEditing={submitAdd}
                         style={{
-                            borderWidth: 1,
-                            borderColor: "#363838",
+                            borderWidth: highlighted ? 1 : 0.8,
+                            borderColor: highlighted ? "#FF0000" : "#363838",
                             borderRadius: 4,
                             padding: 5,
                         }}
