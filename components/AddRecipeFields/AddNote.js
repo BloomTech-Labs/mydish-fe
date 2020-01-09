@@ -56,7 +56,7 @@ const AddNote = () => {
                     </View>
                 </View>
             ) : (
-                <Add text="Add Note" submit={() => setAdding(true)} />
+                <Add text="Add Notes" submit={() => setAdding(true)} />
             )}
         </View>
     );
