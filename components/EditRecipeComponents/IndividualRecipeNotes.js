@@ -10,6 +10,7 @@ import {
     stopEdit,
     setCurrentActive,
     resetCurrentActive,
+    deleteNote
 } from "../../store/singleRecipe/singleRecipeActions";
 
 export default function IndividualRecipeNotes() {
@@ -109,7 +110,7 @@ export default function IndividualRecipeNotes() {
                                         size={20}
                                         color="white"
                                         style={styles.icon}
-                                        onPress={() => {}}
+                                        onPress={() => dispatch(deleteNote())}
                                     />
                                 </View>
                             </View>

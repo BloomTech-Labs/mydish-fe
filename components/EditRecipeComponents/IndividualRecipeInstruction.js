@@ -10,6 +10,7 @@ import {
     stopEdit,
     setCurrentActive,
     resetCurrentActive,
+    deleteInstruction
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -105,7 +106,7 @@ const IndividualRecipeInstruction = ({ index }) => {
                                 size={20}
                                 color="white"
                                 style={styles.icon}
-                                onPress={() => {}}
+                                onPress={() => dispatch(deleteInstruction(index))}
                             />
                         </View>
                     </View>
