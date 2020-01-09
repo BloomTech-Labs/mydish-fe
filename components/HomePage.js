@@ -9,7 +9,6 @@ const HomePage = () => {
     return (
         <SafeAreaView>
             <View style={{ height: "100%" }}>
-                <RecipeShareLogo />
 
                 <Search />
 
@@ -22,3 +21,10 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+
+
+HomePage.navigationOptions = {
+    headerTitle: (<RecipeShareLogo />),
+
+}
