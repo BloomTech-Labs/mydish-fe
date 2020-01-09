@@ -10,15 +10,11 @@ import {
     ScrollView,
     FlatList,
 } from "react-native";
-import RecipeList from "./RecipeList";
-import axiosWithAuth from "../utils/axiosWithAuth";
 import CourseTitle from "./CourseTitle";
+import { useDispatch } from "react-redux";
+import { fetchCookbook } from "../store/cookbook/cookbookAction";
 
 const MyCookBook = props => {
-    const [test, setTest] = useState([]);
-    const [word, setWord] = useState("");
-
-    // console.log('props in MyCookBook', props);
 
     const Courses = [
         {
@@ -51,21 +47,6 @@ const MyCookBook = props => {
             img: "https://data.thefeedfeed.com/recommended/post_4483824.jpeg",
         },
     ];
-
-    const grab = async () => {
-        try {
-            const axiosCustom = await axiosWithAuth();
-            const res = axiosCustom.get(`cookbook?category=${word}`);
-
-            setTest(res.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    useEffect(() => {
-        grab();
-    }, []);
 
     return (
         <View style={{ width: "90%", marginLeft: "5%" }}>
