@@ -97,20 +97,25 @@ export const resetRecipe = () => {
     };
 };
 
+// currentActive indicates a recipe field that is currently swiped/open. It is set
+// onSwipeableOpen and given 3 properties: the field name, an index, and a close function.
+// Each component has a check to see if the current active is another field and if
+// it is, when swiping, the close function of the currentActive is called, closing the
+// currently active field.
 export const SET_CURRENT_ACTIVE = "SET_CURRENT_ACTIVE";
 export const setCurrentActive = field => dispatch => {
     dispatch({
         type: SET_CURRENT_ACTIVE,
-        payload: field
-    })
-}
+        payload: field,
+    });
+};
 
 export const RESET_CURRENT_ACTIVE = "RESET_CURRENT_ACTIVE";
 export const resetCurrentActive = () => dispatch => {
     dispatch({
-        type: RESET_CURRENT_ACTIVE
-    })
-}
+        type: RESET_CURRENT_ACTIVE,
+    });
+};
 
 // When editing our individual recipe, if we ever stop editing
 // - The title
