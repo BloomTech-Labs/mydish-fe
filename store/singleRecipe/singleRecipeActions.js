@@ -97,6 +97,21 @@ export const resetRecipe = () => {
     };
 };
 
+export const SET_CURRENT_ACTIVE = "SET_CURRENT_ACTIVE";
+export const setCurrentActive = field => dispatch => {
+    dispatch({
+        type: SET_CURRENT_ACTIVE,
+        payload: field
+    })
+}
+
+export const RESET_CURRENT_ACTIVE = "RESET_CURRENT_ACTIVE";
+export const resetCurrentActive = () => dispatch => {
+    dispatch({
+        type: RESET_CURRENT_ACTIVE
+    })
+}
+
 // When editing our individual recipe, if we ever stop editing
 // - The title
 // - An ingredient
@@ -169,5 +184,5 @@ export const addInstruction = instruction => dispatch => {
         type: ADD_INSTRUCTION,
         payload: instruction,
     });
-    // dispatch(stopEdit());
+    dispatch(stopEdit());
 };
