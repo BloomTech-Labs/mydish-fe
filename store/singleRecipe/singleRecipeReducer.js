@@ -19,6 +19,7 @@ import {
     ADD_NOTE,
     DELETE_INGREDIENT,
     DELETE_NOTE,
+    DELETE_INSTRUCT,
     DELETE_RECIPE
 } from "./singleRecipeActions";
 
@@ -156,6 +157,26 @@ export const singleRecipeReducer = (state = initState, action) => {
                     notes: null
                     }
             };
+        
+        case DELETE_INSTRUCT:
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    steps: state.recipe.steps.filter(
+                        (val, i) => i !== action.payload,
+                    ),
+                },
+            };
+            
+        // case DELETE_RECIPE:
+        //     return {
+        //         ...state,
+        //         recipe: {
+        //             ...state.recipe,
+        //             recipe: 
+        //         }
+        //     };
 
         case START_EDIT:
             return { ...state, editing: true };

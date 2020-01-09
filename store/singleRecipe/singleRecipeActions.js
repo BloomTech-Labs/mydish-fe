@@ -52,6 +52,7 @@ export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
 export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
 export const DELETE_NOTE = "DELETE_NOTE";
 export const DELETE_RECIPE = "DELETE_RECIPE";
+export const DELETE_INSTRUCT = "DELETE_INSTRUCT";
 
 export const fetchRecipe = id => async dispatch => {
     dispatch({ type: START_FETCH_RECIPE });
@@ -73,6 +74,11 @@ export const deleteIngredient = ing_index => dispatch => {
 
 export const deleteNote = () => dispatch => {
     dispatch({ type: DELETE_NOTE});
+    dispatch(stopEdit());
+};
+
+export const deleteInstruction = ins_index => dispatch => {
+    dispatch({ type: DELETE_INSTRUCT, payload: ins_index });
     dispatch(stopEdit());
 }
 
