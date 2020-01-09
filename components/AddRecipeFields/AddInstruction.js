@@ -29,7 +29,7 @@ const AddInstruction = () => {
 
     return (
         <View>
-            {adding && (
+            {adding ? (
                 <View>
                     <TextInput
                         multiline
@@ -48,7 +48,7 @@ const AddInstruction = () => {
                     <View
                         style={{
                             flexDirection: "row",
-                            width: "90%",
+                            width: "100%",
                             justifyContent: "space-evenly",
                         }}
                     >
@@ -56,8 +56,7 @@ const AddInstruction = () => {
                         <Button title="Submit" onPress={submitAdd} />
                     </View>
                 </View>
-            )}
-            {!adding && (
+            ) : (
                 <Add text="Add Instruction" submit={() => setAdding(true)} />
             )}
         </View>
