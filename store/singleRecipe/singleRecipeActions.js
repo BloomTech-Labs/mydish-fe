@@ -50,8 +50,10 @@ export const START_FETCH_RECIPE = "START_FETCH_RECIPE";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
 export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
-export const FETCH_INGREDIENT_DELETE_SUCCESS = "FETCH_INGREDIENT_DELETE_SUCCESS";
-export const FETCH_INGREDIENT_DELETE_FAILURE = "FETCH_INGREDIENT_DELETE_FAILURE";
+export const FETCH_INGREDIENT_DELETE_SUCCESS =
+    "FETCH_INGREDIENT_DELETE_SUCCESS";
+export const FETCH_INGREDIENT_DELETE_FAILURE =
+    "FETCH_INGREDIENT_DELETE_FAILURE";
 
 export const fetchRecipe = id => async dispatch => {
     dispatch({ type: START_FETCH_RECIPE });
@@ -66,10 +68,10 @@ export const fetchRecipe = id => async dispatch => {
     }
 };
 
-export const deleteIngredient = (ing_index) => dispatch =>{
-    dispatch({type:DELETE_INGREDIENT, payload: ing_index});
+export const deleteIngredient = ing_index => dispatch => {
+    dispatch({ type: DELETE_INGREDIENT, payload: ing_index });
     dispatch(stopEdit());
-}
+};
 
 export const START_SAVE_NEW_RECIPE = "START_SAVE_NEW_RECIPE";
 export const SAVE_NEW_RECIPE_SUCCESS = "SAVE_NEW_RECIPE_SUCCESS";
@@ -157,4 +159,5 @@ export const addIngredient = ingredient => dispatch => {
         type: ADD_INGREDIENT,
         payload: ingredient,
     });
+    dispatch(stopEdit());
 };
