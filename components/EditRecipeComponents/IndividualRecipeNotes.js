@@ -7,6 +7,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     startEdit,
     editNotes,
+    stopEdit,
+    setCurrentActive,
+    resetCurrentActive,
 } from "../../store/singleRecipe/singleRecipeActions";
 
 export default function IndividualRecipeNotes() {
@@ -14,16 +17,15 @@ export default function IndividualRecipeNotes() {
 
     const mainEditing = useSelector(state => state.singleRecipe.editing);
     const notes = useSelector(state => state.singleRecipe.recipe.notes);
+    const currentActive = useSelector(
+        state => state.singleRecipe.currentActive,
+    );
 
     const [editing, setEditing] = useState(false);
 
     const swipeableEl = useRef(null);
-    const editHandler = () => {
-        setEditing(true);
-        dispatch(startEdit());
-        console.log("editing note");
-        swipeableEl.current.close();
-    };
+
+    const close = () => swipeableEl.current.close();
 
     useEffect(() => {
         // If our mainEditing variable is false,
@@ -32,8 +34,39 @@ export default function IndividualRecipeNotes() {
         //     enter edit mode if we start editing a different swipeale
         if (!mainEditing) {
             setEditing(false);
+            dispatch(resetCurrentActive());
         }
     }, [mainEditing]);
+
+    const editHandler = () => {
+        setEditing(true);
+        dispatch(startEdit());
+        close();
+    };
+
+    const checkActive = () => {
+        if (currentActive.field && currentActive.field !== "notes") return;
+        else {
+            return false;
+        }
+    };
+
+    const makeActive = () => {
+        dispatch(setCurrentActive({ field: "notes", index: 1, close }));
+    };
+
+    const handleWillOpen = () => {
+        if (checkActive() !== false) {
+            currentActive.close();
+        }
+        dispatch(stopEdit());
+    };
+
+    const handleClose = () => {
+        if (checkActive() === false) {
+            dispatch(resetCurrentActive());
+        }
+    };
 
     return (
         <>
@@ -56,6 +89,9 @@ export default function IndividualRecipeNotes() {
                 <View style={styles.swipeableContainer}>
                     <Swipeable
                         ref={swipeableEl}
+                        onSwipeableWillOpen={handleWillOpen}
+                        onSwipeableOpen={makeActive}
+                        onSwipeableClose={handleClose}
                         renderRightActions={() => (
                             <View style={styles.buttonContainer}>
                                 <View style={styles.editButton}>

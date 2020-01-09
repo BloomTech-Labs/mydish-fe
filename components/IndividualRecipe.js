@@ -29,6 +29,7 @@ import AddIngredient from "./AddRecipeFields/AddIngredient";
 import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction";
 import AddInstruction from "./AddRecipeFields/AddInstruction";
 import IndividualRecipeNotes from "./EditRecipeComponents/IndividualRecipeNotes";
+import AddNote from "./AddRecipeFields/AddNote";
 import Version from "./Version";
 import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngredient";
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
@@ -169,9 +170,13 @@ function IndividualRecipe(props) {
 
                                             <AddInstruction />
 
-                                            <IndividualRecipeNotes
-                                                notes={recipe.notes}
-                                            />
+                                            {recipe.notes ? (
+                                                <IndividualRecipeNotes
+                                                    notes={recipe.notes}
+                                                />
+                                            ) : (
+                                                <AddNote />
+                                            )}
                                         </>
                                     )}
                                 </View>
