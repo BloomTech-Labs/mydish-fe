@@ -296,7 +296,7 @@ function IndividualRecipe(props) {
         );
     };
 
-    return true ? editableRecipeDisplay() : nonEditableRecipeDisplay();
+    return recipe.editable ? editableRecipeDisplay() : nonEditableRecipeDisplay();
 }
 
 export default IndividualRecipe;
