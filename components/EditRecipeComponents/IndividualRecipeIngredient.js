@@ -74,67 +74,12 @@ const IndividualRecipeIngredient = ({ index, color }) => {
                 {/*Text Input*/}
                 {editing && mainEditing ? (
                     <View style={{ marginTop: 10 }}>
-                        <Ingredient autoFocus recipeIng={recipeIng} />
+                        <Ingredient
+                            recipeIng={recipeIng}
+                            parent="IndividualRecipeIngredient"
+                        />
                     </View>
                 ) : (
-                    // <View style={styles.ingredientContainer}>
-                    //     <TextInput
-                    //         value={recipeIng.name}
-                    //         onChangeText={name =>
-                    //             dispatch(
-                    //                 editIngred(index, {
-                    //                     ...recipeIng,
-                    //                     name,
-                    //                 }),
-                    //             )
-                    //         }
-                    //         style={styles.input}
-                    //         returnKeyType="done"
-                    //         autoFocus={true}
-                    //         enablesReturnKeyAutomatically={true}
-                    //         onSubmitEditing={() => {
-                    //             dispatch(stopEdit());
-                    //         }}
-                    //     />
-
-                    //     <TextInput
-                    //         keyboardType="decimal-pad"
-                    //         returnKeyType="done"
-                    //         enablesReturnKeyAutomatically={true}
-                    //         value={String(recipeIng.quantity)}
-                    //         onChangeText={qty =>
-                    //             dispatch(
-                    //                 editIngred(index, {
-                    //                     ...recipeIng,
-                    //                     // If our quantity isn't a number, it'll turn into NaN! Danger!
-                    //                     quantity: isNaN(Number(qty))
-                    //                         ? recipeIng.quantity
-                    //                         : qty,
-                    //                 }),
-                    //             )
-                    //         }
-                    //         style={styles.input}
-                    //         onSubmitEditing={() => {
-                    //             dispatch(stopEdit());
-                    //         }}
-                    //     />
-                    //     <TextInput
-                    //         value={recipeIng.unit}
-                    //         onChangeText={unit =>
-                    //             dispatch(
-                    //                 editIngred(index, {
-                    //                     ...recipeIng,
-                    //                     unit: unit,
-                    //                 }),
-                    //             )
-                    //         }
-                    //         style={styles.input}
-                    //         returnKeyType="done"
-                    //         onSubmitEditing={() => {
-                    //             dispatch(stopEdit());
-                    //         }}
-                    //     />
-                    // </View>
                     <View
                         style={
                             color.active.includes("Instructions")
