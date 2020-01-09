@@ -8,11 +8,15 @@ import {
     RESET_RECIPE,
     START_EDIT,
     STOP_EDIT,
+    SET_CURRENT_ACTIVE,
+    RESET_CURRENT_ACTIVE,
     EDIT_TITLE,
     EDIT_INGRED,
     EDIT_INSTRUCT,
     EDIT_NOTES,
     ADD_INGREDIENT,
+    ADD_INSTRUCTION,
+    ADD_NOTE,
     DELETE_INGREDIENT,
 } from "./singleRecipeActions";
 
@@ -35,6 +39,7 @@ const initState = {
     isLoading: false,
     error: null,
     editing: false,
+    currentActive: { field: null, index: null, close: null },
 };
 
 export const singleRecipeReducer = (state = initState, action) => {
@@ -66,6 +71,16 @@ export const singleRecipeReducer = (state = initState, action) => {
                 recipe: action.recipe || state.recipe,
                 isLoading: false,
                 error: action.payload,
+            };
+        case SET_CURRENT_ACTIVE:
+            return {
+                ...state,
+                currentActive: action.payload,
+            };
+        case RESET_CURRENT_ACTIVE:
+            return {
+                ...state,
+                currentActive: initState.currentActive,
             };
         case EDIT_INGRED:
             const ingredients = state.recipe.ingredients.map((val, i) => {
@@ -101,6 +116,24 @@ export const singleRecipeReducer = (state = initState, action) => {
                     ingredients: [...state.recipe.ingredients, action.payload],
                 },
             };
+
+        case ADD_INSTRUCTION:
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    steps: [...state.recipe.steps, action.payload],
+                },
+            };
+
+        case ADD_NOTE:
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    notes: action.payload
+                }
+            }
 
         case DELETE_INGREDIENT:
             return {

@@ -1,11 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TextInput, View, Text, TouchableOpacity } from "react-native";
+import {
+    TextInput,
+    View,
+    Text,
+    TouchableOpacity,
+    Button,
+    Platform,
+} from "react-native";
+import { useDispatch } from "react-redux";
+import {
+    addIngredient,
+    stopEdit,
+} from "../store/singleRecipe/singleRecipeActions";
 // import styles from '../styles/createRecipeStyles';
 // import ReactNativePickerModule from 'react-native-picker-module'
 import Picker from "./Picker.android";
 
-const Ingredient = ({ recipeIng, recipe, setRecipe, autoFocus, setAdding }) => {
+const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
+    const dispatch = useDispatch();
     const [visible, setVisible] = useState(false);
+    const [highlighted, setHighlighted] = useState({
+        name: false,
+        quantity: false,
+        unit: false,
+    });
 
     const [choices, setChoices] = useState({
         selectedValue: null,
@@ -50,6 +68,13 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, autoFocus, setAdding }) => {
     const handleChange = (key, value, i) => {
         setChoices({ ...choices, selectedValue: i });
         setIngredient({ ...ingredient, [key]: value });
+        if (Platform.OS === "android") {
+            onClosePicker();
+        }
+    };
+
+    const onClosePicker = () => {
+        dispatch(stopEdit());
     };
 
     const handleBlur = event => {
@@ -68,10 +93,28 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, autoFocus, setAdding }) => {
                     }
                 }
             }
-
-            // console.log('recipeIng after splicing', recipeIng);
-
             setRecipe({ ...recipe, ingredients: [...recipeIng, ingredient] });
+        }
+    };
+
+    const cancelAdd = () => {
+        setHighlighted({ name: false, quantity: false, unit: false });
+        setAdding(false);
+    };
+
+    const submitAdd = () => {
+        const lengthObj = {
+            name: !ingredient.name.length,
+            quantity: !ingredient.quantity.length,
+            unit: !ingredient.unit.length,
+        };
+
+        if (Object.values(lengthObj).find(x => !!x)) {
+            setHighlighted(lengthObj);
+            console.log("HIGHLIGHT TEST:", highlighted);
+        } else {
+            setAdding(false);
+            dispatch(addIngredient(ingredient));
         }
     };
 
@@ -81,7 +124,8 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, autoFocus, setAdding }) => {
                 style={{
                     flexDirection: "row",
                     marginBottom: 20,
-                    justifyContent: "space-between",
+                    justifyContent: "space-evenly",
+                    width: "100%",
                 }}
             >
                 <TextInput
@@ -89,26 +133,27 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, autoFocus, setAdding }) => {
                     style={{
                         height: 40,
                         width: "50%",
-                        borderWidth: 0.8,
-                        borderColor: "#363838",
+                        borderWidth: highlighted.name ? 1 : 0.8,
+                        borderColor: highlighted.name ? "#FF0000" : "#363838",
                         borderRadius: 4,
                         textAlign: "center",
                     }}
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
-                    returnKeyType="next"
+                    returnKeyType="done"
                     onBlur={handleBlur}
                     value={ingredient.name}
-                    autoFocus={autoFocus ? true : false}
                     onSubmitEditing={() => quantityInput.current.focus()}
                 />
                 <TextInput
                     ref={quantityInput}
                     style={{
                         height: 40,
-                        width: "19%",
-                        borderWidth: 0.8,
-                        borderColor: "#363838",
+                        width: "20%",
+                        borderWidth: highlighted.quantity ? 1 : 0.8,
+                        borderColor: highlighted.quantity
+                            ? "#FF0000"
+                            : "#363838",
                         borderRadius: 4,
                         textAlign: "center",
                     }}
@@ -127,15 +172,28 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, autoFocus, setAdding }) => {
                 />
 
                 <Picker
+                    onClose={onClosePicker}
                     choices={choices}
                     handleChange={handleChange}
                     ingredient={ingredient}
                     setVisible={setVisible}
                     visible={visible}
                     setIngredient={setIngredient}
-                    setAdding={setAdding}
+                    highlighted={highlighted}
                 />
             </View>
+            {parent === "AddIngredient" && (
+                <View
+                    style={{
+                        flexDirection: "row",
+                        width: "100%",
+                        justifyContent: "space-evenly",
+                    }}
+                >
+                    <Button title="Cancel" onPress={cancelAdd} />
+                    <Button title="Submit" onPress={submitAdd} />
+                </View>
+            )}
         </View>
     );
 };

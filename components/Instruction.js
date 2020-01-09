@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { TextInput, Text, Image } from "react-native";
-import styles from "../styles/createRecipeStyles";
-import add from "../assets/add_circle_32px.png";
 
 const Instruction = ({ recipe, setRecipe, index }) => {
     //     output = [];
@@ -46,7 +44,6 @@ const Instruction = ({ recipe, setRecipe, index }) => {
 
     return (
         <>
-            {/* <View style = {, marginBottom: 20, borderWidth: 3, borderColor: "red"}}> */}
             <Text style={{ marginLeft: 14 }}>Step {index}</Text>
             <TextInput
                 style={{
@@ -66,7 +63,6 @@ const Instruction = ({ recipe, setRecipe, index }) => {
                 onBlur={handleBlur}
                 value={step.text}
             />
-            {/* </View> */}
         </>
     );
 };

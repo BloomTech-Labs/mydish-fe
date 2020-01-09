@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 
 import styles from "../../styles/individualRecipeStyles";
 
-const DisplayRecipeIngredient = ({ index, color }) => {
-    const mainEditing = useSelector(state => state.singleRecipe.editing);
+const DisplayRecipeIngredient = ({ index }) => {
     const ingredients = useSelector(
         state => state.singleRecipe.recipe.ingredients,
     );
@@ -13,13 +12,7 @@ const DisplayRecipeIngredient = ({ index, color }) => {
         ingredients && ingredients[index] ? ingredients[index] : {};
 
     return (
-        <View
-            style={
-                color.active.includes("Instructions")
-                    ? styles.hidden
-                    : styles.ingredientList
-            }
-        >
+        <View style={styles.ingredientList}>
             <View style={styles.ingredientView}>
                 <Text style={styles.ingredientText}>
                     {recipeIng.quantity} {recipeIng.unit}
