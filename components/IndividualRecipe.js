@@ -8,6 +8,7 @@ import {
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
     SafeAreaView,
+    AsyncStorage,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -42,15 +43,25 @@ function IndividualRecipe(props) {
     const [forks, setForks] = useState([]);
     const dispatch = useDispatch();
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    const userId = useSelector(state => state.auth.userId)
+    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
         dispatch(fetchRecipe(id));
         getForks();
+        fetchUserId();
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
     }, []);
+
+    async function fetchUserId() {
+        try {
+            const fetchId = await AsyncStorage.getItem("userID");
+            setUserId(Number(fetchId));
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     async function getForks() {
         try {
@@ -297,7 +308,9 @@ function IndividualRecipe(props) {
         );
     };
 
-    return userId === recipe.innovator ? editableRecipeDisplay() : nonEditableRecipeDisplay();
+    return recipe.innovator && userId === recipe.innovator
+        ? editableRecipeDisplay()
+        : nonEditableRecipeDisplay();
 }
 
 export default IndividualRecipe;
