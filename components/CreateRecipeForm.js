@@ -44,7 +44,7 @@ function CreateRecipeForm(props) {
         minutes: 0,
         notes: "",
         categories: [],
-        ingredients: [],
+        ingredients: [{ name: "", quantity: "", unit: "" }],
         steps: [],
         ancestor: null,
     };
@@ -92,7 +92,11 @@ function CreateRecipeForm(props) {
         recipe.img = pic;
         console.log("recipe inside post of <CreateRecipeForm/> ", recipe);
 
-        const errMessages = validateFields(recipe, courses, (edit = false), {});
+        const postRecipe = recipe.ingredients.filter(
+            ing => ing.name.length && ing.quantity.length && ing.unit,
+        );
+
+        const errMessages = validateFields(postRecipe, courses, (edit = false), {});
 
         if (errMessages.length) {
             setErrors(errMessages);
@@ -101,7 +105,7 @@ function CreateRecipeForm(props) {
 
         try {
             const axiosCustom = await axiosWithAuth();
-            const res = await axiosCustom.post("recipes", recipe);
+            const res = await axiosCustom.post("recipes", postRecipe);
 
             recipeID = res.data.recipe_id;
             setRecipe(initialFormState);
@@ -111,32 +115,38 @@ function CreateRecipeForm(props) {
         }
     };
 
-    const ingSubmit = async () => {
-        console.log("<Ingredient/> Submit triggered");
-        // setIngList(() => [...ingList, ingredient]);
-        await setIngCount(oldCount => oldCount + 1);
+    const addIng = () => {
+        const newIng = { name: "", quantity: "", unit: "" };
+        setRecipe(oldRec => ({
+            ...oldRec,
+            ingredients: [...oldRec.ingredients, newIng],
+        }));
     };
 
-    const stepSubmit = async () => {
-        await setStepCount(oldCount => oldCount + 1);
+    const removeIng = index => {
+        setRecipe(oldRec => ({
+            ...oldRec,
+            ingredients: oldRec.ingredients.filter((val, i) => i !== index),
+        }));
+    };
+
+    const stepSubmit = () => {
+        setStepCount(oldCount => oldCount + 1);
     };
 
     const addIngredients = () => {
-        const IngredientComponents = [];
-
-        for (let i = 0; i < ingCount; i++) {
-            IngredientComponents.push(
-                <Ingredient
-                    key={i + 1}
-                    index={i}
-                    recipe={recipe}
-                    setRecipe={setRecipe}
-                    visible={visible}
-                    setVisible={setVisible}
-                />,
-            );
-        }
-        return IngredientComponents;
+        console.log(recipe.ingredients)
+        return recipe.ingredients.map((ingredient, i) => (
+            <Ingredient
+                key={i + 1}
+                index={i}
+                removeIng={removeIng}
+                recipeIng={ingredient}
+                recipe={recipe}
+                setRecipe={setRecipe}
+                parent="create"
+            />
+        ));
     };
 
     const addInstructions = () => {
@@ -167,7 +177,6 @@ function CreateRecipeForm(props) {
 
                 <ScrollView>
                     <RecipeFormContainer>
-
                         {/* <ImageUpload recipe={recipe} setRecipe={setRecipe} setPic={setPic} /> */}
 
                         <View>
@@ -186,7 +195,7 @@ function CreateRecipeForm(props) {
                                 keyboardType={"numeric"}
                                 onChangeText={min => {
                                     if (isNaN(Number(min))) return;
-                                    setRecipe({ ...recipe, minutes: min })
+                                    setRecipe({ ...recipe, minutes: min });
                                 }}
                                 value={String(recipe.minutes)}
                             />
@@ -259,7 +268,7 @@ function CreateRecipeForm(props) {
                             <Heading>Ingredients</Heading>
 
                             {addIngredients()}
-                            <Add text="Add Ingredient" submit={ingSubmit} />
+                            <Add text="Add Ingredient" submit={addIng} />
 
                             <Heading>Instructions</Heading>
                             {addInstructions()}
@@ -291,8 +300,8 @@ CreateRecipeForm.navigationOptions = {
     headerTitle: "Create Recipe",
     headerTitleStyle: {
         fontSize: 22,
-        color: '#42C200'
-    }
+        color: "#42C200",
+    },
 };
 
 export default CreateRecipeForm;
