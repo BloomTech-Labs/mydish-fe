@@ -16,7 +16,14 @@ import {
 // import ReactNativePickerModule from 'react-native-picker-module'
 import Picker from "./Picker.android";
 
-const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
+const Ingredient = ({
+    recipeIng,
+    removeIng,
+    index,
+    setRecipe,
+    setAdding,
+    parent,
+}) => {
     const dispatch = useDispatch();
     const [visible, setVisible] = useState(false);
     const [highlighted, setHighlighted] = useState({
@@ -60,6 +67,27 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
         quantity: "",
         unit: "",
     });
+    useEffect(() => {
+        // If our current recipeIng and ingredient aren't the same
+        //     (to prevent a continuous loop)
+        // AND, the parent component is the CreateRecipeForm, then
+        //     this will update our parent recipe with any changes we type.
+        if (
+            parent === "create" &&
+            (recipeIng.name !== ingredient.name ||
+                recipeIng.quantity !== ingredient.quantity ||
+                recipeIng.unit !== ingredient.unit)
+        ) {
+            setRecipe(oldRec => ({
+                ...oldRec,
+                ingredients: oldRec.ingredients.map((ing, i) => {
+                    if (i === index) return ingredient;
+                    else return ing;
+                }),
+            }));
+        }
+    }, [ingredient]);
+
     const [toEdits, setToEdits] = useState([]);
 
     const nameInput = useRef(null);
@@ -72,26 +100,6 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
 
     const onClosePicker = () => {
         dispatch(stopEdit());
-    };
-
-    const handleBlur = event => {
-        if (!recipe) return;
-        //console.log('handleBlur triggered in <Ingredient/>');
-        const ingArr = Object.values(ingredient);
-        const fullIng = ingArr.filter(i => !!i);
-        if (fullIng.length === 3) {
-            setToEdits([...toEdits, ingredient]);
-            const recipeIng = [...recipe.ingredients];
-
-            for (let i = 0; i < toEdits.length; i++) {
-                for (let j = 0; j < recipeIng.length; j++) {
-                    if (toEdits[i].name === recipeIng[j].name) {
-                        recipeIng.splice(j, 1);
-                    }
-                }
-            }
-            setRecipe({ ...recipe, ingredients: [...recipeIng, ingredient] });
-        }
     };
 
     const cancelAdd = () => {
@@ -138,7 +146,6 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
                     returnKeyType="done"
-                    onBlur={handleBlur}
                     value={ingredient.name}
                     onSubmitEditing={() => quantityInput.current.focus()}
                 />
@@ -163,7 +170,6 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
                         )
                     }
                     returnKeyType="done"
-                    onBlur={handleBlur}
                     value={ingredient.quantity}
                     onSubmitEditing={() => setVisible(true)}
                 />
@@ -178,6 +184,29 @@ const Ingredient = ({ recipeIng, recipe, setRecipe, setAdding, parent }) => {
                     setIngredient={setIngredient}
                     highlighted={highlighted}
                 />
+                {/* A remove button for the CreateRecipeForm */}
+                {parent === "create" && (
+                    <TouchableOpacity onPress={() => removeIng(index)}>
+                        <View style={{ flex: 1, alignItems: "center" }}>
+                            <View
+                                style={{
+                                    backgroundColor: "#FF0000",
+                                    borderRadius: 100 / 2,
+                                    width: 20,
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: "#FFFFFF",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    –
+                                </Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                )}
             </View>
             {parent === "AddIngredient" && (
                 <View
