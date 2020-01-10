@@ -12,7 +12,6 @@ const AddIngredient = () => {
             {adding && (
                 <View>
                     <Ingredient
-                        setRecipe={() => ({})}
                         setAdding={setAdding}
                         parent="AddIngredient"
                     />
