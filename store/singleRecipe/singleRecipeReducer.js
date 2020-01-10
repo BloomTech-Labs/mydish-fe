@@ -20,7 +20,7 @@ import {
     DELETE_INGREDIENT,
     DELETE_NOTE,
     DELETE_INSTRUCT,
-    DELETE_RECIPE
+    DELETE_RECIPE,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -134,9 +134,9 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 recipe: {
                     ...state.recipe,
-                    notes: action.payload
-                }
-            }
+                    notes: action.payload,
+                },
+            };
 
         case DELETE_INGREDIENT:
             return {
@@ -148,33 +148,34 @@ export const singleRecipeReducer = (state = initState, action) => {
                     ),
                 },
             };
-        
+
         case DELETE_NOTE:
             return {
                 ...state,
                 recipe: {
                     ...state.recipe,
-                    notes: null
-                    }
+                    notes: null,
+                },
             };
-        
+
         case DELETE_INSTRUCT:
+            const newSteps = state.recipe.steps
+                .filter((val, i) => i !== action.payload)
+                .map((step, i) => ({ ...step, ordinal: i + 1 }));
             return {
                 ...state,
                 recipe: {
                     ...state.recipe,
-                    steps: state.recipe.steps.filter(
-                        (val, i) => i !== action.payload,
-                    ),
+                    steps: newSteps,
                 },
             };
-            
+
         // case DELETE_RECIPE:
         //     return {
         //         ...state,
         //         recipe: {
         //             ...state.recipe,
-        //             recipe: 
+        //             recipe:
         //         }
         //     };
 
