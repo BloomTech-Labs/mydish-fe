@@ -32,22 +32,21 @@ const SignUp = ({ navigation }) => {
     return (
         <SafeAreaView>
             <KeyboardAwareScrollView>
-                <KeyboardAvoidingView behavior="position" style={{ flex: 1 }}>
-                    <View style={{ flex: 1 }}>
+                <KeyboardAvoidingView
+                    behavior="position"
+                    style={styles.container}
+                    enabled
+                >
+                    <View>
                         <Text style={styles.title}>Create Account</Text>
-                        <Text
-                            style={
-                                (styles.explanationText,
-                                { marginLeft: 16, marginVertical: 20 })
-                            }
-                        >
+                        <Text style={styles.explanationText}>
                             Create a new account to save and edit your favorite
                             recipes.
                         </Text>
                         <Text style={styles.emailText}>Username</Text>
                         <TextInput
                             ref={usernameInput}
-                            style={styles.inputFeilds}
+                            style={styles.inputFields}
                             value={signUp.username}
                             returnKeyType="next"
                             onSubmitEditing={() =>
@@ -65,7 +64,7 @@ const SignUp = ({ navigation }) => {
                         <Text style={styles.passwordText}>Password</Text>
                         <TextInput
                             ref={passwordInput}
-                            style={styles.inputFeilds}
+                            style={styles.inputFields}
                             value={signUp.password}
                             returnKeyType="done"
                             onChangeText={event =>

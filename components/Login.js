@@ -1,4 +1,4 @@
-import React, { useState, userEffect, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
     View,
     Text,
@@ -19,7 +19,6 @@ const Login = ({ navigation }) => {
     const [login, setLogin] = useState({ username: "", password: "" });
     const errorMsg = useSelector(state => state.auth.error);
     const userId = useSelector(state => state.auth.userId);
-    console.log(userId);
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
@@ -34,8 +33,12 @@ const Login = ({ navigation }) => {
     return (
         <SafeAreaView>
             <KeyboardAwareScrollView>
-                <KeyboardAvoidingView behavior="position" style={{ flex: 1 }}>
-                    <View style={{ flex: 1 }}>
+                <KeyboardAvoidingView
+                    behavior="position"
+                    style={styles.container}
+                    enabled
+                >
+                    <View>
                         <Text style={styles.title}>Log In</Text>
 
                         <Text style={styles.explanationText}>
@@ -44,7 +47,7 @@ const Login = ({ navigation }) => {
                         <Text style={styles.emailText}>Username</Text>
                         <TextInput
                             ref={usernameInput}
-                            style={styles.inputFeilds}
+                            style={styles.inputFields}
                             name="username"
                             testID="username"
                             value={login.username}
@@ -59,7 +62,7 @@ const Login = ({ navigation }) => {
                         <Text style={styles.passwordText}>Password</Text>
                         <TextInput
                             ref={passwordInput}
-                            style={styles.inputFeilds}
+                            style={styles.inputFields}
                             name="password"
                             testID="password"
                             value={login.password}
