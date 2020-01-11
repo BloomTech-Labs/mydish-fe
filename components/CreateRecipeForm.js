@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
     Text,
     TextInput,
@@ -7,7 +7,6 @@ import {
     ScrollView,
     TouchableOpacity,
     KeyboardAvoidingView,
-    Platform,
 } from "react-native";
 import { Header } from "react-navigation-stack";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -45,13 +44,12 @@ function CreateRecipeForm(props) {
         notes: "",
         categories: [],
         ingredients: [{ name: "", quantity: "", unit: "" }],
-        steps: [],
+        steps: [""],
         ancestor: null,
     };
 
     const [recipe, setRecipe] = useState(initialFormState);
     let [errors, setErrors] = useState([]);
-    let [ingCount, setIngCount] = useState(1);
     let [stepCount, setStepCount] = useState(1);
     const [courses] = useState([
         "Breakfast",
@@ -84,19 +82,28 @@ function CreateRecipeForm(props) {
     const [visible, setVisible] = useState({ active: false });
     const [color, setColor] = useState({ active: [] });
     const [pic, setPic] = useState(null);
-    // let [steps, setSteps] = useState([0]);
-    // const [ingList, setIngList] = useState([])
-    // const [check, setCheck] =useState(true);
 
     const postRecipe = async () => {
         recipe.img = pic;
         console.log("recipe inside post of <CreateRecipeForm/> ", recipe);
 
-        const postRecipe = recipe.ingredients.filter(
-            ing => ing.name.length && ing.quantity.length && ing.unit,
-        );
+        const postRecipe = {
+            ...recipe,
+            // Remove any ingredients that are empty
+            ingredients: recipe.ingredients.filter(
+                ing => ing.name.length && ing.quantity.length && ing.unit,
+            ),
+            steps: recipe.steps
+                .map(step => step.replace(/\n+/g, " ")) // Remove any newlines
+                .filter(step => step.length), // Remove empty steps
+        };
 
-        const errMessages = validateFields(postRecipe, courses, (edit = false), {});
+        const errMessages = validateFields(
+            postRecipe,
+            courses,
+            (edit = false),
+            {},
+        );
 
         if (errMessages.length) {
             setErrors(errMessages);
@@ -117,28 +124,38 @@ function CreateRecipeForm(props) {
 
     const addIng = () => {
         const newIng = { name: "", quantity: "", unit: "" };
-        setRecipe(oldRec => ({
-            ...oldRec,
-            ingredients: [...oldRec.ingredients, newIng],
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            ingredients: [...oldRecipe.ingredients, newIng],
+        }));
+    };
+
+    const addInstruction = () => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            steps: [...oldRecipe.steps, ""],
         }));
     };
 
     const removeIng = index => {
-        setRecipe(oldRec => ({
-            ...oldRec,
-            ingredients: oldRec.ingredients.filter((val, i) => i !== index),
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            ingredients: oldRecipe.ingredients.filter((val, i) => i !== index),
         }));
     };
 
-    const stepSubmit = () => {
-        setStepCount(oldCount => oldCount + 1);
+    const removeInstruction = index => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            steps: oldRecipe.steps.filter((val, i) => i !== index),
+        }));
     };
 
     const addIngredients = () => {
-        console.log(recipe.ingredients)
+        console.log(recipe.ingredients);
         return recipe.ingredients.map((ingredient, i) => (
             <Ingredient
-                key={i + 1}
+                key={i}
                 index={i}
                 removeIng={removeIng}
                 recipeIng={ingredient}
@@ -150,22 +167,15 @@ function CreateRecipeForm(props) {
     };
 
     const addInstructions = () => {
-        const InstructionComponents = [];
-
-        for (let i = 0; i < stepCount; i++) {
-            InstructionComponents.push(
-                <Instruction
-                    key={i + 1}
-                    index={i + 1}
-                    recipe={recipe}
-                    count={stepCount}
-                    setCount={setStepCount}
-                    setRecipe={setRecipe}
-                />,
-            );
-        }
-
-        return InstructionComponents;
+        return recipe.steps.map((instruction, i) => (
+            <Instruction
+                key={i}
+                index={i}
+                removeInstruction={removeInstruction}
+                instruction={instruction}
+                setRecipe={setRecipe}
+            />
+        ));
     };
 
     return (
@@ -272,7 +282,7 @@ function CreateRecipeForm(props) {
 
                             <Heading>Instructions</Heading>
                             {addInstructions()}
-                            <Add text="Add A Step" submit={stepSubmit} />
+                            <Add text="Add A Step" submit={addInstruction} />
 
                             <Notes recipe={recipe} setRecipe={setRecipe} />
 

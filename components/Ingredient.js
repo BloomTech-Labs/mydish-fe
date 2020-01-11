@@ -1,11 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-    TextInput,
-    View,
-    Text,
-    TouchableOpacity,
-    Button,
-} from "react-native";
+import { TextInput, View, Text, TouchableOpacity, Button } from "react-native";
 import { useDispatch } from "react-redux";
 import {
     addIngredient,
@@ -175,23 +169,22 @@ const Ingredient = ({
                 {/* A remove button for the CreateRecipeForm */}
                 {parent === "create" && (
                     <TouchableOpacity onPress={() => removeIng(index)}>
-                        <View style={{ flex: 1, alignItems: "center" }}>
-                            <View
+                        <View
+                            style={{
+                                backgroundColor: "#FF0000",
+                                borderRadius: 100 / 2,
+                                width: 20,
+                            }}
+                        >
+                            <Text
                                 style={{
-                                    backgroundColor: "#FF0000",
-                                    borderRadius: 100 / 2,
-                                    width: 20,
+                                    color: "#FFFFFF",
+                                    textAlign: "center",
+                                    fontWeight: "bold",
                                 }}
                             >
-                                <Text
-                                    style={{
-                                        color: "#FFFFFF",
-                                        textAlign: "center",
-                                    }}
-                                >
-                                    –
-                                </Text>
-                            </View>
+                                –
+                            </Text>
                         </View>
                     </TouchableOpacity>
                 )}
