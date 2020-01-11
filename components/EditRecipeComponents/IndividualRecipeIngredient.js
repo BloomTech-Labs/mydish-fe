@@ -110,6 +110,7 @@ const IndividualRecipeIngredient = ({ index }) => {
                 {editing && mainEditing ? (
                     <View style={{ marginTop: 10 }}>
                         <Ingredient
+                            index={index}
                             recipeIng={recipeIng}
                             parent="IndividualRecipeIngredient"
                         />

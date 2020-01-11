@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 export default Picker = ({
     handleChange,
-    ingredient,
+    unit,
     highlighted,
     onClose,
 }) => {
@@ -29,7 +29,7 @@ export default Picker = ({
             onClose={onClose}
             placeholder={placeholder}
             onValueChange={value => handleChange("unit", value)}
-            value={ingredient.unit}
+            value={unit}
             useNativeAndroidPickerStyle={false}
             style={{
                 inputIOS: styleObj,

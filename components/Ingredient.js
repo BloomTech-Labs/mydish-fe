@@ -5,12 +5,12 @@ import {
     Text,
     TouchableOpacity,
     Button,
-    Platform,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import {
     addIngredient,
     stopEdit,
+    editIngred,
 } from "../store/singleRecipe/singleRecipeActions";
 // import styles from '../styles/createRecipeStyles';
 // import ReactNativePickerModule from 'react-native-picker-module'
@@ -24,6 +24,9 @@ const Ingredient = ({
     setAdding,
     parent,
 }) => {
+    const nameInput = useRef(null);
+    const quantityInput = useRef(null);
+
     const dispatch = useDispatch();
     const [visible, setVisible] = useState(false);
     const [highlighted, setHighlighted] = useState({
@@ -31,26 +34,16 @@ const Ingredient = ({
         quantity: false,
         unit: false,
     });
-
-    const [choices, setChoices] = useState({
-        selectedValue: null,
-        data: [
-            "tsp",
-            "tbsp",
-            "cup",
-            "g",
-            "mg",
-            "oz",
-            "pinch",
-            "L",
-            "ml",
-            "can",
-            "whole",
-            "pint",
-            "package",
-            "lbs",
-        ],
-    });
+    const [ingredient, setIngredient] = useState(
+        // Use the initial recipeIng value if it exists
+        recipeIng
+            ? recipeIng
+            : {
+                  name: "",
+                  quantity: "",
+                  unit: "",
+              },
+    );
 
     useEffect(() => {
         if (recipeIng) {
@@ -62,22 +55,21 @@ const Ingredient = ({
         }
     }, [recipeIng]);
 
-    const [ingredient, setIngredient] = useState({
-        name: "",
-        quantity: "",
-        unit: "",
-    });
     useEffect(() => {
-        // If our current recipeIng and ingredient aren't the same
-        //     (to prevent a continuous loop)
-        // AND, the parent component is the CreateRecipeForm, then
-        //     this will update our parent recipe with any changes we type.
+        // Check to make sure recipeIng and ingredient aren't exactly the same
+        // If they were, this would cause a continuous loop with the
+        //     useEffect() above ↑↑
         if (
-            parent === "create" &&
-            (recipeIng.name !== ingredient.name ||
-                recipeIng.quantity !== ingredient.quantity ||
-                recipeIng.unit !== ingredient.unit)
-        ) {
+            recipeIng &&
+            recipeIng.name === ingredient.name &&
+            recipeIng.quantity === ingredient.quantity &&
+            recipeIng.unit === ingredient.unit
+        )
+            return;
+        console.log("inhere");
+        // If the parent component is the CreateRecipeForm, then
+        //     this will update our parent recipe with any changes we type.
+        if (parent === "create") {
             setRecipe(oldRec => ({
                 ...oldRec,
                 ingredients: oldRec.ingredients.map((ing, i) => {
@@ -85,16 +77,14 @@ const Ingredient = ({
                     else return ing;
                 }),
             }));
+            // If our parent component is the IndividualRecipeIngredient, then
+            //     this will dispatch the editIngred() to update the store
+        } else if (parent === "IndividualRecipeIngredient") {
+            dispatch(editIngred(index, ingredient));
         }
     }, [ingredient]);
 
-    const [toEdits, setToEdits] = useState([]);
-
-    const nameInput = useRef(null);
-    const quantityInput = useRef(null);
-
-    const handleChange = (key, value, i) => {
-        setChoices({ ...choices, selectedValue: i });
+    const handleChange = (key, value) => {
         setIngredient({ ...ingredient, [key]: value });
     };
 
@@ -176,12 +166,10 @@ const Ingredient = ({
 
                 <Picker
                     onClose={onClosePicker}
-                    choices={choices}
                     handleChange={handleChange}
-                    ingredient={ingredient}
+                    unit={ingredient.unit}
                     setVisible={setVisible}
                     visible={visible}
-                    setIngredient={setIngredient}
                     highlighted={highlighted}
                 />
                 {/* A remove button for the CreateRecipeForm */}
