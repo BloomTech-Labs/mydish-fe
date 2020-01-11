@@ -1,15 +1,21 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    signUp: {},
+    container: {
+        paddingHorizontal: 16,
+    },
     title: {
         textAlign: "center",
         color: "#42C200",
         fontSize: 30,
         fontWeight: "bold",
-        // paddingBottom:14,
-        paddingTop: 5,
-        paddingLeft: 10,
+    },
+    explanationText: {
+        textAlign: "left",
+        color: "#363838",
+
+        fontSize: 16,
+        marginVertical: 20,
     },
     createAccountTitle: {
         textAlign: "left",
@@ -17,14 +23,10 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "500",
         marginBottom: 14,
-        marginLeft: 16,
     },
-    inputFeilds: {
+    inputFields: {
         height: 40,
-        marginLeft: 16,
-        marginRight: 16,
-        marginBottom: 10,
-        marginTop: 10,
+        marginVertical: 10,
         paddingLeft: 3,
         minHeight: "5%",
         borderRadius: 4,
@@ -32,28 +34,23 @@ const styles = StyleSheet.create({
         borderColor: "#d6d7da",
     },
     createAccountButton: {
-        marginBottom: 10,
-        marginTop: 10,
+        justifyContent: "center",
         width: 217,
         height: 40,
         borderRadius: 50,
         backgroundColor: "#3BA405",
-        paddingTop: 10,
-        marginTop: 42,
-        marginRight: 16,
+        paddingVertical: 10,
+        marginTop: 30,
     },
     loginButton: {
-      fontSize: 14,
-      fontWeight: "500",
-      color: "#047396",
-      marginLeft: 16,
-  },
+        fontSize: 14,
+        fontWeight: "500",
+        color: "#047396",
+    },
     emailText: {
-        marginLeft: 16,
         color: "#363838",
     },
     passwordText: {
-        marginLeft: 16,
         color: "#363838",
     },
     createAccountText: {
@@ -61,14 +58,6 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 16,
         fontWeight: "bold",
-    },
-    exitButton: {
-        fontSize: 20,
-        fontWeight: "500",
-        color: "#047396",
-        paddingBottom: 50,
-        alignSelf: "flex-end",
-        marginRight: 14,
     },
 });
 
