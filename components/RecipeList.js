@@ -50,6 +50,7 @@ const RecipeList = ({ parent, folder }) => {
         <View style={styles.container}>
             {recipes.length !== 0 && (
                 <FlatList
+                    contentContainerStyle={{ paddingBottom: 150 }}
                     data={recipes}
                     numColumns={2}
                     keyExtractor={item => item.id.toString()}
