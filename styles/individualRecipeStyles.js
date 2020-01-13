@@ -182,9 +182,7 @@ const styles = StyleSheet.create({
         marginLeft: 14,
         marginRight: 14,
         flexDirection: "row",
-        // justifyContent: "space-between",
         alignItems: "center",
-
     },
     details: {
         alignItems: "center",
@@ -203,16 +201,36 @@ const styles = StyleSheet.create({
         padding: 5,
         alignItems: "center",
         justifyContent: "center",
-        width: 60,
-        height: 30,
+        borderRadius: 20,
+        width: 35,
+        height: 35,
+        marginRight: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     deleteButton: {
         backgroundColor: "#C00000",
         padding: 5,
-        alignItems: "center",
         justifyContent: "center",
-        width: 60,
-        height: 30,
+        alignItems: "center",
+        borderRadius: 20,
+        width: 35,
+        height: 35,
+        marginRight: 5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     titleButtonContainer: {
         justifyContent: "center",
@@ -220,11 +238,17 @@ const styles = StyleSheet.create({
         backgroundColor: "#8FCC70",
         width: 25,
     },
+    editIcons: {
+        marginRight: 5,
+    },
     buttonContainer: {
         flexDirection: "row",
         justifyContent: "flex-end",
         alignItems: "center",
+<<<<<<< HEAD
         backgroundColor: "pink",
+=======
+>>>>>>> a0475318a1a15cd13e0891c9de7af85f8f731e0a
         width: 150,
         height: "100%",
         marginRight: 16,
@@ -245,8 +269,9 @@ const styles = StyleSheet.create({
         width: "95%",
     },
     instructionInput: {
-        width: "95%",
+        width: "90%",
         fontSize: 16,
+        marginLeft: 5,
     },
     swipeable: {
         flexDirection: "row",

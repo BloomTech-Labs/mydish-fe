@@ -1,20 +1,36 @@
 import React from "react";
-import { Text, Image, TouchableOpacity } from "react-native";
-import RecipeShareStyle from "./StyledComponents/RecipeShareStyle";
+import { Text, Image, View } from "react-native";
 import logo from "../assets/LogoGreen.png";
-import styles from "../styles/search.styles";
 
 function RecipeShareLogo() {
     return (
-        <RecipeShareStyle>
-            {/* <TouchableOpacity onPress={() => console.log('RecipeShareStyle clicked')}> */}
+        <View
+            style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+        >
             <Image
                 source={logo}
-                style={{ width: 40, height: 50, marginLeft: 10 }}
+                style={{
+                    width: 34,
+                    height: 40,
+                    marginLeft: 10,
+                    marginBottom: 10,
+                }}
             />
-            <Text style={styles.title}>RecipeShare</Text>
-            {/* </TouchableOpacity> */}
-        </RecipeShareStyle>
+            <Text
+                style={{
+                    color: "#42C200",
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    marginLeft: 10,
+                }}
+            >
+                RecipeShare
+            </Text>
+        </View>
     );
 }
 

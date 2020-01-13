@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "../../styles/individualRecipeStyles";
 
 import { Swipeable } from "react-native-gesture-handler";
@@ -10,7 +10,7 @@ import {
     stopEdit,
     setCurrentActive,
     resetCurrentActive,
-    deleteInstruction
+    deleteInstruction,
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -91,30 +91,39 @@ const IndividualRecipeInstruction = ({ index }) => {
                 onSwipeableClose={handleClose}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
-                        <View style={styles.editButton}>
+                        <TouchableOpacity
+                            onPress={editHandler}
+                            style={styles.editButton}
+                        >
                             <FontAwesome
                                 name="pencil-square-o"
                                 size={20}
                                 color="white"
-                                style={styles.icon}
-                                onPress={editHandler}
                             />
-                        </View>
-                        <View style={styles.deleteButton}>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                dispatch(deleteInstruction(index));
+                                dispatch(resetCurrentActive());
+                            }}
+                            style={styles.deleteButton}
+                        >
                             <FontAwesome
                                 name="trash-o"
                                 size={20}
                                 color="white"
-                                style={styles.icon}
-                                onPress={() => dispatch(deleteInstruction(index))}
                             />
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 )}
             >
                 {editing && mainEditing ? (
                     <View style={styles.stepTextView}>
-                        <Text>{instruction.ordinal}.</Text>
+                        <View>
+                            <Text style={{ marginBottom: -7 }}>
+                                {instruction.ordinal}.
+                            </Text>
+                        </View>
                         <TextInput
                             value={instruction.body}
                             onChangeText={body =>

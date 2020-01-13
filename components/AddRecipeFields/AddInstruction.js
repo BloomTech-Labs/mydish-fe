@@ -30,16 +30,24 @@ const AddInstruction = () => {
     return (
         <View>
             {adding ? (
-                <View>
+                <View
+                    style={{
+                        alignItems: "center",
+                    }}
+                >
                     <TextInput
                         multiline
+                        placeholder="Add Instruction"
                         returnKeyType="done"
                         onSubmitEditing={submitAdd}
                         style={{
                             borderWidth: highlighted ? 1 : 0.8,
                             borderColor: highlighted ? "#FF0000" : "#363838",
                             borderRadius: 4,
-                            padding: 5,
+                            width: "85%",
+                            fontSize: 16,
+                            minHeight: 40,
+                            maxWidth: "85%",
                         }}
                         onChangeText={instruction =>
                             setInstruction(instruction)

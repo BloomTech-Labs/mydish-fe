@@ -14,7 +14,6 @@ const CreateNavigator = createStackNavigator(
             //       headerLeft: null
             //   }
         },
-        Home: { screen: HomePage },
         IndividualR: {
             screen: IndividualRecipes,
             navigationOptions: {
@@ -25,7 +24,7 @@ const CreateNavigator = createStackNavigator(
     },
     {
         initialRouteName: "Create",
-        headerLayoutPreset: "center"
+        headerLayoutPreset: "center",
     },
 );
 
