@@ -5,6 +5,7 @@ import {
     START_REGISTER,
     REGISTER_SUCCESS,
     REGISTER_FAILURE,
+    LOGOUT,
 } from "./authActions";
 
 const authStore = {
@@ -37,6 +38,8 @@ export const authReducer = (state = authStore, { type, payload }) => {
             };
         case REGISTER_FAILURE:
             return { ...state, isAuthorizing: false, error: payload };
+        case LOGOUT:
+            return { ...state, userId: null };
         default:
             return state;
     }
