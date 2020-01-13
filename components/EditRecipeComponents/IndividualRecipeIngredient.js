@@ -108,7 +108,7 @@ const IndividualRecipeIngredient = ({ index }) => {
             >
                 {/*Text Input*/}
                 {editing && mainEditing ? (
-                    <View style={{ marginTop: 10 }}>
+                    <View style={{ marginTop: 10, backgroundColor: "white" }}>
                         <Ingredient
                             index={index}
                             recipeIng={recipeIng}

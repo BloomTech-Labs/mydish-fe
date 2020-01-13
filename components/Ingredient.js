@@ -22,7 +22,7 @@ const Ingredient = ({
     const quantityInput = useRef(null);
 
     const dispatch = useDispatch();
-    const [visible, setVisible] = useState(false);
+
     const [highlighted, setHighlighted] = useState({
         name: false,
         quantity: false,
@@ -107,6 +107,12 @@ const Ingredient = ({
         }
     };
 
+    const submitToStopEdit = () => {
+        if (parent === "IndividualRecipeIngredient") {
+            dispatch(stopEdit());
+        }
+    };
+
     return (
         <View>
             <View
@@ -131,7 +137,7 @@ const Ingredient = ({
                     onChangeText={event => handleChange("name", event)}
                     returnKeyType="done"
                     value={ingredient.name}
-                    onSubmitEditing={() => quantityInput.current.focus()}
+                    onSubmitEditing={submitToStopEdit}
                 />
                 <TextInput
                     ref={quantityInput}
@@ -154,16 +160,14 @@ const Ingredient = ({
                         )
                     }
                     returnKeyType="done"
-                    value={ingredient.quantity}
-                    onSubmitEditing={() => setVisible(true)}
+                    value={ingredient.quantity.toString()}
+                    onSubmitEditing={submitToStopEdit}
                 />
 
                 <Picker
                     onClose={onClosePicker}
                     handleChange={handleChange}
                     unit={ingredient.unit}
-                    setVisible={setVisible}
-                    visible={visible}
                     highlighted={highlighted}
                 />
                 {/* A remove button for the CreateRecipeForm */}
