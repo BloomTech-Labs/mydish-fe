@@ -15,7 +15,6 @@ const authStore = {
 };
 
 export const authReducer = (state = authStore, { type, payload }) => {
-    console.log(type)
     switch (type) {
         case START_LOGIN:
             return { ...state, isAuthorizing: true, error: null };
