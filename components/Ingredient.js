@@ -1,13 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TextInput, View, Text, TouchableOpacity, Button } from "react-native";
+import { TextInput, View, TouchableOpacity, Button, Text } from "react-native";
 import { useDispatch } from "react-redux";
 import {
     addIngredient,
     stopEdit,
     editIngred,
 } from "../store/singleRecipe/singleRecipeActions";
-// import styles from '../styles/createRecipeStyles';
-// import ReactNativePickerModule from 'react-native-picker-module'
+import { FontAwesome } from "@expo/vector-icons";
 import Picker from "./Picker";
 
 const Ingredient = ({
@@ -175,9 +174,13 @@ const Ingredient = ({
                     <TouchableOpacity onPress={() => removeIng(index)}>
                         <View
                             style={{
-                                backgroundColor: "#FF0000",
+                                backgroundColor: "#C00000",
                                 borderRadius: 100 / 2,
                                 width: 20,
+                                height: 20,
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginTop: 10,
                             }}
                         >
                             <Text
