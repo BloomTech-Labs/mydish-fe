@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         marginLeft: 14,
     },
-    icon: { width: 20, height: 20, marginRight: 5 },
+    icon: { width: 20, height: 20, marginRight: 5},
     editIcon: {
         marginRight: 20,
     },
@@ -224,9 +224,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "flex-end",
         alignItems: "center",
-        // backgroundColor: "#8FCC70",
+        backgroundColor: "pink",
         width: 150,
         height: "100%",
+        marginRight: 16,
     },
     input: {
         borderBottomColor: "black",
