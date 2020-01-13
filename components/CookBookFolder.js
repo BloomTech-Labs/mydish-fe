@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, ActivityIndicator } from "react-native";
 import RecipeList from "./RecipeList";
 import styles from "../styles/recipe-styles";
 import { useSelector, useDispatch } from "react-redux";
@@ -28,9 +28,7 @@ const CookBookFolder = props => {
                 }}
             >
                 <RecipeShareLogo />
-                <Text style={{ fontWeight: "bold", textAlign: "center" }}>
-                    Loading . . .
-                </Text>
+                <ActivityIndicator size="large" color="#444444" />
             </View>
         );
     } else {
