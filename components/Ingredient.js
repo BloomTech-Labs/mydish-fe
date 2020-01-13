@@ -8,7 +8,7 @@ import {
 } from "../store/singleRecipe/singleRecipeActions";
 // import styles from '../styles/createRecipeStyles';
 // import ReactNativePickerModule from 'react-native-picker-module'
-import Picker from "./Picker.android";
+import Picker from "./Picker";
 
 const Ingredient = ({
     recipeIng,
