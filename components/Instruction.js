@@ -1,5 +1,5 @@
 import React from "react";
-import { TextInput, Text, TouchableOpacity, View, Dimensions } from "react-native";
+import { TextInput, Text, TouchableOpacity, View } from "react-native";
 
 const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     const handleChange = value => {
@@ -23,16 +23,25 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                 alignItems: "center",
             }}
         >
-            <View style={{ flexGrow: 1, flexDirection: "column", maxWidth: "95%" }}>
-                <Text style={{ marginLeft: 14 }}>Step {index + 1}</Text>
+            <View
+                style={{
+                    flexGrow: 1,
+                    flexDirection: "column",
+                    maxWidth: "95%",
+                }}
+            >
+                <Text style={{ marginLeft: 14, marginBottom: 5 }}>
+                    Step {index + 1}
+                </Text>
                 <TextInput
                     style={{
-                        maxWidth: "95%",
-                        width: "95%",
+                        maxWidth: "100%",
+                        width: "100%",
                         padding: 10,
                         borderWidth: 0.8,
                         borderColor: "#363838",
                         borderRadius: 4,
+                        minHeight: 40,
                     }}
                     placeholder=" Add Instructions"
                     multiline
@@ -44,10 +53,14 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
             <TouchableOpacity onPress={() => removeInstruction(index)}>
                 <View
                     style={{
-                        backgroundColor: "#FF0000",
+                        backgroundColor: "#C00000",
                         borderRadius: 100 / 2,
                         width: 20,
-                        marginLeft: 5
+                        height: 20,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginLeft: 5,
+                        marginTop: 15,
                     }}
                 >
                     <Text

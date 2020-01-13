@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-    Text,
-    TextInput,
-    View,
-    Image,
-    ScrollView,
-    TouchableOpacity,
-    KeyboardAvoidingView,
-} from "react-native";
-import { Header } from "react-navigation-stack";
+import { Text, TextInput, View, Image, ScrollView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../styles/createRecipeStyles.js";
 
@@ -20,9 +11,7 @@ import Add from "./Add";
 import Notes from "./Notes";
 
 import RecipeFormContainer from "./StyledComponents/RecipeFormContainer";
-import Done from "./StyledComponents/Done";
 import DoneButton from "./StyledComponents/DoneButton";
-import Heading from "./StyledComponents/Heading";
 import TagGroup from "./StyledComponents/TagGroup";
 // import ImageUpload from './ImageUpload';
 
@@ -40,7 +29,7 @@ import { validateFields } from "../utils/helperFunctions/vaildateFields";
 function CreateRecipeForm(props) {
     const initialFormState = {
         title: "",
-        minutes: 0,
+        minutes: "",
         notes: "",
         categories: [],
         ingredients: [{ name: "", quantity: "", unit: "" }],
@@ -50,16 +39,16 @@ function CreateRecipeForm(props) {
 
     const [recipe, setRecipe] = useState(initialFormState);
     let [errors, setErrors] = useState([]);
-    let [stepCount, setStepCount] = useState(1);
-    const [courses] = useState([
+
+    const courses = [
         "Breakfast",
         "Brunch",
         "Lunch",
         "Dinner",
         "Dessert",
         "Snack",
-    ]);
-    const [cuisines] = useState([
+    ];
+    const cuisines = [
         "American",
         "Thai",
         "Chinese",
@@ -68,8 +57,8 @@ function CreateRecipeForm(props) {
         "Japanese",
         "Middle-Eastern",
         "Other",
-    ]);
-    const [diets] = useState([
+    ];
+    const diets = [
         "Alcohol-Free",
         "Nut-free",
         "Vegan",
@@ -77,16 +66,11 @@ function CreateRecipeForm(props) {
         "Vegetarian",
         "Sugar-Free",
         "Paleo",
-    ]);
-    const [difficulty] = useState(["Easy", "Intermediate", "Difficult"]);
-    const [visible, setVisible] = useState({ active: false });
+    ];
+    const difficulty = ["Easy", "Intermediate", "Difficult"];
     const [color, setColor] = useState({ active: [] });
-    const [pic, setPic] = useState(null);
 
     const postRecipe = async () => {
-        recipe.img = pic;
-        console.log("recipe inside post of <CreateRecipeForm/> ", recipe);
-
         const postRecipe = {
             ...recipe,
             // Remove any ingredients that are empty
@@ -152,7 +136,6 @@ function CreateRecipeForm(props) {
     };
 
     const addIngredients = () => {
-        console.log(recipe.ingredients);
         return recipe.ingredients.map((ingredient, i) => (
             <Ingredient
                 key={i}
@@ -180,11 +163,7 @@ function CreateRecipeForm(props) {
 
     return (
         <KeyboardAwareScrollView>
-            <View style={visible.active ? styles.createRecipeActive : ""}>
-                <Done onPress={postRecipe}>
-                    <Text style={styles.doneText}>Done</Text>
-                </Done>
-
+            <View>
                 <ScrollView>
                     <RecipeFormContainer>
                         {/* <ImageUpload recipe={recipe} setRecipe={setRecipe} setPic={setPic} /> */}
@@ -198,7 +177,9 @@ function CreateRecipeForm(props) {
 
                             <RecipeName recipe={recipe} setRecipe={setRecipe} />
 
-                            <Heading>Total Cook Time (minutes)</Heading>
+                            <Text style={styles.heading}>
+                                Total Cook Time (minutes)
+                            </Text>
                             <TextInput
                                 style={styles.totalTimeContainer}
                                 placeholder="Time"
@@ -210,7 +191,7 @@ function CreateRecipeForm(props) {
                                 value={String(recipe.minutes)}
                             />
 
-                            <Heading>Course Type</Heading>
+                            <Text style={styles.heading}>Course Type</Text>
 
                             <TagGroup>
                                 {courses.map((course, i) => (
@@ -227,7 +208,7 @@ function CreateRecipeForm(props) {
                                 ))}
                             </TagGroup>
 
-                            <Heading>Cuisine</Heading>
+                            <Text style={styles.heading}>Cuisine</Text>
                             <TagGroup>
                                 {cuisines.map((cuisine, i) => (
                                     <TagButton
@@ -243,7 +224,7 @@ function CreateRecipeForm(props) {
                                 ))}
                             </TagGroup>
 
-                            <Heading>Diet</Heading>
+                            <Text style={styles.heading}>Diet</Text>
                             <TagGroup>
                                 {diets.map((diet, i) => (
                                     <TagButton
@@ -259,7 +240,7 @@ function CreateRecipeForm(props) {
                                 ))}
                             </TagGroup>
 
-                            <Heading>Difficulty</Heading>
+                            <Text style={styles.heading}>Difficulty</Text>
                             <TagGroup>
                                 {difficulty.map((dif, i) => (
                                     <TagButton
@@ -275,12 +256,12 @@ function CreateRecipeForm(props) {
                                 ))}
                             </TagGroup>
 
-                            <Heading>Ingredients</Heading>
+                            <Text style={styles.heading}>Ingredients</Text>
 
                             {addIngredients()}
                             <Add text="Add Ingredient" submit={addIng} />
 
-                            <Heading>Instructions</Heading>
+                            <Text style={styles.heading}>Instructions</Text>
                             {addInstructions()}
                             <Add text="Add A Step" submit={addInstruction} />
 
