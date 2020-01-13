@@ -41,7 +41,7 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                         borderWidth: 0.8,
                         borderColor: "#363838",
                         borderRadius: 4,
-                        height: 40,
+                        minHeight: 40,
                     }}
                     placeholder=" Add Instructions"
                     multiline
