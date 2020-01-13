@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-    View,
-    TouchableOpacity,
-    TextInput,
-    Button,
-    StyleSheet,
-    Text,
-    Image,
-    ScrollView,
-    FlatList,
-} from "react-native";
+import React from "react";
+import { View, ScrollView } from "react-native";
 import CourseTitle from "./CourseTitle";
-import { useDispatch } from "react-redux";
-import { fetchCookbook } from "../store/cookbook/cookbookAction";
 
 const MyCookBook = props => {
-
     const Courses = [
         {
             course: "Breakfast",
@@ -66,9 +53,9 @@ const MyCookBook = props => {
 export default MyCookBook;
 
 MyCookBook.navigationOptions = {
-    headerTitle: "Your Personal Cookbook",
+    headerTitle: "My Cookbook",
     headerTitleStyle: {
         fontSize: 22,
-        color: '#42C200'
-    }
-}
+        color: "#42C200",
+    },
+};
