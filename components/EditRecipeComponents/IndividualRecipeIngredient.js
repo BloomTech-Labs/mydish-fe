@@ -88,7 +88,6 @@ const IndividualRecipeIngredient = ({ index }) => {
                                 name="pencil-square-o"
                                 size={20}
                                 color="white"
-                                style={styles.icon}
                                 onPress={editHandler}
                             />
                         </View>
@@ -97,10 +96,10 @@ const IndividualRecipeIngredient = ({ index }) => {
                                 name="trash-o"
                                 size={20}
                                 color="white"
-                                style={styles.icon}
-                                onPress={() =>
-                                    dispatch(deleteIngredient(index))
-                                }
+                                onPress={() => {
+                                    dispatch(deleteIngredient(index));
+                                    dispatch(resetCurrentActive());
+                                }}
                             />
                         </View>
                     </View>

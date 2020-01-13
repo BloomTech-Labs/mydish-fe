@@ -96,7 +96,6 @@ const IndividualRecipeInstruction = ({ index }) => {
                                 name="pencil-square-o"
                                 size={20}
                                 color="white"
-                                style={styles.icon}
                                 onPress={editHandler}
                             />
                         </View>
@@ -105,10 +104,10 @@ const IndividualRecipeInstruction = ({ index }) => {
                                 name="trash-o"
                                 size={20}
                                 color="white"
-                                style={styles.icon}
-                                onPress={() =>
-                                    dispatch(deleteInstruction(index))
-                                }
+                                onPress={() => {
+                                    dispatch(deleteInstruction(index));
+                                    dispatch(resetCurrentActive());
+                                }}
                             />
                         </View>
                     </View>
