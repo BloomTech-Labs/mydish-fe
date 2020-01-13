@@ -44,10 +44,10 @@ const AddInstruction = () => {
                             borderWidth: highlighted ? 1 : 0.8,
                             borderColor: highlighted ? "#FF0000" : "#363838",
                             borderRadius: 4,
-                            padding: 5,
                             width: "85%",
-                            padding: 15,
                             fontSize: 16,
+                            minHeight: 40,
+                            maxWidth: "85%",
                         }}
                         onChangeText={instruction =>
                             setInstruction(instruction)

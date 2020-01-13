@@ -1,29 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "../styles/recipe-styles";
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    AsyncStorage,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-import LikeModal from "./LikekModal";
-import UnlikeModal from "./UnlikeModal";
-import Like from "./StyledComponents/Like";
-import Fork from "./StyledComponents/Fork";
 import UserPrepTime from "./StyledComponents/UserPrepTime";
 import RecipeContainer from "./StyledComponents/RecipeContainer";
-import clearHeart from "../assets/orangeBorder.png";
-import solidHeart from "../assets/orangeFill.png";
-import axiosWithAuth from "../utils/axiosWithAuth";
 import placeholder from "../assets/recipe-image-placeholder.png";
-import forkLogo from "../assets/background.png";
 
 const Recipe = props => {
     const { navigation, recipe } = props;
 
-    console.log(recipe);
     return (
         <RecipeContainer>
             <View

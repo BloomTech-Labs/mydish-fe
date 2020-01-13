@@ -31,16 +31,17 @@ const AddNote = () => {
                 <View style={{ alignItems: "center" }}>
                     <TextInput
                         multiline
+                        placeholder="Add Notes"
                         returnKeyType="done"
                         onSubmitEditing={submitAdd}
                         style={{
                             borderWidth: highlighted ? 1 : 0.8,
                             borderColor: highlighted ? "#FF0000" : "#363838",
                             borderRadius: 4,
-                            padding: 5,
-                            width: "90%",
-                            minHeight: 50,
-                            maxWidth: "90%",
+                            width: "80%",
+                            minHeight: 40,
+                            maxWidth: "80%",
+                            fontSize: 16,
                         }}
                         onChangeText={note => setNote(note)}
                     />

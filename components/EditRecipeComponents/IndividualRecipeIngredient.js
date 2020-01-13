@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 
 import styles from "../../styles/individualRecipeStyles";
 import { Swipeable } from "react-native-gesture-handler";
@@ -83,25 +83,29 @@ const IndividualRecipeIngredient = ({ index }) => {
                 onSwipeableClose={handleClose}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
-                        <View style={styles.editButton}>
+                        <TouchableOpacity
+                            onPress={editHandler}
+                            style={styles.editButton}
+                        >
                             <FontAwesome
                                 name="pencil-square-o"
                                 size={20}
                                 color="white"
-                                onPress={editHandler}
                             />
-                        </View>
-                        <View style={styles.deleteButton}>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                dispatch(deleteIngredient(index));
+                                dispatch(resetCurrentActive());
+                            }}
+                            style={styles.deleteButton}
+                        >
                             <FontAwesome
                                 name="trash-o"
                                 size={20}
                                 color="white"
-                                onPress={() => {
-                                    dispatch(deleteIngredient(index));
-                                    dispatch(resetCurrentActive());
-                                }}
                             />
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 )}
             >
