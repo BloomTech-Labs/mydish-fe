@@ -182,7 +182,6 @@ const styles = StyleSheet.create({
         marginLeft: 14,
         marginRight: 14,
         flexDirection: "row",
-        // justifyContent: "space-between",
         alignItems: "center",
     },
     details: {
@@ -243,8 +242,9 @@ const styles = StyleSheet.create({
         width: "95%",
     },
     instructionInput: {
-        width: "95%",
+        width: "90%",
         fontSize: 16,
+        marginLeft: 5,
     },
     swipeable: {
         flexDirection: "row",

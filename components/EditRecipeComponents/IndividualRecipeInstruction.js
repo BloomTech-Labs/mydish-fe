@@ -10,7 +10,7 @@ import {
     stopEdit,
     setCurrentActive,
     resetCurrentActive,
-    deleteInstruction
+    deleteInstruction,
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -106,7 +106,9 @@ const IndividualRecipeInstruction = ({ index }) => {
                                 size={20}
                                 color="white"
                                 style={styles.icon}
-                                onPress={() => dispatch(deleteInstruction(index))}
+                                onPress={() =>
+                                    dispatch(deleteInstruction(index))
+                                }
                             />
                         </View>
                     </View>
@@ -114,7 +116,11 @@ const IndividualRecipeInstruction = ({ index }) => {
             >
                 {editing && mainEditing ? (
                     <View style={styles.stepTextView}>
-                        <Text>{instruction.ordinal}.</Text>
+                        <View>
+                            <Text style={{ marginBottom: -7 }}>
+                                {instruction.ordinal}.
+                            </Text>
+                        </View>
                         <TextInput
                             value={instruction.body}
                             onChangeText={body =>
