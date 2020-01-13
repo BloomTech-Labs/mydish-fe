@@ -23,6 +23,7 @@ import forkLogo from "../assets/background.png";
 const Recipe = props => {
     const { navigation, recipe } = props;
 
+    console.log(recipe);
     return (
         <RecipeContainer>
             <View
