@@ -132,11 +132,9 @@ const styles = StyleSheet.create({
         marginRight: 14,
     },
     container: {
-        //   Typically for inputs
-        borderRadius: 4,
-        borderWidth: 0.8,
-        borderColor: "#6B6F70",
-        height: 40,
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: 10,
     },
     dropdownText: {
         //    Text shown before clicking the dropdown
@@ -154,10 +152,9 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginTop: 15,
     },
-    doneButton: {
-        width: 205,
-        height: 60,
-        padding: 30,
+    doneView: {
+        alignItems: "flex-end",
+        marginTop: 30,
     },
     doneCreateBtn: {
         width: 136,
@@ -174,11 +171,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     tagGroup: {
-        marginTop: 15,
-        fontSize: 16,
-        color: "#363838",
-        marginBottom: 16,
-        marginLeft: 14,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        marginLeft: 5,
     },
     fiftyFive: {
         alignSelf: "flex-end",
