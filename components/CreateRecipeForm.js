@@ -1,23 +1,17 @@
 import React, { useState } from "react";
 import { Text, TextInput, View, Image, ScrollView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import styles from "../styles/createRecipeStyles.js";
+import styles from "../styles/createRecipeStyles";
 
 import RecipeName from "./RecipeName";
 import Ingredient from "./Ingredient";
 import Instruction from "./Instruction";
-import TagButton from "./TagButton.js";
+import TagButton from "./TagButton";
 import Add from "./Add";
 import Notes from "./Notes";
 
-import RecipeFormContainer from "./StyledComponents/RecipeFormContainer";
-import DoneButton from "./StyledComponents/DoneButton";
-import TagGroup from "./StyledComponents/TagGroup";
-// import ImageUpload from './ImageUpload';
-
-// import add from '../assets/add_circle_32px.png';;
-import done from "../assets/done_button.png";
-import axiosWithAuth from "../utils/axiosWithAuth.js";
+import DoneImg from "../assets/done_button.png";
+import axiosWithAuth from "../utils/axiosWithAuth";
 import {
     toggleBackgroundColor,
     tagsIncluded,
@@ -165,9 +159,7 @@ function CreateRecipeForm(props) {
         <KeyboardAwareScrollView>
             <View>
                 <ScrollView>
-                    <RecipeFormContainer>
-                        {/* <ImageUpload recipe={recipe} setRecipe={setRecipe} setPic={setPic} /> */}
-
+                    <View style={styles.container}>
                         <View>
                             {errors.map((err, i) => (
                                 <Text key={i} style={styles.errors}>
@@ -193,7 +185,7 @@ function CreateRecipeForm(props) {
 
                             <Text style={styles.heading}>Course Type</Text>
 
-                            <TagGroup>
+                            <View style={styles.tagGroup}>
                                 {courses.map((course, i) => (
                                     <TagButton
                                         key={i}
@@ -206,10 +198,10 @@ function CreateRecipeForm(props) {
                                         tagsIncluded={tagsIncluded}
                                     />
                                 ))}
-                            </TagGroup>
+                            </View>
 
                             <Text style={styles.heading}>Cuisine</Text>
-                            <TagGroup>
+                            <View style={styles.tagGroup}>
                                 {cuisines.map((cuisine, i) => (
                                     <TagButton
                                         key={i}
@@ -222,10 +214,10 @@ function CreateRecipeForm(props) {
                                         tagsIncluded={tagsIncluded}
                                     />
                                 ))}
-                            </TagGroup>
+                            </View>
 
                             <Text style={styles.heading}>Diet</Text>
-                            <TagGroup>
+                            <View style={styles.tagGroup}>
                                 {diets.map((diet, i) => (
                                     <TagButton
                                         key={i}
@@ -238,10 +230,10 @@ function CreateRecipeForm(props) {
                                         tagsIncluded={tagsIncluded}
                                     />
                                 ))}
-                            </TagGroup>
+                            </View>
 
                             <Text style={styles.heading}>Difficulty</Text>
-                            <TagGroup>
+                            <View style={styles.tagGroup}>
                                 {difficulty.map((dif, i) => (
                                     <TagButton
                                         key={i}
@@ -254,7 +246,7 @@ function CreateRecipeForm(props) {
                                         tagsIncluded={difficultyTags}
                                     />
                                 ))}
-                            </TagGroup>
+                            </View>
 
                             <Text style={styles.heading}>Ingredients</Text>
 
@@ -267,12 +259,12 @@ function CreateRecipeForm(props) {
 
                             <Notes recipe={recipe} setRecipe={setRecipe} />
 
-                            <DoneButton onPress={postRecipe}>
+                            <View style={styles.doneView} onPress={postRecipe}>
                                 <Image
-                                    source={done}
+                                    source={DoneImg}
                                     style={styles.doneCreateBtn}
                                 />
-                            </DoneButton>
+                            </View>
 
                             {errors.map((err, i) => (
                                 <Text key={i} style={styles.errors}>
@@ -280,7 +272,7 @@ function CreateRecipeForm(props) {
                                 </Text>
                             ))}
                         </View>
-                    </RecipeFormContainer>
+                    </View>
                 </ScrollView>
             </View>
         </KeyboardAwareScrollView>
