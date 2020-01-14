@@ -1,25 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-    View,
-    TouchableOpacity,
-    TextInput,
-    Button,
-    StyleSheet,
-    Text,
-    Image,
-    ScrollView,
-    FlatList,
-} from "react-native";
-import RecipeList from "./RecipeList";
-import axiosWithAuth from "../utils/axiosWithAuth";
+import React from "react";
+import { View, ScrollView } from "react-native";
 import CourseTitle from "./CourseTitle";
 
 const MyCookBook = props => {
-    const [test, setTest] = useState([]);
-    const [word, setWord] = useState("");
-
-    // console.log('props in MyCookBook', props);
-
     const Courses = [
         {
             course: "Breakfast",
@@ -52,34 +35,8 @@ const MyCookBook = props => {
         },
     ];
 
-    const grab = async () => {
-        try {
-            const axiosCustom = await axiosWithAuth();
-            const res = axiosCustom.get(`cookbook?category=${word}`);
-
-            setTest(res.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    useEffect(() => {
-        grab();
-    }, []);
-
     return (
         <View style={{ width: "90%", marginLeft: "5%" }}>
-            <Text
-                style={{
-                    fontSize: 24,
-                    fontWeight: "bold",
-                    alignSelf: "center",
-                    marginBottom: "5%",
-                    color: `#3BA405`,
-                }}
-            >
-                Your Personal CookBook!
-            </Text>
             <ScrollView style={{ paddingBottom: "10%" }}>
                 {Courses.map((course, index) => (
                     <CourseTitle
@@ -94,3 +51,11 @@ const MyCookBook = props => {
 };
 
 export default MyCookBook;
+
+MyCookBook.navigationOptions = {
+    headerTitle: "My Cookbook",
+    headerTitleStyle: {
+        fontSize: 22,
+        color: "#42C200",
+    },
+};

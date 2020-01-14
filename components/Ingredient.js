@@ -1,119 +1,213 @@
-import React, { useState, useEffect } from "react";
-import { TextInput, View, Text, TouchableOpacity } from "react-native";
-// import styles from '../styles/createRecipeStyles';
-// import ReactNativePickerModule from 'react-native-picker-module'
+import React, { useState, useRef, useEffect } from "react";
+import { TextInput, View, TouchableOpacity, Button, Text } from "react-native";
+import { useDispatch } from "react-redux";
+import {
+    addIngredient,
+    stopEdit,
+    editIngred,
+} from "../store/singleRecipe/singleRecipeActions";
+import { FontAwesome } from "@expo/vector-icons";
 import Picker from "./Picker";
 
-const Ingredient = props => {
-    let { recipe, setRecipe, visible, setVisible, index } = props;
+const Ingredient = ({
+    recipeIng,
+    removeIng,
+    index,
+    setRecipe,
+    setAdding,
+    parent,
+}) => {
+    const nameInput = useRef(null);
+    const quantityInput = useRef(null);
 
-    const [choices, setChoices] = useState({
-        selectedValue: null,
-        data: [
-            "tsp",
-            "tbsp",
-            "cup",
-            "g",
-            "mg",
-            "oz",
-            "pinch",
-            "L",
-            "ml",
-            "can",
-            "whole",
-            "pint",
-            "package",
-            "lbs",
-        ],
+    const dispatch = useDispatch();
+
+    const [highlighted, setHighlighted] = useState({
+        name: false,
+        quantity: false,
+        unit: false,
     });
-    let [ingredient, setIngredient] = React.useState({
-        name: "",
-        quantity: "",
-        unit: "",
-    });
-    const [toEdits, setToEdits] = React.useState([]);
-    // const ingList = [];
-    const [unit, setUnit] = React.useState("g");
+    const [ingredient, setIngredient] = useState(
+        // Use the initial recipeIng value if it exists
+        recipeIng
+            ? recipeIng
+            : {
+                  name: "",
+                  quantity: "",
+                  unit: "",
+              },
+    );
 
     useEffect(() => {
-        // console.log('recipe.ingredients', recipe.ingredients);
-    }, [recipe.ingredients]);
+        if (recipeIng) {
+            setIngredient({
+                name: recipeIng.name,
+                quantity: String(recipeIng.quantity),
+                unit: recipeIng.unit,
+            });
+        }
+    }, [recipeIng]);
 
-    const handleChange = (key, value, i) => {
-        // console.log('handleChange triggered in <Ingredient>')
-        // console.log('key and value from handlechange', key, value)
-        setChoices({ ...choices, selectedValue: i });
+    useEffect(() => {
+        // Check to make sure recipeIng and ingredient aren't exactly the same
+        // If they were, this would cause a continuous loop with the
+        //     useEffect() above ↑↑
+        if (
+            recipeIng &&
+            recipeIng.name === ingredient.name &&
+            recipeIng.quantity === ingredient.quantity &&
+            recipeIng.unit === ingredient.unit
+        )
+            return;
+        console.log("inhere");
+        // If the parent component is the CreateRecipeForm, then
+        //     this will update our parent recipe with any changes we type.
+        if (parent === "create") {
+            setRecipe(oldRec => ({
+                ...oldRec,
+                ingredients: oldRec.ingredients.map((ing, i) => {
+                    if (i === index) return ingredient;
+                    else return ing;
+                }),
+            }));
+            // If our parent component is the IndividualRecipeIngredient, then
+            //     this will dispatch the editIngred() to update the store
+        } else if (parent === "IndividualRecipeIngredient") {
+            dispatch(editIngred(index, ingredient));
+        }
+    }, [ingredient]);
+
+    const handleChange = (key, value) => {
         setIngredient({ ...ingredient, [key]: value });
-        // console.log('updating ingredient handleChange in <Ingredient/>', ingredient);
     };
 
-    const handleBlur = event => {
-        //console.log('handleBlur triggered in <Ingredient/>');
-        const ingArr = Object.values(ingredient);
-        const fullIng = ingArr.filter(i => !!i);
-        if (fullIng.length === 3) {
-            setToEdits([...toEdits, ingredient]);
-            const recipeIng = [...recipe.ingredients];
+    const onClosePicker = () => {
+        dispatch(stopEdit());
+    };
 
-            for (let i = 0; i < toEdits.length; i++) {
-                for (let j = 0; j < recipeIng.length; j++) {
-                    if (toEdits[i].name === recipeIng[j].name) {
-                        recipeIng.splice(j, 1);
-                    }
-                }
-            }
+    const cancelAdd = () => {
+        setHighlighted({ name: false, quantity: false, unit: false });
+        setAdding(false);
+    };
 
-            // console.log('recipeIng after splicing', recipeIng);
+    const submitAdd = () => {
+        const lengthObj = {
+            name: !ingredient.name.length,
+            quantity: !ingredient.quantity.length,
+            unit: !ingredient.unit.length,
+        };
 
-            setRecipe({ ...recipe, ingredients: [...recipeIng, ingredient] });
+        if (Object.values(lengthObj).find(x => !!x)) {
+            setHighlighted(lengthObj);
+            console.log("HIGHLIGHT TEST:", highlighted);
+        } else {
+            setAdding(false);
+            dispatch(addIngredient(ingredient));
+        }
+    };
+
+    const submitToStopEdit = () => {
+        if (parent === "IndividualRecipeIngredient") {
+            dispatch(stopEdit());
         }
     };
 
     return (
         <View>
-            <View style={{ flexDirection: "row", marginBottom: 20 }}>
+            <View
+                style={{
+                    flexDirection: "row",
+                    marginBottom: 20,
+                    justifyContent: "space-evenly",
+                    width: "100%",
+                }}
+            >
                 <TextInput
+                    ref={nameInput}
                     style={{
                         height: 40,
-                        width: "19%",
-                        borderWidth: 0.8,
-                        borderColor: "#363838",
+                        width: "50%",
+                        borderWidth: highlighted.name ? 1 : 0.8,
+                        borderColor: highlighted.name ? "#FF0000" : "#363838",
                         borderRadius: 4,
                         textAlign: "center",
-                        marginLeft: 14,
+                    }}
+                    placeholder="Ingredient Name"
+                    onChangeText={event => handleChange("name", event)}
+                    returnKeyType="done"
+                    value={ingredient.name}
+                    onSubmitEditing={submitToStopEdit}
+                />
+                <TextInput
+                    ref={quantityInput}
+                    style={{
+                        height: 40,
+                        width: "20%",
+                        borderWidth: highlighted.quantity ? 1 : 0.8,
+                        borderColor: highlighted.quantity
+                            ? "#FF0000"
+                            : "#363838",
+                        borderRadius: 4,
+                        textAlign: "center",
                     }}
                     placeholder="Amount"
                     keyboardType={"numeric"}
-                    onChangeText={event => handleChange("quantity", event)}
-                    onBlur={handleBlur}
-                    value={ingredient.quantity}
+                    onChangeText={qty =>
+                        handleChange(
+                            "quantity",
+                            isNaN(Number(qty)) ? ingredient.quantity : qty,
+                        )
+                    }
+                    returnKeyType="done"
+                    value={ingredient.quantity.toString()}
+                    onSubmitEditing={submitToStopEdit}
                 />
 
                 <Picker
-                    choices={choices}
+                    onClose={onClosePicker}
                     handleChange={handleChange}
-                    ingredient={ingredient}
+                    unit={ingredient.unit}
+                    highlighted={highlighted}
                 />
-
-                <TextInput
-                    style={{
-                        height: 40,
-                        width: "42%",
-                        borderWidth: 0.8,
-                        borderColor: "#363838",
-                        borderRadius: 4,
-                        textAlign: "center",
-                        marginLeft: "3%",
-                        marginRight: 14,
-                    }}
-                    placeholder="Ingredient Name"
-                    // onChangeText ={event => addIng({...ingredient, name: event})}
-                    onChangeText={event => handleChange("name", event)}
-                    onBlur={handleBlur}
-                    value={ingredient.name}
-                />
+                {/* A remove button for the CreateRecipeForm */}
+                {parent === "create" && (
+                    <TouchableOpacity onPress={() => removeIng(index)}>
+                        <View
+                            style={{
+                                backgroundColor: "#C00000",
+                                borderRadius: 100 / 2,
+                                width: 20,
+                                height: 20,
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginTop: 10,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    color: "#FFFFFF",
+                                    textAlign: "center",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                –
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                )}
             </View>
-            <View style={{ alignItems: "center" }}></View>
+            {parent === "AddIngredient" && (
+                <View
+                    style={{
+                        flexDirection: "row",
+                        width: "100%",
+                        justifyContent: "space-evenly",
+                    }}
+                >
+                    <Button title="Cancel" onPress={cancelAdd} />
+                    <Button title="Submit" onPress={submitAdd} />
+                </View>
+            )}
         </View>
     );
 };

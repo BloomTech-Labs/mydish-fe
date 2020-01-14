@@ -1,73 +1,80 @@
-import React, { useState } from "react";
-import { TextInput, Text, Image } from "react-native";
-import styles from "../styles/createRecipeStyles";
-import add from "../assets/add_circle_32px.png";
+import React from "react";
+import { TextInput, Text, TouchableOpacity, View } from "react-native";
 
-const Instruction = ({ recipe, setRecipe, index }) => {
-    //     output = [];
-    // for (i = 0; i < recipe.steps.length; i++) {
-    //     obj = {text: recipe.steps[i]};
-
-    //     output.push(obj);
-
-    // }
-    //console.log('testing function for steps', output)
-
-    let [step, setStep] = useState({ text: "" });
-    let [editedSteps, setEditedSteps] = useState([]);
-
-    //console.log('edited steps', editedSteps)
-
-    const handleChange = async event => {
-        await setStep({ text: event });
-        // console.log('step inside handlechange',step)
+const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
+    const handleChange = value => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            steps: oldRecipe.steps.map((step, i) => {
+                if (i === index) return value;
+                else return step;
+            }),
+        }));
     };
-
-    const handleBlur = event => {
-        const recipeSteps = [...recipe.steps];
-        setEditedSteps([...editedSteps, step]);
-        // console.log('editedSteps in the handleblur function', editedSteps)
-
-        if (editedSteps.length) {
-            for (let i = 0; i < editedSteps.length; i++) {
-                for (let j = 0; j < recipeSteps.length; j++) {
-                    if (editedSteps[i].text === recipeSteps[j]) {
-                        recipeSteps.splice(j, 1, step.text);
-                    }
-                }
-            }
-            setRecipe({ ...recipe, steps: recipeSteps });
-        } else {
-            setRecipe({ ...recipe, steps: [...recipe.steps, step.text] });
-        }
-    };
-
-    // console.log('recipe.steps in the instruction component', recipe.steps)
 
     return (
-        <>
-            {/* <View style = {, marginBottom: 20, borderWidth: 3, borderColor: "red"}}> */}
-            <Text style={{ marginLeft: 14 }}>Step {index}</Text>
-            <TextInput
+        <View
+            style={{
+                marginLeft: 10,
+                marginRight: 10,
+                marginBottom: 10,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+            }}
+        >
+            <View
                 style={{
-                    height: 76,
-                    padding: 10,
-                    borderWidth: 0.8,
-                    borderColor: "#363838",
-                    borderRadius: 4,
-                    marginLeft: 14,
-                    marginBottom: 20,
-                    marginRight: 14,
-                    marginTop: 10,
+                    flexGrow: 1,
+                    flexDirection: "column",
+                    maxWidth: "95%",
                 }}
-                placeholder=" Add Instructions"
-                multiline={true}
-                onChangeText={event => handleChange(event)}
-                onBlur={handleBlur}
-                value={step.text}
-            />
-            {/* </View> */}
-        </>
+            >
+                <Text style={{ marginLeft: 14, marginBottom: 5 }}>
+                    Step {index + 1}
+                </Text>
+                <TextInput
+                    style={{
+                        maxWidth: "100%",
+                        width: "100%",
+                        padding: 10,
+                        borderWidth: 0.8,
+                        borderColor: "#363838",
+                        borderRadius: 4,
+                        minHeight: 40,
+                    }}
+                    placeholder=" Add Instructions"
+                    multiline
+                    onChangeText={handleChange}
+                    value={instruction}
+                />
+            </View>
+            {/* A remove button for the CreateRecipeForm */}
+            <TouchableOpacity onPress={() => removeInstruction(index)}>
+                <View
+                    style={{
+                        backgroundColor: "#C00000",
+                        borderRadius: 100 / 2,
+                        width: 20,
+                        height: 20,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginLeft: 5,
+                        marginTop: 15,
+                    }}
+                >
+                    <Text
+                        style={{
+                            color: "#FFFFFF",
+                            textAlign: "center",
+                            fontWeight: "bold",
+                        }}
+                    >
+                        –
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        </View>
     );
 };
 

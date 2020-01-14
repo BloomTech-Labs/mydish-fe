@@ -56,7 +56,10 @@ const MainNavigator = createBottomTabNavigator(
             },
         },
     },
-    { initialRouteName: "Home" },
+    {
+        initialRouteName: "Home",
+        headerLayoutPreset: "center"
+    },
 );
 
 export default MainNavigator;

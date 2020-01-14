@@ -12,7 +12,11 @@ export const loginUser = userInfo => async dispatch => {
         const axiosCustom = await axiosWithAuth();
         const res = await axiosCustom.post("cooks/login", userInfo);
 
-        await AsyncStorage.setItem("userToken", res.data.token);
+        await AsyncStorage.multiSet([
+            ["userToken", res.data.token],
+            ["userID", String(res.data.cook_id)],
+        ]);
+
         dispatch({ type: LOGIN_SUCCESS, payload: res.data });
 
         success = true;
@@ -34,7 +38,10 @@ export const registerUser = userInfo => async dispatch => {
         const axiosCustom = await axiosWithAuth();
         const res = await axiosCustom.post("cooks/register", userInfo);
 
-        await AsyncStorage.setItem("userToken", res.data.token);
+        await AsyncStorage.multiSet([
+            ["userToken", res.data.token],
+            ["userID", String(res.data.cook_id)],
+        ]);
         dispatch({ type: REGISTER_SUCCESS, payload: res.data });
 
         success = true;

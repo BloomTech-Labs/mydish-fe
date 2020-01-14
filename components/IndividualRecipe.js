@@ -5,55 +5,62 @@ import {
     ScrollView,
     FlatList,
     Image,
-    TouchableOpacity,
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView,
+    SafeAreaView,
     AsyncStorage,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    fetchRecipe,
+    resetRecipe,
+    stopEdit,
+} from "../store/singleRecipe/singleRecipeActions";
 import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
+
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
-import IndividualRecipeIngredient from "./IndividualRecipeIngredient";
-import IndividualRecipeInstruction from "./IndividualRecipeInstruction";
-import IndividualRecipeNotes from "./IndividualRecipeNotes";
-import EditButton from "./EditButton";
-import Tab from "./Tab";
 import placeholder from "../assets/recipe-image-placeholder.png";
+
+import Title from "./EditRecipeComponents/Title";
+import Tab from "./Tab";
+import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
+import AddIngredient from "./AddRecipeFields/AddIngredient";
+import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction";
+import AddInstruction from "./AddRecipeFields/AddInstruction";
+import IndividualRecipeNotes from "./EditRecipeComponents/IndividualRecipeNotes";
+import AddNote from "./AddRecipeFields/AddNote";
 import Version from "./Version";
-import Innovator from "./StyledComponents/Innovator";
-import CookTime from "./StyledComponents/CookTime";
-import RecipeTabs from "./StyledComponents/RecipeTabs";
-import Details from "./StyledComponents/Details";
-import TagBox from "./StyledComponents/TagBox";
+import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngredient";
+import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
+import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
+import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 
 function IndividualRecipe(props) {
-    const [recipe, setRecipe] = useState({});
-    const [userToken, setUserToken] = useState(null);
     const [color, setColor] = useState({ active: "Ingredients" });
     const id = props.navigation.getParam("recipeID", "params not passed");
     const [forks, setForks] = useState([]);
+    const dispatch = useDispatch();
+    const recipe = useSelector(state => state.singleRecipe.recipe);
+    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
-        getToken();
-        getSingleRecipe();
+        dispatch(fetchRecipe(id));
         getForks();
-        console.log("recipe id of <IndividualRecipe>", id);
-    }, [id]);
+        fetchUserId();
+        //below is a cleanup that resets the initState of singleRecipe to null values,
+        //which is important for a smooth user experience
+        return () => dispatch(resetRecipe());
+    }, []);
 
-    async function getToken() {
-        const token = await AsyncStorage.getItem("userToken");
-        if (token) {
-            setUserToken(token); //the token is used to determine if the <Like> component should be rendered or not
+    async function fetchUserId() {
+        try {
+            const fetchId = await AsyncStorage.getItem("userID");
+            setUserId(Number(fetchId));
+        } catch (err) {
+            console.log(err);
         }
-        return token;
-    }
-
-    function getSingleRecipe() {
-        axios
-            .get(`https://recipeshare-development.herokuapp.com/recipes/${id}`)
-            .then(res => {
-                setRecipe(res.data);
-            })
-            .catch(err => console.log(err));
     }
 
     async function getForks() {
@@ -62,9 +69,7 @@ function IndividualRecipe(props) {
                 `https://recipeshare-development.herokuapp.com/recipes/all`,
             );
             const allRecipes = res.data;
-            const children = allRecipes.filter(
-                rec => rec.ancestor === id,
-            );
+            const children = allRecipes.filter(rec => rec.ancestor === id);
             setForks(children);
         } catch (err) {
             console.log(err);
@@ -76,92 +81,236 @@ function IndividualRecipe(props) {
         setColor({ active: newActive });
     };
 
-    const capitalize = string => {
-        const newString = string.replace(/^\w/, c => c.toUpperCase());
-        return newString;
-    };
-
-    const navigateToEdits = () => {
-        props.navigation.navigate("Edit", { recipe });
-    };
-
-    return (
-        <ScrollView>
-            <Image
-                source={recipe.img ? { uri: recipe.img } : placeholder}
-                style={styles.placeholder}
-            />
-
-            <Text style={styles.title}>{recipe.title}</Text>
-
-            <View style={styles.innovatorTime}>
-                <Innovator>
-                    <Image source={logo} style={styles.icon} />
-                    <Text>{recipe.innovator_name}</Text>
-                </Innovator>
-
-                <CookTime>
-                    <Image source={clock} style={styles.icon} />
-                    <Text>{recipe.minutes} minutes</Text>
-                </CookTime>
+    if (!recipe) {
+        return (
+            <View>
+                <Text>Loading...</Text>
             </View>
+        );
+    }
 
-            {/* {console.log('recipe categories', recipe.categories)}  */}
+    const editableRecipeDisplay = () => {
+        return (
+            <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
+                <SafeAreaView>
+                    <TouchableWithoutFeedback
+                        onPress={() => dispatch(stopEdit())}
+                    >
+                        <ScrollView>
+                            <View style={styles.recipeContainer}>
+                                <Image
+                                    source={
+                                        recipe.img
+                                            ? { uri: recipe.img }
+                                            : placeholder
+                                    }
+                                    style={styles.image}
+                                />
+                                <View style={styles.titleWrapper}>
+                                    <Title />
+                                </View>
+                                <View style={styles.innovatorTime}>
+                                    <View style={styles.innovatorContainer}>
+                                        <Image
+                                            source={logo}
+                                            style={styles.icon}
+                                        />
+                                        <Text>{recipe.innovator_name}</Text>
+                                    </View>
 
-            <Text style={styles.tags}>Tags</Text>
-            <TagBox>
-                {recipe.categories &&
-                    recipe.categories.map(cat => (
-                        <Text key={cat} style={styles.individualTags}>
-                            {capitalize(cat)}
-                        </Text>
-                    ))}
-                {/* Why do we have to capitalize every category with a function? They already appear to be capitalized.. */}
-            </TagBox>
+                                    <View style={styles.timeContainer}>
+                                        <Image
+                                            source={clock}
+                                            style={styles.icon}
+                                        />
+                                        <Text>{recipe.minutes} minutes</Text>
+                                    </View>
+                                </View>
 
-            {userToken && <EditButton navigate={navigateToEdits} />}
+                                <Text style={styles.tags}>Tags</Text>
+                                <View style={styles.tagBox}>
+                                    {recipe.categories &&
+                                        recipe.categories.map(cat => (
+                                            <Text
+                                                key={cat}
+                                                style={styles.individualTags}
+                                            >
+                                                {cat}
+                                            </Text>
+                                        ))}
+                                </View>
 
-            <RecipeTabs>
-                <Tab text="Ingredients" color={color} toggleTab={tabsDisplay} />
-                <Tab
-                    text="Instructions"
-                    color={color}
-                    toggleTab={tabsDisplay}
-                />
-            </RecipeTabs>
+                                <View style={styles.tabsContainer}>
+                                    <Tab
+                                        text="Ingredients"
+                                        color={color}
+                                        toggleTab={tabsDisplay}
+                                    />
+                                    <Tab
+                                        text="Instructions"
+                                        color={color}
+                                        toggleTab={tabsDisplay}
+                                    />
+                                </View>
 
-            <Details>
-                {recipe.ingredients &&
-                    recipe.ingredients.map(ing => (
-                        <IndividualRecipeIngredient
-                            key={ing.name}
-                            ing={ing}
-                            color={color}
+                                <View style={styles.recipeDetails}>
+                                    {color.active === "Ingredients" && (
+                                        <>
+                                            {recipe.ingredients &&
+                                                recipe.ingredients.map(
+                                                    (ing, i) => (
+                                                        <IndividualRecipeIngredient
+                                                            key={i}
+                                                            index={i}
+                                                        />
+                                                    ),
+                                                )}
+
+                                            <AddIngredient />
+                                        </>
+                                    )}
+
+                                    {color.active === "Instructions" && (
+                                        <>
+                                            {recipe.steps &&
+                                                recipe.steps.map((step, i) => (
+                                                    <IndividualRecipeInstruction
+                                                        key={step.ordinal}
+                                                        index={i}
+                                                    />
+                                                ))}
+
+                                            <AddInstruction />
+
+                                            {recipe.notes ? (
+                                                <IndividualRecipeNotes
+                                                    notes={recipe.notes}
+                                                />
+                                            ) : (
+                                                <AddNote />
+                                            )}
+                                        </>
+                                    )}
+                                </View>
+
+                                <FlatList
+                                    horizontal={true}
+                                    data={forks}
+                                    renderItem={({ item }) => (
+                                        <Version
+                                            recipe={item}
+                                            navigation={props.navigation}
+                                        />
+                                    )}
+                                    keyExtractor={item => String(item.id)}
+                                />
+                            </View>
+                        </ScrollView>
+                    </TouchableWithoutFeedback>
+                </SafeAreaView>
+            </KeyboardAvoidingView>
+        );
+    };
+
+    const nonEditableRecipeDisplay = () => {
+        return (
+            <SafeAreaView>
+                <ScrollView>
+                    <View style={styles.recipeContainer}>
+                        <Image
+                            source={
+                                recipe.img ? { uri: recipe.img } : placeholder
+                            }
+                            style={styles.image}
                         />
-                    ))}
+                        <View style={styles.titleWrapper}>
+                            <DisplayTitle />
+                        </View>
+                        <View style={styles.innovatorTime}>
+                            <View style={styles.innovatorContainer}>
+                                <Image source={logo} style={styles.icon} />
+                                <Text>{recipe.innovator_name}</Text>
+                            </View>
 
-                {recipe.steps &&
-                    recipe.steps.map(step => (
-                        <IndividualRecipeInstruction
-                            key={step.ordinal}
-                            step={step}
-                            color={color}
+                            <View style={styles.timeContainer}>
+                                <Image source={clock} style={styles.icon} />
+                                <Text>{recipe.minutes} minutes</Text>
+                            </View>
+                        </View>
+
+                        <Text style={styles.tags}>Tags</Text>
+                        <View style={styles.tagBox}>
+                            {recipe.categories &&
+                                recipe.categories.map(cat => (
+                                    <Text
+                                        key={cat}
+                                        style={styles.individualTags}
+                                    >
+                                        {cat}
+                                    </Text>
+                                ))}
+                        </View>
+
+                        <View style={styles.tabsContainer}>
+                            <Tab
+                                text="Ingredients"
+                                color={color}
+                                toggleTab={tabsDisplay}
+                            />
+                            <Tab
+                                text="Instructions"
+                                color={color}
+                                toggleTab={tabsDisplay}
+                            />
+                        </View>
+
+                        <View style={styles.recipeDetails}>
+                            {color.active === "Ingredients" && (
+                                <>
+                                    {recipe.ingredients &&
+                                        recipe.ingredients.map((ing, i) => (
+                                            <DisplayRecipeIngredient
+                                                key={i}
+                                                index={i}
+                                            />
+                                        ))}
+                                </>
+                            )}
+                            {color.active === "Instructions" && (
+                                <>
+                                    {recipe.steps &&
+                                        recipe.steps.map((step, i) => (
+                                            <DisplayRecipeInstruction
+                                                key={step.ordinal}
+                                                index={i}
+                                            />
+                                        ))}
+
+                                    <DisplayRecipeNotes notes={recipe.notes} />
+                                </>
+                            )}
+                        </View>
+
+                        <FlatList
+                            horizontal={true}
+                            data={forks}
+                            renderItem={({ item }) => (
+                                <Version
+                                    recipe={item}
+                                    navigation={props.navigation}
+                                />
+                            )}
+                            keyExtractor={item => String(item.id)}
                         />
-                    ))}
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+        );
+    };
 
-                <IndividualRecipeNotes color={color} notes={recipe.notes} />
-            </Details>
-
-            <FlatList
-                horizontal={true}
-                data={forks}
-                renderItem={({ item }) => (
-                    <Version recipe={item} navigation={props.navigation} />
-                )}
-                keyExtractor={item => String(item.id)}
-            />
-        </ScrollView>
-    );
+    return recipe.innovator && userId === recipe.innovator
+        ? editableRecipeDisplay()
+        : nonEditableRecipeDisplay();
 }
 
 export default IndividualRecipe;
