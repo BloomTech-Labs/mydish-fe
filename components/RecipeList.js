@@ -5,8 +5,8 @@ import { View, StyleSheet, FlatList, ActivityIndicator, Text } from "react-nativ
 import { fetchCookbook } from "../store/cookbook/cookbookAction";
 
 const RecipeList = ({ parent, folder }) => {
-
-    const [isLoading, setIsLoading] = useState(true)
+    console.log('this is folder')
+    const isLoading = useSelector(store => store.allRecipes.isLoading)
     const dispatch = useDispatch();
     // If the RecipeList is being rendered from the cookbook,
     //     grab the props from that the cookbook is passing down.
@@ -17,7 +17,7 @@ const RecipeList = ({ parent, folder }) => {
             ? folder
             : useSelector(store => store.allRecipes.recipeList);
     const cookbook = useSelector(store => store.cookbook.cookbookRecipes);
-
+    console.log('this is the recipe list', recipeList)
     // Recipe.js does not use the "likedByUser" property,
     //     but we'll keep this function for now because it is setting state
     //     for the "recipes" variable
@@ -36,15 +36,15 @@ const RecipeList = ({ parent, folder }) => {
     };
 
     const loadCookbook = useCallback(async () => {
-        setIsLoading(true)
+        // setIsLoading(true)
         try {
             await dispatch(fetchCookbook);
 
         } catch (error) {
             throw new Error("This is an error")
         }
-        setIsLoading(false)
-    }, [dispatch, setIsLoading])
+        // setIsLoading(false)
+    }, [dispatch])
 
     useEffect(() => {
 
