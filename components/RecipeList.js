@@ -57,20 +57,6 @@ const RecipeList = ({ parent, folder }) => {
         likedByUser();
     }, [cookbook, recipeList, loadCookbook, dispatch]);
 
-
-    // useEffect(() => {
-
-
-    //     // Only call this action if the recipe is NOT coming
-    //     //     from the cookbook
-    //     if (!cookbook.length || parent !== "cookbook") {
-    //         dispatch(fetchCookbook)
-
-    //     }
-
-    //     likedByUser();
-    // }, [cookbook, recipeList, isLoading]);
-
     // TODO: Talk with backend - If we can get each recipe to have an
     //       extra property called "forkCount", we can pass the forkCount
     //       down to the <Recipe/> component. This could help the user see
