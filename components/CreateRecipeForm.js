@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TextInput, View, Image, ScrollView } from "react-native";
+import { Text, TextInput, View, Image, ScrollView, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../styles/createRecipeStyles";
 
@@ -259,12 +259,12 @@ function CreateRecipeForm(props) {
 
                             <Notes recipe={recipe} setRecipe={setRecipe} />
 
-                            <View style={styles.doneView} onPress={postRecipe}>
+                            <TouchableOpacity style={styles.doneView} onPress={postRecipe}>
                                 <Image
                                     source={DoneImg}
                                     style={styles.doneCreateBtn}
                                 />
-                            </View>
+                            </TouchableOpacity>
 
                             {errors.map((err, i) => (
                                 <Text key={i} style={styles.errors}>
