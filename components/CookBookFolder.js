@@ -28,7 +28,7 @@ const CookBookFolder = props => {
                 }}
             >
                 <RecipeShareLogo />
-                <ActivityIndicator size="large" color="#444444" />
+                <ActivityIndicator size="large" color="#00ff00" />
             </View>
         );
     } else {
@@ -37,17 +37,17 @@ const CookBookFolder = props => {
                 {folder.length ? (
                     <RecipeList folder={folder} parent="cookbook" />
                 ) : (
-                    <>
-                        <Text style={styles.noRecipes}>
-                            You have no saved recipes in this section of your
-                            Cookbook!
+                        <>
+                            <Text style={styles.noRecipes}>
+                                You have no saved recipes in this section of your
+                                Cookbook!
                         </Text>
-                        <Button
-                            title="<- Back To My Cookbook"
-                            onPress={() => props.navigation.pop()}
-                        />
-                    </>
-                )}
+                            <Button
+                                title="<- Back To My Cookbook"
+                                onPress={() => props.navigation.pop()}
+                            />
+                        </>
+                    )}
             </View>
         );
     }
