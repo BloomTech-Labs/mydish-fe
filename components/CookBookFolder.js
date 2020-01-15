@@ -8,14 +8,20 @@ import RecipeShareLogo from "./RecipeShareLogo";
 
 const CookBookFolder = props => {
     const dispatch = useDispatch();
+
     const loading = useSelector(state => state.cookbook.isLoading);
+    const [isLoading, setIsLoading] = useState(true)
     const folder = useSelector(state => state.cookbook.cookbookRecipes);
+    console.log('this is folder in CookbookFolder', folder)
+    console.log('folder.length', folder.length)
     const course = props.navigation.getParam("Course", "params not passed");
-    console.log(folder.length);
+
+
+
 
     useEffect(() => {
         dispatch(fetchCookbook(course.toLowerCase()));
-    }, [course]);
+    }, [dispatch, fetchCookbook, course]);
 
     if (loading) {
         return (
@@ -28,17 +34,22 @@ const CookBookFolder = props => {
                 }}
             >
                 <RecipeShareLogo />
-                <ActivityIndicator size="large" color="#00ff00" />
+                <View style={styles.centered}>
+                    <ActivityIndicator size="large" color="#00ff00" />
+                </View>
             </View>
         );
     } else {
         return (
             <View style={{ alignItems: "center", justifyContent: "center" }}>
                 {folder.length ? (
-                    <RecipeList folder={folder} parent="cookbook" />
+                    <RecipeList
+                        folder={folder}
+                        parent="cookbook" />
                 ) : (
                         <>
-                            <Text style={styles.noRecipes}>
+                            <Text
+                                style={styles.noRecipes}>
                                 You have no saved recipes in this section of your
                                 Cookbook!
                         </Text>

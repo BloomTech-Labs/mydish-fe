@@ -56,4 +56,6 @@ module.exports = StyleSheet.create({
     prep: {
         fontSize: 11,
     },
+    centered: { flex: 1, justifyContent: 'center', alignItems: 'center' }
+
 });
