@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Recipe from "./Recipe";
 import { View, StyleSheet, FlatList, ActivityIndicator, Text } from "react-native";
 import { fetchCookbook } from "../store/cookbook/cookbookAction";
 
 const RecipeList = ({ parent, folder }) => {
-    console.log('this is folder')
+
     const isLoading = useSelector(store => store.allRecipes.isLoading)
     const dispatch = useDispatch();
     // If the RecipeList is being rendered from the cookbook,
@@ -35,27 +35,17 @@ const RecipeList = ({ parent, folder }) => {
         setRecipes(newRecipeList);
     };
 
-    const loadCookbook = useCallback(async () => {
-        // setIsLoading(true)
-        try {
-            await dispatch(fetchCookbook);
-
-        } catch (error) {
-            throw new Error("This is an error")
-        }
-        // setIsLoading(false)
-    }, [dispatch])
 
     useEffect(() => {
 
         // Only call this action if the recipe is NOT coming
         //     from the cookbook
         if (!cookbook.length || parent !== "cookbook") {
-            loadCookbook()
+            dispatch(fetchCookbook);
         }
 
         likedByUser();
-    }, [cookbook, recipeList, loadCookbook, dispatch]);
+    }, [cookbook, recipeList, dispatch]);
 
     // TODO: Talk with backend - If we can get each recipe to have an
     //       extra property called "forkCount", we can pass the forkCount
