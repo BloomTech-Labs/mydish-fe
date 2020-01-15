@@ -3,7 +3,6 @@ import {
     View,
     Text,
     ScrollView,
-    FlatList,
     Image,
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
