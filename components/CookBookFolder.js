@@ -33,7 +33,6 @@ const CookBookFolder = props => {
                     alignItems: "center",
                 }}
             >
-                <RecipeShareLogo />
                 <View style={styles.centered}>
                     <ActivityIndicator size="large" color="#00ff00" />
                 </View>
