@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     View,
     Text,
@@ -9,6 +9,7 @@ import {
     KeyboardAvoidingView,
     SafeAreaView,
     AsyncStorage,
+    ActivityIndicator
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -45,14 +46,38 @@ function IndividualRecipe(props) {
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const [userId, setUserId] = useState(null);
 
+    const [isLoading, setIsLoading] = useState(true)
+
+    const loadRecipe = useCallback(async () => {
+        setIsLoading(true)
+        try {
+            await dispatch(fetchRecipe(id))
+
+        } catch (error) {
+            throw new Error("This is an error")
+        }
+        console.log(isLoading)
+        setIsLoading(false)
+        console.log(isLoading)
+    }, [setIsLoading])
+
     useEffect(() => {
-        dispatch(fetchRecipe(id));
+        loadRecipe()
         getForks();
         fetchUserId();
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
-    }, []);
+    }, [])
+
+    // useEffect(() => {
+    //     dispatch(fetchRecipe(id));
+    //     getForks();
+    //     fetchUserId();
+    //     //below is a cleanup that resets the initState of singleRecipe to null values,
+    //     //which is important for a smooth user experience
+    //     return () => dispatch(resetRecipe());
+    // }, []);
 
     async function fetchUserId() {
         try {
@@ -87,6 +112,13 @@ function IndividualRecipe(props) {
                 <Text>Loading...</Text>
             </View>
         );
+    }
+    if (isLoading) {
+        return (
+            <View style={styles.centered}>
+                <ActivityIndicator size="large" color="#00ff00" />
+            </View>
+        )
     }
 
     const editableRecipeDisplay = () => {
@@ -187,8 +219,8 @@ function IndividualRecipe(props) {
                                                     notes={recipe.notes}
                                                 />
                                             ) : (
-                                                <AddNote />
-                                            )}
+                                                    <AddNote />
+                                                )}
                                         </>
                                     )}
                                 </View>
