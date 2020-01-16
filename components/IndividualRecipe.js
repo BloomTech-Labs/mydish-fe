@@ -38,12 +38,15 @@ import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 
 function IndividualRecipe(props) {
-    const [color, setColor] = useState({ active: "Ingredients" });
-    const id = props.navigation.getParam("recipeID", "params not passed");
-    const [forks, setForks] = useState([]);
     const dispatch = useDispatch();
-    const recipe = useSelector(state => state.singleRecipe.recipe);
+    const [color, setColor] = useState({ active: "Ingredients" });
+    const [forks, setForks] = useState([]);
     const [userId, setUserId] = useState(null);
+    const recipe = useSelector(state => state.singleRecipe.recipe);
+    const currentActive = useSelector(
+        state => state.singleRecipe.currentActive,
+    );
+    const id = props.navigation.getParam("recipeID", "params not passed");
 
     useEffect(() => {
         dispatch(fetchRecipe(id));
@@ -81,6 +84,13 @@ function IndividualRecipe(props) {
         setColor({ active: newActive });
     };
 
+    const stopEditPress = () => {
+        if (currentActive.type === "edit") {
+            currentActive.close();
+        }
+        dispatch(stopEdit());
+    };
+
     if (!recipe) {
         return (
             <View>
@@ -93,9 +103,7 @@ function IndividualRecipe(props) {
         return (
             <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
                 <SafeAreaView>
-                    <TouchableWithoutFeedback
-                        onPress={() => dispatch(stopEdit())}
-                    >
+                    <TouchableWithoutFeedback onPress={stopEditPress}>
                         <ScrollView>
                             <View style={styles.recipeContainer}>
                                 <Image
