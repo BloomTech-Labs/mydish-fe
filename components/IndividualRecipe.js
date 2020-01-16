@@ -115,7 +115,7 @@ function IndividualRecipe(props) {
                                     style={styles.image}
                                 />
                                 <View style={styles.titleWrapper}>
-                                    <Title />
+                                    <Title currentActive={currentActive} />
                                 </View>
                                 <View style={styles.innovatorTime}>
                                     <View style={styles.innovatorContainer}>
