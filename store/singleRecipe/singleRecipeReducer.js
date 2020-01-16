@@ -7,7 +7,6 @@ import {
     UPDATE_RECIPE_SUCCESS,
     RESET_RECIPE,
     START_EDIT,
-    STOP_EDIT,
     SET_CURRENT_ACTIVE,
     RESET_CURRENT_ACTIVE,
     EDIT_TITLE,
@@ -41,7 +40,6 @@ const initState = {
     },
     isLoading: false,
     error: null,
-    editing: false,
     currentActive: { type: null, field: null, index: null, close: null },
 };
 
@@ -181,8 +179,7 @@ export const singleRecipeReducer = (state = initState, action) => {
 
         case START_EDIT:
             return { ...state, editing: true };
-        case STOP_EDIT:
-            return { ...state, editing: false };
+
         case RESET_RECIPE:
             return initState;
 
