@@ -14,6 +14,7 @@ import {
     fetchRecipe,
     resetRecipe,
     stopEdit,
+    resetCurrentActive,
 } from "../store/singleRecipe/singleRecipeActions";
 import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
@@ -65,6 +66,7 @@ function IndividualRecipe(props) {
     const tabsDisplay = cat => {
         const newActive = cat;
         setColor({ active: newActive });
+        dispatch(resetCurrentActive())
     };
 
     const stopEditPress = () => {
