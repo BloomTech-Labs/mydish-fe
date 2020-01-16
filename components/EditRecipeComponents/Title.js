@@ -29,21 +29,22 @@ const Title = props => {
 
     const close = () => swipeableEl.current.close();
 
-    useEffect(() => {
-        // If our mainEditing variable is false,
-        // setEditing to false as well.
-        // This makes sure that this individual component doesn't also
-        //     enter edit mode if we start editing a different swipeale
-        if (!mainEditing) {
-            setEditing(false);
-            dispatch(resetCurrentActive());
-        }
-    }, [mainEditing]);
+    // useEffect(() => {
+    //     // If our mainEditing variable is false,
+    //     // setEditing to false as well.
+    //     // This makes sure that this individual component doesn't also
+    //     //     enter edit mode if we start editing a different swipeale
+    //     if (!mainEditing) {
+    //         setEditing(false);
+    //         dispatch(resetCurrentActive());
+    //     }
+    // }, [mainEditing]);
 
     const editHandler = () => {
         setEditing(true);
         dispatch(startEdit());
         close();
+        makeActive("edit", () => setEditing(false));
     };
 
     const checkActive = () => {
@@ -53,15 +54,15 @@ const Title = props => {
         }
     };
 
-    const makeActive = () => {
-        dispatch(setCurrentActive({ field: "title", index: 1, close }));
+    const makeActive = (type, close) => {
+        dispatch(setCurrentActive({ type, field: "title", index: 1, close }));
     };
 
     const handleWillOpen = () => {
         if (checkActive() !== false) {
             currentActive.close();
         }
-        dispatch(stopEdit());
+        // dispatch(stopEdit());
     };
 
     const handleClose = () => {
@@ -74,8 +75,8 @@ const Title = props => {
         <Swipeable
             ref={swipeableEl}
             onSwipeableWillOpen={handleWillOpen}
-            onSwipeableOpen={makeActive}
-            onSwipeableClose={handleClose}
+            onSwipeableOpen={() => makeActive("swipe", close)}
+            onSwipeableWillClose={handleClose}
             close={editing && true}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>
