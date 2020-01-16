@@ -14,7 +14,7 @@ const Ingredient = ({
     removeIng,
     index,
     setRecipe,
-    setAdding,
+    stopAdding,
     parent,
     closeEdit,
 }) => {
@@ -87,7 +87,7 @@ const Ingredient = ({
 
     const cancelAdd = () => {
         setHighlighted({ name: false, quantity: false, unit: false });
-        setAdding(false);
+        stopAdding();
     };
 
     const submitAdd = () => {
@@ -101,7 +101,7 @@ const Ingredient = ({
             setHighlighted(lengthObj);
             console.log("HIGHLIGHT TEST:", highlighted);
         } else {
-            setAdding(false);
+            stopAdding();
             dispatch(addIngredient(ingredient));
         }
     };
