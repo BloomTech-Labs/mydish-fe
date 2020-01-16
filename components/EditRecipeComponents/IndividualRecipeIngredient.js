@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import React, { useState, useRef } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 
 import styles from "../../styles/individualRecipeStyles";
 import { Swipeable } from "react-native-gesture-handler";
@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Ingredient from "../Ingredient";
 import {
     startEdit,
-    editIngred,
     stopEdit,
     deleteIngredient,
     setCurrentActive,
@@ -17,13 +16,10 @@ import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const IndividualRecipeIngredient = ({ index, currentActive }) => {
     const dispatch = useDispatch();
-    // const mainEditing = useSelector(state => state.singleRecipe.editing);
     const ingredients = useSelector(
         state => state.singleRecipe.recipe.ingredients,
     );
-    // const currentActive = useSelector(
-    //     state => state.singleRecipe.currentActive,
-    // );
+
     const recipeIng =
         ingredients && ingredients[index] ? ingredients[index] : {};
     const [editing, setEditing] = useState(false);
@@ -33,28 +29,13 @@ const IndividualRecipeIngredient = ({ index, currentActive }) => {
     const closeSwipe = () => swipeableEl.current.close();
     const closeEdit = () => setEditing(false);
 
-    // useEffect(() => {
-    //     // If our mainEditing variable is false,
-    //     // setEditing to false as well.
-    //     // This makes sure that this individual component doesn't also
-    //     //     enter edit mode if we start editing a different swipeale
-    //     if (!mainEditing) {
-    //         setEditing(false);
-    //         dispatch(resetCurrentActive());
-    //     }
-    // }, [mainEditing]);
-
     const makeActive = (type, close) => {
         dispatch(setCurrentActive({ type, field: "ingredient", index, close }));
     };
 
-    const checkActive = () => {
-        if (currentActive.field && currentActive.field !== "ingredient") return;
-        if (currentActive.field && currentActive.index !== index) return;
-        else {
-            return false;
-        }
-    };
+    const checkActive = () =>
+        (currentActive.field && currentActive.field !== "ingredient") ||
+        (currentActive.field && currentActive.index !== index);
 
     const editHandler = () => {
         setEditing(true);
@@ -64,17 +45,12 @@ const IndividualRecipeIngredient = ({ index, currentActive }) => {
     };
 
     const handleWillOpen = () => {
-        if (checkActive() !== false) {
-            currentActive.close();
-        }
+        if (checkActive()) currentActive.close();
         dispatch(stopEdit());
     };
 
-    // const handleWillClose = () => {
-    //     if (checkActive() === false) {
-    //         dispatch(resetCurrentActive());
-    //     }
-    // };
+    const checkIfCurrentActiveIsAdd = () =>
+        currentActive && currentActive.type === "add";
 
     return (
         <View style={styles.swipeableContainer}>
@@ -82,7 +58,7 @@ const IndividualRecipeIngredient = ({ index, currentActive }) => {
                 ref={swipeableEl}
                 onSwipeableWillOpen={handleWillOpen}
                 onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
-                // onSwipeableClose={handleWillClose}
+                friction={checkIfCurrentActiveIsAdd() ? 10 : 1}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
