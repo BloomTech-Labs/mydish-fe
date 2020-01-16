@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Recipe from "./Recipe";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, ActivityIndicator, Text } from "react-native";
 import { fetchCookbook } from "../store/cookbook/cookbookAction";
 
 const RecipeList = ({ parent, folder }) => {
+
+    const isLoading = useSelector(store => store.allRecipes.isLoading)
     const dispatch = useDispatch();
     // If the RecipeList is being rendered from the cookbook,
     //     grab the props from that the cookbook is passing down.
@@ -15,7 +17,7 @@ const RecipeList = ({ parent, folder }) => {
             ? folder
             : useSelector(store => store.allRecipes.recipeList);
     const cookbook = useSelector(store => store.cookbook.cookbookRecipes);
-
+    console.log('this is the recipe list', recipeList)
     // Recipe.js does not use the "likedByUser" property,
     //     but we'll keep this function for now because it is setting state
     //     for the "recipes" variable
@@ -33,19 +35,30 @@ const RecipeList = ({ parent, folder }) => {
         setRecipes(newRecipeList);
     };
 
+
     useEffect(() => {
+
         // Only call this action if the recipe is NOT coming
         //     from the cookbook
         if (!cookbook.length || parent !== "cookbook") {
             dispatch(fetchCookbook);
         }
+
         likedByUser();
-    }, [cookbook, recipeList]);
+    }, [cookbook, recipeList, dispatch]);
 
     // TODO: Talk with backend - If we can get each recipe to have an
     //       extra property called "forkCount", we can pass the forkCount
     //       down to the <Recipe/> component. This could help the user see
     //       how many times a recipe has been forked '' '
+
+    if (isLoading) {
+        return (
+            <View style={styles.centered}>
+                <ActivityIndicator size="large" color="#00ff00" />
+            </View>
+        )
+    }
     return (
         <View style={styles.container}>
             {recipes.length !== 0 && (
@@ -59,6 +72,7 @@ const RecipeList = ({ parent, folder }) => {
                     )}
                 />
             )}
+            {}
         </View>
     );
 };
@@ -70,6 +84,7 @@ const styles = StyleSheet.create({
         marginLeft: "2%",
         marginRight: "2%",
     },
+    centered: { flex: 1, justifyContent: 'center', alignItems: 'center' }
 });
 
 export default RecipeList;

@@ -55,7 +55,5 @@ export const registerUser = userInfo => async dispatch => {
     }
 };
 
-export const START_LOGOUT = "START_LOGOUT";
-export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
-export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
-export const logoutUser = () => dispatch => {};
+export const LOGOUT = "LOGOUT";
+export const logoutUser = () => ({type: LOGOUT});

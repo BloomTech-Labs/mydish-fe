@@ -2,15 +2,13 @@ import React from "react";
 import styles from "../styles/recipe-styles";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-import UserPrepTime from "./StyledComponents/UserPrepTime";
-import RecipeContainer from "./StyledComponents/RecipeContainer";
 import placeholder from "../assets/recipe-image-placeholder.png";
 
 const Recipe = props => {
     const { navigation, recipe } = props;
 
     return (
-        <RecipeContainer>
+        <View style={styles.recipeContainer}>
             <View
                 style={{
                     flexDirection: "column",
@@ -34,14 +32,14 @@ const Recipe = props => {
 
                 <Text style={styles.text}>{recipe.title}</Text>
 
-                <UserPrepTime>
+                <View style={styles.prepView}>
                     <Text style={styles.username}>
                         {recipe.username || recipe.author}
                     </Text>
                     <Text style={styles.prep}>{recipe.minutes} min.</Text>
-                </UserPrepTime>
+                </View>
             </TouchableOpacity>
-        </RecipeContainer>
+        </View>
     );
 };
 

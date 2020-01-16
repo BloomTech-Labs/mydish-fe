@@ -276,6 +276,7 @@ const styles = StyleSheet.create({
     swipeable: {
         flexDirection: "row",
     },
+    centered: { flex: 1, justifyContent: 'center', alignItems: 'center' }
 });
 
 module.exports = styles;

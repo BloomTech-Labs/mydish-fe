@@ -1,6 +1,5 @@
 import React from "react";
 import { View, TouchableOpacity, Image, Text } from "react-native";
-import UserPrepTime from "./StyledComponents/UserPrepTime";
 import placeholder from "../assets/recipe-image-placeholder.png";
 import styles from "../styles/recipe-styles";
 

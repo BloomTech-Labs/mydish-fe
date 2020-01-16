@@ -7,7 +7,7 @@ const LoginNavigator = createStackNavigator(
         Login: { screen: Login },
         Signup: { screen: SignUp },
     },
-    { initialRouteName: "Login" },
+    { initialRouteName: "Login", headerLayoutPreset: "center" },
 );
 
 export default LoginNavigator;

@@ -1,18 +1,12 @@
 import React from "react";
 import { View, TouchableOpacity, Text, Image } from "react-native";
 import add from "../assets/add_circle_32px.png";
-import styled from "styled-components";
-
-const Step = styled.View`
-    flexDirection: row;
-    marginTop: 20;
-`;
 
 const Add = props => {
     const { text, submit } = props;
 
     return (
-        <Step>
+        <View style={{ flexDirection: "row", marginTop: 20 }}>
             <TouchableOpacity onPress={submit} style={{ flexDirection: "row" }}>
                 <Image
                     source={add}
@@ -22,7 +16,7 @@ const Add = props => {
                     {text}
                 </Text>
             </TouchableOpacity>
-        </Step>
+        </View>
     );
 };
 
