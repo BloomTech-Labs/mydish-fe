@@ -43,6 +43,12 @@ export const stopEdit = () => async (dispatch, getState) => {
 export const START_EDIT = "START_EDIT";
 export const startEdit = () => ({ type: START_EDIT });
 
+export const START_EDIT_MODE = "START_EDIT_MODE";
+export const startEditMode = () => ({ type: START_EDIT_MODE });
+
+export const STOP_EDIT_MODE = "STOP_EDIT_MODE";
+export const stopEditMode = () => ({ type: STOP_EDIT_MODE });
+
 export const START_FETCH_RECIPE = "START_FETCH_RECIPE";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
