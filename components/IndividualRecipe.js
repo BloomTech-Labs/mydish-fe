@@ -3,7 +3,6 @@ import {
     View,
     Text,
     ScrollView,
-    FlatList,
     Image,
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
@@ -31,7 +30,6 @@ import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipe
 import AddInstruction from "./AddRecipeFields/AddInstruction";
 import IndividualRecipeNotes from "./EditRecipeComponents/IndividualRecipeNotes";
 import AddNote from "./AddRecipeFields/AddNote";
-import Version from "./Version";
 import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngredient";
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
@@ -40,7 +38,6 @@ import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
-    const [forks, setForks] = useState([]);
     const [userId, setUserId] = useState(null);
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const currentActive = useSelector(
@@ -50,7 +47,6 @@ function IndividualRecipe(props) {
 
     useEffect(() => {
         dispatch(fetchRecipe(id));
-        getForks();
         fetchUserId();
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
@@ -61,19 +57,6 @@ function IndividualRecipe(props) {
         try {
             const fetchId = await AsyncStorage.getItem("userID");
             setUserId(Number(fetchId));
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    async function getForks() {
-        try {
-            const res = await axios.get(
-                `https://recipeshare-development.herokuapp.com/recipes/all`,
-            );
-            const allRecipes = res.data;
-            const children = allRecipes.filter(rec => rec.ancestor === id);
-            setForks(children);
         } catch (err) {
             console.log(err);
         }
@@ -188,7 +171,9 @@ function IndividualRecipe(props) {
                                                     <IndividualRecipeInstruction
                                                         key={step.ordinal}
                                                         index={i}
-                                                        currentActive={currentActive}
+                                                        currentActive={
+                                                            currentActive
+                                                        }
                                                     />
                                                 ))}
 
@@ -204,18 +189,6 @@ function IndividualRecipe(props) {
                                         </>
                                     )}
                                 </View>
-
-                                <FlatList
-                                    horizontal={true}
-                                    data={forks}
-                                    renderItem={({ item }) => (
-                                        <Version
-                                            recipe={item}
-                                            navigation={props.navigation}
-                                        />
-                                    )}
-                                    keyExtractor={item => String(item.id)}
-                                />
                             </View>
                         </ScrollView>
                     </TouchableWithoutFeedback>
@@ -302,18 +275,6 @@ function IndividualRecipe(props) {
                                 </>
                             )}
                         </View>
-
-                        <FlatList
-                            horizontal={true}
-                            data={forks}
-                            renderItem={({ item }) => (
-                                <Version
-                                    recipe={item}
-                                    navigation={props.navigation}
-                                />
-                            )}
-                            keyExtractor={item => String(item.id)}
-                        />
                     </View>
                 </ScrollView>
             </SafeAreaView>
