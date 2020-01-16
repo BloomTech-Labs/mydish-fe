@@ -7,7 +7,7 @@ export const UPDATE_RECIPE_FAILURE = "UPDATE_RECIPE_FAILURE";
 
 let calling = false;
 export const stopEdit = () => async (dispatch, getState) => {
-    dispatch({ type: STOP_EDIT }); // Stop editing our recipe
+    // dispatch({ type: STOP_EDIT }); // Stop editing our recipe
 
     // We call this stopEdit() function a few times in our components to make sure we stop editing.
     // The "calling" variable makes sure that, if we're allready in this axios call, we won't
