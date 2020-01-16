@@ -25,12 +25,8 @@ const Title = ({ currentActive }) => {
         dispatch(setCurrentActive({ type, field: "title", index: 1, close }));
     };
 
-    const checkActive = () => {
-        if (currentActive.field && currentActive.field !== "title") return;
-        else {
-            return false;
-        }
-    };
+    const checkActive = () =>
+        currentActive.field && currentActive.field !== "title";
 
     const editHandler = () => {
         setEditing(true);
@@ -40,9 +36,7 @@ const Title = ({ currentActive }) => {
     };
 
     const handleWillOpen = () => {
-        if (checkActive() !== false) {
-            currentActive.close();
-        }
+        if (checkActive()) currentActive.close();
         dispatch(stopEdit());
     };
 
@@ -53,7 +47,7 @@ const Title = ({ currentActive }) => {
         <Swipeable
             ref={swipeableEl}
             onSwipeableWillOpen={handleWillOpen}
-            onSwipeableOpen={() => closeSwipe()}
+            onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
             friction={checkIfCurrentActiveIsAdd() ? 10 : 1}
             close={editing && true}
             renderRightActions={() => (
