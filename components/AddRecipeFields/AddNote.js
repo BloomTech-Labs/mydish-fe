@@ -1,27 +1,41 @@
 import React, { useState } from "react";
 import { View, TextInput, Button } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { addNote } from "../../store/singleRecipe/singleRecipeActions";
+import { useDispatch } from "react-redux";
+import { addNote, setCurrentActive, resetCurrentActive } from "../../store/singleRecipe/singleRecipeActions";
 
 import Add from "../Add";
 
-const AddNote = () => {
+const AddNote = ({ currentActive }) => {
     const dispatch = useDispatch();
     const [adding, setAdding] = useState(false);
     const [note, setNote] = useState("");
     const [highlighted, setHighlighted] = useState(false);
 
-    const cancelAdd = () => {
-        setAdding(false);
-        setHighlighted(false);
+    const startAdding = () => {
+        if (currentActive && currentActive.close) currentActive.close();
+        setAdding(true);
+        dispatch(
+            setCurrentActive({
+                type: "add",
+                field: "note",
+                index: null,
+                close: () => setAdding(false),
+            }),
+        );
     };
+
+    const stopAdding = () => {
+        setHighlighted(false);
+        setAdding(false)
+        dispatch(resetCurrentActive())
+    }
 
     const submitAdd = () => {
         if (!note.length) {
             setHighlighted(true);
         } else {
-            setAdding(false);
             dispatch(addNote(note));
+            stopAdding()
         }
     };
 
@@ -52,12 +66,12 @@ const AddNote = () => {
                             justifyContent: "space-evenly",
                         }}
                     >
-                        <Button title="Cancel" onPress={cancelAdd} />
+                        <Button title="Cancel" onPress={stopAdding} />
                         <Button title="Submit" onPress={submitAdd} />
                     </View>
                 </View>
             ) : (
-                <Add text="Add Notes" submit={() => setAdding(true)} />
+                <Add text="Add Notes" submit={startAdding} />
             )}
         </View>
     );

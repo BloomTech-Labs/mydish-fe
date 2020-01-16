@@ -165,7 +165,9 @@ function IndividualRecipe(props) {
                                                     ),
                                                 )}
 
-                                            <AddIngredient />
+                                            <AddIngredient
+                                                currentActive={currentActive}
+                                            />
                                         </>
                                     )}
 
@@ -182,14 +184,16 @@ function IndividualRecipe(props) {
                                                     />
                                                 ))}
 
-                                            <AddInstruction />
+                                            <AddInstruction
+                                                currentActive={currentActive}
+                                            />
 
                                             {recipe.notes ? (
                                                 <IndividualRecipeNotes
                                                     notes={recipe.notes}
                                                 />
                                             ) : (
-                                                <AddNote />
+                                                <AddNote currentActive={currentActive} />
                                             )}
                                         </>
                                     )}
