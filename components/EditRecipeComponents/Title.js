@@ -14,32 +14,12 @@ import {
 
 const Title = ({ currentActive }) => {
     const dispatch = useDispatch();
-
-    // mainEditing determines whether we're able to edit anything, period.
-    // If we're editing one component and we click away, we're clicking away in our parent component.
-    // The parent component updates the store to say "Yo, stop editing",
-    //     and then this component knows to stop editing.
-    // const mainEditing = useSelector(state => state.singleRecipe.editing);
     const recipeTitle = useSelector(state => state.singleRecipe.recipe.title);
-    // const currentActive = useSelector(
-    //     state => state.singleRecipe.currentActive,
-    // );
     const [editing, setEditing] = useState(false);
     const swipeableEl = useRef(null);
 
     const closeSwipe = () => swipeableEl.current.close();
     const closeEdit = () => setEditing(false);
-
-    // useEffect(() => {
-    //     // If our mainEditing variable is false,
-    //     // setEditing to false as well.
-    //     // This makes sure that this individual component doesn't also
-    //     //     enter edit mode if we start editing a different swipeale
-    //     if (!mainEditing) {
-    //         setEditing(false);
-    //         dispatch(resetCurrentActive());
-    //     }
-    // }, [mainEditing]);
 
     const makeActive = (type, close) => {
         dispatch(setCurrentActive({ type, field: "title", index: 1, close }));
@@ -66,18 +46,15 @@ const Title = ({ currentActive }) => {
         dispatch(stopEdit());
     };
 
-    // const handleWillClose = () => {
-    //     if (checkActive() === false) {
-    //         dispatch(resetCurrentActive());
-    //     }
-    // };
+    const checkIfCurrentActiveIsAdd = () =>
+        currentActive && currentActive.type === "add";
 
     return (
         <Swipeable
             ref={swipeableEl}
             onSwipeableWillOpen={handleWillOpen}
-            onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
-            // onSwipeableWillClose={handleWillClose}
+            onSwipeableOpen={() => closeSwipe()}
+            friction={checkIfCurrentActiveIsAdd() ? 10 : 1}
             close={editing && true}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>
@@ -92,7 +69,6 @@ const Title = ({ currentActive }) => {
             )}
         >
             {/*TextInput */}
-            {/* removed && mainEditing */}
             {editing ? (
                 <View style={styles.titleContainer}>
                     <TextInput

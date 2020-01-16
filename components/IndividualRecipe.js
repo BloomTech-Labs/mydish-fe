@@ -66,10 +66,10 @@ function IndividualRecipe(props) {
     const tabsDisplay = cat => {
         const newActive = cat;
         setColor({ active: newActive });
-        if (currentActive && currentActive.field === 'title' ) {
-            currentActive.close()
+        if (currentActive && currentActive.field === "title") {
+            currentActive.close();
         }
-            dispatch(resetCurrentActive())
+        dispatch(resetCurrentActive());
     };
 
     const stopEditPress = () => {
