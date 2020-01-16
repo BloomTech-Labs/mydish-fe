@@ -42,7 +42,7 @@ const initState = {
     isLoading: false,
     error: null,
     editing: false,
-    currentActive: { field: null, index: null, close: null },
+    currentActive: { type: null, field: null, index: null, close: null },
 };
 
 export const singleRecipeReducer = (state = initState, action) => {
