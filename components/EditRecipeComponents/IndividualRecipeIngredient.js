@@ -61,7 +61,6 @@ const IndividualRecipeIngredient = ({ index, currentActive }) => {
         dispatch(startEdit());
         closeSwipe();
         makeActive("edit", closeEdit);
-        console.log("editing begin");
     };
 
     const handleWillOpen = () => {
@@ -71,11 +70,11 @@ const IndividualRecipeIngredient = ({ index, currentActive }) => {
         dispatch(stopEdit());
     };
 
-    const handleWillClose = () => {
-        if (checkActive() === false) {
-            dispatch(resetCurrentActive());
-        }
-    };
+    // const handleWillClose = () => {
+    //     if (checkActive() === false) {
+    //         dispatch(resetCurrentActive());
+    //     }
+    // };
 
     return (
         <View style={styles.swipeableContainer}>
@@ -83,7 +82,7 @@ const IndividualRecipeIngredient = ({ index, currentActive }) => {
                 ref={swipeableEl}
                 onSwipeableWillOpen={handleWillOpen}
                 onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
-                onSwipeableClose={handleWillClose}
+                // onSwipeableClose={handleWillClose}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity

@@ -188,6 +188,7 @@ function IndividualRecipe(props) {
                                                     <IndividualRecipeInstruction
                                                         key={step.ordinal}
                                                         index={i}
+                                                        currentActive={currentActive}
                                                     />
                                                 ))}
 

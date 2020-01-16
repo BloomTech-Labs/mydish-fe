@@ -66,18 +66,18 @@ const Title = ({ currentActive }) => {
         dispatch(stopEdit());
     };
 
-    const handleWillClose = () => {
-        if (checkActive() === false) {
-            dispatch(resetCurrentActive());
-        }
-    };
+    // const handleWillClose = () => {
+    //     if (checkActive() === false) {
+    //         dispatch(resetCurrentActive());
+    //     }
+    // };
 
     return (
         <Swipeable
             ref={swipeableEl}
             onSwipeableWillOpen={handleWillOpen}
             onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
-            onSwipeableWillClose={handleWillClose}
+            // onSwipeableWillClose={handleWillClose}
             close={editing && true}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>

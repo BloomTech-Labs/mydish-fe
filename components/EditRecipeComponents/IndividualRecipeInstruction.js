@@ -14,24 +14,25 @@ import {
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const IndividualRecipeInstruction = ({ index }) => {
+const IndividualRecipeInstruction = ({ index, currentActive }) => {
     const dispatch = useDispatch();
-    const mainEditing = useSelector(state => state.singleRecipe.editing);
+    // const mainEditing = useSelector(state => state.singleRecipe.editing);
 
     // Two steps here to grab our specific instruction.
     // This just makes sure that, if there's only an empty array,
     // `instruction` is still an object, so the page will load.
     const steps = useSelector(state => state.singleRecipe.recipe.steps);
     const instruction = steps && steps[index] ? steps[index] : {};
-    const currentActive = useSelector(
-        state => state.singleRecipe.currentActive,
-    );
+    // const currentActive = useSelector(
+    //     state => state.singleRecipe.currentActive,
+    // );
 
     const [editing, setEditing] = useState(false);
 
     const swipeableEl = useRef(null);
 
-    const close = () => swipeableEl.current.close();
+    const closeSwipe = () => swipeableEl.current.close();
+    const closeEdit = () => setEditing(false);
 
     // useEffect(() => {
     //     // If our mainEditing variable is false,
@@ -44,10 +45,15 @@ const IndividualRecipeInstruction = ({ index }) => {
     //     }
     // }, [mainEditing]);
 
-    const editHandler = () => {
-        setEditing(true);
-        dispatch(startEdit());
-        close();
+    const makeActive = (type, close) => {
+        dispatch(
+            setCurrentActive({
+                type,
+                field: "instruction",
+                index,
+                close,
+            }),
+        );
     };
 
     const checkActive = () => {
@@ -59,36 +65,33 @@ const IndividualRecipeInstruction = ({ index }) => {
         }
     };
 
-    const makeActive = () => {
-        dispatch(
-            setCurrentActive({
-                field: "instruction",
-                index,
-                close,
-            }),
-        );
+    const editHandler = () => {
+        setEditing(true);
+        dispatch(startEdit());
+        closeSwipe();
+        makeActive("edit", closeEdit);
     };
 
     const handleWillOpen = () => {
         if (checkActive() !== false) {
             currentActive.close();
         }
-        // dispatch(stopEdit());
+        dispatch(stopEdit());
     };
 
-    const handleClose = () => {
-        if (checkActive() === false) {
-            dispatch(resetCurrentActive());
-        }
-    };
+    // const handleClose = () => {
+    //     if (checkActive() === false) {
+    //         dispatch(resetCurrentActive());
+    //     }
+    // };
 
     return (
         <View style={styles.swipeableContainer}>
             <Swipeable
                 ref={swipeableEl}
                 onSwipeableWillOpen={handleWillOpen}
-                onSwipeableOpen={makeActive}
-                onSwipeableClose={handleClose}
+                onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
+                // onSwipeableClose={handleClose}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
@@ -117,7 +120,7 @@ const IndividualRecipeInstruction = ({ index }) => {
                     </View>
                 )}
             >
-                {editing && mainEditing ? (
+                {editing ? (
                     <View style={styles.stepTextView}>
                         <View>
                             <Text style={{ marginBottom: -7 }}>
