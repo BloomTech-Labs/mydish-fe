@@ -170,6 +170,9 @@ function IndividualRecipe(props) {
                                                         <IndividualRecipeIngredient
                                                             key={i}
                                                             index={i}
+                                                            currentActive={
+                                                                currentActive
+                                                            }
                                                         />
                                                     ),
                                                 )}

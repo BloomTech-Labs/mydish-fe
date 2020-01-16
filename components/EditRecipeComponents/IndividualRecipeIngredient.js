@@ -15,38 +15,37 @@ import {
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const IndividualRecipeIngredient = ({ index }) => {
+const IndividualRecipeIngredient = ({ index, currentActive }) => {
     const dispatch = useDispatch();
-    const mainEditing = useSelector(state => state.singleRecipe.editing);
+    // const mainEditing = useSelector(state => state.singleRecipe.editing);
     const ingredients = useSelector(
         state => state.singleRecipe.recipe.ingredients,
     );
-    const currentActive = useSelector(
-        state => state.singleRecipe.currentActive,
-    );
+    // const currentActive = useSelector(
+    //     state => state.singleRecipe.currentActive,
+    // );
     const recipeIng =
         ingredients && ingredients[index] ? ingredients[index] : {};
     const [editing, setEditing] = useState(false);
 
     const swipeableEl = useRef(null);
 
-    const close = () => swipeableEl.current.close();
+    const closeSwipe = () => swipeableEl.current.close();
+    const closeEdit = () => setEditing(false);
 
-    useEffect(() => {
-        // If our mainEditing variable is false,
-        // setEditing to false as well.
-        // This makes sure that this individual component doesn't also
-        //     enter edit mode if we start editing a different swipeale
-        if (!mainEditing) {
-            setEditing(false);
-            dispatch(resetCurrentActive());
-        }
-    }, [mainEditing]);
+    // useEffect(() => {
+    //     // If our mainEditing variable is false,
+    //     // setEditing to false as well.
+    //     // This makes sure that this individual component doesn't also
+    //     //     enter edit mode if we start editing a different swipeale
+    //     if (!mainEditing) {
+    //         setEditing(false);
+    //         dispatch(resetCurrentActive());
+    //     }
+    // }, [mainEditing]);
 
-    const editHandler = () => {
-        setEditing(true);
-        dispatch(startEdit());
-        close();
+    const makeActive = (type, close) => {
+        dispatch(setCurrentActive({ type, field: "ingredient", index, close }));
     };
 
     const checkActive = () => {
@@ -57,8 +56,12 @@ const IndividualRecipeIngredient = ({ index }) => {
         }
     };
 
-    const makeActive = () => {
-        dispatch(setCurrentActive({ field: "ingredient", index, close }));
+    const editHandler = () => {
+        setEditing(true);
+        dispatch(startEdit());
+        closeSwipe();
+        makeActive("edit", closeEdit);
+        console.log("editing begin");
     };
 
     const handleWillOpen = () => {
@@ -68,7 +71,7 @@ const IndividualRecipeIngredient = ({ index }) => {
         dispatch(stopEdit());
     };
 
-    const handleClose = () => {
+    const handleWillClose = () => {
         if (checkActive() === false) {
             dispatch(resetCurrentActive());
         }
@@ -79,8 +82,8 @@ const IndividualRecipeIngredient = ({ index }) => {
             <Swipeable
                 ref={swipeableEl}
                 onSwipeableWillOpen={handleWillOpen}
-                onSwipeableOpen={makeActive}
-                onSwipeableClose={handleClose}
+                onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
+                onSwipeableClose={handleWillClose}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
@@ -110,12 +113,13 @@ const IndividualRecipeIngredient = ({ index }) => {
                 )}
             >
                 {/*Text Input*/}
-                {editing && mainEditing ? (
+                {editing ? (
                     <View style={{ marginTop: 10, backgroundColor: "white" }}>
                         <Ingredient
                             index={index}
                             recipeIng={recipeIng}
                             parent="IndividualRecipeIngredient"
+                            closeEdit={closeEdit}
                         />
                     </View>
                 ) : (

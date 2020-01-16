@@ -16,6 +16,7 @@ const Ingredient = ({
     setRecipe,
     setAdding,
     parent,
+    closeEdit,
 }) => {
     const nameInput = useRef(null);
     const quantityInput = useRef(null);
@@ -59,7 +60,6 @@ const Ingredient = ({
             recipeIng.unit === ingredient.unit
         )
             return;
-        console.log("inhere");
         // If the parent component is the CreateRecipeForm, then
         //     this will update our parent recipe with any changes we type.
         if (parent === "create") {
@@ -109,6 +109,7 @@ const Ingredient = ({
     const submitToStopEdit = () => {
         if (parent === "IndividualRecipeIngredient") {
             dispatch(stopEdit());
+            closeEdit();
         }
     };
 

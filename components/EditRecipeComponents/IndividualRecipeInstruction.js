@@ -33,16 +33,16 @@ const IndividualRecipeInstruction = ({ index }) => {
 
     const close = () => swipeableEl.current.close();
 
-    useEffect(() => {
-        // If our mainEditing variable is false,
-        // setEditing to false as well.
-        // This makes sure that this individual component doesn't also
-        //     enter edit mode if we start editing a different swipeale
-        if (!mainEditing) {
-            setEditing(false);
-            dispatch(resetCurrentActive());
-        }
-    }, [mainEditing]);
+    // useEffect(() => {
+    //     // If our mainEditing variable is false,
+    //     // setEditing to false as well.
+    //     // This makes sure that this individual component doesn't also
+    //     //     enter edit mode if we start editing a different swipeale
+    //     if (!mainEditing) {
+    //         setEditing(false);
+    //         dispatch(resetCurrentActive());
+    //     }
+    // }, [mainEditing]);
 
     const editHandler = () => {
         setEditing(true);
@@ -73,7 +73,7 @@ const IndividualRecipeInstruction = ({ index }) => {
         if (checkActive() !== false) {
             currentActive.close();
         }
-        dispatch(stopEdit());
+        // dispatch(stopEdit());
     };
 
     const handleClose = () => {
