@@ -12,22 +12,23 @@ import {
     resetCurrentActive,
 } from "../../store/singleRecipe/singleRecipeActions";
 
-const Title = props => {
+const Title = ({ currentActive }) => {
     const dispatch = useDispatch();
 
     // mainEditing determines whether we're able to edit anything, period.
     // If we're editing one component and we click away, we're clicking away in our parent component.
     // The parent component updates the store to say "Yo, stop editing",
     //     and then this component knows to stop editing.
-    const mainEditing = useSelector(state => state.singleRecipe.editing);
+    // const mainEditing = useSelector(state => state.singleRecipe.editing);
     const recipeTitle = useSelector(state => state.singleRecipe.recipe.title);
-    const currentActive = useSelector(
-        state => state.singleRecipe.currentActive,
-    );
+    // const currentActive = useSelector(
+    //     state => state.singleRecipe.currentActive,
+    // );
     const [editing, setEditing] = useState(false);
     const swipeableEl = useRef(null);
 
-    const close = () => swipeableEl.current.close();
+    const closeSwipe = () => swipeableEl.current.close();
+    const closeEdit = () => setEditing(false);
 
     // useEffect(() => {
     //     // If our mainEditing variable is false,
@@ -40,11 +41,8 @@ const Title = props => {
     //     }
     // }, [mainEditing]);
 
-    const editHandler = () => {
-        setEditing(true);
-        dispatch(startEdit());
-        close();
-        makeActive("edit", () => setEditing(false));
+    const makeActive = (type, close) => {
+        dispatch(setCurrentActive({ type, field: "title", index: 1, close }));
     };
 
     const checkActive = () => {
@@ -54,18 +52,21 @@ const Title = props => {
         }
     };
 
-    const makeActive = (type, close) => {
-        dispatch(setCurrentActive({ type, field: "title", index: 1, close }));
+    const editHandler = () => {
+        setEditing(true);
+        dispatch(startEdit());
+        closeSwipe();
+        makeActive("edit", closeEdit);
     };
 
     const handleWillOpen = () => {
         if (checkActive() !== false) {
             currentActive.close();
         }
-        // dispatch(stopEdit());
+        dispatch(stopEdit());
     };
 
-    const handleClose = () => {
+    const handleWillClose = () => {
         if (checkActive() === false) {
             dispatch(resetCurrentActive());
         }
@@ -75,8 +76,8 @@ const Title = props => {
         <Swipeable
             ref={swipeableEl}
             onSwipeableWillOpen={handleWillOpen}
-            onSwipeableOpen={() => makeActive("swipe", close)}
-            onSwipeableWillClose={handleClose}
+            onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
+            onSwipeableWillClose={handleWillClose}
             close={editing && true}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>
@@ -95,7 +96,7 @@ const Title = props => {
             {editing ? (
                 <View style={styles.titleContainer}>
                     <TextInput
-                        value={recipeTitle ? recipeTitle : props.title}
+                        value={recipeTitle && recipeTitle}
                         onChangeText={title => {
                             dispatch(editTitle(title));
                         }}
@@ -104,12 +105,16 @@ const Title = props => {
                         returnKeyType="done"
                         autoFocus={true}
                         enablesReturnKeyAutomatically={true}
+                        onSubmitEditing={() => {
+                            setEditing(false);
+                            dispatch(resetCurrentActive());
+                        }}
                     />
                 </View>
             ) : (
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>
-                        {recipeTitle ? recipeTitle : props.title}
+                        {recipeTitle && recipeTitle}
                     </Text>
                     <MaterialCommunityIcons
                         name="drag-vertical"
