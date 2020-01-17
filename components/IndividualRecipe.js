@@ -8,6 +8,8 @@ import {
     KeyboardAvoidingView,
     SafeAreaView,
     AsyncStorage,
+    TouchableOpacity,
+    ActivityIndicator,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,8 +17,9 @@ import {
     resetRecipe,
     stopEdit,
     resetCurrentActive,
+    stopEditMode,
+    startEditMode,
 } from "../store/singleRecipe/singleRecipeActions";
-import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
 
 import clock from "../assets/timer.png";
@@ -35,12 +38,16 @@ import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngr
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
+import { FontAwesome } from "@expo/vector-icons";
+import RecipeShareLogo from "./RecipeShareLogo";
 
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
     const recipe = useSelector(state => state.singleRecipe.recipe);
+    const isLoading = useSelector(state => state.singleRecipe.isLoading);
+    const editMode = useSelector(state => state.singleRecipe.editMode);
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
     );
@@ -52,7 +59,7 @@ function IndividualRecipe(props) {
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
-    }, []);
+    }, [id]);
 
     async function fetchUserId() {
         try {
@@ -79,10 +86,24 @@ function IndividualRecipe(props) {
         dispatch(stopEdit());
     };
 
-    if (!recipe) {
+    const startEditModeButton = () => {
+        if (!recipe.innovator || userId !== recipe.innovator)
+            return dispatch(stopEditMode());
+        dispatch(startEditMode());
+    };
+
+    if (!recipe.title || isLoading) {
         return (
-            <View>
-                <Text>Loading...</Text>
+            <View
+                style={{
+                    flex: 1,
+                    flexDirection: "column",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                }}
+            >
+                <RecipeShareLogo />
+                <ActivityIndicator size="large" color="#444444" />
             </View>
         );
     }
@@ -193,7 +214,11 @@ function IndividualRecipe(props) {
                                                     notes={recipe.notes}
                                                 />
                                             ) : (
-                                                <AddNote currentActive={currentActive} />
+                                                <AddNote
+                                                    currentActive={
+                                                        currentActive
+                                                    }
+                                                />
                                             )}
                                         </>
                                     )}
@@ -211,6 +236,18 @@ function IndividualRecipe(props) {
             <SafeAreaView>
                 <ScrollView>
                     <View style={styles.recipeContainer}>
+                        {recipe.innovator && userId === recipe.innovator && (
+                            <TouchableOpacity
+                                onPress={startEditModeButton}
+                                style={styles.editButton}
+                            >
+                                <FontAwesome
+                                    name="pencil-square-o"
+                                    size={20}
+                                    color="white"
+                                />
+                            </TouchableOpacity>
+                        )}
                         <Image
                             source={
                                 recipe.img ? { uri: recipe.img } : placeholder
@@ -290,9 +327,7 @@ function IndividualRecipe(props) {
         );
     };
 
-    return recipe.innovator && userId === recipe.innovator
-        ? editableRecipeDisplay()
-        : nonEditableRecipeDisplay();
+    return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay();
 }
 
 export default IndividualRecipe;
