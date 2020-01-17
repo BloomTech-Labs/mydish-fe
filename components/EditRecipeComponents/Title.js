@@ -5,7 +5,6 @@ import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../../styles/individualRecipeStyles";
 import { useSelector, useDispatch } from "react-redux";
 import {
-    startEdit,
     stopEdit,
     editTitle,
     setCurrentActive,
@@ -30,7 +29,6 @@ const Title = ({ currentActive }) => {
 
     const editHandler = () => {
         setEditing(true);
-        dispatch(startEdit());
         closeSwipe();
         makeActive("edit", closeEdit);
     };

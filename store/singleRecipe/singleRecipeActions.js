@@ -40,9 +40,6 @@ export const stopEdit = () => async (dispatch, getState) => {
     }
 };
 
-export const START_EDIT = "START_EDIT";
-export const startEdit = () => ({ type: START_EDIT });
-
 export const START_EDIT_MODE = "START_EDIT_MODE";
 export const startEditMode = () => ({ type: START_EDIT_MODE });
 

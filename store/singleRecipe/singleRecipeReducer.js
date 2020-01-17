@@ -6,7 +6,6 @@ import {
     UPDATE_RECIPE_FAILURE,
     UPDATE_RECIPE_SUCCESS,
     RESET_RECIPE,
-    START_EDIT,
     SET_CURRENT_ACTIVE,
     RESET_CURRENT_ACTIVE,
     EDIT_TITLE,
@@ -189,9 +188,6 @@ export const singleRecipeReducer = (state = initState, action) => {
         //             recipe:
         //         }
         //     };
-
-        case START_EDIT:
-            return { ...state, editing: true };
 
         case RESET_RECIPE:
             return initState;

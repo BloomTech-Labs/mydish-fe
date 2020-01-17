@@ -6,7 +6,6 @@ import { Swipeable } from "react-native-gesture-handler";
 import { useSelector, useDispatch } from "react-redux";
 import {
     editInstruct,
-    startEdit,
     stopEdit,
     setCurrentActive,
     resetCurrentActive,
@@ -46,7 +45,6 @@ const IndividualRecipeInstruction = ({ index, currentActive }) => {
 
     const editHandler = () => {
         setEditing(true);
-        dispatch(startEdit());
         closeSwipe();
         makeActive("edit", closeEdit);
     };

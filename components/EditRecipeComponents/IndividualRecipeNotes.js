@@ -5,7 +5,6 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
 import {
-    startEdit,
     editNotes,
     stopEdit,
     setCurrentActive,
@@ -29,26 +28,19 @@ export default function IndividualRecipeNotes() {
 
     const editHandler = () => {
         setEditing(true);
-        dispatch(startEdit());
         close();
     };
 
-    const checkActive = () => {
-        if (currentActive.field && currentActive.field !== "notes") return;
-        else {
-            return false;
-        }
-    };
+    const checkActive = () =>
+        currentActive.field && currentActive.field !== "notes";
 
     const makeActive = () => {
         dispatch(setCurrentActive({ field: "notes", index: 1, close }));
     };
 
     const handleWillOpen = () => {
-        if (checkActive() !== false) {
-            currentActive.close();
-        }
-        // dispatch(stopEdit());
+        if (checkActive()) currentActive.close();
+        dispatch(stopEdit());
     };
 
     const handleClose = () => {
