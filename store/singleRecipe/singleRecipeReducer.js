@@ -58,7 +58,6 @@ export const singleRecipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 error: null,
-                isLoading: true,
             };
         case START_FETCH_RECIPE:
             return {
