@@ -20,7 +20,7 @@ import {
     DELETE_INSTRUCT,
     DELETE_RECIPE,
     START_EDIT_MODE,
-    STOP_EDIT_MODE
+    STOP_EDIT_MODE,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -49,9 +49,9 @@ export const singleRecipeReducer = (state = initState, action) => {
     console.log(action.type);
     switch (action.type) {
         case START_EDIT_MODE:
-            return {...state, editMode: true}
+            return { ...state, editMode: true };
         case STOP_EDIT_MODE:
-            return {...state, editMode: false}
+            return { ...state, editMode: false };
 
         case START_UPDATE_RECIPE: // UPDATE and FETCH are the same
             return {
@@ -63,7 +63,7 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 error: null,
                 isLoading: true,
-                editMode: false
+                editMode: false,
             };
         case UPDATE_RECIPE_SUCCESS: // UPDATE and FETCH are the same
         case FETCH_RECIPE_SUCCESS:
