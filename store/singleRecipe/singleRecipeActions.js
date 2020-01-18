@@ -163,49 +163,49 @@ export const resetCurrentActive = () => dispatch => {
 //     that's when we stop editing the recipe and call the database '' '
 export const EDIT_TITLE = "EDIT_TITLE";
 export const editTitle = value => dispatch => {
-    if (value.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_TITLE,
-            payload: value,
-        });
-    }
+    // if (value.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_TITLE,
+        payload: value,
+    });
+    // }
 };
 
 export const EDIT_INGRED = "EDIT_INGRED";
 export const editIngred = (index, value) => dispatch => {
-    if (value.name.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_INGRED,
-            payload: value,
-            index,
-        });
-    }
+    // if (value.name.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_INGRED,
+        payload: value,
+        index,
+    });
+    // }
 };
 
 export const EDIT_INSTRUCT = "EDIT_INSTRUCT";
 export const editInstruct = (index, value) => dispatch => {
-    if (value.body.charCodeAt(value.body.length - 1) === 10)
-        dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_INSTRUCT,
-            payload: value,
-            index,
-        });
-    }
+    // if (value.body.charCodeAt(value.body.length - 1) === 10)
+    //     dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_INSTRUCT,
+        payload: value,
+        index,
+    });
+    // }
 };
 
 export const EDIT_NOTES = "EDIT_NOTES";
 export const editNotes = notes => dispatch => {
-    if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_NOTES,
-            notes: notes,
-        });
-    }
+    // if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_NOTES,
+        notes: notes,
+    });
+    // }
 };
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
