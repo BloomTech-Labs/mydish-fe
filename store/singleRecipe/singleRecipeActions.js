@@ -40,6 +40,27 @@ export const stopEdit = () => async (dispatch, getState) => {
     }
 };
 
+export const START_SUBMIT_EDITED_RECIPE = "START_SUBMIT_EDITED_RECIPE";
+export const SUBMIT_EDITED_RECIPE_SUCCESS = "SUBMIT_EDITED_RECIPE_SUCCESS";
+export const SUBMIT_EDITED_RECIPE_FAILURE = "SUBMIT_EDITED_RECIPE_FAILURE";
+export const submitEditedRecipe = () => async (dispatch, getState) => {
+    dispatch({ type: START_SUBMIT_EDITED_RECIPE });
+
+    const { recipe } = getState().singleRecipe;
+    console.log("recipe", recipe);
+
+    try {
+        const axiosCustom = await axiosWithAuth();
+        const res = await axiosCustom.put("recipes", recipe);
+
+        console.log("res.data", res.data);
+
+        dispatch({ type: SUBMIT_EDITED_RECIPE_SUCCESS, payload: res.data });
+    } catch (err) {
+        dispatch({ type: SUBMIT_EDITED_RECIPE_FAILURE, payload: err });
+    }
+};
+
 export const START_EDIT_MODE = "START_EDIT_MODE";
 export const startEditMode = () => ({ type: START_EDIT_MODE });
 

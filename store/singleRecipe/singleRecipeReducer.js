@@ -21,6 +21,9 @@ import {
     DELETE_RECIPE,
     START_EDIT_MODE,
     STOP_EDIT_MODE,
+    START_SUBMIT_EDITED_RECIPE,
+    SUBMIT_EDITED_RECIPE_SUCCESS,
+    SUBMIT_EDITED_RECIPE_FAILURE,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -40,6 +43,7 @@ const initState = {
         editable: false,
     },
     isLoading: false,
+    isSubmitting: false,
     editMode: false,
     error: null,
     currentActive: { type: null, field: null, index: null, close: null },
@@ -188,6 +192,28 @@ export const singleRecipeReducer = (state = initState, action) => {
         //             recipe:
         //         }
         //     };
+
+        case START_SUBMIT_EDITED_RECIPE:
+            return {
+                ...state,
+                isSubmitting: true,
+                error: null,
+            };
+
+        case SUBMIT_EDITED_RECIPE_SUCCESS:
+            return {
+                ...state,
+                isSubmitting: false,
+                error: null,
+                recipe: action.payload,
+            };
+
+        case SUBMIT_EDITED_RECIPE_FAILURE:
+            return {
+                ...state,
+                isSubmitting: false,
+                error: action.payload,
+            };
 
         case RESET_RECIPE:
             return initState;
