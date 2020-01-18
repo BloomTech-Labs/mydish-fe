@@ -6,8 +6,6 @@ import {
     UPDATE_RECIPE_FAILURE,
     UPDATE_RECIPE_SUCCESS,
     RESET_RECIPE,
-    START_EDIT,
-    STOP_EDIT,
     SET_CURRENT_ACTIVE,
     RESET_CURRENT_ACTIVE,
     EDIT_TITLE,
@@ -21,6 +19,8 @@ import {
     DELETE_NOTE,
     DELETE_INSTRUCT,
     DELETE_RECIPE,
+    START_EDIT_MODE,
+    STOP_EDIT_MODE
 } from "./singleRecipeActions";
 
 const initState = {
@@ -40,20 +40,30 @@ const initState = {
         editable: false,
     },
     isLoading: false,
+    editMode: false,
     error: null,
-    editing: false,
-    currentActive: { field: null, index: null, close: null },
+    currentActive: { type: null, field: null, index: null, close: null },
 };
 
 export const singleRecipeReducer = (state = initState, action) => {
     console.log(action.type);
     switch (action.type) {
+        case START_EDIT_MODE:
+            return {...state, editMode: true}
+        case STOP_EDIT_MODE:
+            return {...state, editMode: false}
+
         case START_UPDATE_RECIPE: // UPDATE and FETCH are the same
+            return {
+                ...state,
+                error: null,
+            };
         case START_FETCH_RECIPE:
             return {
                 ...state,
                 error: null,
                 isLoading: true,
+                editMode: false
             };
         case UPDATE_RECIPE_SUCCESS: // UPDATE and FETCH are the same
         case FETCH_RECIPE_SUCCESS:
@@ -179,10 +189,6 @@ export const singleRecipeReducer = (state = initState, action) => {
         //         }
         //     };
 
-        case START_EDIT:
-            return { ...state, editing: true };
-        case STOP_EDIT:
-            return { ...state, editing: false };
         case RESET_RECIPE:
             return initState;
 

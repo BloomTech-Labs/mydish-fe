@@ -8,15 +8,18 @@ import {
     KeyboardAvoidingView,
     SafeAreaView,
     AsyncStorage,
-    ActivityIndicator
+    TouchableOpacity,
+    ActivityIndicator,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
     fetchRecipe,
     resetRecipe,
     stopEdit,
+    resetCurrentActive,
+    stopEditMode,
+    startEditMode,
 } from "../store/singleRecipe/singleRecipeActions";
-import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
 
 import clock from "../assets/timer.png";
@@ -35,13 +38,20 @@ import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngr
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
+import { FontAwesome } from "@expo/vector-icons";
+import RecipeShareLogo from "./RecipeShareLogo";
 
 function IndividualRecipe(props) {
-    const [color, setColor] = useState({ active: "Ingredients" });
-    const id = props.navigation.getParam("recipeID", "params not passed");
     const dispatch = useDispatch();
-    const recipe = useSelector(state => state.singleRecipe.recipe);
+    const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
+    const recipe = useSelector(state => state.singleRecipe.recipe);
+    const isLoading = useSelector(state => state.singleRecipe.isLoading);
+    const editMode = useSelector(state => state.singleRecipe.editMode);
+    const currentActive = useSelector(
+        state => state.singleRecipe.currentActive,
+    );
+    const id = props.navigation.getParam("recipeID", "params not passed");
 
     const [isLoading, setIsLoading] = useState(true)
 
@@ -59,26 +69,12 @@ function IndividualRecipe(props) {
     }, [setIsLoading])
 
     useEffect(() => {
-<<<<<<< HEAD
-        loadRecipe()
-        getForks();
-=======
         dispatch(fetchRecipe(id));
->>>>>>> 58da6b0f7291545bb5226dd0c6ab0eb85a162996
         fetchUserId();
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
-    }, [])
-
-    // useEffect(() => {
-    //     dispatch(fetchRecipe(id));
-    //     getForks();
-    //     fetchUserId();
-    //     //below is a cleanup that resets the initState of singleRecipe to null values,
-    //     //which is important for a smooth user experience
-    //     return () => dispatch(resetRecipe());
-    // }, []);
+    }, [id]);
 
     async function fetchUserId() {
         try {
@@ -92,12 +88,37 @@ function IndividualRecipe(props) {
     const tabsDisplay = cat => {
         const newActive = cat;
         setColor({ active: newActive });
+        if (currentActive && currentActive.field === "title") {
+            currentActive.close();
+        }
+        dispatch(resetCurrentActive());
     };
 
-    if (!recipe) {
+    const stopEditPress = () => {
+        if (currentActive.type === "edit") {
+            currentActive.close();
+        }
+        dispatch(stopEdit());
+    };
+
+    const startEditModeButton = () => {
+        if (!recipe.innovator || userId !== recipe.innovator)
+            return dispatch(stopEditMode());
+        dispatch(startEditMode());
+    };
+
+    if (!recipe.title || isLoading) {
         return (
-            <View>
-                <Text>Loading...</Text>
+            <View
+                style={{
+                    flex: 1,
+                    flexDirection: "column",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                }}
+            >
+                <RecipeShareLogo />
+                <ActivityIndicator size="large" color="#444444" />
             </View>
         );
     }
@@ -113,9 +134,7 @@ function IndividualRecipe(props) {
         return (
             <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
                 <SafeAreaView>
-                    <TouchableWithoutFeedback
-                        onPress={() => dispatch(stopEdit())}
-                    >
+                    <TouchableWithoutFeedback onPress={stopEditPress}>
                         <ScrollView>
                             <View style={styles.recipeContainer}>
                                 <Image
@@ -127,7 +146,7 @@ function IndividualRecipe(props) {
                                     style={styles.image}
                                 />
                                 <View style={styles.titleWrapper}>
-                                    <Title />
+                                    <Title currentActive={currentActive} />
                                 </View>
                                 <View style={styles.innovatorTime}>
                                     <View style={styles.innovatorContainer}>
@@ -182,11 +201,16 @@ function IndividualRecipe(props) {
                                                         <IndividualRecipeIngredient
                                                             key={i}
                                                             index={i}
+                                                            currentActive={
+                                                                currentActive
+                                                            }
                                                         />
                                                     ),
                                                 )}
 
-                                            <AddIngredient />
+                                            <AddIngredient
+                                                currentActive={currentActive}
+                                            />
                                         </>
                                     )}
 
@@ -197,18 +221,27 @@ function IndividualRecipe(props) {
                                                     <IndividualRecipeInstruction
                                                         key={step.ordinal}
                                                         index={i}
+                                                        currentActive={
+                                                            currentActive
+                                                        }
                                                     />
                                                 ))}
 
-                                            <AddInstruction />
+                                            <AddInstruction
+                                                currentActive={currentActive}
+                                            />
 
                                             {recipe.notes ? (
                                                 <IndividualRecipeNotes
                                                     notes={recipe.notes}
                                                 />
                                             ) : (
-                                                    <AddNote />
-                                                )}
+                                                <AddNote
+                                                    currentActive={
+                                                        currentActive
+                                                    }
+                                                />
+                                            )}
                                         </>
                                     )}
                                 </View>
@@ -225,6 +258,18 @@ function IndividualRecipe(props) {
             <SafeAreaView>
                 <ScrollView>
                     <View style={styles.recipeContainer}>
+                        {recipe.innovator && userId === recipe.innovator && (
+                            <TouchableOpacity
+                                onPress={startEditModeButton}
+                                style={styles.editButton}
+                            >
+                                <FontAwesome
+                                    name="pencil-square-o"
+                                    size={20}
+                                    color="white"
+                                />
+                            </TouchableOpacity>
+                        )}
                         <Image
                             source={
                                 recipe.img ? { uri: recipe.img } : placeholder
@@ -304,9 +349,7 @@ function IndividualRecipe(props) {
         );
     };
 
-    return recipe.innovator && userId === recipe.innovator
-        ? editableRecipeDisplay()
-        : nonEditableRecipeDisplay();
+    return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay();
 }
 
 export default IndividualRecipe;

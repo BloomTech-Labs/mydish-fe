@@ -14,8 +14,9 @@ const Ingredient = ({
     removeIng,
     index,
     setRecipe,
-    setAdding,
+    stopAdding,
     parent,
+    closeEdit,
 }) => {
     const nameInput = useRef(null);
     const quantityInput = useRef(null);
@@ -59,7 +60,6 @@ const Ingredient = ({
             recipeIng.unit === ingredient.unit
         )
             return;
-        console.log("inhere");
         // If the parent component is the CreateRecipeForm, then
         //     this will update our parent recipe with any changes we type.
         if (parent === "create") {
@@ -87,7 +87,7 @@ const Ingredient = ({
 
     const cancelAdd = () => {
         setHighlighted({ name: false, quantity: false, unit: false });
-        setAdding(false);
+        stopAdding();
     };
 
     const submitAdd = () => {
@@ -101,7 +101,7 @@ const Ingredient = ({
             setHighlighted(lengthObj);
             console.log("HIGHLIGHT TEST:", highlighted);
         } else {
-            setAdding(false);
+            stopAdding();
             dispatch(addIngredient(ingredient));
         }
     };
@@ -109,6 +109,7 @@ const Ingredient = ({
     const submitToStopEdit = () => {
         if (parent === "IndividualRecipeIngredient") {
             dispatch(stopEdit());
+            closeEdit();
         }
     };
 
