@@ -114,6 +114,10 @@ const IndividualRecipeInstruction = ({ index, currentActive }) => {
                             returnKeyType="done"
                             autoFocus={true}
                             enablesReturnKeyAutomatically={true}
+                            onSubmitEditing={() => {
+                                setEditing(false);
+                                dispatch(resetCurrentActive());
+                            }}
                         />
                     </View>
                 ) : (

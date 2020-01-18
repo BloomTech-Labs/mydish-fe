@@ -40,7 +40,7 @@ export default function IndividualRecipeNotes() {
 
     const handleWillOpen = () => {
         if (checkActive()) currentActive.close();
-        dispatch(stopEdit());
+        // dispatch(stopEdit());
     };
 
     const handleClose = () => {
@@ -64,6 +64,10 @@ export default function IndividualRecipeNotes() {
                         returnKeyType="done"
                         autoFocus={true}
                         enablesReturnKeyAutomatically={true}
+                        onSubmitEditing={() => {
+                            setEditing(false);
+                            dispatch(resetCurrentActive());
+                        }}
                     />
                 </View>
             ) : (
