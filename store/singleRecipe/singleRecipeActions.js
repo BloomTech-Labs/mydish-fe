@@ -214,7 +214,7 @@ export const addIngredient = ingredient => dispatch => {
         type: ADD_INGREDIENT,
         payload: ingredient,
     });
-    dispatch(stopEdit());
+    // dispatch(stopEdit());
 };
 
 export const ADD_INSTRUCTION = "ADD_INSTRUCTION";
@@ -223,7 +223,7 @@ export const addInstruction = instruction => dispatch => {
         type: ADD_INSTRUCTION,
         payload: instruction,
     });
-    dispatch(stopEdit());
+    // dispatch(stopEdit());
 };
 
 export const ADD_NOTE = "ADD_NOTE";

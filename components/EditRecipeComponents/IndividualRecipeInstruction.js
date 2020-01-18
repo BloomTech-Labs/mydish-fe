@@ -51,7 +51,7 @@ const IndividualRecipeInstruction = ({ index, currentActive }) => {
 
     const handleWillOpen = () => {
         if (checkActive()) currentActive.close();
-        dispatch(stopEdit());
+        // dispatch(stopEdit());
     };
 
     const checkIfCurrentActiveIsAdd = () =>
