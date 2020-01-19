@@ -35,7 +35,7 @@ const Title = ({ currentActive }) => {
 
     const handleWillOpen = () => {
         if (checkActive()) currentActive.close();
-        dispatch(stopEdit());
+        // dispatch(stopEdit());
     };
 
     const checkIfCurrentActiveIsAdd = () =>

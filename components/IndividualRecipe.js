@@ -19,6 +19,7 @@ import {
     resetCurrentActive,
     stopEditMode,
     startEditMode,
+    submitEditedRecipe,
 } from "../store/singleRecipe/singleRecipeActions";
 import styles from "../styles/individualRecipeStyles.js";
 
@@ -39,6 +40,7 @@ import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeIns
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 import { FontAwesome } from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
 
 function IndividualRecipe(props) {
@@ -98,7 +100,7 @@ function IndividualRecipe(props) {
         if (currentActive.type === "edit") {
             currentActive.close();
         }
-        dispatch(stopEdit());
+        // dispatch(stopEdit());
     };
 
     const startEditModeButton = () => {
@@ -137,6 +139,30 @@ function IndividualRecipe(props) {
                     <TouchableWithoutFeedback onPress={stopEditPress}>
                         <ScrollView>
                             <View style={styles.recipeContainer}>
+                                <View style={{ flexDirection: "row" }}>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            dispatch(submitEditedRecipe(id));
+                                            dispatch(stopEditMode());
+                                        }}
+                                        style={styles.editButton}
+                                    >
+                                        <FontAwesome
+                                            name="check"
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.deleteButton}
+                                    >
+                                        <Octicons
+                                            name="x"
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </TouchableOpacity>
+                                </View>
                                 <Image
                                     source={
                                         recipe.img

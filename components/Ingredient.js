@@ -81,9 +81,9 @@ const Ingredient = ({
         setIngredient({ ...ingredient, [key]: value });
     };
 
-    const onClosePicker = () => {
-        dispatch(stopEdit());
-    };
+    // const onClosePicker = () => {
+    //     dispatch(stopEdit());
+    // };
 
     const cancelAdd = () => {
         setHighlighted({ name: false, quantity: false, unit: false });
@@ -108,7 +108,7 @@ const Ingredient = ({
 
     const submitToStopEdit = () => {
         if (parent === "IndividualRecipeIngredient") {
-            dispatch(stopEdit());
+            // dispatch(stopEdit());
             closeEdit();
         }
     };
@@ -165,7 +165,7 @@ const Ingredient = ({
                 />
 
                 <Picker
-                    onClose={onClosePicker}
+                    onClose={submitToStopEdit}
                     handleChange={handleChange}
                     unit={ingredient.unit}
                     highlighted={highlighted}

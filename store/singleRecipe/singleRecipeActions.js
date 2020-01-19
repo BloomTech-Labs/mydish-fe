@@ -40,6 +40,35 @@ export const stopEdit = () => async (dispatch, getState) => {
     }
 };
 
+export const START_SUBMIT_EDITED_RECIPE = "START_SUBMIT_EDITED_RECIPE";
+export const SUBMIT_EDITED_RECIPE_SUCCESS = "SUBMIT_EDITED_RECIPE_SUCCESS";
+export const SUBMIT_EDITED_RECIPE_FAILURE = "SUBMIT_EDITED_RECIPE_FAILURE";
+export const submitEditedRecipe = id => async (dispatch, getState) => {
+    dispatch({ type: START_SUBMIT_EDITED_RECIPE });
+
+    const { recipe } = getState().singleRecipe;
+    console.log("recipe: ", recipe);
+    console.log("id: ", id);
+
+    try {
+        const axiosCustom = await axiosWithAuth();
+        const originalRecipe = await axiosCustom.get(`recipes/${id}`);
+
+        console.log("originalRecipe.data: ", originalRecipe.data);
+
+        if (recipe == originalRecipe.data) {
+            console.log("EQUAL");
+        } else {
+            const res = await axiosCustom.put("recipes", recipe);
+
+            dispatch({ type: SUBMIT_EDITED_RECIPE_SUCCESS, payload: res.data });
+        }
+    } catch (err) {
+        dispatch({ type: SUBMIT_EDITED_RECIPE_FAILURE, payload: err });
+        console.log("error: ", err);
+    }
+};
+
 export const START_EDIT_MODE = "START_EDIT_MODE";
 export const startEditMode = () => ({ type: START_EDIT_MODE });
 
@@ -142,49 +171,49 @@ export const resetCurrentActive = () => dispatch => {
 //     that's when we stop editing the recipe and call the database '' '
 export const EDIT_TITLE = "EDIT_TITLE";
 export const editTitle = value => dispatch => {
-    if (value.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_TITLE,
-            payload: value,
-        });
-    }
+    // if (value.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_TITLE,
+        payload: value,
+    });
+    // }
 };
 
 export const EDIT_INGRED = "EDIT_INGRED";
 export const editIngred = (index, value) => dispatch => {
-    if (value.name.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_INGRED,
-            payload: value,
-            index,
-        });
-    }
+    // if (value.name.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_INGRED,
+        payload: value,
+        index,
+    });
+    // }
 };
 
 export const EDIT_INSTRUCT = "EDIT_INSTRUCT";
 export const editInstruct = (index, value) => dispatch => {
-    if (value.body.charCodeAt(value.body.length - 1) === 10)
-        dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_INSTRUCT,
-            payload: value,
-            index,
-        });
-    }
+    // if (value.body.charCodeAt(value.body.length - 1) === 10)
+    //     dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_INSTRUCT,
+        payload: value,
+        index,
+    });
+    // }
 };
 
 export const EDIT_NOTES = "EDIT_NOTES";
 export const editNotes = notes => dispatch => {
-    if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_NOTES,
-            notes: notes,
-        });
-    }
+    // if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_NOTES,
+        notes: notes,
+    });
+    // }
 };
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
@@ -193,7 +222,7 @@ export const addIngredient = ingredient => dispatch => {
         type: ADD_INGREDIENT,
         payload: ingredient,
     });
-    dispatch(stopEdit());
+    // dispatch(stopEdit());
 };
 
 export const ADD_INSTRUCTION = "ADD_INSTRUCTION";
@@ -202,7 +231,7 @@ export const addInstruction = instruction => dispatch => {
         type: ADD_INSTRUCTION,
         payload: instruction,
     });
-    dispatch(stopEdit());
+    // dispatch(stopEdit());
 };
 
 export const ADD_NOTE = "ADD_NOTE";
