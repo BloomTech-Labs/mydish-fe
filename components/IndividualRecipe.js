@@ -11,7 +11,8 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     Modal,
-    ImageBackground
+    ImageBackground,
+    Alert
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -105,7 +106,21 @@ function IndividualRecipe(props) {
     };
 
     const cancelButtonEditedRecipe = () => {
-        dispatch(stopEditMode());
+        //TO DO - an alert or modal before dispatching stopEditMode
+        Alert.alert(
+            'Exit Edit Mode',
+            'Are you sure you want to exit without saving your changes?',
+            [
+                {
+                    text: 'Cancel',
+
+                    style: 'cancel',
+                },
+                { text: 'OK', onPress: () => dispatch(stopEditMode()) },
+            ],
+            { cancelable: false },
+        );
+
     };
 
     if (!recipe.title || isLoading) {
