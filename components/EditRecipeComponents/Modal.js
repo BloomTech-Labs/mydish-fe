@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Modal, KeyboardAvoidingView, Text, TextInput, TouchableOpacity } from "react-native"
+import { View, Modal, KeyboardAvoidingView, Text, TextInput, TouchableHighlight, TouchableOpacity } from "react-native"
 
 const CommitModal = props => {
     const { modal, setModal, saveButtonEditedRecipe
@@ -11,71 +11,82 @@ const CommitModal = props => {
                 animationType="fade"
                 transparent
             >
-                <View
-                    style={{
-                        height: "100%",
-                        width: "100%",
-                        backgroundColor:
-                            "rgba(122, 122, 122, 0.7)",
-                        alignItems: "center",
-                        justifyContent: "center",
-
-                    }}
+                <TouchableHighlight
+                    onPress={() =>
+                        setModal({
+                            save: false,
+                            cancel: false,
+                        })
+                    }
                 >
-                    <KeyboardAvoidingView
-                        behavior={"position"}
+                    <View
+                        style={{
+                            height: "100%",
+                            width: "100%",
+                            backgroundColor:
+                                "rgba(122, 122, 122, 0.7)",
+                            alignItems: "center",
+                            justifyContent: "center",
+
+                        }}
+
+
                     >
-                        <View
-                            style={{
-                                marginHorizontal: 20,
-                                marginTop: 300,
-                                backgroundColor:
-                                    "white",
-                                borderRadius: 6,
-                                padding: 15
-                            }}
+                        <KeyboardAvoidingView
+                            behavior={"position"}
                         >
-                            <Text>
-                                Please leave a brief
-                                comment describing your
-                                recipe changes.
-                        </Text>
-                            <TextInput
+                            <View
                                 style={{
-                                    marginVertical: 10,
-                                    minHeight: 40,
-                                    width: 350,
-                                    borderRadius: 4,
-                                    borderWidth: 1,
-                                    borderColor:
-                                        "black",
+                                    marginHorizontal: 20,
+                                    marginTop: 300,
+                                    backgroundColor:
+                                        "white",
+                                    borderRadius: 6,
+                                    padding: 15
                                 }}
-                            />
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                                <TouchableOpacity
-                                    onPress={() =>
-                                        setModal({
-                                            save: false,
-                                            cancel: false,
-                                        })
-                                    }
-                                >
-                                    <Text>Back</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={
-                                        saveButtonEditedRecipe
-                                    }
-                                >
-                                    <Text>Submit</Text>
-                                </TouchableOpacity>
+                            >
+                                <Text>
+                                    Please leave a brief
+                                    comment describing your
+                                    recipe changes.
+                        </Text>
+                                <TextInput
+                                    style={{
+                                        marginVertical: 10,
+                                        minHeight: 40,
+                                        width: 350,
+                                        borderRadius: 4,
+                                        borderWidth: 1,
+                                        borderColor:
+                                            "black",
+                                    }}
+                                />
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            setModal({
+                                                save: false,
+                                                cancel: false,
+                                            })
+                                        }
+                                    >
+                                        <Text>Back</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={
+                                            saveButtonEditedRecipe
+                                        }
+                                    >
+                                        <Text>Submit</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                        </View>
-                    </KeyboardAvoidingView>
-                </View>
+                        </KeyboardAvoidingView>
+                    </View>
+                </TouchableHighlight>
             </Modal>
 
-        </View>
+        </View >
     )
 }
 
