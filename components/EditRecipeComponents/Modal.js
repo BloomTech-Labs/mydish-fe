@@ -50,23 +50,25 @@ const CommitModal = props => {
                                         "black",
                                 }}
                             />
-                            <TouchableOpacity
-                                onPress={() =>
-                                    setModal({
-                                        save: false,
-                                        cancel: false,
-                                    })
-                                }
-                            >
-                                <Text>Back</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={
-                                    saveButtonEditedRecipe
-                                }
-                            >
-                                <Text>Submit</Text>
-                            </TouchableOpacity>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                                <TouchableOpacity
+                                    onPress={() =>
+                                        setModal({
+                                            save: false,
+                                            cancel: false,
+                                        })
+                                    }
+                                >
+                                    <Text>Back</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={
+                                        saveButtonEditedRecipe
+                                    }
+                                >
+                                    <Text>Submit</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </KeyboardAvoidingView>
                 </View>
