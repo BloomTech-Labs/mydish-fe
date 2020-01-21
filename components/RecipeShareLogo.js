@@ -28,7 +28,7 @@ function RecipeShareLogo() {
                     marginLeft: 10,
                 }}
             >
-                RecipeShare
+                MyDish
             </Text>
         </View>
     );
