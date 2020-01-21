@@ -42,8 +42,9 @@ const CommitModal = props => {
                         </Text>
                             <TextInput
                                 style={{
+                                    marginVertical: 10,
                                     minHeight: 40,
-                                    width: 300,
+                                    width: 350,
                                     borderRadius: 4,
                                     borderWidth: 1,
                                     borderColor:
