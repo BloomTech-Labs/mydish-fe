@@ -245,10 +245,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "flex-end",
         alignItems: "center",
-<<<<<<< HEAD
-        backgroundColor: "pink",
-=======
->>>>>>> a0475318a1a15cd13e0891c9de7af85f8f731e0a
         width: 150,
         height: "100%",
         marginRight: 16,

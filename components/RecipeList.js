@@ -6,7 +6,7 @@ import { fetchCookbook } from "../store/cookbook/cookbookAction";
 
 const RecipeList = ({ parent, folder }) => {
 
-    const isLoading = useSelector(store => store.allRecipes.isLoading)
+    const isLoading = useSelector(store => store.cookbook.isLoading)
     const dispatch = useDispatch();
     // If the RecipeList is being rendered from the cookbook,
     //     grab the props from that the cookbook is passing down.
