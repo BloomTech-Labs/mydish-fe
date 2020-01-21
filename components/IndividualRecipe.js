@@ -44,7 +44,7 @@ import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 import { FontAwesome } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
-import Modal from "./EditRecipeComponents/Modal"
+import CommitModal from "./EditRecipeComponents/Modal"
 import { TextInput } from "react-native-gesture-handler";
 
 function IndividualRecipe(props) {
@@ -131,7 +131,7 @@ function IndividualRecipe(props) {
                     <TouchableWithoutFeedback onPress={stopEditPress}>
                         <ScrollView>
                             <View style={styles.recipeContainer}>
-                                <Modal modal={modal} setModal={setModal} saveButtonEditedRecipe={saveButtonEditedRecipe} />
+                                <CommitModal modal={modal} setModal={setModal} saveButtonEditedRecipe={saveButtonEditedRecipe} />
                                 <ImageBackground
                                     source={
                                         recipe.img

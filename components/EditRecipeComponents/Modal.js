@@ -1,6 +1,7 @@
 import React from "react"
+import { View, Modal, KeyboardAvoidingView, Text, TextInput, TouchableOpacity } from "react-native"
 
-const Modal = props => {
+const CommitModal = props => {
     const { modal, setModal, saveButtonEditedRecipe
     } = props
     return (
@@ -73,4 +74,4 @@ const Modal = props => {
     )
 }
 
-export const Modal
+export default CommitModal
