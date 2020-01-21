@@ -21,21 +21,22 @@ export default function IndividualRecipeNotes() {
     );
 
     const [editing, setEditing] = useState(false);
-
     const swipeableEl = useRef(null);
 
-    const close = () => swipeableEl.current.close();
+    const closeSwipe = () => swipeableEl.current.close();
+    const closeEdit = () => setEditing(false)
 
+    const makeActive = (type, close) => {
+        dispatch(setCurrentActive({ type, field: "notes", index: 1, close }));
+    };
+    
+    const checkActive = () =>
+    currentActive.field && currentActive.field !== "notes";
+    
     const editHandler = () => {
         setEditing(true);
-        close();
-    };
-
-    const checkActive = () =>
-        currentActive.field && currentActive.field !== "notes";
-
-    const makeActive = () => {
-        dispatch(setCurrentActive({ field: "notes", index: 1, close }));
+        closeSwipe();
+        makeActive("edit", closeEdit)
     };
 
     const handleWillOpen = () => {
@@ -43,11 +44,8 @@ export default function IndividualRecipeNotes() {
         // dispatch(stopEdit());
     };
 
-    const handleClose = () => {
-        if (checkActive() === false) {
-            dispatch(resetCurrentActive());
-        }
-    };
+    const checkIfCurrentActiveIsAdd = () =>
+        currentActive && currentActive.type === "add";
 
     return (
         <>
@@ -75,8 +73,8 @@ export default function IndividualRecipeNotes() {
                     <Swipeable
                         ref={swipeableEl}
                         onSwipeableWillOpen={handleWillOpen}
-                        onSwipeableOpen={makeActive}
-                        onSwipeableClose={handleClose}
+                        onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
+                        friction={checkIfCurrentActiveIsAdd() ? 10 : 1}
                         renderRightActions={() => (
                             <View style={styles.buttonContainer}>
                                 <TouchableOpacity
