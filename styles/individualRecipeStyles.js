@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     hidden: {
         display: "none",
     },
-    image: { width: "100%", height: 300, resizeMode: "cover" },
+    image: { width: "100%", height: 300, resizeMode: "cover", flexDirection: 'row' },
     editButton: {
         backgroundColor: "#8FCC70",
         padding: 5,
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: 35,
         height: 35,
-        marginRight: 10,
+        margin: 10,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -222,7 +222,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: 35,
         height: 35,
-        marginRight: 5,
+        marginTop: 10,
+        marginLeft: 5,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
