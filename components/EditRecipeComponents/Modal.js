@@ -5,7 +5,7 @@ const CommitModal = props => {
     const { modal, setModal, saveButtonEditedRecipe
     } = props
     return (
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", padding: 10 }}>
             <Modal
                 visible={modal.save}
                 animationType="fade"
@@ -19,6 +19,7 @@ const CommitModal = props => {
                             "rgba(122, 122, 122, 0.7)",
                         alignItems: "center",
                         justifyContent: "center",
+
                     }}
                 >
                     <KeyboardAvoidingView
@@ -31,6 +32,7 @@ const CommitModal = props => {
                                 backgroundColor:
                                     "white",
                                 borderRadius: 6,
+                                padding: 15
                             }}
                         >
                             <Text>
