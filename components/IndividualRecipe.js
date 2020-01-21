@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     Modal,
+    ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -193,6 +194,16 @@ function IndividualRecipe(props) {
                                             </KeyboardAvoidingView>
                                         </View>
                                     </Modal>
+
+                                </View>
+                                <ImageBackground
+                                    source={
+                                        recipe.img
+                                            ? { uri: recipe.img }
+                                            : placeholder
+                                    }
+                                    style={styles.image}
+                                >
                                     <TouchableOpacity
                                         onPress={() => {
                                             setModal({
@@ -218,15 +229,8 @@ function IndividualRecipe(props) {
                                             color="white"
                                         />
                                     </TouchableOpacity>
-                                </View>
-                                <Image
-                                    source={
-                                        recipe.img
-                                            ? { uri: recipe.img }
-                                            : placeholder
-                                    }
-                                    style={styles.image}
-                                />
+
+                                </ImageBackground>
                                 <View style={styles.titleWrapper}>
                                     <Title currentActive={currentActive} />
                                 </View>
@@ -318,12 +322,12 @@ function IndividualRecipe(props) {
                                                     notes={recipe.notes}
                                                 />
                                             ) : (
-                                                <AddNote
-                                                    currentActive={
-                                                        currentActive
-                                                    }
-                                                />
-                                            )}
+                                                    <AddNote
+                                                        currentActive={
+                                                            currentActive
+                                                        }
+                                                    />
+                                                )}
                                         </>
                                     )}
                                 </View>
@@ -340,24 +344,26 @@ function IndividualRecipe(props) {
             <SafeAreaView>
                 <ScrollView>
                     <View style={styles.recipeContainer}>
-                        {recipe.innovator && userId === recipe.innovator && (
-                            <TouchableOpacity
-                                onPress={startEditModeButton}
-                                style={styles.editButton}
-                            >
-                                <FontAwesome
-                                    name="pencil-square-o"
-                                    size={20}
-                                    color="white"
-                                />
-                            </TouchableOpacity>
-                        )}
-                        <Image
+
+                        <ImageBackground
                             source={
                                 recipe.img ? { uri: recipe.img } : placeholder
                             }
                             style={styles.image}
-                        />
+                        >
+                            {recipe.innovator && userId === recipe.innovator && (
+                                <TouchableOpacity
+                                    onPress={startEditModeButton}
+                                    style={styles.editButton}
+                                >
+                                    <FontAwesome
+                                        name="pencil-square-o"
+                                        size={20}
+                                        color="white"
+                                    />
+                                </TouchableOpacity>
+                            )}
+                        </ImageBackground>
                         <View style={styles.titleWrapper}>
                             <DisplayTitle />
                         </View>
