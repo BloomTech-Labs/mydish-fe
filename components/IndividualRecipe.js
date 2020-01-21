@@ -102,6 +102,10 @@ function IndividualRecipe(props) {
         dispatch(stopEditMode());
     };
 
+    const cancelButtonEditedRecipe = () => {
+        dispatch(stopEditMode());
+    };
+
     if (!recipe.title || isLoading) {
         return (
             <View
@@ -205,6 +209,7 @@ function IndividualRecipe(props) {
                                         />
                                     </TouchableOpacity>
                                     <TouchableOpacity
+                                        onPress={cancelButtonEditedRecipe}
                                         style={styles.deleteButton}
                                     >
                                         <Octicons
