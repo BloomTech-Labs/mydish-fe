@@ -10,7 +10,7 @@ const initState = {
     },
     isLoading: false,
     error: null,
-    editing: false,
+    editMode: false,
 };
 
 describe("FETCH actions", () => {
@@ -23,6 +23,7 @@ describe("FETCH actions", () => {
             ...initState,
             error: null,
             isLoading: true,
+            editMode: false,
         };
 
         const returnState = singleRecipeReducer(initialState, {
@@ -160,10 +161,13 @@ test("RESET_RECIPE", () => {
             steps: [],
             title: null,
             total_saves: null,
+            editable: false,
         },
         isLoading: false,
+        isSubmitting: false,
+        editMode: false,
         error: null,
-        editing: false,
+        currentActive: { type: null, field: null, index: null, close: null },
     };
 
     const returnState = singleRecipeReducer(initState, {
@@ -173,8 +177,8 @@ test("RESET_RECIPE", () => {
     expect(returnState).toEqual(expectedState);
 });
 
-test("START_EDIT", () => {
-    const expecetedState = { ...initState, editing: true };
+test("START_EDIT_MODE", () => {
+    const expecetedState = { ...initState, editMode: true };
 
     const returnState = singleRecipeReducer(initState, {
         type: types.START_EDIT,
@@ -183,9 +187,9 @@ test("START_EDIT", () => {
     expect(returnState).toEqual(expecetedState);
 });
 
-test("STOP_EDIT", () => {
-    const initialState = { ...initState, editing: true };
-    const expectedState = initState;
+test("STOP_EDIT_MODE", () => {
+    const initialState = { ...initState, editMode: true };
+    const expectedState = { ...initialState, editMode: false };
 
     const returnState = singleRecipeReducer(initialState, {
         type: types.STOP_EDIT,

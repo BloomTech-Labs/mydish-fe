@@ -5,7 +5,6 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
 import {
-    startEdit,
     editNotes,
     stopEdit,
     setCurrentActive,
@@ -16,58 +15,37 @@ import {
 export default function IndividualRecipeNotes() {
     const dispatch = useDispatch();
 
-    const mainEditing = useSelector(state => state.singleRecipe.editing);
     const notes = useSelector(state => state.singleRecipe.recipe.notes);
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
     );
 
     const [editing, setEditing] = useState(false);
-
     const swipeableEl = useRef(null);
 
-    const close = () => swipeableEl.current.close();
+    const closeSwipe = () => swipeableEl.current.close();
+    const closeEdit = () => setEditing(false)
 
-    useEffect(() => {
-        // If our mainEditing variable is false,
-        // setEditing to false as well.
-        // This makes sure that this individual component doesn't also
-        //     enter edit mode if we start editing a different swipeale
-        if (!mainEditing) {
-            setEditing(false);
-            dispatch(resetCurrentActive());
-        }
-    }, [mainEditing]);
-
+    const makeActive = (type, close) => {
+        dispatch(setCurrentActive({ type, field: "notes", index: 1, close }));
+    };
+    
+    const checkActive = () =>
+    currentActive.field && currentActive.field !== "notes";
+    
     const editHandler = () => {
         setEditing(true);
-        dispatch(startEdit());
-        close();
-    };
-
-    const checkActive = () => {
-        if (currentActive.field && currentActive.field !== "notes") return;
-        else {
-            return false;
-        }
-    };
-
-    const makeActive = () => {
-        dispatch(setCurrentActive({ field: "notes", index: 1, close }));
+        closeSwipe();
+        makeActive("edit", closeEdit)
     };
 
     const handleWillOpen = () => {
-        if (checkActive() !== false) {
-            currentActive.close();
-        }
-        dispatch(stopEdit());
+        if (checkActive()) currentActive.close();
+        // dispatch(stopEdit());
     };
 
-    const handleClose = () => {
-        if (checkActive() === false) {
-            dispatch(resetCurrentActive());
-        }
-    };
+    const checkIfCurrentActiveIsAdd = () =>
+        currentActive && currentActive.type === "add";
 
     return (
         <>
@@ -75,7 +53,7 @@ export default function IndividualRecipeNotes() {
                 <Text style={styles.notes}>NOTES</Text>
             </View>
 
-            {editing && mainEditing ? (
+            {editing ? (
                 <View style={styles.stepTextView}>
                     <TextInput
                         value={notes}
@@ -84,6 +62,10 @@ export default function IndividualRecipeNotes() {
                         returnKeyType="done"
                         autoFocus={true}
                         enablesReturnKeyAutomatically={true}
+                        onSubmitEditing={() => {
+                            setEditing(false);
+                            dispatch(resetCurrentActive());
+                        }}
                     />
                 </View>
             ) : (
@@ -91,8 +73,8 @@ export default function IndividualRecipeNotes() {
                     <Swipeable
                         ref={swipeableEl}
                         onSwipeableWillOpen={handleWillOpen}
-                        onSwipeableOpen={makeActive}
-                        onSwipeableClose={handleClose}
+                        onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
+                        friction={checkIfCurrentActiveIsAdd() ? 10 : 1}
                         renderRightActions={() => (
                             <View style={styles.buttonContainer}>
                                 <TouchableOpacity
