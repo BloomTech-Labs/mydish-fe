@@ -305,7 +305,6 @@ describe("stopEdit action creator", () => {
         });
 
         // Expected objects that will be dispatched
-        const expectedDispatchStopEdit = { type: actions.STOP_EDIT };
         const expectedDispatchStartUpdate = {
             type: actions.START_UPDATE_RECIPE,
         };
@@ -316,8 +315,7 @@ describe("stopEdit action creator", () => {
         };
         await actions.stopEdit()(dispatch, getState);
 
-        expect(dispatch).toHaveBeenCalledTimes(3);
-        expect(dispatch).toHaveBeenCalledWith(expectedDispatchStopEdit);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenCalledWith(expectedDispatchStartUpdate);
         expect(dispatch).toHaveBeenCalledWith(expectedDispatchUpdateFailure);
     });
@@ -338,7 +336,6 @@ describe("stopEdit action creator", () => {
         });
 
         // Expected objects that will be dispatched
-        const expectedDispatchStopEdit = { type: actions.STOP_EDIT };
         const expectedDispatchStartUpdate = {
             type: actions.START_UPDATE_RECIPE,
         };
@@ -348,13 +345,12 @@ describe("stopEdit action creator", () => {
         };
         await actions.stopEdit()(dispatch, getState);
 
-        expect(dispatch).toHaveBeenCalledTimes(3);
-        expect(dispatch).toHaveBeenCalledWith(expectedDispatchStopEdit);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenCalledWith(expectedDispatchStartUpdate);
         expect(dispatch).toHaveBeenCalledWith(expectedDispatchUpdateFailure);
     });
     test.skip("does not call the put method multiple times", () => {
-        expect.assertions(4)
+        expect.assertions(4);
         const dispatch = jest.fn();
         const getState = jest.fn(() => ({ singleRecipe: { recipe: null } }));
         axiosWithAuth.mockImplementation(() => {
@@ -376,7 +372,7 @@ describe("stopEdit action creator", () => {
 
         // The goal:
         // The first actions.stopEdit() call should dispatch all three objects.
-        // The second and third calls should dispatch STOP_EDIT, but should not 
+        // The second and third calls should dispatch STOP_EDIT, but should not
         //     dispatch the other actions because the first action is still working.
         // The issue:
         // We need to wait until the first function finishes before running our assertions,
@@ -385,8 +381,8 @@ describe("stopEdit action creator", () => {
             actions.stopEdit()(dispatch, getState),
             actions.stopEdit()(dispatch, getState),
             actions.stopEdit()(dispatch, getState),
-        ]).then((res) => {
-            console.log(res)
+        ]).then(res => {
+            console.log(res);
             expect(dispatch).toHaveBeenCalledTimes(1);
             expect(dispatch).toHaveBeenCalledWith(expectedDispatchStopEdit);
             expect(dispatch).toHaveBeenCalledWith(expectedDispatchStartUpdate);
