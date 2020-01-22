@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
     ScrollView,
-    FlatList,
     Image,
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
     SafeAreaView,
     AsyncStorage,
-    ActivityIndicator
+    ActivityIndicator,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -32,7 +31,6 @@ import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipe
 import AddInstruction from "./AddRecipeFields/AddInstruction";
 import IndividualRecipeNotes from "./EditRecipeComponents/IndividualRecipeNotes";
 import AddNote from "./AddRecipeFields/AddNote";
-import Version from "./Version";
 import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngredient";
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
@@ -41,61 +39,36 @@ import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 function IndividualRecipe(props) {
     const [color, setColor] = useState({ active: "Ingredients" });
     const id = props.navigation.getParam("recipeID", "params not passed");
-    const [forks, setForks] = useState([]);
     const dispatch = useDispatch();
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const [userId, setUserId] = useState(null);
 
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
 
-    const loadRecipe = useCallback(async () => {
-        setIsLoading(true)
+    const loadRecipe = async () => {
+        setIsLoading(true);
         try {
-            await dispatch(fetchRecipe(id))
-
+            await dispatch(fetchRecipe(id));
         } catch (error) {
-            throw new Error("This is an error")
+            throw new Error("This is an error");
         }
-        console.log(isLoading)
-        setIsLoading(false)
-        console.log(isLoading)
-    }, [setIsLoading])
+        setIsLoading(false);
+    };
+
+    console.log(id);
 
     useEffect(() => {
-        loadRecipe()
-        getForks();
+        loadRecipe();
         fetchUserId();
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
-    }, [])
-
-    // useEffect(() => {
-    //     dispatch(fetchRecipe(id));
-    //     getForks();
-    //     fetchUserId();
-    //     //below is a cleanup that resets the initState of singleRecipe to null values,
-    //     //which is important for a smooth user experience
-    //     return () => dispatch(resetRecipe());
-    // }, []);
+    }, [id]);
 
     async function fetchUserId() {
         try {
             const fetchId = await AsyncStorage.getItem("userID");
             setUserId(Number(fetchId));
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    async function getForks() {
-        try {
-            const res = await axios.get(
-                `https://recipeshare-development.herokuapp.com/recipes/all`,
-            );
-            const allRecipes = res.data;
-            const children = allRecipes.filter(rec => rec.ancestor === id);
-            setForks(children);
         } catch (err) {
             console.log(err);
         }
@@ -118,7 +91,7 @@ function IndividualRecipe(props) {
             <View style={styles.centered}>
                 <ActivityIndicator size="large" color="#00ff00" />
             </View>
-        )
+        );
     }
 
     const editableRecipeDisplay = () => {
@@ -219,23 +192,11 @@ function IndividualRecipe(props) {
                                                     notes={recipe.notes}
                                                 />
                                             ) : (
-                                                    <AddNote />
-                                                )}
+                                                <AddNote />
+                                            )}
                                         </>
                                     )}
                                 </View>
-
-                                <FlatList
-                                    horizontal={true}
-                                    data={forks}
-                                    renderItem={({ item }) => (
-                                        <Version
-                                            recipe={item}
-                                            navigation={props.navigation}
-                                        />
-                                    )}
-                                    keyExtractor={item => String(item.id)}
-                                />
                             </View>
                         </ScrollView>
                     </TouchableWithoutFeedback>
@@ -322,18 +283,6 @@ function IndividualRecipe(props) {
                                 </>
                             )}
                         </View>
-
-                        <FlatList
-                            horizontal={true}
-                            data={forks}
-                            renderItem={({ item }) => (
-                                <Version
-                                    recipe={item}
-                                    navigation={props.navigation}
-                                />
-                            )}
-                            keyExtractor={item => String(item.id)}
-                        />
                     </View>
                 </ScrollView>
             </SafeAreaView>
