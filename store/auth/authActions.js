@@ -10,10 +10,10 @@ export const loginUser = userInfo => async dispatch => {
 
     try {
         const axiosCustom = await axiosWithAuth();
-        const res = await axiosCustom.post("cooks/login", userInfo);
+        const res = await axiosCustom.post("users/login", userInfo);
 
         await AsyncStorage.multiSet([
-            ["userToken", res.data.token],
+            ["userToken", res.data.token.token],
             ["userID", String(res.data.cook_id)],
         ]);
 
@@ -36,11 +36,12 @@ export const registerUser = userInfo => async dispatch => {
 
     try {
         const axiosCustom = await axiosWithAuth();
-        const res = await axiosCustom.post("cooks/register", userInfo);
+        const res = await axiosCustom.post("users/register", userInfo);
+        console.log("res", res.data)
 
         await AsyncStorage.multiSet([
-            ["userToken", res.data.token],
-            ["userID", String(res.data.cook_id)],
+            ["userToken", res.data.token.token],
+            ["userID", String(res.data.user.id)],
         ]);
         dispatch({ type: REGISTER_SUCCESS, payload: res.data });
 
@@ -57,3 +58,6 @@ export const registerUser = userInfo => async dispatch => {
 
 export const LOGOUT = "LOGOUT";
 export const logoutUser = () => ({type: LOGOUT});
+
+export const CLEAR_ERROR = "CLEAR_ERROR";
+export const clearError = () => ({type: CLEAR_ERROR})
