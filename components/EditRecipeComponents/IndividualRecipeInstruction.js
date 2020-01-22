@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "../../styles/individualRecipeStyles";
 
@@ -6,7 +6,6 @@ import { Swipeable } from "react-native-gesture-handler";
 import { useSelector, useDispatch } from "react-redux";
 import {
     editInstruct,
-    startEdit,
     stopEdit,
     setCurrentActive,
     resetCurrentActive,
@@ -14,54 +13,25 @@ import {
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const IndividualRecipeInstruction = ({ index }) => {
+const IndividualRecipeInstruction = ({ index, currentActive }) => {
     const dispatch = useDispatch();
-    const mainEditing = useSelector(state => state.singleRecipe.editing);
 
     // Two steps here to grab our specific instruction.
     // This just makes sure that, if there's only an empty array,
     // `instruction` is still an object, so the page will load.
     const steps = useSelector(state => state.singleRecipe.recipe.steps);
     const instruction = steps && steps[index] ? steps[index] : {};
-    const currentActive = useSelector(
-        state => state.singleRecipe.currentActive,
-    );
 
     const [editing, setEditing] = useState(false);
-
     const swipeableEl = useRef(null);
 
-    const close = () => swipeableEl.current.close();
+    const closeSwipe = () => swipeableEl.current.close();
+    const closeEdit = () => setEditing(false);
 
-    useEffect(() => {
-        // If our mainEditing variable is false,
-        // setEditing to false as well.
-        // This makes sure that this individual component doesn't also
-        //     enter edit mode if we start editing a different swipeale
-        if (!mainEditing) {
-            setEditing(false);
-            dispatch(resetCurrentActive());
-        }
-    }, [mainEditing]);
-
-    const editHandler = () => {
-        setEditing(true);
-        dispatch(startEdit());
-        close();
-    };
-
-    const checkActive = () => {
-        if (currentActive.field && currentActive.field !== "instruction")
-            return;
-        if (currentActive.field && currentActive.index !== index) return;
-        else {
-            return false;
-        }
-    };
-
-    const makeActive = () => {
+    const makeActive = (type, close) => {
         dispatch(
             setCurrentActive({
+                type,
                 field: "instruction",
                 index,
                 close,
@@ -69,26 +39,31 @@ const IndividualRecipeInstruction = ({ index }) => {
         );
     };
 
-    const handleWillOpen = () => {
-        if (checkActive() !== false) {
-            currentActive.close();
-        }
-        dispatch(stopEdit());
+    const checkActive = () =>
+        (currentActive.field && currentActive.field !== "instruction") ||
+        (currentActive.field && currentActive.index !== index);
+
+    const editHandler = () => {
+        setEditing(true);
+        closeSwipe();
+        makeActive("edit", closeEdit);
     };
 
-    const handleClose = () => {
-        if (checkActive() === false) {
-            dispatch(resetCurrentActive());
-        }
+    const handleWillOpen = () => {
+        if (checkActive()) currentActive.close();
+        // dispatch(stopEdit());
     };
+
+    const checkIfCurrentActiveIsAdd = () =>
+        currentActive && currentActive.type === "add";
 
     return (
         <View style={styles.swipeableContainer}>
             <Swipeable
                 ref={swipeableEl}
                 onSwipeableWillOpen={handleWillOpen}
-                onSwipeableOpen={makeActive}
-                onSwipeableClose={handleClose}
+                onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
+                friction={checkIfCurrentActiveIsAdd() ? 10 : 1}
                 renderRightActions={() => (
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
@@ -117,7 +92,7 @@ const IndividualRecipeInstruction = ({ index }) => {
                     </View>
                 )}
             >
-                {editing && mainEditing ? (
+                {editing ? (
                     <View style={styles.stepTextView}>
                         <View>
                             <Text style={{ marginBottom: -7 }}>
@@ -139,6 +114,10 @@ const IndividualRecipeInstruction = ({ index }) => {
                             returnKeyType="done"
                             autoFocus={true}
                             enablesReturnKeyAutomatically={true}
+                            onSubmitEditing={() => {
+                                setEditing(false);
+                                dispatch(resetCurrentActive());
+                            }}
                         />
                     </View>
                 ) : (

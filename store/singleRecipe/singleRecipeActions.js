@@ -1,14 +1,11 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
 
-export const STOP_EDIT = "STOP_EDIT";
 export const START_UPDATE_RECIPE = "START_UPDATE_RECIPE";
 export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
 export const UPDATE_RECIPE_FAILURE = "UPDATE_RECIPE_FAILURE";
 
 let calling = false;
 export const stopEdit = () => async (dispatch, getState) => {
-    dispatch({ type: STOP_EDIT }); // Stop editing our recipe
-
     // We call this stopEdit() function a few times in our components to make sure we stop editing.
     // The "calling" variable makes sure that, if we're allready in this axios call, we won't
     // call the database multiple times until we're done with our current call '' '
@@ -43,8 +40,37 @@ export const stopEdit = () => async (dispatch, getState) => {
     }
 };
 
-export const START_EDIT = "START_EDIT";
-export const startEdit = () => ({ type: START_EDIT });
+export const START_SUBMIT_EDITED_RECIPE = "START_SUBMIT_EDITED_RECIPE";
+export const SUBMIT_EDITED_RECIPE_SUCCESS = "SUBMIT_EDITED_RECIPE_SUCCESS";
+export const SUBMIT_EDITED_RECIPE_FAILURE = "SUBMIT_EDITED_RECIPE_FAILURE";
+export const submitEditedRecipe = author_comment => async (
+    dispatch,
+    getState,
+) => {
+    dispatch({ type: START_SUBMIT_EDITED_RECIPE });
+
+    const { recipe } = getState().singleRecipe;
+    const newRecipe = { ...recipe, author_comment };
+
+    console.log(newRecipe);
+
+    try {
+        const axiosCustom = await axiosWithAuth();
+
+        const res = await axiosCustom.put("recipes", newRecipe);
+
+        dispatch({ type: SUBMIT_EDITED_RECIPE_SUCCESS, payload: res.data });
+    } catch (err) {
+        dispatch({ type: SUBMIT_EDITED_RECIPE_FAILURE, payload: err });
+        console.log("error: ", err);
+    }
+};
+
+export const START_EDIT_MODE = "START_EDIT_MODE";
+export const startEditMode = () => ({ type: START_EDIT_MODE });
+
+export const STOP_EDIT_MODE = "STOP_EDIT_MODE";
+export const stopEditMode = () => ({ type: STOP_EDIT_MODE });
 
 export const START_FETCH_RECIPE = "START_FETCH_RECIPE";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
@@ -73,14 +99,14 @@ export const deleteIngredient = ing_index => dispatch => {
 };
 
 export const deleteNote = () => dispatch => {
-    dispatch({ type: DELETE_NOTE});
+    dispatch({ type: DELETE_NOTE });
     dispatch(stopEdit());
 };
 
 export const deleteInstruction = ins_index => dispatch => {
     dispatch({ type: DELETE_INSTRUCT, payload: ins_index });
     dispatch(stopEdit());
-}
+};
 
 // export const deleteRecipe = recipe => dispatch => {
 //     dispatch({ type: DELETE_RECIPE, payload: recipe});
@@ -142,49 +168,49 @@ export const resetCurrentActive = () => dispatch => {
 //     that's when we stop editing the recipe and call the database '' '
 export const EDIT_TITLE = "EDIT_TITLE";
 export const editTitle = value => dispatch => {
-    if (value.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_TITLE,
-            payload: value,
-        });
-    }
+    // if (value.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_TITLE,
+        payload: value,
+    });
+    // }
 };
 
 export const EDIT_INGRED = "EDIT_INGRED";
 export const editIngred = (index, value) => dispatch => {
-    if (value.name.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_INGRED,
-            payload: value,
-            index,
-        });
-    }
+    // if (value.name.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_INGRED,
+        payload: value,
+        index,
+    });
+    // }
 };
 
 export const EDIT_INSTRUCT = "EDIT_INSTRUCT";
 export const editInstruct = (index, value) => dispatch => {
-    if (value.body.charCodeAt(value.body.length - 1) === 10)
-        dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_INSTRUCT,
-            payload: value,
-            index,
-        });
-    }
+    // if (value.body.charCodeAt(value.body.length - 1) === 10)
+    //     dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_INSTRUCT,
+        payload: value,
+        index,
+    });
+    // }
 };
 
 export const EDIT_NOTES = "EDIT_NOTES";
 export const editNotes = notes => dispatch => {
-    if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit());
-    else {
-        dispatch({
-            type: EDIT_NOTES,
-            notes: notes,
-        });
-    }
+    // if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit());
+    // else {
+    dispatch({
+        type: EDIT_NOTES,
+        notes: notes,
+    });
+    // }
 };
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
@@ -193,7 +219,7 @@ export const addIngredient = ingredient => dispatch => {
         type: ADD_INGREDIENT,
         payload: ingredient,
     });
-    dispatch(stopEdit());
+    // dispatch(stopEdit());
 };
 
 export const ADD_INSTRUCTION = "ADD_INSTRUCTION";
@@ -202,13 +228,13 @@ export const addInstruction = instruction => dispatch => {
         type: ADD_INSTRUCTION,
         payload: instruction,
     });
-    dispatch(stopEdit());
+    // dispatch(stopEdit());
 };
 
 export const ADD_NOTE = "ADD_NOTE";
 export const addNote = note => dispatch => {
     dispatch({
         type: ADD_NOTE,
-        payload: note
-    })
-}
+        payload: note,
+    });
+};

@@ -8,14 +8,22 @@ import {
     KeyboardAvoidingView,
     SafeAreaView,
     AsyncStorage,
+    TouchableOpacity,
+    ActivityIndicator,
+    Modal,
+    ImageBackground,
+    Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
     fetchRecipe,
     resetRecipe,
     stopEdit,
+    resetCurrentActive,
+    stopEditMode,
+    startEditMode,
+    submitEditedRecipe,
 } from "../store/singleRecipe/singleRecipeActions";
-import axios from "axios";
 import styles from "../styles/individualRecipeStyles.js";
 
 import clock from "../assets/timer.png";
@@ -34,21 +42,40 @@ import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngr
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
+import { FontAwesome } from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
+import RecipeShareLogo from "./RecipeShareLogo";
+import CommitModal from "./EditRecipeComponents/Modal";
+import { TextInput } from "react-native-gesture-handler";
 
 function IndividualRecipe(props) {
-    const [color, setColor] = useState({ active: "Ingredients" });
-    const id = props.navigation.getParam("recipeID", "params not passed");
     const dispatch = useDispatch();
-    const recipe = useSelector(state => state.singleRecipe.recipe);
+    const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
+    const [modal, setModal] = useState({ save: false, cancel: false });
+    const recipe = useSelector(state => state.singleRecipe.recipe);
+    const isLoading = useSelector(state => state.singleRecipe.isLoading);
+    const editMode = useSelector(state => state.singleRecipe.editMode);
+    const currentActive = useSelector(
+        state => state.singleRecipe.currentActive,
+    );
+    const id = props.navigation.getParam("recipeID", "params not passed");
+
+    const loadRecipe = async () => {
+        try {
+            await dispatch(fetchRecipe(id));
+        } catch (error) {
+            throw new Error("This is an error");
+        }
+    };
 
     useEffect(() => {
-        dispatch(fetchRecipe(id));
+        loadRecipe();
         fetchUserId();
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
-    }, []);
+    }, [id]);
 
     async function fetchUserId() {
         try {
@@ -62,12 +89,66 @@ function IndividualRecipe(props) {
     const tabsDisplay = cat => {
         const newActive = cat;
         setColor({ active: newActive });
+        if (currentActive && currentActive.field === "title") {
+            currentActive.close();
+        }
+        dispatch(resetCurrentActive());
     };
 
-    if (!recipe) {
+    const stopEditPress = () => {
+        if (currentActive.type === "edit") {
+            currentActive.close();
+        }
+        // dispatch(stopEdit());
+    };
+
+    const startEditModeButton = () => {
+        if (!recipe.innovator || userId !== recipe.innovator)
+            return dispatch(stopEditMode());
+        dispatch(startEditMode());
+    };
+
+    const saveButtonEditedRecipe = author_comment => {
+        dispatch(submitEditedRecipe(author_comment));
+        dispatch(stopEditMode());
+    };
+
+    const cancelButtonEditedRecipe = () => {
+        //TO DO - an alert or modal before dispatching stopEditMode
+        Alert.alert(
+            "Exit Edit Mode",
+            "Are you sure you want to exit without saving your changes?",
+            [
+                {
+                    text: "Cancel",
+
+                    style: "cancel",
+                },
+                { text: "OK", onPress: () => dispatch(stopEditMode()) },
+            ],
+            { cancelable: false },
+        );
+    };
+
+    if (!recipe.title || isLoading) {
         return (
-            <View>
-                <Text>Loading...</Text>
+            <View
+                style={{
+                    flex: 1,
+                    flexDirection: "column",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                }}
+            >
+                <RecipeShareLogo />
+                <ActivityIndicator size="large" color="#444444" />
+            </View>
+        );
+    }
+    if (isLoading) {
+        return (
+            <View style={styles.centered}>
+                <ActivityIndicator size="large" color="#00ff00" />
             </View>
         );
     }
@@ -76,21 +157,52 @@ function IndividualRecipe(props) {
         return (
             <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
                 <SafeAreaView>
-                    <TouchableWithoutFeedback
-                        onPress={() => dispatch(stopEdit())}
-                    >
+                    <TouchableWithoutFeedback onPress={stopEditPress}>
                         <ScrollView>
                             <View style={styles.recipeContainer}>
-                                <Image
+                                <CommitModal
+                                    modal={modal}
+                                    setModal={setModal}
+                                    saveButtonEditedRecipe={
+                                        saveButtonEditedRecipe
+                                    }
+                                />
+                                <ImageBackground
                                     source={
                                         recipe.img
                                             ? { uri: recipe.img }
                                             : placeholder
                                     }
                                     style={styles.image}
-                                />
+                                >
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            setModal({
+                                                save: true,
+                                                cancel: false,
+                                            });
+                                        }}
+                                        style={styles.editButton}
+                                    >
+                                        <FontAwesome
+                                            name="check"
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={cancelButtonEditedRecipe}
+                                        style={styles.deleteButton}
+                                    >
+                                        <Octicons
+                                            name="x"
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </TouchableOpacity>
+                                </ImageBackground>
                                 <View style={styles.titleWrapper}>
-                                    <Title />
+                                    <Title currentActive={currentActive} />
                                 </View>
                                 <View style={styles.innovatorTime}>
                                     <View style={styles.innovatorContainer}>
@@ -145,11 +257,16 @@ function IndividualRecipe(props) {
                                                         <IndividualRecipeIngredient
                                                             key={i}
                                                             index={i}
+                                                            currentActive={
+                                                                currentActive
+                                                            }
                                                         />
                                                     ),
                                                 )}
 
-                                            <AddIngredient />
+                                            <AddIngredient
+                                                currentActive={currentActive}
+                                            />
                                         </>
                                     )}
 
@@ -160,17 +277,26 @@ function IndividualRecipe(props) {
                                                     <IndividualRecipeInstruction
                                                         key={step.ordinal}
                                                         index={i}
+                                                        currentActive={
+                                                            currentActive
+                                                        }
                                                     />
                                                 ))}
 
-                                            <AddInstruction />
+                                            <AddInstruction
+                                                currentActive={currentActive}
+                                            />
 
                                             {recipe.notes ? (
                                                 <IndividualRecipeNotes
                                                     notes={recipe.notes}
                                                 />
                                             ) : (
-                                                <AddNote />
+                                                <AddNote
+                                                    currentActive={
+                                                        currentActive
+                                                    }
+                                                />
                                             )}
                                         </>
                                     )}
@@ -188,12 +314,25 @@ function IndividualRecipe(props) {
             <SafeAreaView>
                 <ScrollView>
                     <View style={styles.recipeContainer}>
-                        <Image
+                        <ImageBackground
                             source={
                                 recipe.img ? { uri: recipe.img } : placeholder
                             }
                             style={styles.image}
-                        />
+                        >
+                            {recipe.innovator && userId === recipe.innovator && (
+                                <TouchableOpacity
+                                    onPress={startEditModeButton}
+                                    style={styles.editButton}
+                                >
+                                    <FontAwesome
+                                        name="pencil-square-o"
+                                        size={20}
+                                        color="white"
+                                    />
+                                </TouchableOpacity>
+                            )}
+                        </ImageBackground>
                         <View style={styles.titleWrapper}>
                             <DisplayTitle />
                         </View>
@@ -267,9 +406,7 @@ function IndividualRecipe(props) {
         );
     };
 
-    return recipe.innovator && userId === recipe.innovator
-        ? editableRecipeDisplay()
-        : nonEditableRecipeDisplay();
+    return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay();
 }
 
 export default IndividualRecipe;

@@ -14,8 +14,9 @@ const Ingredient = ({
     removeIng,
     index,
     setRecipe,
-    setAdding,
+    stopAdding,
     parent,
+    closeEdit,
 }) => {
     const nameInput = useRef(null);
     const quantityInput = useRef(null);
@@ -84,13 +85,9 @@ const Ingredient = ({
         }
     };
 
-    const onClosePicker = () => {
-        dispatch(stopEdit());
-    };
-
     const cancelAdd = () => {
         setHighlighted({ name: false, quantity: false, unit: false });
-        setAdding(false);
+        stopAdding();
     };
 
     const submitAdd = () => {
@@ -104,14 +101,15 @@ const Ingredient = ({
             setHighlighted(lengthObj);
             console.log("HIGHLIGHT TEST:", highlighted);
         } else {
-            setAdding(false);
+            stopAdding();
             dispatch(addIngredient(ingredient));
         }
     };
 
     const submitToStopEdit = () => {
         if (parent === "IndividualRecipeIngredient") {
-            dispatch(stopEdit());
+            // dispatch(stopEdit());
+            closeEdit();
         }
     };
 
@@ -167,7 +165,7 @@ const Ingredient = ({
                 />
 
                 <Picker
-                    onClose={onClosePicker}
+                    onClose={submitToStopEdit}
                     handleChange={handleChange}
                     unit={ingredient.unit}
                     highlighted={highlighted}

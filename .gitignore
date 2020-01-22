@@ -12,6 +12,7 @@ web-report/
 auth.js
 .env
 .vscode
+coverage/
 
 # macOS
 .DS_Store

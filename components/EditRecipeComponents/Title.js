@@ -5,77 +5,48 @@ import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../../styles/individualRecipeStyles";
 import { useSelector, useDispatch } from "react-redux";
 import {
-    startEdit,
     stopEdit,
     editTitle,
     setCurrentActive,
     resetCurrentActive,
 } from "../../store/singleRecipe/singleRecipeActions";
 
-const Title = props => {
+const Title = ({ currentActive }) => {
     const dispatch = useDispatch();
-
-    // mainEditing determines whether we're able to edit anything, period.
-    // If we're editing one component and we click away, we're clicking away in our parent component.
-    // The parent component updates the store to say "Yo, stop editing",
-    //     and then this component knows to stop editing.
-    const mainEditing = useSelector(state => state.singleRecipe.editing);
     const recipeTitle = useSelector(state => state.singleRecipe.recipe.title);
-    const currentActive = useSelector(
-        state => state.singleRecipe.currentActive,
-    );
     const [editing, setEditing] = useState(false);
     const swipeableEl = useRef(null);
 
-    const close = () => swipeableEl.current.close();
+    const closeSwipe = () => swipeableEl.current.close();
+    const closeEdit = () => setEditing(false);
 
-    useEffect(() => {
-        // If our mainEditing variable is false,
-        // setEditing to false as well.
-        // This makes sure that this individual component doesn't also
-        //     enter edit mode if we start editing a different swipeale
-        if (!mainEditing) {
-            setEditing(false);
-            dispatch(resetCurrentActive());
-        }
-    }, [mainEditing]);
+    const makeActive = (type, close) => {
+        dispatch(setCurrentActive({ type, field: "title", index: 1, close }));
+    };
+
+    const checkActive = () =>
+        currentActive.field && currentActive.field !== "title";
 
     const editHandler = () => {
         setEditing(true);
-        dispatch(startEdit());
-        close();
-    };
-
-    const checkActive = () => {
-        if (currentActive.field && currentActive.field !== "title") return;
-        else {
-            return false;
-        }
-    };
-
-    const makeActive = () => {
-        dispatch(setCurrentActive({ field: "title", index: 1, close }));
+        closeSwipe();
+        makeActive("edit", closeEdit);
     };
 
     const handleWillOpen = () => {
-        if (checkActive() !== false) {
-            currentActive.close();
-        }
-        dispatch(stopEdit());
+        if (checkActive()) currentActive.close();
+        // dispatch(stopEdit());
     };
 
-    const handleClose = () => {
-        if (checkActive() === false) {
-            dispatch(resetCurrentActive());
-        }
-    };
+    const checkIfCurrentActiveIsAdd = () =>
+        currentActive && currentActive.type === "add";
 
     return (
         <Swipeable
             ref={swipeableEl}
             onSwipeableWillOpen={handleWillOpen}
-            onSwipeableOpen={makeActive}
-            onSwipeableClose={handleClose}
+            onSwipeableOpen={() => makeActive("swipe", closeSwipe)}
+            friction={checkIfCurrentActiveIsAdd() ? 10 : 1}
             close={editing && true}
             renderRightActions={() => (
                 <View style={styles.buttonContainer}>
@@ -90,11 +61,10 @@ const Title = props => {
             )}
         >
             {/*TextInput */}
-            {/* removed && mainEditing */}
             {editing ? (
                 <View style={styles.titleContainer}>
                     <TextInput
-                        value={recipeTitle ? recipeTitle : props.title}
+                        value={recipeTitle && recipeTitle}
                         onChangeText={title => {
                             dispatch(editTitle(title));
                         }}
@@ -103,12 +73,16 @@ const Title = props => {
                         returnKeyType="done"
                         autoFocus={true}
                         enablesReturnKeyAutomatically={true}
+                        onSubmitEditing={() => {
+                            setEditing(false);
+                            dispatch(resetCurrentActive());
+                        }}
                     />
                 </View>
             ) : (
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>
-                        {recipeTitle ? recipeTitle : props.title}
+                        {recipeTitle && recipeTitle}
                     </Text>
                     <MaterialCommunityIcons
                         name="drag-vertical"
