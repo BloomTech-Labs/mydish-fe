@@ -361,7 +361,6 @@ describe("stopEdit action creator", () => {
                     }),
             };
         });
-        const expectedDispatchStopEdit = { type: actions.STOP_EDIT };
         const expectedDispatchStartUpdate = {
             type: actions.START_UPDATE_RECIPE,
         };
@@ -384,7 +383,6 @@ describe("stopEdit action creator", () => {
         ]).then(res => {
             console.log(res);
             expect(dispatch).toHaveBeenCalledTimes(1);
-            expect(dispatch).toHaveBeenCalledWith(expectedDispatchStopEdit);
             expect(dispatch).toHaveBeenCalledWith(expectedDispatchStartUpdate);
             expect(dispatch).toHaveBeenCalledWith(
                 expectedDispatchUpdateSuccess,
