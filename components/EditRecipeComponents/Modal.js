@@ -1,16 +1,20 @@
-import React from "react"
-import { View, Modal, KeyboardAvoidingView, Text, TextInput, TouchableHighlight, TouchableOpacity } from "react-native"
+import React from "react";
+import {
+    View,
+    Modal,
+    KeyboardAvoidingView,
+    Text,
+    TextInput,
+    TouchableHighlight,
+    TouchableOpacity,
+    Button,
+} from "react-native";
 
 const CommitModal = props => {
-    const { modal, setModal, saveButtonEditedRecipe
-    } = props
+    const { modal, setModal, saveButtonEditedRecipe } = props;
     return (
         <View style={{ flexDirection: "row", padding: 10 }}>
-            <Modal
-                visible={modal.save}
-                animationType="fade"
-                transparent
-            >
+            <Modal visible={modal.save} animationType="fade" transparent>
                 <TouchableHighlight
                     onPress={() =>
                         setModal({
@@ -23,71 +27,72 @@ const CommitModal = props => {
                         style={{
                             height: "100%",
                             width: "100%",
-                            backgroundColor:
-                                "rgba(122, 122, 122, 0.7)",
+                            backgroundColor: "rgba(50, 50, 50, 0.4)",
                             alignItems: "center",
                             justifyContent: "center",
-
                         }}
-
-
                     >
-                        <KeyboardAvoidingView
-                            behavior={"position"}
-                        >
+                        <KeyboardAvoidingView behavior={"position"}>
                             <View
                                 style={{
-                                    marginHorizontal: 20,
-                                    marginTop: 300,
                                     backgroundColor:
-                                        "white",
-                                    borderRadius: 6,
-                                    padding: 15
+                                        "rgba(300, 300, 300, 0.95)",
+                                    borderRadius: 10,
+                                    padding: 15,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    marginHorizontal: 20,
                                 }}
                             >
-                                <Text>
-                                    Please leave a brief
-                                    comment describing your
+                                <Text
+                                    style={{
+                                        fontSize: 16,
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    Please leave a brief comment describing your
                                     recipe changes.
-                        </Text>
+                                </Text>
                                 <TextInput
                                     style={{
-                                        marginVertical: 10,
+                                        marginBottom: 10,
+                                        marginTop: 20,
                                         minHeight: 40,
-                                        width: 350,
+                                        width: "90%",
                                         borderRadius: 4,
                                         borderWidth: 1,
-                                        borderColor:
-                                            "black",
+                                        borderColor: "black",
                                     }}
                                 />
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                                    <TouchableOpacity
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        justifyContent: "space-around",
+                                        width: "80%",
+                                    }}
+                                >
+                                    <Button
+                                        title="Cancel"
                                         onPress={() =>
                                             setModal({
                                                 save: false,
                                                 cancel: false,
                                             })
                                         }
-                                    >
-                                        <Text>Back</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        onPress={
-                                            saveButtonEditedRecipe
-                                        }
-                                    >
-                                        <Text>Submit</Text>
-                                    </TouchableOpacity>
+                                    />
+
+                                    <Button
+                                        title="OK"
+                                        onPress={saveButtonEditedRecipe}
+                                    />
                                 </View>
                             </View>
                         </KeyboardAvoidingView>
                     </View>
                 </TouchableHighlight>
             </Modal>
+        </View>
+    );
+};
 
-        </View >
-    )
-}
-
-export default CommitModal
+export default CommitModal;
