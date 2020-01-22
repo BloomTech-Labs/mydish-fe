@@ -55,8 +55,6 @@ function IndividualRecipe(props) {
         setIsLoading(false);
     };
 
-    console.log(id);
-
     useEffect(() => {
         loadRecipe();
         fetchUserId();
