@@ -54,10 +54,12 @@ const CommitModal = props => {
                                     recipe changes.
                                 </Text>
                                 <TextInput
+                                    multiline
                                     style={{
                                         marginBottom: 10,
                                         marginTop: 20,
                                         minHeight: 40,
+                                        maxWidth: "90%",
                                         width: "90%",
                                         borderRadius: 4,
                                         borderWidth: 1,
