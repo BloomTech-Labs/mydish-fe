@@ -12,7 +12,7 @@ import {
     ActivityIndicator,
     Modal,
     ImageBackground,
-    Alert
+    Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -45,7 +45,7 @@ import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 import { FontAwesome } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
-import CommitModal from "./EditRecipeComponents/Modal"
+import CommitModal from "./EditRecipeComponents/Modal";
 import { TextInput } from "react-native-gesture-handler";
 
 function IndividualRecipe(props) {
@@ -100,27 +100,26 @@ function IndividualRecipe(props) {
         dispatch(startEditMode());
     };
 
-    const saveButtonEditedRecipe = () => {
-        dispatch(submitEditedRecipe(id));
+    const saveButtonEditedRecipe = author_comment => {
+        dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
     };
 
     const cancelButtonEditedRecipe = () => {
         //TO DO - an alert or modal before dispatching stopEditMode
         Alert.alert(
-            'Exit Edit Mode',
-            'Are you sure you want to exit without saving your changes?',
+            "Exit Edit Mode",
+            "Are you sure you want to exit without saving your changes?",
             [
                 {
-                    text: 'Cancel',
+                    text: "Cancel",
 
-                    style: 'cancel',
+                    style: "cancel",
                 },
-                { text: 'OK', onPress: () => dispatch(stopEditMode()) },
+                { text: "OK", onPress: () => dispatch(stopEditMode()) },
             ],
             { cancelable: false },
         );
-
     };
 
     if (!recipe.title || isLoading) {
@@ -146,7 +145,13 @@ function IndividualRecipe(props) {
                     <TouchableWithoutFeedback onPress={stopEditPress}>
                         <ScrollView>
                             <View style={styles.recipeContainer}>
-                                <CommitModal modal={modal} setModal={setModal} saveButtonEditedRecipe={saveButtonEditedRecipe} />
+                                <CommitModal
+                                    modal={modal}
+                                    setModal={setModal}
+                                    saveButtonEditedRecipe={
+                                        saveButtonEditedRecipe
+                                    }
+                                />
                                 <ImageBackground
                                     source={
                                         recipe.img
@@ -180,7 +185,6 @@ function IndividualRecipe(props) {
                                             color="white"
                                         />
                                     </TouchableOpacity>
-
                                 </ImageBackground>
                                 <View style={styles.titleWrapper}>
                                     <Title currentActive={currentActive} />
@@ -273,12 +277,12 @@ function IndividualRecipe(props) {
                                                     notes={recipe.notes}
                                                 />
                                             ) : (
-                                                    <AddNote
-                                                        currentActive={
-                                                            currentActive
-                                                        }
-                                                    />
-                                                )}
+                                                <AddNote
+                                                    currentActive={
+                                                        currentActive
+                                                    }
+                                                />
+                                            )}
                                         </>
                                     )}
                                 </View>
@@ -295,7 +299,6 @@ function IndividualRecipe(props) {
             <SafeAreaView>
                 <ScrollView>
                     <View style={styles.recipeContainer}>
-
                         <ImageBackground
                             source={
                                 recipe.img ? { uri: recipe.img } : placeholder

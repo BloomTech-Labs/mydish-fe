@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     View,
     Modal,
@@ -6,12 +6,13 @@ import {
     Text,
     TextInput,
     TouchableHighlight,
-    TouchableOpacity,
     Button,
 } from "react-native";
 
 const CommitModal = props => {
     const { modal, setModal, saveButtonEditedRecipe } = props;
+    const [author_comment, setAuthor_comment] = useState("");
+
     return (
         <View style={{ flexDirection: "row", padding: 10 }}>
             <Modal visible={modal.save} animationType="fade" transparent>
@@ -55,6 +56,9 @@ const CommitModal = props => {
                                 </Text>
                                 <TextInput
                                     multiline
+                                    onChangeText={text =>
+                                        setAuthor_comment(text)
+                                    }
                                     style={{
                                         marginBottom: 10,
                                         marginTop: 20,
@@ -85,7 +89,11 @@ const CommitModal = props => {
 
                                     <Button
                                         title="OK"
-                                        onPress={saveButtonEditedRecipe}
+                                        onPress={() =>
+                                            saveButtonEditedRecipe(
+                                                author_comment,
+                                            )
+                                        }
                                     />
                                 </View>
                             </View>

@@ -43,26 +43,23 @@ export const stopEdit = () => async (dispatch, getState) => {
 export const START_SUBMIT_EDITED_RECIPE = "START_SUBMIT_EDITED_RECIPE";
 export const SUBMIT_EDITED_RECIPE_SUCCESS = "SUBMIT_EDITED_RECIPE_SUCCESS";
 export const SUBMIT_EDITED_RECIPE_FAILURE = "SUBMIT_EDITED_RECIPE_FAILURE";
-export const submitEditedRecipe = id => async (dispatch, getState) => {
+export const submitEditedRecipe = author_comment => async (
+    dispatch,
+    getState,
+) => {
     dispatch({ type: START_SUBMIT_EDITED_RECIPE });
 
     const { recipe } = getState().singleRecipe;
-    console.log("recipe: ", recipe);
-    console.log("id: ", id);
+    const newRecipe = { ...recipe, author_comment };
+
+    console.log(newRecipe);
 
     try {
         const axiosCustom = await axiosWithAuth();
-        const originalRecipe = await axiosCustom.get(`recipes/${id}`);
 
-        console.log("originalRecipe.data: ", originalRecipe.data);
+        const res = await axiosCustom.put("recipes", newRecipe);
 
-        if (recipe == originalRecipe.data) {
-            console.log("EQUAL");
-        } else {
-            const res = await axiosCustom.put("recipes", recipe);
-
-            dispatch({ type: SUBMIT_EDITED_RECIPE_SUCCESS, payload: res.data });
-        }
+        dispatch({ type: SUBMIT_EDITED_RECIPE_SUCCESS, payload: res.data });
     } catch (err) {
         dispatch({ type: SUBMIT_EDITED_RECIPE_FAILURE, payload: err });
         console.log("error: ", err);
