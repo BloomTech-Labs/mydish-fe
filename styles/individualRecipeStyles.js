@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         marginLeft: 14,
     },
-    icon: { width: 20, height: 20, marginRight: 5 },
+    icon: { width: 20, height: 20, marginRight: 5},
     editIcon: {
         marginRight: 20,
     },
@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: 150,
         height: "100%",
+        marginRight: 16,
     },
     input: {
         borderBottomColor: "black",
@@ -272,6 +273,7 @@ const styles = StyleSheet.create({
     swipeable: {
         flexDirection: "row",
     },
+    centered: { flex: 1, justifyContent: 'center', alignItems: 'center' }
 });
 
 module.exports = styles;

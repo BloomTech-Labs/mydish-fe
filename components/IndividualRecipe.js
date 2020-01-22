@@ -61,8 +61,16 @@ function IndividualRecipe(props) {
     );
     const id = props.navigation.getParam("recipeID", "params not passed");
 
+    const loadRecipe = async () => {
+        try {
+            await dispatch(fetchRecipe(id));
+        } catch (error) {
+            throw new Error("This is an error");
+        }
+    };
+
     useEffect(() => {
-        dispatch(fetchRecipe(id));
+        loadRecipe();
         fetchUserId();
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
@@ -134,6 +142,13 @@ function IndividualRecipe(props) {
             >
                 <RecipeShareLogo />
                 <ActivityIndicator size="large" color="#444444" />
+            </View>
+        );
+    }
+    if (isLoading) {
+        return (
+            <View style={styles.centered}>
+                <ActivityIndicator size="large" color="#00ff00" />
             </View>
         );
     }

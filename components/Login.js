@@ -7,6 +7,7 @@ import {
     Image,
     SafeAreaView,
     KeyboardAvoidingView,
+    ActivityIndicator
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -17,6 +18,7 @@ import RecipeShareLogo from "./RecipeShareLogo.js";
 
 const Login = ({ navigation }) => {
     const [login, setLogin] = useState({ username: "", password: "" });
+    const isLoading = useSelector(state => state.auth.isAuthorizing)
     const errorMsg = useSelector(state => state.auth.error);
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
@@ -92,7 +94,7 @@ const Login = ({ navigation }) => {
                             onPress={_loginUser}
                             style={styles.loginButton}
                         >
-                            <Text style={styles.loginButtonText}>Login</Text>
+                            {isLoading ? <ActivityIndicator size="large" color="#00ff00" /> : <Text style={styles.loginButtonText}>Login</Text>}
                         </TouchableOpacity>
                     </View>
                 </View>
