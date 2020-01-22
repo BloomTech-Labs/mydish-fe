@@ -60,30 +60,30 @@ const Ingredient = ({
             recipeIng.unit === ingredient.unit
         )
             return;
-        // If the parent component is the CreateRecipeForm, then
-        //     this will update our parent recipe with any changes we type.
-        if (parent === "create") {
-            setRecipe(oldRec => ({
-                ...oldRec,
-                ingredients: oldRec.ingredients.map((ing, i) => {
-                    if (i === index) return ingredient;
-                    else return ing;
-                }),
-            }));
-            // If our parent component is the IndividualRecipeIngredient, then
-            //     this will dispatch the editIngred() to update the store
-        } else if (parent === "IndividualRecipeIngredient") {
+
+        // If our parent component is the IndividualRecipeIngredient, then
+        //     this will dispatch the editIngred() to update the store
+
+        if (parent === "IndividualRecipeIngredient") {
             dispatch(editIngred(index, ingredient));
         }
     }, [ingredient]);
 
     const handleChange = (key, value) => {
         setIngredient({ ...ingredient, [key]: value });
-    };
 
-    // const onClosePicker = () => {
-    //     dispatch(stopEdit());
-    // };
+        // If the parent component is the CreateRecipeForm, then
+        //     this will update our parent recipe with any changes we type.
+        if (parent === "create") {
+            setRecipe(oldRec => ({
+                ...oldRec,
+                ingredients: oldRec.ingredients.map((ing, i) => {
+                    if (i === index) return { ...ingredient, [key]: value };
+                    else return ing;
+                }),
+            }));
+        }
+    };
 
     const cancelAdd = () => {
         setHighlighted({ name: false, quantity: false, unit: false });
