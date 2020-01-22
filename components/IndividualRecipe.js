@@ -8,7 +8,6 @@ import {
     KeyboardAvoidingView,
     SafeAreaView,
     AsyncStorage,
-    ActivityIndicator,
     TouchableOpacity,
     ActivityIndicator,
     Modal,
@@ -62,16 +61,12 @@ function IndividualRecipe(props) {
     );
     const id = props.navigation.getParam("recipeID", "params not passed");
 
-    const [isLoading, setIsLoading] = useState(true);
-
     const loadRecipe = async () => {
-        setIsLoading(true);
         try {
             await dispatch(fetchRecipe(id));
         } catch (error) {
             throw new Error("This is an error");
         }
-        setIsLoading(false);
     };
 
     useEffect(() => {
