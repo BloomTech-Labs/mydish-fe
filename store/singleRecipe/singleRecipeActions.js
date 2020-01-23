@@ -129,8 +129,9 @@ export const saveNewRecipe = recipeInfo => async dispatch => {
 };
 
 export const RESET_RECIPE = "RESET_RECIPE";
-export const resetRecipe = () => ({
+export const resetRecipe = (recipe = null) => ({
     type: RESET_RECIPE,
+    payload: recipe,
 });
 
 // currentActive indicates a recipe field that is currently swiped/open. It is set
