@@ -6,6 +6,7 @@ import placeholder from "../assets/recipe-image-placeholder.png";
 
 const Recipe = props => {
     const { navigation, recipe } = props;
+    const totalCookTime = recipe.prep_time || 0 + recipe.cook_time || 0
 
     return (
         <View style={styles.recipeContainer}>
@@ -34,9 +35,9 @@ const Recipe = props => {
 
                 <View style={styles.prepView}>
                     <Text style={styles.username}>
-                        {recipe.username || recipe.author}
+                        {recipe.owner.username}
                     </Text>
-                    <Text style={styles.prep}>{recipe.minutes} min.</Text>
+                    <Text style={styles.prep}>{totalCookTime} min.</Text>
                 </View>
             </TouchableOpacity>
         </View>
