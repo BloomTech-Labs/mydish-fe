@@ -14,7 +14,7 @@ export const loginUser = userInfo => async dispatch => {
 
         await AsyncStorage.multiSet([
             ["userToken", res.data.token.token],
-            ["userID", String(res.data.cook_id)],
+            ["userID", String(res.data.user.id)],
         ]);
 
         dispatch({ type: LOGIN_SUCCESS, payload: res.data });
