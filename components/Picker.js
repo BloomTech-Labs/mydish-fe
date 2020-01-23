@@ -44,7 +44,7 @@ export default Picker = ({
                 { label: "oz", value: "oz" },
                 { label: "pinch", value: "pinch" },
                 { label: "L", value: "L" },
-                { label: "ml", value: "ml" },
+                { label: "mL", value: "mL" },
                 { label: "can", value: "can" },
                 { label: "whole", value: "whole" },
                 { label: "pint", value: "pint" },
