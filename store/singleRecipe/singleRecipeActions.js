@@ -89,6 +89,7 @@ export const fetchRecipe = id => async dispatch => {
 
         dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res.data });
     } catch (err) {
+        console.log("err", err);
         dispatch({ type: FETCH_RECIPE_FAILURE, payload: err });
     }
 };
@@ -131,11 +132,9 @@ export const saveNewRecipe = recipeInfo => async dispatch => {
 };
 
 export const RESET_RECIPE = "RESET_RECIPE";
-export const resetRecipe = () => {
-    return {
-        type: RESET_RECIPE,
-    };
-};
+export const resetRecipe = () => ({
+    type: RESET_RECIPE,
+});
 
 // currentActive indicates a recipe field that is currently swiped/open. It is set
 // onSwipeableOpen and given 3 properties: the field name, an index, and a close function.
@@ -143,98 +142,56 @@ export const resetRecipe = () => {
 // it is, when swiping, the close function of the currentActive is called, closing the
 // currently active field.
 export const SET_CURRENT_ACTIVE = "SET_CURRENT_ACTIVE";
-export const setCurrentActive = field => dispatch => {
-    dispatch({
-        type: SET_CURRENT_ACTIVE,
-        payload: field,
-    });
-};
+export const setCurrentActive = field => ({
+    type: SET_CURRENT_ACTIVE,
+    payload: field,
+});
 
 export const RESET_CURRENT_ACTIVE = "RESET_CURRENT_ACTIVE";
-export const resetCurrentActive = () => dispatch => {
-    dispatch({
-        type: RESET_CURRENT_ACTIVE,
-    });
-};
+export const resetCurrentActive = () => ({
+    type: RESET_CURRENT_ACTIVE,
+});
 
-// When editing our individual recipe, if we ever stop editing
-// - The title
-// - An ingredient
-// - An instruction
-// We want to make sure that we call our stopEdit() function in order to:
-// 1. return the STOP_EDIT action
-// 2. Call the database to update whatever edit we just made
-// Whenever we have "dispatch(stopEdit())",
-//     that's when we stop editing the recipe and call the database '' '
 export const EDIT_TITLE = "EDIT_TITLE";
-export const editTitle = value => dispatch => {
-    // if (value.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
-    // else {
-    dispatch({
-        type: EDIT_TITLE,
-        payload: value,
-    });
-    // }
-};
+export const editTitle = value => ({
+    type: EDIT_TITLE,
+    payload: value,
+});
 
 export const EDIT_INGRED = "EDIT_INGRED";
-export const editIngred = (index, value) => dispatch => {
-    // if (value.name.charCodeAt(value.length - 1) === 10) dispatch(stopEdit());
-    // else {
-    dispatch({
-        type: EDIT_INGRED,
-        payload: value,
-        index,
-    });
-    // }
-};
+export const editIngred = (index, value) => ({
+    type: EDIT_INGRED,
+    payload: value,
+    index,
+});
 
 export const EDIT_INSTRUCT = "EDIT_INSTRUCT";
-export const editInstruct = (index, value) => dispatch => {
-    // if (value.body.charCodeAt(value.body.length - 1) === 10)
-    //     dispatch(stopEdit());
-    // else {
-    dispatch({
-        type: EDIT_INSTRUCT,
-        payload: value,
-        index,
-    });
-    // }
-};
+export const editInstruct = (index, value) => ({
+    type: EDIT_INSTRUCT,
+    payload: value,
+    index,
+});
 
 export const EDIT_NOTES = "EDIT_NOTES";
-export const editNotes = notes => dispatch => {
-    // if (notes.charCodeAt(notes.length - 1) === 10) dispatch(stopEdit());
-    // else {
-    dispatch({
-        type: EDIT_NOTES,
-        notes: notes,
-    });
-    // }
-};
+export const editNotes = notes => ({
+    type: EDIT_NOTES,
+    notes: notes,
+});
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
-export const addIngredient = ingredient => dispatch => {
-    dispatch({
-        type: ADD_INGREDIENT,
-        payload: ingredient,
-    });
-    // dispatch(stopEdit());
-};
+export const addIngredient = ingredient => ({
+    type: ADD_INGREDIENT,
+    payload: ingredient,
+});
 
 export const ADD_INSTRUCTION = "ADD_INSTRUCTION";
-export const addInstruction = instruction => dispatch => {
-    dispatch({
-        type: ADD_INSTRUCTION,
-        payload: instruction,
-    });
-    // dispatch(stopEdit());
-};
+export const addInstruction = instruction => ({
+    type: ADD_INSTRUCTION,
+    payload: instruction,
+});
 
 export const ADD_NOTE = "ADD_NOTE";
-export const addNote = note => dispatch => {
-    dispatch({
-        type: ADD_NOTE,
-        payload: note,
-    });
-};
+export const addNote = note => ({
+    type: ADD_NOTE,
+    payload: note,
+});
