@@ -49,14 +49,14 @@ function CreateRecipeForm(props) {
             ...recipe,
             // Remove any ingredients that are empty
             ingredients: recipe.ingredients.filter(
-                ing => ing.name.length && ing.quantity.length && ing.unit,
+                ing => ing.name.length && ing.quantity.length && ing.units,
             ),
             instructions: recipe.instructions
+                .filter(step => step.length) // Remove empty instructions
                 .map((step, i) => ({
                     step_number: i + 1, // Add the step number
                     description: step.replace(/\n+/g, " "), // Remove any newlines
-                }))
-                .filter(step => step.length), // Remove empty instructions
+                })),
         };
 
         const errMessages = validateFields(
@@ -175,7 +175,7 @@ function CreateRecipeForm(props) {
                                     if (isNaN(Number(min))) return;
                                     setRecipe({ ...recipe, cook_time: min });
                                 }}
-                                value={String(recipe.prep_time)}
+                                value={String(recipe.cook_time)}
                             />
 
                             <Text style={styles.heading}>Course Type</Text>

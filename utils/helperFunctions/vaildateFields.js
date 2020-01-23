@@ -14,7 +14,7 @@ export function validateFields(recipe,courses, edit, oldRecipe) {
               errs.push('recipe must have a title');
           }
 
-        if (!recipe.minutes) {
+        if (!recipe.prep_time && !recipe.cook_time) {
           errs.push('recipe must have cook time specified');
         }
 
@@ -22,14 +22,14 @@ export function validateFields(recipe,courses, edit, oldRecipe) {
           errs.push('recipe must have at least 1 ingredient');
         }
 
-        if(!recipe.steps.length) {
+        if(!recipe.instructions.length) {
           errs.push('recipe must have at least 1 step');
         }
 
         let courseTypeCount = 0;
 
         courses.forEach( type => {
-          recipe.categories.includes(type) && courseTypeCount++  //if the courseType has been selected by the user increment a count variable.
+          recipe.tags.includes(type) && courseTypeCount++  //if the courseType has been selected by the user increment a count variable.
         })
 
         // console.log('courseTypeCount', courseTypeCount);

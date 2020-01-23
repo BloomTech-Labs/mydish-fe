@@ -28,7 +28,7 @@ export default Picker = ({
         <RNPickerSelect
             onClose={onClose}
             placeholder={placeholder}
-            onValueChange={value => handleChange("unit", value)}
+            onValueChange={value => handleChange("units", value)}
             value={unit}
             useNativeAndroidPickerStyle={false}
             style={{
