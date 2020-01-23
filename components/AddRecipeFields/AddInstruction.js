@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { View, TextInput, Button } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addInstruction, setCurrentActive, resetCurrentActive } from "../../store/singleRecipe/singleRecipeActions";
 
 import Add from "../Add";
 
-const AddInstruction = ({ currentActive }) => {
+const AddInstruction = ({ instructionsLength, currentActive }) => {
     const dispatch = useDispatch();
     const [adding, setAdding] = useState(false);
     const [instruction, setInstruction] = useState("");
     const [highlighted, setHighlighted] = useState(false);
-    const steps = useSelector(state => state.singleRecipe.recipe.steps);
-    const ordinal = steps.length + 1;
+    const step_number = instructionsLength + 1;
 
     const startAdding = () => {
         if (currentActive && currentActive.close) currentActive.close();
@@ -37,7 +36,7 @@ const AddInstruction = ({ currentActive }) => {
         if (!instruction.length) {
             setHighlighted(true);
         } else {
-            dispatch(addInstruction({ ordinal, body: instruction }));
+            dispatch(addInstruction({ step_number, description: instruction }));
             stopAdding();
         }
     };

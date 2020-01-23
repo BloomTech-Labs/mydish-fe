@@ -1,19 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { View, Text, TextInput } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "../../styles/individualRecipeStyles";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-    stopEdit,
     editTitle,
     setCurrentActive,
     resetCurrentActive,
 } from "../../store/singleRecipe/singleRecipeActions";
 
-const Title = ({ currentActive }) => {
+const Title = ({ title, currentActive }) => {
     const dispatch = useDispatch();
-    const recipeTitle = useSelector(state => state.singleRecipe.recipe.title);
     const [editing, setEditing] = useState(false);
     const swipeableEl = useRef(null);
 
@@ -64,9 +62,9 @@ const Title = ({ currentActive }) => {
             {editing ? (
                 <View style={styles.titleContainer}>
                     <TextInput
-                        value={recipeTitle && recipeTitle}
-                        onChangeText={title => {
-                            dispatch(editTitle(title));
+                        value={title}
+                        onChangeText={newTitle => {
+                            dispatch(editTitle(newTitle));
                         }}
                         style={styles.title}
                         multiline
@@ -82,7 +80,7 @@ const Title = ({ currentActive }) => {
             ) : (
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>
-                        {recipeTitle && recipeTitle}
+                        {title}
                     </Text>
                     <MaterialCommunityIcons
                         name="drag-vertical"

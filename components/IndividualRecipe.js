@@ -258,9 +258,9 @@ function IndividualRecipe(props) {
                                                 recipe.ingredients.map(
                                                     (ing, i) => (
                                                         <IndividualRecipeIngredient
-                                                            key={ing.id}
+                                                            key={i}
                                                             index={i}
-                                                            ingredient={ing}
+                                                            recipeIng={ing}
                                                             currentActive={
                                                                 currentActive
                                                             }
@@ -293,6 +293,9 @@ function IndividualRecipe(props) {
                                                 )}
 
                                             <AddInstruction
+                                                instructionsLength={
+                                                    recipe.instructions.length
+                                                }
                                                 currentActive={currentActive}
                                             />
                                             <View
@@ -303,9 +306,9 @@ function IndividualRecipe(props) {
                                                 </Text>
                                             </View>
                                             {recipe.notes.length &&
-                                                recipe.notes.map(note => (
+                                                recipe.notes.map((note, i) => (
                                                     <IndividualRecipeNotes
-                                                        key={note.id}
+                                                        key={i}
                                                         notes={note}
                                                         currentActive={
                                                             currentActive
