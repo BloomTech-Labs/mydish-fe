@@ -57,7 +57,13 @@ function CreateRecipeForm(props) {
                     step_number: i + 1, // Add the step number
                     description: step.replace(/\n+/g, " "), // Remove any newlines
                 })),
+            notes: recipe.notes
+                .filter(note => note.length) // Remove empty instructions
+                .map(
+                    (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
+                ),
         };
+        console.log(postRecipe)
 
         const errMessages = validateFields(
             postRecipe,
@@ -98,6 +104,20 @@ function CreateRecipeForm(props) {
         }));
     };
 
+    const addNote = () => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            notes: [...oldRecipe.notes, ""],
+        }));
+    };
+
+    const removeNote = index => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            notes: oldRecipe.notes.filter((val, i) => i !== index),
+        }));
+    };
+
     const removeIng = index => {
         setRecipe(oldRecipe => ({
             ...oldRecipe,
@@ -135,6 +155,18 @@ function CreateRecipeForm(props) {
                 index={i}
                 removeInstruction={removeInstruction}
                 instruction={instruction}
+                setRecipe={setRecipe}
+            />
+        ));
+    };
+
+    const addNotes = () => {
+        return recipe.notes.map((note, i) => (
+            <Notes
+                key={i}
+                index={i}
+                removeNote={removeNote}
+                note={note}
                 setRecipe={setRecipe}
             />
         ));
@@ -202,7 +234,9 @@ function CreateRecipeForm(props) {
                             {addInstructions()}
                             <Add text="Add A Step" submit={addInstruction} />
 
-                            <Notes recipe={recipe} setRecipe={setRecipe} />
+                            <Text style={styles.heading}>Notes : </Text>
+                            {addNotes()}
+                            <Add text="Add A Note" submit={addNote} />
 
                             <TouchableOpacity
                                 style={styles.doneView}

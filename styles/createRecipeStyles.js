@@ -123,13 +123,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     notesContainer: {
-        height: 76,
+        flexGrow: 1,
+        minHeight: 45,
         padding: 10,
         borderWidth: 0.8,
         borderColor: "#6B6F70",
         borderRadius: 4,
-        marginLeft: 14,
-        marginRight: 14,
+        maxWidth: "90%",
     },
     container: {
         flexDirection: "column",
