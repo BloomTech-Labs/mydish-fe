@@ -1,5 +1,6 @@
 import React from "react";
 import { TextInput, Text, TouchableOpacity, View } from "react-native";
+import MinusDeleteButton from "./MinusDeleteButton";
 
 const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     const handleChange = value => {
@@ -50,30 +51,10 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                 />
             </View>
             {/* A remove button for the CreateRecipeForm */}
-            <TouchableOpacity onPress={() => removeInstruction(index)}>
-                <View
-                    style={{
-                        backgroundColor: "#C00000",
-                        borderRadius: 100 / 2,
-                        width: 20,
-                        height: 20,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginLeft: 5,
-                        marginTop: 15,
-                    }}
-                >
-                    <Text
-                        style={{
-                            color: "#FFFFFF",
-                            textAlign: "center",
-                            fontWeight: "bold",
-                        }}
-                    >
-                        –
-                    </Text>
-                </View>
-            </TouchableOpacity>
+            <MinusDeleteButton
+                action={() => removeInstruction(index)}
+                parent="instruction"
+            />
         </View>
     );
 };

@@ -6,6 +6,7 @@ import {
     editIngred,
 } from "../store/singleRecipe/singleRecipeActions";
 import Picker from "./Picker";
+import MinusDeleteButton from "./MinusDeleteButton";
 
 const Ingredient = ({
     recipeIng,
@@ -169,29 +170,10 @@ const Ingredient = ({
                 />
                 {/* A remove button for the CreateRecipeForm */}
                 {parent === "create" && (
-                    <TouchableOpacity onPress={() => removeIng(index)}>
-                        <View
-                            style={{
-                                backgroundColor: "#C00000",
-                                borderRadius: 100 / 2,
-                                width: 20,
-                                height: 20,
-                                alignItems: "center",
-                                justifyContent: "center",
-                                marginTop: 10,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    color: "#FFFFFF",
-                                    textAlign: "center",
-                                    fontWeight: "bold",
-                                }}
-                            >
-                                –
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
+                    <MinusDeleteButton
+                        parent="ingredient"
+                        action={() => removeIng(index)}
+                    />
                 )}
             </View>
             {parent === "AddIngredient" && (
