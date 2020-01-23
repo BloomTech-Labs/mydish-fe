@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { View, TextInput, Button } from "react-native";
 import { useDispatch } from "react-redux";
-import { addNote, setCurrentActive, resetCurrentActive } from "../../store/singleRecipe/singleRecipeActions";
+import {
+    addNote,
+    setCurrentActive,
+    resetCurrentActive,
+} from "../../store/singleRecipe/singleRecipeActions";
 
 import Add from "../Add";
 
@@ -26,16 +30,16 @@ const AddNote = ({ currentActive }) => {
 
     const stopAdding = () => {
         setHighlighted(false);
-        setAdding(false)
-        dispatch(resetCurrentActive())
-    }
+        setAdding(false);
+        dispatch(resetCurrentActive());
+    };
 
     const submitAdd = () => {
         if (!note.length) {
             setHighlighted(true);
         } else {
-            dispatch(addNote(note));
-            stopAdding()
+            dispatch(addNote({ description: note }));
+            stopAdding();
         }
     };
 

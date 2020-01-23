@@ -3,24 +3,17 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "../../styles/individualRecipeStyles";
 
 import { Swipeable } from "react-native-gesture-handler";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
     editInstruct,
-    stopEdit,
     setCurrentActive,
     resetCurrentActive,
     deleteInstruction,
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const IndividualRecipeInstruction = ({ index, currentActive }) => {
+const IndividualRecipeInstruction = ({ instruction, index, currentActive }) => {
     const dispatch = useDispatch();
-
-    // Two steps here to grab our specific instruction.
-    // This just makes sure that, if there's only an empty array,
-    // `instruction` is still an object, so the page will load.
-    const steps = useSelector(state => state.singleRecipe.recipe.steps);
-    const instruction = steps && steps[index] ? steps[index] : {};
 
     const [editing, setEditing] = useState(false);
     const swipeableEl = useRef(null);
@@ -96,16 +89,16 @@ const IndividualRecipeInstruction = ({ index, currentActive }) => {
                     <View style={styles.stepTextView}>
                         <View>
                             <Text style={{ marginBottom: -7 }}>
-                                {instruction.ordinal}.
+                                {instruction.step_number}.
                             </Text>
                         </View>
                         <TextInput
-                            value={instruction.body}
-                            onChangeText={body =>
+                            value={instruction.description}
+                            onChangeText={description =>
                                 dispatch(
                                     editInstruct(index, {
-                                        ordinal: instruction.ordinal,
-                                        body,
+                                        step_number: instruction.step_number,
+                                        description,
                                     }),
                                 )
                             }
@@ -123,7 +116,7 @@ const IndividualRecipeInstruction = ({ index, currentActive }) => {
                 ) : (
                     <View style={styles.stepTextView}>
                         <Text style={styles.stepText}>
-                            {instruction.ordinal}. {instruction.body}
+                            {instruction.step_number}. {instruction.description}
                         </Text>
                         <MaterialCommunityIcons
                             name="drag-vertical"

@@ -3,24 +3,17 @@ import { View, Text, TouchableOpacity } from "react-native";
 
 import styles from "../../styles/individualRecipeStyles";
 import { Swipeable } from "react-native-gesture-handler";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Ingredient from "../Ingredient";
 import {
-    stopEdit,
     deleteIngredient,
     setCurrentActive,
     resetCurrentActive,
 } from "../../store/singleRecipe/singleRecipeActions";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
-const IndividualRecipeIngredient = ({ index, currentActive }) => {
+const IndividualRecipeIngredient = ({ recipeIng, index, currentActive }) => {
     const dispatch = useDispatch();
-    const ingredients = useSelector(
-        state => state.singleRecipe.recipe.ingredients,
-    );
-
-    const recipeIng =
-        ingredients && ingredients[index] ? ingredients[index] : {};
     const [editing, setEditing] = useState(false);
 
     const swipeableEl = useRef(null);
@@ -99,7 +92,7 @@ const IndividualRecipeIngredient = ({ index, currentActive }) => {
                     <View style={styles.ingredientList}>
                         <View style={styles.ingredientView}>
                             <Text style={styles.ingredientText}>
-                                {recipeIng.quantity} {recipeIng.unit}
+                                {recipeIng.quantity} {recipeIng.units}
                             </Text>
                             <MaterialCommunityIcons
                                 name="drag-vertical"

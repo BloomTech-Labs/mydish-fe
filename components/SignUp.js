@@ -7,18 +7,18 @@ import {
     KeyboardAvoidingView,
     Image,
     SafeAreaView,
-    ActivityIndicator
+    ActivityIndicator,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../store/auth/authActions";
+import { registerUser, clearError } from "../store/auth/authActions";
 import styles from "../styles/signUpStyles.js";
 import logo from "../assets/LogoGreen.png";
 import RecipeShareLogo from "./RecipeShareLogo.js";
 
 const SignUp = ({ navigation }) => {
     const [signUp, setSignUp] = useState({ username: "", password: "" });
-    const isLoading = useSelector(state => state.auth.isAuthorizing)
+    const isLoading = useSelector(state => state.auth.isAuthorizing);
     const errorMsg = useSelector(state => state.auth.error);
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
@@ -52,11 +52,7 @@ const SignUp = ({ navigation }) => {
                             setSignUp({ ...signUp, username: event })
                         }
                     />
-                    {errorMsg != null && (
-                        <Text style={{ marginLeft: 150, color: "red" }}>
-                            Username already exists
-                        </Text>
-                    )}
+
                     <Text style={styles.passwordText}>Password</Text>
                     <TextInput
                         ref={passwordInput}
@@ -68,9 +64,15 @@ const SignUp = ({ navigation }) => {
                         }
                         secureTextEntry={true}
                     />
+                    {errorMsg != null && (
+                        <Text style={{ textAlign: "center", color: "red" }}>
+                            {errorMsg}
+                        </Text>
+                    )}
 
                     <TouchableOpacity
                         onPress={() => {
+                            dispatch(clearError())
                             navigation.navigate("Login");
                         }}
                     >
@@ -84,14 +86,16 @@ const SignUp = ({ navigation }) => {
                             onPress={register}
                             style={styles.createAccountButton}
                         >
-                            {isLoading ?
+                            {isLoading ? (
                                 <ActivityIndicator
                                     size="large"
-                                    color="#00ff00" />
-                                : <Text
-                                    style={styles.createAccountText}>
+                                    color="#00ff00"
+                                />
+                            ) : (
+                                <Text style={styles.createAccountText}>
                                     Create Account
-                            </Text>}
+                                </Text>
+                            )}
                         </TouchableOpacity>
                     </View>
                 </View>

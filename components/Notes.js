@@ -1,19 +1,39 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
 import styles from "../styles/createRecipeStyles";
+import MinusDeleteButton from "./MinusDeleteButton";
 
-const Notes = ({ recipe, setRecipe }) => {
+const Notes = ({ index, removeNote, note, setRecipe }) => {
+    const changeHandler = value => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            notes: oldRecipe.notes.map((note, i) => {
+                if (i === index) return value;
+                else return note;
+            }),
+        }));
+    };
+
     return (
-        <View>
-            <Text style={styles.heading}>Notes : </Text>
-
+        <View
+            style={{
+                marginLeft: 10,
+                marginRight: 10,
+                marginBottom: 10,
+                flexWrap: "nowrap",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+            }}
+        >
             <TextInput
                 style={styles.notesContainer}
-                placeholder=""
+                placeholder="Add Notes"
                 multiline={true}
-                onChangeText={event => setRecipe({ ...recipe, notes: event })}
-                value={recipe.notes}
+                onChangeText={changeHandler}
+                value={note}
             />
+            <MinusDeleteButton action={() => removeNote(index)} parent="note" />
         </View>
     );
 };

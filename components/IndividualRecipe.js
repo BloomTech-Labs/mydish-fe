@@ -10,7 +10,6 @@ import {
     AsyncStorage,
     TouchableOpacity,
     ActivityIndicator,
-    Modal,
     ImageBackground,
     Alert,
 } from "react-native";
@@ -18,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     fetchRecipe,
     resetRecipe,
-    stopEdit,
     resetCurrentActive,
     stopEditMode,
     startEditMode,
@@ -46,14 +44,16 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
 import CommitModal from "./EditRecipeComponents/Modal";
-import { TextInput } from "react-native-gesture-handler";
 
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
+    console.log(userId);
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
+    console.log("recipe", recipe);
+    const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const editMode = useSelector(state => state.singleRecipe.editMode);
     const currentActive = useSelector(
@@ -72,10 +72,23 @@ function IndividualRecipe(props) {
     useEffect(() => {
         loadRecipe();
         fetchUserId();
+
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
     }, [id]);
+
+    useEffect(() => {
+        const didBlurSubscription = props.navigation.addListener(
+            "didBlur",
+            () => {
+                setColor({ active: "Ingredients" });
+            },
+        );
+        return () => {
+            didBlurSubscription.remove();
+        };
+    }, []);
 
     async function fetchUserId() {
         try {
@@ -103,7 +116,7 @@ function IndividualRecipe(props) {
     };
 
     const startEditModeButton = () => {
-        if (!recipe.innovator || userId !== recipe.innovator)
+        if (!recipe.owner.user_id || userId !== recipe.owner.user_id)
             return dispatch(stopEditMode());
         dispatch(startEditMode());
     };
@@ -111,6 +124,7 @@ function IndividualRecipe(props) {
     const saveButtonEditedRecipe = author_comment => {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
+        dispatch(resetCurrentActive());
     };
 
     const cancelButtonEditedRecipe = () => {
@@ -124,7 +138,14 @@ function IndividualRecipe(props) {
 
                     style: "cancel",
                 },
-                { text: "OK", onPress: () => dispatch(stopEditMode()) },
+                {
+                    text: "OK",
+                    onPress: () => {
+                        dispatch(stopEditMode());
+                        dispatch(resetCurrentActive());
+                        dispatch(fetchRecipe(id));
+                    },
+                },
             ],
             { cancelable: false },
         );
@@ -202,7 +223,10 @@ function IndividualRecipe(props) {
                                     </TouchableOpacity>
                                 </ImageBackground>
                                 <View style={styles.titleWrapper}>
-                                    <Title currentActive={currentActive} />
+                                    <Title
+                                        title={recipe.title}
+                                        currentActive={currentActive}
+                                    />
                                 </View>
                                 <View style={styles.innovatorTime}>
                                     <View style={styles.innovatorContainer}>
@@ -210,7 +234,7 @@ function IndividualRecipe(props) {
                                             source={logo}
                                             style={styles.icon}
                                         />
-                                        <Text>{recipe.innovator_name}</Text>
+                                        <Text>{recipe.owner.username}</Text>
                                     </View>
 
                                     <View style={styles.timeContainer}>
@@ -218,19 +242,19 @@ function IndividualRecipe(props) {
                                             source={clock}
                                             style={styles.icon}
                                         />
-                                        <Text>{recipe.minutes} minutes</Text>
+                                        <Text>{totalCookTime} minutes</Text>
                                     </View>
                                 </View>
 
                                 <Text style={styles.tags}>Tags</Text>
                                 <View style={styles.tagBox}>
-                                    {recipe.categories &&
-                                        recipe.categories.map(cat => (
+                                    {recipe.tags &&
+                                        recipe.tags.map(cat => (
                                             <Text
-                                                key={cat}
+                                                key={cat.id}
                                                 style={styles.individualTags}
                                             >
-                                                {cat}
+                                                {cat.name}
                                             </Text>
                                         ))}
                                 </View>
@@ -257,6 +281,7 @@ function IndividualRecipe(props) {
                                                         <IndividualRecipeIngredient
                                                             key={i}
                                                             index={i}
+                                                            recipeIng={ing}
                                                             currentActive={
                                                                 currentActive
                                                             }
@@ -272,32 +297,49 @@ function IndividualRecipe(props) {
 
                                     {color.active === "Instructions" && (
                                         <>
-                                            {recipe.steps &&
-                                                recipe.steps.map((step, i) => (
-                                                    <IndividualRecipeInstruction
-                                                        key={step.ordinal}
+                                            {recipe.instructions &&
+                                                recipe.instructions.map(
+                                                    (step, i) => (
+                                                        <IndividualRecipeInstruction
+                                                            key={
+                                                                step.step_number
+                                                            }
+                                                            index={i}
+                                                            instruction={step}
+                                                            currentActive={
+                                                                currentActive
+                                                            }
+                                                        />
+                                                    ),
+                                                )}
+
+                                            <AddInstruction
+                                                instructionsLength={
+                                                    recipe.instructions.length
+                                                }
+                                                currentActive={currentActive}
+                                            />
+                                            <View
+                                                style={{ paddingRight: "80%" }}
+                                            >
+                                                <Text style={styles.notes}>
+                                                    NOTES
+                                                </Text>
+                                            </View>
+                                            {recipe.notes.length &&
+                                                recipe.notes.map((note, i) => (
+                                                    <IndividualRecipeNotes
+                                                        key={i}
                                                         index={i}
+                                                        note={note}
                                                         currentActive={
                                                             currentActive
                                                         }
                                                     />
                                                 ))}
-
-                                            <AddInstruction
+                                            <AddNote
                                                 currentActive={currentActive}
                                             />
-
-                                            {recipe.notes ? (
-                                                <IndividualRecipeNotes
-                                                    notes={recipe.notes}
-                                                />
-                                            ) : (
-                                                <AddNote
-                                                    currentActive={
-                                                        currentActive
-                                                    }
-                                                />
-                                            )}
                                         </>
                                     )}
                                 </View>
@@ -320,43 +362,44 @@ function IndividualRecipe(props) {
                             }
                             style={styles.image}
                         >
-                            {recipe.innovator && userId === recipe.innovator && (
-                                <TouchableOpacity
-                                    onPress={startEditModeButton}
-                                    style={styles.editButton}
-                                >
-                                    <FontAwesome
-                                        name="pencil-square-o"
-                                        size={20}
-                                        color="white"
-                                    />
-                                </TouchableOpacity>
-                            )}
+                            {recipe.owner.user_id &&
+                                userId === recipe.owner.user_id && (
+                                    <TouchableOpacity
+                                        onPress={startEditModeButton}
+                                        style={styles.editButton}
+                                    >
+                                        <FontAwesome
+                                            name="pencil-square-o"
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </TouchableOpacity>
+                                )}
                         </ImageBackground>
                         <View style={styles.titleWrapper}>
-                            <DisplayTitle />
+                            <DisplayTitle title={recipe.title} />
                         </View>
                         <View style={styles.innovatorTime}>
                             <View style={styles.innovatorContainer}>
                                 <Image source={logo} style={styles.icon} />
-                                <Text>{recipe.innovator_name}</Text>
+                                <Text>{recipe.owner.username}</Text>
                             </View>
 
                             <View style={styles.timeContainer}>
                                 <Image source={clock} style={styles.icon} />
-                                <Text>{recipe.minutes} minutes</Text>
+                                <Text>{totalCookTime} minutes</Text>
                             </View>
                         </View>
 
                         <Text style={styles.tags}>Tags</Text>
                         <View style={styles.tagBox}>
-                            {recipe.categories &&
-                                recipe.categories.map(cat => (
+                            {recipe.tags &&
+                                recipe.tags.map(cat => (
                                     <Text
-                                        key={cat}
+                                        key={cat.id}
                                         style={styles.individualTags}
                                     >
-                                        {cat}
+                                        {cat.name}
                                     </Text>
                                 ))}
                         </View>
@@ -381,22 +424,30 @@ function IndividualRecipe(props) {
                                         recipe.ingredients.map((ing, i) => (
                                             <DisplayRecipeIngredient
                                                 key={i}
-                                                index={i}
+                                                ingredient={ing}
                                             />
                                         ))}
                                 </>
                             )}
                             {color.active === "Instructions" && (
                                 <>
-                                    {recipe.steps &&
-                                        recipe.steps.map((step, i) => (
+                                    {recipe.instructions &&
+                                        recipe.instructions.map((step, i) => (
                                             <DisplayRecipeInstruction
-                                                key={step.ordinal}
-                                                index={i}
+                                                key={step.step_number}
+                                                instruction={step}
                                             />
                                         ))}
-
-                                    <DisplayRecipeNotes notes={recipe.notes} />
+                                    <View style={{ paddingRight: "80%" }}>
+                                        <Text style={styles.notes}>NOTES</Text>
+                                    </View>
+                                    {recipe.notes.length &&
+                                        recipe.notes.map((note, i) => (
+                                            <DisplayRecipeNotes
+                                                key={i}
+                                                notes={note}
+                                            />
+                                        ))}
                                 </>
                             )}
                         </View>

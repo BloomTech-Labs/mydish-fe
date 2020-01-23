@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "../../styles/individualRecipeStyles";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
     editNotes,
     stopEdit,
@@ -12,36 +12,31 @@ import {
     deleteNote,
 } from "../../store/singleRecipe/singleRecipeActions";
 
-export default function IndividualRecipeNotes() {
+export default function IndividualRecipeNotes({ index, note, currentActive }) {
     const dispatch = useDispatch();
-
-    const notes = useSelector(state => state.singleRecipe.recipe.notes);
-    const currentActive = useSelector(
-        state => state.singleRecipe.currentActive,
-    );
 
     const [editing, setEditing] = useState(false);
     const swipeableEl = useRef(null);
 
     const closeSwipe = () => swipeableEl.current.close();
-    const closeEdit = () => setEditing(false)
+    const closeEdit = () => setEditing(false);
 
     const makeActive = (type, close) => {
-        dispatch(setCurrentActive({ type, field: "notes", index: 1, close }));
+        dispatch(setCurrentActive({ type, field: "notes", index, close }));
     };
-    
+
     const checkActive = () =>
-    currentActive.field && currentActive.field !== "notes";
-    
+        (currentActive.field && currentActive.field !== "notes") ||
+        (currentActive.field && currentActive.index !== index);
+
     const editHandler = () => {
         setEditing(true);
         closeSwipe();
-        makeActive("edit", closeEdit)
+        makeActive("edit", closeEdit);
     };
 
     const handleWillOpen = () => {
         if (checkActive()) currentActive.close();
-        // dispatch(stopEdit());
     };
 
     const checkIfCurrentActiveIsAdd = () =>
@@ -49,15 +44,18 @@ export default function IndividualRecipeNotes() {
 
     return (
         <>
-            <View style={{ paddingRight: "80%" }}>
-                <Text style={styles.notes}>NOTES</Text>
-            </View>
-
             {editing ? (
                 <View style={styles.stepTextView}>
                     <TextInput
-                        value={notes}
-                        onChangeText={notes => dispatch(editNotes(notes))}
+                        value={note.description}
+                        onChangeText={newValue =>
+                            dispatch(
+                                editNotes(index, {
+                                    id: note.id,
+                                    description: newValue,
+                                }),
+                            )
+                        }
                         multiline
                         returnKeyType="done"
                         autoFocus={true}
@@ -89,7 +87,7 @@ export default function IndividualRecipeNotes() {
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        dispatch(deleteNote());
+                                        dispatch(deleteNote(index));
                                         dispatch(resetCurrentActive());
                                     }}
                                     style={styles.deleteButton}
@@ -104,7 +102,9 @@ export default function IndividualRecipeNotes() {
                         )}
                     >
                         <View style={styles.stepTextView}>
-                            <Text style={styles.stepText}>{notes}</Text>
+                            <Text style={styles.stepText}>
+                                {note.description}
+                            </Text>
                             <MaterialCommunityIcons
                                 name="drag-vertical"
                                 size={32}

@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { View, Text, Button, ActivityIndicator } from "react-native";
 import RecipeList from "./RecipeList";
 import styles from "../styles/recipe-styles";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCookbook } from "../store/cookbook/cookbookAction";
-import RecipeShareLogo from "./RecipeShareLogo";
 
 const CookBookFolder = props => {
     const dispatch = useDispatch();
-
     const loading = useSelector(state => state.cookbook.isLoading);
-    const [isLoading, setIsLoading] = useState(true)
     const folder = useSelector(state => state.cookbook.cookbookRecipes);
-    console.log('this is folder in CookbookFolder', folder)
-    console.log('folder.length', folder.length)
     const course = props.navigation.getParam("Course", "params not passed");
 
-
-
-
     useEffect(() => {
-        dispatch(fetchCookbook(course.toLowerCase()));
+        dispatch(fetchCookbook(course));
     }, [dispatch, fetchCookbook, course]);
 
     if (loading) {

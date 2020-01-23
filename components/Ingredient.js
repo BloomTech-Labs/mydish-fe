@@ -3,11 +3,10 @@ import { TextInput, View, TouchableOpacity, Button, Text } from "react-native";
 import { useDispatch } from "react-redux";
 import {
     addIngredient,
-    stopEdit,
     editIngred,
 } from "../store/singleRecipe/singleRecipeActions";
-import { FontAwesome } from "@expo/vector-icons";
 import Picker from "./Picker";
+import MinusDeleteButton from "./MinusDeleteButton";
 
 const Ingredient = ({
     recipeIng,
@@ -26,7 +25,7 @@ const Ingredient = ({
     const [highlighted, setHighlighted] = useState({
         name: false,
         quantity: false,
-        unit: false,
+        units: false,
     });
     const [ingredient, setIngredient] = useState(
         // Use the initial recipeIng value if it exists
@@ -35,7 +34,7 @@ const Ingredient = ({
             : {
                   name: "",
                   quantity: "",
-                  unit: "",
+                  units: "",
               },
     );
 
@@ -44,7 +43,7 @@ const Ingredient = ({
             setIngredient({
                 name: recipeIng.name,
                 quantity: String(recipeIng.quantity),
-                unit: recipeIng.unit,
+                units: recipeIng.units,
             });
         }
     }, [recipeIng]);
@@ -57,7 +56,7 @@ const Ingredient = ({
             recipeIng &&
             recipeIng.name === ingredient.name &&
             recipeIng.quantity === ingredient.quantity &&
-            recipeIng.unit === ingredient.unit
+            recipeIng.units === ingredient.units
         )
             return;
 
@@ -75,9 +74,9 @@ const Ingredient = ({
         // If the parent component is the CreateRecipeForm, then
         //     this will update our parent recipe with any changes we type.
         if (parent === "create") {
-            setRecipe(oldRec => ({
-                ...oldRec,
-                ingredients: oldRec.ingredients.map((ing, i) => {
+            setRecipe(oldRecipe => ({
+                ...oldRecipe,
+                ingredients: oldRecipe.ingredients.map((ing, i) => {
                     if (i === index) return { ...ingredient, [key]: value };
                     else return ing;
                 }),
@@ -86,7 +85,7 @@ const Ingredient = ({
     };
 
     const cancelAdd = () => {
-        setHighlighted({ name: false, quantity: false, unit: false });
+        setHighlighted({ name: false, quantity: false, units: false });
         stopAdding();
     };
 
@@ -94,7 +93,7 @@ const Ingredient = ({
         const lengthObj = {
             name: !ingredient.name.length,
             quantity: !ingredient.quantity.length,
-            unit: !ingredient.unit.length,
+            units: !ingredient.units.length,
         };
 
         if (Object.values(lengthObj).find(x => !!x)) {
@@ -108,7 +107,6 @@ const Ingredient = ({
 
     const submitToStopEdit = () => {
         if (parent === "IndividualRecipeIngredient") {
-            // dispatch(stopEdit());
             closeEdit();
         }
     };
@@ -167,34 +165,15 @@ const Ingredient = ({
                 <Picker
                     onClose={submitToStopEdit}
                     handleChange={handleChange}
-                    unit={ingredient.unit}
+                    unit={ingredient.units}
                     highlighted={highlighted}
                 />
                 {/* A remove button for the CreateRecipeForm */}
                 {parent === "create" && (
-                    <TouchableOpacity onPress={() => removeIng(index)}>
-                        <View
-                            style={{
-                                backgroundColor: "#C00000",
-                                borderRadius: 100 / 2,
-                                width: 20,
-                                height: 20,
-                                alignItems: "center",
-                                justifyContent: "center",
-                                marginTop: 10,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    color: "#FFFFFF",
-                                    textAlign: "center",
-                                    fontWeight: "bold",
-                                }}
-                            >
-                                –
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
+                    <MinusDeleteButton
+                        parent="ingredient"
+                        action={() => removeIng(index)}
+                    />
                 )}
             </View>
             {parent === "AddIngredient" && (

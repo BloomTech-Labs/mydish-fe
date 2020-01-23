@@ -9,7 +9,7 @@ export const fetchCookbook = searchCategory => async dispatch => {
     try {
         const axiosCustom = await axiosWithAuth();
         const url = searchCategory
-            ? `cookbook?category=${searchCategory}`
+            ? `cookbook?course=${searchCategory}`
             : "cookbook/";
         const res = await axiosCustom.get(url);
 

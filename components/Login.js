@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { loginUser } from "../store/auth/authActions";
+import { loginUser, clearError } from "../store/auth/authActions";
 import styles from "../styles/loginStyles.js";
 import logo from "../assets/LogoGreen.png";
 import RecipeShareLogo from "./RecipeShareLogo.js";
@@ -69,13 +69,14 @@ const Login = ({ navigation }) => {
                         secureTextEntry={true}
                     />
                     {errorMsg != null && (
-                        <Text style={{ color: "red", marginLeft: 100 }}>
+                        <Text style={{ color: "red", textAlign: "center" }}>
                             {errorMsg}
                         </Text>
                     )}
 
                     <TouchableOpacity
                         onPress={() => {
+                            dispatch(clearError())
                             navigation.navigate("Signup");
                         }}
                     >
