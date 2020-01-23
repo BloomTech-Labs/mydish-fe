@@ -111,6 +111,7 @@ function IndividualRecipe(props) {
     const saveButtonEditedRecipe = author_comment => {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
+        dispatch(resetCurrentActive());
     };
 
     const cancelButtonEditedRecipe = () => {
@@ -124,7 +125,13 @@ function IndividualRecipe(props) {
 
                     style: "cancel",
                 },
-                { text: "OK", onPress: () => dispatch(stopEditMode()) },
+                {
+                    text: "OK",
+                    onPress: () => {
+                        dispatch(stopEditMode());
+                        dispatch(resetCurrentActive());
+                    },
+                },
             ],
             { cancelable: false },
         );
