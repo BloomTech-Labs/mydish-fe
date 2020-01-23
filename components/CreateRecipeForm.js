@@ -63,7 +63,7 @@ function CreateRecipeForm(props) {
                     (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
                 ),
         };
-        console.log(postRecipe)
+        console.log(postRecipe);
 
         const errMessages = validateFields(
             postRecipe,
@@ -81,7 +81,7 @@ function CreateRecipeForm(props) {
             const axiosCustom = await axiosWithAuth();
             const res = await axiosCustom.post("recipes", postRecipe);
 
-            recipeID = res.data.recipe_id;
+            recipeID = res.data.id;
             setRecipe(initialFormState);
             props.navigation.navigate("IndividualR", { recipe, recipeID });
         } catch (err) {
