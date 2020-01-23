@@ -22,6 +22,9 @@ import {
     startEditMode,
     submitEditedRecipe,
 } from "../store/singleRecipe/singleRecipeActions";
+
+import { fetchAllVersionHistory } from "../store/version-control/versionControlActions"
+
 import styles from "../styles/individualRecipeStyles.js";
 
 import clock from "../assets/timer.png";
@@ -64,6 +67,8 @@ function IndividualRecipe(props) {
     const loadRecipe = async () => {
         try {
             await dispatch(fetchRecipe(id));
+            await dispatch(fetchAllVersionHistory(id))
+
         } catch (error) {
             throw new Error("This is an error");
         }
