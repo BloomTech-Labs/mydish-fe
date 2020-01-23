@@ -130,6 +130,7 @@ function IndividualRecipe(props) {
                     onPress: () => {
                         dispatch(stopEditMode());
                         dispatch(resetCurrentActive());
+                        dispatch(fetchRecipe(id))
                     },
                 },
             ],
