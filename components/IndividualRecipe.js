@@ -53,7 +53,7 @@ function IndividualRecipe(props) {
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
     console.log("recipe", recipe);
-    const totalCookTime = recipe.prep_time || 0 + recipe.cook_time || 0;
+    const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const editMode = useSelector(state => state.singleRecipe.editMode);
     const currentActive = useSelector(
@@ -409,7 +409,7 @@ function IndividualRecipe(props) {
                                     {recipe.ingredients &&
                                         recipe.ingredients.map((ing, i) => (
                                             <DisplayRecipeIngredient
-                                                key={ing.id}
+                                                key={i}
                                                 ingredient={ing}
                                             />
                                         ))}
@@ -428,9 +428,9 @@ function IndividualRecipe(props) {
                                         <Text style={styles.notes}>NOTES</Text>
                                     </View>
                                     {recipe.notes.length &&
-                                        recipe.notes.map(note => (
+                                        recipe.notes.map((note, i) => (
                                             <DisplayRecipeNotes
-                                                key={note.id}
+                                                key={i}
                                                 notes={note}
                                             />
                                         ))}
