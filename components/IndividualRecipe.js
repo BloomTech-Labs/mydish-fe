@@ -49,6 +49,7 @@ function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
+    console.log(userId);
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
     console.log("recipe", recipe);
@@ -201,7 +202,10 @@ function IndividualRecipe(props) {
                                     </TouchableOpacity>
                                 </ImageBackground>
                                 <View style={styles.titleWrapper}>
-                                    <Title currentActive={currentActive} />
+                                    <Title
+                                        title={recipe.title}
+                                        currentActive={currentActive}
+                                    />
                                 </View>
                                 <View style={styles.innovatorTime}>
                                     <View style={styles.innovatorContainer}>
@@ -256,6 +260,7 @@ function IndividualRecipe(props) {
                                                         <IndividualRecipeIngredient
                                                             key={ing.id}
                                                             index={i}
+                                                            ingredient={ing}
                                                             currentActive={
                                                                 currentActive
                                                             }
@@ -279,6 +284,7 @@ function IndividualRecipe(props) {
                                                                 step.step_number
                                                             }
                                                             index={i}
+                                                            instruction={step}
                                                             currentActive={
                                                                 currentActive
                                                             }
@@ -346,7 +352,7 @@ function IndividualRecipe(props) {
                                 )}
                         </ImageBackground>
                         <View style={styles.titleWrapper}>
-                            <DisplayTitle />
+                            <DisplayTitle title={recipe.title} />
                         </View>
                         <View style={styles.innovatorTime}>
                             <View style={styles.innovatorContainer}>
@@ -393,7 +399,7 @@ function IndividualRecipe(props) {
                                         recipe.ingredients.map((ing, i) => (
                                             <DisplayRecipeIngredient
                                                 key={ing.id}
-                                                index={i}
+                                                ingredient={ing}
                                             />
                                         ))}
                                 </>
@@ -404,7 +410,7 @@ function IndividualRecipe(props) {
                                         recipe.instructions.map((step, i) => (
                                             <DisplayRecipeInstruction
                                                 key={step.step_number}
-                                                index={i}
+                                                instruction={step}
                                             />
                                         ))}
                                     <View style={{ paddingRight: "80%" }}>
