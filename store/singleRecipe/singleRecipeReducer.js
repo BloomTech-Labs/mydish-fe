@@ -148,7 +148,7 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 recipe: {
                     ...state.recipe,
-                    steps: [...state.recipe.steps, action.payload],
+                    instructions: [...state.recipe.instructions, action.payload],
                 },
             };
 
