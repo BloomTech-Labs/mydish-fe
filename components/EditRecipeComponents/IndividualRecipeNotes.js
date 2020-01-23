@@ -12,7 +12,7 @@ import {
     deleteNote,
 } from "../../store/singleRecipe/singleRecipeActions";
 
-export default function IndividualRecipeNotes({ notes, currentActive }) {
+export default function IndividualRecipeNotes({ index, note, currentActive }) {
     const dispatch = useDispatch();
 
     const [editing, setEditing] = useState(false);
@@ -22,11 +22,12 @@ export default function IndividualRecipeNotes({ notes, currentActive }) {
     const closeEdit = () => setEditing(false);
 
     const makeActive = (type, close) => {
-        dispatch(setCurrentActive({ type, field: "notes", index: 1, close }));
+        dispatch(setCurrentActive({ type, field: "notes", index, close }));
     };
 
     const checkActive = () =>
-        currentActive.field && currentActive.field !== "notes";
+        (currentActive.field && currentActive.field !== "notes") ||
+        (currentActive.field && currentActive.index !== index);
 
     const editHandler = () => {
         setEditing(true);
@@ -36,7 +37,6 @@ export default function IndividualRecipeNotes({ notes, currentActive }) {
 
     const handleWillOpen = () => {
         if (checkActive()) currentActive.close();
-        // dispatch(stopEdit());
     };
 
     const checkIfCurrentActiveIsAdd = () =>
@@ -47,8 +47,15 @@ export default function IndividualRecipeNotes({ notes, currentActive }) {
             {editing ? (
                 <View style={styles.stepTextView}>
                     <TextInput
-                        value={notes.description}
-                        onChangeText={newValue => dispatch(editNotes(newValue))}
+                        value={note.description}
+                        onChangeText={newValue =>
+                            dispatch(
+                                editNotes(index, {
+                                    id: note.id,
+                                    description: newValue,
+                                }),
+                            )
+                        }
                         multiline
                         returnKeyType="done"
                         autoFocus={true}
@@ -80,7 +87,7 @@ export default function IndividualRecipeNotes({ notes, currentActive }) {
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        dispatch(deleteNote());
+                                        dispatch(deleteNote(index));
                                         dispatch(resetCurrentActive());
                                     }}
                                     style={styles.deleteButton}
@@ -96,7 +103,7 @@ export default function IndividualRecipeNotes({ notes, currentActive }) {
                     >
                         <View style={styles.stepTextView}>
                             <Text style={styles.stepText}>
-                                {notes.description}
+                                {note.description}
                             </Text>
                             <MaterialCommunityIcons
                                 name="drag-vertical"

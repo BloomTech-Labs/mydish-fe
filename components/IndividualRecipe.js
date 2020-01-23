@@ -309,7 +309,8 @@ function IndividualRecipe(props) {
                                                 recipe.notes.map((note, i) => (
                                                     <IndividualRecipeNotes
                                                         key={i}
-                                                        notes={note}
+                                                        index={i}
+                                                        note={note}
                                                         currentActive={
                                                             currentActive
                                                         }
