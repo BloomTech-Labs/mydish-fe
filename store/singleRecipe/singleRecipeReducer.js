@@ -28,17 +28,18 @@ import {
 
 const initState = {
     recipe: {
-        ancestor: null,
-        categories: [],
         id: null,
-        img: null,
-        ingredients: [],
-        innovator: null,
-        innovator_name: null,
-        minutes: null,
-        notes: null,
-        steps: [],
         title: null,
+        description: null,
+        forked_from: null,
+        prep_time: 0,
+        cook_time: 0,
+        img: null,
+        owner: {},
+        ingredients: [],
+        instructions: [],
+        tags: [],
+        notes: [],
         total_saves: null,
         editable: false,
     },
@@ -57,7 +58,7 @@ export const singleRecipeReducer = (state = initState, action) => {
         case STOP_EDIT_MODE:
             return { ...state, editMode: false };
 
-        case START_UPDATE_RECIPE: // UPDATE and FETCH are the same
+        case START_UPDATE_RECIPE:
             return {
                 ...state,
                 error: null,
@@ -107,12 +108,12 @@ export const singleRecipeReducer = (state = initState, action) => {
             });
             return { ...state, recipe: { ...state.recipe, ingredients } };
         case EDIT_INSTRUCT:
-            const steps = state.recipe.steps.map((val, i) => {
+            const instructions = state.recipe.instructions.map((val, i) => {
                 if (i === action.index) {
                     return action.payload;
                 } else return val;
             });
-            return { ...state, recipe: { ...state.recipe, steps } };
+            return { ...state, recipe: { ...state.recipe, instructions } };
         case EDIT_TITLE:
             return {
                 ...state,
@@ -173,14 +174,13 @@ export const singleRecipeReducer = (state = initState, action) => {
             };
 
         case DELETE_INSTRUCT:
-            const newSteps = state.recipe.steps
-                .filter((val, i) => i !== action.payload)
-                .map((step, i) => ({ ...step, ordinal: i + 1 }));
             return {
                 ...state,
                 recipe: {
                     ...state.recipe,
-                    steps: newSteps,
+                    instructions: state.recipe.instructions
+                        .filter((val, i) => i !== action.payload)
+                        .map((step, i) => ({ ...step, step_number: i + 1 })),
                 },
             };
 
