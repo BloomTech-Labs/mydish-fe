@@ -72,10 +72,23 @@ function IndividualRecipe(props) {
     useEffect(() => {
         loadRecipe();
         fetchUserId();
+
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
     }, [id]);
+
+    useEffect(() => {
+        const didBlurSubscription = props.navigation.addListener(
+            "didBlur",
+            () => {
+                setColor({ active: "Ingredients" });
+            },
+        );
+        return () => {
+            didBlurSubscription.remove();
+        };
+    }, []);
 
     async function fetchUserId() {
         try {
@@ -130,7 +143,7 @@ function IndividualRecipe(props) {
                     onPress: () => {
                         dispatch(stopEditMode());
                         dispatch(resetCurrentActive());
-                        dispatch(fetchRecipe(id))
+                        dispatch(fetchRecipe(id));
                     },
                 },
             ],
