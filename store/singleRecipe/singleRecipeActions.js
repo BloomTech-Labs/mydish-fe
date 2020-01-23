@@ -94,20 +94,17 @@ export const fetchRecipe = id => async dispatch => {
     }
 };
 
-export const deleteIngredient = ing_index => dispatch => {
-    dispatch({ type: DELETE_INGREDIENT, payload: ing_index });
-    dispatch(stopEdit());
-};
+export const deleteIngredient = ing_index => ({
+    type: DELETE_INGREDIENT,
+    payload: ing_index,
+});
 
-export const deleteNote = () => dispatch => {
-    dispatch({ type: DELETE_NOTE });
-    dispatch(stopEdit());
-};
+export const deleteNote = index => ({ type: DELETE_NOTE, index });
 
-export const deleteInstruction = ins_index => dispatch => {
-    dispatch({ type: DELETE_INSTRUCT, payload: ins_index });
-    dispatch(stopEdit());
-};
+export const deleteInstruction = ins_index => ({
+    type: DELETE_INSTRUCT,
+    payload: ins_index,
+});
 
 // export const deleteRecipe = recipe => dispatch => {
 //     dispatch({ type: DELETE_RECIPE, payload: recipe});
@@ -173,9 +170,10 @@ export const editInstruct = (index, value) => ({
 });
 
 export const EDIT_NOTES = "EDIT_NOTES";
-export const editNotes = notes => ({
+export const editNotes = (index, notes) => ({
     type: EDIT_NOTES,
-    notes: notes,
+    payload: notes,
+    index,
 });
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";

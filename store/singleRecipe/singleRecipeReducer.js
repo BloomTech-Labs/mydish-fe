@@ -90,6 +90,7 @@ export const singleRecipeReducer = (state = initState, action) => {
                 isLoading: false,
                 error: action.payload,
             };
+
         case SET_CURRENT_ACTIVE:
             return {
                 ...state,
@@ -100,6 +101,7 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 currentActive: initState.currentActive,
             };
+
         case EDIT_INGRED:
             const ingredients = state.recipe.ingredients.map((val, i) => {
                 if (i === action.index) {
@@ -107,6 +109,7 @@ export const singleRecipeReducer = (state = initState, action) => {
                 } else return val;
             });
             return { ...state, recipe: { ...state.recipe, ingredients } };
+
         case EDIT_INSTRUCT:
             const instructions = state.recipe.instructions.map((val, i) => {
                 if (i === action.index) {
@@ -114,6 +117,7 @@ export const singleRecipeReducer = (state = initState, action) => {
                 } else return val;
             });
             return { ...state, recipe: { ...state.recipe, instructions } };
+
         case EDIT_TITLE:
             return {
                 ...state,
@@ -121,9 +125,13 @@ export const singleRecipeReducer = (state = initState, action) => {
             };
 
         case EDIT_NOTES:
+            const newNotes = state.recipe.notes.map((val, i) => {
+                if (i === action.index) return action.payload;
+                else return val;
+            });
             return {
                 ...state,
-                recipe: { ...state.recipe, notes: action.notes },
+                recipe: { ...state.recipe, notes: newNotes },
             };
 
         case ADD_INGREDIENT:
@@ -149,7 +157,7 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 recipe: {
                     ...state.recipe,
-                    notes: action.payload,
+                    notes: [...state.recipe.notes, action.payload],
                 },
             };
 
@@ -169,7 +177,9 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 recipe: {
                     ...state.recipe,
-                    notes: null,
+                    notes: state.recipe.notes.filter(
+                        (note, i) => i !== action.index,
+                    ),
                 },
             };
 
