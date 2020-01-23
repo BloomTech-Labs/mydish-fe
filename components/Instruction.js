@@ -5,7 +5,7 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     const handleChange = value => {
         setRecipe(oldRecipe => ({
             ...oldRecipe,
-            steps: oldRecipe.steps.map((step, i) => {
+            instructions: oldRecipe.instructions.map((step, i) => {
                 if (i === index) return value;
                 else return step;
             }),
