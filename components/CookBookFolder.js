@@ -12,7 +12,7 @@ const CookBookFolder = props => {
     const course = props.navigation.getParam("Course", "params not passed");
 
     useEffect(() => {
-        dispatch(fetchCookbook(course.toLowerCase()));
+        dispatch(fetchCookbook(course));
     }, [dispatch, fetchCookbook, course]);
 
     if (loading) {
