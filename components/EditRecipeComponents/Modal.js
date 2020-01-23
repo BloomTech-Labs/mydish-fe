@@ -14,7 +14,7 @@ const CommitModal = props => {
     const [author_comment, setAuthor_comment] = useState("");
 
     return (
-        <View style={{ flexDirection: "row", padding: 10 }}>
+        <View style={{ flexDirection: "row" }}>
             <Modal visible={modal.save} animationType="fade" transparent>
                 <TouchableHighlight
                     onPress={() =>
