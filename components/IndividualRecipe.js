@@ -21,6 +21,7 @@ import {
     stopEditMode,
     startEditMode,
     submitEditedRecipe,
+    fetchVersionByRevisionId
 } from "../store/singleRecipe/singleRecipeActions";
 
 import { fetchAllVersionHistory } from "../store/version-control/versionControlActions"
@@ -48,26 +49,42 @@ import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
 import CommitModal from "./EditRecipeComponents/Modal";
 
+
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
-    console.log(userId);
+    // console.log(userId);
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    console.log("recipe", recipe);
+    // const currentVersion = useSelector(state => state.versionsList.currentVersion)
+    console.log("this is a recipe", recipe);
+    // console.log('current version on load', currentVersion)
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const editMode = useSelector(state => state.singleRecipe.editMode);
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
     );
+    //Anytime someone navigations to here - it has ID, we could just also pass another value 
     const id = props.navigation.getParam("recipeID", "params not passed");
+    const revisionId = props.navigation.getParam('revisionID', "revisionId not passed")
+
+
 
     const loadRecipe = async () => {
+        // console.log('this is the current version in load recipe', currentVersion)
+        // console.log('this is the revision id', revisionId)
         try {
-            await dispatch(fetchRecipe(id));
-            await dispatch(fetchAllVersionHistory(id))
+            if (revisionId === "revisionId not passed") {
+                await dispatch(fetchRecipe(id));
+                await dispatch(fetchAllVersionHistory(id))
+            } else {
+                console.log('made it into the else')
+                console.log('revisionid', revisionId)
+                await dispatch(fetchVersionByRevisionId(id, revisionId))
+            }
+
 
         } catch (error) {
             throw new Error("This is an error");
@@ -81,7 +98,7 @@ function IndividualRecipe(props) {
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
-    }, [id]);
+    }, [id, revisionId]);
 
     useEffect(() => {
         const didBlurSubscription = props.navigation.addListener(
@@ -357,6 +374,7 @@ function IndividualRecipe(props) {
     };
 
     const nonEditableRecipeDisplay = () => {
+
         return (
             <SafeAreaView>
                 <ScrollView>
@@ -386,6 +404,7 @@ function IndividualRecipe(props) {
                         </View>
                         <View style={styles.innovatorTime}>
                             <View style={styles.innovatorContainer}>
+                                <TouchableOpacity onPress={() => props.navigation.navigate('VersionHistoryList')}><Text>Last updated on...</Text></TouchableOpacity>
                                 <Image source={logo} style={styles.icon} />
                                 <Text>{recipe.owner.username}</Text>
                             </View>
@@ -462,7 +481,7 @@ function IndividualRecipe(props) {
         );
     };
 
-    return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay();
+    return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay(props);
 }
 
 export default IndividualRecipe;

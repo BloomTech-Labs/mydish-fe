@@ -24,6 +24,7 @@ import {
     START_SUBMIT_EDITED_RECIPE,
     SUBMIT_EDITED_RECIPE_SUCCESS,
     SUBMIT_EDITED_RECIPE_FAILURE,
+    VERSION_BY_REVISION_NUM
 } from "./singleRecipeActions";
 
 const initState = {
@@ -228,6 +229,14 @@ export const singleRecipeReducer = (state = initState, action) => {
         case RESET_RECIPE:
             return initState;
 
+        case VERSION_BY_REVISION_NUM:
+
+            return {
+                ...state,
+                isLoading: false,
+                recipe: action.payload,
+
+            }
         default:
             return state;
     }

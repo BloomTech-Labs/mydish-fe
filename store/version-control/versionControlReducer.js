@@ -1,7 +1,7 @@
 import { ALL_VERSION_HISTORY } from "./versionControlActions"
 
 const initialState = {
-    versionsList: []
+    versionsList: [],
 }
 
 
