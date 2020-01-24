@@ -1,5 +1,5 @@
 import React from "react"
-import { FlatList, Text, View, TouchableOpacity } from "react-native"
+import { FlatList, Text, View, TouchableOpacity, StyleSheet } from "react-native"
 import { useSelector, useDispatch } from "react-redux"
 
 
@@ -38,8 +38,8 @@ const VersionHistoryList = props => {
                         })
                     }
                     }>
-                    < View >
-                        <Text>{item.date_modified.toString()}</Text>
+                    < View style={styles.versionView} >
+                        <Text>Version {item.revision_number}. {}{item.date_modified.toString()}</Text>
                     </View >
                 </TouchableOpacity>
 
@@ -48,6 +48,16 @@ const VersionHistoryList = props => {
 
     )
 }
+
+const styles = StyleSheet.create({
+    versionView: {
+        borderBottomColor: '#ccc',
+        borderBottomWidth: 1,
+        marginBottom: 15,
+        paddingVertical: 4,
+        paddingHorizontal: 2
+    }
+})
 
 VersionHistoryList.navigationOptions = {
     headerTitle: "Version History"
