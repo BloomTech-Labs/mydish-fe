@@ -57,7 +57,7 @@ function IndividualRecipe(props) {
     // console.log(userId);
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
-
+    const versionList = useSelector(state => state.versionsList.versionsList)
 
     const [tempRecipe, setTempRecipe] = useState(null);
     console.log("recipe", recipe);
@@ -406,7 +406,8 @@ function IndividualRecipe(props) {
                         </View>
                         <View style={styles.innovatorTime}>
                             <View style={styles.innovatorContainer}>
-                                <TouchableOpacity onPress={() => props.navigation.navigate('VersionHistoryList')}><Text>Last updated on...</Text></TouchableOpacity>
+                                {/*TO DO: add a conditional - if there are versions, show this, otherwise show text that there are no versions */}
+                                {versionList.length === 0 ? <Text>Original Version</Text> : <TouchableOpacity onPress={() => props.navigation.navigate('VersionHistoryList')}><Text>Last updated on...</Text></TouchableOpacity>}
                                 <Image source={logo} style={styles.icon} />
                                 <Text>{recipe.owner.username}</Text>
                             </View>
