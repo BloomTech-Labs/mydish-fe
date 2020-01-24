@@ -149,7 +149,10 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 recipe: {
                     ...state.recipe,
-                    instructions: [...state.recipe.instructions, action.payload],
+                    instructions: [
+                        ...state.recipe.instructions,
+                        action.payload,
+                    ],
                 },
             };
 
@@ -227,7 +230,9 @@ export const singleRecipeReducer = (state = initState, action) => {
             };
 
         case RESET_RECIPE:
-            return initState;
+            return action.payload
+                ? { ...state, recipe: action.payload }
+                : initState;
 
         case VERSION_BY_REVISION_NUM:
 

@@ -57,9 +57,10 @@ function IndividualRecipe(props) {
     // console.log(userId);
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    // const currentVersion = useSelector(state => state.versionsList.currentVersion)
-    console.log("this is a recipe", recipe);
-    // console.log('current version on load', currentVersion)
+
+
+    const [tempRecipe, setTempRecipe] = useState(null);
+    console.log("recipe", recipe);
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const editMode = useSelector(state => state.singleRecipe.editMode);
@@ -141,6 +142,7 @@ function IndividualRecipe(props) {
         if (!recipe.owner.user_id || userId !== recipe.owner.user_id)
             return dispatch(stopEditMode());
         dispatch(startEditMode());
+        setTempRecipe(recipe);
     };
 
     const saveButtonEditedRecipe = author_comment => {
@@ -165,7 +167,7 @@ function IndividualRecipe(props) {
                     onPress: () => {
                         dispatch(stopEditMode());
                         dispatch(resetCurrentActive());
-                        dispatch(fetchRecipe(id));
+                        dispatch(resetRecipe(tempRecipe));
                     },
                 },
             ],
