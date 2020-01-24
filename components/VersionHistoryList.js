@@ -1,30 +1,24 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { FlatList, Text, View, TouchableOpacity, StyleSheet } from "react-native"
 import { useSelector, useDispatch } from "react-redux"
 
 
-import IndividualRecipe from "../components/IndividualRecipe";
-import { fetchVersionByRevisionId } from "../store/version-control/versionControlActions"
+import { fetchAllVersionHistory } from "../store/version-control/versionControlActions"
 
 const VersionHistoryList = props => {
     const versionList = useSelector(state => state.versionsList.versionsList)
     const dispatch = useDispatch()
     // console.log('this is the versionHistoryList', versionList)
 
-    const getRecipeByRevisionNumber = async (id, revisionId) => {
-        console.log('id and revision#', id, revisionId)
-        try {
+    const id = props.navigation.getParam("parentId", "parentId not passed");
 
-            const res = await dispatch(fetchVersionByRevisionId(id, revisionId))
-            console.log('res', res)
-        } catch (error) {
-            console.log(error)
-            throw new Error('error getting recipe by revision #')
-        }
+    async function fetchAllVersions(id) {
+        await dispatch(fetchAllVersionHistory(id))
     }
 
-    // console.log('this is an items changes', item.date_modified)
-    // getRecipeByRevisionNumber(item.changes.id, item.id)
+    useEffect(() => {
+        fetchAllVersions(id)
+    }, [id])
 
     return (
 

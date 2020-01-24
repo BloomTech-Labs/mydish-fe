@@ -24,7 +24,6 @@ import {
     fetchVersionByRevisionId
 } from "../store/singleRecipe/singleRecipeActions";
 
-import { fetchAllVersionHistory } from "../store/version-control/versionControlActions"
 
 import styles from "../styles/individualRecipeStyles.js";
 
@@ -60,7 +59,7 @@ function IndividualRecipe(props) {
     const versionList = useSelector(state => state.versionsList.versionsList)
 
     const [tempRecipe, setTempRecipe] = useState(null);
-    console.log("recipe", recipe);
+    console.log("recipe in singleRecipeAction", recipe);
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const editMode = useSelector(state => state.singleRecipe.editMode);
@@ -79,7 +78,10 @@ function IndividualRecipe(props) {
         try {
             if (revisionId === "revisionId not passed") {
                 await dispatch(fetchRecipe(id));
-                await dispatch(fetchAllVersionHistory(id))
+
+                //fetchAllVersionHistory needs to be moved or else it wont update when a new version is created, just when we navigate to individualrecipe
+                // await dispatch(fetchAllVersionHistory(id))
+
             } else {
                 console.log('made it into the else')
                 console.log('revisionid', revisionId)
@@ -407,7 +409,12 @@ function IndividualRecipe(props) {
                         <View style={styles.innovatorTime}>
                             <View style={styles.innovatorContainer}>
                                 {/*TO DO: add a conditional - if there are versions, show this, otherwise show text that there are no versions */}
-                                {versionList.length === 0 ? <Text>Original Version</Text> : <TouchableOpacity onPress={() => props.navigation.navigate('VersionHistoryList')}><Text>Last updated on...</Text></TouchableOpacity>}
+                                {versionList.lenght === 0 ?
+                                    <Text>Original Version</Text> :
+                                    <TouchableOpacity
+                                        onPress={() => props.navigation.navigate('VersionHistoryList', { parentId: id })}>
+                                        <Text>Last updated on...</Text>
+                                    </TouchableOpacity>}
                                 <Image source={logo} style={styles.icon} />
                                 <Text>{recipe.owner.username}</Text>
                             </View>
@@ -478,6 +485,13 @@ function IndividualRecipe(props) {
                                 </>
                             )}
                         </View>
+                        {versionList.length === 0 ? null : (
+                            <View style={{ paddingRight: "80%" }}>
+                                <Text style={styles.notes}>AUTHOR COMMENT</Text>
+                                <Text>{recipe.author_comment}</Text>
+                            </View>
+
+                        )}
                     </View>
                 </ScrollView>
             </SafeAreaView>
