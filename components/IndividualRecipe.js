@@ -284,7 +284,6 @@ function IndividualRecipe(props) {
                                             </Text>
                                         ))}
                                 </View>
-
                                 <View style={styles.tabsContainer}>
                                     <Tab
                                         text="Ingredients"
@@ -410,7 +409,7 @@ function IndividualRecipe(props) {
                             <View style={styles.innovatorContainer}>
                                 {/*TO DO: add a conditional - if there are versions, show this, otherwise show text that there are no versions */}
                                 {versionList.lenght === 0 ?
-                                    <Text>Original Version</Text> :
+                                    <Text>No Edited Versions</Text> :
                                     <TouchableOpacity
                                         onPress={() => props.navigation.navigate('VersionHistoryList', { parentId: id })}>
                                         <Text>Last updated on...</Text>
@@ -487,8 +486,9 @@ function IndividualRecipe(props) {
                         </View>
                         {versionList.length === 0 || revisionId === "revisionId not passed" ? null : (
                             <View style={{ marginLeft: 10 }}>
-                                <Text style={{ fontWeight: 'bold' }}>AUTHOR COMMENT</Text>
+                                <Text style={{ fontWeight: 'bold' }}>AUTHOR COMMENT FOR VERSION {recipe.revision_number}</Text>
                                 <Text>{recipe.authorComment}</Text>
+
                             </View>
 
                         )}
