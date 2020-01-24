@@ -486,9 +486,9 @@ function IndividualRecipe(props) {
                             )}
                         </View>
                         {versionList.length === 0 ? null : (
-                            <View style={{ paddingRight: "80%" }}>
-                                <Text style={styles.notes}>AUTHOR COMMENT</Text>
-                                <Text>{recipe.author_comment}</Text>
+                            <View style={{ marginLeft: 10 }}>
+                                <Text style={{ fontWeight: 'bold' }}>AUTHOR COMMENT</Text>
+                                <Text>{recipe.authorComment}</Text>
                             </View>
 
                         )}
@@ -500,5 +500,6 @@ function IndividualRecipe(props) {
 
     return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay(props);
 }
+
 
 export default IndividualRecipe;

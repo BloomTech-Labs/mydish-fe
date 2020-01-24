@@ -207,7 +207,8 @@ export const fetchVersionByRevisionId = (id, revisionId) => {
             const axiosCustom = await axiosWithAuth()
             const res = await axiosCustom.get(`recipes/${id}/version/${revisionId}`)
             console.log('fetch version by Id in singleRecipeAction', res.data)
-            const fullRecipe = { ...res.data.changes, owner: res.data.owner }
+            const fullRecipe = { ...res.data.changes, owner: res.data.owner, authorComment: res.data.author_comment }
+            console.log('this is the full recipe', fullRecipe)
 
             dispatch({ type: VERSION_BY_REVISION_NUM, payload: fullRecipe })
 
