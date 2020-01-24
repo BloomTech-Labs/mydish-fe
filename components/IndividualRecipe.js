@@ -485,7 +485,7 @@ function IndividualRecipe(props) {
                                 </>
                             )}
                         </View>
-                        {versionList.length === 0 ? null : (
+                        {versionList.length === 0 || revisionId === "revisionId not passed" ? null : (
                             <View style={{ marginLeft: 10 }}>
                                 <Text style={{ fontWeight: 'bold' }}>AUTHOR COMMENT</Text>
                                 <Text>{recipe.authorComment}</Text>
