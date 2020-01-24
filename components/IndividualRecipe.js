@@ -55,21 +55,6 @@ function IndividualRecipe(props) {
     );
     const id = props.navigation.getParam("recipeID", "params not passed");
 
-    const [isLoading, setIsLoading] = useState(true)
-
-    const loadRecipe = useCallback(async () => {
-        setIsLoading(true)
-        try {
-            await dispatch(fetchRecipe(id))
-
-        } catch (error) {
-            throw new Error("This is an error")
-        }
-        console.log(isLoading)
-        setIsLoading(false)
-        console.log(isLoading)
-    }, [setIsLoading])
-
     useEffect(() => {
         dispatch(fetchRecipe(id));
         fetchUserId();
