@@ -52,13 +52,14 @@ export const submitEditedRecipe = author_comment => async (
 
     const { recipe } = getState().singleRecipe;
     const newRecipe = { ...recipe, author_comment };
-
+    // console.log('this is the author comment in singleRecipeAction', authorComment)
     console.log('this is new recipe', newRecipe);
 
     try {
         const axiosCustom = await axiosWithAuth();
 
         const res = await axiosCustom.put(`recipes/${newRecipe.id}`, newRecipe);
+        console.log('res data after singleRecipeAction submiteditedRecipe', res.data)
 
         dispatch({ type: SUBMIT_EDITED_RECIPE_SUCCESS, payload: res.data });
     } catch (err) {
@@ -205,7 +206,7 @@ export const fetchVersionByRevisionId = (id, revisionId) => {
         try {
             const axiosCustom = await axiosWithAuth()
             const res = await axiosCustom.get(`recipes/${id}/version/${revisionId}`)
-            // console.log('currentVersion in actions', res.data.changes)
+            console.log('fetch version by Id in singleRecipeAction', res.data)
             const fullRecipe = { ...res.data.changes, owner: res.data.owner }
 
             dispatch({ type: VERSION_BY_REVISION_NUM, payload: fullRecipe })

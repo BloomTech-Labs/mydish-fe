@@ -62,8 +62,11 @@ const VersionHistoryList = props => {
 
                         < View style={styles.versionView} >
                             <Text style={styles.label}>Version {item.revision_number}. </Text>
-                            <Text>{}{formattedDate.toString()}</Text>
-                            <Text>{item.author_comment}</Text>
+                            <Text>{formattedDate.toString()}</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={styles.commentLabel}>Author Comment: </Text>
+                                <Text>{item.author_comment}</Text>
+                            </View>
                         </View >
                     </TouchableOpacity >
 
@@ -89,6 +92,9 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         fontWeight: 'bold'
     },
+    commentLabel: {
+        fontWeight: 'bold'
+    }
 })
 
 VersionHistoryList.navigationOptions = {

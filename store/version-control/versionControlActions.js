@@ -11,7 +11,7 @@ export const fetchAllVersionHistory = id => {
             const axiosCustom = await axiosWithAuth()
             const res = await axiosCustom.get(`recipes/${id}/versions`)
             dispatch({ type: ALL_VERSION_HISTORY, versionsList: res.data })
-            // console.log('version history', res.data)
+            console.log('version history', res.data)
         }
         catch (error) {
             console.log(error)
