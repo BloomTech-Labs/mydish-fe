@@ -1,7 +1,5 @@
 import React from "react";
 import RNPickerSelect from "react-native-picker-select";
-import { stopEdit } from "../store/singleRecipe/singleRecipeActions";
-import { useDispatch } from "react-redux";
 
 export default Picker = ({
     handleChange,
@@ -12,6 +10,7 @@ export default Picker = ({
     const placeholder = {
         label: "unit",
     };
+    console.log(unit)
 
     const styleObj = {
         fontSize: 16,
@@ -28,7 +27,7 @@ export default Picker = ({
         <RNPickerSelect
             onClose={onClose}
             placeholder={placeholder}
-            onValueChange={value => handleChange("unit", value)}
+            onValueChange={value => handleChange("units", value)}
             value={unit}
             useNativeAndroidPickerStyle={false}
             style={{
@@ -36,15 +35,16 @@ export default Picker = ({
                 inputAndroid: styleObj,
             }}
             items={[
-                { label: "tsp", value: "tsp" },
-                { label: "tbsp", value: "tbsp" },
+                { label: "tsp", value: "teaspoon" },
+                { label: "tbsp", value: "tablespoon" },
                 { label: "cup", value: "cup" },
-                { label: "g", value: "g" },
-                { label: "mg", value: "mg" },
-                { label: "oz", value: "oz" },
+                { label: "g", value: "gram" },
+                { label: "kg", value: "kilogram" },
+                { label: "mg", value: "milligram" },
+                { label: "oz", value: "ounce" },
                 { label: "pinch", value: "pinch" },
-                { label: "L", value: "L" },
-                { label: "ml", value: "ml" },
+                { label: "L", value: "liter" },
+                { label: "mL", value: "milliliter" },
                 { label: "can", value: "can" },
                 { label: "whole", value: "whole" },
                 { label: "pint", value: "pint" },

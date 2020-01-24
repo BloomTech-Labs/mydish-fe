@@ -1,51 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import Recipe from "./Recipe";
-import { View, StyleSheet, FlatList, ActivityIndicator, Text } from "react-native";
-import { fetchCookbook } from "../store/cookbook/cookbookAction";
+import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
 
 const RecipeList = ({ parent, folder }) => {
+    const isLoading = useSelector(store => store.cookbook.isLoading);
 
-    const isLoading = useSelector(store => store.allRecipes.isLoading)
-    const dispatch = useDispatch();
     // If the RecipeList is being rendered from the cookbook,
-    //     grab the props from that the cookbook is passing down.
+    //     grab the props that the cookbook is passing down.
     // If the RecipeList ISN'T coming from the cookbook, then we
     //     useSelector to get all of the recipes.
     const recipeList =
         parent === "cookbook"
             ? folder
             : useSelector(store => store.allRecipes.recipeList);
-    const cookbook = useSelector(store => store.cookbook.cookbookRecipes);
-    console.log('this is the recipe list', recipeList)
-    // Recipe.js does not use the "likedByUser" property,
-    //     but we'll keep this function for now because it is setting state
-    //     for the "recipes" variable
-    const [recipes, setRecipes] = useState([]);
-    const likedByUser = () => {
-        newRecipeList = recipeList.map(rec => {
-            const match = cookbook.find(({ id }) => id === rec.id);
-            if (match) {
-                rec.likedByUser = true;
-            } else {
-                rec.likedByUser = false;
-            }
-            return rec;
-        });
-        setRecipes(newRecipeList);
-    };
-
-
-    useEffect(() => {
-
-        // Only call this action if the recipe is NOT coming
-        //     from the cookbook
-        if (!cookbook.length || parent !== "cookbook") {
-            dispatch(fetchCookbook);
-        }
-
-        likedByUser();
-    }, [cookbook, recipeList, dispatch]);
 
     // TODO: Talk with backend - If we can get each recipe to have an
     //       extra property called "forkCount", we can pass the forkCount
@@ -57,14 +25,14 @@ const RecipeList = ({ parent, folder }) => {
             <View style={styles.centered}>
                 <ActivityIndicator size="large" color="#00ff00" />
             </View>
-        )
+        );
     }
     return (
         <View style={styles.container}>
-            {recipes.length !== 0 && (
+            {recipeList.length !== 0 && (
                 <FlatList
                     contentContainerStyle={{ paddingBottom: 150 }}
-                    data={recipes}
+                    data={recipeList}
                     numColumns={2}
                     keyExtractor={item => item.id.toString()}
                     renderItem={({ item }) => (
@@ -72,7 +40,6 @@ const RecipeList = ({ parent, folder }) => {
                     )}
                 />
             )}
-            {}
         </View>
     );
 };
@@ -84,7 +51,7 @@ const styles = StyleSheet.create({
         marginLeft: "2%",
         marginRight: "2%",
     },
-    centered: { flex: 1, justifyContent: 'center', alignItems: 'center' }
+    centered: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
 
 export default RecipeList;

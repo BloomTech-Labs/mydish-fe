@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Text, TextInput, View, Image, ScrollView, TouchableOpacity } from "react-native";
+import {
+    Text,
+    TextInput,
+    View,
+    Image,
+    ScrollView,
+    TouchableOpacity,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../styles/createRecipeStyles";
 
@@ -12,23 +19,17 @@ import Notes from "./Notes";
 
 import DoneImg from "../assets/done_button.png";
 import axiosWithAuth from "../utils/axiosWithAuth";
-import {
-    toggleBackgroundColor,
-    tagsIncluded,
-    toggleDifficultyColor,
-    difficultyTags,
-} from "../utils/helperFunctions/tagFunctions";
 import { validateFields } from "../utils/helperFunctions/vaildateFields";
 
 function CreateRecipeForm(props) {
     const initialFormState = {
         title: "",
-        minutes: "",
-        notes: "",
-        categories: [],
-        ingredients: [{ name: "", quantity: "", unit: "" }],
-        steps: [""],
-        ancestor: null,
+        prep_time: "",
+        cook_time: "",
+        tags: [],
+        ingredients: [{ name: "", quantity: "", units: "" }],
+        instructions: [""],
+        notes: [""],
     };
 
     const [recipe, setRecipe] = useState(initialFormState);
@@ -42,39 +43,27 @@ function CreateRecipeForm(props) {
         "Dessert",
         "Snack",
     ];
-    const cuisines = [
-        "American",
-        "Thai",
-        "Chinese",
-        "Italian",
-        "Mexican",
-        "Japanese",
-        "Middle-Eastern",
-        "Other",
-    ];
-    const diets = [
-        "Alcohol-Free",
-        "Nut-free",
-        "Vegan",
-        "Gluten-Free",
-        "Vegetarian",
-        "Sugar-Free",
-        "Paleo",
-    ];
-    const difficulty = ["Easy", "Intermediate", "Difficult"];
-    const [color, setColor] = useState({ active: [] });
 
     const postRecipe = async () => {
         const postRecipe = {
             ...recipe,
             // Remove any ingredients that are empty
             ingredients: recipe.ingredients.filter(
-                ing => ing.name.length && ing.quantity.length && ing.unit,
+                ing => ing.name.length && ing.quantity.length && ing.units,
             ),
-            steps: recipe.steps
-                .map(step => step.replace(/\n+/g, " ")) // Remove any newlines
-                .filter(step => step.length), // Remove empty steps
+            instructions: recipe.instructions
+                .filter(step => step.length) // Remove empty instructions
+                .map((step, i) => ({
+                    step_number: i + 1, // Add the step number
+                    description: step.replace(/\n+/g, " "), // Remove any newlines
+                })),
+            notes: recipe.notes
+                .filter(note => note.length) // Remove empty instructions
+                .map(
+                    (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
+                ),
         };
+        console.log(postRecipe);
 
         const errMessages = validateFields(
             postRecipe,
@@ -92,7 +81,7 @@ function CreateRecipeForm(props) {
             const axiosCustom = await axiosWithAuth();
             const res = await axiosCustom.post("recipes", postRecipe);
 
-            recipeID = res.data.recipe_id;
+            recipeID = res.data.id;
             setRecipe(initialFormState);
             props.navigation.navigate("IndividualR", { recipe, recipeID });
         } catch (err) {
@@ -101,7 +90,7 @@ function CreateRecipeForm(props) {
     };
 
     const addIng = () => {
-        const newIng = { name: "", quantity: "", unit: "" };
+        const newIng = { name: "", quantity: "", units: "" };
         setRecipe(oldRecipe => ({
             ...oldRecipe,
             ingredients: [...oldRecipe.ingredients, newIng],
@@ -111,7 +100,21 @@ function CreateRecipeForm(props) {
     const addInstruction = () => {
         setRecipe(oldRecipe => ({
             ...oldRecipe,
-            steps: [...oldRecipe.steps, ""],
+            instructions: [...oldRecipe.instructions, ""],
+        }));
+    };
+
+    const addNote = () => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            notes: [...oldRecipe.notes, ""],
+        }));
+    };
+
+    const removeNote = index => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            notes: oldRecipe.notes.filter((val, i) => i !== index),
         }));
     };
 
@@ -125,7 +128,9 @@ function CreateRecipeForm(props) {
     const removeInstruction = index => {
         setRecipe(oldRecipe => ({
             ...oldRecipe,
-            steps: oldRecipe.steps.filter((val, i) => i !== index),
+            instructions: oldRecipe.instructions.filter(
+                (val, i) => i !== index,
+            ),
         }));
     };
 
@@ -144,12 +149,24 @@ function CreateRecipeForm(props) {
     };
 
     const addInstructions = () => {
-        return recipe.steps.map((instruction, i) => (
+        return recipe.instructions.map((instruction, i) => (
             <Instruction
                 key={i}
                 index={i}
                 removeInstruction={removeInstruction}
                 instruction={instruction}
+                setRecipe={setRecipe}
+            />
+        ));
+    };
+
+    const addNotes = () => {
+        return recipe.notes.map((note, i) => (
+            <Notes
+                key={i}
+                index={i}
+                removeNote={removeNote}
+                note={note}
                 setRecipe={setRecipe}
             />
         ));
@@ -174,13 +191,23 @@ function CreateRecipeForm(props) {
                             </Text>
                             <TextInput
                                 style={styles.totalTimeContainer}
-                                placeholder="Time"
+                                placeholder="Prep Time"
                                 keyboardType={"numeric"}
                                 onChangeText={min => {
                                     if (isNaN(Number(min))) return;
-                                    setRecipe({ ...recipe, minutes: min });
+                                    setRecipe({ ...recipe, prep_time: min });
                                 }}
-                                value={String(recipe.minutes)}
+                                value={String(recipe.prep_time)}
+                            />
+                            <TextInput
+                                style={styles.totalTimeContainer}
+                                placeholder="Cook Time"
+                                keyboardType={"numeric"}
+                                onChangeText={min => {
+                                    if (isNaN(Number(min))) return;
+                                    setRecipe({ ...recipe, cook_time: min });
+                                }}
+                                value={String(recipe.cook_time)}
                             />
 
                             <Text style={styles.heading}>Course Type</Text>
@@ -190,60 +217,10 @@ function CreateRecipeForm(props) {
                                     <TagButton
                                         key={i}
                                         tag={course}
-                                        recipe={recipe}
+                                        isSelected={recipe.tags.includes(
+                                            course,
+                                        )}
                                         setRecipe={setRecipe}
-                                        color={color}
-                                        setColor={setColor}
-                                        toggleColor={toggleBackgroundColor}
-                                        tagsIncluded={tagsIncluded}
-                                    />
-                                ))}
-                            </View>
-
-                            <Text style={styles.heading}>Cuisine</Text>
-                            <View style={styles.tagGroup}>
-                                {cuisines.map((cuisine, i) => (
-                                    <TagButton
-                                        key={i}
-                                        tag={cuisine}
-                                        recipe={recipe}
-                                        setRecipe={setRecipe}
-                                        color={color}
-                                        setColor={setColor}
-                                        toggleColor={toggleBackgroundColor}
-                                        tagsIncluded={tagsIncluded}
-                                    />
-                                ))}
-                            </View>
-
-                            <Text style={styles.heading}>Diet</Text>
-                            <View style={styles.tagGroup}>
-                                {diets.map((diet, i) => (
-                                    <TagButton
-                                        key={i}
-                                        tag={diet}
-                                        recipe={recipe}
-                                        setRecipe={setRecipe}
-                                        color={color}
-                                        setColor={setColor}
-                                        toggleColor={toggleBackgroundColor}
-                                        tagsIncluded={tagsIncluded}
-                                    />
-                                ))}
-                            </View>
-
-                            <Text style={styles.heading}>Difficulty</Text>
-                            <View style={styles.tagGroup}>
-                                {difficulty.map((dif, i) => (
-                                    <TagButton
-                                        key={i}
-                                        tag={dif}
-                                        recipe={recipe}
-                                        setRecipe={setRecipe}
-                                        color={color}
-                                        setColor={setColor}
-                                        toggleColor={toggleDifficultyColor}
-                                        tagsIncluded={difficultyTags}
                                     />
                                 ))}
                             </View>
@@ -257,9 +234,14 @@ function CreateRecipeForm(props) {
                             {addInstructions()}
                             <Add text="Add A Step" submit={addInstruction} />
 
-                            <Notes recipe={recipe} setRecipe={setRecipe} />
+                            <Text style={styles.heading}>Notes : </Text>
+                            {addNotes()}
+                            <Add text="Add A Note" submit={addNote} />
 
-                            <TouchableOpacity style={styles.doneView} onPress={postRecipe}>
+                            <TouchableOpacity
+                                style={styles.doneView}
+                                onPress={postRecipe}
+                            >
                                 <Image
                                     source={DoneImg}
                                     style={styles.doneCreateBtn}
