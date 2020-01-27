@@ -14,10 +14,12 @@ const VersionHistoryList = props => {
 
     async function fetchAllVersions(id) {
         await dispatch(fetchAllVersionHistory(id))
+
     }
 
     useEffect(() => {
         fetchAllVersions(id)
+
     }, [id])
 
     return (
@@ -59,7 +61,7 @@ const VersionHistoryList = props => {
                             <Text>{formattedDate.toString()}</Text>
                             <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.commentLabel}>Author Comment: </Text>
-                                <Text>{item.author_comment}</Text>
+                                <Text>{item.changes.author_comment}</Text>
                             </View>
                         </View >
                     </TouchableOpacity >
