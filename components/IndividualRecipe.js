@@ -57,6 +57,7 @@ function IndividualRecipe(props) {
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const versionList = useSelector(state => state.versionsList.versionsList)
+    console.log('this is the full versionList', versionList)
 
     const [tempRecipe, setTempRecipe] = useState(null);
     console.log("recipe in singleRecipeAction", recipe);
@@ -408,11 +409,11 @@ function IndividualRecipe(props) {
                         <View style={styles.innovatorTime}>
                             <View style={styles.innovatorContainer}>
                                 {/*TO DO: add a conditional - if there are versions, show this, otherwise show text that there are no versions */}
-                                {versionList.lenght === 0 ?
+                                {!revisionId === "revisionId not passed" ?
                                     <Text>No Edited Versions</Text> :
                                     <TouchableOpacity
                                         onPress={() => props.navigation.navigate('VersionHistoryList', { parentId: id })}>
-                                        <Text>Last updated on...</Text>
+                                        <Text>Version History</Text>
                                     </TouchableOpacity>}
                                 <Image source={logo} style={styles.icon} />
                                 <Text>{recipe.owner.username}</Text>
@@ -486,7 +487,7 @@ function IndividualRecipe(props) {
                         </View>
                         {versionList.length === 0 || revisionId === "revisionId not passed" ? null : (
                             <View style={{ marginLeft: 10 }}>
-                                <Text style={{ fontWeight: 'bold' }}>AUTHOR COMMENT FOR VERSION {recipe.revision_number}</Text>
+                                <Text style={{ fontWeight: 'bold' }}>AUTHOR COMMENT ON VERSION {recipe.revision_number}:</Text>
                                 <Text>{recipe.authorComment}</Text>
 
                             </View>
