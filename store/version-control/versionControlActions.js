@@ -10,7 +10,18 @@ export const fetchAllVersionHistory = id => {
         try {
             const axiosCustom = await axiosWithAuth()
             const res = await axiosCustom.get(`recipes/${id}/versions`)
-            dispatch({ type: ALL_VERSION_HISTORY, versionsList: res.data })
+            const sortedVersionList = res.data.sort(function (a, b) {
+                console.log('revision num', a.revision_number)
+                a = a.revision_number
+
+                b = b.revision_number
+
+                return a < b
+            })
+
+            console.log('sorted version list', sortedVersionList)
+
+            dispatch({ type: ALL_VERSION_HISTORY, versionsList: sortedVersionList })
             console.log('version history', res.data)
         }
         catch (error) {
