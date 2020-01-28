@@ -8,7 +8,6 @@ import { fetchAllVersionHistory } from "../store/version-control/versionControlA
 const VersionHistoryList = props => {
     const versionList = useSelector(state => state.versionsList.versionsList)
     const dispatch = useDispatch()
-    // console.log('this is the versionHistoryList', versionList)
 
     const id = props.navigation.getParam("parentId", "parentId not passed");
 
@@ -27,7 +26,7 @@ const VersionHistoryList = props => {
         <View>
 
             < FlatList data={versionList} keyExtractor={(item) => item.revision_number.toString()} renderItem={({ item }) => {
-                console.log('each item', item)
+
                 {/*Format date to Month, Day, Year, H:MM AM/MP */ }
                 const modifiedDate = new Date(item.date_modified)
                 const month = modifiedDate.toLocaleString('default', { month: 'long' })
@@ -39,18 +38,15 @@ const VersionHistoryList = props => {
                 })
 
                 const formattedDate = month + ' ' + curr_date + "," + curr_year + ' ' + curr_hour
-                console.log(month + ' ' + curr_date + ", " + curr_year + ' ' + curr_hour);
 
-
-                console.log('modifieddate', modifiedDate.toDateString())
-                console.log('this is the author comment', item.author_comment)
                 return (
                     <TouchableOpacity
                         onPress={() => {
                             // getRecipeByRevisionNumber(item.changes.id, item.id)
                             props.navigation.navigate("IndividualR", {
                                 recipeID: item.changes.id,
-                                revisionID: item.id
+                                revisionID: item.id,
+                                revisionNum: item.revision_number
                             })
                         }
                         }>

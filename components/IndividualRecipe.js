@@ -53,14 +53,13 @@ function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
-    // console.log(userId);
+
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const versionList = useSelector(state => state.versionsList.versionsList)
-    console.log('this is the full versionList', versionList)
-
     const [tempRecipe, setTempRecipe] = useState(null);
-    console.log("recipe in singleRecipeAction", recipe);
+
+
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const editMode = useSelector(state => state.singleRecipe.editMode);
@@ -70,12 +69,11 @@ function IndividualRecipe(props) {
     //Anytime someone navigations to here - it has ID, we could just also pass another value 
     const id = props.navigation.getParam("recipeID", "params not passed");
     const revisionId = props.navigation.getParam('revisionID', "revisionId not passed")
-
+    const revisionNum = props.navigation.getParam('revisionNum', 'revisionNum not passed')
 
 
     const loadRecipe = async () => {
-        // console.log('this is the current version in load recipe', currentVersion)
-        // console.log('this is the revision id', revisionId)
+
         try {
             if (revisionId === "revisionId not passed") {
                 await dispatch(fetchRecipe(id));
@@ -84,8 +82,7 @@ function IndividualRecipe(props) {
                 // await dispatch(fetchAllVersionHistory(id))
 
             } else {
-                console.log('made it into the else')
-                console.log('revisionid', revisionId)
+
                 await dispatch(fetchVersionByRevisionId(id, revisionId))
             }
 
@@ -409,15 +406,18 @@ function IndividualRecipe(props) {
                         <View style={styles.innovatorTime}>
                             <View style={styles.innovatorContainer}>
                                 {/*TO DO: add a conditional - if there are versions, show this, otherwise show text that there are no versions */}
-                                {!revisionId === "revisionId not passed" ?
-                                    <Text>No Edited Versions</Text> :
+                                {!recipe.author_comment ?
+                                    <Text>No Versions</Text> :
                                     <TouchableOpacity
                                         onPress={() => props.navigation.navigate('VersionHistoryList', { parentId: id })}>
-                                        <Text>Version History</Text>
+                                        <Text>Prev. Versions</Text>
                                     </TouchableOpacity>}
+                            </View>
+                            <View style={{ flexDirection: 'row' }}>
                                 <Image source={logo} style={styles.icon} />
                                 <Text>{recipe.owner.username}</Text>
                             </View>
+
 
                             <View style={styles.timeContainer}>
                                 <Image source={clock} style={styles.icon} />

@@ -5,10 +5,10 @@ import styles from "../styles/createRecipeStyles";
 export default function TagButton({ tag, isSelected, setRecipe }) {
     const toggleTag = () => {
         setRecipe(oldRecipe => {
-            console.log(tag);
+
             // Does our tag exist in our recipe?
             const index = oldRecipe.tags.includes(tag);
-            console.log("here2");
+
             // If yes, remove it
             if (index) {
                 return {

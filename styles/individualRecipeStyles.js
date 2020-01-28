@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     },
     innovatorContainer: {
         flexDirection: "row",
+        marginRight: 10
     },
     timeContainer: {
         flexDirection: "row",

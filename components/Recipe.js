@@ -6,6 +6,7 @@ import placeholder from "../assets/recipe-image-placeholder.png";
 
 const Recipe = props => {
     const { navigation, recipe } = props;
+
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
 
     return (
