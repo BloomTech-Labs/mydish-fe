@@ -150,7 +150,8 @@ function IndividualRecipe(props) {
     };
 
     const hasRevisions = () =>
-        revisionId || Number(recipe.previous_versions_count);
+        revisionId != "revisionId not passed" ||
+        Number(recipe.previous_versions_count);
 
     const getVersionString = () =>
         recipe.revision_number
