@@ -11,7 +11,18 @@ import {
 
 const CommitModal = props => {
     const { modal, setModal, saveButtonEditedRecipe } = props;
-    const [author_comment, setAuthor_comment] = useState("");
+    const [author_comment, setAuthor_comment] = useState();
+
+    const saveModalHandler = () => {
+        if (!author_comment) {
+            return;
+        } else {
+            saveButtonEditedRecipe(
+                author_comment,
+            )
+        }
+
+    }
 
     return (
         <View style={{ flexDirection: "row" }}>
@@ -79,20 +90,17 @@ const CommitModal = props => {
                                 >
                                     <Button
                                         title="Cancel"
-                                        onPress={() =>
+                                        onPress={() => {
                                             setModal({
                                                 save: false,
                                                 cancel: false,
                                             })
-                                        }
+                                        }}
                                     />
 
                                     <Button
                                         title="OK"
-                                        onPress={() =>
-                                            saveButtonEditedRecipe(
-                                                author_comment,
-                                            )
+                                        onPress={saveModalHandler
                                         }
                                     />
                                 </View>
