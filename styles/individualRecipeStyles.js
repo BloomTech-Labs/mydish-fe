@@ -202,6 +202,9 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
         flexDirection: "row",
     },
+    imageContainer: {
+        borderRadius: 5
+    },
     editButton: {
         backgroundColor: "#8FCC70",
         padding: 5,
