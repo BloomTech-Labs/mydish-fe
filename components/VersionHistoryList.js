@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 
 
 import { fetchAllVersionHistory } from "../store/version-control/versionControlActions"
+import formatdate from "../utils/helperFunctions/formatdate"
 
 const VersionHistoryList = props => {
     const versionList = useSelector(state => state.versionsList.versionsList)
@@ -28,16 +29,7 @@ const VersionHistoryList = props => {
             < FlatList data={versionList} keyExtractor={(item) => item.revision_number.toString()} renderItem={({ item }) => {
 
                 {/*Format date to Month, Day, Year, H:MM AM/MP */ }
-                const modifiedDate = new Date(item.date_modified)
-                const month = modifiedDate.toLocaleString('default', { month: 'long' })
-                const curr_date = modifiedDate.getDate()
-                const curr_year = modifiedDate.getFullYear()
-
-                const curr_hour = modifiedDate.toLocaleString('en-US', {
-                    hour: '2-digit', minute: '2-digit', hour12: true
-                })
-
-                const formattedDate = month + ' ' + curr_date + "," + curr_year + ' ' + curr_hour
+                formattedDate = formatdate(item.date_modified)
 
                 return (
                     <TouchableOpacity
