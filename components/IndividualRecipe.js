@@ -21,9 +21,8 @@ import {
     stopEditMode,
     startEditMode,
     submitEditedRecipe,
-    fetchVersionByRevisionId
+    fetchVersionByRevisionId,
 } from "../store/singleRecipe/singleRecipeActions";
-
 
 import styles from "../styles/individualRecipeStyles.js";
 
@@ -48,7 +47,6 @@ import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
 import CommitModal from "./EditRecipeComponents/Modal";
 
-
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
@@ -56,9 +54,9 @@ function IndividualRecipe(props) {
 
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    const versionList = useSelector(state => state.versionsList.versionsList)
+    console.log(recipe);
+    const versionList = useSelector(state => state.versionsList.versionsList);
     const [tempRecipe, setTempRecipe] = useState(null);
-
 
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
@@ -66,27 +64,27 @@ function IndividualRecipe(props) {
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
     );
-    //Anytime someone navigations to here - it has ID, we could just also pass another value 
+    //Anytime someone navigations to here - it has ID, we could just also pass another value
     const id = props.navigation.getParam("recipeID", "params not passed");
-    const revisionId = props.navigation.getParam('revisionID', "revisionId not passed")
-    const revisionNum = props.navigation.getParam('revisionNum', 'revisionNum not passed')
-
+    const revisionId = props.navigation.getParam(
+        "revisionID",
+        "revisionId not passed",
+    );
+    const revisionNum = props.navigation.getParam(
+        "revisionNum",
+        "revisionNum not passed",
+    );
 
     const loadRecipe = async () => {
-
         try {
             if (revisionId === "revisionId not passed") {
                 await dispatch(fetchRecipe(id));
 
                 //fetchAllVersionHistory needs to be moved or else it wont update when a new version is created, just when we navigate to individualrecipe
                 // await dispatch(fetchAllVersionHistory(id))
-
             } else {
-
-                await dispatch(fetchVersionByRevisionId(id, revisionId))
+                await dispatch(fetchVersionByRevisionId(id, revisionId));
             }
-
-
         } catch (error) {
             throw new Error("This is an error");
         }
@@ -150,6 +148,14 @@ function IndividualRecipe(props) {
         dispatch(stopEditMode());
         dispatch(resetCurrentActive());
     };
+
+    const hasRevisions = () =>
+        revisionId || Number(recipe.previous_versions_count);
+
+    const getVersionString = () =>
+        recipe.revision_number
+            ? `AUTHOR COMMENT ON VERSION ${recipe.revision_number}:`
+            : "AUTHOR COMMENT ON CURRENT VERSION:";
 
     const cancelButtonEditedRecipe = () => {
         //TO DO - an alert or modal before dispatching stopEditMode
@@ -375,7 +381,6 @@ function IndividualRecipe(props) {
     };
 
     const nonEditableRecipeDisplay = () => {
-
         return (
             <SafeAreaView>
                 <ScrollView>
@@ -406,18 +411,25 @@ function IndividualRecipe(props) {
                         <View style={styles.innovatorTime}>
                             <View style={styles.innovatorContainer}>
                                 {/*TO DO: add a conditional - if there are versions, show this, otherwise show text that there are no versions */}
-                                {!recipe.author_comment ?
-                                    <Text>No Versions</Text> :
+                                {hasRevisions() ? (
                                     <TouchableOpacity
-                                        onPress={() => props.navigation.navigate('VersionHistoryList', { parentId: id })}>
+                                        onPress={() =>
+                                            props.navigation.navigate(
+                                                "VersionHistoryList",
+                                                { parentId: id },
+                                            )
+                                        }
+                                    >
                                         <Text>Prev. Versions</Text>
-                                    </TouchableOpacity>}
+                                    </TouchableOpacity>
+                                ) : (
+                                    <Text>No Versions</Text>
+                                )}
                             </View>
-                            <View style={{ flexDirection: 'row' }}>
+                            <View style={{ flexDirection: "row" }}>
                                 <Image source={logo} style={styles.icon} />
                                 <Text>{recipe.owner.username}</Text>
                             </View>
-
 
                             <View style={styles.timeContainer}>
                                 <Image source={clock} style={styles.icon} />
@@ -485,14 +497,12 @@ function IndividualRecipe(props) {
                                 </>
                             )}
                         </View>
-                        {versionList.length === 0 || revisionId === "revisionId not passed" ? null : (
-                            <View style={{ marginLeft: 10 }}>
-                                <Text style={{ fontWeight: 'bold' }}>AUTHOR COMMENT ON VERSION {recipe.revision_number}:</Text>
-                                <Text>{recipe.authorComment}</Text>
-
-                            </View>
-
-                        )}
+                        <View style={{ marginLeft: 10 }}>
+                            <Text style={{ fontWeight: "bold" }}>
+                                {getVersionString()}
+                            </Text>
+                            <Text>{recipe.author_comment}</Text>
+                        </View>
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -501,6 +511,5 @@ function IndividualRecipe(props) {
 
     return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay(props);
 }
-
 
 export default IndividualRecipe;
