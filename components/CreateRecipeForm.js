@@ -62,6 +62,7 @@ function CreateRecipeForm(props) {
                 .map(
                     (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
                 ),
+            author_comment: "Original Recipe",
         };
         console.log(postRecipe);
 
