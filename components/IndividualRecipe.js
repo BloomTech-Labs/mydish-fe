@@ -138,8 +138,10 @@ function IndividualRecipe(props) {
     };
 
     const hasRevisions = () =>
-        revisionId != "revisionId not passed" ||
-        Number(recipe.previous_versions_count);
+        // Double !! turn the value into a guaranteed boolean (true or false)
+        // If any values are 'undefined' or 'NaN', this will ensure they are 'false'
+        !!Number(revisionId) ||
+        !!Number(recipe.previous_versions_count);
 
     const getVersionString = () =>
         recipe.revision_number
