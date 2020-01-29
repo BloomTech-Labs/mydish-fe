@@ -180,6 +180,7 @@ function IndividualRecipe(props) {
         try {
 
             dispatch(deleteRecipe(recipe.id))
+            props.navigation.navigate('Home')
         } catch (error) {
             throw new Error("This is an error");
         }
