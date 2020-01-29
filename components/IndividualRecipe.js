@@ -54,7 +54,6 @@ function IndividualRecipe(props) {
 
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    const versionList = useSelector(state => state.versionsList.versionsList);
     const [tempRecipe, setTempRecipe] = useState(null);
 
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
@@ -68,10 +67,6 @@ function IndividualRecipe(props) {
     const revisionId = props.navigation.getParam(
         "revisionID",
         "revisionId not passed",
-    );
-    const revisionNum = props.navigation.getParam(
-        "revisionNum",
-        "revisionNum not passed",
     );
 
     const loadRecipe = async () => {
@@ -404,7 +399,6 @@ function IndividualRecipe(props) {
                         </View>
                         <View style={styles.innovatorTime}>
                             <View style={styles.innovatorContainer}>
-                                {/*TO DO: add a conditional - if there are versions, show this, otherwise show text that there are no versions */}
                                 {hasRevisions() ? (
                                     <TouchableOpacity
                                         onPress={() =>
@@ -503,7 +497,7 @@ function IndividualRecipe(props) {
         );
     };
 
-    return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay(props);
+    return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay();
 }
 
 export default IndividualRecipe;

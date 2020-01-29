@@ -38,7 +38,6 @@ const VersionHistoryList = props => {
                             props.navigation.navigate("IndividualR", {
                                 recipeID: item.changes.id,
                                 revisionID: item.id,
-                                revisionNum: item.revision_number
                             })
                         }
                         }>
