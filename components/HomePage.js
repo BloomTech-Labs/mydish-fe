@@ -24,9 +24,9 @@ const HomePage = () => {
     return (
         <SafeAreaView>
             <View style={{ height: "100%" }}>
-                <Search setDish={setDish} />
+                <Search setDish={setDish} dish={dish} />
 
-                <RecipeList dish={dish} />
+                <RecipeList />
             </View>
         </SafeAreaView>
     );
