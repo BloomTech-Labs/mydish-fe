@@ -179,8 +179,26 @@ function IndividualRecipe(props) {
 
         try {
 
-            dispatch(deleteRecipe(recipe.id))
-            props.navigation.push('Home')
+            Alert.alert(
+                "Delete Recipe",
+                "Are you sure you want to delete this recipe? This will delete all versions of this recipe.",
+                [
+                    {
+                        text: "Cancel",
+
+                        style: "cancel",
+                    },
+                    {
+                        text: "OK",
+                        onPress: () => {
+                            dispatch(deleteRecipe(recipe.id))
+                            props.navigation.push('Home')
+                        },
+                    },
+                ],
+                { cancelable: false },
+            );
+
         } catch (error) {
             throw new Error("This is an error");
         }
