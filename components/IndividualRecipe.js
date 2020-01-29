@@ -22,6 +22,7 @@ import {
     startEditMode,
     submitEditedRecipe,
     fetchVersionByRevisionId,
+    deleteRecipe
 } from "../store/singleRecipe/singleRecipeActions";
 
 import styles from "../styles/individualRecipeStyles.js";
@@ -54,6 +55,7 @@ function IndividualRecipe(props) {
 
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
+
     const [tempRecipe, setTempRecipe] = useState(null);
 
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
@@ -173,7 +175,14 @@ function IndividualRecipe(props) {
     };
 
     const deleteRecipeHandler = () => {
-        console.log('deleting')
+        console.log('deleting', recipe)
+
+        try {
+
+            dispatch(deleteRecipe(recipe.id))
+        } catch (error) {
+            throw new Error("This is an error");
+        }
     }
 
     if (!recipe.title || isLoading) {
