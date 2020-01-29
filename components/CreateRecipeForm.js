@@ -65,12 +65,7 @@ function CreateRecipeForm(props) {
             author_comment: "Original Recipe",
         };
 
-        const errMessages = validateFields(
-            postRecipe,
-            courses,
-            (edit = false),
-            {},
-        );
+        const errMessages = validateFields(postRecipe, courses);
 
         if (errMessages.length) {
             setErrors(errMessages);
@@ -85,7 +80,11 @@ function CreateRecipeForm(props) {
             setRecipe(initialFormState);
             props.navigation.navigate("IndividualR", { recipe, recipeID });
         } catch (err) {
-            console.log("error from adding new recipe", err);
+            console.log(
+                "error from adding new recipe \n",
+                err.response.data.missing,
+            );
+            setErrors(err.response.data.missing);
         }
     };
 
@@ -178,13 +177,11 @@ function CreateRecipeForm(props) {
                 <ScrollView>
                     <View style={styles.container}>
                         <View>
-                            {errors.map((err, i) => (
-                                <Text key={i} style={styles.errors}>
-                                    {err}
-                                </Text>
-                            ))}
-
-                            <RecipeName recipe={recipe} setRecipe={setRecipe} />
+                            <RecipeName
+                                recipe={recipe}
+                                setRecipe={setRecipe}
+                                highlighted={errors.includes("title")}
+                            />
 
                             <Text style={styles.heading}>
                                 Total Cook Time (minutes)
@@ -237,7 +234,11 @@ function CreateRecipeForm(props) {
                             <Text style={styles.heading}>Notes : </Text>
                             {addNotes()}
                             <Add text="Add A Note" submit={addNote} />
-
+                            {errors.length > 0 && (
+                                <Text style={styles.errors}>
+                                    Please fill out all required fields.
+                                </Text>
+                            )}
                             <TouchableOpacity
                                 style={styles.doneView}
                                 onPress={postRecipe}
@@ -247,12 +248,6 @@ function CreateRecipeForm(props) {
                                     style={styles.doneCreateBtn}
                                 />
                             </TouchableOpacity>
-
-                            {errors.map((err, i) => (
-                                <Text key={i} style={styles.errors}>
-                                    {err}
-                                </Text>
-                            ))}
                         </View>
                     </View>
                 </ScrollView>
