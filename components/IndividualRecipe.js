@@ -77,14 +77,8 @@ function IndividualRecipe(props) {
 
     const loadRecipe = async () => {
         try {
-            if (revisionId === "revisionId not passed") {
-                await dispatch(fetchRecipe(id));
-
-                //fetchAllVersionHistory needs to be moved or else it wont update when a new version is created, just when we navigate to individualrecipe
-                // await dispatch(fetchAllVersionHistory(id))
-            } else {
-                await dispatch(fetchVersionByRevisionId(id, revisionId));
-            }
+            if (!!Number(revisionId)) dispatch(fetchVersionByRevisionId(id, revisionId));
+            else dispatch(fetchRecipe(id));
         } catch (error) {
             throw new Error("This is an error");
         }
