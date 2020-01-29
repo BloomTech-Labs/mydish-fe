@@ -123,13 +123,15 @@ const Ingredient = ({
                 <TextInput
                     ref={nameInput}
                     style={{
-                        height: 40,
+                        minHeight: 40,
                         width: "50%",
                         borderWidth: highlighted.name ? 1 : 0.8,
                         borderColor: highlighted.name ? "#FF0000" : "#363838",
                         borderRadius: 4,
                         textAlign: "center",
                     }}
+                    multiline
+                    maxLength={44}
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
                     returnKeyType="done"
@@ -149,6 +151,7 @@ const Ingredient = ({
                         textAlign: "center",
                     }}
                     placeholder="Amount"
+                    maxLength={3}
                     keyboardType={"numeric"}
                     onChangeText={qty =>
                         handleChange(
