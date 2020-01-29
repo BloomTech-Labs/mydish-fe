@@ -187,8 +187,8 @@ function IndividualRecipe(props) {
         try {
 
             Alert.alert(
-                "Delete Recipe",
-                "Are you sure you want to delete this recipe? This will delete all versions of this recipe.",
+                "Are you sure you want to delete this recipe?",
+                "This will delete all versions of this recipe.",
                 [
                     {
                         text: "Cancel",
