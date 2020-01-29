@@ -10,7 +10,6 @@ export default Picker = ({
     const placeholder = {
         label: "unit",
     };
-    console.log(unit)
 
     const styleObj = {
         fontSize: 16,

@@ -98,7 +98,6 @@ const Ingredient = ({
 
         if (Object.values(lengthObj).find(x => !!x)) {
             setHighlighted(lengthObj);
-            console.log("HIGHLIGHT TEST:", highlighted);
         } else {
             stopAdding();
             dispatch(addIngredient(ingredient));

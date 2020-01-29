@@ -21,7 +21,9 @@ import {
     stopEditMode,
     startEditMode,
     submitEditedRecipe,
+    fetchVersionByRevisionId,
 } from "../store/singleRecipe/singleRecipeActions";
+
 import styles from "../styles/individualRecipeStyles.js";
 
 import clock from "../assets/timer.png";
@@ -49,22 +51,28 @@ function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
-    console.log(userId);
+
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const [tempRecipe, setTempRecipe] = useState(null);
-    console.log("recipe", recipe);
+
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const editMode = useSelector(state => state.singleRecipe.editMode);
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
     );
+    //Anytime someone navigations to here - it has ID, we could just also pass another value
     const id = props.navigation.getParam("recipeID", "params not passed");
+    const revisionId = props.navigation.getParam(
+        "revisionID",
+        "revisionId not passed",
+    );
 
     const loadRecipe = async () => {
         try {
-            await dispatch(fetchRecipe(id));
+            if (!!Number(revisionId)) dispatch(fetchVersionByRevisionId(id, revisionId));
+            else dispatch(fetchRecipe(id));
         } catch (error) {
             throw new Error("This is an error");
         }
@@ -77,7 +85,7 @@ function IndividualRecipe(props) {
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
-    }, [id]);
+    }, [id, revisionId]);
 
     useEffect(() => {
         const didBlurSubscription = props.navigation.addListener(
@@ -128,6 +136,17 @@ function IndividualRecipe(props) {
         dispatch(stopEditMode());
         dispatch(resetCurrentActive());
     };
+
+    const hasRevisions = () =>
+        // Double !! turn the value into a guaranteed boolean (true or false)
+        // If any values are 'undefined' or 'NaN', this will ensure they are 'false'
+        !!Number(revisionId) ||
+        !!Number(recipe.previous_versions_count);
+
+    const getVersionString = () =>
+        recipe.revision_number
+            ? `AUTHOR COMMENT ON VERSION ${recipe.revision_number}:`
+            : "AUTHOR COMMENT ON CURRENT VERSION:";
 
     const cancelButtonEditedRecipe = () => {
         //TO DO - an alert or modal before dispatching stopEditMode
@@ -260,7 +279,6 @@ function IndividualRecipe(props) {
                                             </Text>
                                         ))}
                                 </View>
-
                                 <View style={styles.tabsContainer}>
                                     <Tab
                                         text="Ingredients"
@@ -383,6 +401,22 @@ function IndividualRecipe(props) {
                         </View>
                         <View style={styles.innovatorTime}>
                             <View style={styles.innovatorContainer}>
+                                {hasRevisions() ? (
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            props.navigation.navigate(
+                                                "VersionHistoryList",
+                                                { parentId: id },
+                                            )
+                                        }
+                                    >
+                                        <Text>Prev. Versions</Text>
+                                    </TouchableOpacity>
+                                ) : (
+                                    <Text>No Versions</Text>
+                                )}
+                            </View>
+                            <View style={{ flexDirection: "row" }}>
                                 <Image source={logo} style={styles.icon} />
                                 <Text>{recipe.owner.username}</Text>
                             </View>
@@ -452,6 +486,12 @@ function IndividualRecipe(props) {
                                         ))}
                                 </>
                             )}
+                        </View>
+                        <View style={{ marginLeft: 10 }}>
+                            <Text style={{ fontWeight: "bold" }}>
+                                {getVersionString()}
+                            </Text>
+                            <Text>{recipe.author_comment}</Text>
                         </View>
                     </View>
                 </ScrollView>

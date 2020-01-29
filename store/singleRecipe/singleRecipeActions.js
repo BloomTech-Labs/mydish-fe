@@ -3,6 +3,7 @@ import axiosWithAuth from "../../utils/axiosWithAuth";
 export const START_UPDATE_RECIPE = "START_UPDATE_RECIPE";
 export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
 export const UPDATE_RECIPE_FAILURE = "UPDATE_RECIPE_FAILURE";
+export const VERSION_BY_REVISION_NUM = "VERSION_BY_REVISION_NUM"
 
 let calling = false;
 export const stopEdit = () => async (dispatch, getState) => {
@@ -51,8 +52,6 @@ export const submitEditedRecipe = author_comment => async (
 
     const { recipe } = getState().singleRecipe;
     const newRecipe = { ...recipe, author_comment };
-
-    console.log(newRecipe);
 
     try {
         const axiosCustom = await axiosWithAuth();
@@ -121,6 +120,7 @@ export const saveNewRecipe = recipeInfo => async dispatch => {
     try {
         const axiosCustom = await axiosWithAuth();
         const res = await axiosCustom.post("recipes/");
+
 
         dispatch({ type: SAVE_NEW_RECIPE_SUCCESS });
     } catch (err) {
@@ -194,3 +194,24 @@ export const addNote = note => ({
     type: ADD_NOTE,
     payload: note,
 });
+
+
+
+export const fetchVersionByRevisionId = (id, revisionId) => {
+
+    return async dispatch => {
+        try {
+            const axiosCustom = await axiosWithAuth()
+            const res = await axiosCustom.get(`recipes/${id}/version/${revisionId}`)
+
+            const fullRecipe = { ...res.data.changes, owner: res.data.owner, authorComment: res.data.changes.author_comment, revision_number: res.data.revision_number }
+
+            dispatch({ type: VERSION_BY_REVISION_NUM, payload: fullRecipe })
+
+        }
+        catch (error) {
+            console.log(error)
+            throw error
+        }
+    }
+}

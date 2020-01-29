@@ -6,6 +6,7 @@ import placeholder from "../assets/recipe-image-placeholder.png";
 
 const Recipe = props => {
     const { navigation, recipe } = props;
+
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
 
     return (
@@ -28,7 +29,7 @@ const Recipe = props => {
             >
                 <Image
                     source={recipe.img ? { uri: recipe.img } : placeholder}
-                    style={{ width: "100%", height: 200 }}
+                    style={{ width: "100%", height: 200, borderRadius: 5 }}
                 />
 
                 <Text style={styles.text}>{recipe.title}</Text>

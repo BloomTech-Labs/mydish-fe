@@ -15,7 +15,6 @@ const AddInstruction = ({ instructionsLength, currentActive }) => {
     const startAdding = () => {
         if (currentActive && currentActive.close) currentActive.close();
         setAdding(true);
-        console.log("here?")
         dispatch(
             setCurrentActive({
                 type: "add",
