@@ -227,13 +227,14 @@ export const deleteRecipe = (id) => {
         try {
             const axiosCustom = await axiosWithAuth()
             const res = await axiosCustom.delete(`recipes/${id}`)
-            console.log('response from deleting', res)
+            console.log('response from deleting', res.data)
 
-            dispatch({ type: DELETE_RECIPE_SUCCESS, payload: 'test' })
+            dispatch({ type: DELETE_RECIPE_SUCCESS, payload: res.data })
 
         }
         catch (error) {
             console.log(error)
+            dispatch({ type: DELETE_RECIPE_FAILURE, payload: err });
             throw error
         }
     }

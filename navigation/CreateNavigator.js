@@ -21,6 +21,10 @@ const CreateNavigator = createStackNavigator(
                 headerLeft: null,
             },
         },
+        Home: {
+            screen: HomePage
+        }
+
     },
     {
         initialRouteName: "Create",
