@@ -71,7 +71,8 @@ function IndividualRecipe(props) {
 
     const loadRecipe = async () => {
         try {
-            if (!!Number(revisionId)) dispatch(fetchVersionByRevisionId(id, revisionId));
+            if (!!Number(revisionId))
+                dispatch(fetchVersionByRevisionId(id, revisionId));
             else dispatch(fetchRecipe(id));
         } catch (error) {
             throw new Error("This is an error");
@@ -140,8 +141,7 @@ function IndividualRecipe(props) {
     const hasRevisions = () =>
         // Double !! turn the value into a guaranteed boolean (true or false)
         // If any values are 'undefined' or 'NaN', this will ensure they are 'false'
-        !!Number(revisionId) ||
-        !!Number(recipe.previous_versions_count);
+        !!Number(revisionId) || !!Number(recipe.previous_versions_count);
 
     const getVersionString = () =>
         recipe.revision_number
@@ -172,7 +172,7 @@ function IndividualRecipe(props) {
         );
     };
 
-    if (!recipe.title || isLoading) {
+    if (isLoading) {
         return (
             <View
                 style={{
@@ -184,13 +184,6 @@ function IndividualRecipe(props) {
             >
                 <RecipeShareLogo />
                 <ActivityIndicator size="large" color="#444444" />
-            </View>
-        );
-    }
-    if (isLoading) {
-        return (
-            <View style={styles.centered}>
-                <ActivityIndicator size="large" color="#00ff00" />
             </View>
         );
     }
