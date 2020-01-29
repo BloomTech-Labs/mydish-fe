@@ -4,17 +4,18 @@ import styles from "../styles/search.styles";
 import { useDispatch } from "react-redux";
 import { fetchRecipes } from "../store/recipes/recipeActions";
 
-const Search = () => {
+const Search = (props) => {
+    const { dish } = props
     const dispatch = useDispatch();
-    let [dish, setDish] = useState("");
+    // let [dish, setDish] = useState("");
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            dispatch(fetchRecipes(dish));
-        }, 600);
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         dispatch(fetchRecipes(dish));
+    //     }, 600);
 
-        return () => clearTimeout(timer);
-    }, [dish]);
+    //     return () => clearTimeout(timer);
+    // }, [dish]);
 
     return (
         <TextInput

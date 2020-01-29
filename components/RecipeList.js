@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Recipe from "./Recipe";
 import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import { fetchRecipes } from "../store/recipes/recipeActions";
 
 const RecipeList = ({ parent, folder }) => {
     const isLoading = useSelector(store => store.cookbook.isLoading);
@@ -19,6 +20,7 @@ const RecipeList = ({ parent, folder }) => {
     //       extra property called "forkCount", we can pass the forkCount
     //       down to the <Recipe/> component. This could help the user see
     //       how many times a recipe has been forked '' '
+
 
     if (isLoading) {
         return (
