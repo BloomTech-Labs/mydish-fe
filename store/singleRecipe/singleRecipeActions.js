@@ -52,14 +52,11 @@ export const submitEditedRecipe = author_comment => async (
 
     const { recipe } = getState().singleRecipe;
     const newRecipe = { ...recipe, author_comment };
-    // console.log('this is the author comment in singleRecipeAction', authorComment)
-    console.log('this is new recipe', newRecipe);
 
     try {
         const axiosCustom = await axiosWithAuth();
 
         const res = await axiosCustom.put(`recipes/${newRecipe.id}`, newRecipe);
-        console.log('res data after singleRecipeAction submiteditedRecipe', res.data)
 
         dispatch({ type: SUBMIT_EDITED_RECIPE_SUCCESS, payload: res.data });
     } catch (err) {

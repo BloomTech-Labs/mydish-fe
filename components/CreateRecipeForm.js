@@ -64,7 +64,6 @@ function CreateRecipeForm(props) {
                 ),
             author_comment: "Original Recipe",
         };
-        console.log(postRecipe);
 
         const errMessages = validateFields(
             postRecipe,

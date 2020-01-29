@@ -1,7 +1,5 @@
 
 export function validateFields(recipe,courses, edit, oldRecipe) {
-    //recipe.title, recipe.minutes, recipe.ingredients, recipe.steps
-    // console.log('recipe in validateFields', recipe);
     console.log('edit in validateFields', edit);
 
     const errs = [];
@@ -32,7 +30,6 @@ export function validateFields(recipe,courses, edit, oldRecipe) {
           recipe.tags.includes(type) && courseTypeCount++  //if the courseType has been selected by the user increment a count variable.
         })
 
-        // console.log('courseTypeCount', courseTypeCount);
 
         if (!courseTypeCount && !edit) {  // if no course types have been chosen by the user, render the error message
           errs.push('recipe must have a Course Type selected ');

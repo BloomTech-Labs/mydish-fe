@@ -54,7 +54,6 @@ function IndividualRecipe(props) {
 
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    console.log(recipe);
     const versionList = useSelector(state => state.versionsList.versionsList);
     const [tempRecipe, setTempRecipe] = useState(null);
 

@@ -3,8 +3,6 @@ import { View, TouchableOpacity, Text, Image } from "react-native";
 
 const CourseTitle = props => {
     const { course, img } = props.course;
-    // console.log('props in Course', props);
-    // console.log('props in <Course>', props);
 
     return (
         <View>

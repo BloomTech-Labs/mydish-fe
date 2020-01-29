@@ -37,7 +37,6 @@ export const registerUser = userInfo => async dispatch => {
     try {
         const axiosCustom = await axiosWithAuth();
         const res = await axiosCustom.post("users/register", userInfo);
-        console.log("res", res.data)
 
         await AsyncStorage.multiSet([
             ["userToken", res.data.token.token],

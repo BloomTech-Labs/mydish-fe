@@ -29,19 +29,3 @@ export const fetchAllVersionHistory = id => {
         }
     }
 }
-
-// export const fetchVersionByRevisionId = (id, revisionId) => {
-
-//     return async dispatch => {
-//         try {
-//             const axiosCustom = await axiosWithAuth()
-//             const res = await axiosCustom.get(`recipes/${id}/version/${revisionId}`)
-//             dispatch({ type: VERSION_BY_REVISION_NUM, currentVersion: res.data })
-//             console.log('currentVersion in actions', res.data)
-//         }
-//         catch (error) {
-//             console.log(error)
-//             throw error
-//         }
-//     }
-// }

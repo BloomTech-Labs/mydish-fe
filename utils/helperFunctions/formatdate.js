@@ -23,7 +23,6 @@ const formatdate =  (date) => {
                           curr_hour + ':'  + 
                           curr_min  + " "  + 
                           meridiem
-    console.log(formattedDate)
     return formattedDate
 }
 
