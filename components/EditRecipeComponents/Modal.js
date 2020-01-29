@@ -12,29 +12,25 @@ import {
 const CommitModal = props => {
     const { modal, setModal, saveButtonEditedRecipe } = props;
     const [author_comment, setAuthor_comment] = useState();
+    const [highlighted, setHighlighted] = useState(false);
 
     const saveModalHandler = () => {
         if (!author_comment) {
-            return;
+            setHighlighted(true);
         } else {
-            saveButtonEditedRecipe(
-                author_comment,
-            )
+            saveButtonEditedRecipe(author_comment);
         }
+    };
 
-    }
+    const closeModalHandler = () => {
+        setHighlighted(false);
+        setModal({ save: false, cancel: false });
+    };
 
     return (
         <View style={{ flexDirection: "row" }}>
             <Modal visible={modal.save} animationType="fade" transparent>
-                <TouchableHighlight
-                    onPress={() =>
-                        setModal({
-                            save: false,
-                            cancel: false,
-                        })
-                    }
-                >
+                <TouchableHighlight onPress={closeModalHandler}>
                     <View
                         style={{
                             height: "100%",
@@ -78,7 +74,9 @@ const CommitModal = props => {
                                         width: "90%",
                                         borderRadius: 4,
                                         borderWidth: 1,
-                                        borderColor: "black",
+                                        borderColor: highlighted
+                                            ? "red"
+                                            : "black",
                                     }}
                                 />
                                 <View
@@ -90,18 +88,12 @@ const CommitModal = props => {
                                 >
                                     <Button
                                         title="Cancel"
-                                        onPress={() => {
-                                            setModal({
-                                                save: false,
-                                                cancel: false,
-                                            })
-                                        }}
+                                        onPress={closeModalHandler}
                                     />
 
                                     <Button
                                         title="OK"
-                                        onPress={saveModalHandler
-                                        }
+                                        onPress={saveModalHandler}
                                     />
                                 </View>
                             </View>
