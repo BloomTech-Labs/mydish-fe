@@ -48,6 +48,8 @@ import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
 import CommitModal from "./EditRecipeComponents/Modal";
 
+import { StackActions, NavigationActions } from "react-navigation"
+
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
@@ -174,6 +176,11 @@ function IndividualRecipe(props) {
         );
     };
 
+    const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: "Home" })]
+    })
+
     const deleteRecipeHandler = () => {
         console.log('deleting', recipe)
 
@@ -192,7 +199,7 @@ function IndividualRecipe(props) {
                         text: "OK",
                         onPress: () => {
                             dispatch(deleteRecipe(recipe.id))
-                            props.navigation.push('Home')
+                            props.navigation.dispatch(resetAction)
                         },
                     },
                 ],
