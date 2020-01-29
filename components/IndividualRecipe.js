@@ -172,6 +172,10 @@ function IndividualRecipe(props) {
         );
     };
 
+    const deleteRecipeHandler = () => {
+        console.log('deleting')
+    }
+
     if (!recipe.title || isLoading) {
         return (
             <View
@@ -395,6 +399,19 @@ function IndividualRecipe(props) {
                                         />
                                     </TouchableOpacity>
                                 )}
+                            {recipe.owner.user_id &&
+                                userId === recipe.owner.user_id && (
+                                    <TouchableOpacity
+                                        onPress={deleteRecipeHandler}
+                                        style={styles.deleteButton}
+                                    >
+                                        <FontAwesome
+                                            name="trash-o"
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </TouchableOpacity>
+                                )}
                         </ImageBackground>
                         <View style={styles.titleWrapper}>
                             <DisplayTitle title={recipe.title} />
@@ -413,8 +430,8 @@ function IndividualRecipe(props) {
                                         <Text>Prev. Versions</Text>
                                     </TouchableOpacity>
                                 ) : (
-                                    <Text>No Versions</Text>
-                                )}
+                                        <Text>No Versions</Text>
+                                    )}
                             </View>
                             <View style={{ flexDirection: "row" }}>
                                 <Image source={logo} style={styles.icon} />
