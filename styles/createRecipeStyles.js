@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginLeft: 14,
     },
+
     errors: {
         color: "red",
         marginLeft: 14,
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         width: 24,
         height: 24,
-        // marginTop: 14,
         marginLeft: 14,
         alignContent: "center",
     },
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     },
     tagButtons: {
         borderRadius: 50,
-        //width: '30%',
         alignItems: "center",
         height: 40,
         paddingTop: 10,
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
     },
     tagButtonPressed: {
         borderRadius: 50,
-        // width: "30%",
         alignItems: "center",
         height: 40,
         paddingTop: 10,
@@ -98,8 +96,6 @@ const styles = StyleSheet.create({
     },
     RecipeNameContainer: {
         height: 40,
-        // width: '20%',
-        // textAlign : 'center',
         borderRadius: 4,
         borderWidth: 0.8,
         borderColor: "#6B6F70",
@@ -181,6 +177,10 @@ const styles = StyleSheet.create({
         fontSize: 11,
         marginTop: 4,
         marginRight: 14,
+    },
+    highlighted: {
+        borderColor: "red",
+        borderWidth: 1,
     },
 });
 
