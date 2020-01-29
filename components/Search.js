@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { fetchRecipes } from "../store/recipes/recipeActions";
 
 const Search = (props) => {
-    const { dish } = props
+    const { dish, setDish } = props
     const dispatch = useDispatch();
     // let [dish, setDish] = useState("");
 
