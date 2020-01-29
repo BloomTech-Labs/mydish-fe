@@ -68,6 +68,7 @@ const Title = ({ title, currentActive }) => {
                         }}
                         style={styles.title}
                         multiline
+                        maxLength={23}
                         returnKeyType="done"
                         autoFocus={true}
                         enablesReturnKeyAutomatically={true}
@@ -79,9 +80,7 @@ const Title = ({ title, currentActive }) => {
                 </View>
             ) : (
                 <View style={styles.titleContainer}>
-                    <Text style={styles.title}>
-                        {title}
-                    </Text>
+                    <Text style={styles.title}>{title}</Text>
                     <MaterialCommunityIcons
                         name="drag-vertical"
                         size={32}
