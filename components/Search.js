@@ -1,20 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { TextInput } from "react-native";
 import styles from "../styles/search.styles";
-import { useDispatch } from "react-redux";
-import { fetchRecipes } from "../store/recipes/recipeActions";
 
-const Search = () => {
-    const dispatch = useDispatch();
-    let [dish, setDish] = useState("");
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            dispatch(fetchRecipes(dish));
-        }, 600);
-
-        return () => clearTimeout(timer);
-    }, [dish]);
+const Search = (props) => {
+    const { dish, setDish } = props
 
     return (
         <TextInput
