@@ -189,7 +189,7 @@ function CreateRecipeForm(props) {
                             <Text style={styles.heading}>
                                 Total Cook Time (minutes)
                             </Text>
-                            <View style={style.totalTimeContainer}>
+                            <View style={style.totalTimeView}>
                                 <TextInput
                                     style={styles.totalTimeContainer}
                                     placeholder="Prep Time"
