@@ -3,7 +3,7 @@ import axiosWithAuth from "../../utils/axiosWithAuth";
 export const START_UPDATE_RECIPE = "START_UPDATE_RECIPE";
 export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
 export const UPDATE_RECIPE_FAILURE = "UPDATE_RECIPE_FAILURE";
-export const VERSION_BY_REVISION_NUM = "VERSION_BY_REVISION_NUM"
+
 
 let calling = false;
 export const stopEdit = () => async (dispatch, getState) => {
@@ -195,7 +195,7 @@ export const addNote = note => ({
     payload: note,
 });
 
-
+export const VERSION_BY_REVISION_NUM = "VERSION_BY_REVISION_NUM"
 
 export const fetchVersionByRevisionId = (id, revisionId) => {
 
@@ -211,6 +211,30 @@ export const fetchVersionByRevisionId = (id, revisionId) => {
         }
         catch (error) {
             console.log(error)
+            throw error
+        }
+    }
+}
+
+export const DELETE_RECIPE_START = "DELETE_RECIPE_START"
+export const DELETE_RECIPE_SUCCESS = "ELETE_RECIPE_SUCCESS";
+export const DELETE_RECIPE_FAILURE = "DELETE_RECIPE_FAILURE";
+
+export const deleteRecipe = (id) => {
+    return async dispatch => {
+        console.log('this is the id Im passing in', id)
+        dispatch({ type: DELETE_RECIPE_START });
+        try {
+            const axiosCustom = await axiosWithAuth()
+            const res = await axiosCustom.delete(`recipes/${id}`)
+            console.log('response from deleting', res.data)
+
+            dispatch({ type: DELETE_RECIPE_SUCCESS, payload: res.data })
+
+        }
+        catch (error) {
+            console.log(error)
+            dispatch({ type: DELETE_RECIPE_FAILURE, payload: err });
             throw error
         }
     }

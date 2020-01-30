@@ -22,6 +22,7 @@ import {
     startEditMode,
     submitEditedRecipe,
     fetchVersionByRevisionId,
+    deleteRecipe,
 } from "../store/singleRecipe/singleRecipeActions";
 
 import styles from "../styles/individualRecipeStyles.js";
@@ -47,6 +48,8 @@ import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
 import CommitModal from "./EditRecipeComponents/Modal";
 
+import { StackActions, NavigationActions } from "react-navigation";
+
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
@@ -54,6 +57,7 @@ function IndividualRecipe(props) {
 
     const [modal, setModal] = useState({ save: false, cancel: false });
     const recipe = useSelector(state => state.singleRecipe.recipe);
+
     const [tempRecipe, setTempRecipe] = useState(null);
 
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
@@ -170,6 +174,39 @@ function IndividualRecipe(props) {
             ],
             { cancelable: false },
         );
+    };
+
+    const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: "Home" })],
+    });
+
+    const deleteRecipeHandler = () => {
+        console.log("deleting", recipe);
+
+        try {
+            Alert.alert(
+                "Are you sure you want to delete this recipe?",
+                "This will delete all versions of this recipe.",
+                [
+                    {
+                        text: "Cancel",
+
+                        style: "cancel",
+                    },
+                    {
+                        text: "OK",
+                        onPress: () => {
+                            dispatch(deleteRecipe(recipe.id));
+                            props.navigation.dispatch(resetAction);
+                        },
+                    },
+                ],
+                { cancelable: false },
+            );
+        } catch (error) {
+            throw new Error("This is an error");
+        }
     };
 
     if (isLoading) {
@@ -383,6 +420,19 @@ function IndividualRecipe(props) {
                                     >
                                         <FontAwesome
                                             name="pencil-square-o"
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </TouchableOpacity>
+                                )}
+                            {recipe.owner.user_id &&
+                                userId === recipe.owner.user_id && (
+                                    <TouchableOpacity
+                                        onPress={deleteRecipeHandler}
+                                        style={styles.deleteButton}
+                                    >
+                                        <FontAwesome
+                                            name="trash-o"
                                             size={20}
                                             color="white"
                                         />
