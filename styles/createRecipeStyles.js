@@ -109,6 +109,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 10,
     },
+    totalTimeView: {
+        flexDirection: "row",
+    },
     totalTimeContainer: {
         height: 40,
         width: 60,
