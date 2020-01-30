@@ -22,7 +22,7 @@ import {
     startEditMode,
     submitEditedRecipe,
     fetchVersionByRevisionId,
-    deleteRecipe
+    deleteRecipe,
 } from "../store/singleRecipe/singleRecipeActions";
 
 import styles from "../styles/individualRecipeStyles.js";
@@ -48,20 +48,18 @@ import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
 import CommitModal from "./EditRecipeComponents/Modal";
 
-import { StackActions, NavigationActions } from "react-navigation"
+import { StackActions, NavigationActions } from "react-navigation";
 
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
-
     const [modal, setModal] = useState({ save: false, cancel: false });
-    const recipe = useSelector(state => state.singleRecipe.recipe);
-
     const [tempRecipe, setTempRecipe] = useState(null);
-
+    const recipe = useSelector(state => state.singleRecipe.recipe);
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
+    const error = useSelector(state => state.singleRecipe.error);
     const editMode = useSelector(state => state.singleRecipe.editMode);
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
@@ -75,7 +73,8 @@ function IndividualRecipe(props) {
 
     const loadRecipe = async () => {
         try {
-            if (!!Number(revisionId)) dispatch(fetchVersionByRevisionId(id, revisionId));
+            if (!!Number(revisionId))
+                dispatch(fetchVersionByRevisionId(id, revisionId));
             else dispatch(fetchRecipe(id));
         } catch (error) {
             throw new Error("This is an error");
@@ -90,6 +89,14 @@ function IndividualRecipe(props) {
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
     }, [id, revisionId]);
+
+    useEffect(() => {
+        console.log("ERROR IN USEEFFECT", error);
+
+        if (error && error.status === 500) {
+            serverErrorAlert();
+        }
+    }, [error]);
 
     useEffect(() => {
         const didBlurSubscription = props.navigation.addListener(
@@ -111,6 +118,15 @@ function IndividualRecipe(props) {
             console.log(err);
         }
     }
+
+    const serverErrorAlert = () => {
+        console.log("inside server error alert");
+        return Alert.alert(
+            "Sorry",
+            "Our server is having trouble processing your request. Please try again.",
+            [{ text: "Okay" }],
+        );
+    };
 
     const tabsDisplay = cat => {
         const newActive = cat;
@@ -139,13 +155,13 @@ function IndividualRecipe(props) {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
         dispatch(resetCurrentActive());
+        setModal({ save: false, cancel: false });
     };
 
     const hasRevisions = () =>
         // Double !! turn the value into a guaranteed boolean (true or false)
         // If any values are 'undefined' or 'NaN', this will ensure they are 'false'
-        !!Number(revisionId) ||
-        !!Number(recipe.previous_versions_count);
+        !!Number(revisionId) || !!Number(recipe.previous_versions_count);
 
     const getVersionString = () =>
         recipe.revision_number
@@ -178,14 +194,13 @@ function IndividualRecipe(props) {
 
     const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: "Home" })]
-    })
+        actions: [NavigationActions.navigate({ routeName: "Home" })],
+    });
 
     const deleteRecipeHandler = () => {
-        console.log('deleting', recipe)
+        console.log("deleting", recipe);
 
         try {
-
             Alert.alert(
                 "Are you sure you want to delete this recipe?",
                 "This will delete all versions of this recipe.",
@@ -198,18 +213,17 @@ function IndividualRecipe(props) {
                     {
                         text: "OK",
                         onPress: () => {
-                            dispatch(deleteRecipe(recipe.id))
-                            props.navigation.dispatch(resetAction)
+                            dispatch(deleteRecipe(recipe.id));
+                            props.navigation.dispatch(resetAction);
                         },
                     },
                 ],
                 { cancelable: false },
             );
-
         } catch (error) {
             throw new Error("This is an error");
         }
-    }
+    };
 
     if (!recipe.title || isLoading) {
         return (
@@ -465,8 +479,8 @@ function IndividualRecipe(props) {
                                         <Text>Prev. Versions</Text>
                                     </TouchableOpacity>
                                 ) : (
-                                        <Text>No Versions</Text>
-                                    )}
+                                    <Text>No Versions</Text>
+                                )}
                             </View>
                             <View style={{ flexDirection: "row" }}>
                                 <Image source={logo} style={styles.icon} />

@@ -6,6 +6,7 @@ import {
     Image,
     ScrollView,
     TouchableOpacity,
+    Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../styles/createRecipeStyles";
@@ -80,12 +81,19 @@ function CreateRecipeForm(props) {
             setRecipe(initialFormState);
             props.navigation.navigate("IndividualR", { recipe, recipeID });
         } catch (err) {
-            console.log(
-                "error from adding new recipe \n",
-                err.response.data.missing,
-            );
-            setErrors(err.response.data.missing);
+            console.log("error from adding new recipe \n", err.response);
+            if (err.response.status === 500) {
+                serverErrorAlert();
+            }
         }
+    };
+
+    const serverErrorAlert = () => {
+        return Alert.alert(
+            "Sorry",
+            "There was an error when trying to create your recipe. Please try again.",
+            [{ text: "Okay" }],
+        );
     };
 
     const addIng = () => {
@@ -253,12 +261,8 @@ function CreateRecipeForm(props) {
                             {addInstructions()}
                             <Add text="Add A Step" submit={addInstruction} />
 
-                            <View style={styles.heading}>
-                                <Text>Notes</Text>
-                                {errors.includes("notes") && (
-                                    <Text style={styles.missing}>*</Text>
-                                )}
-                            </View>
+                            <Text style={styles.heading}>Notes</Text>
+
                             {addNotes()}
                             <Add text="Add A Note" submit={addNote} />
                             {errors.length > 0 && (
