@@ -180,12 +180,15 @@ function CreateRecipeForm(props) {
                             <RecipeName
                                 recipe={recipe}
                                 setRecipe={setRecipe}
-                                highlighted={errors.includes("title")}
+                                missing={errors.includes("title")}
                             />
 
-                            <Text style={styles.heading}>
-                                Total Cook Time (minutes)
-                            </Text>
+                            <View style={styles.heading}>
+                                <Text>Total Cook Time (minutes)</Text>
+                                {errors.includes(
+                                    "prep_time and/or cook_time",
+                                ) && <Text style={styles.missing}>*</Text>}
+                            </View>
                             <TextInput
                                 style={styles.totalTimeContainer}
                                 placeholder="Prep Time"
@@ -206,9 +209,12 @@ function CreateRecipeForm(props) {
                                 }}
                                 value={String(recipe.cook_time)}
                             />
-
-                            <Text style={styles.heading}>Course Type</Text>
-
+                            <View style={styles.heading}>
+                                <Text>Course Type</Text>
+                                {errors.includes("tags") && (
+                                    <Text style={styles.missing}>*</Text>
+                                )}
+                            </View>
                             <View style={styles.tagGroup}>
                                 {courses.map((course, i) => (
                                     <TagButton
@@ -221,22 +227,35 @@ function CreateRecipeForm(props) {
                                     />
                                 ))}
                             </View>
-
-                            <Text style={styles.heading}>Ingredients</Text>
-
+                            <View style={styles.heading}>
+                                <Text>Ingredients</Text>
+                                {errors.includes("ingredients") && (
+                                    <Text style={styles.missing}>*</Text>
+                                )}
+                            </View>
                             {addIngredients()}
                             <Add text="Add Ingredient" submit={addIng} />
 
-                            <Text style={styles.heading}>Instructions</Text>
+                            <View style={styles.heading}>
+                                <Text>Instructions</Text>
+                                {errors.includes("instructions") && (
+                                    <Text style={styles.missing}>*</Text>
+                                )}
+                            </View>
                             {addInstructions()}
                             <Add text="Add A Step" submit={addInstruction} />
 
-                            <Text style={styles.heading}>Notes : </Text>
+                            <View style={styles.heading}>
+                                <Text>Notes</Text>
+                                {errors.includes("notes") && (
+                                    <Text style={styles.missing}>*</Text>
+                                )}
+                            </View>
                             {addNotes()}
                             <Add text="Add A Note" submit={addNote} />
                             {errors.length > 0 && (
                                 <Text style={styles.errors}>
-                                    Please fill out all required fields.
+                                    * Please fill out all required fields.
                                 </Text>
                             )}
                             <TouchableOpacity

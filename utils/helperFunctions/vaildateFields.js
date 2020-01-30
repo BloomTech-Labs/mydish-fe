@@ -17,6 +17,10 @@ export function validateFields(recipe, courses) {
         errs.push("instructions");
     }
 
+    if (!recipe.notes.length) {
+        errs.push("notes");
+    }
+
     let courseTypeCount = 0;
 
     courses.forEach(type => {

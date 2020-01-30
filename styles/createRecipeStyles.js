@@ -8,13 +8,14 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         marginLeft: 14,
+        flexDirection: "row",
     },
 
     errors: {
         color: "red",
-        marginLeft: 14,
-        marginBottom: "5%",
         fontWeight: "bold",
+        marginTop: 30,
+        marginLeft: 12,
     },
     editInstruction: {
         height: 76,
@@ -178,9 +179,9 @@ const styles = StyleSheet.create({
         marginTop: 4,
         marginRight: 14,
     },
-    highlighted: {
-        borderColor: "red",
-        borderWidth: 1,
+    missing: {
+        color: "red",
+        marginLeft: 4,
     },
 });
 

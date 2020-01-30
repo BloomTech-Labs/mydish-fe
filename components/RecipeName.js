@@ -1,22 +1,16 @@
 import React from "react";
-import { Text, TextInput } from "react-native";
+import { Text, TextInput, View } from "react-native";
 import styles from "../styles/createRecipeStyles";
 
-const RecipeName = ({ recipe, setRecipe, highlighted }) => {
-    console.log("TITLE HIGHLIGHT", highlighted);
+const RecipeName = ({ recipe, setRecipe, missing }) => {
     return (
         <>
-            <Text style={styles.heading}>Title</Text>
-
+            <View style={styles.heading}>
+                <Text>Title</Text>
+                {missing && <Text style={styles.missing}>*</Text>}
+            </View>
             <TextInput
-                style={
-                    highlighted
-                        ? {
-                              ...styles.RecipeNameContainer,
-                              ...styles.highlighted,
-                          }
-                        : { ...styles.RecipeNameContainer }
-                }
+                style={styles.RecipeNameContainer}
                 maxLength={55}
                 placeholder="Enter Title"
                 onChangeText={event => setRecipe({ ...recipe, title: event })}
