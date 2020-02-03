@@ -55,10 +55,7 @@ export const submitEditedRecipe = author_comment => async (
     try {
         const axiosCustom = await axiosWithAuth();
 
-        const res = await axiosCustom.put(
-            `recipess/${newRecipe.id}`,
-            newRecipe,
-        );
+        const res = await axiosCustom.put(`recipes/${newRecipe.id}`, newRecipe);
 
         dispatch({ type: SUBMIT_EDITED_RECIPE_SUCCESS, payload: res.data });
     } catch (err) {

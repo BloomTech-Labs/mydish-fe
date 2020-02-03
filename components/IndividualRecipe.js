@@ -59,7 +59,6 @@ function IndividualRecipe(props) {
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
-    const error = useSelector(state => state.singleRecipe.error);
     const editMode = useSelector(state => state.singleRecipe.editMode);
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
@@ -91,14 +90,6 @@ function IndividualRecipe(props) {
     }, [id, revisionId]);
 
     useEffect(() => {
-        console.log("ERROR IN USEEFFECT", error);
-
-        if (error && error.status === 500) {
-            serverErrorAlert();
-        }
-    }, [error]);
-
-    useEffect(() => {
         const didBlurSubscription = props.navigation.addListener(
             "didBlur",
             () => {
@@ -118,15 +109,6 @@ function IndividualRecipe(props) {
             console.log(err);
         }
     }
-
-    const serverErrorAlert = () => {
-        console.log("inside server error alert");
-        return Alert.alert(
-            "Sorry",
-            "Our server is having trouble processing your request. Please try again.",
-            [{ text: "Okay" }],
-        );
-    };
 
     const tabsDisplay = cat => {
         const newActive = cat;
