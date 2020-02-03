@@ -22,7 +22,7 @@ import {
     startEditMode,
     submitEditedRecipe,
     fetchVersionByRevisionId,
-    deleteRecipe
+    deleteRecipe,
 } from "../store/singleRecipe/singleRecipeActions";
 
 import styles from "../styles/individualRecipeStyles.js";
@@ -48,7 +48,7 @@ import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
 import CommitModal from "./EditRecipeComponents/Modal";
 
-import { StackActions, NavigationActions } from "react-navigation"
+import { StackActions, NavigationActions } from "react-navigation";
 
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
@@ -75,7 +75,8 @@ function IndividualRecipe(props) {
 
     const loadRecipe = async () => {
         try {
-            if (!!Number(revisionId)) dispatch(fetchVersionByRevisionId(id, revisionId));
+            if (!!Number(revisionId))
+                dispatch(fetchVersionByRevisionId(id, revisionId));
             else dispatch(fetchRecipe(id));
         } catch (error) {
             throw new Error("This is an error");
@@ -144,8 +145,7 @@ function IndividualRecipe(props) {
     const hasRevisions = () =>
         // Double !! turn the value into a guaranteed boolean (true or false)
         // If any values are 'undefined' or 'NaN', this will ensure they are 'false'
-        !!Number(revisionId) ||
-        !!Number(recipe.previous_versions_count);
+        !!Number(revisionId) || !!Number(recipe.previous_versions_count);
 
     const getVersionString = () =>
         recipe.revision_number
@@ -178,14 +178,13 @@ function IndividualRecipe(props) {
 
     const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: "Home" })]
-    })
+        actions: [NavigationActions.navigate({ routeName: "Home" })],
+    });
 
     const deleteRecipeHandler = () => {
-        console.log('deleting', recipe)
+        console.log("deleting", recipe);
 
         try {
-
             Alert.alert(
                 "Are you sure you want to delete this recipe?",
                 "This will delete all versions of this recipe.",
@@ -198,20 +197,19 @@ function IndividualRecipe(props) {
                     {
                         text: "OK",
                         onPress: () => {
-                            dispatch(deleteRecipe(recipe.id))
-                            props.navigation.dispatch(resetAction)
+                            dispatch(deleteRecipe(recipe.id));
+                            props.navigation.dispatch(resetAction);
                         },
                     },
                 ],
                 { cancelable: false },
             );
-
         } catch (error) {
             throw new Error("This is an error");
         }
-    }
+    };
 
-    if (!recipe.title || isLoading) {
+    if (isLoading) {
         return (
             <View
                 style={{
@@ -223,13 +221,6 @@ function IndividualRecipe(props) {
             >
                 <RecipeShareLogo />
                 <ActivityIndicator size="large" color="#444444" />
-            </View>
-        );
-    }
-    if (isLoading) {
-        return (
-            <View style={styles.centered}>
-                <ActivityIndicator size="large" color="#00ff00" />
             </View>
         );
     }
@@ -465,8 +456,8 @@ function IndividualRecipe(props) {
                                         <Text>Prev. Versions</Text>
                                     </TouchableOpacity>
                                 ) : (
-                                        <Text>No Versions</Text>
-                                    )}
+                                    <Text>No Versions</Text>
+                                )}
                             </View>
                             <View style={{ flexDirection: "row" }}>
                                 <Image source={logo} style={styles.icon} />
