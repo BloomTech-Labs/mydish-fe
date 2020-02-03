@@ -207,7 +207,7 @@ function IndividualRecipe(props) {
         }
     };
 
-    if (!recipe.title || isLoading) {
+    if (isLoading) {
         return (
             <View
                 style={{
@@ -219,13 +219,6 @@ function IndividualRecipe(props) {
             >
                 <RecipeShareLogo />
                 <ActivityIndicator size="large" color="#444444" />
-            </View>
-        );
-    }
-    if (isLoading) {
-        return (
-            <View style={styles.centered}>
-                <ActivityIndicator size="large" color="#00ff00" />
             </View>
         );
     }

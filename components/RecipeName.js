@@ -3,6 +3,7 @@ import { Text, TextInput, View } from "react-native";
 import styles from "../styles/createRecipeStyles";
 
 const RecipeName = ({ recipe, setRecipe, missing }) => {
+    const maxLength = 23;
     return (
         <>
             <View style={styles.heading}>
@@ -11,13 +12,15 @@ const RecipeName = ({ recipe, setRecipe, missing }) => {
             </View>
             <TextInput
                 style={styles.RecipeNameContainer}
-                maxLength={55}
+                maxLength={maxLength}
                 placeholder="Enter Title"
                 onChangeText={event => setRecipe({ ...recipe, title: event })}
                 value={recipe.title}
             />
 
-            <Text style={styles.fiftyFive}>{recipe.title.length}/55</Text>
+            <Text style={styles.fiftyFive}>
+                {`${recipe.title.length}/${maxLength}`}
+            </Text>
         </>
     );
 };
