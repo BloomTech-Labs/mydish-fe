@@ -6,6 +6,7 @@ import {
     Image,
     ScrollView,
     TouchableOpacity,
+    Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../styles/createRecipeStyles";
@@ -65,12 +66,7 @@ function CreateRecipeForm(props) {
             author_comment: "Original Recipe",
         };
 
-        const errMessages = validateFields(
-            postRecipe,
-            courses,
-            (edit = false),
-            {},
-        );
+        const errMessages = validateFields(postRecipe, courses);
 
         if (errMessages.length) {
             setErrors(errMessages);
@@ -85,8 +81,19 @@ function CreateRecipeForm(props) {
             setRecipe(initialFormState);
             props.navigation.navigate("IndividualR", { recipe, recipeID });
         } catch (err) {
-            console.log("error from adding new recipe", err);
+            console.log("error from adding new recipe \n", err.response);
+            if (err.response.status === 500) {
+                serverErrorAlert();
+            }
         }
+    };
+
+    const serverErrorAlert = () => {
+        return Alert.alert(
+            "Sorry",
+            "There was an error when trying to create your recipe. Please try again.",
+            [{ text: "Okay" }],
+        );
     };
 
     const addIng = () => {
@@ -178,40 +185,52 @@ function CreateRecipeForm(props) {
                 <ScrollView>
                     <View style={styles.container}>
                         <View>
-                            {errors.map((err, i) => (
-                                <Text key={i} style={styles.errors}>
-                                    {err}
-                                </Text>
-                            ))}
-
-                            <RecipeName recipe={recipe} setRecipe={setRecipe} />
-
-                            <Text style={styles.heading}>
-                                Total Cook Time (minutes)
-                            </Text>
-                            <TextInput
-                                style={styles.totalTimeContainer}
-                                placeholder="Prep Time"
-                                keyboardType={"numeric"}
-                                onChangeText={min => {
-                                    if (isNaN(Number(min))) return;
-                                    setRecipe({ ...recipe, prep_time: min });
-                                }}
-                                value={String(recipe.prep_time)}
-                            />
-                            <TextInput
-                                style={styles.totalTimeContainer}
-                                placeholder="Cook Time"
-                                keyboardType={"numeric"}
-                                onChangeText={min => {
-                                    if (isNaN(Number(min))) return;
-                                    setRecipe({ ...recipe, cook_time: min });
-                                }}
-                                value={String(recipe.cook_time)}
+                            <RecipeName
+                                recipe={recipe}
+                                setRecipe={setRecipe}
+                                missing={errors.includes("title")}
                             />
 
-                            <Text style={styles.heading}>Course Type</Text>
-
+                            <View style={styles.heading}>
+                                <Text>Total Cook Time (minutes)</Text>
+                                {errors.includes(
+                                    "prep_time and/or cook_time",
+                                ) && <Text style={styles.missing}>*</Text>}
+                            </View>
+                            <View style={styles.totalTimeView}>
+                                <TextInput
+                                    style={styles.totalTimeContainer}
+                                    placeholder="Prep"
+                                    keyboardType={"numeric"}
+                                    onChangeText={min => {
+                                        if (isNaN(Number(min))) return;
+                                        setRecipe({
+                                            ...recipe,
+                                            prep_time: min,
+                                        });
+                                    }}
+                                    value={String(recipe.prep_time)}
+                                />
+                                <TextInput
+                                    style={styles.totalTimeContainer}
+                                    placeholder="Cook"
+                                    keyboardType={"numeric"}
+                                    onChangeText={min => {
+                                        if (isNaN(Number(min))) return;
+                                        setRecipe({
+                                            ...recipe,
+                                            cook_time: min,
+                                        });
+                                    }}
+                                    value={String(recipe.cook_time)}
+                                />
+                            </View>
+                            <View style={styles.heading}>
+                                <Text>Course Type</Text>
+                                {errors.includes("tags") && (
+                                    <Text style={styles.missing}>*</Text>
+                                )}
+                            </View>
                             <View style={styles.tagGroup}>
                                 {courses.map((course, i) => (
                                     <TagButton
@@ -224,20 +243,33 @@ function CreateRecipeForm(props) {
                                     />
                                 ))}
                             </View>
-
-                            <Text style={styles.heading}>Ingredients</Text>
-
+                            <View style={styles.heading}>
+                                <Text>Ingredients</Text>
+                                {errors.includes("ingredients") && (
+                                    <Text style={styles.missing}>*</Text>
+                                )}
+                            </View>
                             {addIngredients()}
                             <Add text="Add Ingredient" submit={addIng} />
 
-                            <Text style={styles.heading}>Instructions</Text>
+                            <View style={styles.heading}>
+                                <Text>Instructions</Text>
+                                {errors.includes("instructions") && (
+                                    <Text style={styles.missing}>*</Text>
+                                )}
+                            </View>
                             {addInstructions()}
                             <Add text="Add A Step" submit={addInstruction} />
 
-                            <Text style={styles.heading}>Notes : </Text>
+                            <Text style={styles.heading}>Notes</Text>
+
                             {addNotes()}
                             <Add text="Add A Note" submit={addNote} />
-
+                            {errors.length > 0 && (
+                                <Text style={styles.errors}>
+                                    * Please fill out all required fields.
+                                </Text>
+                            )}
                             <TouchableOpacity
                                 style={styles.doneView}
                                 onPress={postRecipe}
@@ -247,12 +279,6 @@ function CreateRecipeForm(props) {
                                     style={styles.doneCreateBtn}
                                 />
                             </TouchableOpacity>
-
-                            {errors.map((err, i) => (
-                                <Text key={i} style={styles.errors}>
-                                    {err}
-                                </Text>
-                            ))}
                         </View>
                     </View>
                 </ScrollView>

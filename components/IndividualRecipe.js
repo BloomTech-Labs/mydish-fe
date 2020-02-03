@@ -54,12 +54,9 @@ function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
-
     const [modal, setModal] = useState({ save: false, cancel: false });
-    const recipe = useSelector(state => state.singleRecipe.recipe);
-
     const [tempRecipe, setTempRecipe] = useState(null);
-
+    const recipe = useSelector(state => state.singleRecipe.recipe);
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const editMode = useSelector(state => state.singleRecipe.editMode);
@@ -140,6 +137,7 @@ function IndividualRecipe(props) {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
         dispatch(resetCurrentActive());
+        setModal({ save: false, cancel: false });
     };
 
     const hasRevisions = () =>
