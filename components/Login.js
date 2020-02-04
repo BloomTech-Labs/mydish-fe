@@ -1,24 +1,20 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
     View,
     Text,
     TextInput,
     TouchableOpacity,
-    Image,
     SafeAreaView,
-    KeyboardAvoidingView,
-    ActivityIndicator
+    ActivityIndicator,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser, clearError } from "../store/auth/authActions";
 import styles from "../styles/loginStyles.js";
-import logo from "../assets/LogoGreen.png";
 import RecipeShareLogo from "./RecipeShareLogo.js";
 
 const Login = ({ navigation }) => {
     const [login, setLogin] = useState({ username: "", password: "" });
-    const isLoading = useSelector(state => state.auth.isAuthorizing)
+    const isLoading = useSelector(state => state.auth.isAuthorizing);
     const errorMsg = useSelector(state => state.auth.error);
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
@@ -35,71 +31,73 @@ const Login = ({ navigation }) => {
 
     return (
         <SafeAreaView>
-            <KeyboardAwareScrollView>
-                <View style={styles.container}>
-                    <Text style={styles.title}>Log In</Text>
+            <View style={styles.container}>
+                <Text style={styles.title}>Log In</Text>
 
-                    <Text style={styles.explanationText}>
-                        Sign into save and edit your favorite recipes.
+                <Text style={styles.explanationText}>
+                    Sign into save and edit your favorite recipes.
+                </Text>
+                <Text style={styles.emailText}>Username</Text>
+                <TextInput
+                    ref={usernameInput}
+                    style={styles.inputFields}
+                    name="username"
+                    testID="username"
+                    value={login.username}
+                    returnKeyType="next"
+                    onSubmitEditing={() => passwordInput.current.focus()}
+                    onChangeText={event =>
+                        setLogin({ ...login, username: event })
+                    }
+                />
+                <Text style={styles.passwordText}>Password</Text>
+                <TextInput
+                    ref={passwordInput}
+                    style={styles.inputFields}
+                    name="password"
+                    testID="password"
+                    value={login.password}
+                    returnKeyType="done"
+                    onChangeText={event =>
+                        setLogin({ ...login, password: event })
+                    }
+                    secureTextEntry={true}
+                />
+                {errorMsg != null && (
+                    <Text style={{ color: "red", textAlign: "center" }}>
+                        {errorMsg}
                     </Text>
-                    <Text style={styles.emailText}>Username</Text>
-                    <TextInput
-                        ref={usernameInput}
-                        style={styles.inputFields}
-                        name="username"
-                        testID="username"
-                        value={login.username}
-                        returnKeyType="next"
-                        onSubmitEditing={() => passwordInput.current.focus()}
-                        onChangeText={event =>
-                            setLogin({ ...login, username: event })
-                        }
-                    />
-                    <Text style={styles.passwordText}>Password</Text>
-                    <TextInput
-                        ref={passwordInput}
-                        style={styles.inputFields}
-                        name="password"
-                        testID="password"
-                        value={login.password}
-                        returnKeyType="done"
-                        onChangeText={event =>
-                            setLogin({ ...login, password: event })
-                        }
-                        secureTextEntry={true}
-                    />
-                    {errorMsg != null && (
-                        <Text style={{ color: "red", textAlign: "center" }}>
-                            {errorMsg}
-                        </Text>
-                    )}
+                )}
 
+                <TouchableOpacity
+                    onPress={() => {
+                        dispatch(clearError());
+                        navigation.navigate("Signup");
+                    }}
+                >
+                    <Text style={styles.createAccountButton}>
+                        Create an Account
+                    </Text>
+                </TouchableOpacity>
+
+                <View
+                    style={{
+                        flexDirection: "row-reverse",
+                        marginRight: 16,
+                    }}
+                >
                     <TouchableOpacity
-                        onPress={() => {
-                            dispatch(clearError())
-                            navigation.navigate("Signup");
-                        }}
+                        onPress={_loginUser}
+                        style={styles.loginButton}
                     >
-                        <Text style={styles.createAccountButton}>
-                            Create an Account
-                        </Text>
+                        {isLoading ? (
+                            <ActivityIndicator size="large" color="#00ff00" />
+                        ) : (
+                            <Text style={styles.loginButtonText}>Login</Text>
+                        )}
                     </TouchableOpacity>
-
-                    <View
-                        style={{
-                            flexDirection: "row-reverse",
-                            marginRight: 16,
-                        }}
-                    >
-                        <TouchableOpacity
-                            onPress={_loginUser}
-                            style={styles.loginButton}
-                        >
-                            {isLoading ? <ActivityIndicator size="large" color="#00ff00" /> : <Text style={styles.loginButtonText}>Login</Text>}
-                        </TouchableOpacity>
-                    </View>
                 </View>
-            </KeyboardAwareScrollView>
+            </View>
         </SafeAreaView>
     );
 };
