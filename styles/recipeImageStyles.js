@@ -12,6 +12,15 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%",
     },
+    changeImage: {
+        width: 100,
+        margin: 10,
+        backgroundColor: "#8FCC70",
+        padding: 5,
+        borderRadius: 10,
+        justifyContent: "center",
+        alignItems: "center",
+    },
     uploadModal: {
         height: 300,
         position: "relative",

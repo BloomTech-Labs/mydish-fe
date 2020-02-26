@@ -39,6 +39,7 @@ function CreateRecipeForm(props) {
     const [recipe, setRecipe] = useState(initialFormState);
     let [errors, setErrors] = useState([]);
     const [imageModalVisible, setImageModalVisible] = useState(false);
+    const [image, setImage] = useState("");
 
     const courses = [
         "Breakfast",
@@ -50,6 +51,7 @@ function CreateRecipeForm(props) {
     ];
 
     const postRecipe = async () => {
+        console.log("recipe.img", recipe.img);
         const postRecipe = {
             ...recipe,
             // Remove any ingredients that are empty
@@ -100,12 +102,12 @@ function CreateRecipeForm(props) {
         );
     };
 
-    const addImage = uri => {
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            img: uri,
-        }));
-    };
+    // const addImage = uri => {
+    //     setRecipe(oldRecipe => ({
+    //         ...oldRecipe,
+    //         img: uri,
+    //     }));
+    // };
 
     const addIng = () => {
         const newIng = { name: "", quantity: "", units: "" };
@@ -197,13 +199,13 @@ function CreateRecipeForm(props) {
                     <View style={styles.container}>
                         <View>
                             <RecipeImage
-                                image={recipe.img}
-                                addImage={addImage}
+                                image={image}
                                 setImageModalVisible={setImageModalVisible}
                             />
                             <ImageUploadModal
                                 visible={imageModalVisible}
                                 setVisible={setImageModalVisible}
+                                setImage={setImage}
                             />
                             <RecipeName
                                 recipe={recipe}
