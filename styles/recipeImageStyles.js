@@ -13,7 +13,18 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     uploadModal: {
-        height: 200,
+        height: 300,
+        position: "relative",
+        top: -200,
+        marginLeft: "-5%",
+        marginRight: "-5%",
+        padding: 10,
+        backgroundColor: "white",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
     },
 });
 

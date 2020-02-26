@@ -8,16 +8,13 @@ function ImageUploadModal({ visible, setVisible }) {
     const iconColor = "#8FCC70";
     return (
         <Modal
-            animationIn="slideInLeft"
-            animationOut="slideOutLeft"
-            animationInTiming={200}
-            animationOutTiming={200}
+            animationIn="slideInDown"
+            animationOut="slideOutUp"
+            animationInTiming={400}
+            animationOutTiming={400}
             hideModalContentWhileAnimating={true}
             isVisible={visible}
             onBackdropPress={() => setVisible(false)}
-            // onRequestClose={() => {
-            //     Alert.alert("Modal has been closed");
-            // }}
         >
             <View style={styles.uploadModal}>
                 <TouchableOpacity onPress={() => setVisible(false)}>
@@ -25,6 +22,17 @@ function ImageUploadModal({ visible, setVisible }) {
                         color={iconColor}
                         size={80}
                         name="camera"
+                        type="font-awesome"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setVisible(false)}>
+                    <Icon color={iconColor} size={80} name="camera-roll" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setVisible(false)}>
+                    <Icon
+                        color={iconColor}
+                        size={80}
+                        name="cloud-upload"
                         type="font-awesome"
                     />
                 </TouchableOpacity>
