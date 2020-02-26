@@ -17,6 +17,7 @@ import Instruction from "./Instruction";
 import TagButton from "./TagButton";
 import Add from "./Add";
 import Notes from "./Notes";
+import RecipeImage from "./RecipeImageComponents/RecipeImage";
 
 import DoneImg from "../assets/done_button.png";
 import axiosWithAuth from "../utils/axiosWithAuth";
@@ -24,6 +25,7 @@ import { validateFields } from "../utils/helperFunctions/vaildateFields";
 
 function CreateRecipeForm(props) {
     const initialFormState = {
+        img: "",
         title: "",
         prep_time: "",
         cook_time: "",
@@ -35,6 +37,7 @@ function CreateRecipeForm(props) {
 
     const [recipe, setRecipe] = useState(initialFormState);
     let [errors, setErrors] = useState([]);
+    const [imageModalVisible, setImageModalVisible] = useState(false);
 
     const courses = [
         "Breakfast",
@@ -94,6 +97,13 @@ function CreateRecipeForm(props) {
             "There was an error when trying to create your recipe. Please try again.",
             [{ text: "Okay" }],
         );
+    };
+
+    const addImage = uri => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            img: uri,
+        }));
     };
 
     const addIng = () => {
@@ -185,6 +195,11 @@ function CreateRecipeForm(props) {
                 <ScrollView>
                     <View style={styles.container}>
                         <View>
+                            <RecipeImage
+                                image={recipe.img}
+                                addImage={addImage}
+                                setImageModalVisible={setImageModalVisible}
+                            />
                             <RecipeName
                                 recipe={recipe}
                                 setRecipe={setRecipe}
