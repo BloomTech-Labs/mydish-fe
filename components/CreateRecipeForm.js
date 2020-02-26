@@ -18,6 +18,7 @@ import TagButton from "./TagButton";
 import Add from "./Add";
 import Notes from "./Notes";
 import RecipeImage from "./RecipeImageComponents/RecipeImage";
+import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 
 import DoneImg from "../assets/done_button.png";
 import axiosWithAuth from "../utils/axiosWithAuth";
@@ -200,12 +201,15 @@ function CreateRecipeForm(props) {
                                 addImage={addImage}
                                 setImageModalVisible={setImageModalVisible}
                             />
+                            <ImageUploadModal
+                                visible={imageModalVisible}
+                                setVisible={setImageModalVisible}
+                            />
                             <RecipeName
                                 recipe={recipe}
                                 setRecipe={setRecipe}
                                 missing={errors.includes("title")}
                             />
-
                             <View style={styles.heading}>
                                 <Text>Total Cook Time (minutes)</Text>
                                 {errors.includes(

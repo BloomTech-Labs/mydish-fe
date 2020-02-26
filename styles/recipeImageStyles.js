@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%",
     },
+    uploadModal: {
+        height: 200,
+    },
 });
 
 module.exports = styles;
