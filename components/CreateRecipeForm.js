@@ -22,6 +22,7 @@ import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 
 import DoneImg from "../assets/done_button.png";
 import axiosWithAuth from "../utils/axiosWithAuth";
+import postImage from "./RecipeImageComponents/postImage";
 import { validateFields } from "../utils/helperFunctions/vaildateFields";
 
 function CreateRecipeForm(props) {
@@ -51,7 +52,6 @@ function CreateRecipeForm(props) {
     ];
 
     const postRecipe = async () => {
-        console.log("recipe.img", recipe.img);
         const postRecipe = {
             ...recipe,
             // Remove any ingredients that are empty
@@ -70,6 +70,7 @@ function CreateRecipeForm(props) {
                     (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
                 ),
             author_comment: "Original Recipe",
+            img: image ? await postImage(image, serverErrorAlert) : "", // Post image file to S3, store the returned URL
         };
 
         const errMessages = validateFields(postRecipe, courses);
@@ -101,13 +102,6 @@ function CreateRecipeForm(props) {
             [{ text: "Okay" }],
         );
     };
-
-    // const addImage = uri => {
-    //     setRecipe(oldRecipe => ({
-    //         ...oldRecipe,
-    //         img: uri,
-    //     }));
-    // };
 
     const addIng = () => {
         const newIng = { name: "", quantity: "", units: "" };
