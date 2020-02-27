@@ -8,6 +8,8 @@ import * as Permissions from "expo-permissions";
 
 function ImageUploadModal({ visible, setVisible, setImage }) {
     const iconColor = "#8FCC70";
+    const take = "take";
+    const choose = "choose"; // Pass take or choose as argument to getImage()
 
     const verifyPermissions = async () => {
         const result = await Permissions.askAsync(
@@ -37,13 +39,13 @@ function ImageUploadModal({ visible, setVisible, setImage }) {
         };
         let img = "";
 
-        if (method === "take") {
+        if (method === take) {
             img = await ImagePicker.launchCameraAsync(imgConfig);
-        } else if (method === "choose") {
+        } else if (method === choose) {
             img = await ImagePicker.launchImageLibraryAsync(imgConfig);
         }
-        setVisible(false);
         if (img) setImage(img.uri);
+        setVisible(false);
     };
 
     return (
@@ -58,7 +60,7 @@ function ImageUploadModal({ visible, setVisible, setImage }) {
             onBackdropPress={() => setVisible(false)}
         >
             <View style={styles.uploadModal}>
-                <TouchableOpacity onPress={() => getImage("take")}>
+                <TouchableOpacity onPress={() => getImage(take)}>
                     <Icon
                         color={iconColor}
                         size={80}
@@ -66,7 +68,7 @@ function ImageUploadModal({ visible, setVisible, setImage }) {
                         type="font-awesome"
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => getImage("choose")}>
+                <TouchableOpacity onPress={() => getImage(choose)}>
                     <Icon color={iconColor} size={80} name="camera-roll" />
                 </TouchableOpacity>
             </View>
