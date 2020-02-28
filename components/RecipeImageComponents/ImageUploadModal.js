@@ -3,11 +3,14 @@ import { View, TouchableOpacity, Alert } from "react-native";
 import Modal from "react-native-modal";
 import { Icon } from "react-native-elements";
 import styles from "../../styles/recipeImageStyles";
+import { useDispatch } from "react-redux";
+import { editImage } from "../../store/singleRecipe/singleRecipeActions";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 
-function ImageUploadModal({ visible, setVisible, setImage }) {
+function ImageUploadModal({ visible, setVisible, setImage, scope }) {
     const iconColor = "#8FCC70";
+    const dispatch = useDispatch();
     const take = "take";
     const choose = "choose"; // Pass take or choose as argument to getImage()
 
@@ -44,7 +47,13 @@ function ImageUploadModal({ visible, setVisible, setImage }) {
         } else if (method === choose) {
             img = await ImagePicker.launchImageLibraryAsync(imgConfig);
         }
-        if (img) setImage(img.uri);
+        if (img) {
+            if (scope && scope === "global") {
+                dispatch(editImage(img.uri));
+            } else {
+                setImage(img.uri);
+            }
+        }
         setVisible(false);
     };
 
