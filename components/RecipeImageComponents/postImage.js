@@ -25,7 +25,7 @@ async function postImage(image, errAlert) {
         console.log("error from postImage", err);
         if (err.response.status === 500) {
             //TODO Check on status code returned from image save failure.
-            errAlert && errAlert(); //Only call errAlert if it has been passed as an arg.
+            errAlert && errAlert(); // Only call errAlert if it has been passed as an arg.
         }
     }
     return res.data.url;
