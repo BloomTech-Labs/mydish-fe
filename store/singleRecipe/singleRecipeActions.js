@@ -147,6 +147,12 @@ export const resetCurrentActive = () => ({
     type: RESET_CURRENT_ACTIVE,
 });
 
+export const EDIT_IMAGE = "EDIT_IMAGE";
+export const editImage = img => ({
+    type: EDIT_IMAGE,
+    payload: img,
+});
+
 export const EDIT_TITLE = "EDIT_TITLE";
 export const editTitle = value => ({
     type: EDIT_TITLE,
