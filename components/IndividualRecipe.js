@@ -270,6 +270,13 @@ function IndividualRecipe(props) {
                                             color="white"
                                         />
                                     </TouchableOpacity>
+                                    <TouchableOpacity style={styles.editButton}>
+                                        <FontAwesome
+                                            name="camera"
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </TouchableOpacity>
                                 </ImageBackground>
                                 <View style={styles.titleWrapper}>
                                     <Title
