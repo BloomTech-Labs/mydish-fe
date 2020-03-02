@@ -24,7 +24,7 @@ import {
     START_SUBMIT_EDITED_RECIPE,
     SUBMIT_EDITED_RECIPE_SUCCESS,
     SUBMIT_EDITED_RECIPE_FAILURE,
-    VERSION_BY_REVISION_NUM
+    VERSION_BY_REVISION_NUM,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -211,6 +211,7 @@ export const singleRecipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 isSubmitting: true,
+                isLoading: true,
                 error: null,
             };
 
@@ -218,6 +219,7 @@ export const singleRecipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 isSubmitting: false,
+                isLoading: true,
                 error: null,
                 recipe: action.payload,
             };
@@ -226,6 +228,7 @@ export const singleRecipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 isSubmitting: false,
+                isLoading: true,
                 error: action.payload,
             };
 
@@ -235,13 +238,11 @@ export const singleRecipeReducer = (state = initState, action) => {
                 : initState;
 
         case VERSION_BY_REVISION_NUM:
-
             return {
                 ...state,
                 isLoading: false,
                 recipe: action.payload,
-
-            }
+            };
         default:
             return state;
     }
