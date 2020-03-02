@@ -43,6 +43,7 @@ import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngr
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
+import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 import { FontAwesome } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
@@ -56,6 +57,7 @@ function IndividualRecipe(props) {
     const [userId, setUserId] = useState(null);
     const [modal, setModal] = useState({ save: false, cancel: false });
     const [tempRecipe, setTempRecipe] = useState(null);
+    const [imageModalVisible, setImageModalVisible] = useState(false);
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
@@ -237,6 +239,11 @@ function IndividualRecipe(props) {
                                         saveButtonEditedRecipe
                                     }
                                 />
+                                <ImageUploadModal
+                                    visible={imageModalVisible}
+                                    setVisible={setImageModalVisible}
+                                    scope="global"
+                                />
                                 <ImageBackground
                                     source={
                                         recipe.img
@@ -266,6 +273,18 @@ function IndividualRecipe(props) {
                                     >
                                         <Octicons
                                             name="x"
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.editButton}
+                                        onPress={() =>
+                                            setImageModalVisible(true)
+                                        }
+                                    >
+                                        <FontAwesome
+                                            name="camera"
                                             size={20}
                                             color="white"
                                         />

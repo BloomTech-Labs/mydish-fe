@@ -18,9 +18,11 @@ import TagButton from "./TagButton";
 import Add from "./Add";
 import Notes from "./Notes";
 import RecipeImage from "./RecipeImageComponents/RecipeImage";
+import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 
 import DoneImg from "../assets/done_button.png";
 import axiosWithAuth from "../utils/axiosWithAuth";
+import postImage from "./RecipeImageComponents/postImage";
 import { validateFields } from "../utils/helperFunctions/vaildateFields";
 
 function CreateRecipeForm(props) {
@@ -38,6 +40,7 @@ function CreateRecipeForm(props) {
     const [recipe, setRecipe] = useState(initialFormState);
     let [errors, setErrors] = useState([]);
     const [imageModalVisible, setImageModalVisible] = useState(false);
+    const [image, setImage] = useState("");
 
     const courses = [
         "Breakfast",
@@ -67,6 +70,7 @@ function CreateRecipeForm(props) {
                     (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
                 ),
             author_comment: "Original Recipe",
+            img: image ? await postImage(image, serverErrorAlert) : "", // Post image file to S3, store the returned URL
         };
 
         const errMessages = validateFields(postRecipe, courses);
@@ -97,13 +101,6 @@ function CreateRecipeForm(props) {
             "There was an error when trying to create your recipe. Please try again.",
             [{ text: "Okay" }],
         );
-    };
-
-    const addImage = uri => {
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            img: uri,
-        }));
     };
 
     const addIng = () => {
@@ -196,16 +193,19 @@ function CreateRecipeForm(props) {
                     <View style={styles.container}>
                         <View>
                             <RecipeImage
-                                image={recipe.img}
-                                addImage={addImage}
+                                image={image}
                                 setImageModalVisible={setImageModalVisible}
+                            />
+                            <ImageUploadModal
+                                visible={imageModalVisible}
+                                setVisible={setImageModalVisible}
+                                setImage={setImage}
                             />
                             <RecipeName
                                 recipe={recipe}
                                 setRecipe={setRecipe}
                                 missing={errors.includes("title")}
                             />
-
                             <View style={styles.heading}>
                                 <Text>Total Cook Time (minutes)</Text>
                                 {errors.includes(

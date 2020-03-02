@@ -8,6 +8,7 @@ import {
     RESET_RECIPE,
     SET_CURRENT_ACTIVE,
     RESET_CURRENT_ACTIVE,
+    EDIT_IMAGE,
     EDIT_TITLE,
     EDIT_INGRED,
     EDIT_INSTRUCT,
@@ -118,6 +119,12 @@ export const singleRecipeReducer = (state = initState, action) => {
                 } else return val;
             });
             return { ...state, recipe: { ...state.recipe, instructions } };
+
+        case EDIT_IMAGE:
+            return {
+                ...state,
+                recipe: { ...state.recipe, img: action.payload },
+            };
 
         case EDIT_TITLE:
             return {
