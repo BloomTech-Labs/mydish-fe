@@ -305,10 +305,12 @@ function IndividualRecipe(props) {
                                             style={styles.icon}
                                         />
                                         <Text>
-                                            {recipe.owner.username.length > 15
+                                            {recipe.owner.username &&
+                                            recipe.owner.username.length >
+                                                maxUsername
                                                 ? `${recipe.owner.username.slice(
                                                       0,
-                                                      15,
+                                                      maxUsername,
                                                   )}...`
                                                 : recipe.owner.username}
                                         </Text>
