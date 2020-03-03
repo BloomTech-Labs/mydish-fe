@@ -30,6 +30,7 @@ import styles from "../styles/individualRecipeStyles.js";
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
 import placeholder from "../assets/recipe-image-placeholder.png";
+import { maxUsername } from "../constants/maxLenth";
 
 import Title from "./EditRecipeComponents/Title";
 import Tab from "./Tab";
@@ -65,6 +66,7 @@ function IndividualRecipe(props) {
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
     );
+
     //Anytime someone navigations to here - it has ID, we could just also pass another value
     const id = props.navigation.getParam("recipeID", "params not passed");
     const revisionId = props.navigation.getParam(
@@ -302,7 +304,16 @@ function IndividualRecipe(props) {
                                             source={logo}
                                             style={styles.icon}
                                         />
-                                        <Text>{recipe.owner.username}</Text>
+                                        <Text>
+                                            {recipe.owner.username &&
+                                            recipe.owner.username.length >
+                                                maxUsername
+                                                ? `${recipe.owner.username.slice(
+                                                      0,
+                                                      maxUsername,
+                                                  )}...`
+                                                : recipe.owner.username}
+                                        </Text>
                                     </View>
 
                                     <View style={styles.timeContainer}>
@@ -478,7 +489,15 @@ function IndividualRecipe(props) {
                             </View>
                             <View style={{ flexDirection: "row" }}>
                                 <Image source={logo} style={styles.icon} />
-                                <Text>{recipe.owner.username}</Text>
+                                <Text>
+                                    {recipe.owner.username &&
+                                    recipe.owner.username.length > maxUsername
+                                        ? `${recipe.owner.username.slice(
+                                              0,
+                                              maxUsername,
+                                          )}...`
+                                        : recipe.owner.username}
+                                </Text>
                             </View>
 
                             <View style={styles.timeContainer}>

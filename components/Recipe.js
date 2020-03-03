@@ -3,6 +3,7 @@ import styles from "../styles/recipe-styles";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import placeholder from "../assets/recipe-image-placeholder.png";
+import { maxUsername } from "../constants/maxLenth";
 
 const Recipe = props => {
     const { navigation, recipe } = props;
@@ -36,7 +37,12 @@ const Recipe = props => {
 
                 <View style={styles.prepView}>
                     <Text style={styles.username}>
-                        {recipe.owner.username}
+                        {recipe.owner.username.length > maxUsername
+                            ? `${recipe.owner.username.slice(
+                                  0,
+                                  maxUsername,
+                              )}...`
+                            : recipe.owner.username}
                     </Text>
                     <Text style={styles.prep}>{totalCookTime} min.</Text>
                 </View>
