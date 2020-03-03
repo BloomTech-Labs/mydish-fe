@@ -75,6 +75,7 @@ const SignUp = ({ navigation }) => {
                         setSignUp({ ...signUp, password: event })
                     }
                     secureTextEntry={true}
+                    onSubmitEditing={register}
                 />
 
                 <TouchableOpacity
