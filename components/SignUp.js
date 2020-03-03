@@ -20,7 +20,7 @@ const SignUp = ({ navigation }) => {
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
-    const maxLength = 10;
+    const maxLength = 15;
 
     useEffect(() => {
         if (errorMsg != null) {
