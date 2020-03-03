@@ -36,7 +36,9 @@ const Recipe = props => {
 
                 <View style={styles.prepView}>
                     <Text style={styles.username}>
-                        {recipe.owner.username}
+                        {recipe.owner.username.length > 15
+                            ? `${recipe.owner.username.slice(0, 15)}...`
+                            : recipe.owner.username}
                     </Text>
                     <Text style={styles.prep}>{totalCookTime} min.</Text>
                 </View>
