@@ -259,3 +259,11 @@ export const deleteRecipe = id => {
         }
     };
 };
+
+export const RESET_ALERTS = "RESET_ALERTS";
+
+export const resetAlerts = () => {
+    return dispatch => {
+        dispatch({ type: RESET_ALERTS });
+    };
+};
