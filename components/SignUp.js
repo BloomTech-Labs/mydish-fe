@@ -19,6 +19,7 @@ const SignUp = ({ navigation }) => {
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
+    const maxLength = 10;
 
     const register = async () => {
         const success = await dispatch(registerUser(signUp));
@@ -39,6 +40,7 @@ const SignUp = ({ navigation }) => {
                 <TextInput
                     ref={usernameInput}
                     style={styles.inputFields}
+                    maxLength={maxLength}
                     value={signUp.username}
                     returnKeyType="next"
                     onSubmitEditing={() => passwordInput.current.focus()}
@@ -46,13 +48,16 @@ const SignUp = ({ navigation }) => {
                         setSignUp({ ...signUp, username: event })
                     }
                 />
+                <Text
+                    style={styles.maxLengthIndicator}
+                >{`${signUp.username.length}/${maxLength}`}</Text>
 
                 <Text style={styles.passwordText}>Password</Text>
                 <TextInput
                     ref={passwordInput}
                     style={styles.inputFields}
                     value={signUp.password}
-                    returnKeyType="done"
+                    returnKeyType="go"
                     onChangeText={event =>
                         setSignUp({ ...signUp, password: event })
                     }

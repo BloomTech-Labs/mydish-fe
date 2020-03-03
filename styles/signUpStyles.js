@@ -59,6 +59,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
     },
+    maxLengthIndicator: {
+        alignSelf: "flex-end",
+        fontSize: 12,
+    },
 });
 
 module.exports = styles;
