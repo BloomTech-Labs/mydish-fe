@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser, clearError } from "../store/auth/authActions";
 import styles from "../styles/signUpStyles.js";
 import RecipeShareLogo from "./RecipeShareLogo.js";
+import { maxUsername } from "../constants/maxLenth";
 
 const SignUp = ({ navigation }) => {
     const [signUp, setSignUp] = useState({ username: "", password: "" });
@@ -20,7 +21,6 @@ const SignUp = ({ navigation }) => {
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
-    const maxLength = 15;
 
     useEffect(() => {
         if (errorMsg != null) {
@@ -53,7 +53,7 @@ const SignUp = ({ navigation }) => {
                 <TextInput
                     ref={usernameInput}
                     style={styles.inputFields}
-                    maxLength={maxLength}
+                    maxLength={maxUsername}
                     value={signUp.username}
                     returnKeyType="next"
                     onSubmitEditing={() => passwordInput.current.focus()}
@@ -63,7 +63,7 @@ const SignUp = ({ navigation }) => {
                 />
                 <Text
                     style={styles.maxLengthIndicator}
-                >{`${signUp.username.length}/${maxLength}`}</Text>
+                >{`${signUp.username.length}/${maxUsername}`}</Text>
 
                 <Text style={styles.passwordText}>Password</Text>
                 <TextInput

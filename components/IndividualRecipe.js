@@ -65,6 +65,8 @@ function IndividualRecipe(props) {
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
     );
+    const maxLengthUsername = 15;
+
     //Anytime someone navigations to here - it has ID, we could just also pass another value
     const id = props.navigation.getParam("recipeID", "params not passed");
     const revisionId = props.navigation.getParam(
@@ -302,7 +304,14 @@ function IndividualRecipe(props) {
                                             source={logo}
                                             style={styles.icon}
                                         />
-                                        <Text>{recipe.owner.username}</Text>
+                                        <Text>
+                                            {recipe.owner.username.length > 15
+                                                ? `${recipe.owner.username.slice(
+                                                      0,
+                                                      15,
+                                                  )}...`
+                                                : recipe.owner.username}
+                                        </Text>
                                     </View>
 
                                     <View style={styles.timeContainer}>

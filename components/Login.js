@@ -76,7 +76,7 @@ const Login = ({ navigation }) => {
                     }}
                 >
                     <Text style={styles.createAccountButton}>
-                        Don't have and account? Sign up!
+                        Don't have an account? Sign up!
                     </Text>
                 </TouchableOpacity>
 
