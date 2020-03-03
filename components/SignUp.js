@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
     View,
     Text,
@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     SafeAreaView,
     ActivityIndicator,
+    Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, clearError } from "../store/auth/authActions";
@@ -21,12 +22,24 @@ const SignUp = ({ navigation }) => {
     const passwordInput = useRef(null);
     const maxLength = 10;
 
+    useEffect(() => {
+        if (errorMsg != null) {
+            emptyFieldsAlert();
+        }
+    }, [errorMsg]);
+
     const register = async () => {
         const success = await dispatch(registerUser(signUp));
 
         if (success) {
             navigation.navigate("App");
         }
+    };
+
+    const emptyFieldsAlert = () => {
+        return Alert.alert("Oops!", "Please provide a username and password.", [
+            { title: "Okay" },
+        ]);
     };
 
     return (
@@ -63,11 +76,6 @@ const SignUp = ({ navigation }) => {
                     }
                     secureTextEntry={true}
                 />
-                {errorMsg != null && (
-                    <Text style={{ textAlign: "center", color: "red" }}>
-                        {errorMsg}
-                    </Text>
-                )}
 
                 <TouchableOpacity
                     onPress={() => {
