@@ -45,9 +45,9 @@ const SignUp = ({ navigation }) => {
     return (
         <SafeAreaView>
             <View style={styles.container}>
-                <Text style={styles.title}>Create Account</Text>
+                <Text style={styles.title}>Welcome!</Text>
                 <Text style={styles.explanationText}>
-                    Create a new account to save and edit your favorite recipes.
+                    Sign up to start editing your favorite recipes.
                 </Text>
                 <Text style={styles.emailText}>Username</Text>
                 <TextInput
@@ -97,7 +97,7 @@ const SignUp = ({ navigation }) => {
                             <ActivityIndicator size="large" color="#00ff00" />
                         ) : (
                             <Text style={styles.createAccountText}>
-                                Create Account
+                                Sign Up
                             </Text>
                         )}
                     </TouchableOpacity>
