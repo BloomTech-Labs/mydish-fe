@@ -12,10 +12,10 @@ async function postImage(image, errAlert) {
     form.append("image", imageData);
     let res;
     try {
-        // const axiosCustom = await axiosWithAuth(); TODO: Update to axiosWithAuth()
-        res = await axios({
+        const axiosCustom = await axiosWithAuth();
+        res = await axiosCustom({
             method: "post",
-            url: "http://1e08d3d1.ngrok.io/image_upload",
+            url: "image_upload",
             data: form,
             headers: {
                 "content-type": `multipart/form-data`,
@@ -24,7 +24,6 @@ async function postImage(image, errAlert) {
     } catch (err) {
         console.log("error from postImage", err);
         if (err.response.status === 500) {
-            //TODO Check on status code returned from image save failure.
             errAlert && errAlert(); // Only call errAlert if it has been passed as an arg.
         }
     }
