@@ -23,6 +23,7 @@ import {
     submitEditedRecipe,
     fetchVersionByRevisionId,
     deleteRecipe,
+    resetAlerts,
 } from "../store/singleRecipe/singleRecipeActions";
 
 import styles from "../styles/individualRecipeStyles.js";
@@ -62,6 +63,8 @@ function IndividualRecipe(props) {
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
+    const successAlert = useSelector(state => state.singleRecipe.successAlert);
+
     const editMode = useSelector(state => state.singleRecipe.editMode);
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
@@ -104,6 +107,22 @@ function IndividualRecipe(props) {
             didBlurSubscription.remove();
         };
     }, []);
+
+    useEffect(() => {
+        if (successAlert) {
+            dispatch(resetAlerts());
+            Alert.alert(
+                "",
+                "Recipe saved successfully!",
+                [
+                    {
+                        text: "OK",
+                    },
+                ],
+                { cancelable: false },
+            );
+        }
+    });
 
     async function fetchUserId() {
         try {

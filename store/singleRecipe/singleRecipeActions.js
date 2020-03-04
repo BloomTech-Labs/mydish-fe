@@ -118,28 +118,6 @@ export const deleteInstruction = ins_index => ({
     payload: ins_index,
 });
 
-// export const deleteRecipe = recipe => dispatch => {
-//     dispatch({ type: DELETE_RECIPE, payload: recipe});
-//     dispatch(recipe());
-// };
-
-export const START_SAVE_NEW_RECIPE = "START_SAVE_NEW_RECIPE";
-export const SAVE_NEW_RECIPE_SUCCESS = "SAVE_NEW_RECIPE_SUCCESS";
-export const SAVE_NEW_RECIPE_FAILURE = "SAVE_NEW_RECIPE_FAILURE";
-
-export const saveNewRecipe = recipeInfo => async dispatch => {
-    dispatch({ type: START_SAVE_NEW_RECIPE });
-
-    try {
-        const axiosCustom = await axiosWithAuth();
-        const res = await axiosCustom.post("recipes/");
-
-        dispatch({ type: SAVE_NEW_RECIPE_SUCCESS });
-    } catch (err) {
-        dispatch({ type: SAVE_NEW_RECIPE_FAILURE, payload: err });
-    }
-};
-
 export const RESET_RECIPE = "RESET_RECIPE";
 export const resetRecipe = (recipe = null) => ({
     type: RESET_RECIPE,
@@ -257,5 +235,13 @@ export const deleteRecipe = id => {
             dispatch({ type: DELETE_RECIPE_FAILURE, payload: err });
             throw error;
         }
+    };
+};
+
+export const RESET_ALERTS = "RESET_ALERTS";
+
+export const resetAlerts = () => {
+    return dispatch => {
+        dispatch({ type: RESET_ALERTS });
     };
 };
