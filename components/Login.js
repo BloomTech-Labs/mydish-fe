@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "../store/auth/authActions";
-import styles from "../styles/loginStyles.js";
+import styles from "../styles/authPageStyles.js";
 import RecipeShareLogo from "./RecipeShareLogo.js";
 
 const Login = ({ navigation }) => {
@@ -37,7 +37,7 @@ const Login = ({ navigation }) => {
                 <Text style={styles.explanationText}>
                     Sign into save and edit your favorite recipes.
                 </Text>
-                <Text style={styles.emailText}>Username</Text>
+                <Text style={styles.inputText}>Username</Text>
                 <TextInput
                     ref={usernameInput}
                     style={styles.inputFields}
@@ -50,7 +50,7 @@ const Login = ({ navigation }) => {
                         setLogin({ ...login, username: event })
                     }
                 />
-                <Text style={styles.passwordText}>Password</Text>
+                <Text style={styles.inputText}>Password</Text>
                 <TextInput
                     ref={passwordInput}
                     style={styles.inputFields}
@@ -75,7 +75,7 @@ const Login = ({ navigation }) => {
                         navigation.navigate("Signup");
                     }}
                 >
-                    <Text style={styles.createAccountButton}>
+                    <Text style={styles.switchAuthPageLink}>
                         Don't have an account? Sign up!
                     </Text>
                 </TouchableOpacity>
@@ -88,12 +88,12 @@ const Login = ({ navigation }) => {
                 >
                     <TouchableOpacity
                         onPress={_loginUser}
-                        style={styles.loginButton}
+                        style={styles.submitButton}
                     >
                         {isLoading ? (
                             <ActivityIndicator size="large" color="#00ff00" />
                         ) : (
-                            <Text style={styles.loginButtonText}>Login</Text>
+                            <Text style={styles.submitButtonText}>Login</Text>
                         )}
                     </TouchableOpacity>
                 </View>
