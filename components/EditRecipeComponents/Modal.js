@@ -8,6 +8,9 @@ import {
     TouchableHighlight,
     Button,
 } from "react-native";
+//Analytics
+import { Analytics, Event } from 'expo-analytics';
+const analytics = new Analytics('UA-159002245-1');
 
 const CommitModal = props => {
     const { modal, setModal, saveButtonEditedRecipe } = props;
@@ -20,6 +23,9 @@ const CommitModal = props => {
         } else {
             saveButtonEditedRecipe(author_comment);
         }
+        analytics.event(new Event('Recipe', 'User edited existing recipe'))
+            .then(() => console.log("Recipe edited"))
+            .catch(e => console.log(e.message));
     };
 
     const closeModalHandler = () => {

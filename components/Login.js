@@ -13,6 +13,11 @@ import { loginUser, clearError } from "../store/auth/authActions";
 import styles from "../styles/authPageStyles.js";
 import RecipeShareLogo from "./RecipeShareLogo.js";
 
+//Analytics
+import { Analytics, Event } from 'expo-analytics';
+
+const analytics = new Analytics('UA-159002245-1');
+
 const Login = ({ navigation }) => {
     const [login, setLogin] = useState({ username: "", password: "" });
     const isLoading = useSelector(state => state.auth.isAuthorizing);
@@ -34,6 +39,9 @@ const Login = ({ navigation }) => {
         if (success) {
             navigation.navigate("App");
         }
+        analytics.event(new Event('Login', 'User logged in'))
+        .then(() => console.log("User logged in"))
+        .catch(e => console.log(e.message));
     };
 
     const emptyFieldsAlert = () => {
