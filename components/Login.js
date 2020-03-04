@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
     View,
     Text,
@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     SafeAreaView,
     ActivityIndicator,
+    Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "../store/auth/authActions";
@@ -20,6 +21,12 @@ const Login = ({ navigation }) => {
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
 
+    useEffect(() => {
+        if (errorMsg != null) {
+            emptyFieldsAlert();
+        }
+    }, [errorMsg]);
+
     // This has an underscore to differentiate it from the loginUser action
     const _loginUser = async () => {
         const success = await dispatch(loginUser(login));
@@ -27,6 +34,14 @@ const Login = ({ navigation }) => {
         if (success) {
             navigation.navigate("App");
         }
+    };
+
+    const emptyFieldsAlert = () => {
+        return Alert.alert(
+            "Oops!",
+            "Please provide a valid username and password.",
+            [{ title: "Okay" }],
+        );
     };
 
     return (
@@ -63,11 +78,6 @@ const Login = ({ navigation }) => {
                     }
                     secureTextEntry={true}
                 />
-                {errorMsg != null && (
-                    <Text style={{ color: "red", textAlign: "center" }}>
-                        {errorMsg}
-                    </Text>
-                )}
 
                 <TouchableOpacity
                     onPress={() => {
