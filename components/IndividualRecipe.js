@@ -30,6 +30,7 @@ import styles from "../styles/individualRecipeStyles.js";
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
 import placeholder from "../assets/recipe-image-placeholder.png";
+import { maxUsername } from "../constants/maxLenth";
 
 import Title from "./EditRecipeComponents/Title";
 import Tab from "./Tab";
@@ -43,6 +44,7 @@ import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngr
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
+import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 import { FontAwesome } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
@@ -56,6 +58,7 @@ function IndividualRecipe(props) {
     const [userId, setUserId] = useState(null);
     const [modal, setModal] = useState({ save: false, cancel: false });
     const [tempRecipe, setTempRecipe] = useState(null);
+    const [imageModalVisible, setImageModalVisible] = useState(false);
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
@@ -63,6 +66,7 @@ function IndividualRecipe(props) {
     const currentActive = useSelector(
         state => state.singleRecipe.currentActive,
     );
+
     //Anytime someone navigations to here - it has ID, we could just also pass another value
     const id = props.navigation.getParam("recipeID", "params not passed");
     const revisionId = props.navigation.getParam(
@@ -237,6 +241,11 @@ function IndividualRecipe(props) {
                                         saveButtonEditedRecipe
                                     }
                                 />
+                                <ImageUploadModal
+                                    visible={imageModalVisible}
+                                    setVisible={setImageModalVisible}
+                                    scope="global"
+                                />
                                 <ImageBackground
                                     source={
                                         recipe.img
@@ -270,6 +279,18 @@ function IndividualRecipe(props) {
                                             color="white"
                                         />
                                     </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.editButton}
+                                        onPress={() =>
+                                            setImageModalVisible(true)
+                                        }
+                                    >
+                                        <FontAwesome
+                                            name="camera"
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </TouchableOpacity>
                                 </ImageBackground>
                                 <View style={styles.titleWrapper}>
                                     <Title
@@ -283,7 +304,16 @@ function IndividualRecipe(props) {
                                             source={logo}
                                             style={styles.icon}
                                         />
-                                        <Text>{recipe.owner.username}</Text>
+                                        <Text>
+                                            {recipe.owner.username &&
+                                            recipe.owner.username.length >
+                                                maxUsername
+                                                ? `${recipe.owner.username.slice(
+                                                      0,
+                                                      maxUsername,
+                                                  )}...`
+                                                : recipe.owner.username}
+                                        </Text>
                                     </View>
 
                                     <View style={styles.timeContainer}>
@@ -459,7 +489,15 @@ function IndividualRecipe(props) {
                             </View>
                             <View style={{ flexDirection: "row" }}>
                                 <Image source={logo} style={styles.icon} />
-                                <Text>{recipe.owner.username}</Text>
+                                <Text>
+                                    {recipe.owner.username &&
+                                    recipe.owner.username.length > maxUsername
+                                        ? `${recipe.owner.username.slice(
+                                              0,
+                                              maxUsername,
+                                          )}...`
+                                        : recipe.owner.username}
+                                </Text>
                             </View>
 
                             <View style={styles.timeContainer}>

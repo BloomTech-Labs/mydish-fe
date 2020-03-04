@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 16,
+        paddingVertical: 20,
     },
     title: {
         textAlign: "center",
@@ -11,18 +12,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     explanationText: {
-        textAlign: "left",
+        textAlign: "center",
         color: "#363838",
-
         fontSize: 16,
         marginVertical: 20,
-    },
-    createAccountTitle: {
-        textAlign: "left",
-        color: "#363838",
-        fontSize: 18,
-        fontWeight: "500",
-        marginBottom: 14,
     },
     inputFields: {
         height: 40,
@@ -33,7 +26,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#d6d7da",
     },
-    createAccountButton: {
+    inputText: {
+        color: "#363838",
+    },
+    submitButton: {
         justifyContent: "center",
         width: 217,
         height: 40,
@@ -42,22 +38,20 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         marginTop: 30,
     },
-    loginButton: {
-        fontSize: 14,
-        fontWeight: "500",
-        color: "#047396",
-    },
-    emailText: {
-        color: "#363838",
-    },
-    passwordText: {
-        color: "#363838",
-    },
-    createAccountText: {
+    submitButtonText: {
         textAlign: "center",
         color: "white",
         fontSize: 16,
         fontWeight: "bold",
+    },
+    switchAuthPageLink: {
+        fontSize: 14,
+        fontWeight: "500",
+        color: "#047396",
+    },
+    maxLengthIndicator: {
+        alignSelf: "flex-end",
+        fontSize: 12,
     },
 });
 

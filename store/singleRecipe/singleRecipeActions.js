@@ -1,4 +1,5 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
+import postImage from "../../components/RecipeImageComponents/postImage";
 
 export const START_UPDATE_RECIPE = "START_UPDATE_RECIPE";
 export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
@@ -50,7 +51,21 @@ export const submitEditedRecipe = author_comment => async (
     dispatch({ type: START_SUBMIT_EDITED_RECIPE });
 
     const { recipe } = getState().singleRecipe;
-    const newRecipe = { ...recipe, author_comment };
+    console.log("RECIPE: ", recipe);
+    let img = "";
+    //Check if recipe.img is defined.
+    if (recipe.img) {
+        // Check if recipe.img is an AWS URL, indicating it is NOT a newly uploaded image.
+        if (recipe.img.includes("amazonaws")) {
+            img = recipe.img;
+            // If recipe.img is not an AWS link, post to S3 and store the returned URL.
+        } else {
+            img = await postImage(recipe.img);
+        }
+    }
+
+    const newRecipe = { ...recipe, img, author_comment };
+    console.log("newRECIPE: ", newRecipe);
 
     try {
         const axiosCustom = await axiosWithAuth();
@@ -145,6 +160,12 @@ export const setCurrentActive = field => ({
 export const RESET_CURRENT_ACTIVE = "RESET_CURRENT_ACTIVE";
 export const resetCurrentActive = () => ({
     type: RESET_CURRENT_ACTIVE,
+});
+
+export const EDIT_IMAGE = "EDIT_IMAGE";
+export const editImage = img => ({
+    type: EDIT_IMAGE,
+    payload: img,
 });
 
 export const EDIT_TITLE = "EDIT_TITLE";

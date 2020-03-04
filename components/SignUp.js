@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
     View,
     Text,
@@ -6,11 +6,13 @@ import {
     TouchableOpacity,
     SafeAreaView,
     ActivityIndicator,
+    Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, clearError } from "../store/auth/authActions";
-import styles from "../styles/signUpStyles.js";
+import styles from "../styles/authPageStyles";
 import RecipeShareLogo from "./RecipeShareLogo.js";
+import { maxUsername } from "../constants/maxLenth";
 
 const SignUp = ({ navigation }) => {
     const [signUp, setSignUp] = useState({ username: "", password: "" });
@@ -20,6 +22,12 @@ const SignUp = ({ navigation }) => {
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
 
+    useEffect(() => {
+        if (errorMsg != null) {
+            emptyFieldsAlert();
+        }
+    }, [errorMsg]);
+
     const register = async () => {
         const success = await dispatch(registerUser(signUp));
 
@@ -28,17 +36,24 @@ const SignUp = ({ navigation }) => {
         }
     };
 
+    const emptyFieldsAlert = () => {
+        return Alert.alert("Oops!", "Please provide a username and password.", [
+            { title: "Okay" },
+        ]);
+    };
+
     return (
         <SafeAreaView>
             <View style={styles.container}>
-                <Text style={styles.title}>Create Account</Text>
+                <Text style={styles.title}>Welcome!</Text>
                 <Text style={styles.explanationText}>
-                    Create a new account to save and edit your favorite recipes.
+                    Sign up to start editing your favorite recipes.
                 </Text>
-                <Text style={styles.emailText}>Username</Text>
+                <Text style={styles.inputText}>Username</Text>
                 <TextInput
                     ref={usernameInput}
                     style={styles.inputFields}
+                    maxLength={maxUsername}
                     value={signUp.username}
                     returnKeyType="next"
                     onSubmitEditing={() => passwordInput.current.focus()}
@@ -46,23 +61,22 @@ const SignUp = ({ navigation }) => {
                         setSignUp({ ...signUp, username: event })
                     }
                 />
+                <Text
+                    style={styles.maxLengthIndicator}
+                >{`${signUp.username.length}/${maxUsername}`}</Text>
 
-                <Text style={styles.passwordText}>Password</Text>
+                <Text style={styles.inputText}>Password</Text>
                 <TextInput
                     ref={passwordInput}
                     style={styles.inputFields}
                     value={signUp.password}
-                    returnKeyType="done"
+                    returnKeyType="go"
                     onChangeText={event =>
                         setSignUp({ ...signUp, password: event })
                     }
                     secureTextEntry={true}
+                    onSubmitEditing={register}
                 />
-                {errorMsg != null && (
-                    <Text style={{ textAlign: "center", color: "red" }}>
-                        {errorMsg}
-                    </Text>
-                )}
 
                 <TouchableOpacity
                     onPress={() => {
@@ -70,7 +84,7 @@ const SignUp = ({ navigation }) => {
                         navigation.navigate("Login");
                     }}
                 >
-                    <Text style={styles.loginButton}>
+                    <Text style={styles.switchAuthPageLink}>
                         Have an account? Login
                     </Text>
                 </TouchableOpacity>
@@ -78,14 +92,12 @@ const SignUp = ({ navigation }) => {
                 <View style={{ flexDirection: "row-reverse" }}>
                     <TouchableOpacity
                         onPress={register}
-                        style={styles.createAccountButton}
+                        style={styles.submitButton}
                     >
                         {isLoading ? (
                             <ActivityIndicator size="large" color="#00ff00" />
                         ) : (
-                            <Text style={styles.createAccountText}>
-                                Create Account
-                            </Text>
+                            <Text style={styles.submitButtonText}>Sign Up</Text>
                         )}
                     </TouchableOpacity>
                 </View>

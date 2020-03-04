@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
     innovatorContainer: {
         flexDirection: "row",
-        marginRight: 10
+        marginRight: 10,
     },
     timeContainer: {
         flexDirection: "row",
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     imageContainer: {
-        borderRadius: 5
+        borderRadius: 5,
     },
     editButton: {
         backgroundColor: "#8FCC70",

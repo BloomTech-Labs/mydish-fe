@@ -25,23 +25,18 @@ module.exports = StyleSheet.create({
         fontSize: 11,
     },
     usercardTxt: {
-        // flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
         width: "50%",
         marginBottom: "2%",
-        // marginLeft : 5
-        // borderTopWidth: 5,
-        // borderBottomWidth: 5
     },
     prepView: {
         flexDirection: "row",
         justifyContent: "space-between",
-        width: "50%",
+        width: "80%",
     },
     prep: {
         fontSize: 11,
     },
-    centered: { flex: 1, justifyContent: 'center', alignItems: 'center' }
-
+    centered: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
