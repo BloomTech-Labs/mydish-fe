@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
     View,
     Text,
@@ -6,11 +6,17 @@ import {
     TouchableOpacity,
     SafeAreaView,
     ActivityIndicator,
+    Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "../store/auth/authActions";
-import styles from "../styles/loginStyles.js";
+import styles from "../styles/authPageStyles.js";
 import RecipeShareLogo from "./RecipeShareLogo.js";
+
+//Analytics
+import { Analytics, Event } from 'expo-analytics';
+
+const analytics = new Analytics('UA-159002245-1');
 
 const Login = ({ navigation }) => {
     const [login, setLogin] = useState({ username: "", password: "" });
@@ -20,6 +26,12 @@ const Login = ({ navigation }) => {
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
 
+    useEffect(() => {
+        if (errorMsg != null) {
+            emptyFieldsAlert();
+        }
+    }, [errorMsg]);
+
     // This has an underscore to differentiate it from the loginUser action
     const _loginUser = async () => {
         const success = await dispatch(loginUser(login));
@@ -27,17 +39,28 @@ const Login = ({ navigation }) => {
         if (success) {
             navigation.navigate("App");
         }
+        analytics.event(new Event('Login', 'User logged in'))
+        .then(() => console.log("User logged in"))
+        .catch(e => console.log(e.message));
+    };
+
+    const emptyFieldsAlert = () => {
+        return Alert.alert(
+            "Oops!",
+            "Please provide a valid username and password.",
+            [{ title: "Okay" }],
+        );
     };
 
     return (
         <SafeAreaView>
             <View style={styles.container}>
-                <Text style={styles.title}>Log In</Text>
+                <Text style={styles.title}>Welcome back!</Text>
 
                 <Text style={styles.explanationText}>
-                    Sign into save and edit your favorite recipes.
+                    Log in to edit your favorite recipes.
                 </Text>
-                <Text style={styles.emailText}>Username</Text>
+                <Text style={styles.inputText}>Username</Text>
                 <TextInput
                     ref={usernameInput}
                     style={styles.inputFields}
@@ -50,7 +73,7 @@ const Login = ({ navigation }) => {
                         setLogin({ ...login, username: event })
                     }
                 />
-                <Text style={styles.passwordText}>Password</Text>
+                <Text style={styles.inputText}>Password</Text>
                 <TextInput
                     ref={passwordInput}
                     style={styles.inputFields}
@@ -63,11 +86,6 @@ const Login = ({ navigation }) => {
                     }
                     secureTextEntry={true}
                 />
-                {errorMsg != null && (
-                    <Text style={{ color: "red", textAlign: "center" }}>
-                        {errorMsg}
-                    </Text>
-                )}
 
                 <TouchableOpacity
                     onPress={() => {
@@ -75,7 +93,7 @@ const Login = ({ navigation }) => {
                         navigation.navigate("Signup");
                     }}
                 >
-                    <Text style={styles.createAccountButton}>
+                    <Text style={styles.switchAuthPageLink}>
                         Don't have an account? Sign up!
                     </Text>
                 </TouchableOpacity>
@@ -88,12 +106,12 @@ const Login = ({ navigation }) => {
                 >
                     <TouchableOpacity
                         onPress={_loginUser}
-                        style={styles.loginButton}
+                        style={styles.submitButton}
                     >
                         {isLoading ? (
                             <ActivityIndicator size="large" color="#00ff00" />
                         ) : (
-                            <Text style={styles.loginButtonText}>Login</Text>
+                            <Text style={styles.submitButtonText}>Login</Text>
                         )}
                     </TouchableOpacity>
                 </View>
