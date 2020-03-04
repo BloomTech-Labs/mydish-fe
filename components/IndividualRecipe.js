@@ -188,6 +188,8 @@ function IndividualRecipe(props) {
                     text: "OK",
                     onPress: () => {
                         dispatch(stopEditMode());
+                        dispatch(resetCurrentActive());
+                        dispatch(resetRecipe(tempRecipe));
                     },
                 },
             ],
