@@ -7,6 +7,7 @@ import {
     ScrollView,
     TouchableOpacity,
     Alert,
+    ActivityIndicator,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../styles/createRecipeStyles";
@@ -17,6 +18,7 @@ import Instruction from "./Instruction";
 import TagButton from "./TagButton";
 import Add from "./Add";
 import Notes from "./Notes";
+import RecipeShareLogo from "./RecipeShareLogo";
 import RecipeImage from "./RecipeImageComponents/RecipeImage";
 import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 
@@ -80,7 +82,7 @@ function CreateRecipeForm(props) {
             setErrors(errMessages);
             return; //if any missing fields exists, do not submit the data and set the errors state variable array.
         }
-
+        setIsLoading(true);
         try {
             const axiosCustom = await axiosWithAuth();
             const res = await axiosCustom.post("recipes", postRecipe);
@@ -93,6 +95,8 @@ function CreateRecipeForm(props) {
             if (err.response.status === 500) {
                 serverErrorAlert();
             }
+        } finally {
+            setIsLoading(false);
         }
     };
 
