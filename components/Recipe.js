@@ -45,7 +45,7 @@ const Recipe = props => {
 
                 <View style={styles.prepView}>
                     <Text style={styles.username}>
-                    {recipe.owner.username.length > maxUsername
+                        {recipe.owner.username.length > maxUsername
                             ? `${recipe.owner.username.slice(
                                   0,
                                   maxUsername,
