@@ -41,6 +41,7 @@ function CreateRecipeForm(props) {
     let [errors, setErrors] = useState([]);
     const [imageModalVisible, setImageModalVisible] = useState(false);
     const [image, setImage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const courses = [
         "Breakfast",
@@ -185,6 +186,22 @@ function CreateRecipeForm(props) {
             />
         ));
     };
+
+    if (isLoading) {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    flexDirection: "column",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                }}
+            >
+                <RecipeShareLogo />
+                <ActivityIndicator size="large" color="#444444" />
+            </View>
+        );
+    }
 
     return (
         <KeyboardAwareScrollView>
