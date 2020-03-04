@@ -124,21 +124,6 @@ export const deleteInstruction = ins_index => ({
 // };
 
 export const START_SAVE_NEW_RECIPE = "START_SAVE_NEW_RECIPE";
-export const SAVE_NEW_RECIPE_SUCCESS = "SAVE_NEW_RECIPE_SUCCESS";
-export const SAVE_NEW_RECIPE_FAILURE = "SAVE_NEW_RECIPE_FAILURE";
-
-export const saveNewRecipe = recipeInfo => async dispatch => {
-    dispatch({ type: START_SAVE_NEW_RECIPE });
-
-    try {
-        const axiosCustom = await axiosWithAuth();
-        const res = await axiosCustom.post("recipes/");
-
-        dispatch({ type: SAVE_NEW_RECIPE_SUCCESS });
-    } catch (err) {
-        dispatch({ type: SAVE_NEW_RECIPE_FAILURE, payload: err });
-    }
-};
 
 export const RESET_RECIPE = "RESET_RECIPE";
 export const resetRecipe = (recipe = null) => ({
