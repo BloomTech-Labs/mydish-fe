@@ -112,6 +112,7 @@ function IndividualRecipe(props) {
         if (successAlert) {
             dispatch(resetAlerts());
             Alert.alert(
+                "",
                 "Recipe saved successfully!",
                 [
                     {
