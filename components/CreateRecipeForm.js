@@ -89,6 +89,7 @@ function CreateRecipeForm(props) {
 
             recipeID = res.data.id;
             setRecipe(initialFormState);
+            setIsLoading(false);
             props.navigation.navigate("IndividualR", { recipe, recipeID });
         } catch (err) {
             console.log("error from adding new recipe \n", err.response);
