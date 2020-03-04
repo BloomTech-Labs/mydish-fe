@@ -88,7 +88,6 @@ function CreateRecipeForm(props) {
             const res = await axiosCustom.post("recipes", postRecipe);
 
             recipeID = res.data.id;
-            setRecipe(initialFormState);
             setIsLoading(false);
             props.navigation.navigate("IndividualR", { recipe, recipeID });
         } catch (err) {
