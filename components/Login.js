@@ -32,10 +32,10 @@ const Login = ({ navigation }) => {
     return (
         <SafeAreaView>
             <View style={styles.container}>
-                <Text style={styles.title}>Log In</Text>
+                <Text style={styles.title}>Welcome back!</Text>
 
                 <Text style={styles.explanationText}>
-                    Sign into save and edit your favorite recipes.
+                    Log in to edit your favorite recipes.
                 </Text>
                 <Text style={styles.inputText}>Username</Text>
                 <TextInput
