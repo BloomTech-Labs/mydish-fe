@@ -118,13 +118,6 @@ export const deleteInstruction = ins_index => ({
     payload: ins_index,
 });
 
-// export const deleteRecipe = recipe => dispatch => {
-//     dispatch({ type: DELETE_RECIPE, payload: recipe});
-//     dispatch(recipe());
-// };
-
-export const START_SAVE_NEW_RECIPE = "START_SAVE_NEW_RECIPE";
-
 export const RESET_RECIPE = "RESET_RECIPE";
 export const resetRecipe = (recipe = null) => ({
     type: RESET_RECIPE,
