@@ -1,9 +1,24 @@
 import { StyleSheet } from "react-native";
+import theme from "./theme.style";
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 16,
-        paddingVertical: 20,
+        paddingHorizontal: 50,
+        paddingVertical: 50,
+        height: "100%",
+        width: "100%",
+    },
+    backgroundImg: {
+        maxWidth: "80%",
+        maxHeight: "90%",
+        resizeMode: "cover",
+        zIndex: -10000,
+        position: "absolute",
+    },
+    contentContainer: {
+        height: "70%",
+        paddingVertical: 70,
+        justifyContent: "space-evenly",
     },
     title: {
         textAlign: "center",
@@ -19,35 +34,39 @@ const styles = StyleSheet.create({
     },
     inputFields: {
         height: 40,
-        marginVertical: 10,
-        paddingLeft: 3,
+        marginBottom: 30,
+        paddingLeft: 10,
         minHeight: "5%",
-        borderRadius: 4,
+        borderRadius: theme.INPUT_BORDER_RADIUS,
         borderWidth: 1,
-        borderColor: "#d6d7da",
+        color: theme.GREY_FONT_COLOR,
+        borderColor: theme.INPUT_BORDER_COLOR,
+        backgroundColor: theme.INPUT_BACKGROUND_COLOR,
     },
-    inputText: {
-        color: "#363838",
+    inputLabelText: {
+        color: theme.WHITE_FONT_COLOR,
+        marginBottom: 5,
     },
     submitButton: {
         justifyContent: "center",
-        width: 217,
+        alignSelf: "flex-end",
+        width: 150,
         height: 40,
-        borderRadius: 50,
-        backgroundColor: "#3BA405",
+        borderRadius: 5,
+        backgroundColor: theme.PRIMARY_COLOR,
         paddingVertical: 10,
         marginTop: 30,
     },
     submitButtonText: {
         textAlign: "center",
-        color: "white",
-        fontSize: 16,
-        fontWeight: "bold",
+        color: theme.WHITE_FONT_COLOR,
+        fontSize: theme.REGULAR_FONT_SIZE,
+        fontWeight: theme.BUTTON_FONT_WEIGHT,
     },
     switchAuthPageLink: {
         fontSize: 14,
         fontWeight: "500",
-        color: "#047396",
+        color: theme.ACCENT_COLOR,
     },
     maxLengthIndicator: {
         alignSelf: "flex-end",
