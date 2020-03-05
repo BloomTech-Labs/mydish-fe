@@ -197,12 +197,6 @@ function IndividualRecipe(props) {
         );
     };
 
-    // const resetAction = StackActions.reset({
-    //     index: 0,
-    //     key: undefined,
-    //     actions: [NavigationActions.navigate({ routeName: "Home" })],
-    // });
-
     const deleteRecipeHandler = () => {
         console.log("deleting", recipe);
 
