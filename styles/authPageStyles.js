@@ -4,7 +4,7 @@ import theme from "./theme.style";
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 50,
-        paddingVertical: 50,
+        paddingTop: 70,
         height: "100%",
         width: "100%",
     },
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         position: "absolute",
     },
     contentContainer: {
-        height: "70%",
+        height: "65%",
         paddingVertical: 70,
         justifyContent: "space-evenly",
     },
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     },
     inputFields: {
         height: 40,
-        marginBottom: 30,
+        marginBottom: 25,
         paddingLeft: 10,
         minHeight: "5%",
         borderRadius: theme.INPUT_BORDER_RADIUS,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
     submitButton: {
         justifyContent: "center",
-        alignSelf: "flex-end",
+        alignSelf: "center",
         width: 150,
         height: 40,
         borderRadius: 5,
@@ -64,13 +64,23 @@ const styles = StyleSheet.create({
         fontWeight: theme.BUTTON_FONT_WEIGHT,
     },
     switchAuthPageLink: {
-        fontSize: 14,
-        fontWeight: "500",
-        color: theme.ACCENT_COLOR,
+        fontSize: theme.REGULAR_FONT_SIZE,
+        fontWeight: "bold",
+        textDecorationLine: "underline",
+        color: theme.PRIMARY_COLOR,
+    },
+    questionPrompt: {
+        color: theme.WHITE_FONT_COLOR,
+    },
+    promptContainer: {
+        flexDirection: "row",
+        marginTop: -20,
     },
     maxLengthIndicator: {
         alignSelf: "flex-end",
         fontSize: 12,
+        color: theme.WHITE_FONT_COLOR,
+        marginTop: -20,
     },
 });
 
