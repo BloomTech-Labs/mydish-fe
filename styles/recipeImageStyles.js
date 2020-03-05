@@ -11,10 +11,12 @@ const styles = StyleSheet.create({
     image: {
         height: "100%",
         width: "100%",
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
     },
-    changeImage: {
+    newImage: {
         width: 100,
-        margin: 10,
+        margin: 15,
         backgroundColor: "#8FCC70",
         padding: 5,
         borderRadius: 10,

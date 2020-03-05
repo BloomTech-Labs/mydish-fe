@@ -14,7 +14,7 @@ function RecipeImage({ image, setImageModalVisible }) {
             >
                 <TouchableOpacity
                     onPress={() => setImageModalVisible(true)}
-                    style={styles.changeImage}
+                    style={styles.newImage}
                 >
                     <Text style={{ color: "#363838" }}>Change image</Text>
                 </TouchableOpacity>
