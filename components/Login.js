@@ -7,16 +7,18 @@ import {
     SafeAreaView,
     ActivityIndicator,
     Alert,
+    Image,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "../store/auth/authActions";
 import styles from "../styles/authPageStyles.js";
+import backgroundImg from "../assets/auth-page-background.jpg";
 import RecipeShareLogo from "./RecipeShareLogo.js";
 
 //Analytics
-import { Analytics, Event } from 'expo-analytics';
+import { Analytics, Event } from "expo-analytics";
 
-const analytics = new Analytics('UA-159002245-1');
+const analytics = new Analytics("UA-159002245-1");
 
 const Login = ({ navigation }) => {
     const [login, setLogin] = useState({ username: "", password: "" });
@@ -39,9 +41,10 @@ const Login = ({ navigation }) => {
         if (success) {
             navigation.navigate("App");
         }
-        analytics.event(new Event('Login', 'User logged in'))
-        .then(() => console.log("User logged in"))
-        .catch(e => console.log(e.message));
+        analytics
+            .event(new Event("Login", "User logged in"))
+            .then(() => console.log("User logged in"))
+            .catch(e => console.log(e.message));
     };
 
     const emptyFieldsAlert = () => {
@@ -54,66 +57,70 @@ const Login = ({ navigation }) => {
 
     return (
         <SafeAreaView>
+            <Image source={backgroundImg} style={styles.backgroundImg} />
             <View style={styles.container}>
-                <Text style={styles.title}>Welcome back!</Text>
+                <View style={styles.contentContainer}>
+                    <Text style={styles.inputLabelText}>Username</Text>
+                    <TextInput
+                        ref={usernameInput}
+                        style={styles.inputFields}
+                        name="username"
+                        testID="username"
+                        value={login.username}
+                        returnKeyType="next"
+                        onSubmitEditing={() => passwordInput.current.focus()}
+                        onChangeText={event =>
+                            setLogin({ ...login, username: event })
+                        }
+                    />
+                    <Text style={styles.inputLabelText}>Password</Text>
+                    <TextInput
+                        ref={passwordInput}
+                        style={styles.inputFields}
+                        name="password"
+                        testID="password"
+                        value={login.password}
+                        returnKeyType="done"
+                        onChangeText={event =>
+                            setLogin({ ...login, password: event })
+                        }
+                        secureTextEntry={true}
+                        onSubmitEditing={_loginUser}
+                    />
 
-                <Text style={styles.explanationText}>
-                    Log in to edit your favorite recipes.
-                </Text>
-                <Text style={styles.inputText}>Username</Text>
-                <TextInput
-                    ref={usernameInput}
-                    style={styles.inputFields}
-                    name="username"
-                    testID="username"
-                    value={login.username}
-                    returnKeyType="next"
-                    onSubmitEditing={() => passwordInput.current.focus()}
-                    onChangeText={event =>
-                        setLogin({ ...login, username: event })
-                    }
-                />
-                <Text style={styles.inputText}>Password</Text>
-                <TextInput
-                    ref={passwordInput}
-                    style={styles.inputFields}
-                    name="password"
-                    testID="password"
-                    value={login.password}
-                    returnKeyType="done"
-                    onChangeText={event =>
-                        setLogin({ ...login, password: event })
-                    }
-                    secureTextEntry={true}
-                />
-
-                <TouchableOpacity
-                    onPress={() => {
-                        dispatch(clearError());
-                        navigation.navigate("Signup");
-                    }}
-                >
-                    <Text style={styles.switchAuthPageLink}>
-                        Don't have an account? Sign up!
-                    </Text>
-                </TouchableOpacity>
-
-                <View
-                    style={{
-                        flexDirection: "row-reverse",
-                        marginRight: 16,
-                    }}
-                >
                     <TouchableOpacity
-                        onPress={_loginUser}
-                        style={styles.submitButton}
+                        onPress={() => {
+                            dispatch(clearError());
+                            navigation.navigate("Signup");
+                        }}
                     >
-                        {isLoading ? (
-                            <ActivityIndicator size="large" color="#00ff00" />
-                        ) : (
-                            <Text style={styles.submitButtonText}>Login</Text>
-                        )}
+                        <Text style={styles.switchAuthPageLink}>
+                            Don't have an account? Sign up!
+                        </Text>
                     </TouchableOpacity>
+
+                    <View
+                        style={{
+                            flexDirection: "row-reverse",
+                            marginRight: 16,
+                        }}
+                    >
+                        <TouchableOpacity
+                            onPress={_loginUser}
+                            style={styles.submitButton}
+                        >
+                            {isLoading ? (
+                                <ActivityIndicator
+                                    size="large"
+                                    color="#00ff00"
+                                />
+                            ) : (
+                                <Text style={styles.submitButtonText}>
+                                    Login
+                                </Text>
+                            )}
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         </SafeAreaView>
