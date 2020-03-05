@@ -3,8 +3,8 @@ import theme from "./theme.style";
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 16,
-        paddingVertical: 20,
+        paddingHorizontal: 50,
+        paddingVertical: 50,
         height: "100%",
         width: "100%",
     },
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         position: "absolute",
     },
     contentContainer: {
-        height: "60%",
+        height: "70%",
         paddingVertical: 70,
         justifyContent: "space-evenly",
     },
@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     inputFields: {
         height: 40,
         marginBottom: 30,
-        marginHorizontal: 30,
         paddingLeft: 10,
         minHeight: "5%",
         borderRadius: theme.INPUT_BORDER_RADIUS,
@@ -46,7 +45,6 @@ const styles = StyleSheet.create({
     },
     inputLabelText: {
         color: theme.WHITE_FONT_COLOR,
-        marginLeft: 30,
         marginBottom: 5,
     },
     submitButton: {
