@@ -47,6 +47,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "90%",
     },
+    iconLarge: {
+        height: 60,
+        width: 60,
+    },
+    iconLargeCamera: {
+        height: 57,
+        width: 66,
+    },
 });
 
 module.exports = styles;

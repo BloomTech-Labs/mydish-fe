@@ -1,12 +1,14 @@
 import React from "react";
-import { View, TouchableOpacity, Alert } from "react-native";
+import { View, TouchableOpacity, Alert, Image } from "react-native";
 import Modal from "react-native-modal";
 import { Icon } from "react-native-elements";
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
 import styles from "../../styles/recipeImageStyles";
 import { useDispatch } from "react-redux";
 import { editImage } from "../../store/singleRecipe/singleRecipeActions";
-import * as ImagePicker from "expo-image-picker";
-import * as Permissions from "expo-permissions";
+import camera from "../../assets/camera.png";
+import gallery from "../../assets/image-plus.png";
 
 function ImageUploadModal({ visible, setVisible, setImage, scope }) {
     const iconColor = "#8FCC70";
@@ -71,15 +73,10 @@ function ImageUploadModal({ visible, setVisible, setImage, scope }) {
             <View style={styles.uploadModal}>
                 <View style={styles.iconContainer}>
                     <TouchableOpacity onPress={() => getImage(take)}>
-                        <Icon
-                            color={iconColor}
-                            size={80}
-                            name="camera"
-                            type="font-awesome"
-                        />
+                        <Image style={styles.iconLargeCamera} source={camera} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => getImage(choose)}>
-                        <Icon color={iconColor} size={80} name="camera-roll" />
+                        <Image style={styles.iconLarge} source={gallery} />
                     </TouchableOpacity>
                 </View>
             </View>
