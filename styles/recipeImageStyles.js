@@ -33,10 +33,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "center",
         borderRadius: 20,
-        // borderTopRightRadius: 20,
-        // borderTopLeftRadius: 20,
-        // borderBottomLeftRadius: 20,
-        // borderBottomRightRadius: 20,
     },
 });
 
