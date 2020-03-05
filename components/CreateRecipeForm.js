@@ -236,39 +236,63 @@ function CreateRecipeForm(props) {
                                 setRecipe={setRecipe}
                                 missing={errors.includes("title")}
                             />
-                            <View style={styles.heading}>
+                            {/* <View style={styles.heading}>
                                 <Text>Total Cook Time (minutes)</Text>
                                 {errors.includes(
                                     "prep_time and/or cook_time",
                                 ) && <Text style={styles.missing}>*</Text>}
-                            </View>
+                            </View> */}
                             <View style={styles.totalTimeView}>
-                                <TextInput
-                                    style={styles.totalTimeContainer}
-                                    placeholder="Prep"
-                                    keyboardType={"numeric"}
-                                    onChangeText={min => {
-                                        if (isNaN(Number(min))) return;
-                                        setRecipe({
-                                            ...recipe,
-                                            prep_time: min,
-                                        });
-                                    }}
-                                    value={String(recipe.prep_time)}
-                                />
-                                <TextInput
-                                    style={styles.totalTimeContainer}
-                                    placeholder="Cook"
-                                    keyboardType={"numeric"}
-                                    onChangeText={min => {
-                                        if (isNaN(Number(min))) return;
-                                        setRecipe({
-                                            ...recipe,
-                                            cook_time: min,
-                                        });
-                                    }}
-                                    value={String(recipe.cook_time)}
-                                />
+                                <View>
+                                    <View style={styles.heading}>
+                                        <Text>Prep Time</Text>
+                                        {errors.includes(
+                                            "prep_time and/or cook_time",
+                                        ) && (
+                                            <Text style={styles.missing}>
+                                                *
+                                            </Text>
+                                        )}
+                                    </View>
+                                    <TextInput
+                                        style={styles.totalTimeContainer}
+                                        placeholder="minutes"
+                                        keyboardType={"numeric"}
+                                        onChangeText={min => {
+                                            if (isNaN(Number(min))) return;
+                                            setRecipe({
+                                                ...recipe,
+                                                prep_time: min,
+                                            });
+                                        }}
+                                        value={String(recipe.prep_time)}
+                                    />
+                                </View>
+                                <View>
+                                    <View style={styles.heading}>
+                                        <Text>Cook Time</Text>
+                                        {errors.includes(
+                                            "prep_time and/or cook_time",
+                                        ) && (
+                                            <Text style={styles.missing}>
+                                                *
+                                            </Text>
+                                        )}
+                                    </View>
+                                    <TextInput
+                                        style={styles.totalTimeContainer}
+                                        placeholder="minutes"
+                                        keyboardType={"numeric"}
+                                        onChangeText={min => {
+                                            if (isNaN(Number(min))) return;
+                                            setRecipe({
+                                                ...recipe,
+                                                cook_time: min,
+                                            });
+                                        }}
+                                        value={String(recipe.cook_time)}
+                                    />
+                                </View>
                             </View>
                             <View style={styles.heading}>
                                 <Text>Course Type</Text>
