@@ -1,4 +1,8 @@
 import { StyleSheet } from "react-native";
+import theme from "../styles/theme.style";
+
+const borderWidth = 1;
+const borderColor = theme.INPUT_BORDER_COLOR;
 
 const styles = StyleSheet.create({
     heading: {
@@ -6,7 +10,7 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         color: "#363838",
         marginTop: 20,
-        marginBottom: 20,
+        marginBottom: 7,
         marginLeft: 14,
         flexDirection: "row",
     },
@@ -97,14 +101,13 @@ const styles = StyleSheet.create({
     },
     RecipeNameContainer: {
         height: 40,
-        borderRadius: 4,
-        borderWidth: 0.8,
-        borderColor: "#6B6F70",
+        borderRadius: 6,
+        borderWidth: borderWidth,
+        borderColor: borderColor,
         padding: 10,
         marginLeft: 14,
         marginRight: 14,
-        marginBottom: 10,
-        marginTop: 10,
+        marginBottom: 5,
     },
     totalTimeView: {
         flexDirection: "row",
