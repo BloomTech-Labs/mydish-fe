@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: theme.WHITE_FONT_COLOR,
         fontSize: theme.REGULAR_FONT_SIZE,
-        fontWeight: theme.REGULAR_FONT_WEIGHT,
+        fontWeight: theme.BUTTON_FONT_WEIGHT,
     },
     switchAuthPageLink: {
         fontSize: 14,

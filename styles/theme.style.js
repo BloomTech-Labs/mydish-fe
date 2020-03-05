@@ -17,4 +17,5 @@ export default {
     SUBHEADING_FONT_WEIGHT: 600,
     TITLE_FONT_SIZE: 18,
     TITLE_FONT_WEIGHT: "bold",
+    BUTTON_FONT_WEIGHT: "bold",
 };
