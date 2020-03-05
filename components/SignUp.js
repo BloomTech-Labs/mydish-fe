@@ -49,7 +49,8 @@ const SignUp = ({ navigation }) => {
                 <Text style={styles.explanationText}>
                     Sign up to start editing your favorite recipes.
                 </Text>
-                <Text style={styles.inputText}>Username</Text>
+
+                <Text style={styles.inputLabelText}>Username</Text>
                 <TextInput
                     ref={usernameInput}
                     style={styles.inputFields}
@@ -65,7 +66,7 @@ const SignUp = ({ navigation }) => {
                     style={styles.maxLengthIndicator}
                 >{`${signUp.username.length}/${maxUsername}`}</Text>
 
-                <Text style={styles.inputText}>Password</Text>
+                <Text style={styles.inputLabelText}>Password</Text>
                 <TextInput
                     ref={passwordInput}
                     style={styles.inputFields}
