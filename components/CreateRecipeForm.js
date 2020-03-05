@@ -236,12 +236,6 @@ function CreateRecipeForm(props) {
                                 setRecipe={setRecipe}
                                 missing={errors.includes("title")}
                             />
-                            {/* <View style={styles.heading}>
-                                <Text>Total Cook Time (minutes)</Text>
-                                {errors.includes(
-                                    "prep_time and/or cook_time",
-                                ) && <Text style={styles.missing}>*</Text>}
-                            </View> */}
                             <View style={styles.totalTimeView}>
                                 <View>
                                     <View style={styles.heading}>
