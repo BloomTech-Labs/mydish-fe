@@ -69,17 +69,19 @@ function ImageUploadModal({ visible, setVisible, setImage, scope }) {
             onBackdropPress={() => setVisible(false)}
         >
             <View style={styles.uploadModal}>
-                <TouchableOpacity onPress={() => getImage(take)}>
-                    <Icon
-                        color={iconColor}
-                        size={80}
-                        name="camera"
-                        type="font-awesome"
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => getImage(choose)}>
-                    <Icon color={iconColor} size={80} name="camera-roll" />
-                </TouchableOpacity>
+                <View style={styles.iconContainer}>
+                    <TouchableOpacity onPress={() => getImage(take)}>
+                        <Icon
+                            color={iconColor}
+                            size={80}
+                            name="camera"
+                            type="font-awesome"
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => getImage(choose)}>
+                        <Icon color={iconColor} size={80} name="camera-roll" />
+                    </TouchableOpacity>
+                </View>
             </View>
         </Modal>
     );

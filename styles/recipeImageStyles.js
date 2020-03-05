@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+const backgroundColor = "#DADADA";
 
 const styles = StyleSheet.create({
     imageContainer: {
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
         height: 32,
         marginRight: 16,
         marginBottom: 4,
-        backgroundColor: "#DADADA",
+        backgroundColor: backgroundColor,
         padding: 5,
         borderRadius: 16,
         justifyContent: "center",
@@ -30,15 +31,21 @@ const styles = StyleSheet.create({
         height: 18,
     },
     uploadModal: {
-        height: 300,
+        height: 200,
         position: "relative",
-        top: -200,
-        padding: 10,
-        backgroundColor: "white",
+        top: -100,
+        marginLeft: 40,
+        marginRight: 40,
+        backgroundColor: backgroundColor,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 20,
+    },
+    iconContainer: {
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        borderRadius: 20,
+        width: "90%",
     },
 });
 
