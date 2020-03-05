@@ -10,7 +10,7 @@ import { editImage } from "../../store/singleRecipe/singleRecipeActions";
 import camera from "../../assets/camera.png";
 import gallery from "../../assets/image-plus.png";
 
-function ImageUploadModal({ visible, setVisible, setImage, scope }) {
+function ImageUploadModal({ visible, setVisible, image, setImage, scope }) {
     const iconColor = "#8FCC70";
     const dispatch = useDispatch();
     const take = "take";
@@ -49,7 +49,8 @@ function ImageUploadModal({ visible, setVisible, setImage, scope }) {
         } else if (method === choose) {
             img = await ImagePicker.launchImageLibraryAsync(imgConfig);
         }
-        if (img) {
+
+        if (img && !img.cancelled) {
             if (scope && scope === "global") {
                 dispatch(editImage(img.uri));
             } else {

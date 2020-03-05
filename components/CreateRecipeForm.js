@@ -28,8 +28,8 @@ import postImage from "./RecipeImageComponents/postImage";
 import { validateFields } from "../utils/helperFunctions/vaildateFields";
 
 //Analytics
-import { Analytics, Event} from 'expo-analytics';
-const analytics = new Analytics('UA-159002245-1');
+import { Analytics, Event } from "expo-analytics";
+const analytics = new Analytics("UA-159002245-1");
 
 function CreateRecipeForm(props) {
     const initialFormState = {
@@ -59,7 +59,8 @@ function CreateRecipeForm(props) {
     ];
 
     const postRecipe = async () => {
-        analytics.event(new Event('Recipe', 'Create recipe'))
+        analytics
+            .event(new Event("Recipe", "Create recipe"))
             .then(() => console.log("Recipe added"))
             .catch(e => console.log(e.message));
         const postRecipe = {
@@ -227,6 +228,7 @@ function CreateRecipeForm(props) {
                             <ImageUploadModal
                                 visible={imageModalVisible}
                                 setVisible={setImageModalVisible}
+                                image={image}
                                 setImage={setImage}
                             />
                             <RecipeName
