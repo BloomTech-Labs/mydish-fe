@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, Image, View } from "react-native";
-import logo from "../assets/LogoGreen.png";
+import logo from "../assets/LogoRed.png";
 
 function RecipeShareLogo() {
     return (
@@ -20,16 +20,6 @@ function RecipeShareLogo() {
                     marginBottom: 10,
                 }}
             />
-            <Text
-                style={{
-                    color: "#42C200",
-                    fontSize: 20,
-                    fontWeight: "bold",
-                    marginLeft: 10,
-                }}
-            >
-                MyDish
-            </Text>
         </View>
     );
 }
