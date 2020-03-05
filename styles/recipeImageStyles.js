@@ -15,13 +15,19 @@ const styles = StyleSheet.create({
         alignItems: "flex-end",
     },
     newImage: {
-        width: 100,
-        margin: 15,
-        backgroundColor: "#8FCC70",
+        width: 32,
+        height: 32,
+        marginRight: 16,
+        marginBottom: 4,
+        backgroundColor: "#DADADA",
         padding: 5,
-        borderRadius: 10,
+        borderRadius: 16,
         justifyContent: "center",
         alignItems: "center",
+    },
+    icon: {
+        width: 22,
+        height: 18,
     },
     uploadModal: {
         height: 300,
