@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+const backgroundColor = "#DADADA";
 
 const styles = StyleSheet.create({
     imageContainer: {
         flex: 1,
-        height: 200,
+        height: 300,
         backgroundColor: "whitesmoke",
         alignItems: "center",
         justifyContent: "center",
@@ -11,29 +12,48 @@ const styles = StyleSheet.create({
     image: {
         height: "100%",
         width: "100%",
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
     },
-    changeImage: {
-        width: 100,
-        margin: 10,
-        backgroundColor: "#8FCC70",
+    newImage: {
+        width: 32,
+        height: 32,
+        marginRight: 16,
+        marginBottom: 4,
+        backgroundColor: backgroundColor,
         padding: 5,
-        borderRadius: 10,
+        borderRadius: 16,
         justifyContent: "center",
         alignItems: "center",
     },
+    icon: {
+        width: 22,
+        height: 18,
+    },
     uploadModal: {
-        height: 300,
+        height: 200,
         position: "relative",
-        top: -200,
-        marginLeft: "-5%",
-        marginRight: "-5%",
-        padding: 10,
-        backgroundColor: "white",
+        top: -100,
+        marginLeft: 40,
+        marginRight: 40,
+        backgroundColor: backgroundColor,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 20,
+    },
+    iconContainer: {
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
+        width: "90%",
+    },
+    iconLarge: {
+        height: 60,
+        width: 60,
+    },
+    iconLargeCamera: {
+        height: 57,
+        width: 66,
     },
 });
 
