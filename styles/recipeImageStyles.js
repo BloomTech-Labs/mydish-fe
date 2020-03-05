@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     imageContainer: {
         flex: 1,
-        height: 200,
+        height: 300,
         backgroundColor: "whitesmoke",
         alignItems: "center",
         justifyContent: "center",
@@ -32,8 +32,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
+        borderRadius: 20,
+        // borderTopRightRadius: 20,
+        // borderTopLeftRadius: 20,
+        // borderBottomLeftRadius: 20,
+        // borderBottomRightRadius: 20,
     },
 });
 
