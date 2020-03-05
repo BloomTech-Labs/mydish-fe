@@ -8,6 +8,7 @@ import {
     ActivityIndicator,
     Alert,
     Image,
+    KeyboardAvoidingView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "../store/auth/authActions";
@@ -17,6 +18,10 @@ import RecipeShareLogo from "./RecipeShareLogo.js";
 
 //Analytics
 import { Analytics, Event } from "expo-analytics";
+
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+import theme from "../styles/theme.style";
 
 const analytics = new Analytics("UA-159002245-1");
 
@@ -58,8 +63,14 @@ const Login = ({ navigation }) => {
     return (
         <SafeAreaView>
             <Image source={backgroundImg} style={styles.backgroundImg} />
-            <View style={styles.container}>
-                <View style={styles.contentContainer}>
+            <KeyboardAvoidingView
+                behavior={"position"}
+                style={styles.container}
+            >
+                <KeyboardAvoidingView
+                    behavior={"position"}
+                    style={styles.contentContainer}
+                >
                     <Text style={styles.inputLabelText}>Username</Text>
                     <TextInput
                         ref={usernameInput}
@@ -88,16 +99,19 @@ const Login = ({ navigation }) => {
                         onSubmitEditing={_loginUser}
                     />
 
-                    <TouchableOpacity
-                        onPress={() => {
-                            dispatch(clearError());
-                            navigation.navigate("Signup");
-                        }}
-                    >
-                        <Text style={styles.switchAuthPageLink}>
-                            Don't have an account? Sign up!
+                    <View style={styles.promptContainer}>
+                        <Text style={styles.questionPrompt}>
+                            Don't have an account?{" "}
                         </Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                dispatch(clearError());
+                                navigation.navigate("SignUp");
+                            }}
+                        >
+                            <Text style={styles.switchAuthPageLink}>Login</Text>
+                        </TouchableOpacity>
+                    </View>
 
                     <View
                         style={{
@@ -121,13 +135,16 @@ const Login = ({ navigation }) => {
                             )}
                         </TouchableOpacity>
                     </View>
-                </View>
-            </View>
+                </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 };
 Login.navigationOptions = {
     headerTitle: <RecipeShareLogo />,
+    headerStyle: {
+        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
+    },
 };
 
 export default Login;
