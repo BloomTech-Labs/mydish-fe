@@ -114,9 +114,7 @@ const styles = StyleSheet.create({
         fontWeight: theme.REGULAR_FONT_WEIGHT,
         fontFamily: theme.REGULAR_FONT_FAMILY,
     },
-    recipeDetails: {
-        alignItems: "center",
-    },
+    recipeDetails: {},
     titlesViewBorderIng: {
         paddingTop: 10,
         paddingBottom: 10,
@@ -145,16 +143,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#047396",
     },
     ingredientList: {
-        backgroundColor: "#F4F8FA",
-        paddingTop: 9,
-        paddingBottom: 9,
-        marginTop: 10,
-        marginBottom: 20,
-        flexDirection: "row-reverse",
-        justifyContent: "space-around",
-        paddingRight: 10,
-        marginLeft: 14,
-        marginRight: 14,
+        marginVertical: 10,
     },
     ingredientText: {
         color: "#1E1F20",
