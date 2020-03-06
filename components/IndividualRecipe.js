@@ -172,10 +172,10 @@ function IndividualRecipe(props) {
         // If any values are 'undefined' or 'NaN', this will ensure they are 'false'
         !!Number(revisionId) || !!Number(recipe.previous_versions_count);
 
-    const getVersionString = () =>
-        recipe.revision_number
-            ? `AUTHOR COMMENT ON VERSION ${recipe.revision_number}:`
-            : "AUTHOR COMMENT ON CURRENT VERSION:";
+    // const getVersionString = () =>
+    //     recipe.revision_number
+    //         ? `AUTHOR COMMENT ON VERSION ${recipe.revision_number}:`
+    //         : "AUTHOR COMMENT ON CURRENT VERSION:";
 
     const cancelButtonEditedRecipe = () => {
         //TO DO - an alert or modal before dispatching stopEditMode
@@ -491,27 +491,53 @@ function IndividualRecipe(props) {
                         <View style={styles.recipeContentContainer}>
                             <DisplayTitle title={recipe.title} />
                             {/* </View> */}
-                            {/* tags(row), touchable opacity(edit)(same row)*/}
+                            {/* tags(row)*/}
                             {/* previous versions(under edit button, flex-end) */}
                             <View>
-                                <View style={styles.tagRow}>
-                                    {recipe.tags &&
-                                        recipe.tags.map((tag, index) => (
-                                            <Text
-                                                key={tag.id}
-                                                style={styles.individualTags}
-                                            >
-                                                {tag.name}
-                                                {index <
-                                                    recipe.tags.length - 1 &&
-                                                    (<Text style={styles.blackText}>, </Text>)}
-                                            </Text>
-                                        ))}
+                                <Text style={styles.authorName}>
+                                    {recipe.owner.username &&
+                                    recipe.owner.username.length > maxUsername
+                                        ? `By ${recipe.owner.username.slice(
+                                              0,
+                                              maxUsername,
+                                          )}...`
+                                        : `By ${recipe.owner.username}`}
+                                </Text>
+                                <View style={styles.underTitleRow}>
+                                    <View style={styles.tagRow}>
+                                        {recipe.tags &&
+                                            recipe.tags.map((tag, index) => (
+                                                <Text
+                                                    key={tag.id}
+                                                    style={
+                                                        styles.individualTags
+                                                    }
+                                                >
+                                                    {tag.name}
+                                                    {index <
+                                                        recipe.tags.length -
+                                                            1 && (
+                                                        <Text
+                                                            style={
+                                                                styles.blackText
+                                                            }
+                                                        >
+                                                            ,{" "}
+                                                        </Text>
+                                                    )}
+                                                </Text>
+                                            ))}
+                                    </View>
+                                    <View style={styles.timeContainer}>
+                                        <Image
+                                            source={clock}
+                                            style={styles.icon}
+                                        />
+                                        <Text>{totalCookTime} minutes</Text>
+                                    </View>
                                 </View>
-                            </View>
-                            <View style={styles.innovatorTime}>
-                                <View style={styles.innovatorContainer}>
-                                    {hasRevisions() ? (
+                                <View style={styles.versionHistoryContainer}>
+                                    {hasRevisions() && (
                                         <TouchableOpacity
                                             onPress={() =>
                                                 props.navigation.navigate(
@@ -520,29 +546,11 @@ function IndividualRecipe(props) {
                                                 )
                                             }
                                         >
-                                            <Text>Prev. Versions</Text>
+                                            <Text style={styles.versions}>
+                                                Previous Versions
+                                            </Text>
                                         </TouchableOpacity>
-                                    ) : (
-                                        <Text>No Versions</Text>
                                     )}
-                                </View>
-                                <View style={{ flexDirection: "row" }}>
-                                    <Image source={logo} style={styles.icon} />
-                                    <Text>
-                                        {recipe.owner.username &&
-                                        recipe.owner.username.length >
-                                            maxUsername
-                                            ? `${recipe.owner.username.slice(
-                                                  0,
-                                                  maxUsername,
-                                              )}...`
-                                            : recipe.owner.username}
-                                    </Text>
-                                </View>
-
-                                <View style={styles.timeContainer}>
-                                    <Image source={clock} style={styles.icon} />
-                                    <Text>{totalCookTime} minutes</Text>
                                 </View>
                             </View>
 
@@ -597,12 +605,12 @@ function IndividualRecipe(props) {
                                     </>
                                 )}
                             </View>
-                            <View style={{ marginLeft: 10 }}>
+                            {/* <View style={{ marginLeft: 10 }}>
                                 <Text style={{ fontWeight: "bold" }}>
                                     {getVersionString()}
                                 </Text>
                                 <Text>{recipe.author_comment}</Text>
-                            </View>
+                            </View> */}
                         </View>
                     </View>
                 </ScrollView>
