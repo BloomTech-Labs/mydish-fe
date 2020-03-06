@@ -105,16 +105,16 @@ const styles = StyleSheet.create({
     tabTextWhite: {
         textAlign: "center",
         color: theme.WHITE_FONT_COLOR,
-        fontWeight: theme.REGULAR_FONT_WEIGHT,
-        fontFamily: theme.REGULAR_FONT_FAMILY,
+        fontFamily: theme.BOLD_FONT_FAMILY,
     },
     tabTextBlue: {
         textAlign: "center",
         color: theme.PRIMARY_COLOR,
-        fontWeight: theme.REGULAR_FONT_WEIGHT,
-        fontFamily: theme.REGULAR_FONT_FAMILY,
+        fontFamily: theme.BOLD_FONT_FAMILY,
     },
-    recipeDetails: {},
+    recipeDetails: {
+        marginVertical: 15,
+    },
     titlesViewBorderIng: {
         paddingTop: 10,
         paddingBottom: 10,
@@ -146,8 +146,9 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     ingredientText: {
-        color: "#1E1F20",
-        fontSize: 16,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        color: theme.DARK_FONT_COLOR,
+        fontSize: theme.REGULAR_FONT_SIZE,
     },
     ingredientView: {
         width: "50%",
