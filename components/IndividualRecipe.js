@@ -53,6 +53,8 @@ import CommitModal from "./EditRecipeComponents/Modal";
 
 import { StackActions, NavigationActions } from "react-navigation";
 
+import { fetchRecipes } from "../store/recipes/recipeActions";
+
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
@@ -146,7 +148,7 @@ function IndividualRecipe(props) {
         if (currentActive.type === "edit") {
             currentActive.close();
         }
-        // dispatch(stopEdit());
+        dispatch(fetchRecipes(""));
     };
 
     const startEditModeButton = () => {
@@ -160,6 +162,7 @@ function IndividualRecipe(props) {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
         dispatch(resetCurrentActive());
+        dispatch(fetchRecipes(""));
         setModal({ save: false, cancel: false });
     };
 
@@ -189,6 +192,7 @@ function IndividualRecipe(props) {
                     onPress: () => {
                         dispatch(stopEditMode());
                         dispatch(resetCurrentActive());
+                        dispatch(fetchRecipes(""));
                         dispatch(resetRecipe(tempRecipe));
                     },
                 },
@@ -196,11 +200,6 @@ function IndividualRecipe(props) {
             { cancelable: false },
         );
     };
-
-    const resetAction = StackActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: "Home" })],
-    });
 
     const deleteRecipeHandler = () => {
         console.log("deleting", recipe);
@@ -219,7 +218,8 @@ function IndividualRecipe(props) {
                         text: "OK",
                         onPress: () => {
                             dispatch(deleteRecipe(recipe.id));
-                            props.navigation.dispatch(resetAction);
+                            dispatch(fetchRecipes(""));
+                            props.navigation.navigate("Home");
                         },
                     },
                 ],

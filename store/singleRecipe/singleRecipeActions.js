@@ -6,6 +6,7 @@ export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
 export const UPDATE_RECIPE_FAILURE = "UPDATE_RECIPE_FAILURE";
 
 let calling = false;
+
 export const stopEdit = () => async (dispatch, getState) => {
     // We call this stopEdit() function a few times in our components to make sure we stop editing.
     // The "calling" variable makes sure that, if we're allready in this axios call, we won't
@@ -217,7 +218,7 @@ export const fetchVersionByRevisionId = (id, revisionId) => {
 };
 
 export const DELETE_RECIPE_START = "DELETE_RECIPE_START";
-export const DELETE_RECIPE_SUCCESS = "ELETE_RECIPE_SUCCESS";
+export const DELETE_RECIPE_SUCCESS = "DELETE_RECIPE_SUCCESS";
 export const DELETE_RECIPE_FAILURE = "DELETE_RECIPE_FAILURE";
 
 export const deleteRecipe = id => {
@@ -229,7 +230,7 @@ export const deleteRecipe = id => {
             const res = await axiosCustom.delete(`recipes/${id}`);
             console.log("response from deleting", res.data);
 
-            dispatch({ type: DELETE_RECIPE_SUCCESS, payload: res.data });
+            dispatch({ type: DELETE_RECIPE_SUCCESS, payload: id });
         } catch (error) {
             console.log(error);
             dispatch({ type: DELETE_RECIPE_FAILURE, payload: err });
