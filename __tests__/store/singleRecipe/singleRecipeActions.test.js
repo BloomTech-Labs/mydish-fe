@@ -381,7 +381,7 @@ describe("stopEdit action creator", () => {
             actions.stopEdit()(dispatch, getState),
             actions.stopEdit()(dispatch, getState),
         ]).then(res => {
-            console.log(res);
+            // console.log(res);
             expect(dispatch).toHaveBeenCalledTimes(1);
             expect(dispatch).toHaveBeenCalledWith(expectedDispatchStartUpdate);
             expect(dispatch).toHaveBeenCalledWith(
