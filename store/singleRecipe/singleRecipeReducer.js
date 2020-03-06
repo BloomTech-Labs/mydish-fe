@@ -19,7 +19,9 @@ import {
     DELETE_INGREDIENT,
     DELETE_NOTE,
     DELETE_INSTRUCT,
-    DELETE_RECIPE,
+    DELETE_RECIPE_START,
+    DELETE_RECIPE_FAILURE,
+    DELETE_RECIPE_SUCCESS,
     START_EDIT_MODE,
     STOP_EDIT_MODE,
     START_SUBMIT_EDITED_RECIPE,
@@ -206,14 +208,28 @@ export const singleRecipeReducer = (state = initState, action) => {
                 },
             };
 
-        // case DELETE_RECIPE:
-        //     return {
-        //         ...state,
-        //         recipe: {
-        //             ...state.recipe,
-        //             recipe:
-        //         }
-        //     };
+        case DELETE_RECIPE_START:
+            return {
+                ...state,
+                isSubmitting: true,
+                isLoading: true,
+                error: null,
+            };
+
+        case DELETE_RECIPE_SUCCESS:
+            return {
+                ...state,
+                isSubmitting: false,
+                isLoading: false,
+            };
+
+        case DELETE_RECIPE_FAILURE:
+            return {
+                ...state,
+                isSubmitting: false,
+                isLoading: false,
+                error: action.payload,
+            };
 
         case START_SUBMIT_EDITED_RECIPE:
             return {

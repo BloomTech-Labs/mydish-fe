@@ -197,11 +197,6 @@ function IndividualRecipe(props) {
         );
     };
 
-    const resetAction = StackActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: "Home" })],
-    });
-
     const deleteRecipeHandler = () => {
         console.log("deleting", recipe);
 
@@ -219,7 +214,7 @@ function IndividualRecipe(props) {
                         text: "OK",
                         onPress: () => {
                             dispatch(deleteRecipe(recipe.id));
-                            props.navigation.dispatch(resetAction);
+                            props.navigation.navigate("Home");
                         },
                     },
                 ],
