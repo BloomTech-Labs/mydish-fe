@@ -109,7 +109,9 @@ const Login = ({ navigation }) => {
                                 navigation.navigate("SignUp");
                             }}
                         >
-                            <Text style={styles.switchAuthPageLink}>Login</Text>
+                            <Text style={styles.switchAuthPageLink}>
+                                Sign up
+                            </Text>
                         </TouchableOpacity>
                     </View>
 
