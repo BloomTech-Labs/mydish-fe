@@ -93,11 +93,14 @@ const styles = StyleSheet.create({
     showTab: {
         paddingVertical: 8,
         backgroundColor: theme.PRIMARY_COLOR,
-        textAlign: "center",
+        borderBottomWidth: 1,
+        borderBottomColor: theme.GREY_FONT_COLOR,
     },
     hideTab: {
         paddingVertical: 8,
         backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.PRIMARY_COLOR,
     },
     tabTextWhite: {
         textAlign: "center",
