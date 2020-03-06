@@ -120,8 +120,7 @@ const Ingredient = ({
         >
             <View
                 style={{
-                    marginTop: 3,
-                    marginBottom: 9,
+                    marginBottom: 12,
                     flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
