@@ -127,6 +127,15 @@ function IndividualRecipe(props) {
         }
     });
 
+    useEffect(() => {
+        if (!recipe.owner.user_id || userId !== recipe.owner.user_id) {
+            dispatch(stopEditMode());
+        } else if (recipe.owner.user_id && userId === recipe.owner.user_id) {
+            dispatch(startEditMode());
+            setTempRecipe(recipe);
+        }
+    }, [recipe]);
+
     async function fetchUserId() {
         try {
             const fetchId = await AsyncStorage.getItem("userID");
@@ -152,12 +161,12 @@ function IndividualRecipe(props) {
         dispatch(fetchRecipes(""));
     };
 
-    const startEditModeButton = () => {
-        if (!recipe.owner.user_id || userId !== recipe.owner.user_id)
-            return dispatch(stopEditMode());
-        dispatch(startEditMode());
-        setTempRecipe(recipe);
-    };
+    // const startEditModeButton = () => {
+    //     if (!recipe.owner.user_id || userId !== recipe.owner.user_id)
+    //         return dispatch(stopEditMode());
+    //     dispatch(startEditMode());
+    //     setTempRecipe(recipe);
+    // };
 
     const saveButtonEditedRecipe = author_comment => {
         dispatch(submitEditedRecipe(author_comment));
@@ -460,7 +469,7 @@ function IndividualRecipe(props) {
                             }
                             style={styles.image}
                         >
-                            {recipe.owner.user_id &&
+                            {/* {recipe.owner.user_id &&
                                 userId === recipe.owner.user_id && (
                                     <TouchableOpacity
                                         onPress={startEditModeButton}
@@ -485,7 +494,7 @@ function IndividualRecipe(props) {
                                             color="white"
                                         />
                                     </TouchableOpacity>
-                                )}
+                                )} */}
                         </ImageBackground>
                         {/* <View style={styles.titleWrapper}> */}
                         <View style={styles.recipeContentContainer}>
