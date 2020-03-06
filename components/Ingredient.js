@@ -125,14 +125,15 @@ const Ingredient = ({
                 <TextInput
                     ref={nameInput}
                     style={{
-                        minHeight: 40,
-                        width: "50%",
+                        minHeight: theme.INPUT_HEIGHT,
+                        width: "40%",
                         borderWidth: highlighted.name ? 1 : 0.8,
                         borderColor: highlighted.name
                             ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
                             : theme.INPUT_BORDER_COLOR,
                         borderRadius: theme.INPUT_BORDER_RADIUS,
-                        textAlign: "center",
+                        textAlign: "left",
+                        paddingLeft: 12,
                     }}
                     multiline
                     maxLength={44}
@@ -147,7 +148,7 @@ const Ingredient = ({
                 <TextInput
                     ref={quantityInput}
                     style={{
-                        height: 40,
+                        height: theme.INPUT_HEIGHT,
                         width: "20%",
                         borderWidth: highlighted.quantity ? 1 : 0.8,
                         borderColor: highlighted.quantity

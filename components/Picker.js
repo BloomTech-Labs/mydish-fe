@@ -9,7 +9,7 @@ export default Picker = ({ handleChange, unit, highlighted, onClose }) => {
 
     const styleObj = {
         fontSize: 16,
-        height: 40,
+        height: theme.INPUT_HEIGHT,
         paddingHorizontal: 10,
         borderWidth: highlighted.unit ? 1 : 0.8,
         borderColor: highlighted.unit

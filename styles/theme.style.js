@@ -19,6 +19,8 @@ export default {
     INPUT_BORDER_COLOR: "#D4D4D4",
     INPUT_BORDER_HIGHLIGHT_COLOR: "#3FA2F7",
     INPUT_BORDER_RADIUS: 6,
+    INPUT_HEIGHT: 36,
+    INPUT_WIDTH_SHORT: 48,
     REGULAR_FONT_FAMILY: "nunito sans",
     BOLD_FONT_FAMILY: "nunito sans bold",
     SEMI_BOLD_FONT_FAMILY: "nunito sans semi-bold",

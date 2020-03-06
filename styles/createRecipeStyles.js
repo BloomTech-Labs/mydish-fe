@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "#363838",
         marginBottom: 10,
-        marginLeft: 14,
+        marginLeft: marginLeft,
     },
     RecipeNameContainer: {
         height: 40,
