@@ -89,9 +89,9 @@ const IndividualRecipeIngredient = ({ recipeIng, index, currentActive }) => {
                         />
                     </View>
                 ) : (
-                    <View style={styles.ingredientList}>
+                    <View style={styles.recipeFieldsList}>
                         <View style={styles.ingredientView}>
-                            <Text style={styles.ingredientText}>
+                            <Text style={styles.recipeFieldsText}>
                                 {recipeIng.quantity} {recipeIng.units}
                             </Text>
                             <MaterialCommunityIcons
@@ -101,7 +101,7 @@ const IndividualRecipeIngredient = ({ recipeIng, index, currentActive }) => {
                             />
                         </View>
                         <View style={styles.ingredientView}>
-                            <Text style={styles.ingredientText}>
+                            <Text style={styles.recipeFieldsText}>
                                 {recipeIng.name}
                             </Text>
                         </View>

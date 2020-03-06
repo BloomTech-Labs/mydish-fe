@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import theme from "./theme.style";
 
 const styles = StyleSheet.create({
     recipeContainer: {
@@ -12,22 +13,40 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        borderTopRightRadius: 10,
-        borderBottomRightRadius: 10,
-        marginRight: 3,
         paddingVertical: 3,
     },
     title: {
-        fontSize: 24,
-        color: "#363838",
+        fontSize: theme.LARGE_FONT_SIZE,
+        color: theme.DARK_FONT_COLOR,
+        fontFamily: theme.BOLD_FONT_FAMILY,
         fontWeight: "bold",
         marginTop: 5,
-        marginBottom: 12,
-        marginLeft: 14,
+    },
+    underTitleRow: {
+        flexDirection: "row",
+        width: "100%",
+        justifyContent: "space-between",
+    },
+    tagRow: {
+        flexDirection: "row",
+        marginTop: 10,
+    },
+    recipeContentContainer: {
+        marginHorizontal: 16,
     },
     icon: { width: 20, height: 20, marginRight: 5 },
     editIcon: {
         marginRight: 20,
+    },
+    versionHistoryContainer: {
+        width: "100%",
+        alignItems: "flex-end",
+    },
+    versions: {
+        color: theme.PRIMARY_COLOR,
+        textDecorationLine: "underline",
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        fontSize: theme.SMALL_FONT_SIZE,
     },
     innovatorContainer: {
         flexDirection: "row",
@@ -35,6 +54,9 @@ const styles = StyleSheet.create({
     },
     timeContainer: {
         flexDirection: "row",
+    },
+    blackText: {
+        color: theme.DARK_FONT_COLOR,
     },
     innovatorTime: {
         flexDirection: "row",
@@ -57,9 +79,9 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     individualTags: {
-        fontSize: 14,
-        color: "#363838",
-        fontWeight: "500",
+        fontSize: theme.REGULAR_FONT_SIZE,
+        color: theme.PRIMARY_COLOR,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
     },
     tagBox: {
         flexDirection: "row",
@@ -75,90 +97,53 @@ const styles = StyleSheet.create({
     },
     tabsContainer: {
         flexDirection: "row",
-        alignItems: "center",
+        width: "100%",
+        marginTop: 20,
+    },
+    tabsTouchable: {
+        width: "50%",
     },
     showTab: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: "#047396",
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
-        textAlign: "center",
-        color: "white",
-        fontWeight: "bold",
-        borderTopRightRadius: 8,
-        borderTopLeftRadius: 8,
+        paddingVertical: 8,
+        backgroundColor: theme.PRIMARY_COLOR,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.GREY_FONT_COLOR,
     },
     hideTab: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: "white",
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
-        color: "#047396",
-        fontWeight: "bold",
-        shadowColor: "grey",
-        shadowOpacity: 0.26,
-        shadowOffset: { width: 0, height: -4 },
-        shadowRadius: 5,
-        borderTopRightRadius: 8,
-        borderTopLeftRadius: 8,
+        paddingVertical: 8,
+        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.PRIMARY_COLOR,
     },
-    tabTextWhite: {
+    tabTextActive: {
         textAlign: "center",
-        color: "white",
-        fontWeight: "bold",
+        color: theme.WHITE_FONT_COLOR,
+        fontFamily: theme.BOLD_FONT_FAMILY,
     },
-    tabTextBlue: {
+    tabTextInactive: {
         textAlign: "center",
-        color: "#047396",
-        fontWeight: "bold",
+        color: theme.DARK_FONT_COLOR,
+        fontFamily: theme.BOLD_FONT_FAMILY,
     },
     recipeDetails: {
-        alignItems: "center",
+        marginVertical: 15,
     },
-    titlesViewBorderIng: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: "#047396",
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
+    cookTimeText: {
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        color: theme.DARK_FONT_COLOR,
     },
-    titlesViewBorderIngOff: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: "white",
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
+    authorName: {
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        fontSize: theme.SMALL_FONT_SIZE,
+        color: theme.DARK_FONT_COLOR,
     },
-    titlesViewBorderInst: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
+    recipeFieldsList: {
+        marginVertical: 10,
     },
-    titlesViewBorderInstOn: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
-        backgroundColor: "#047396",
-    },
-    ingredientList: {
-        backgroundColor: "#F4F8FA",
-        paddingTop: 9,
-        paddingBottom: 9,
-        marginTop: 10,
-        marginBottom: 20,
-        flexDirection: "row-reverse",
-        justifyContent: "space-around",
-        paddingRight: 10,
-        marginLeft: 14,
-        marginRight: 14,
-    },
-    ingredientText: {
-        color: "#1E1F20",
-        fontSize: 16,
+    recipeFieldsText: {
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        color: theme.DARK_FONT_COLOR,
+        fontSize: theme.REGULAR_FONT_SIZE,
     },
     ingredientView: {
         width: "50%",
@@ -189,9 +174,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     notes: {
-        // marginLeft: 14,
-        fontSize: 14,
-        fontWeight: "500",
+        fontSize: theme.REGULAR_FONT_SIZE,
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        color: theme.DARK_FONT_COLOR,
+        marginTop: 20,
+    },
+    redBorder: {
+        width: "100%",
+        borderBottomWidth: 1,
+        borderBottomColor: theme.PRIMARY_COLOR,
     },
     hidden: {
         display: "none",

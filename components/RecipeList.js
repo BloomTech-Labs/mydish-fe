@@ -6,10 +6,6 @@ import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
 const RecipeList = ({ parent, folder }) => {
     const isLoading = useSelector(store => store.cookbook.isLoading);
 
-    const storeThing = useSelector(store => store);
-
-    console.log("!!!\n\nALERT ALERT ALERT\n\n!!!\n\nSTORE IS ", storeThing);
-
     // If the RecipeList is being rendered from the cookbook,
     //     grab the props that the cookbook is passing down.
     // If the RecipeList ISN'T coming from the cookbook, then we
