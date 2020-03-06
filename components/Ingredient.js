@@ -112,13 +112,18 @@ const Ingredient = ({
     };
 
     return (
-        <View>
+        <View
+            style={{
+                marginLeft: 16,
+                marginRight: 16,
+            }}
+        >
             <View
                 style={{
                     marginTop: 3,
                     marginBottom: 9,
                     flexDirection: "row",
-                    justifyContent: "space-evenly",
+                    justifyContent: "space-between",
                     width: "100%",
                 }}
             >
