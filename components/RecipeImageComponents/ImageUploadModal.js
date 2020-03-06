@@ -1,7 +1,6 @@
 import React from "react";
 import { View, TouchableOpacity, Alert, Image } from "react-native";
 import Modal from "react-native-modal";
-import { Icon } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import styles from "../../styles/recipeImageStyles";
@@ -10,8 +9,7 @@ import { editImage } from "../../store/singleRecipe/singleRecipeActions";
 import camera from "../../assets/camera.png";
 import gallery from "../../assets/image-plus.png";
 
-function ImageUploadModal({ visible, setVisible, setImage, scope }) {
-    const iconColor = "#8FCC70";
+function ImageUploadModal({ visible, setVisible, image, setImage, scope }) {
     const dispatch = useDispatch();
     const take = "take";
     const choose = "choose"; // Pass take or choose as argument to getImage()
@@ -49,7 +47,8 @@ function ImageUploadModal({ visible, setVisible, setImage, scope }) {
         } else if (method === choose) {
             img = await ImagePicker.launchImageLibraryAsync(imgConfig);
         }
-        if (img) {
+
+        if (img && !img.cancelled) {
             if (scope && scope === "global") {
                 dispatch(editImage(img.uri));
             } else {
