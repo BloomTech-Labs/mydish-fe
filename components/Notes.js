@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
 import styles from "../styles/createRecipeStyles";
-import MinusDeleteButton from "./MinusDeleteButton";
+import XDeleteButton from "./XDeleteButton";
 
 const Notes = ({ index, removeNote, note, setRecipe }) => {
     const changeHandler = value => {
@@ -33,7 +33,7 @@ const Notes = ({ index, removeNote, note, setRecipe }) => {
                 onChangeText={changeHandler}
                 value={note}
             />
-            <MinusDeleteButton action={() => removeNote(index)} parent="note" />
+            <XDeleteButton action={() => removeNote(index)} parent="note" />
         </View>
     );
 };

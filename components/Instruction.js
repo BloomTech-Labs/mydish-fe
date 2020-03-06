@@ -1,6 +1,6 @@
 import React from "react";
 import { TextInput, Text, TouchableOpacity, View } from "react-native";
-import MinusDeleteButton from "./MinusDeleteButton";
+import XDeleteButton from "./XDeleteButton";
 
 const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     const handleChange = value => {
@@ -51,7 +51,7 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                 />
             </View>
             {/* A remove button for the CreateRecipeForm */}
-            <MinusDeleteButton
+            <XDeleteButton
                 action={() => removeInstruction(index)}
                 parent="instruction"
             />

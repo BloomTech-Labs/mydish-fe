@@ -6,7 +6,7 @@ import {
     editIngred,
 } from "../store/singleRecipe/singleRecipeActions";
 import Picker from "./Picker";
-import MinusDeleteButton from "./MinusDeleteButton";
+import XDeleteButton from "./XDeleteButton";
 import theme from "../styles/theme.style";
 
 const Ingredient = ({
@@ -124,6 +124,7 @@ const Ingredient = ({
                     marginBottom: 9,
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    alignItems: "center",
                     width: "100%",
                 }}
             >
@@ -186,7 +187,7 @@ const Ingredient = ({
                 />
                 {/* A remove button for the CreateRecipeForm */}
                 {parent === "create" && (
-                    <MinusDeleteButton
+                    <XDeleteButton
                         parent="ingredient"
                         action={() => removeIng(index)}
                     />
