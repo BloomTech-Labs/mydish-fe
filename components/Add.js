@@ -6,7 +6,7 @@ const Add = props => {
     const { text, submit } = props;
 
     return (
-        <View style={{ flexDirection: "row", marginTop: 20 }}>
+        <View style={{ flexDirection: "row" }}>
             <TouchableOpacity onPress={submit} style={{ flexDirection: "row" }}>
                 <Image
                     source={add}
