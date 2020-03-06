@@ -32,14 +32,19 @@ import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-159002245-1");
 
 function CreateRecipeForm(props) {
+    const emptyIngredient = {
+        name: "",
+        quantity: "",
+        units: "",
+    };
     const initialFormState = {
         img: "",
         title: "",
         prep_time: "",
         cook_time: "",
         tags: [],
-        ingredients: [{ name: "", quantity: "", units: "" }],
-        instructions: [""],
+        ingredients: new Array(3).fill(emptyIngredient),
+        instructions: new Array(3).fill(""),
         notes: [""],
     };
 
