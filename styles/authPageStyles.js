@@ -16,9 +16,11 @@ const styles = StyleSheet.create({
         position: "absolute",
     },
     contentContainer: {
-        height: "65%",
+        display: "flex",
+        flexDirection: "column",
+        height: 450,
         paddingVertical: 70,
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
     },
     title: {
         textAlign: "center",
