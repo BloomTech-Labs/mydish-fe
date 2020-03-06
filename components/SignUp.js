@@ -8,6 +8,8 @@ import {
     ActivityIndicator,
     Alert,
     Image,
+    KeyboardAvoidingView,
+    ScrollView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, clearError } from "../store/auth/authActions";
@@ -48,70 +50,78 @@ const SignUp = ({ navigation }) => {
     return (
         <SafeAreaView>
             <Image source={backgroundImg} style={styles.backgroundImg} />
-            <View style={styles.container}>
-                <View style={styles.contentContainer}>
-                    <Text style={styles.inputLabelText}>Username</Text>
-                    <TextInput
-                        ref={usernameInput}
-                        style={styles.inputFields}
-                        maxLength={maxUsername}
-                        value={signUp.username}
-                        returnKeyType="next"
-                        onSubmitEditing={() => passwordInput.current.focus()}
-                        onChangeText={event =>
-                            setSignUp({ ...signUp, username: event })
-                        }
-                    />
-                    <Text
-                        style={styles.maxLengthIndicator}
-                    >{`${signUp.username.length}/${maxUsername}`}</Text>
+            <KeyboardAvoidingView behavior="height">
+                <ScrollView>
+                    <View style={styles.container}>
+                        <View style={styles.contentContainer}>
+                            <Text style={styles.inputLabelText}>Username</Text>
+                            <TextInput
+                                ref={usernameInput}
+                                style={styles.inputFields}
+                                maxLength={maxUsername}
+                                value={signUp.username}
+                                returnKeyType="next"
+                                onSubmitEditing={() =>
+                                    passwordInput.current.focus()
+                                }
+                                onChangeText={event =>
+                                    setSignUp({ ...signUp, username: event })
+                                }
+                            />
+                            <Text
+                                style={styles.maxLengthIndicator}
+                            >{`${signUp.username.length}/${maxUsername}`}</Text>
 
-                    <Text style={styles.inputLabelText}>Password</Text>
-                    <TextInput
-                        ref={passwordInput}
-                        style={styles.inputFields}
-                        value={signUp.password}
-                        returnKeyType="go"
-                        onChangeText={event =>
-                            setSignUp({ ...signUp, password: event })
-                        }
-                        secureTextEntry={true}
-                        onSubmitEditing={register}
-                    />
+                            <Text style={styles.inputLabelText}>Password</Text>
+                            <TextInput
+                                ref={passwordInput}
+                                style={styles.inputFields}
+                                value={signUp.password}
+                                returnKeyType="go"
+                                onChangeText={event =>
+                                    setSignUp({ ...signUp, password: event })
+                                }
+                                secureTextEntry={true}
+                                onSubmitEditing={register}
+                            />
 
-                    <View style={styles.promptContainer}>
-                        <Text style={styles.questionPrompt}>
-                            Have an account?{" "}
-                        </Text>
-                        <TouchableOpacity
-                            onPress={() => {
-                                dispatch(clearError());
-                                navigation.navigate("Login");
-                            }}
-                        >
-                            <Text style={styles.switchAuthPageLink}>Login</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={{ flexDirection: "row-reverse" }}>
-                        <TouchableOpacity
-                            onPress={register}
-                            style={styles.submitButton}
-                        >
-                            {isLoading ? (
-                                <ActivityIndicator
-                                    size="large"
-                                    color="#00ff00"
-                                />
-                            ) : (
-                                <Text style={styles.submitButtonText}>
-                                    Sign Up
+                            <View style={styles.promptContainer}>
+                                <Text style={styles.questionPrompt}>
+                                    Have an account?{" "}
                                 </Text>
-                            )}
-                        </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        dispatch(clearError());
+                                        navigation.navigate("Login");
+                                    }}
+                                >
+                                    <Text style={styles.switchAuthPageLink}>
+                                        Login
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={{ flexDirection: "row-reverse" }}>
+                                <TouchableOpacity
+                                    onPress={register}
+                                    style={styles.submitButton}
+                                >
+                                    {isLoading ? (
+                                        <ActivityIndicator
+                                            size="large"
+                                            color="#00ff00"
+                                        />
+                                    ) : (
+                                        <Text style={styles.submitButtonText}>
+                                            Sign Up
+                                        </Text>
+                                    )}
+                                </TouchableOpacity>
+                            </View>
+                        </View>
                     </View>
-                </View>
-            </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 };
