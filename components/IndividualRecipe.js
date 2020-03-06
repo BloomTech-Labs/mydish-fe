@@ -533,7 +533,9 @@ function IndividualRecipe(props) {
                                             source={clock}
                                             style={styles.icon}
                                         />
-                                        <Text>{totalCookTime} minutes</Text>
+                                        <Text style={styles.cookTimeText}>
+                                            {totalCookTime} minutes
+                                        </Text>
                                     </View>
                                 </View>
                                 <View style={styles.versionHistoryContainer}>

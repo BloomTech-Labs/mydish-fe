@@ -131,6 +131,10 @@ const styles = StyleSheet.create({
     recipeDetails: {
         marginVertical: 15,
     },
+    cookTimeText: {
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        color: theme.DARK_FONT_COLOR,
+    },
     // titlesViewBorderIng: {
     //     paddingTop: 10,
     //     paddingBottom: 10,
