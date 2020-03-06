@@ -4,7 +4,10 @@ import styles from "../styles/individualRecipeStyles";
 
 function Tab({ text, toggleTab, color }) {
     return (
-        <TouchableOpacity onPress={() => toggleTab(text)}>
+        <TouchableOpacity
+            style={styles.tabsTouchable}
+            onPress={() => toggleTab(text)}
+        >
             <View
                 style={
                     color.active.includes(text)

@@ -27,6 +27,7 @@ import {
 } from "../store/singleRecipe/singleRecipeActions";
 
 import styles from "../styles/individualRecipeStyles.js";
+import theme from "../styles/theme.style";
 
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
@@ -486,110 +487,122 @@ function IndividualRecipe(props) {
                                     </TouchableOpacity>
                                 )}
                         </ImageBackground>
-                        <View style={styles.titleWrapper}>
+                        {/* <View style={styles.titleWrapper}> */}
+                        <View style={styles.recipeContentContainer}>
                             <DisplayTitle title={recipe.title} />
-                        </View>
-                        <View style={styles.innovatorTime}>
-                            <View style={styles.innovatorContainer}>
-                                {hasRevisions() ? (
-                                    <TouchableOpacity
-                                        onPress={() =>
-                                            props.navigation.navigate(
-                                                "VersionHistoryList",
-                                                { parentId: id },
-                                            )
-                                        }
-                                    >
-                                        <Text>Prev. Versions</Text>
-                                    </TouchableOpacity>
-                                ) : (
-                                    <Text>No Versions</Text>
+                            {/* </View> */}
+                            {/* tags(row), touchable opacity(edit)(same row)*/}
+                            {/* previous versions(under edit button, flex-end) */}
+                            <View>
+                                <View style={styles.tagRow}>
+                                    {recipe.tags &&
+                                        recipe.tags.map((tag, index) => (
+                                            <Text
+                                                key={tag.id}
+                                                style={styles.individualTags}
+                                            >
+                                                {tag.name}
+                                                {index <
+                                                    recipe.tags.length - 1 &&
+                                                    (<Text style={styles.blackText}>, </Text>)}
+                                            </Text>
+                                        ))}
+                                </View>
+                            </View>
+                            <View style={styles.innovatorTime}>
+                                <View style={styles.innovatorContainer}>
+                                    {hasRevisions() ? (
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                props.navigation.navigate(
+                                                    "VersionHistoryList",
+                                                    { parentId: id },
+                                                )
+                                            }
+                                        >
+                                            <Text>Prev. Versions</Text>
+                                        </TouchableOpacity>
+                                    ) : (
+                                        <Text>No Versions</Text>
+                                    )}
+                                </View>
+                                <View style={{ flexDirection: "row" }}>
+                                    <Image source={logo} style={styles.icon} />
+                                    <Text>
+                                        {recipe.owner.username &&
+                                        recipe.owner.username.length >
+                                            maxUsername
+                                            ? `${recipe.owner.username.slice(
+                                                  0,
+                                                  maxUsername,
+                                              )}...`
+                                            : recipe.owner.username}
+                                    </Text>
+                                </View>
+
+                                <View style={styles.timeContainer}>
+                                    <Image source={clock} style={styles.icon} />
+                                    <Text>{totalCookTime} minutes</Text>
+                                </View>
+                            </View>
+
+                            <View style={styles.tabsContainer}>
+                                <Tab
+                                    text="Ingredients"
+                                    color={color}
+                                    toggleTab={tabsDisplay}
+                                />
+                                <Tab
+                                    text="Instructions"
+                                    color={color}
+                                    toggleTab={tabsDisplay}
+                                />
+                            </View>
+
+                            <View style={styles.recipeDetails}>
+                                {color.active === "Ingredients" && (
+                                    <>
+                                        {recipe.ingredients &&
+                                            recipe.ingredients.map((ing, i) => (
+                                                <DisplayRecipeIngredient
+                                                    key={i}
+                                                    ingredient={ing}
+                                                />
+                                            ))}
+                                    </>
+                                )}
+                                {color.active === "Instructions" && (
+                                    <>
+                                        {recipe.instructions &&
+                                            recipe.instructions.map(
+                                                (step, i) => (
+                                                    <DisplayRecipeInstruction
+                                                        key={step.step_number}
+                                                        instruction={step}
+                                                    />
+                                                ),
+                                            )}
+                                        <View style={{ paddingRight: "80%" }}>
+                                            <Text style={styles.notes}>
+                                                NOTES
+                                            </Text>
+                                        </View>
+                                        {recipe.notes.length &&
+                                            recipe.notes.map((note, i) => (
+                                                <DisplayRecipeNotes
+                                                    key={i}
+                                                    notes={note}
+                                                />
+                                            ))}
+                                    </>
                                 )}
                             </View>
-                            <View style={{ flexDirection: "row" }}>
-                                <Image source={logo} style={styles.icon} />
-                                <Text>
-                                    {recipe.owner.username &&
-                                    recipe.owner.username.length > maxUsername
-                                        ? `${recipe.owner.username.slice(
-                                              0,
-                                              maxUsername,
-                                          )}...`
-                                        : recipe.owner.username}
+                            <View style={{ marginLeft: 10 }}>
+                                <Text style={{ fontWeight: "bold" }}>
+                                    {getVersionString()}
                                 </Text>
+                                <Text>{recipe.author_comment}</Text>
                             </View>
-
-                            <View style={styles.timeContainer}>
-                                <Image source={clock} style={styles.icon} />
-                                <Text>{totalCookTime} minutes</Text>
-                            </View>
-                        </View>
-
-                        <Text style={styles.tags}>Tags</Text>
-                        <View style={styles.tagBox}>
-                            {recipe.tags &&
-                                recipe.tags.map(cat => (
-                                    <Text
-                                        key={cat.id}
-                                        style={styles.individualTags}
-                                    >
-                                        {cat.name}
-                                    </Text>
-                                ))}
-                        </View>
-
-                        <View style={styles.tabsContainer}>
-                            <Tab
-                                text="Ingredients"
-                                color={color}
-                                toggleTab={tabsDisplay}
-                            />
-                            <Tab
-                                text="Instructions"
-                                color={color}
-                                toggleTab={tabsDisplay}
-                            />
-                        </View>
-
-                        <View style={styles.recipeDetails}>
-                            {color.active === "Ingredients" && (
-                                <>
-                                    {recipe.ingredients &&
-                                        recipe.ingredients.map((ing, i) => (
-                                            <DisplayRecipeIngredient
-                                                key={i}
-                                                ingredient={ing}
-                                            />
-                                        ))}
-                                </>
-                            )}
-                            {color.active === "Instructions" && (
-                                <>
-                                    {recipe.instructions &&
-                                        recipe.instructions.map((step, i) => (
-                                            <DisplayRecipeInstruction
-                                                key={step.step_number}
-                                                instruction={step}
-                                            />
-                                        ))}
-                                    <View style={{ paddingRight: "80%" }}>
-                                        <Text style={styles.notes}>NOTES</Text>
-                                    </View>
-                                    {recipe.notes.length &&
-                                        recipe.notes.map((note, i) => (
-                                            <DisplayRecipeNotes
-                                                key={i}
-                                                notes={note}
-                                            />
-                                        ))}
-                                </>
-                            )}
-                        </View>
-                        <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontWeight: "bold" }}>
-                                {getVersionString()}
-                            </Text>
-                            <Text>{recipe.author_comment}</Text>
                         </View>
                     </View>
                 </ScrollView>
@@ -599,5 +612,12 @@ function IndividualRecipe(props) {
 
     return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay();
 }
+
+IndividualRecipe.navigationOptions = {
+    headerTitle: <RecipeShareLogo />,
+    headerStyle: {
+        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
+    },
+};
 
 export default IndividualRecipe;

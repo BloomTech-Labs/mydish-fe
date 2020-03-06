@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import theme from "./theme.style";
 
 const styles = StyleSheet.create({
     recipeContainer: {
@@ -18,12 +19,18 @@ const styles = StyleSheet.create({
         paddingVertical: 3,
     },
     title: {
-        fontSize: 24,
-        color: "#363838",
+        fontSize: theme.TITLE_FONT_SIZE,
+        color: theme.DARK_FONT_COLOR,
+        fontFamily: theme.BOLD_FONT_FAMILY,
         fontWeight: "bold",
         marginTop: 5,
-        marginBottom: 12,
-        marginLeft: 14,
+    },
+    tagRow: {
+        flexDirection: "row",
+        marginTop: 10,
+    },
+    recipeContentContainer: {
+        marginHorizontal: 16,
     },
     icon: { width: 20, height: 20, marginRight: 5 },
     editIcon: {
@@ -35,6 +42,9 @@ const styles = StyleSheet.create({
     },
     timeContainer: {
         flexDirection: "row",
+    },
+    blackText: {
+        color: theme.DARK_FONT_COLOR,
     },
     innovatorTime: {
         flexDirection: "row",
@@ -57,9 +67,9 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     individualTags: {
-        fontSize: 14,
-        color: "#363838",
-        fontWeight: "500",
+        fontSize: theme.REGULAR_FONT_SIZE,
+        color: theme.PRIMARY_COLOR,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
     },
     tagBox: {
         flexDirection: "row",
@@ -75,44 +85,31 @@ const styles = StyleSheet.create({
     },
     tabsContainer: {
         flexDirection: "row",
-        alignItems: "center",
+        width: "100%",
+    },
+    tabsTouchable: {
+        width: "50%",
     },
     showTab: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: "#047396",
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
+        paddingVertical: 8,
+        backgroundColor: theme.PRIMARY_COLOR,
         textAlign: "center",
-        color: "white",
-        fontWeight: "bold",
-        borderTopRightRadius: 8,
-        borderTopLeftRadius: 8,
     },
     hideTab: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: "white",
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
-        color: "#047396",
-        fontWeight: "bold",
-        shadowColor: "grey",
-        shadowOpacity: 0.26,
-        shadowOffset: { width: 0, height: -4 },
-        shadowRadius: 5,
-        borderTopRightRadius: 8,
-        borderTopLeftRadius: 8,
+        paddingVertical: 8,
+        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
     },
     tabTextWhite: {
         textAlign: "center",
-        color: "white",
-        fontWeight: "bold",
+        color: theme.WHITE_FONT_COLOR,
+        fontWeight: theme.REGULAR_FONT_WEIGHT,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
     },
     tabTextBlue: {
         textAlign: "center",
-        color: "#047396",
-        fontWeight: "bold",
+        color: theme.PRIMARY_COLOR,
+        fontWeight: theme.REGULAR_FONT_WEIGHT,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
     },
     recipeDetails: {
         alignItems: "center",
