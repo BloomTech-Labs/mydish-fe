@@ -22,11 +22,12 @@ export default {
     BOLD_FONT_FAMILY: "nunito sans bold",
     SEMI_BOLD_FONT_FAMILY: "nunito sans semi-bold",
     REGULAR_FONT_SIZE: 14,
+    SMALL_FONT_SIZE: 12,
+    LARGE_FONT_SIZE: 24,
     REGULAR_FONT_WEIGHT: "normal",
     INPUT_FONT_FAMILY: "Roboto",
     SUBHEADING_FONT_SIZE: 14,
     SUBHEADING_FONT_WEIGHT: 600,
-    TITLE_FONT_SIZE: 24,
     TITLE_FONT_WEIGHT: "bold",
     BUTTON_FONT_WEIGHT: "bold",
 };
