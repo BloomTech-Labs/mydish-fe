@@ -3,13 +3,13 @@ import { View, Text } from "react-native";
 
 import styles from "../../styles/individualRecipeStyles";
 
-export default function DisplayRecipeNotes({ notes }) {
+export default function DisplayRecipeNotes({ notes, index }) {
     return (
         <>
-            <View style={styles.swipeableContainer}>
-                <View style={styles.stepTextView}>
-                    <Text style={styles.stepText}>{notes.description}</Text>
-                </View>
+            <View style={styles.recipeFieldsList}>
+                <Text style={styles.recipeFieldsText}>
+                    {index + 1}. {notes.description}
+                </Text>
             </View>
         </>
     );
