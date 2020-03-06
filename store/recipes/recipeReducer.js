@@ -6,7 +6,7 @@ import {
 
 const initState = {
     recipeList: [],
-    isLoading: false,
+    isLoading: true,
     error: null,
 };
 
