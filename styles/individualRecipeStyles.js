@@ -25,6 +25,11 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginTop: 5,
     },
+    underTitleRow: {
+        flexDirection: "row",
+        width: "100%",
+        justifyContent: "space-between",
+    },
     tagRow: {
         flexDirection: "row",
         marginTop: 10,
@@ -35,6 +40,16 @@ const styles = StyleSheet.create({
     icon: { width: 20, height: 20, marginRight: 5 },
     editIcon: {
         marginRight: 20,
+    },
+    versionHistoryContainer: {
+        width: "100%",
+        alignItems: "flex-end",
+    },
+    versions: {
+        color: theme.PRIMARY_COLOR,
+        textDecorationLine: "underline",
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        fontSize: 12,
     },
     innovatorContainer: {
         flexDirection: "row",
@@ -86,6 +101,7 @@ const styles = StyleSheet.create({
     tabsContainer: {
         flexDirection: "row",
         width: "100%",
+        marginTop: 20,
     },
     tabsTouchable: {
         width: "50%",
@@ -115,37 +131,42 @@ const styles = StyleSheet.create({
     recipeDetails: {
         marginVertical: 15,
     },
-    titlesViewBorderIng: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: "#047396",
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
+    // titlesViewBorderIng: {
+    //     paddingTop: 10,
+    //     paddingBottom: 10,
+    //     backgroundColor: "#047396",
+    //     paddingLeft: "16.5%",
+    //     paddingRight: "16.5%",
+    // },
+    // titlesViewBorderIngOff: {
+    //     paddingTop: 10,
+    //     paddingBottom: 10,
+    //     backgroundColor: "white",
+    //     paddingLeft: "16.5%",
+    //     paddingRight: "16.5%",
+    // },
+    // titlesViewBorderInst: {
+    //     paddingTop: 10,
+    //     paddingBottom: 10,
+    //     paddingLeft: "16.5%",
+    //     paddingRight: "16.5%",
+    // },
+    // titlesViewBorderInstOn: {
+    //     paddingTop: 10,
+    //     paddingBottom: 10,
+    //     paddingLeft: "16.5%",
+    //     paddingRight: "16.5%",
+    //     backgroundColor: "#047396",
+    // },
+    authorName: {
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        fontSize: 12,
+        color: theme.DARK_FONT_COLOR,
     },
-    titlesViewBorderIngOff: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: "white",
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
-    },
-    titlesViewBorderInst: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
-    },
-    titlesViewBorderInstOn: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: "16.5%",
-        paddingRight: "16.5%",
-        backgroundColor: "#047396",
-    },
-    ingredientList: {
+    recipeFieldsList: {
         marginVertical: 10,
     },
-    ingredientText: {
+    recipeFieldsText: {
         fontFamily: theme.REGULAR_FONT_FAMILY,
         color: theme.DARK_FONT_COLOR,
         fontSize: theme.REGULAR_FONT_SIZE,
