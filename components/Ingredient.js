@@ -114,8 +114,9 @@ const Ingredient = ({
         <View>
             <View
                 style={{
+                    marginTop: 3,
+                    marginBottom: 9,
                     flexDirection: "row",
-                    marginBottom: 20,
                     justifyContent: "space-evenly",
                     width: "100%",
                 }}
@@ -130,7 +131,7 @@ const Ingredient = ({
                         borderRadius: 4,
                         textAlign: "center",
                     }}
-                    multiline
+                    // multiline
                     maxLength={44}
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
