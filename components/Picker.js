@@ -1,12 +1,8 @@
 import React from "react";
 import RNPickerSelect from "react-native-picker-select";
+import theme from "../styles/theme.style";
 
-export default Picker = ({
-    handleChange,
-    unit,
-    highlighted,
-    onClose,
-}) => {
+export default Picker = ({ handleChange, unit, highlighted, onClose }) => {
     const placeholder = {
         label: "unit",
     };
@@ -16,8 +12,10 @@ export default Picker = ({
         height: 40,
         paddingHorizontal: 10,
         borderWidth: highlighted.unit ? 1 : 0.8,
-        borderColor: highlighted.unit ? "#FF0000" : "#363838",
-        borderRadius: 4,
+        borderColor: highlighted.unit
+            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+            : theme.INPUT_BORDER_COLOR,
+        borderRadius: theme.INPUT_BORDER_RADIUS,
         color: "black",
         paddingRight: 30, // to ensure the text is never behind the icon
     };

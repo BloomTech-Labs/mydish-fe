@@ -7,6 +7,7 @@ import {
 } from "../store/singleRecipe/singleRecipeActions";
 import Picker from "./Picker";
 import MinusDeleteButton from "./MinusDeleteButton";
+import theme from "../styles/theme.style";
 
 const Ingredient = ({
     recipeIng,
@@ -127,17 +128,21 @@ const Ingredient = ({
                         minHeight: 40,
                         width: "50%",
                         borderWidth: highlighted.name ? 1 : 0.8,
-                        borderColor: highlighted.name ? "#FF0000" : "#363838",
-                        borderRadius: 4,
+                        borderColor: highlighted.name
+                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+                            : theme.INPUT_BORDER_COLOR,
+                        borderRadius: theme.INPUT_BORDER_RADIUS,
                         textAlign: "center",
                     }}
-                    // multiline
+                    multiline
                     maxLength={44}
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
                     returnKeyType="done"
                     value={ingredient.name}
                     onSubmitEditing={submitToStopEdit}
+                    onFocus={() => setHighlighted({ name: true })}
+                    onBlur={() => setHighlighted({ name: false })}
                 />
                 <TextInput
                     ref={quantityInput}
@@ -146,9 +151,9 @@ const Ingredient = ({
                         width: "20%",
                         borderWidth: highlighted.quantity ? 1 : 0.8,
                         borderColor: highlighted.quantity
-                            ? "#FF0000"
-                            : "#363838",
-                        borderRadius: 4,
+                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+                            : theme.INPUT_BORDER_COLOR,
+                        borderRadius: theme.INPUT_BORDER_RADIUS,
                         textAlign: "center",
                     }}
                     placeholder="Amount"
@@ -163,6 +168,8 @@ const Ingredient = ({
                     returnKeyType="done"
                     value={ingredient.quantity.toString()}
                     onSubmitEditing={submitToStopEdit}
+                    onFocus={() => setHighlighted({ quantity: true })}
+                    onBlur={() => setHighlighted({ quantity: false })}
                 />
 
                 <Picker
