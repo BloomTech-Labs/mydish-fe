@@ -52,7 +52,6 @@ export const submitEditedRecipe = author_comment => async (
     dispatch({ type: START_SUBMIT_EDITED_RECIPE });
 
     const { recipe } = getState().singleRecipe;
-    console.log("RECIPE: ", recipe);
     let img = "";
     //Check if recipe.img is defined.
     if (recipe.img) {
@@ -66,7 +65,6 @@ export const submitEditedRecipe = author_comment => async (
     }
 
     const newRecipe = { ...recipe, img, author_comment };
-    console.log("newRECIPE: ", newRecipe);
 
     try {
         const axiosCustom = await axiosWithAuth();
