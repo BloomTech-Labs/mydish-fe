@@ -590,16 +590,15 @@ function IndividualRecipe(props) {
                                                     />
                                                 ),
                                             )}
-                                        <View style={{ paddingRight: "80%" }}>
-                                            <Text style={styles.notes}>
-                                                NOTES
-                                            </Text>
-                                        </View>
+
+                                        <Text style={styles.notes}>Notes</Text>
+                                        <View style={styles.redBorder} />
                                         {recipe.notes.length &&
                                             recipe.notes.map((note, i) => (
                                                 <DisplayRecipeNotes
                                                     key={i}
                                                     notes={note}
+                                                    index={i}
                                                 />
                                             ))}
                                     </>

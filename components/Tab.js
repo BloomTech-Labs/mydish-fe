@@ -18,8 +18,8 @@ function Tab({ text, toggleTab, color }) {
                 <Text
                     style={
                         color.active.includes(text)
-                            ? styles.tabTextWhite
-                            : styles.tabTextBlue
+                            ? styles.tabTextActive
+                            : styles.tabTextInactive
                     }
                 >
                     {text}

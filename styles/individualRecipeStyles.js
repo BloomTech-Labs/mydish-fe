@@ -118,14 +118,14 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: theme.PRIMARY_COLOR,
     },
-    tabTextWhite: {
+    tabTextActive: {
         textAlign: "center",
         color: theme.WHITE_FONT_COLOR,
         fontFamily: theme.BOLD_FONT_FAMILY,
     },
-    tabTextBlue: {
+    tabTextInactive: {
         textAlign: "center",
-        color: theme.PRIMARY_COLOR,
+        color: theme.DARK_FONT_COLOR,
         fontFamily: theme.BOLD_FONT_FAMILY,
     },
     recipeDetails: {
@@ -200,9 +200,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     notes: {
-        // marginLeft: 14,
-        fontSize: 14,
-        fontWeight: "500",
+        fontSize: theme.REGULAR_FONT_SIZE,
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        color: theme.DARK_FONT_COLOR,
+        marginTop: 20,
+    },
+    redBorder: {
+        width: "100%",
+        borderBottomWidth: 1,
+        borderBottomColor: theme.PRIMARY_COLOR,
     },
     hidden: {
         display: "none",
