@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         color: "#363838",
         marginTop: 12,
+        marginBottom: 5,
         marginLeft: marginLeft,
         flexDirection: "row",
     },
@@ -109,7 +110,6 @@ const styles = StyleSheet.create({
         marginLeft: 14,
         marginRight: 14,
         marginBottom: 5,
-        marginTop: 7,
     },
     totalTimeView: {
         flexDirection: "row",
@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
         marginLeft: marginLeft,
         marginRight: 14,
         marginBottom: 10,
-        marginTop: 3,
     },
     notesContainer: {
         flexGrow: 1,
