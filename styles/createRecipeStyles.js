@@ -3,15 +3,16 @@ import theme from "../styles/theme.style";
 
 const borderWidth = 1;
 const borderColor = theme.INPUT_BORDER_COLOR;
+const marginLeft = 16;
+const marginTop = 12;
 
 const styles = StyleSheet.create({
     heading: {
         fontSize: 16,
         fontWeight: "500",
         color: "#363838",
-        marginTop: 20,
-        marginBottom: 7,
-        marginLeft: 14,
+        marginTop: 12,
+        marginLeft: marginLeft,
         flexDirection: "row",
     },
 
@@ -108,22 +109,23 @@ const styles = StyleSheet.create({
         marginLeft: 14,
         marginRight: 14,
         marginBottom: 5,
+        marginTop: 7,
     },
     totalTimeView: {
         flexDirection: "row",
     },
-    totalTimeContainer: {
-        height: 40,
-        width: 60,
-        textAlign: "center",
+    timeInputContainer: {
+        height: 38,
+        width: 113,
+        textAlign: "left",
         borderRadius: 4,
-        borderWidth: 0.8,
-        borderColor: "#6B6F70",
-        padding: 10,
-        marginLeft: 14,
+        borderWidth: borderWidth,
+        borderColor: borderColor,
+        paddingLeft: 12,
+        marginLeft: marginLeft,
         marginRight: 14,
         marginBottom: 10,
-        marginTop: 10,
+        marginTop: 3,
     },
     notesContainer: {
         flexGrow: 1,

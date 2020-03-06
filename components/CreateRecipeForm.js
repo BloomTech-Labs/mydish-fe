@@ -237,7 +237,7 @@ function CreateRecipeForm(props) {
                                 missing={errors.includes("title")}
                             />
                             <View style={styles.totalTimeView}>
-                                <View>
+                                <View style={styles.timeContainer}>
                                     <View style={styles.heading}>
                                         <Text>Prep Time</Text>
                                         {errors.includes(
@@ -249,7 +249,7 @@ function CreateRecipeForm(props) {
                                         )}
                                     </View>
                                     <TextInput
-                                        style={styles.totalTimeContainer}
+                                        style={styles.timeInputContainer}
                                         placeholder="minutes"
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
@@ -262,7 +262,7 @@ function CreateRecipeForm(props) {
                                         value={String(recipe.prep_time)}
                                     />
                                 </View>
-                                <View>
+                                <View style={styles.timeContainer}>
                                     <View style={styles.heading}>
                                         <Text>Cook Time</Text>
                                         {errors.includes(
@@ -274,7 +274,7 @@ function CreateRecipeForm(props) {
                                         )}
                                     </View>
                                     <TextInput
-                                        style={styles.totalTimeContainer}
+                                        style={styles.timeInputContainer}
                                         placeholder="minutes"
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
