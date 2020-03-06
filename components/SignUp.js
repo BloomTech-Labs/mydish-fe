@@ -48,13 +48,10 @@ const SignUp = ({ navigation }) => {
     };
 
     return (
-        <KeyboardAvoidingView behavior="height">
-            <ScrollView>
-                <SafeAreaView>
-                    <Image
-                        source={backgroundImg}
-                        style={styles.backgroundImg}
-                    />
+        <SafeAreaView>
+            <Image source={backgroundImg} style={styles.backgroundImg} />
+            <KeyboardAvoidingView behavior="height">
+                <ScrollView>
                     <View style={styles.container}>
                         <View style={styles.contentContainer}>
                             <Text style={styles.inputLabelText}>Username</Text>
@@ -123,9 +120,9 @@ const SignUp = ({ navigation }) => {
                             </View>
                         </View>
                     </View>
-                </SafeAreaView>
-            </ScrollView>
-        </KeyboardAvoidingView>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     );
 };
 SignUp.navigationOptions = {
