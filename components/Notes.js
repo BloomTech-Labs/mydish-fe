@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput } from "react-native";
-import styles from "../styles/createRecipeStyles";
 import XDeleteButton from "./XDeleteButton";
+import styles from "../styles/createRecipeStyles";
 import theme from "../styles/theme.style";
 
 const Notes = ({ index, removeNote, note, setRecipe }) => {
+    const [highlighted, setHighlighted] = useState(false);
     const changeHandler = value => {
         setRecipe(oldRecipe => ({
             ...oldRecipe,
@@ -28,11 +29,17 @@ const Notes = ({ index, removeNote, note, setRecipe }) => {
             }}
         >
             <TextInput
-                style={styles.notesContainer}
+                style={
+                    highlighted
+                        ? { ...styles.notesContainer, ...styles.highlighted }
+                        : styles.notesContainer
+                }
                 placeholder="Add Notes"
                 multiline={true}
                 onChangeText={changeHandler}
                 value={note}
+                onFocus={() => setHighlighted(true)}
+                onBlur={() => setHighlighted(false)}
             />
             <XDeleteButton action={() => removeNote(index)} parent="note" />
         </View>
