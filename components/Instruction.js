@@ -46,7 +46,7 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                     <TextInput
                         style={{
                             maxWidth: "100%",
-                            width: "92.5%",
+                            width: "90%",
                             paddingLeft: 12,
                             borderWidth: theme.INPUT_BORDER_WIDTH,
                             borderColor: theme.INPUT_BORDER_COLOR,
