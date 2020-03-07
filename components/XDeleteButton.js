@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View, Text, Image } from "react-native";
-import x_delete from "../assets/x_red_delete.png";
+import x_delete from "../assets/delete_circle_red.png";
 
 const XDeleteButton = ({ action }) => {
     return (
