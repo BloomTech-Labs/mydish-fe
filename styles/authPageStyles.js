@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     contentContainer: {
         display: "flex",
         flexDirection: "column",
-        height: 450,
+        height: "65%",
         paddingVertical: 70,
         justifyContent: "space-between",
     },
