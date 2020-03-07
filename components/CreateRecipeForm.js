@@ -320,7 +320,7 @@ function CreateRecipeForm(props) {
                             {addIngredients()}
                             <Add text="Add Ingredient" submit={addIng} />
 
-                            <View style={styles.heading}>
+                            <View style={{ ...styles.heading, marginTop: 20 }}>
                                 <Text>Instructions</Text>
                                 {errors.includes("instructions") && (
                                     <Text style={styles.missing}>*</Text>
