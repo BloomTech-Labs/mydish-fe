@@ -311,29 +311,21 @@ function CreateRecipeForm(props) {
                                     />
                                 ))}
                             </View>
-                            <View>
-                                <Text
-                                    style={{ ...styles.heading, marginTop: 20 }}
-                                >
-                                    Ingredients
-                                </Text>
+                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                                Ingredients
                                 {errors.includes("ingredients") && (
-                                    <Text style={styles.missing}>*</Text>
+                                    <Text style={styles.missing}> *</Text>
                                 )}
-                            </View>
+                            </Text>
                             {addIngredients()}
                             <Add text="Add Ingredient" submit={addIng} />
 
-                            <View>
-                                <Text
-                                    style={{ ...styles.heading, marginTop: 20 }}
-                                >
-                                    Instructions
-                                </Text>
+                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                                Instructions
                                 {errors.includes("instructions") && (
-                                    <Text style={styles.missing}>*</Text>
+                                    <Text style={styles.missing}> *</Text>
                                 )}
-                            </View>
+                            </Text>
                             {addInstructions()}
                             <Add text="Add A Step" submit={addInstruction} />
 
