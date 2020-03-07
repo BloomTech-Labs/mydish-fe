@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextInput, Text, TouchableOpacity, View } from "react-native";
 import XDeleteButton from "./XDeleteButton";
 import theme from "../styles/theme.style";
+import styles from "../styles/createRecipeStyles";
 
 const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
+    const [highlighted, setHighlighted] = useState(false);
     const handleChange = value => {
         setRecipe(oldRecipe => ({
             ...oldRecipe,
@@ -49,7 +51,9 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                             width: "90%",
                             paddingLeft: 12,
                             borderWidth: theme.INPUT_BORDER_WIDTH,
-                            borderColor: theme.INPUT_BORDER_COLOR,
+                            borderColor: highlighted
+                                ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+                                : theme.INPUT_BORDER_COLOR,
                             borderRadius: theme.INPUT_BORDER_RADIUS,
                             minHeight: theme.INPUT_HEIGHT,
                         }}
@@ -57,6 +61,8 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                         multiline
                         onChangeText={handleChange}
                         value={instruction}
+                        onFocus={() => setHighlighted(true)}
+                        onBlur={() => setHighlighted(false)}
                     />
                     <XDeleteButton
                         action={() => removeInstruction(index)}
