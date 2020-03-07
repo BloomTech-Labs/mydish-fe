@@ -132,7 +132,7 @@ const Ingredient = ({
                     style={{
                         minHeight: theme.INPUT_HEIGHT,
                         width: "50%",
-                        borderWidth: highlighted.name ? 1 : 0.8,
+                        borderWidth: theme.INPUT_BORDER_WIDTH,
                         borderColor: highlighted.name
                             ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
                             : theme.INPUT_BORDER_COLOR,
@@ -155,7 +155,7 @@ const Ingredient = ({
                     style={{
                         height: theme.INPUT_HEIGHT,
                         width: "20%",
-                        borderWidth: highlighted.quantity ? 1 : 0.8,
+                        borderWidth: theme.INPUT_BORDER_WIDTH,
                         borderColor: highlighted.quantity
                             ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
                             : theme.INPUT_BORDER_COLOR,
