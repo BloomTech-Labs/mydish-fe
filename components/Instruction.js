@@ -29,33 +29,44 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                 style={{
                     flexGrow: 1,
                     flexDirection: "column",
-                    maxWidth: "95%",
+                    maxWidth: "100%",
                 }}
             >
                 <Text style={{ marginLeft: 14, marginBottom: 5 }}>
                     Step {index + 1}
                 </Text>
-                <TextInput
+                <View
                     style={{
-                        maxWidth: "100%",
+                        // borderColor: "#f00",
+                        // borderWidth: 1,
                         width: "100%",
-                        padding: 10,
-                        borderWidth: 0.8,
-                        borderColor: "#363838",
-                        borderRadius: 4,
-                        minHeight: 40,
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
                     }}
-                    placeholder=" Add Instructions"
-                    multiline
-                    onChangeText={handleChange}
-                    value={instruction}
-                />
+                >
+                    <TextInput
+                        style={{
+                            maxWidth: "100%",
+                            width: "92.5%",
+                            paddingLeft: 12,
+                            borderWidth: theme.INPUT_BORDER_WIDTH,
+                            borderColor: theme.INPUT_BORDER_COLOR,
+                            borderRadius: theme.INPUT_BORDER_RADIUS,
+                            minHeight: theme.INPUT_HEIGHT,
+                        }}
+                        placeholder=" Add Instructions"
+                        multiline
+                        onChangeText={handleChange}
+                        value={instruction}
+                    />
+                    <XDeleteButton
+                        action={() => removeInstruction(index)}
+                        parent="instruction"
+                    />
+                </View>
+                {/* A remove button for the CreateRecipeForm */}
             </View>
-            {/* A remove button for the CreateRecipeForm */}
-            <XDeleteButton
-                action={() => removeInstruction(index)}
-                parent="instruction"
-            />
         </View>
     );
 };
