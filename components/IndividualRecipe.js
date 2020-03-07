@@ -429,11 +429,14 @@ function IndividualRecipe(props) {
                                             <View
                                                 style={{ paddingRight: "80%" }}
                                             >
-                                                <Text style={styles.notes}>
-                                                    NOTES
-                                                </Text>
+                                                {recipe.notes[0].id !==
+                                                    null && (
+                                                    <Text style={styles.notes}>
+                                                        NOTES
+                                                    </Text>
+                                                )}
                                             </View>
-                                            {recipe.notes.length &&
+                                            {recipe.notes[0].id !== null &&
                                                 recipe.notes.map((note, i) => (
                                                     <IndividualRecipeNotes
                                                         key={i}
@@ -602,9 +605,15 @@ function IndividualRecipe(props) {
                                                 ),
                                             )}
 
-                                        <Text style={styles.notes}>Notes</Text>
-                                        <View style={styles.redBorder} />
-                                        {recipe.notes.length &&
+                                        {recipe.notes[0].id !== null && (
+                                            <Text style={styles.notes}>
+                                                Notes
+                                            </Text>
+                                        )}
+                                        {recipe.notes[0].id !== null && (
+                                            <View style={styles.redBorder} />
+                                        )}
+                                        {recipe.notes[0].id !== null &&
                                             recipe.notes.map((note, i) => (
                                                 <DisplayRecipeNotes
                                                     key={i}

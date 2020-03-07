@@ -9,6 +9,7 @@ import {
     Alert,
     Image,
     KeyboardAvoidingView,
+    ScrollView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "../store/auth/authActions";
@@ -63,81 +64,81 @@ const Login = ({ navigation }) => {
     return (
         <SafeAreaView>
             <Image source={backgroundImg} style={styles.backgroundImg} />
-            <KeyboardAvoidingView
-                behavior={"position"}
-                style={styles.container}
-            >
-                <KeyboardAvoidingView
-                    behavior={"position"}
-                    style={styles.contentContainer}
-                >
-                    <Text style={styles.inputLabelText}>Username</Text>
-                    <TextInput
-                        ref={usernameInput}
-                        style={styles.inputFields}
-                        name="username"
-                        testID="username"
-                        value={login.username}
-                        returnKeyType="next"
-                        onSubmitEditing={() => passwordInput.current.focus()}
-                        onChangeText={event =>
-                            setLogin({ ...login, username: event })
-                        }
-                    />
-                    <Text style={styles.inputLabelText}>Password</Text>
-                    <TextInput
-                        ref={passwordInput}
-                        style={styles.inputFields}
-                        name="password"
-                        testID="password"
-                        value={login.password}
-                        returnKeyType="done"
-                        onChangeText={event =>
-                            setLogin({ ...login, password: event })
-                        }
-                        secureTextEntry={true}
-                        onSubmitEditing={_loginUser}
-                    />
+            <KeyboardAvoidingView behavior="height">
+                <ScrollView>
+                    <View style={styles.container}>
+                        <View style={styles.contentContainer}>
+                            <Text style={styles.inputLabelText}>Username</Text>
+                            <TextInput
+                                ref={usernameInput}
+                                style={styles.inputFields}
+                                name="username"
+                                testID="username"
+                                value={login.username}
+                                returnKeyType="next"
+                                onSubmitEditing={() =>
+                                    passwordInput.current.focus()
+                                }
+                                onChangeText={event =>
+                                    setLogin({ ...login, username: event })
+                                }
+                            />
+                            <Text style={styles.inputLabelText}>Password</Text>
+                            <TextInput
+                                ref={passwordInput}
+                                style={styles.inputFields}
+                                name="password"
+                                testID="password"
+                                value={login.password}
+                                returnKeyType="done"
+                                onChangeText={event =>
+                                    setLogin({ ...login, password: event })
+                                }
+                                secureTextEntry={true}
+                                onSubmitEditing={_loginUser}
+                            />
 
-                    <View style={styles.promptContainer}>
-                        <Text style={styles.questionPrompt}>
-                            Don't have an account?{" "}
-                        </Text>
-                        <TouchableOpacity
-                            onPress={() => {
-                                dispatch(clearError());
-                                navigation.navigate("SignUp");
-                            }}
-                        >
-                            <Text style={styles.switchAuthPageLink}>
-                                Sign up
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View
-                        style={{
-                            flexDirection: "row-reverse",
-                            marginRight: 16,
-                        }}
-                    >
-                        <TouchableOpacity
-                            onPress={_loginUser}
-                            style={styles.submitButton}
-                        >
-                            {isLoading ? (
-                                <ActivityIndicator
-                                    size="large"
-                                    color="#00ff00"
-                                />
-                            ) : (
-                                <Text style={styles.submitButtonText}>
-                                    Login
+                            <View style={styles.promptContainer}>
+                                <Text style={styles.questionPrompt}>
+                                    Don't have an account?{" "}
                                 </Text>
-                            )}
-                        </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        dispatch(clearError());
+                                        navigation.navigate("Signup");
+                                    }}
+                                >
+                                    <Text style={styles.switchAuthPageLink}>
+                                        Sign Up
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View
+                                style={{
+                                    flexDirection: "row-reverse",
+                                    marginRight: 16,
+                                }}
+                            >
+                                <TouchableOpacity
+                                    onPress={_loginUser}
+                                    style={styles.submitButton}
+                                >
+                                    {isLoading ? (
+                                        <ActivityIndicator
+                                            size="large"
+                                            color="#00ff00"
+                                        />
+                                    ) : (
+                                        <Text style={styles.submitButtonText}>
+                                            Login
+                                        </Text>
+                                    )}
+                                </TouchableOpacity>
+                            </View>
+                        </View>
                     </View>
-                </KeyboardAvoidingView>
+                </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
