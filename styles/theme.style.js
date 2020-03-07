@@ -33,4 +33,5 @@ export default {
     SUBHEADING_FONT_WEIGHT: 600,
     TITLE_FONT_WEIGHT: "bold",
     BUTTON_FONT_WEIGHT: "bold",
+    MARGIN_SIDE_STANDARD: 16,
 };

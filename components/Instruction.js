@@ -1,6 +1,7 @@
 import React from "react";
 import { TextInput, Text, TouchableOpacity, View } from "react-native";
 import XDeleteButton from "./XDeleteButton";
+import theme from "../styles/theme.style";
 
 const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     const handleChange = value => {
@@ -16,8 +17,8 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     return (
         <View
             style={{
-                marginLeft: 10,
-                marginRight: 10,
+                marginLeft: theme.MARGIN_SIDE_STANDARD,
+                marginRight: theme.MARGIN_SIDE_STANDARD,
                 marginBottom: 10,
                 flexDirection: "row",
                 justifyContent: "space-between",
