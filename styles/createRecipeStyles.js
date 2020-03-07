@@ -1,14 +1,14 @@
 import { StyleSheet } from "react-native";
 import theme from "../styles/theme.style";
 
-const borderWidth = 1;
+const borderWidth = theme.INPUT_BORDER_WIDTH;
 const borderColor = theme.INPUT_BORDER_COLOR;
-const marginLeft = 16;
+const marginLeft = theme.MARGIN_SIDE_STANDARD;
 const marginTop = 12;
 
 const styles = StyleSheet.create({
     heading: {
-        fontSize: 16,
+        fontSize: theme.REGULAR_FONT_SIZE,
         fontWeight: "500",
         color: "#363838",
         marginTop: 12,
@@ -128,10 +128,10 @@ const styles = StyleSheet.create({
     },
     notesContainer: {
         flexGrow: 1,
-        minHeight: 45,
-        padding: 10,
-        borderWidth: 0.8,
-        borderColor: "#6B6F70",
+        minHeight: theme.INPUT_HEIGHT,
+        padding: 12,
+        borderWidth: theme.INPUT_BORDER_WIDTH,
+        borderColor: theme.INPUT_BORDER_COLOR,
         borderRadius: 4,
         maxWidth: "90%",
     },

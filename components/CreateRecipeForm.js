@@ -311,8 +311,12 @@ function CreateRecipeForm(props) {
                                     />
                                 ))}
                             </View>
-                            <View style={styles.heading}>
-                                <Text>Ingredients</Text>
+                            <View>
+                                <Text
+                                    style={{ ...styles.heading, marginTop: 20 }}
+                                >
+                                    Ingredients
+                                </Text>
                                 {errors.includes("ingredients") && (
                                     <Text style={styles.missing}>*</Text>
                                 )}
@@ -320,8 +324,12 @@ function CreateRecipeForm(props) {
                             {addIngredients()}
                             <Add text="Add Ingredient" submit={addIng} />
 
-                            <View style={{ ...styles.heading, marginTop: 20 }}>
-                                <Text>Instructions</Text>
+                            <View>
+                                <Text
+                                    style={{ ...styles.heading, marginTop: 20 }}
+                                >
+                                    Instructions
+                                </Text>
                                 {errors.includes("instructions") && (
                                     <Text style={styles.missing}>*</Text>
                                 )}
@@ -329,7 +337,9 @@ function CreateRecipeForm(props) {
                             {addInstructions()}
                             <Add text="Add A Step" submit={addInstruction} />
 
-                            <Text style={styles.heading}>Notes</Text>
+                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                                Notes
+                            </Text>
 
                             {addNotes()}
                             <Add text="Add A Note" submit={addNote} />

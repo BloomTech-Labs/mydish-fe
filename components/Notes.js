@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TextInput } from "react-native";
 import styles from "../styles/createRecipeStyles";
 import XDeleteButton from "./XDeleteButton";
+import theme from "../styles/theme.style";
 
 const Notes = ({ index, removeNote, note, setRecipe }) => {
     const changeHandler = value => {
@@ -17,8 +18,8 @@ const Notes = ({ index, removeNote, note, setRecipe }) => {
     return (
         <View
             style={{
-                marginLeft: 10,
-                marginRight: 10,
+                marginLeft: theme.MARGIN_SIDE_STANDARD,
+                marginRight: theme.MARGIN_SIDE_STANDARD,
                 marginBottom: 10,
                 flexWrap: "nowrap",
                 flexDirection: "row",
