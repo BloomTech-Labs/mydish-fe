@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         marginLeft: marginLeft,
     },
     RecipeNameContainer: {
-        height: 40,
+        height: theme.INPUT_HEIGHT,
         borderRadius: 6,
         borderWidth: borderWidth,
         borderColor: borderColor,
@@ -115,10 +115,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     timeInputContainer: {
-        height: 38,
+        height: theme.INPUT_HEIGHT,
         width: 113,
         textAlign: "left",
-        borderRadius: 4,
+        borderRadius: theme.INPUT_BORDER_RADIUS,
         borderWidth: borderWidth,
         borderColor: borderColor,
         paddingLeft: 12,
