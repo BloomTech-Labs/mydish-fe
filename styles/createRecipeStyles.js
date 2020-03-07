@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         padding: 12,
         borderWidth: theme.INPUT_BORDER_WIDTH,
         borderColor: theme.INPUT_BORDER_COLOR,
-        borderRadius: 4,
+        borderRadius: theme.INPUT_BORDER_RADIUS,
         maxWidth: "90%",
     },
     container: {
