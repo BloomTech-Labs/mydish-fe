@@ -37,8 +37,6 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                 </Text>
                 <View
                     style={{
-                        // borderColor: "#f00",
-                        // borderWidth: 1,
                         width: "100%",
                         flexDirection: "row",
                         alignItems: "center",
@@ -65,7 +63,6 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                         parent="instruction"
                     />
                 </View>
-                {/* A remove button for the CreateRecipeForm */}
             </View>
         </View>
     );
