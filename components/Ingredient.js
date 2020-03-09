@@ -112,12 +112,7 @@ const Ingredient = ({
     };
 
     return (
-        <View
-            style={{
-                marginLeft: 16,
-                marginRight: 16,
-            }}
-        >
+        <View>
             <View
                 style={{
                     marginBottom: 12,
