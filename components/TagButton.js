@@ -27,9 +27,7 @@ export default function TagButton({ tag, isSelected, setRecipe }) {
             }
             onPress={toggleTag}
         >
-            <Text style={isSelected ? { color: "white" } : { color: "#EEE" }}>
-                {tag}
-            </Text>
+            <Text style={{ color: "white" }}>{tag}</Text>
         </TouchableOpacity>
     );
 }

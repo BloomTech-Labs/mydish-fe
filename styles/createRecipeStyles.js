@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         marginRight: 5,
         margin: 5,
-        backgroundColor: theme.DISABLED_COLOR,
+        backgroundColor: "#959595",
     },
     tagButtonPressed: {
         backgroundColor: theme.HOVER_COLOR,
