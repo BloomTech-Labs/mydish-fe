@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         marginRight: 5,
         margin: 5,
-        backgroundColor: "#8FCC70",
+        backgroundColor: theme.DISABLED_COLOR,
     },
     tagButtonPressed: {
         borderRadius: 50,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         marginRight: 5,
         margin: 5,
-        backgroundColor: "#3BA405",
+        backgroundColor: theme.PRIMARY_COLOR,
     },
     fontColorWhite: {
         color: "white",
