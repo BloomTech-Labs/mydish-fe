@@ -41,15 +41,19 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 20,
     },
-    iconContainer: {
+    iconsContainer: {
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
         width: "90%",
     },
+    singleIconContainer: {
+        alignItems: "center",
+    },
     iconLarge: {
         height: 60,
         width: 60,
+        marginBottom: 5,
     },
     iconLargeCamera: {
         height: 57,

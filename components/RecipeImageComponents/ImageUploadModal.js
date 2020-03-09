@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Alert, Image } from "react-native";
+import { View, TouchableOpacity, Alert, Image, Text } from "react-native";
 import Modal from "react-native-modal";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
@@ -70,12 +70,26 @@ function ImageUploadModal({ visible, setVisible, setImage, scope }) {
             onBackdropPress={() => setVisible(false)}
         >
             <View style={styles.uploadModal}>
-                <View style={styles.iconContainer}>
-                    <TouchableOpacity onPress={() => getImage(take)}>
-                        <Image style={styles.iconLargeCamera} source={camera} />
+                <View style={styles.iconsContainer}>
+                    <TouchableOpacity
+                        style={styles.singleIconContainer}
+                        onPress={() => getImage(take)}
+                    >
+                        <Image
+                            style={{
+                                ...styles.iconLarge,
+                                ...styles.iconLargeCamera,
+                            }}
+                            source={camera}
+                        />
+                        <Text>Camera</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => getImage(choose)}>
+                    <TouchableOpacity
+                        style={styles.singleIconContainer}
+                        onPress={() => getImage(choose)}
+                    >
                         <Image style={styles.iconLarge} source={gallery} />
+                        <Text>Photos</Text>
                     </TouchableOpacity>
                 </View>
             </View>
