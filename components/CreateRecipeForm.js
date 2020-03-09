@@ -228,12 +228,12 @@ function CreateRecipeForm(props) {
         <KeyboardAwareScrollView>
             <View>
                 <ScrollView>
+                    <RecipeImage
+                        image={image}
+                        setImageModalVisible={setImageModalVisible}
+                    />
                     <View style={styles.container}>
                         <View>
-                            <RecipeImage
-                                image={image}
-                                setImageModalVisible={setImageModalVisible}
-                            />
                             <ImageUploadModal
                                 visible={imageModalVisible}
                                 setVisible={setImageModalVisible}
