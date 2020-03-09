@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     tagGroup: {
         flexDirection: "row",
         flexWrap: "wrap",
-        marginLeft: 5,
+        marginLeft: 11,
     },
     fiftyFive: {
         alignSelf: "flex-end",

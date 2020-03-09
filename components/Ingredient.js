@@ -128,29 +128,6 @@ const Ingredient = ({
                 }}
             >
                 <TextInput
-                    ref={nameInput}
-                    style={{
-                        minHeight: theme.INPUT_HEIGHT,
-                        width: "50%",
-                        borderWidth: theme.INPUT_BORDER_WIDTH,
-                        borderColor: highlighted.name
-                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
-                            : theme.INPUT_BORDER_COLOR,
-                        borderRadius: theme.INPUT_BORDER_RADIUS,
-                        textAlign: "left",
-                        paddingLeft: 12,
-                    }}
-                    multiline
-                    maxLength={44}
-                    placeholder="Ingredient Name"
-                    onChangeText={event => handleChange("name", event)}
-                    returnKeyType="done"
-                    value={ingredient.name}
-                    onSubmitEditing={submitToStopEdit}
-                    onFocus={() => setHighlighted({ name: true })}
-                    onBlur={() => setHighlighted({ name: false })}
-                />
-                <TextInput
                     ref={quantityInput}
                     style={{
                         height: theme.INPUT_HEIGHT,
@@ -185,6 +162,29 @@ const Ingredient = ({
                     highlighted={highlighted}
                 />
                 {/* A remove button for the CreateRecipeForm */}
+                <TextInput
+                    ref={nameInput}
+                    style={{
+                        minHeight: theme.INPUT_HEIGHT,
+                        width: "50%",
+                        borderWidth: theme.INPUT_BORDER_WIDTH,
+                        borderColor: highlighted.name
+                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+                            : theme.INPUT_BORDER_COLOR,
+                        borderRadius: theme.INPUT_BORDER_RADIUS,
+                        textAlign: "left",
+                        paddingLeft: 12,
+                    }}
+                    multiline
+                    maxLength={44}
+                    placeholder="Ingredient Name"
+                    onChangeText={event => handleChange("name", event)}
+                    returnKeyType="done"
+                    value={ingredient.name}
+                    onSubmitEditing={submitToStopEdit}
+                    onFocus={() => setHighlighted({ name: true })}
+                    onBlur={() => setHighlighted({ name: false })}
+                />
                 {parent === "create" && (
                     <XDeleteButton
                         parent="ingredient"
