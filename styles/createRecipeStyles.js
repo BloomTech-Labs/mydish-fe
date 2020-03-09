@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     tagButtons: {
         borderRadius: 50,
         alignItems: "center",
-        height: 40,
-        paddingTop: 10,
+        justifyContent: "center",
+        height: 32,
         paddingRight: 19,
         paddingLeft: 19,
         marginBottom: 8,
