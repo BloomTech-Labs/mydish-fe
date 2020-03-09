@@ -3,7 +3,6 @@ import theme from "../styles/theme.style";
 
 const borderWidth = theme.INPUT_BORDER_WIDTH;
 const borderColor = theme.INPUT_BORDER_COLOR;
-const marginLeft = theme.MARGIN_SIDE_STANDARD;
 
 const styles = StyleSheet.create({
     heading: {
