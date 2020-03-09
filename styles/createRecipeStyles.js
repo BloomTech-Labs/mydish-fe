@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         marginRight: 5,
         margin: 5,
-        backgroundColor: theme.PRIMARY_COLOR,
+        backgroundColor: theme.HOVER_COLOR,
     },
     fontColorWhite: {
         color: "white",

@@ -7,7 +7,7 @@ import {
     Text,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import placeholder from "../../assets/recipe-image-placeholder.png";
+import placeholder from "../../assets/recipe-image-placeholder-2.png";
 import camera from "../../assets/camera.png";
 import styles from "../../styles/recipeImageStyles";
 
