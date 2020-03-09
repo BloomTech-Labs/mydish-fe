@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         alignItems: "center",
-        marginTop: 10,
     },
     dropdownText: {
         //    Text shown before clicking the dropdown
