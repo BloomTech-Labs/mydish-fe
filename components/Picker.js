@@ -11,7 +11,7 @@ export default Picker = ({ handleChange, unit, highlighted, onClose }) => {
         fontSize: 16,
         height: theme.INPUT_HEIGHT,
         paddingHorizontal: 10,
-        borderWidth: highlighted.unit ? 1 : 0.8,
+        borderWidth: theme.INPUT_BORDER_WIDTH,
         borderColor: highlighted.unit
             ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
             : theme.INPUT_BORDER_COLOR,
