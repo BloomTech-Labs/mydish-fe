@@ -1,13 +1,19 @@
 import { StyleSheet } from "react-native";
+import theme from "../styles/theme.style";
+
+const borderWidth = theme.INPUT_BORDER_WIDTH;
+const borderColor = theme.INPUT_BORDER_COLOR;
+const marginLeft = theme.MARGIN_SIDE_STANDARD;
+const marginTop = 12;
 
 const styles = StyleSheet.create({
     heading: {
-        fontSize: 16,
+        fontSize: theme.REGULAR_FONT_SIZE,
         fontWeight: "500",
         color: "#363838",
-        marginTop: 20,
-        marginBottom: 20,
-        marginLeft: 14,
+        marginTop: 12,
+        marginBottom: 5,
+        marginLeft: marginLeft,
         flexDirection: "row",
     },
 
@@ -93,42 +99,40 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "#363838",
         marginBottom: 10,
-        marginLeft: 14,
+        marginLeft: marginLeft,
     },
     RecipeNameContainer: {
-        height: 40,
-        borderRadius: 4,
-        borderWidth: 0.8,
-        borderColor: "#6B6F70",
+        height: theme.INPUT_HEIGHT,
+        borderRadius: 6,
+        borderWidth: borderWidth,
+        borderColor: borderColor,
         padding: 10,
         marginLeft: 14,
         marginRight: 14,
-        marginBottom: 10,
-        marginTop: 10,
+        marginBottom: 5,
     },
     totalTimeView: {
         flexDirection: "row",
     },
-    totalTimeContainer: {
-        height: 40,
-        width: 60,
-        textAlign: "center",
-        borderRadius: 4,
-        borderWidth: 0.8,
-        borderColor: "#6B6F70",
-        padding: 10,
-        marginLeft: 14,
+    timeInputContainer: {
+        height: theme.INPUT_HEIGHT,
+        width: 113,
+        textAlign: "left",
+        borderRadius: theme.INPUT_BORDER_RADIUS,
+        borderWidth: borderWidth,
+        borderColor: borderColor,
+        paddingLeft: 12,
+        marginLeft: marginLeft,
         marginRight: 14,
         marginBottom: 10,
-        marginTop: 10,
     },
     notesContainer: {
         flexGrow: 1,
-        minHeight: 45,
-        padding: 10,
-        borderWidth: 0.8,
-        borderColor: "#6B6F70",
-        borderRadius: 4,
+        minHeight: theme.INPUT_HEIGHT,
+        padding: 12,
+        borderWidth: theme.INPUT_BORDER_WIDTH,
+        borderColor: theme.INPUT_BORDER_COLOR,
+        borderRadius: theme.INPUT_BORDER_RADIUS,
         maxWidth: "90%",
     },
     container: {
@@ -185,6 +189,10 @@ const styles = StyleSheet.create({
     missing: {
         color: "red",
         marginLeft: 4,
+    },
+    highlighted: {
+        borderColor: theme.INPUT_BORDER_HIGHLIGHT_COLOR,
+        borderWidth: theme.INPUT_BORDER_WIDTH,
     },
 });
 

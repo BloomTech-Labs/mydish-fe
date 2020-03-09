@@ -32,14 +32,19 @@ import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-159002245-1");
 
 function CreateRecipeForm(props) {
+    const emptyIngredient = {
+        name: "",
+        quantity: "",
+        units: "",
+    };
     const initialFormState = {
         img: "",
         title: "",
         prep_time: "",
         cook_time: "",
         tags: [],
-        ingredients: [{ name: "", quantity: "", units: "" }],
-        instructions: [""],
+        ingredients: new Array(3).fill(emptyIngredient),
+        instructions: new Array(3).fill(""),
         notes: [""],
     };
 
@@ -48,6 +53,10 @@ function CreateRecipeForm(props) {
     const [imageModalVisible, setImageModalVisible] = useState(false);
     const [image, setImage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [highlighted, setHighlighted] = useState({
+        prep_time: false,
+        cook_time: false,
+    });
 
     const courses = [
         "Breakfast",
@@ -236,39 +245,83 @@ function CreateRecipeForm(props) {
                                 setRecipe={setRecipe}
                                 missing={errors.includes("title")}
                             />
-                            <View style={styles.heading}>
-                                <Text>Total Cook Time (minutes)</Text>
-                                {errors.includes(
-                                    "prep_time and/or cook_time",
-                                ) && <Text style={styles.missing}>*</Text>}
-                            </View>
                             <View style={styles.totalTimeView}>
-                                <TextInput
-                                    style={styles.totalTimeContainer}
-                                    placeholder="Prep"
-                                    keyboardType={"numeric"}
-                                    onChangeText={min => {
-                                        if (isNaN(Number(min))) return;
-                                        setRecipe({
-                                            ...recipe,
-                                            prep_time: min,
-                                        });
-                                    }}
-                                    value={String(recipe.prep_time)}
-                                />
-                                <TextInput
-                                    style={styles.totalTimeContainer}
-                                    placeholder="Cook"
-                                    keyboardType={"numeric"}
-                                    onChangeText={min => {
-                                        if (isNaN(Number(min))) return;
-                                        setRecipe({
-                                            ...recipe,
-                                            cook_time: min,
-                                        });
-                                    }}
-                                    value={String(recipe.cook_time)}
-                                />
+                                <View style={styles.timeContainer}>
+                                    <View style={styles.heading}>
+                                        <Text>Prep Time</Text>
+                                        {errors.includes(
+                                            "prep_time and/or cook_time",
+                                        ) && (
+                                            <Text style={styles.missing}>
+                                                *
+                                            </Text>
+                                        )}
+                                    </View>
+                                    <TextInput
+                                        style={
+                                            highlighted.prep_time
+                                                ? {
+                                                      ...styles.timeInputContainer,
+                                                      ...styles.highlighted,
+                                                  }
+                                                : styles.timeInputContainer
+                                        }
+                                        placeholder="minutes"
+                                        keyboardType={"numeric"}
+                                        onChangeText={min => {
+                                            if (isNaN(Number(min))) return;
+                                            setRecipe({
+                                                ...recipe,
+                                                prep_time: min,
+                                            });
+                                        }}
+                                        value={String(recipe.prep_time)}
+                                        onFocus={() =>
+                                            setHighlighted({ prep_time: true })
+                                        }
+                                        onBlur={() =>
+                                            setHighlighted({ prep_time: false })
+                                        }
+                                    />
+                                </View>
+                                <View style={styles.timeContainer}>
+                                    <View style={styles.heading}>
+                                        <Text>Cook Time</Text>
+                                        {errors.includes(
+                                            "prep_time and/or cook_time",
+                                        ) && (
+                                            <Text style={styles.missing}>
+                                                *
+                                            </Text>
+                                        )}
+                                    </View>
+                                    <TextInput
+                                        style={
+                                            highlighted.cook_time
+                                                ? {
+                                                      ...styles.timeInputContainer,
+                                                      ...styles.highlighted,
+                                                  }
+                                                : styles.timeInputContainer
+                                        }
+                                        placeholder="minutes"
+                                        keyboardType={"numeric"}
+                                        onChangeText={min => {
+                                            if (isNaN(Number(min))) return;
+                                            setRecipe({
+                                                ...recipe,
+                                                cook_time: min,
+                                            });
+                                        }}
+                                        value={String(recipe.cook_time)}
+                                        onFocus={() =>
+                                            setHighlighted({ cook_time: true })
+                                        }
+                                        onBlur={() =>
+                                            setHighlighted({ cook_time: false })
+                                        }
+                                    />
+                                </View>
                             </View>
                             <View style={styles.heading}>
                                 <Text>Course Type</Text>
@@ -288,25 +341,27 @@ function CreateRecipeForm(props) {
                                     />
                                 ))}
                             </View>
-                            <View style={styles.heading}>
-                                <Text>Ingredients</Text>
+                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                                Ingredients
                                 {errors.includes("ingredients") && (
-                                    <Text style={styles.missing}>*</Text>
+                                    <Text style={styles.missing}> *</Text>
                                 )}
-                            </View>
+                            </Text>
                             {addIngredients()}
                             <Add text="Add Ingredient" submit={addIng} />
 
-                            <View style={styles.heading}>
-                                <Text>Instructions</Text>
+                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                                Instructions
                                 {errors.includes("instructions") && (
-                                    <Text style={styles.missing}>*</Text>
+                                    <Text style={styles.missing}> *</Text>
                                 )}
-                            </View>
+                            </Text>
                             {addInstructions()}
                             <Add text="Add A Step" submit={addInstruction} />
 
-                            <Text style={styles.heading}>Notes</Text>
+                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                                Notes
+                            </Text>
 
                             {addNotes()}
                             <Add text="Add A Note" submit={addNote} />

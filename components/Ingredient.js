@@ -6,7 +6,8 @@ import {
     editIngred,
 } from "../store/singleRecipe/singleRecipeActions";
 import Picker from "./Picker";
-import MinusDeleteButton from "./MinusDeleteButton";
+import XDeleteButton from "./XDeleteButton";
+import theme from "../styles/theme.style";
 
 const Ingredient = ({
     recipeIng,
@@ -111,24 +112,33 @@ const Ingredient = ({
     };
 
     return (
-        <View>
+        <View
+            style={{
+                marginLeft: 16,
+                marginRight: 16,
+            }}
+        >
             <View
                 style={{
+                    marginBottom: 12,
                     flexDirection: "row",
-                    marginBottom: 20,
-                    justifyContent: "space-evenly",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                     width: "100%",
                 }}
             >
                 <TextInput
                     ref={nameInput}
                     style={{
-                        minHeight: 40,
+                        minHeight: theme.INPUT_HEIGHT,
                         width: "50%",
-                        borderWidth: highlighted.name ? 1 : 0.8,
-                        borderColor: highlighted.name ? "#FF0000" : "#363838",
-                        borderRadius: 4,
-                        textAlign: "center",
+                        borderWidth: theme.INPUT_BORDER_WIDTH,
+                        borderColor: highlighted.name
+                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+                            : theme.INPUT_BORDER_COLOR,
+                        borderRadius: theme.INPUT_BORDER_RADIUS,
+                        textAlign: "left",
+                        paddingLeft: 12,
                     }}
                     multiline
                     maxLength={44}
@@ -137,17 +147,19 @@ const Ingredient = ({
                     returnKeyType="done"
                     value={ingredient.name}
                     onSubmitEditing={submitToStopEdit}
+                    onFocus={() => setHighlighted({ name: true })}
+                    onBlur={() => setHighlighted({ name: false })}
                 />
                 <TextInput
                     ref={quantityInput}
                     style={{
-                        height: 40,
+                        height: theme.INPUT_HEIGHT,
                         width: "20%",
-                        borderWidth: highlighted.quantity ? 1 : 0.8,
+                        borderWidth: theme.INPUT_BORDER_WIDTH,
                         borderColor: highlighted.quantity
-                            ? "#FF0000"
-                            : "#363838",
-                        borderRadius: 4,
+                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+                            : theme.INPUT_BORDER_COLOR,
+                        borderRadius: theme.INPUT_BORDER_RADIUS,
                         textAlign: "center",
                     }}
                     placeholder="Amount"
@@ -162,6 +174,8 @@ const Ingredient = ({
                     returnKeyType="done"
                     value={ingredient.quantity.toString()}
                     onSubmitEditing={submitToStopEdit}
+                    onFocus={() => setHighlighted({ quantity: true })}
+                    onBlur={() => setHighlighted({ quantity: false })}
                 />
 
                 <Picker
@@ -172,7 +186,7 @@ const Ingredient = ({
                 />
                 {/* A remove button for the CreateRecipeForm */}
                 {parent === "create" && (
-                    <MinusDeleteButton
+                    <XDeleteButton
                         parent="ingredient"
                         action={() => removeIng(index)}
                     />
