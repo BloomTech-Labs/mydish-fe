@@ -19,8 +19,6 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     return (
         <View
             style={{
-                marginLeft: theme.MARGIN_SIDE_STANDARD,
-                marginRight: theme.MARGIN_SIDE_STANDARD,
                 marginBottom: 10,
                 flexDirection: "row",
                 justifyContent: "space-between",
