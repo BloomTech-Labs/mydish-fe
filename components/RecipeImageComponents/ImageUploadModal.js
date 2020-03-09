@@ -9,7 +9,7 @@ import { editImage } from "../../store/singleRecipe/singleRecipeActions";
 import camera from "../../assets/camera.png";
 import gallery from "../../assets/image-plus.png";
 
-function ImageUploadModal({ visible, setVisible, image, setImage, scope }) {
+function ImageUploadModal({ visible, setVisible, setImage, scope }) {
     const dispatch = useDispatch();
     const take = "take";
     const choose = "choose"; // Pass take or choose as argument to getImage()

@@ -7,13 +7,13 @@ const RecipeName = ({ recipe, setRecipe, missing }) => {
     return (
         <>
             <View style={styles.heading}>
-                <Text>Title</Text>
+                <Text>Recipe Name</Text>
                 {missing && <Text style={styles.missing}>*</Text>}
             </View>
             <TextInput
                 style={styles.RecipeNameContainer}
                 maxLength={maxLength}
-                placeholder="Enter Title"
+                placeholder="Enter Recipe Name"
                 onChangeText={event => setRecipe({ ...recipe, title: event })}
                 value={recipe.title}
             />

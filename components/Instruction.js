@@ -1,6 +1,7 @@
 import React from "react";
 import { TextInput, Text, TouchableOpacity, View } from "react-native";
-import MinusDeleteButton from "./MinusDeleteButton";
+import XDeleteButton from "./XDeleteButton";
+import theme from "../styles/theme.style";
 
 const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     const handleChange = value => {
@@ -16,8 +17,8 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     return (
         <View
             style={{
-                marginLeft: 10,
-                marginRight: 10,
+                marginLeft: theme.MARGIN_SIDE_STANDARD,
+                marginRight: theme.MARGIN_SIDE_STANDARD,
                 marginBottom: 10,
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -28,33 +29,41 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                 style={{
                     flexGrow: 1,
                     flexDirection: "column",
-                    maxWidth: "95%",
+                    maxWidth: "100%",
                 }}
             >
                 <Text style={{ marginLeft: 14, marginBottom: 5 }}>
                     Step {index + 1}
                 </Text>
-                <TextInput
+                <View
                     style={{
-                        maxWidth: "100%",
                         width: "100%",
-                        padding: 10,
-                        borderWidth: 0.8,
-                        borderColor: "#363838",
-                        borderRadius: 4,
-                        minHeight: 40,
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
                     }}
-                    placeholder=" Add Instructions"
-                    multiline
-                    onChangeText={handleChange}
-                    value={instruction}
-                />
+                >
+                    <TextInput
+                        style={{
+                            maxWidth: "100%",
+                            width: "90%",
+                            paddingLeft: 12,
+                            borderWidth: theme.INPUT_BORDER_WIDTH,
+                            borderColor: theme.INPUT_BORDER_COLOR,
+                            borderRadius: theme.INPUT_BORDER_RADIUS,
+                            minHeight: theme.INPUT_HEIGHT,
+                        }}
+                        placeholder=" Add Instructions"
+                        multiline
+                        onChangeText={handleChange}
+                        value={instruction}
+                    />
+                    <XDeleteButton
+                        action={() => removeInstruction(index)}
+                        parent="instruction"
+                    />
+                </View>
             </View>
-            {/* A remove button for the CreateRecipeForm */}
-            <MinusDeleteButton
-                action={() => removeInstruction(index)}
-                parent="instruction"
-            />
         </View>
     );
 };
