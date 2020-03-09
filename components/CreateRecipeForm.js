@@ -53,6 +53,10 @@ function CreateRecipeForm(props) {
     const [imageModalVisible, setImageModalVisible] = useState(false);
     const [image, setImage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [highlighted, setHighlighted] = useState({
+        prep_time: false,
+        cook_time: false,
+    });
 
     const courses = [
         "Breakfast",
@@ -254,7 +258,14 @@ function CreateRecipeForm(props) {
                                         )}
                                     </View>
                                     <TextInput
-                                        style={styles.timeInputContainer}
+                                        style={
+                                            highlighted.prep_time
+                                                ? {
+                                                      ...styles.timeInputContainer,
+                                                      ...styles.highlighted,
+                                                  }
+                                                : styles.timeInputContainer
+                                        }
                                         placeholder="minutes"
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
@@ -265,6 +276,12 @@ function CreateRecipeForm(props) {
                                             });
                                         }}
                                         value={String(recipe.prep_time)}
+                                        onFocus={() =>
+                                            setHighlighted({ prep_time: true })
+                                        }
+                                        onBlur={() =>
+                                            setHighlighted({ prep_time: false })
+                                        }
                                     />
                                 </View>
                                 <View style={styles.timeContainer}>
@@ -279,7 +296,14 @@ function CreateRecipeForm(props) {
                                         )}
                                     </View>
                                     <TextInput
-                                        style={styles.timeInputContainer}
+                                        style={
+                                            highlighted.cook_time
+                                                ? {
+                                                      ...styles.timeInputContainer,
+                                                      ...styles.highlighted,
+                                                  }
+                                                : styles.timeInputContainer
+                                        }
                                         placeholder="minutes"
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
@@ -290,6 +314,12 @@ function CreateRecipeForm(props) {
                                             });
                                         }}
                                         value={String(recipe.cook_time)}
+                                        onFocus={() =>
+                                            setHighlighted({ cook_time: true })
+                                        }
+                                        onBlur={() =>
+                                            setHighlighted({ cook_time: false })
+                                        }
                                     />
                                 </View>
                             </View>

@@ -190,6 +190,10 @@ const styles = StyleSheet.create({
         color: "red",
         marginLeft: 4,
     },
+    highlighted: {
+        borderColor: theme.INPUT_BORDER_HIGHLIGHT_COLOR,
+        borderWidth: theme.INPUT_BORDER_WIDTH,
+    },
 });
 
 module.exports = styles;
