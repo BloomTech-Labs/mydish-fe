@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { TextInput, Text, TouchableOpacity, View } from "react-native";
+import { TextInput, Text, View } from "react-native";
 import XDeleteButton from "./XDeleteButton";
 import theme from "../styles/theme.style";
-import styles from "../styles/createRecipeStyles";
 
 const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     const [highlighted, setHighlighted] = useState(false);
