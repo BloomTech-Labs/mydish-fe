@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-const backgroundColor = "#DADADA";
+import theme from "../styles/theme.style";
 
 const styles = StyleSheet.create({
     imageContainer: {
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         height: 32,
         marginRight: 16,
         marginBottom: 4,
-        backgroundColor: backgroundColor,
+        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
         padding: 5,
         borderRadius: 16,
         justifyContent: "center",
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         top: -100,
         marginLeft: 40,
         marginRight: 40,
-        backgroundColor: backgroundColor,
+        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 20,
