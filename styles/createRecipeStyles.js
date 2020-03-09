@@ -4,7 +4,6 @@ import theme from "../styles/theme.style";
 const borderWidth = theme.INPUT_BORDER_WIDTH;
 const borderColor = theme.INPUT_BORDER_COLOR;
 const marginLeft = theme.MARGIN_SIDE_STANDARD;
-const marginTop = 12;
 
 const styles = StyleSheet.create({
     heading: {
@@ -129,6 +128,8 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         alignItems: "center",
+        marginLeft: theme.MARGIN_SIDE_STANDARD,
+        marginRight: theme.MARGIN_SIDE_STANDARD,
     },
     dropdownText: {
         //    Text shown before clicking the dropdown
