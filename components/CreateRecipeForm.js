@@ -22,7 +22,6 @@ import RecipeShareLogo from "./RecipeShareLogo";
 import RecipeImage from "./RecipeImageComponents/RecipeImage";
 import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 
-import DoneImg from "../assets/done_button.png";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import postImage from "./RecipeImageComponents/postImage";
 import { validateFields } from "../utils/helperFunctions/vaildateFields";
@@ -371,13 +370,12 @@ function CreateRecipeForm(props) {
                                 </Text>
                             )}
                             <TouchableOpacity
-                                style={styles.doneView}
+                                style={styles.saveView}
                                 onPress={postRecipe}
                             >
-                                <Image
-                                    source={DoneImg}
-                                    style={styles.doneCreateBtn}
-                                />
+                                <View style={styles.saveBtn}>
+                                    <Text style={styles.saveText}>Save</Text>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     </View>

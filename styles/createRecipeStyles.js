@@ -147,15 +147,23 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginTop: 15,
     },
-    doneView: {
-        alignItems: "flex-end",
+    saveView: {
+        alignItems: "center",
         marginTop: 30,
     },
-    doneCreateBtn: {
+    saveBtn: {
         width: 136,
-        height: 40,
+        height: 32,
         marginBottom: 20,
-        marginRight: 14,
+        backgroundColor: theme.PRIMARY_COLOR,
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    saveText: {
+        color: "#FFF",
+        fontSize: 16,
+        fontWeight: "bold",
     },
     doneText: { fontSize: 16, color: "#3BA405" },
     add: {
