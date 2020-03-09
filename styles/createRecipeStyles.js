@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
         color: "#363838",
         marginTop: 12,
         marginBottom: 5,
-        marginLeft: marginLeft,
         flexDirection: "row",
     },
 
@@ -20,12 +19,11 @@ const styles = StyleSheet.create({
         color: "red",
         fontWeight: "bold",
         marginTop: 30,
-        marginLeft: 12,
     },
     editInstruction: {
         height: 76,
         padding: 10,
-        borderWidth: 0.8,
+        borderWidth: 5,
         borderColor: "#363838",
         borderRadius: 4,
         marginLeft: 42,
@@ -66,8 +64,7 @@ const styles = StyleSheet.create({
         paddingRight: 19,
         paddingLeft: 19,
         marginBottom: 8,
-        marginRight: 5,
-        margin: 5,
+        marginRight: 10,
         backgroundColor: "#959595",
     },
     tagButtonPressed: {
@@ -89,7 +86,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "#363838",
         marginBottom: 10,
-        marginLeft: marginLeft,
     },
     RecipeNameContainer: {
         height: theme.INPUT_HEIGHT,
@@ -97,7 +93,6 @@ const styles = StyleSheet.create({
         borderWidth: borderWidth,
         borderColor: borderColor,
         padding: 10,
-        marginLeft: 14,
         marginRight: 14,
         marginBottom: 5,
     },
@@ -112,8 +107,7 @@ const styles = StyleSheet.create({
         borderWidth: borderWidth,
         borderColor: borderColor,
         paddingLeft: 12,
-        marginLeft: marginLeft,
-        marginRight: 14,
+        marginRight: 30,
         marginBottom: 10,
     },
     notesContainer: {
@@ -176,7 +170,6 @@ const styles = StyleSheet.create({
     tagGroup: {
         flexDirection: "row",
         flexWrap: "wrap",
-        marginLeft: 11,
     },
     fiftyFive: {
         alignSelf: "flex-end",
