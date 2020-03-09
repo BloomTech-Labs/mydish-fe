@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../styles/createRecipeStyles";
+import theme from "../styles/theme.style";
 
 import RecipeName from "./RecipeName";
 import Ingredient from "./Ingredient";
@@ -386,11 +387,8 @@ function CreateRecipeForm(props) {
 }
 CreateRecipeForm.navigationOptions = {
     tabBarLabel: "create new recipe",
-    headerTitle: "Create Recipe",
-    headerTitleStyle: {
-        fontSize: 22,
-        color: "#42C200",
-    },
+    headerTitle: <RecipeShareLogo />,
+    headerStyle: { backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR },
 };
 
 export default CreateRecipeForm;
