@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { TextInput, Text, TouchableOpacity, View } from "react-native";
+import { TextInput, Text, View } from "react-native";
 import XDeleteButton from "./XDeleteButton";
 import theme from "../styles/theme.style";
-import styles from "../styles/createRecipeStyles";
 
 const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     const [highlighted, setHighlighted] = useState(false);
@@ -19,8 +18,6 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
     return (
         <View
             style={{
-                marginLeft: theme.MARGIN_SIDE_STANDARD,
-                marginRight: theme.MARGIN_SIDE_STANDARD,
                 marginBottom: 10,
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -31,7 +28,7 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                 style={{
                     flexGrow: 1,
                     flexDirection: "column",
-                    maxWidth: "100%",
+                    width: "60%", //Not sure why, but a higher percentage (like 90%) causes weird behavior on iPad. Removing width property makes instructions field run over edge of screen.
                 }}
             >
                 <Text style={{ marginLeft: 14, marginBottom: 5 }}>
@@ -47,7 +44,7 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                 >
                     <TextInput
                         style={{
-                            maxWidth: "100%",
+                            maxWidth: "90%",
                             width: "90%",
                             paddingLeft: 12,
                             borderWidth: theme.INPUT_BORDER_WIDTH,

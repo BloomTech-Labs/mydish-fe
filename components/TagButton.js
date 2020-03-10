@@ -5,7 +5,6 @@ import styles from "../styles/createRecipeStyles";
 export default function TagButton({ tag, isSelected, setRecipe }) {
     const toggleTag = () => {
         setRecipe(oldRecipe => {
-
             // Does our tag exist in our recipe?
             const index = oldRecipe.tags.includes(tag);
 
@@ -21,14 +20,14 @@ export default function TagButton({ tag, isSelected, setRecipe }) {
     };
     return (
         <TouchableOpacity
-            style={isSelected ? styles.tagButtonPressed : styles.tagButtons}
+            style={
+                isSelected
+                    ? { ...styles.tagButtons, ...styles.tagButtonPressed }
+                    : styles.tagButtons
+            }
             onPress={toggleTag}
         >
-            <Text
-                style={isSelected ? { color: "white" } : { color: "#215506" }}
-            >
-                {tag}
-            </Text>
+            <Text style={{ color: "white" }}>{tag}</Text>
         </TouchableOpacity>
     );
 }

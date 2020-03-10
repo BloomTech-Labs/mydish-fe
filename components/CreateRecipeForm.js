@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../styles/createRecipeStyles";
+import theme from "../styles/theme.style";
 
 import RecipeName from "./RecipeName";
 import Ingredient from "./Ingredient";
@@ -22,7 +23,6 @@ import RecipeShareLogo from "./RecipeShareLogo";
 import RecipeImage from "./RecipeImageComponents/RecipeImage";
 import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 
-import DoneImg from "../assets/done_button.png";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import postImage from "./RecipeImageComponents/postImage";
 import { validateFields } from "../utils/helperFunctions/vaildateFields";
@@ -75,9 +75,11 @@ function CreateRecipeForm(props) {
         const postRecipe = {
             ...recipe,
             // Remove any ingredients that are empty
-            ingredients: recipe.ingredients.filter(
-                ing => ing.name.length && ing.quantity.length && ing.units,
-            ),
+            ingredients: recipe.ingredients
+                .filter(
+                    ing => ing.name.length && ing.quantity.length && ing.units,
+                )
+                .map(ing => ({ ...ing, name: ing.name.replace(/\n+/g, " ") })), //Remove any newlines
             instructions: recipe.instructions
                 .filter(step => step.length) // Remove empty instructions
                 .map((step, i) => ({
@@ -228,12 +230,12 @@ function CreateRecipeForm(props) {
         <KeyboardAwareScrollView>
             <View>
                 <ScrollView>
+                    <RecipeImage
+                        image={image}
+                        setImageModalVisible={setImageModalVisible}
+                    />
                     <View style={styles.container}>
                         <View>
-                            <RecipeImage
-                                image={image}
-                                setImageModalVisible={setImageModalVisible}
-                            />
                             <ImageUploadModal
                                 visible={imageModalVisible}
                                 setVisible={setImageModalVisible}
@@ -371,13 +373,12 @@ function CreateRecipeForm(props) {
                                 </Text>
                             )}
                             <TouchableOpacity
-                                style={styles.doneView}
+                                style={styles.saveView}
                                 onPress={postRecipe}
                             >
-                                <Image
-                                    source={DoneImg}
-                                    style={styles.doneCreateBtn}
-                                />
+                                <View style={styles.saveBtn}>
+                                    <Text style={styles.saveText}>Save</Text>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -388,11 +389,8 @@ function CreateRecipeForm(props) {
 }
 CreateRecipeForm.navigationOptions = {
     tabBarLabel: "create new recipe",
-    headerTitle: "Create Recipe",
-    headerTitleStyle: {
-        fontSize: 22,
-        color: "#42C200",
-    },
+    headerTitle: <RecipeShareLogo />,
+    headerStyle: { backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR },
 };
 
 export default CreateRecipeForm;

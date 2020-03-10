@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, Text, TextInput } from "react-native";
 import XDeleteButton from "./XDeleteButton";
 import styles from "../styles/createRecipeStyles";
-import theme from "../styles/theme.style";
 
 const Notes = ({ index, removeNote, note, setRecipe }) => {
     const [highlighted, setHighlighted] = useState(false);
@@ -19,8 +18,6 @@ const Notes = ({ index, removeNote, note, setRecipe }) => {
     return (
         <View
             style={{
-                marginLeft: theme.MARGIN_SIDE_STANDARD,
-                marginRight: theme.MARGIN_SIDE_STANDARD,
                 marginBottom: 10,
                 flexWrap: "nowrap",
                 flexDirection: "row",

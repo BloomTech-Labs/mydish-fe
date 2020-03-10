@@ -8,7 +8,7 @@ const RecipeName = ({ recipe, setRecipe, missing }) => {
     return (
         <>
             <View style={styles.heading}>
-                <Text>Recipe Name</Text>
+                <Text>Title</Text>
                 {missing && <Text style={styles.missing}>*</Text>}
             </View>
             <TextInput
@@ -21,7 +21,7 @@ const RecipeName = ({ recipe, setRecipe, missing }) => {
                         : styles.RecipeNameContainer
                 }
                 maxLength={maxLength}
-                placeholder="Enter Recipe Name"
+                placeholder="Enter Title"
                 onChangeText={event => setRecipe({ ...recipe, title: event })}
                 value={recipe.title}
                 onFocus={() => setHighlighted(true)}

@@ -3,8 +3,6 @@ import theme from "../styles/theme.style";
 
 const borderWidth = theme.INPUT_BORDER_WIDTH;
 const borderColor = theme.INPUT_BORDER_COLOR;
-const marginLeft = theme.MARGIN_SIDE_STANDARD;
-const marginTop = 12;
 
 const styles = StyleSheet.create({
     heading: {
@@ -13,7 +11,6 @@ const styles = StyleSheet.create({
         color: "#363838",
         marginTop: 12,
         marginBottom: 5,
-        marginLeft: marginLeft,
         flexDirection: "row",
     },
 
@@ -21,12 +18,11 @@ const styles = StyleSheet.create({
         color: "red",
         fontWeight: "bold",
         marginTop: 30,
-        marginLeft: 12,
     },
     editInstruction: {
         height: 76,
         padding: 10,
-        borderWidth: 0.8,
+        borderWidth: 5,
         borderColor: "#363838",
         borderRadius: 4,
         marginLeft: 42,
@@ -62,26 +58,16 @@ const styles = StyleSheet.create({
     tagButtons: {
         borderRadius: 50,
         alignItems: "center",
-        height: 40,
-        paddingTop: 10,
+        justifyContent: "center",
+        height: 32,
         paddingRight: 19,
         paddingLeft: 19,
         marginBottom: 8,
-        marginRight: 5,
-        margin: 5,
-        backgroundColor: "#8FCC70",
+        marginRight: 10,
+        backgroundColor: "#959595",
     },
     tagButtonPressed: {
-        borderRadius: 50,
-        alignItems: "center",
-        height: 40,
-        paddingTop: 10,
-        paddingRight: 19,
-        paddingLeft: 19,
-        marginBottom: 8,
-        marginRight: 5,
-        margin: 5,
-        backgroundColor: "#3BA405",
+        backgroundColor: theme.HOVER_COLOR,
     },
     fontColorWhite: {
         color: "white",
@@ -99,7 +85,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "#363838",
         marginBottom: 10,
-        marginLeft: marginLeft,
     },
     RecipeNameContainer: {
         height: theme.INPUT_HEIGHT,
@@ -107,7 +92,6 @@ const styles = StyleSheet.create({
         borderWidth: borderWidth,
         borderColor: borderColor,
         padding: 10,
-        marginLeft: 14,
         marginRight: 14,
         marginBottom: 5,
     },
@@ -122,8 +106,7 @@ const styles = StyleSheet.create({
         borderWidth: borderWidth,
         borderColor: borderColor,
         paddingLeft: 12,
-        marginLeft: marginLeft,
-        marginRight: 14,
+        marginRight: 30,
         marginBottom: 10,
     },
     notesContainer: {
@@ -138,7 +121,8 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         alignItems: "center",
-        marginTop: 10,
+        marginLeft: theme.MARGIN_SIDE_STANDARD,
+        marginRight: theme.MARGIN_SIDE_STANDARD,
     },
     dropdownText: {
         //    Text shown before clicking the dropdown
@@ -156,15 +140,23 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginTop: 15,
     },
-    doneView: {
-        alignItems: "flex-end",
+    saveView: {
+        alignItems: "center",
         marginTop: 30,
     },
-    doneCreateBtn: {
+    saveBtn: {
         width: 136,
-        height: 40,
+        height: 32,
         marginBottom: 20,
-        marginRight: 14,
+        backgroundColor: theme.PRIMARY_COLOR,
+        borderRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    saveText: {
+        color: "#FFF",
+        fontSize: 16,
+        fontWeight: "bold",
     },
     doneText: { fontSize: 16, color: "#3BA405" },
     add: {
@@ -177,7 +169,6 @@ const styles = StyleSheet.create({
     tagGroup: {
         flexDirection: "row",
         flexWrap: "wrap",
-        marginLeft: 5,
     },
     fiftyFive: {
         alignSelf: "flex-end",

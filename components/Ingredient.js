@@ -112,49 +112,22 @@ const Ingredient = ({
     };
 
     return (
-        <View
-            style={{
-                marginLeft: 16,
-                marginRight: 16,
-            }}
-        >
+        <View>
             <View
                 style={{
                     marginBottom: 12,
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    alignItems: "center",
-                    width: "100%",
+                    alignItems: "flex-start",
                 }}
             >
-                <TextInput
-                    ref={nameInput}
-                    style={{
-                        minHeight: theme.INPUT_HEIGHT,
-                        width: "50%",
-                        borderWidth: theme.INPUT_BORDER_WIDTH,
-                        borderColor: highlighted.name
-                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
-                            : theme.INPUT_BORDER_COLOR,
-                        borderRadius: theme.INPUT_BORDER_RADIUS,
-                        textAlign: "left",
-                        paddingLeft: 12,
-                    }}
-                    multiline
-                    maxLength={44}
-                    placeholder="Ingredient Name"
-                    onChangeText={event => handleChange("name", event)}
-                    returnKeyType="done"
-                    value={ingredient.name}
-                    onSubmitEditing={submitToStopEdit}
-                    onFocus={() => setHighlighted({ name: true })}
-                    onBlur={() => setHighlighted({ name: false })}
-                />
                 <TextInput
                     ref={quantityInput}
                     style={{
                         height: theme.INPUT_HEIGHT,
                         width: "20%",
+                        paddingLeft: 10,
+                        paddingRight: 10,
                         borderWidth: theme.INPUT_BORDER_WIDTH,
                         borderColor: highlighted.quantity
                             ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
@@ -184,7 +157,29 @@ const Ingredient = ({
                     unit={ingredient.units}
                     highlighted={highlighted}
                 />
-                {/* A remove button for the CreateRecipeForm */}
+                <TextInput
+                    ref={nameInput}
+                    style={{
+                        minHeight: theme.INPUT_HEIGHT,
+                        width: "40%",
+                        borderWidth: theme.INPUT_BORDER_WIDTH,
+                        borderColor: highlighted.name
+                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+                            : theme.INPUT_BORDER_COLOR,
+                        borderRadius: theme.INPUT_BORDER_RADIUS,
+                        textAlign: "left",
+                        paddingLeft: 12,
+                        paddingBottom: 5,
+                    }}
+                    multiline
+                    maxLength={44}
+                    placeholder="Ingredient Name"
+                    onChangeText={event => handleChange("name", event)}
+                    value={ingredient.name}
+                    onSubmitEditing={submitToStopEdit}
+                    onFocus={() => setHighlighted({ name: true })}
+                    onBlur={() => setHighlighted({ name: false })}
+                />
                 {parent === "create" && (
                     <XDeleteButton
                         parent="ingredient"
