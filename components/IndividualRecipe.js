@@ -31,7 +31,7 @@ import theme from "../styles/theme.style";
 
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
-import placeholder from "../assets/recipe-image-placeholder.png";
+import placeholder from "../assets/recipe-image-placeholder-3.png";
 import { maxUsername } from "../constants/maxLenth";
 
 import Title from "./EditRecipeComponents/Title";
