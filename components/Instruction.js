@@ -28,7 +28,7 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                 style={{
                     flexGrow: 1,
                     flexDirection: "column",
-                    maxWidth: "100%",
+                    width: "60%", //Not sure why, but a higher percentage (like 90%) causes weird behavior on iPad. Removing width property makes instructions field run over edge of screen.
                 }}
             >
                 <Text style={{ marginLeft: 14, marginBottom: 5 }}>
@@ -44,7 +44,7 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                 >
                     <TextInput
                         style={{
-                            maxWidth: "100%",
+                            maxWidth: "90%",
                             width: "90%",
                             paddingLeft: 12,
                             borderWidth: theme.INPUT_BORDER_WIDTH,
