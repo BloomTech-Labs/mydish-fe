@@ -10,14 +10,14 @@ export default Picker = ({ handleChange, unit, highlighted, onClose }) => {
     const styleObj = {
         fontSize: 16,
         height: theme.INPUT_HEIGHT,
-        paddingHorizontal: 10,
+        paddingLeft: 10,
+        width: 100,
         borderWidth: theme.INPUT_BORDER_WIDTH,
         borderColor: highlighted.unit
             ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
             : theme.INPUT_BORDER_COLOR,
         borderRadius: theme.INPUT_BORDER_RADIUS,
         color: "black",
-        paddingRight: 30, // to ensure the text is never behind the icon
     };
 
     return (

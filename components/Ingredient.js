@@ -126,6 +126,8 @@ const Ingredient = ({
                     style={{
                         height: theme.INPUT_HEIGHT,
                         width: "20%",
+                        paddingLeft: 10,
+                        paddingRight: 10,
                         borderWidth: theme.INPUT_BORDER_WIDTH,
                         borderColor: highlighted.quantity
                             ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
@@ -160,7 +162,7 @@ const Ingredient = ({
                     ref={nameInput}
                     style={{
                         minHeight: theme.INPUT_HEIGHT,
-                        width: "50%",
+                        width: "40%",
                         borderWidth: theme.INPUT_BORDER_WIDTH,
                         borderColor: highlighted.name
                             ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
