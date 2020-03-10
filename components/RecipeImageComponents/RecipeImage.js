@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import {
-    View,
-    Image,
-    ImageBackground,
-    TouchableOpacity,
-    Text,
-} from "react-native";
+import { View, ImageBackground } from "react-native";
 import placeholder from "../../assets/recipe-image-placeholder-2.png";
-import camera from "../../assets/camera.png";
 import styles from "../../styles/recipeImageStyles";
+import CameraIcon from "./CameraIcon";
 
 function RecipeImage({ image, setImageModalVisible }) {
     return (
@@ -17,11 +11,7 @@ function RecipeImage({ image, setImageModalVisible }) {
                 style={styles.image}
                 source={image ? { uri: image } : placeholder}
             >
-                <TouchableOpacity onPress={() => setImageModalVisible(true)}>
-                    <View style={styles.newImage}>
-                        <Image style={styles.icon} source={camera} />
-                    </View>
-                </TouchableOpacity>
+                <CameraIcon setImageModalVisible={setImageModalVisible} />
             </ImageBackground>
         </View>
     );
