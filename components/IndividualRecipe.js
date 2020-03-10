@@ -47,6 +47,7 @@ import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeIns
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
+import CameraIcon from "./RecipeImageComponents/CameraIcon";
 import { FontAwesome } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
@@ -299,18 +300,13 @@ function IndividualRecipe(props) {
                                             color="white"
                                         />
                                     </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={styles.editButton}
-                                        onPress={() =>
-                                            setImageModalVisible(true)
-                                        }
-                                    >
-                                        <FontAwesome
-                                            name="camera"
-                                            size={20}
-                                            color="white"
+                                    <View style={styles.cameraIcon}>
+                                        <CameraIcon
+                                            setImageModalVisible={
+                                                setImageModalVisible
+                                            }
                                         />
-                                    </TouchableOpacity>
+                                    </View>
                                 </ImageBackground>
                                 <View style={styles.titleWrapper}>
                                     <Title
