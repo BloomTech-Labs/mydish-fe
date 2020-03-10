@@ -157,7 +157,6 @@ const Ingredient = ({
                     unit={ingredient.units}
                     highlighted={highlighted}
                 />
-                {/* A remove button for the CreateRecipeForm */}
                 <TextInput
                     ref={nameInput}
                     style={{
