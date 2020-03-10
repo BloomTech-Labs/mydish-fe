@@ -175,7 +175,6 @@ const Ingredient = ({
                     maxLength={44}
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
-                    returnKeyType="done"
                     value={ingredient.name}
                     onSubmitEditing={submitToStopEdit}
                     onFocus={() => setHighlighted({ name: true })}
