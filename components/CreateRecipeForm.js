@@ -75,9 +75,11 @@ function CreateRecipeForm(props) {
         const postRecipe = {
             ...recipe,
             // Remove any ingredients that are empty
-            ingredients: recipe.ingredients.filter(
-                ing => ing.name.length && ing.quantity.length && ing.units,
-            ),
+            ingredients: recipe.ingredients
+                .filter(
+                    ing => ing.name.length && ing.quantity.length && ing.units,
+                )
+                .map(ing => ({ ...ing, name: ing.name.replace(/\n+/g, " ") })), //Remove any newlines
             instructions: recipe.instructions
                 .filter(step => step.length) // Remove empty instructions
                 .map((step, i) => ({
