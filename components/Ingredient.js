@@ -170,6 +170,7 @@ const Ingredient = ({
                         borderRadius: theme.INPUT_BORDER_RADIUS,
                         textAlign: "left",
                         paddingLeft: 12,
+                        paddingBottom: 5,
                     }}
                     multiline
                     maxLength={44}
