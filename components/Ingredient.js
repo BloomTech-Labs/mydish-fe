@@ -118,7 +118,7 @@ const Ingredient = ({
                     marginBottom: 12,
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    alignItems: "center",
+                    alignItems: "flex-start",
                 }}
             >
                 <TextInput
