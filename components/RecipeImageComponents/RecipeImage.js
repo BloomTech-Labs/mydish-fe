@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, ImageBackground } from "react-native";
-import placeholder from "../../assets/recipe-image-placeholder-2.png";
+import { createPlaceholder } from "../../constants/imagePlaceholders";
 import styles from "../../styles/recipeImageStyles";
 import CameraIcon from "./CameraIcon";
 
@@ -9,7 +9,7 @@ function RecipeImage({ image, setImageModalVisible }) {
         <View style={styles.imageContainer}>
             <ImageBackground
                 style={styles.image}
-                source={image ? { uri: image } : placeholder}
+                source={image ? { uri: image } : createPlaceholder}
             >
                 <CameraIcon setImageModalVisible={setImageModalVisible} />
             </ImageBackground>

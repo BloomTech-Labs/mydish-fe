@@ -31,7 +31,7 @@ import theme from "../styles/theme.style";
 
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
-import placeholder from "../assets/recipe-image-placeholder-3.png";
+import { savedPlaceholder } from "../constants/imagePlaceholders";
 import { maxUsername } from "../constants/maxLenth";
 
 import Title from "./EditRecipeComponents/Title";
@@ -271,7 +271,7 @@ function IndividualRecipe(props) {
                                     source={
                                         recipe.img
                                             ? { uri: recipe.img }
-                                            : placeholder
+                                            : savedPlaceholder
                                     }
                                     style={styles.image}
                                 >
@@ -455,7 +455,9 @@ function IndividualRecipe(props) {
                     <View style={styles.recipeContainer}>
                         <ImageBackground
                             source={
-                                recipe.img ? { uri: recipe.img } : placeholder
+                                recipe.img
+                                    ? { uri: recipe.img }
+                                    : savedPlaceholder
                             }
                             style={styles.image}
                         >
