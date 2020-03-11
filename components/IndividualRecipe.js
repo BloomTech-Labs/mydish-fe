@@ -31,7 +31,7 @@ import theme from "../styles/theme.style";
 
 import clock from "../assets/timer.png";
 import logo from "../assets/background.png";
-import placeholder from "../assets/recipe-image-placeholder.png";
+import { savedPlaceholder } from "../constants/imagePlaceholders";
 import { maxUsername } from "../constants/maxLenth";
 
 import Title from "./EditRecipeComponents/Title";
@@ -47,6 +47,7 @@ import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeIns
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
+import CameraIcon from "./RecipeImageComponents/CameraIcon";
 import { FontAwesome } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
@@ -270,7 +271,7 @@ function IndividualRecipe(props) {
                                     source={
                                         recipe.img
                                             ? { uri: recipe.img }
-                                            : placeholder
+                                            : savedPlaceholder
                                     }
                                     style={styles.image}
                                 >
@@ -299,18 +300,13 @@ function IndividualRecipe(props) {
                                             color="white"
                                         />
                                     </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={styles.editButton}
-                                        onPress={() =>
-                                            setImageModalVisible(true)
-                                        }
-                                    >
-                                        <FontAwesome
-                                            name="camera"
-                                            size={20}
-                                            color="white"
+                                    <View style={styles.cameraIcon}>
+                                        <CameraIcon
+                                            setImageModalVisible={
+                                                setImageModalVisible
+                                            }
                                         />
-                                    </TouchableOpacity>
+                                    </View>
                                 </ImageBackground>
                                 <View style={styles.titleWrapper}>
                                     <Title
@@ -459,7 +455,9 @@ function IndividualRecipe(props) {
                     <View style={styles.recipeContainer}>
                         <ImageBackground
                             source={
-                                recipe.img ? { uri: recipe.img } : placeholder
+                                recipe.img
+                                    ? { uri: recipe.img }
+                                    : savedPlaceholder
                             }
                             style={styles.image}
                         >

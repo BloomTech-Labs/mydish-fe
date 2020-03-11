@@ -196,6 +196,10 @@ const styles = StyleSheet.create({
     imageContainer: {
         borderRadius: 5,
     },
+    cameraIcon: {
+        alignSelf: "flex-end",
+        marginLeft: "auto",
+    },
     editButton: {
         backgroundColor: "#8FCC70",
         padding: 5,
