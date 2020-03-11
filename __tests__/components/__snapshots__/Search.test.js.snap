@@ -4,6 +4,7 @@ exports[`matches snapshot 1`] = `
 <TextInput
   allowFontScaling={true}
   onChangeText={[Function]}
+  onFocus={[Function]}
   placeholder="What dish are you looking for?"
   placeholderTextColor="#D3D3D3"
   rejectResponderTermination={true}
@@ -22,6 +23,5 @@ exports[`matches snapshot 1`] = `
     }
   }
   underlineColorAndroid="transparent"
-  value=""
 />
 `;
