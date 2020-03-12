@@ -86,7 +86,6 @@ describe("UPDATE actions", () => {
         const expectedState = {
             ...initState,
             error: null,
-            isLoading: true,
         };
 
         const returnState = singleRecipeReducer(initialState, {
