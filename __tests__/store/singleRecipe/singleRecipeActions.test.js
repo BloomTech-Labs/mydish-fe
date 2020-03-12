@@ -23,7 +23,6 @@ test("axiosWithAuth is mocked", () => {
 describe("startEdit action creator", () => {
     test("Calling function returns START_EDIT type", () => {
         const returnObj = actions.startEdit();
-
         expect(returnObj).toEqual({ type: actions.START_EDIT });
     });
 });
@@ -259,7 +258,7 @@ describe("editNotes action creator", () => {
 });
 
 describe("stopEdit action creator", () => {
-    test("dispatches STOP_EDIT, UPDATE_RECIPE_START, and UPDATE_RECIPE_SUCCESS with a successful request", async () => {
+    test("dispatches UPDATE_RECIPE_START and UPDATE_RECIPE_SUCCESS with a successful request", async () => {
         const dispatch = jest.fn();
         const getState = jest.fn(() => ({ singleRecipe: { recipe: null } }));
         axiosWithAuth.mockImplementation(() => {
@@ -267,7 +266,6 @@ describe("stopEdit action creator", () => {
                 put: () => ({ data: "testResponse" }),
             };
         });
-        const expectedDispatchStopEdit = { type: actions.STOP_EDIT };
         const expectedDispatchStartUpdate = {
             type: actions.START_UPDATE_RECIPE,
         };
@@ -277,8 +275,7 @@ describe("stopEdit action creator", () => {
         };
         await actions.stopEdit()(dispatch, getState);
 
-        expect(dispatch).toHaveBeenCalledTimes(3);
-        expect(dispatch).toHaveBeenCalledWith(expectedDispatchStopEdit);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenCalledWith(expectedDispatchStartUpdate);
         expect(dispatch).toHaveBeenCalledWith(expectedDispatchUpdateSuccess);
     });
