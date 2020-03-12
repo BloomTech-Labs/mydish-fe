@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshot 1`] = `
+exports[`<CreateRecipeForm /> matches snapshot 1`] = `
 <RCTScrollView
   automaticallyAdjustContentInsets={false}
   contentInset={
@@ -243,6 +243,7 @@ exports[`matches snapshot 1`] = `
                             "opacity": 1,
                           }
                         }
+                        testID="cameraIcon"
                       >
                         <Image
                           source={1}
@@ -273,6 +274,7 @@ exports[`matches snapshot 1`] = `
                             "opacity": 1,
                           }
                         }
+                        testID="imageIcon"
                       >
                         <Image
                           source={1}
