@@ -31,7 +31,10 @@ describe("resetRecipe action creator", () => {
     test("Calling function returns RESET_RECIPE type", () => {
         const returnObj = actions.resetRecipe();
 
-        expect(returnObj).toEqual({ type: actions.RESET_RECIPE });
+        expect(returnObj).toEqual({
+            payload: null,
+            type: actions.RESET_RECIPE,
+        });
     });
 });
 
