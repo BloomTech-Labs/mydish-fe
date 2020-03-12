@@ -73,7 +73,7 @@ function ImageUploadModal({ visible, setVisible, setImage, scope }) {
                 <View style={styles.iconsContainer}>
                     <TouchableOpacity
                         style={styles.singleIconContainer}
-                        testId="cameraIcon"
+                        testID="cameraIcon"
                         onPress={() => getImage(take)}
                     >
                         <Image
@@ -86,7 +86,7 @@ function ImageUploadModal({ visible, setVisible, setImage, scope }) {
                         <Text>Camera</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        testId="imageIcon"
+                        testID="imageIcon"
                         style={styles.singleIconContainer}
                         onPress={() => getImage(choose)}
                     >
