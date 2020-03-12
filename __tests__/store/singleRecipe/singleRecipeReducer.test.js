@@ -181,7 +181,7 @@ test("START_EDIT_MODE", () => {
     const expecetedState = { ...initState, editMode: true };
 
     const returnState = singleRecipeReducer(initState, {
-        type: types.START_EDIT,
+        type: types.START_EDIT_MODE,
     });
 
     expect(returnState).toEqual(expecetedState);
@@ -192,7 +192,7 @@ test("STOP_EDIT_MODE", () => {
     const expectedState = { ...initialState, editMode: false };
 
     const returnState = singleRecipeReducer(initialState, {
-        type: types.STOP_EDIT,
+        type: types.STOP_EDIT_MODE,
     });
 
     expect(returnState).toEqual(expectedState);
