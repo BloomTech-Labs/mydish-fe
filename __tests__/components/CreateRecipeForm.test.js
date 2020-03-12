@@ -5,7 +5,7 @@ import renderer from "react-test-renderer";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
-it("matches snapshot", () => {
+describe("<CreateRecipeForm />", () => {
     const store = createStore(() => {});
     const renderTree = (
         <Provider store={store}>
@@ -13,5 +13,7 @@ it("matches snapshot", () => {
         </Provider>
     );
     const tree = renderer.create(renderTree).toJSON();
-    expect(tree).toMatchSnapshot();
+    it("matches snapshot", () => {
+        expect(tree).toMatchSnapshot();
+    });
 });
