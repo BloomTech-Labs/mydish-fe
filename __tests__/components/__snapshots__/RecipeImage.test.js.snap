@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ImageUploadModal /> matches snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "whitesmoke",
+      "flex": 1,
+      "height": 300,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    accessibilityIgnoresInvertColors={true}
+    style={
+      Object {
+        "alignItems": "flex-end",
+        "height": "100%",
+        "justifyContent": "flex-end",
+        "width": "100%",
+      }
+    }
+  >
+    <Image
+      source={1}
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": "100%",
+            "width": "100%",
+          },
+          undefined,
+        ]
+      }
+    />
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#F1F1F1",
+            "borderRadius": 16,
+            "height": 32,
+            "justifyContent": "center",
+            "marginBottom": 4,
+            "marginRight": 16,
+            "padding": 5,
+            "width": 32,
+          }
+        }
+      >
+        <Image
+          source={1}
+          style={
+            Object {
+              "height": 18,
+              "width": 22,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;
