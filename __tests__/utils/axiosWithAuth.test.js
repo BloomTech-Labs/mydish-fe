@@ -68,7 +68,7 @@ test("axiosWithAuth waits for AsyncStorage and creates an axios object", async (
         });
     });
     const expectedObj = {
-        baseURL: "https://recipeshare-development.herokuapp.com/",
+        baseURL: "https://mydish-staging.herokuapp.com/",
         headers: { Authorization: "userToken" },
         test: true,
     };

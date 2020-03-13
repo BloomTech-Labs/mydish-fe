@@ -86,7 +86,6 @@ describe("UPDATE actions", () => {
         const expectedState = {
             ...initState,
             error: null,
-            isLoading: true,
         };
 
         const returnState = singleRecipeReducer(initialState, {
@@ -149,17 +148,18 @@ describe("UPDATE actions", () => {
 test("RESET_RECIPE", () => {
     const expectedState = {
         recipe: {
-            ancestor: null,
-            categories: [],
             id: null,
-            img: null,
-            ingredients: [],
-            innovator: null,
-            innovator_name: null,
-            minutes: null,
-            notes: null,
-            steps: [],
             title: null,
+            description: null,
+            forked_from: null,
+            prep_time: 0,
+            cook_time: 0,
+            img: null,
+            owner: {},
+            ingredients: [],
+            instructions: [],
+            tags: [],
+            notes: [],
             total_saves: null,
             editable: false,
         },
@@ -181,7 +181,7 @@ test("START_EDIT_MODE", () => {
     const expecetedState = { ...initState, editMode: true };
 
     const returnState = singleRecipeReducer(initState, {
-        type: types.START_EDIT,
+        type: types.START_EDIT_MODE,
     });
 
     expect(returnState).toEqual(expecetedState);
@@ -192,7 +192,7 @@ test("STOP_EDIT_MODE", () => {
     const expectedState = { ...initialState, editMode: false };
 
     const returnState = singleRecipeReducer(initialState, {
-        type: types.STOP_EDIT,
+        type: types.STOP_EDIT_MODE,
     });
 
     expect(returnState).toEqual(expectedState);

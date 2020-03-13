@@ -9,19 +9,6 @@ exports[`matches snapshot 1`] = `
     }
   }
 >
-  <Text
-    style={
-      Object {
-        "alignSelf": "center",
-        "color": "#3BA405",
-        "fontSize": 24,
-        "fontWeight": "bold",
-        "marginBottom": "5%",
-      }
-    }
-  >
-    Your Personal CookBook!
-  </Text>
   <RCTScrollView
     style={
       Object {
