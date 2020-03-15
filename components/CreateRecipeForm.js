@@ -31,7 +31,7 @@ import { validateFields } from "../utils/helperFunctions/vaildateFields";
 import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-159002245-1");
 
-function CreateRecipeForm({ navigation, savedRecipe }) {
+function CreateRecipeForm({ navigation, savedRecipe, cancelEdit }) {
     const emptyIngredient = {
         name: "",
         quantity: "",
@@ -100,9 +100,11 @@ function CreateRecipeForm({ navigation, savedRecipe }) {
                     (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
                 ),
             author_comment: "Original Recipe",
-            img: recipe.img.includes("amazonaws")
-                ? recipe.img
-                : await postImage(recipe.img, serverErrorAlert), // Post image file to S3, store the returned URL
+            img: recipe.img
+                ? recipe.img.includes("amazonaws")
+                    ? recipe.img
+                    : await postImage(recipe.img, serverErrorAlert)
+                : "",
         };
 
         const errMessages = validateFields(postRecipe, courses);
@@ -381,14 +383,44 @@ function CreateRecipeForm({ navigation, savedRecipe }) {
                                     * Please fill out all required fields.
                                 </Text>
                             )}
-                            <TouchableOpacity
-                                style={styles.saveView}
-                                onPress={postRecipe}
-                            >
-                                <View style={styles.saveBtn}>
-                                    <Text style={styles.saveText}>Save</Text>
-                                </View>
-                            </TouchableOpacity>
+                            <View style={styles.saveView}>
+                                {savedRecipe && (
+                                    <TouchableOpacity onPress={cancelEdit}>
+                                        <View
+                                            style={{
+                                                ...styles.btn,
+                                                ...styles.cancelBtn,
+                                            }}
+                                        >
+                                            <Text
+                                                style={{
+                                                    ...styles.btnText,
+                                                    ...styles.cancelText,
+                                                }}
+                                            >
+                                                Cancel
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )}
+                                <TouchableOpacity onPress={postRecipe}>
+                                    <View
+                                        style={{
+                                            ...styles.btn,
+                                            ...styles.saveBtn,
+                                        }}
+                                    >
+                                        <Text
+                                            style={{
+                                                ...styles.btnText,
+                                                ...styles.saveText,
+                                            }}
+                                        >
+                                            Save
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </ScrollView>

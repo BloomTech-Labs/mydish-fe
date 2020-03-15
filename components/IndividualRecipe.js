@@ -255,6 +255,7 @@ function IndividualRecipe(props) {
                 <CreateRecipeForm
                     navigation={props.navigation}
                     savedRecipe={tempRecipe}
+                    cancelEdit={cancelButtonEditedRecipe}
                 />
             ) || (
                 <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
