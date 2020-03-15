@@ -31,7 +31,7 @@ import { validateFields } from "../utils/helperFunctions/vaildateFields";
 import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-159002245-1");
 
-function CreateRecipeForm(props) {
+function CreateRecipeForm({ navigation, savedRecipe }) {
     const emptyIngredient = {
         name: "",
         quantity: "",
@@ -47,11 +47,19 @@ function CreateRecipeForm(props) {
         instructions: new Array(3).fill(""),
         notes: [""],
     };
-
-    const [recipe, setRecipe] = useState(initialFormState);
+    const oldRecipe = savedRecipe
+        ? {
+              ...savedRecipe,
+              tags: savedRecipe.tags.map(tag => tag.name),
+              instructions: savedRecipe.instructions.map(
+                  instruction => instruction.description,
+              ),
+              notes: savedRecipe.notes.map(note => note.description),
+          }
+        : null;
+    const [recipe, setRecipe] = useState(oldRecipe || initialFormState);
     let [errors, setErrors] = useState([]);
     const [imageModalVisible, setImageModalVisible] = useState(false);
-    const [image, setImage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [highlighted, setHighlighted] = useState({
         prep_time: false,
@@ -92,7 +100,9 @@ function CreateRecipeForm(props) {
                     (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
                 ),
             author_comment: "Original Recipe",
-            img: image ? await postImage(image, serverErrorAlert) : "", // Post image file to S3, store the returned URL
+            img: recipe.img.includes("amazonaws")
+                ? recipe.img
+                : await postImage(recipe.img, serverErrorAlert), // Post image file to S3, store the returned URL
         };
 
         const errMessages = validateFields(postRecipe, courses);
@@ -108,7 +118,7 @@ function CreateRecipeForm(props) {
 
             recipeID = res.data.id;
             setIsLoading(false);
-            props.navigation.navigate("IndividualR", { recipe, recipeID });
+            navigation.navigate("IndividualR", { recipe, recipeID });
         } catch (err) {
             console.log("error from adding new recipe \n", err.response);
             if (err.response.status === 500) {
@@ -231,7 +241,7 @@ function CreateRecipeForm(props) {
             <View>
                 <ScrollView>
                     <RecipeImage
-                        image={image}
+                        image={recipe.img}
                         setImageModalVisible={setImageModalVisible}
                     />
                     <View style={styles.container}>
@@ -239,8 +249,7 @@ function CreateRecipeForm(props) {
                             <ImageUploadModal
                                 visible={imageModalVisible}
                                 setVisible={setImageModalVisible}
-                                image={image}
-                                setImage={setImage}
+                                setRecipe={setRecipe}
                             />
                             <RecipeName
                                 recipe={recipe}
