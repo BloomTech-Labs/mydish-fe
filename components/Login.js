@@ -24,7 +24,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import theme from "../styles/theme.style";
 
-const analytics = new Analytics("UA-159002245-1");
+const analytics = new Analytics("UA-160806654-1");
 
 const Login = ({ navigation }) => {
     const [login, setLogin] = useState({ username: "", password: "" });
