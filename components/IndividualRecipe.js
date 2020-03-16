@@ -62,7 +62,10 @@ function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
-    const [modal, setModal] = useState({ save: false, cancel: false });
+    const [commitModal, setCommitModal] = useState({
+        save: false,
+        cancel: false,
+    });
     const [tempRecipe, setTempRecipe] = useState(null);
     const [imageModalVisible, setImageModalVisible] = useState(false);
     const recipe = useSelector(state => state.singleRecipe.recipe);
@@ -166,7 +169,7 @@ function IndividualRecipe(props) {
         dispatch(stopEditMode());
         dispatch(resetCurrentActive());
         dispatch(fetchRecipes(""));
-        setModal({ save: false, cancel: false });
+        setCommitModal({ save: false, cancel: false });
     };
 
     const hasRevisions = () =>
@@ -255,7 +258,8 @@ function IndividualRecipe(props) {
                 <CreateRecipeForm
                     navigation={props.navigation}
                     savedRecipe={tempRecipe}
-                    cancelEdit={cancelButtonEditedRecipe}
+                    cancelButtonEditedRecipe={cancelButtonEditedRecipe}
+                    saveButtonEditedRecipe={saveButtonEditedRecipe}
                 />
             ) || (
                 <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
