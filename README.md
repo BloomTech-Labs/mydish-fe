@@ -1,19 +1,23 @@
 # MyDish App
 
-🍽 A source-control cooking app built in React Native which allows users to quickly make and see changes to their recipe
+🍽 A source-control cooking app built in React Native which allows users to quickly make and see changes to their recipe.
 
-You can find the deployed project on [Google Play](https://play.google.com/store/apps/details?id=com.lambdaschool.mydish) or by installing [TestFlight](https://apps.apple.com/us/app/testflight/id899247664) and searching for **MyDish**.
+You can find the deployed project on the [Google Play Store](https://play.google.com/store/apps/details?id=com.lambdaschool.mydish) for Android devices or via [TestFlight](https://apps.apple.com/us/app/testflight/id899247664) for iOS devices.
 
-💀 _How to direct people to the app on TestFlight?_ 💀
+**TestFlight Instructions**
+
+-   Search for TestFlight in the App Store.
+-   Once installed, follow [this link](https://apps.apple.com/us/app/testflight/id899247664).
 
 ## Getting Started
 
 1. [Set up React Native.](https://facebook.github.io/react-native/docs/getting-started.html) Choose tab **Expo CLI Quickstart.**
 2. Fork or directly clone this repository to your local machine and `cd` into the project directory.
-3. Run `npm install` and then `expo start`.
-4. Open a simulator in Android Studio or XCode for iOS.
-5. Run `a` for Android or `i` for iOS.
-6. To run tests in [tests directory](./__tests__): `npm test`
+3. Run `npm install` and once that is complete `expo start`.
+4. If you want to test on a simulator, you may use either Android Studio for Android or XCode for iOS.
+5. Run `a` for Android simulator or `i` for iOS simulator.
+6. If you want to test on an actual device, first make sure you have installed the expo app. Then, use the barcode provided in your terminal or in the browser after running `expo start`.
+7. To run tests in [tests directory](./__tests__) run this command in the root of this repo: `npm test`
 
 ## Contributors
 
@@ -30,15 +34,9 @@ You can find the deployed project on [Google Play](https://play.google.com/store
 <br>
 <br>
 
-💀 _Do we want to use these badges? I had trouble finding a React Native badge. Anyway, I don't think they're necessary._ 💀
-
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
-
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
 
 ## Project Overview
 
@@ -52,12 +50,14 @@ MyDish allows users to create their own recipes and keep track of different vers
 
 ### Key Features
 
--   image upload
--   💀 _What features should we add here? How detailed should we be?_ 💀
+-   Recipe creation
+-   Editing a recipe
+-   Version History
+-   Image upload
 
 ## Tech Stack
 
-### Front end built using:
+### Front End:
 
 #### [React Native](https://github.com/facebook/react-native)
 
@@ -67,13 +67,9 @@ MyDish allows users to create their own recipes and keep track of different vers
 
 #### [React-Redux](https://react-redux.js.org/)
 
-🚫 Why did you choose this framework?
-
--   💀 _The template includes the above question. It seems like a ReadMe is an odd place to include this kind of info. What should we do?_ 💀
-
 #### Front end deployed to `Expo`
 
-#### [Back end](https://github.com/Lambda-School-Labs/mydish-be) built using:
+### Back End [found here](https://github.com/Lambda-School-Labs/mydish-be):
 
 #### [NodeJS](https://nodejs.org/en/)
 
