@@ -6,7 +6,7 @@ import { savedPlaceholder } from "../constants/imagePlaceholders";
 import { maxUsername } from "../constants/maxLenth";
 //Analytics
 import { Analytics, Event } from "expo-analytics";
-const analytics = new Analytics("UA-159002245-1");
+const analytics = new Analytics("UA-160806654-1");
 
 const Recipe = props => {
     const { navigation, recipe } = props;

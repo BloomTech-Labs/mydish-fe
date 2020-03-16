@@ -32,7 +32,7 @@ import { validateFields } from "../utils/helperFunctions/vaildateFields";
 
 //Analytics
 import { Analytics, Event } from "expo-analytics";
-const analytics = new Analytics("UA-159002245-1");
+const analytics = new Analytics("UA-160806654-1");
 
 function CreateRecipeForm({
     navigation,
