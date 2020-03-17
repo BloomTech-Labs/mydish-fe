@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { Text, TextInput, View } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editTitle } from "../store/singleRecipe/singleRecipeActions";
 import { maxRecipeName } from "../constants/maxLenth";
 import styles from "../styles/createRecipeStyles";
 
 const RecipeName = ({ recipe, setRecipe, missing, parent }) => {
-    const [highlighted, setHighlighted] = useState(false);
     const dispatch = useDispatch();
+
+    const recipeName =
+        parent === "create"
+            ? recipe.title
+            : useSelector(state => state.singleRecipe.recipe.title);
+    const [highlighted, setHighlighted] = useState(false);
 
     const handleChange = value => {
         if (parent === "editRecipe") {
@@ -36,7 +41,7 @@ const RecipeName = ({ recipe, setRecipe, missing, parent }) => {
                 maxLength={maxRecipeName}
                 placeholder="Enter recipe name"
                 onChangeText={handleChange}
-                value={recipe.title}
+                value={recipeName}
                 onFocus={() => setHighlighted(true)}
                 onBlur={() => setHighlighted(false)}
             />
