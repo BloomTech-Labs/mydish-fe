@@ -304,10 +304,14 @@ function CreateRecipeForm({
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
                                             if (isNaN(Number(min))) return;
-                                            setRecipe({
-                                                ...recipe,
-                                                prep_time: min,
-                                            });
+                                            savedRecipe
+                                                ? dispatch(
+                                                      actions.editPreptime(min),
+                                                  )
+                                                : setRecipe({
+                                                      ...recipe,
+                                                      prep_time: min,
+                                                  });
                                         }}
                                         value={String(recipeToRender.prep_time)}
                                         onFocus={() =>
@@ -344,10 +348,14 @@ function CreateRecipeForm({
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
                                             if (isNaN(Number(min))) return;
-                                            setRecipe({
-                                                ...recipe,
-                                                cook_time: min,
-                                            });
+                                            savedRecipe
+                                                ? dispatch(
+                                                      actions.editCooktime(min),
+                                                  )
+                                                : setRecipe({
+                                                      ...recipe,
+                                                      cook_time: min,
+                                                  });
                                         }}
                                         value={String(recipeToRender.cook_time)}
                                         onFocus={() =>
