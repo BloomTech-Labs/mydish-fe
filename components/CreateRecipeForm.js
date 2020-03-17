@@ -10,7 +10,7 @@ import {
     ActivityIndicator,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/singleRecipe/singleRecipeActions";
 import styles from "../styles/createRecipeStyles";
 import theme from "../styles/theme.style";
@@ -60,7 +60,9 @@ function CreateRecipeForm({
         savedRecipe && savedRecipe.tags.map(tag => tag.name);
 
     const [recipe, setRecipe] = useState(initialFormState);
-    const recipeToRender = savedRecipe || recipe;
+    const recipeToRender = savedRecipe
+        ? useSelector(state => state.singleRecipe.recipe)
+        : recipe;
     const [editRecipe, create] = ["editRecipe", "create"];
     let [errors, setErrors] = useState([]);
     const [commitModal, setCommitModal] = useState({
