@@ -3,7 +3,10 @@ import { TextInput, Text, View } from "react-native";
 import XDeleteButton from "./XDeleteButton";
 import theme from "../styles/theme.style";
 import { useDispatch } from "react-redux";
-import { editInstruct } from "../store/singleRecipe/singleRecipeActions";
+import {
+    editInstruct,
+    deleteInstruction,
+} from "../store/singleRecipe/singleRecipeActions";
 
 const Instruction = ({
     instruction,
@@ -94,7 +97,11 @@ const Instruction = ({
                         onBlur={() => setHighlighted(false)}
                     />
                     <XDeleteButton
-                        action={() => removeInstruction(index)}
+                        action={
+                            parent === "create"
+                                ? () => removeInstruction(index)
+                                : () => dispatch(deleteInstruction(index))
+                        }
                         parent="instruction"
                     />
                 </View>
