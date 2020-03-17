@@ -31,7 +31,7 @@ const Instruction = ({
             dispatch(
                 editInstruct(index, {
                     description: instructionToRender,
-                    step_number: index,
+                    step_number: index + 1,
                 }),
             );
         }
