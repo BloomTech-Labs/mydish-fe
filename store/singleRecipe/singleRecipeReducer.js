@@ -10,6 +10,8 @@ import {
     RESET_CURRENT_ACTIVE,
     EDIT_IMAGE,
     EDIT_TITLE,
+    EDIT_PREPTIME,
+    EDIT_COOKTIME,
     EDIT_INGRED,
     EDIT_INSTRUCT,
     EDIT_NOTES,
@@ -59,6 +61,7 @@ export const singleRecipeReducer = (state = initState, action) => {
     console.log(action.type);
     switch (action.type) {
         case START_EDIT_MODE:
+            console.log(state.recipe);
             return { ...state, editMode: true };
         case STOP_EDIT_MODE:
             return { ...state, editMode: false };
@@ -133,6 +136,18 @@ export const singleRecipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 recipe: { ...state.recipe, title: action.payload },
+            };
+
+        case EDIT_PREPTIME:
+            return {
+                ...state,
+                recipe: { ...state.recipe, prep_time: action.payload },
+            };
+
+        case EDIT_COOKTIME:
+            return {
+                ...state,
+                recipe: { ...state.recipe, cook_time: action.payload },
             };
 
         case EDIT_NOTES:
