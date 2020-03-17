@@ -10,7 +10,7 @@ import { fetchRecipes } from "../store/recipes/recipeActions";
 
 //Analytics
 import { Analytics, PageHit } from "expo-analytics";
-const analytics = new Analytics("UA-159002245-1");
+const analytics = new Analytics("UA-160806654-1");
 
 analytics
     .hit(new PageHit("Home"))

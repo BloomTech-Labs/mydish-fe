@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TextInput, View, TouchableOpacity, Button, Text } from "react-native";
+import { TextInput, View, Button, Text } from "react-native";
 import { useDispatch } from "react-redux";
 import {
     addIngredient,
     editIngred,
+    deleteIngredient,
 } from "../store/singleRecipe/singleRecipeActions";
 import Picker from "./Picker";
 import XDeleteButton from "./XDeleteButton";
@@ -16,7 +17,6 @@ const Ingredient = ({
     setRecipe,
     stopAdding,
     parent,
-    closeEdit,
 }) => {
     const nameInput = useRef(null);
     const quantityInput = useRef(null);
@@ -145,7 +145,6 @@ const Ingredient = ({
                 />
 
                 <Picker
-                    // onClose={submitToStopEdit}
                     handleChange={handleChange}
                     unit={ingredient.units}
                     highlighted={highlighted}
@@ -169,16 +168,18 @@ const Ingredient = ({
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
                     value={ingredient.name}
-                    // onSubmitEditing={submitToStopEdit}
                     onFocus={() => setHighlighted({ name: true })}
                     onBlur={() => setHighlighted({ name: false })}
                 />
-                {parent === "create" && (
-                    <XDeleteButton
-                        parent="ingredient"
-                        action={() => removeIng(index)}
-                    />
-                )}
+
+                <XDeleteButton
+                    parent="ingredient"
+                    action={
+                        parent === "create"
+                            ? () => removeIng(index)
+                            : () => dispatch(deleteIngredient(index))
+                    }
+                />
             </View>
             {parent === "AddIngredient" && (
                 <View
