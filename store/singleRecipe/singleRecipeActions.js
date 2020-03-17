@@ -151,6 +151,12 @@ export const editTitle = value => ({
     payload: value,
 });
 
+export const TOGGLE_TAG = "TOGGLE_TAG";
+export const toggleStateTag = tagName => ({
+    type: TOGGLE_TAG,
+    payload: tagName,
+});
+
 export const EDIT_PREPTIME = "EDIT_PREPTIME";
 export const editPreptime = value => ({
     type: EDIT_PREPTIME,

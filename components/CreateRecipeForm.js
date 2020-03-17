@@ -56,13 +56,12 @@ function CreateRecipeForm({
         instructions: new Array(3).fill(""),
         notes: [""],
     };
-    const savedRecipeTagNames =
-        savedRecipe && savedRecipe.tags.map(tag => tag.name);
-
     const [recipe, setRecipe] = useState(initialFormState);
     const recipeToRender = savedRecipe
         ? useSelector(state => state.singleRecipe.recipe)
         : recipe;
+    const savedRecipeTagNames =
+        savedRecipe && recipeToRender.tags.map(tag => tag.name);
     const [editRecipe, create] = ["editRecipe", "create"];
     let [errors, setErrors] = useState([]);
     const [commitModal, setCommitModal] = useState({
@@ -390,6 +389,9 @@ function CreateRecipeForm({
                                                 : recipe.tags.includes(course)
                                         }
                                         setRecipe={setRecipe}
+                                        parent={
+                                            savedRecipe ? editRecipe : create
+                                        }
                                     />
                                 ))}
                             </View>
