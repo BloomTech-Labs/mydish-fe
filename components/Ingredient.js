@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TextInput, View, TouchableOpacity, Button, Text } from "react-native";
+import { TextInput, View, Button, Text } from "react-native";
 import { useDispatch } from "react-redux";
 import {
     addIngredient,
@@ -17,7 +17,6 @@ const Ingredient = ({
     setRecipe,
     stopAdding,
     parent,
-    closeEdit,
 }) => {
     const nameInput = useRef(null);
     const quantityInput = useRef(null);
@@ -146,7 +145,6 @@ const Ingredient = ({
                 />
 
                 <Picker
-                    // onClose={submitToStopEdit}
                     handleChange={handleChange}
                     unit={ingredient.units}
                     highlighted={highlighted}
@@ -170,7 +168,6 @@ const Ingredient = ({
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
                     value={ingredient.name}
-                    // onSubmitEditing={submitToStopEdit}
                     onFocus={() => setHighlighted({ name: true })}
                     onBlur={() => setHighlighted({ name: false })}
                 />
