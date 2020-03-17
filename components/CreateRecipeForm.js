@@ -160,10 +160,12 @@ function CreateRecipeForm({
     };
 
     const addInstruction = () => {
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            instructions: [...oldRecipe.instructions, ""],
-        }));
+        savedRecipe
+            ? dispatch(actions.addInstruction(""))
+            : setRecipe(oldRecipe => ({
+                  ...oldRecipe,
+                  instructions: [...oldRecipe.instructions, ""],
+              }));
     };
 
     const addNote = () => {
