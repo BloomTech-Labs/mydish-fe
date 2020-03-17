@@ -1,18 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextInput, Text, View } from "react-native";
 import XDeleteButton from "./XDeleteButton";
 import theme from "../styles/theme.style";
+import { useDispatch } from "react-redux";
+import { editInstruct } from "../store/singleRecipe/singleRecipeActions";
 
-const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
+const Instruction = ({
+    instruction,
+    setRecipe,
+    index,
+    removeInstruction,
+    parent,
+}) => {
+    const dispatch = useDispatch();
     const [highlighted, setHighlighted] = useState(false);
+    const [instructionToRender, setInstructionToRender] = useState(
+        instruction || "",
+    );
+    useEffect(() => {
+        if (instruction) {
+            setInstructionToRender(instruction);
+        }
+    }, [instruction]);
+
+    useEffect(() => {
+        if (parent === "editRecipe") {
+            dispatch(
+                editInstruct(index, {
+                    description: instructionToRender,
+                    step_number: index,
+                }),
+            );
+        }
+    }, [instructionToRender]);
+
     const handleChange = value => {
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            instructions: oldRecipe.instructions.map((step, i) => {
-                if (i === index) return value;
-                else return step;
-            }),
-        }));
+        setInstructionToRender(value);
+        if (parent === "create") {
+            setRecipe(oldRecipe => ({
+                ...oldRecipe,
+                instructions: oldRecipe.instructions.map((step, i) => {
+                    if (i === index) return value;
+                    else return step;
+                }),
+            }));
+        }
     };
 
     return (
@@ -57,7 +89,7 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                         placeholder=" Add Instructions"
                         multiline
                         onChangeText={handleChange}
-                        value={instruction}
+                        value={instructionToRender}
                         onFocus={() => setHighlighted(true)}
                         onBlur={() => setHighlighted(false)}
                     />

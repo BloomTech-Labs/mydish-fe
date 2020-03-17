@@ -59,6 +59,9 @@ const initState = {
 
 export const singleRecipeReducer = (state = initState, action) => {
     console.log(action.type);
+
+    console.log("state.recipe.ingredients ", state.recipe.ingredients);
+
     switch (action.type) {
         case START_EDIT_MODE:
             console.log(state.recipe);
@@ -109,11 +112,10 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 currentActive: initState.currentActive,
             };
-
         case EDIT_INGRED:
             const ingredients = state.recipe.ingredients.map((val, i) => {
                 if (i === action.index) {
-                    return action.payload;
+                    return { ...val, ...action.payload };
                 } else return val;
             });
             return { ...state, recipe: { ...state.recipe, ingredients } };
