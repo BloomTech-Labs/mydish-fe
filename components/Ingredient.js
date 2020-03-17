@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {
     addIngredient,
     editIngred,
+    deleteIngredient,
 } from "../store/singleRecipe/singleRecipeActions";
 import Picker from "./Picker";
 import XDeleteButton from "./XDeleteButton";
@@ -173,12 +174,15 @@ const Ingredient = ({
                     onFocus={() => setHighlighted({ name: true })}
                     onBlur={() => setHighlighted({ name: false })}
                 />
-                {parent === "create" && (
-                    <XDeleteButton
-                        parent="ingredient"
-                        action={() => removeIng(index)}
-                    />
-                )}
+
+                <XDeleteButton
+                    parent="ingredient"
+                    action={
+                        parent === "create"
+                            ? () => removeIng(index)
+                            : () => dispatch(deleteIngredient(index))
+                    }
+                />
             </View>
             {parent === "AddIngredient" && (
                 <View
