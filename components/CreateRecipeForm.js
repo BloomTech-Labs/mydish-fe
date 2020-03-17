@@ -272,9 +272,10 @@ function CreateRecipeForm({
                                 setRecipe={setRecipe}
                             />
                             <RecipeName
-                                recipe={savedRecipe || recipe}
+                                recipe={recipeToRender}
                                 setRecipe={setRecipe}
                                 missing={errors.includes("title")}
+                                parent={savedRecipe ? editRecipe : create}
                             />
                             <View style={styles.totalTimeView}>
                                 <View style={styles.timeContainer}>
@@ -283,7 +284,9 @@ function CreateRecipeForm({
                                         {errors.includes(
                                             "prep_time and/or cook_time",
                                         ) && (
-                                            <Text style={styles.missing}>
+                                            <Text
+                                                style={styles.missingAsterisk}
+                                            >
                                                 *
                                             </Text>
                                         )}
@@ -321,7 +324,9 @@ function CreateRecipeForm({
                                         {errors.includes(
                                             "prep_time and/or cook_time",
                                         ) && (
-                                            <Text style={styles.missing}>
+                                            <Text
+                                                style={styles.missingAsterisk}
+                                            >
                                                 *
                                             </Text>
                                         )}
@@ -357,7 +362,9 @@ function CreateRecipeForm({
                             <View style={styles.heading}>
                                 <Text>Course Type</Text>
                                 {errors.includes("tags") && (
-                                    <Text style={styles.missing}>*</Text>
+                                    <Text style={styles.missingAsterisk}>
+                                        *
+                                    </Text>
                                 )}
                             </View>
                             <View style={styles.tagGroup}>
@@ -379,7 +386,10 @@ function CreateRecipeForm({
                             <Text style={{ ...styles.heading, marginTop: 20 }}>
                                 Ingredients
                                 {errors.includes("ingredients") && (
-                                    <Text style={styles.missing}> *</Text>
+                                    <Text style={styles.missingAsterisk}>
+                                        {" "}
+                                        *
+                                    </Text>
                                 )}
                             </Text>
                             {addIngredients()}
@@ -388,7 +398,10 @@ function CreateRecipeForm({
                             <Text style={{ ...styles.heading, marginTop: 20 }}>
                                 Instructions
                                 {errors.includes("instructions") && (
-                                    <Text style={styles.missing}> *</Text>
+                                    <Text style={styles.missingAsterisk}>
+                                        {" "}
+                                        *
+                                    </Text>
                                 )}
                             </Text>
                             {addInstructions()}

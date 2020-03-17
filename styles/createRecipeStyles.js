@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     },
 
     errors: {
-        color: "red",
-        fontWeight: "bold",
+        color: theme.PRIMARY_COLOR,
+        fontFamily: theme.SEMI_BOLD_FONT_FAMILY,
         marginTop: 30,
     },
     editInstruction: {
@@ -184,15 +184,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
     },
-    fiftyFive: {
+    maxLengthIndicator: {
         alignSelf: "flex-end",
-        color: "#363838",
-        fontSize: 11,
+        color: theme.DARK_FONT_COLOR,
+        fontSize: 10,
         marginTop: 4,
         marginRight: 14,
     },
-    missing: {
-        color: "red",
+    missingAsterisk: {
+        color: theme.PRIMARY_COLOR,
         marginLeft: 4,
     },
     highlighted: {
