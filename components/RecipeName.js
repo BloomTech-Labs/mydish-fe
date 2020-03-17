@@ -1,15 +1,28 @@
 import React, { useState } from "react";
 import { Text, TextInput, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { editTitle } from "../store/singleRecipe/singleRecipeActions";
+import { maxRecipeName } from "../constants/maxLenth";
 import styles from "../styles/createRecipeStyles";
 
-const RecipeName = ({ recipe, setRecipe, missing }) => {
-    const maxLength = 23;
+const RecipeName = ({ recipe, setRecipe, missing, parent }) => {
     const [highlighted, setHighlighted] = useState(false);
+    const dispatch = useDispatch();
+
+    const handleChange = value => {
+        if (parent === "editRecipe") {
+            dispatch(editTitle(value));
+        }
+        if (parent === "create") {
+            setRecipe({ ...recipe, title: value });
+        }
+    };
+
     return (
         <>
             <View style={styles.heading}>
-                <Text>Title</Text>
-                {missing && <Text style={styles.missing}>*</Text>}
+                <Text>Recipe Name</Text>
+                {missing && <Text style={styles.missingAsterisk}>*</Text>}
             </View>
             <TextInput
                 style={
@@ -20,16 +33,16 @@ const RecipeName = ({ recipe, setRecipe, missing }) => {
                           }
                         : styles.RecipeNameContainer
                 }
-                maxLength={maxLength}
-                placeholder="Enter Title"
-                onChangeText={event => setRecipe({ ...recipe, title: event })}
+                maxLength={maxRecipeName}
+                placeholder="Enter recipe name"
+                onChangeText={handleChange}
                 value={recipe.title}
                 onFocus={() => setHighlighted(true)}
                 onBlur={() => setHighlighted(false)}
             />
 
-            <Text style={styles.fiftyFive}>
-                {`${recipe.title.length}/${maxLength}`}
+            <Text style={styles.maxLengthIndicator}>
+                {`${recipe.title.length}/${maxRecipeName}`}
             </Text>
         </>
     );
