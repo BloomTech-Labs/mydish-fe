@@ -9,7 +9,7 @@ import { editImage } from "../../store/singleRecipe/singleRecipeActions";
 import camera from "../../assets/camera.png";
 import gallery from "../../assets/image.png";
 
-function ImageUploadModal({ visible, setVisible, setImage, scope }) {
+function ImageUploadModal({ visible, setVisible, setRecipe, scope }) {
     const dispatch = useDispatch();
     const take = "take";
     const choose = "choose"; // Pass take or choose as argument to getImage()
@@ -52,7 +52,10 @@ function ImageUploadModal({ visible, setVisible, setImage, scope }) {
             if (scope && scope === "global") {
                 dispatch(editImage(img.uri));
             } else {
-                setImage(img.uri);
+                setRecipe(oldRecipe => ({
+                    ...oldRecipe,
+                    img: img.uri,
+                }));
             }
         }
         setVisible(false);

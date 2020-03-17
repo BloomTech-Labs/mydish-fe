@@ -141,22 +141,36 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     saveView: {
+        flexDirection: "row",
+        justifyContent: "center",
         alignItems: "center",
         marginTop: 30,
     },
-    saveBtn: {
+    btn: {
         width: 136,
         height: 32,
         marginBottom: 20,
-        backgroundColor: theme.PRIMARY_COLOR,
         borderRadius: 5,
         justifyContent: "center",
         alignItems: "center",
     },
-    saveText: {
-        color: "#FFF",
+    saveBtn: {
+        backgroundColor: theme.PRIMARY_COLOR,
+    },
+    cancelBtn: {
+        borderWidth: 1,
+        borderColor: theme.PRIMARY_COLOR,
+        marginRight: 35,
+    },
+    btnText: {
         fontSize: 16,
         fontWeight: "bold",
+    },
+    saveText: {
+        color: "#FFF",
+    },
+    cancelText: {
+        color: theme.PRIMARY_COLOR,
     },
     doneText: { fontSize: 16, color: "#3BA405" },
     add: {

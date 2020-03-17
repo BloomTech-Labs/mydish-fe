@@ -64,7 +64,7 @@ const Ingredient = ({
         // If our parent component is the IndividualRecipeIngredient, then
         //     this will dispatch the editIngred() to update the store
 
-        if (parent === "IndividualRecipeIngredient") {
+        if (parent === "editRecipe") {
             dispatch(editIngred(index, ingredient));
         }
     }, [ingredient]);
@@ -105,12 +105,6 @@ const Ingredient = ({
         }
     };
 
-    const submitToStopEdit = () => {
-        if (parent === "IndividualRecipeIngredient") {
-            closeEdit();
-        }
-    };
-
     return (
         <View>
             <View
@@ -146,13 +140,12 @@ const Ingredient = ({
                     }
                     returnKeyType="done"
                     value={ingredient.quantity.toString()}
-                    onSubmitEditing={submitToStopEdit}
                     onFocus={() => setHighlighted({ quantity: true })}
                     onBlur={() => setHighlighted({ quantity: false })}
                 />
 
                 <Picker
-                    onClose={submitToStopEdit}
+                    // onClose={submitToStopEdit}
                     handleChange={handleChange}
                     unit={ingredient.units}
                     highlighted={highlighted}
@@ -176,7 +169,7 @@ const Ingredient = ({
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
                     value={ingredient.name}
-                    onSubmitEditing={submitToStopEdit}
+                    // onSubmitEditing={submitToStopEdit}
                     onFocus={() => setHighlighted({ name: true })}
                     onBlur={() => setHighlighted({ name: false })}
                 />
