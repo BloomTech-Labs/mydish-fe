@@ -157,6 +157,18 @@ export const toggleStateTag = tagName => ({
     payload: tagName,
 });
 
+export const EDIT_PREPTIME = "EDIT_PREPTIME";
+export const editPreptime = value => ({
+    type: EDIT_PREPTIME,
+    payload: value,
+});
+
+export const EDIT_COOKTIME = "EDIT_COOKTIME";
+export const editCooktime = value => ({
+    type: EDIT_COOKTIME,
+    payload: value,
+});
+
 export const EDIT_INGRED = "EDIT_INGRED";
 export const editIngred = (index, value) => ({
     type: EDIT_INGRED,
