@@ -47,7 +47,7 @@ const RecipeName = ({ recipe, setRecipe, missing, parent }) => {
             />
 
             <Text style={styles.maxLengthIndicator}>
-                {`${recipe.title.length}/${maxRecipeName}`}
+                {`${recipeName.length}/${maxRecipeName}`}
             </Text>
         </>
     );
