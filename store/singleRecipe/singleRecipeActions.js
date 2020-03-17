@@ -151,6 +151,12 @@ export const editTitle = value => ({
     payload: value,
 });
 
+export const TOGGLE_TAG = "TOGGLE_TAG";
+export const toggleStateTag = tagName => ({
+    type: TOGGLE_TAG,
+    payload: tagName,
+});
+
 export const EDIT_INGRED = "EDIT_INGRED";
 export const editIngred = (index, value) => ({
     type: EDIT_INGRED,

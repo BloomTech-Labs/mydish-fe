@@ -29,6 +29,7 @@ import {
     SUBMIT_EDITED_RECIPE_FAILURE,
     VERSION_BY_REVISION_NUM,
     RESET_ALERTS,
+    TOGGLE_TAG,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -111,7 +112,7 @@ export const singleRecipeReducer = (state = initState, action) => {
         case EDIT_INGRED:
             const ingredients = state.recipe.ingredients.map((val, i) => {
                 if (i === action.index) {
-                    return action.payload;
+                    return { ...val, ...action.payload };
                 } else return val;
             });
             return { ...state, recipe: { ...state.recipe, ingredients } };
@@ -274,6 +275,32 @@ export const singleRecipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 successAlert: false,
+            };
+
+        case TOGGLE_TAG:
+            let tagExists = false;
+            let filteredTags = [];
+
+            state.recipe.tags.forEach((tag, index) => {
+                if (tag.name === action.payload) {
+                    tagExists = true;
+                }
+            });
+
+            if (tagExists) {
+                filteredTags = state.recipe.tags.filter((tag, index) => {
+                    return tag.name !== action.payload;
+                });
+            } else {
+                filteredTags = [...state.recipe.tags, { name: action.payload }];
+            }
+
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    tags: filteredTags,
+                },
             };
 
         default:
