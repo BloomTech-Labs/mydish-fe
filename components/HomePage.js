@@ -1,51 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Search from "./Search.js";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import theme from "../styles/theme.style";
 
-import { SafeAreaView, View } from "react-native";
+import {SafeAreaView, View} from "react-native";
 import RecipeShareLogo from "./RecipeShareLogo.js";
 import RecipeList from "./RecipeList.js";
-import { fetchRecipes } from "../store/recipes/recipeActions";
+import {fetchRecipes} from "../store/recipes/recipeActions";
 
 //Analytics
-import { Analytics, PageHit } from "expo-analytics";
+import {Analytics, PageHit} from "expo-analytics";
 const analytics = new Analytics("UA-160806654-1");
 
 analytics
-    .hit(new PageHit("Home"))
-    .then(() => console.log("User has landed"))
-    .catch(e => console.log(e.message));
+  .hit(new PageHit("Home"))
+  .then(() => console.log("User has landed"))
+  .catch(e => console.log(e.message));
 
 const HomePage = () => {
-    let [dish, setDish] = useState("");
+  let [dish, setDish] = useState("");
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            dispatch(fetchRecipes(dish));
-        }, 600);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(fetchRecipes(dish));
+    }, 600);
 
-        return () => clearTimeout(timer);
-    }, [dish]);
+    return () => clearTimeout(timer);
+  }, [dish]);
 
-    return (
-        <SafeAreaView>
-            <View style={{ height: "100%" }}>
-                <Search setDish={setDish} dish={dish} />
+  return (
+    <SafeAreaView>
+      <View style={{height: "100%"}}>
+        <Search setDish={setDish} dish={dish} />
 
-                <RecipeList />
-            </View>
-        </SafeAreaView>
-    );
+        <RecipeList />
+      </View>
+    </SafeAreaView>
+  );
 };
 
 export default HomePage;
 
 HomePage.navigationOptions = {
-    headerTitle: <RecipeShareLogo />,
-    headerStyle: {
-        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
-    },
+  headerTitle: <RecipeShareLogo />,
+  headerStyle: {
+    backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
+  },
 };
