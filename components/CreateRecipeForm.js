@@ -217,7 +217,9 @@ function CreateRecipeForm({
                 key={i}
                 index={i}
                 removeInstruction={removeInstruction}
-                instruction={instruction.description}
+                instruction={
+                    savedRecipe ? instruction.description : instruction
+                }
                 setRecipe={setRecipe}
                 parent={savedRecipe ? editRecipe : create}
             />
