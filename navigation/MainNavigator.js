@@ -1,6 +1,6 @@
 import React from "react";
-import {Image, AsyncStorage} from "react-native";
-import {createBottomTabNavigator} from "react-navigation-tabs";
+import { Image, AsyncStorage } from "react-native";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 import RecipeNavigator from "./RecipeNavigator";
 import CreateNavigator from "./CreateNavigator";
 import CookBookNavigator from "./CookbookNavigator";
@@ -12,54 +12,54 @@ import logout from "../assets/account_circle.png";
 import fork from "../assets/restaurant_grey.png";
 
 const MainNavigator = createBottomTabNavigator(
-  {
-    Home: {
-      screen: RecipeNavigator,
-      navigationOptions: {
-        tabBarLabel: "Explore",
-        tabBarIcon: <Image style={styles.homeTab} source={search} />,
-        tabBarOnPress: ({navigation}) => {
-          navigation.push("Home");
+    {
+        Home: {
+            screen: RecipeNavigator,
+            navigationOptions: {
+                tabBarLabel: "Explore",
+                tabBarIcon: <Image style={styles.homeTab} source={search} />,
+                tabBarOnPress: ({ navigation }) => {
+                    navigation.push("Home");
+                },
+            },
         },
-      },
-    },
-    Create: {
-      screen: CreateNavigator,
-      navigationOptions: {
-        tabBarLabel: "Create",
-        tabBarIcon: <Image style={styles.createTab} source={plus} />,
-        tabBarOnPress: ({navigation}) => {
-          navigation.push("Create");
+        Create: {
+            screen: CreateNavigator,
+            navigationOptions: {
+                tabBarLabel: "Create",
+                tabBarIcon: <Image style={styles.createTab} source={plus} />,
+                tabBarOnPress: ({ navigation }) => {
+                    navigation.push("Create");
+                },
+            },
         },
-      },
-    },
-    CookBook: {
-      screen: CookBookNavigator,
-      navigationOptions: {
-        tabBarLabel: "CookBook",
-        tabBarIcon: <Image style={styles.createTab} source={fork} />,
-        tabBarOnPress: ({navigation}) => {
-          navigation.push("CookBook");
+        CookBook: {
+            screen: CookBookNavigator,
+            navigationOptions: {
+                tabBarLabel: "CookBook",
+                tabBarIcon: <Image style={styles.createTab} source={fork} />,
+                tabBarOnPress: ({ navigation }) => {
+                    navigation.push("CookBook");
+                },
+            },
         },
-      },
-    },
 
-    Profile: {
-      screen: Login,
-      navigationOptions: {
-        tabBarLabel: "Sign Out",
-        tabBarIcon: <Image style={styles.loginTab} source={logout} />,
-        tabBarOnPress: async ({navigation}) => {
-          await AsyncStorage.clear();
-          navigation.navigate("Auth");
+        Profile: {
+            screen: Login,
+            navigationOptions: {
+                tabBarLabel: "Sign Out",
+                tabBarIcon: <Image style={styles.loginTab} source={logout} />,
+                tabBarOnPress: async ({ navigation }) => {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Auth");
+                },
+            },
         },
-      },
     },
-  },
-  {
-    initialRouteName: "Home",
-    headerLayoutPreset: "center",
-  },
+    {
+        initialRouteName: "Home",
+        headerLayoutPreset: "center",
+    },
 );
 
 export default MainNavigator;
