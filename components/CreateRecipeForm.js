@@ -168,10 +168,12 @@ function CreateRecipeForm({
     };
 
     const addNote = () => {
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            notes: [...oldRecipe.notes, ""],
-        }));
+        savedRecipe
+            ? dispatch(actions.addNote(""))
+            : setRecipe(oldRecipe => ({
+                  ...oldRecipe,
+                  notes: [...oldRecipe.notes, ""],
+              }));
     };
 
     const removeNote = index => {

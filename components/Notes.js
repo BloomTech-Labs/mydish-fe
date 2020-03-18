@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput } from "react-native";
 import { useDispatch } from "react-redux";
-import { editNotes } from "../store/singleRecipe/singleRecipeActions";
+import {
+    editNotes,
+    deleteNote,
+} from "../store/singleRecipe/singleRecipeActions";
 import XDeleteButton from "./XDeleteButton";
 import styles from "../styles/createRecipeStyles";
 
@@ -19,12 +22,9 @@ const Notes = ({ index, removeNote, note, id, setRecipe, parent }) => {
                 }),
             }));
         } else if (parent === "editRecipe") {
-            dispatch(
-                editNotes(index, {
-                    description: value,
-                    id: id,
-                }),
-            );
+            const noteToSave = { description: value };
+            id ? (noteToSave.id = id) : null;
+            dispatch(editNotes(index, noteToSave));
         }
     };
 
@@ -51,7 +51,14 @@ const Notes = ({ index, removeNote, note, id, setRecipe, parent }) => {
                 onFocus={() => setHighlighted(true)}
                 onBlur={() => setHighlighted(false)}
             />
-            <XDeleteButton action={() => removeNote(index)} parent="note" />
+            <XDeleteButton
+                action={
+                    parent === "create"
+                        ? () => removeNote(index)
+                        : () => dispatch(deleteNote(index))
+                }
+                parent="note"
+            />
         </View>
     );
 };
