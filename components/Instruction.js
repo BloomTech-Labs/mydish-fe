@@ -17,28 +17,8 @@ const Instruction = ({
 }) => {
     const dispatch = useDispatch();
     const [highlighted, setHighlighted] = useState(false);
-    const [instructionToRender, setInstructionToRender] = useState(
-        instruction || "",
-    );
-    useEffect(() => {
-        if (instruction) {
-            setInstructionToRender(instruction);
-        }
-    }, [instruction]);
-
-    useEffect(() => {
-        if (parent === "editRecipe") {
-            dispatch(
-                editInstruct(index, {
-                    description: instructionToRender,
-                    step_number: index + 1,
-                }),
-            );
-        }
-    }, [instructionToRender]);
 
     const handleChange = value => {
-        setInstructionToRender(value);
         if (parent === "create") {
             setRecipe(oldRecipe => ({
                 ...oldRecipe,
@@ -47,6 +27,13 @@ const Instruction = ({
                     else return step;
                 }),
             }));
+        } else if (parent === "editRecipe") {
+            dispatch(
+                editInstruct(index, {
+                    description: value,
+                    step_number: index + 1,
+                }),
+            );
         }
     };
 
@@ -92,7 +79,7 @@ const Instruction = ({
                         placeholder=" Add Instructions"
                         multiline
                         onChangeText={handleChange}
-                        value={instructionToRender}
+                        value={instruction}
                         onFocus={() => setHighlighted(true)}
                         onBlur={() => setHighlighted(false)}
                     />
