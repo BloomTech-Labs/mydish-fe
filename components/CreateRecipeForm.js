@@ -168,10 +168,12 @@ function CreateRecipeForm({
     };
 
     const addNote = () => {
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            notes: [...oldRecipe.notes, ""],
-        }));
+        savedRecipe
+            ? dispatch(actions.addNote(""))
+            : setRecipe(oldRecipe => ({
+                  ...oldRecipe,
+                  notes: [...oldRecipe.notes, ""],
+              }));
     };
 
     const removeNote = index => {
@@ -217,7 +219,9 @@ function CreateRecipeForm({
                 key={i}
                 index={i}
                 removeInstruction={removeInstruction}
-                instruction={instruction.description}
+                instruction={
+                    savedRecipe ? instruction.description : instruction
+                }
                 setRecipe={setRecipe}
                 parent={savedRecipe ? editRecipe : create}
             />
@@ -230,8 +234,10 @@ function CreateRecipeForm({
                 key={i}
                 index={i}
                 removeNote={removeNote}
-                note={note.description}
+                note={savedRecipe ? note.description : note}
+                id={savedRecipe && note.id}
                 setRecipe={setRecipe}
+                parent={savedRecipe ? editRecipe : create}
             />
         ));
     };
@@ -271,6 +277,7 @@ function CreateRecipeForm({
                                 visible={imageModalVisible}
                                 setVisible={setImageModalVisible}
                                 setRecipe={setRecipe}
+                                parent={savedRecipe ? editRecipe : create}
                             />
                             <RecipeName
                                 recipe={recipeToRender}

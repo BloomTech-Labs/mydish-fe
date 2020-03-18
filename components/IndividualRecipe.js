@@ -258,7 +258,7 @@ function IndividualRecipe(props) {
             (
                 <CreateRecipeForm
                     navigation={props.navigation}
-                    savedRecipe={tempRecipe}
+                    savedRecipe={true}
                     cancelButtonEditedRecipe={cancelButtonEditedRecipe}
                     saveButtonEditedRecipe={saveButtonEditedRecipe}
                 />
