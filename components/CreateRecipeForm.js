@@ -1,15 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
-  Text,
-  TextInput,
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
+    Text,
+    TextInput,
+    View,
+    Image,
+    ScrollView,
+    TouchableOpacity,
+    Alert,
+    ActivityIndicator,
 } from "react-native";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../styles/createRecipeStyles";
 import theme from "../styles/theme.style";
 
@@ -25,344 +25,372 @@ import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 
 import axiosWithAuth from "../utils/axiosWithAuth";
 import postImage from "./RecipeImageComponents/postImage";
-import {validateFields} from "../utils/helperFunctions/vaildateFields";
+import { validateFields } from "../utils/helperFunctions/vaildateFields";
 
 //Analytics
-import {Analytics, Event} from "expo-analytics";
+import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-160806654-1");
 
 function CreateRecipeForm(props) {
-  const emptyIngredient = {
-    name: "",
-    quantity: "",
-    units: "",
-  };
-  const initialFormState = {
-    img: "",
-    title: "",
-    prep_time: "",
-    cook_time: "",
-    tags: [],
-    ingredients: new Array(3).fill(emptyIngredient),
-    instructions: new Array(3).fill(""),
-    notes: [""],
-  };
-
-  const [recipe, setRecipe] = useState(initialFormState);
-  let [errors, setErrors] = useState([]);
-  const [imageModalVisible, setImageModalVisible] = useState(false);
-  const [image, setImage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [highlighted, setHighlighted] = useState({
-    prep_time: false,
-    cook_time: false,
-  });
-
-  const courses = [
-    "Breakfast",
-    "Brunch",
-    "Lunch",
-    "Dinner",
-    "Dessert",
-    "Snack",
-  ];
-
-  const postRecipe = async () => {
-    analytics
-      .event(new Event("Recipe", "Create recipe"))
-      .then(() => console.log("Recipe added"))
-      .catch(e => console.log(e.message));
-    const postRecipe = {
-      ...recipe,
-      // Remove any ingredients that are empty
-      ingredients: recipe.ingredients
-        .filter(ing => ing.name.length && ing.quantity.length && ing.units)
-        .map(ing => ({...ing, name: ing.name.replace(/\n+/g, " ")})), //Remove any newlines
-      instructions: recipe.instructions
-        .filter(step => step.length) // Remove empty instructions
-        .map((step, i) => ({
-          step_number: i + 1, // Add the step number
-          description: step.replace(/\n+/g, " "), // Remove any newlines
-        })),
-      notes: recipe.notes
-        .filter(note => note.length) // Remove empty instructions
-        .map(
-          (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
-        ),
-      author_comment: "Original Recipe",
-      img: image ? await postImage(image, serverErrorAlert) : "", // Post image file to S3, store the returned URL
+    const emptyIngredient = {
+        name: "",
+        quantity: "",
+        units: "",
+    };
+    const initialFormState = {
+        img: "",
+        title: "",
+        prep_time: "",
+        cook_time: "",
+        tags: [],
+        ingredients: new Array(3).fill(emptyIngredient),
+        instructions: new Array(3).fill(""),
+        notes: [""],
     };
 
-    const errMessages = validateFields(postRecipe, courses);
+    const [recipe, setRecipe] = useState(initialFormState);
+    let [errors, setErrors] = useState([]);
+    const [imageModalVisible, setImageModalVisible] = useState(false);
+    const [image, setImage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [highlighted, setHighlighted] = useState({
+        prep_time: false,
+        cook_time: false,
+    });
 
-    if (errMessages.length) {
-      setErrors(errMessages);
-      return; //if any missing fields exists, do not submit the data and set the errors state variable array.
-    }
-    setIsLoading(true);
-    try {
-      const axiosCustom = await axiosWithAuth();
-      const res = await axiosCustom.post("recipes", postRecipe);
+    const courses = [
+        "Breakfast",
+        "Brunch",
+        "Lunch",
+        "Dinner",
+        "Dessert",
+        "Snack",
+    ];
 
-      recipeID = res.data.id;
-      setIsLoading(false);
-      props.navigation.navigate("IndividualR", {recipe, recipeID});
-    } catch (err) {
-      console.log("error from adding new recipe \n", err.response);
-      if (err.response.status === 500) {
-        serverErrorAlert();
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const postRecipe = async () => {
+        analytics
+            .event(new Event("Recipe", "Create recipe"))
+            .then(() => console.log("Recipe added"))
+            .catch(e => console.log(e.message));
+        const postRecipe = {
+            ...recipe,
+            // Remove any ingredients that are empty
+            ingredients: recipe.ingredients
+                .filter(
+                    ing => ing.name.length && ing.quantity.length && ing.units,
+                )
+                .map(ing => ({ ...ing, name: ing.name.replace(/\n+/g, " ") })), //Remove any newlines
+            instructions: recipe.instructions
+                .filter(step => step.length) // Remove empty instructions
+                .map((step, i) => ({
+                    step_number: i + 1, // Add the step number
+                    description: step.replace(/\n+/g, " "), // Remove any newlines
+                })),
+            notes: recipe.notes
+                .filter(note => note.length) // Remove empty instructions
+                .map(
+                    (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
+                ),
+            author_comment: "Original Recipe",
+            img: image ? await postImage(image, serverErrorAlert) : "", // Post image file to S3, store the returned URL
+        };
 
-  const serverErrorAlert = () => {
-    return Alert.alert(
-      "Sorry",
-      "There was an error when trying to create your recipe. Please try again.",
-      [{text: "Okay"}],
-    );
-  };
+        const errMessages = validateFields(postRecipe, courses);
 
-  const addIng = () => {
-    const newIng = {name: "", quantity: "", units: ""};
-    setRecipe(oldRecipe => ({
-      ...oldRecipe,
-      ingredients: [...oldRecipe.ingredients, newIng],
-    }));
-  };
+        if (errMessages.length) {
+            setErrors(errMessages);
+            return; //if any missing fields exists, do not submit the data and set the errors state variable array.
+        }
+        setIsLoading(true);
+        try {
+            const axiosCustom = await axiosWithAuth();
+            const res = await axiosCustom.post("recipes", postRecipe);
 
-  const addInstruction = () => {
-    setRecipe(oldRecipe => ({
-      ...oldRecipe,
-      instructions: [...oldRecipe.instructions, ""],
-    }));
-  };
+            recipeID = res.data.id;
+            setIsLoading(false);
+            props.navigation.navigate("IndividualR", { recipe, recipeID });
+        } catch (err) {
+            console.log("error from adding new recipe \n", err.response);
+            if (err.response.status === 500) {
+                serverErrorAlert();
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-  const addNote = () => {
-    setRecipe(oldRecipe => ({
-      ...oldRecipe,
-      notes: [...oldRecipe.notes, ""],
-    }));
-  };
+    const serverErrorAlert = () => {
+        return Alert.alert(
+            "Sorry",
+            "There was an error when trying to create your recipe. Please try again.",
+            [{ text: "Okay" }],
+        );
+    };
 
-  const removeNote = index => {
-    setRecipe(oldRecipe => ({
-      ...oldRecipe,
-      notes: oldRecipe.notes.filter((val, i) => i !== index),
-    }));
-  };
+    const addIng = () => {
+        const newIng = { name: "", quantity: "", units: "" };
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            ingredients: [...oldRecipe.ingredients, newIng],
+        }));
+    };
 
-  const removeIng = index => {
-    setRecipe(oldRecipe => ({
-      ...oldRecipe,
-      ingredients: oldRecipe.ingredients.filter((val, i) => i !== index),
-    }));
-  };
+    const addInstruction = () => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            instructions: [...oldRecipe.instructions, ""],
+        }));
+    };
 
-  const removeInstruction = index => {
-    setRecipe(oldRecipe => ({
-      ...oldRecipe,
-      instructions: oldRecipe.instructions.filter((val, i) => i !== index),
-    }));
-  };
+    const addNote = () => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            notes: [...oldRecipe.notes, ""],
+        }));
+    };
 
-  const addIngredients = () => {
-    return recipe.ingredients.map((ingredient, i) => (
-      <Ingredient
-        key={i}
-        index={i}
-        removeIng={removeIng}
-        recipeIng={ingredient}
-        recipe={recipe}
-        setRecipe={setRecipe}
-        parent="create"
-      />
-    ));
-  };
+    const removeNote = index => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            notes: oldRecipe.notes.filter((val, i) => i !== index),
+        }));
+    };
 
-  const addInstructions = () => {
-    return recipe.instructions.map((instruction, i) => (
-      <Instruction
-        key={i}
-        index={i}
-        removeInstruction={removeInstruction}
-        instruction={instruction}
-        setRecipe={setRecipe}
-      />
-    ));
-  };
+    const removeIng = index => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            ingredients: oldRecipe.ingredients.filter((val, i) => i !== index),
+        }));
+    };
 
-  const addNotes = () => {
-    return recipe.notes.map((note, i) => (
-      <Notes
-        key={i}
-        index={i}
-        removeNote={removeNote}
-        note={note}
-        setRecipe={setRecipe}
-      />
-    ));
-  };
+    const removeInstruction = index => {
+        setRecipe(oldRecipe => ({
+            ...oldRecipe,
+            instructions: oldRecipe.instructions.filter(
+                (val, i) => i !== index,
+            ),
+        }));
+    };
 
-  if (isLoading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}>
-        <RecipeShareLogo />
-        <ActivityIndicator size="large" color="#444444" />
-      </View>
-    );
-  }
-
-  return (
-    <KeyboardAwareScrollView>
-      <View>
-        <ScrollView>
-          <RecipeImage
-            image={image}
-            setImageModalVisible={setImageModalVisible}
-          />
-          <View style={styles.container}>
-            <View>
-              <ImageUploadModal
-                visible={imageModalVisible}
-                setVisible={setImageModalVisible}
-                image={image}
-                setImage={setImage}
-              />
-              <RecipeName
+    const addIngredients = () => {
+        return recipe.ingredients.map((ingredient, i) => (
+            <Ingredient
+                key={i}
+                index={i}
+                removeIng={removeIng}
+                recipeIng={ingredient}
                 recipe={recipe}
                 setRecipe={setRecipe}
-                missing={errors.includes("title")}
-              />
-              <View style={styles.totalTimeView}>
-                <View style={styles.timeContainer}>
-                  <View style={styles.heading}>
-                    <Text>Prep Time</Text>
-                    {errors.includes("prep_time and/or cook_time") && (
-                      <Text style={styles.missing}>*</Text>
-                    )}
-                  </View>
-                  <TextInput
-                    style={
-                      highlighted.prep_time
-                        ? {
-                            ...styles.timeInputContainer,
-                            ...styles.highlighted,
-                          }
-                        : styles.timeInputContainer
-                    }
-                    placeholder="minutes"
-                    keyboardType={"numeric"}
-                    onChangeText={min => {
-                      if (isNaN(Number(min))) return;
-                      setRecipe({
-                        ...recipe,
-                        prep_time: min,
-                      });
-                    }}
-                    value={String(recipe.prep_time)}
-                    onFocus={() => setHighlighted({prep_time: true})}
-                    onBlur={() => setHighlighted({prep_time: false})}
-                  />
-                </View>
-                <View style={styles.timeContainer}>
-                  <View style={styles.heading}>
-                    <Text>Cook Time</Text>
-                    {errors.includes("prep_time and/or cook_time") && (
-                      <Text style={styles.missing}>*</Text>
-                    )}
-                  </View>
-                  <TextInput
-                    style={
-                      highlighted.cook_time
-                        ? {
-                            ...styles.timeInputContainer,
-                            ...styles.highlighted,
-                          }
-                        : styles.timeInputContainer
-                    }
-                    placeholder="minutes"
-                    keyboardType={"numeric"}
-                    onChangeText={min => {
-                      if (isNaN(Number(min))) return;
-                      setRecipe({
-                        ...recipe,
-                        cook_time: min,
-                      });
-                    }}
-                    value={String(recipe.cook_time)}
-                    onFocus={() => setHighlighted({cook_time: true})}
-                    onBlur={() => setHighlighted({cook_time: false})}
-                  />
-                </View>
-              </View>
-              <View style={styles.heading}>
-                <Text>Course Type</Text>
-                {errors.includes("tags") && (
-                  <Text style={styles.missing}>*</Text>
-                )}
-              </View>
-              <View style={styles.tagGroup}>
-                {courses.map((course, i) => (
-                  <TagButton
-                    key={i}
-                    tag={course}
-                    isSelected={recipe.tags.includes(course)}
-                    setRecipe={setRecipe}
-                  />
-                ))}
-              </View>
-              <Text style={{...styles.heading, marginTop: 20}}>
-                Ingredients
-                {errors.includes("ingredients") && (
-                  <Text style={styles.missing}> *</Text>
-                )}
-              </Text>
-              {addIngredients()}
-              <Add text="Add Ingredient" submit={addIng} />
+                parent="create"
+            />
+        ));
+    };
 
-              <Text style={{...styles.heading, marginTop: 20}}>
-                Instructions
-                {errors.includes("instructions") && (
-                  <Text style={styles.missing}> *</Text>
-                )}
-              </Text>
-              {addInstructions()}
-              <Add text="Add A Step" submit={addInstruction} />
+    const addInstructions = () => {
+        return recipe.instructions.map((instruction, i) => (
+            <Instruction
+                key={i}
+                index={i}
+                removeInstruction={removeInstruction}
+                instruction={instruction}
+                setRecipe={setRecipe}
+            />
+        ));
+    };
 
-              <Text style={{...styles.heading, marginTop: 20}}>Notes</Text>
+    const addNotes = () => {
+        return recipe.notes.map((note, i) => (
+            <Notes
+                key={i}
+                index={i}
+                removeNote={removeNote}
+                note={note}
+                setRecipe={setRecipe}
+            />
+        ));
+    };
 
-              {addNotes()}
-              <Add text="Add A Note" submit={addNote} />
-              {errors.length > 0 && (
-                <Text style={styles.errors}>
-                  * Please fill out all required fields.
-                </Text>
-              )}
-              <TouchableOpacity style={styles.saveView} onPress={postRecipe}>
-                <View style={styles.saveBtn}>
-                  <Text style={styles.saveText}>Save</Text>
-                </View>
-              </TouchableOpacity>
+    if (isLoading) {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    flexDirection: "column",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                }}
+            >
+                <RecipeShareLogo />
+                <ActivityIndicator size="large" color="#444444" />
             </View>
-          </View>
-        </ScrollView>
-      </View>
-    </KeyboardAwareScrollView>
-  );
+        );
+    }
+
+    return (
+        <KeyboardAwareScrollView>
+            <View>
+                <ScrollView>
+                    <RecipeImage
+                        image={image}
+                        setImageModalVisible={setImageModalVisible}
+                    />
+                    <View style={styles.container}>
+                        <View>
+                            <ImageUploadModal
+                                visible={imageModalVisible}
+                                setVisible={setImageModalVisible}
+                                image={image}
+                                setImage={setImage}
+                            />
+                            <RecipeName
+                                recipe={recipe}
+                                setRecipe={setRecipe}
+                                missing={errors.includes("title")}
+                            />
+                            <View style={styles.totalTimeView}>
+                                <View style={styles.timeContainer}>
+                                    <View style={styles.heading}>
+                                        <Text>Prep Time</Text>
+                                        {errors.includes(
+                                            "prep_time and/or cook_time",
+                                        ) && (
+                                            <Text style={styles.missing}>
+                                                *
+                                            </Text>
+                                        )}
+                                    </View>
+                                    <TextInput
+                                        style={
+                                            highlighted.prep_time
+                                                ? {
+                                                      ...styles.timeInputContainer,
+                                                      ...styles.highlighted,
+                                                  }
+                                                : styles.timeInputContainer
+                                        }
+                                        placeholder="minutes"
+                                        keyboardType={"numeric"}
+                                        onChangeText={min => {
+                                            if (isNaN(Number(min))) return;
+                                            setRecipe({
+                                                ...recipe,
+                                                prep_time: min,
+                                            });
+                                        }}
+                                        value={String(recipe.prep_time)}
+                                        onFocus={() =>
+                                            setHighlighted({ prep_time: true })
+                                        }
+                                        onBlur={() =>
+                                            setHighlighted({ prep_time: false })
+                                        }
+                                    />
+                                </View>
+                                <View style={styles.timeContainer}>
+                                    <View style={styles.heading}>
+                                        <Text>Cook Time</Text>
+                                        {errors.includes(
+                                            "prep_time and/or cook_time",
+                                        ) && (
+                                            <Text style={styles.missing}>
+                                                *
+                                            </Text>
+                                        )}
+                                    </View>
+                                    <TextInput
+                                        style={
+                                            highlighted.cook_time
+                                                ? {
+                                                      ...styles.timeInputContainer,
+                                                      ...styles.highlighted,
+                                                  }
+                                                : styles.timeInputContainer
+                                        }
+                                        placeholder="minutes"
+                                        keyboardType={"numeric"}
+                                        onChangeText={min => {
+                                            if (isNaN(Number(min))) return;
+                                            setRecipe({
+                                                ...recipe,
+                                                cook_time: min,
+                                            });
+                                        }}
+                                        value={String(recipe.cook_time)}
+                                        onFocus={() =>
+                                            setHighlighted({ cook_time: true })
+                                        }
+                                        onBlur={() =>
+                                            setHighlighted({ cook_time: false })
+                                        }
+                                    />
+                                </View>
+                            </View>
+                            <View style={styles.heading}>
+                                <Text>Course Type</Text>
+                                {errors.includes("tags") && (
+                                    <Text style={styles.missing}>*</Text>
+                                )}
+                            </View>
+                            <View style={styles.tagGroup}>
+                                {courses.map((course, i) => (
+                                    <TagButton
+                                        key={i}
+                                        tag={course}
+                                        isSelected={recipe.tags.includes(
+                                            course,
+                                        )}
+                                        setRecipe={setRecipe}
+                                    />
+                                ))}
+                            </View>
+                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                                Ingredients
+                                {errors.includes("ingredients") && (
+                                    <Text style={styles.missing}> *</Text>
+                                )}
+                            </Text>
+                            {addIngredients()}
+                            <Add text="Add Ingredient" submit={addIng} />
+
+                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                                Instructions
+                                {errors.includes("instructions") && (
+                                    <Text style={styles.missing}> *</Text>
+                                )}
+                            </Text>
+                            {addInstructions()}
+                            <Add text="Add A Step" submit={addInstruction} />
+
+                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                                Notes
+                            </Text>
+
+                            {addNotes()}
+                            <Add text="Add A Note" submit={addNote} />
+                            {errors.length > 0 && (
+                                <Text style={styles.errors}>
+                                    * Please fill out all required fields.
+                                </Text>
+                            )}
+                            <TouchableOpacity
+                                style={styles.saveView}
+                                onPress={postRecipe}
+                            >
+                                <View style={styles.saveBtn}>
+                                    <Text style={styles.saveText}>Save</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ScrollView>
+            </View>
+        </KeyboardAwareScrollView>
+    );
 }
 CreateRecipeForm.navigationOptions = {
-  tabBarLabel: "create new recipe",
-  headerTitle: <RecipeShareLogo />,
-  headerStyle: {backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR},
+    tabBarLabel: "create new recipe",
+    headerTitle: <RecipeShareLogo />,
+    headerStyle: { backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR },
 };
 
 export default CreateRecipeForm;
