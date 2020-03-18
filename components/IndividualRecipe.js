@@ -36,6 +36,7 @@ import { maxUsername } from "../constants/maxLenth";
 
 import Title from "./EditRecipeComponents/Title";
 import Tab from "./Tab";
+import CreateRecipeForm from "./CreateRecipeForm";
 import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
 import AddIngredient from "./AddRecipeFields/AddIngredient";
 import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction";
@@ -61,11 +62,15 @@ function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
-    const [modal, setModal] = useState({ save: false, cancel: false });
+    const [commitModal, setCommitModal] = useState({
+        save: false,
+        cancel: false,
+    });
     const [tempRecipe, setTempRecipe] = useState(null);
     const [imageModalVisible, setImageModalVisible] = useState(false);
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
+    const totalCookTime =
+        (Number(recipe.prep_time) || 0) + (Number(recipe.cook_time) || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const successAlert = useSelector(state => state.singleRecipe.successAlert);
 
@@ -165,7 +170,7 @@ function IndividualRecipe(props) {
         dispatch(stopEditMode());
         dispatch(resetCurrentActive());
         dispatch(fetchRecipes(""));
-        setModal({ save: false, cancel: false });
+        setCommitModal({ save: false, cancel: false });
     };
 
     const hasRevisions = () =>
@@ -250,201 +255,227 @@ function IndividualRecipe(props) {
 
     const editableRecipeDisplay = () => {
         return (
-            <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
-                <SafeAreaView>
-                    <TouchableWithoutFeedback onPress={stopEditPress}>
-                        <ScrollView>
-                            <View style={styles.recipeContainer}>
-                                <CommitModal
-                                    modal={modal}
-                                    setModal={setModal}
-                                    saveButtonEditedRecipe={
-                                        saveButtonEditedRecipe
-                                    }
-                                />
-                                <ImageUploadModal
-                                    visible={imageModalVisible}
-                                    setVisible={setImageModalVisible}
-                                    scope="global"
-                                />
-                                <ImageBackground
-                                    source={
-                                        recipe.img
-                                            ? { uri: recipe.img }
-                                            : savedPlaceholder
-                                    }
-                                    style={styles.image}
-                                >
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            setModal({
-                                                save: true,
-                                                cancel: false,
-                                            });
-                                        }}
-                                        style={styles.editButton}
+            (
+                <CreateRecipeForm
+                    navigation={props.navigation}
+                    savedRecipe={true}
+                    cancelButtonEditedRecipe={cancelButtonEditedRecipe}
+                    saveButtonEditedRecipe={saveButtonEditedRecipe}
+                />
+            ) || (
+                <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
+                    <SafeAreaView>
+                        <TouchableWithoutFeedback onPress={stopEditPress}>
+                            <ScrollView>
+                                <View style={styles.recipeContainer}>
+                                    <CommitModal
+                                        modal={modal}
+                                        setModal={setModal}
+                                        saveButtonEditedRecipe={
+                                            saveButtonEditedRecipe
+                                        }
+                                    />
+                                    <ImageUploadModal
+                                        visible={imageModalVisible}
+                                        setVisible={setImageModalVisible}
+                                        scope="global"
+                                    />
+                                    <ImageBackground
+                                        source={
+                                            recipe.img
+                                                ? { uri: recipe.img }
+                                                : savedPlaceholder
+                                        }
+                                        style={styles.image}
                                     >
-                                        <FontAwesome
-                                            name="check"
-                                            size={20}
-                                            color="white"
-                                        />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        onPress={cancelButtonEditedRecipe}
-                                        style={styles.deleteButton}
-                                    >
-                                        <Octicons
-                                            name="x"
-                                            size={20}
-                                            color="white"
-                                        />
-                                    </TouchableOpacity>
-                                    <View style={styles.cameraIcon}>
-                                        <CameraIcon
-                                            setImageModalVisible={
-                                                setImageModalVisible
-                                            }
-                                        />
-                                    </View>
-                                </ImageBackground>
-                                <View style={styles.titleWrapper}>
-                                    <Title
-                                        title={recipe.title}
-                                        currentActive={currentActive}
-                                    />
-                                </View>
-                                <View style={styles.innovatorTime}>
-                                    <View style={styles.innovatorContainer}>
-                                        <Image
-                                            source={logo}
-                                            style={styles.icon}
-                                        />
-                                        <Text>
-                                            {recipe.owner.username &&
-                                            recipe.owner.username.length >
-                                                maxUsername
-                                                ? `${recipe.owner.username.slice(
-                                                      0,
-                                                      maxUsername,
-                                                  )}...`
-                                                : recipe.owner.username}
-                                        </Text>
-                                    </View>
-
-                                    <View style={styles.timeContainer}>
-                                        <Image
-                                            source={clock}
-                                            style={styles.icon}
-                                        />
-                                        <Text>{totalCookTime} minutes</Text>
-                                    </View>
-                                </View>
-
-                                <Text style={styles.tags}>Tags</Text>
-                                <View style={styles.tagBox}>
-                                    {recipe.tags &&
-                                        recipe.tags.map(cat => (
-                                            <Text
-                                                key={cat.id}
-                                                style={styles.individualTags}
-                                            >
-                                                {cat.name}
-                                            </Text>
-                                        ))}
-                                </View>
-                                <View style={styles.tabsContainer}>
-                                    <Tab
-                                        text="Ingredients"
-                                        color={color}
-                                        toggleTab={tabsDisplay}
-                                    />
-                                    <Tab
-                                        text="Instructions"
-                                        color={color}
-                                        toggleTab={tabsDisplay}
-                                    />
-                                </View>
-
-                                <View style={styles.recipeDetails}>
-                                    {color.active === "Ingredients" && (
-                                        <>
-                                            {recipe.ingredients &&
-                                                recipe.ingredients.map(
-                                                    (ing, i) => (
-                                                        <IndividualRecipeIngredient
-                                                            key={i}
-                                                            index={i}
-                                                            recipeIng={ing}
-                                                            currentActive={
-                                                                currentActive
-                                                            }
-                                                        />
-                                                    ),
-                                                )}
-
-                                            <AddIngredient
-                                                currentActive={currentActive}
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                setModal({
+                                                    save: true,
+                                                    cancel: false,
+                                                });
+                                            }}
+                                            style={styles.editButton}
+                                        >
+                                            <FontAwesome
+                                                name="check"
+                                                size={20}
+                                                color="white"
                                             />
-                                        </>
-                                    )}
-
-                                    {color.active === "Instructions" && (
-                                        <>
-                                            {recipe.instructions &&
-                                                recipe.instructions.map(
-                                                    (step, i) => (
-                                                        <IndividualRecipeInstruction
-                                                            key={
-                                                                step.step_number
-                                                            }
-                                                            index={i}
-                                                            instruction={step}
-                                                            currentActive={
-                                                                currentActive
-                                                            }
-                                                        />
-                                                    ),
-                                                )}
-
-                                            <AddInstruction
-                                                instructionsLength={
-                                                    recipe.instructions.length
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            onPress={cancelButtonEditedRecipe}
+                                            style={styles.deleteButton}
+                                        >
+                                            <Octicons
+                                                name="x"
+                                                size={20}
+                                                color="white"
+                                            />
+                                        </TouchableOpacity>
+                                        <View style={styles.cameraIcon}>
+                                            <CameraIcon
+                                                setImageModalVisible={
+                                                    setImageModalVisible
                                                 }
-                                                currentActive={currentActive}
                                             />
-                                            <View
-                                                style={{ paddingRight: "80%" }}
-                                            >
-                                                {recipe.notes[0].id !==
-                                                    null && (
-                                                    <Text style={styles.notes}>
-                                                        NOTES
-                                                    </Text>
-                                                )}
-                                            </View>
-                                            {recipe.notes[0].id !== null &&
-                                                recipe.notes.map((note, i) => (
-                                                    <IndividualRecipeNotes
-                                                        key={i}
-                                                        index={i}
-                                                        note={note}
-                                                        currentActive={
-                                                            currentActive
-                                                        }
-                                                    />
-                                                ))}
-                                            <AddNote
-                                                currentActive={currentActive}
+                                        </View>
+                                    </ImageBackground>
+                                    <View style={styles.titleWrapper}>
+                                        <Title
+                                            title={recipe.title}
+                                            currentActive={currentActive}
+                                        />
+                                    </View>
+                                    <View style={styles.innovatorTime}>
+                                        <View style={styles.innovatorContainer}>
+                                            <Image
+                                                source={logo}
+                                                style={styles.icon}
                                             />
-                                        </>
-                                    )}
+                                            <Text>
+                                                {recipe.owner.username &&
+                                                recipe.owner.username.length >
+                                                    maxUsername
+                                                    ? `${recipe.owner.username.slice(
+                                                          0,
+                                                          maxUsername,
+                                                      )}...`
+                                                    : recipe.owner.username}
+                                            </Text>
+                                        </View>
+
+                                        <View style={styles.timeContainer}>
+                                            <Image
+                                                source={clock}
+                                                style={styles.icon}
+                                            />
+                                            <Text>{totalCookTime} minutes</Text>
+                                        </View>
+                                    </View>
+
+                                    <Text style={styles.tags}>Tags</Text>
+                                    <View style={styles.tagBox}>
+                                        {recipe.tags &&
+                                            recipe.tags.map(cat => (
+                                                <Text
+                                                    key={cat.id}
+                                                    style={
+                                                        styles.individualTags
+                                                    }
+                                                >
+                                                    {cat.name}
+                                                </Text>
+                                            ))}
+                                    </View>
+                                    <View style={styles.tabsContainer}>
+                                        <Tab
+                                            text="Ingredients"
+                                            color={color}
+                                            toggleTab={tabsDisplay}
+                                        />
+                                        <Tab
+                                            text="Instructions"
+                                            color={color}
+                                            toggleTab={tabsDisplay}
+                                        />
+                                    </View>
+
+                                    <View style={styles.recipeDetails}>
+                                        {color.active === "Ingredients" && (
+                                            <>
+                                                {recipe.ingredients &&
+                                                    recipe.ingredients.map(
+                                                        (ing, i) => (
+                                                            <IndividualRecipeIngredient
+                                                                key={i}
+                                                                index={i}
+                                                                recipeIng={ing}
+                                                                currentActive={
+                                                                    currentActive
+                                                                }
+                                                            />
+                                                        ),
+                                                    )}
+
+                                                <AddIngredient
+                                                    currentActive={
+                                                        currentActive
+                                                    }
+                                                />
+                                            </>
+                                        )}
+
+                                        {color.active === "Instructions" && (
+                                            <>
+                                                {recipe.instructions &&
+                                                    recipe.instructions.map(
+                                                        (step, i) => (
+                                                            <IndividualRecipeInstruction
+                                                                key={
+                                                                    step.step_number
+                                                                }
+                                                                index={i}
+                                                                instruction={
+                                                                    step
+                                                                }
+                                                                currentActive={
+                                                                    currentActive
+                                                                }
+                                                            />
+                                                        ),
+                                                    )}
+
+                                                <AddInstruction
+                                                    instructionsLength={
+                                                        recipe.instructions
+                                                            .length
+                                                    }
+                                                    currentActive={
+                                                        currentActive
+                                                    }
+                                                />
+                                                <View
+                                                    style={{
+                                                        paddingRight: "80%",
+                                                    }}
+                                                >
+                                                    {recipe.notes[0].id !==
+                                                        null && (
+                                                        <Text
+                                                            style={styles.notes}
+                                                        >
+                                                            NOTES
+                                                        </Text>
+                                                    )}
+                                                </View>
+                                                {recipe.notes[0].id !== null &&
+                                                    recipe.notes.map(
+                                                        (note, i) => (
+                                                            <IndividualRecipeNotes
+                                                                key={i}
+                                                                index={i}
+                                                                note={note}
+                                                                currentActive={
+                                                                    currentActive
+                                                                }
+                                                            />
+                                                        ),
+                                                    )}
+                                                <AddNote
+                                                    currentActive={
+                                                        currentActive
+                                                    }
+                                                />
+                                            </>
+                                        )}
+                                    </View>
                                 </View>
-                            </View>
-                        </ScrollView>
-                    </TouchableWithoutFeedback>
-                </SafeAreaView>
-            </KeyboardAvoidingView>
+                            </ScrollView>
+                        </TouchableWithoutFeedback>
+                    </SafeAreaView>
+                </KeyboardAvoidingView>
+            )
         );
     };
 

@@ -10,6 +10,8 @@ import {
     RESET_CURRENT_ACTIVE,
     EDIT_IMAGE,
     EDIT_TITLE,
+    EDIT_PREPTIME,
+    EDIT_COOKTIME,
     EDIT_INGRED,
     EDIT_INSTRUCT,
     EDIT_NOTES,
@@ -29,6 +31,7 @@ import {
     SUBMIT_EDITED_RECIPE_FAILURE,
     VERSION_BY_REVISION_NUM,
     RESET_ALERTS,
+    TOGGLE_TAG,
 } from "./singleRecipeActions";
 
 const initState = {
@@ -57,10 +60,14 @@ const initState = {
 
 export const singleRecipeReducer = (state = initState, action) => {
     console.log(action.type);
+    // console.log("state.recipe.instructions ", state.recipe.instructions);
+    console.log("state.recipe ", state.recipe);
     switch (action.type) {
         case START_EDIT_MODE:
+            console.log(state.recipe);
             return { ...state, editMode: true };
         case STOP_EDIT_MODE:
+            console.log(state.recipe);
             return { ...state, editMode: false };
 
         case START_UPDATE_RECIPE:
@@ -106,11 +113,10 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ...state,
                 currentActive: initState.currentActive,
             };
-
         case EDIT_INGRED:
             const ingredients = state.recipe.ingredients.map((val, i) => {
                 if (i === action.index) {
-                    return action.payload;
+                    return { ...val, ...action.payload };
                 } else return val;
             });
             return { ...state, recipe: { ...state.recipe, ingredients } };
@@ -133,6 +139,18 @@ export const singleRecipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 recipe: { ...state.recipe, title: action.payload },
+            };
+
+        case EDIT_PREPTIME:
+            return {
+                ...state,
+                recipe: { ...state.recipe, prep_time: action.payload },
+            };
+
+        case EDIT_COOKTIME:
+            return {
+                ...state,
+                recipe: { ...state.recipe, cook_time: action.payload },
             };
 
         case EDIT_NOTES:
@@ -273,6 +291,32 @@ export const singleRecipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 successAlert: false,
+            };
+
+        case TOGGLE_TAG:
+            let tagExists = false;
+            let filteredTags = [];
+
+            state.recipe.tags.forEach((tag, index) => {
+                if (tag.name === action.payload) {
+                    tagExists = true;
+                }
+            });
+
+            if (tagExists) {
+                filteredTags = state.recipe.tags.filter((tag, index) => {
+                    return tag.name !== action.payload;
+                });
+            } else {
+                filteredTags = [...state.recipe.tags, { name: action.payload }];
+            }
+
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    tags: filteredTags,
+                },
             };
 
         default:
