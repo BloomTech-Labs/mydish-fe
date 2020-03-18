@@ -277,6 +277,7 @@ function CreateRecipeForm({
                                 visible={imageModalVisible}
                                 setVisible={setImageModalVisible}
                                 setRecipe={setRecipe}
+                                parent={savedRecipe ? editRecipe : create}
                             />
                             <RecipeName
                                 recipe={recipeToRender}
