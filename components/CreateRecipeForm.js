@@ -230,8 +230,10 @@ function CreateRecipeForm({
                 key={i}
                 index={i}
                 removeNote={removeNote}
-                note={note.description}
+                note={savedRecipe ? note.description : note}
+                id={savedRecipe && note.id}
                 setRecipe={setRecipe}
+                parent={savedRecipe ? editRecipe : create}
             />
         ));
     };
