@@ -2,6 +2,7 @@ import React from "react";
 import { View, TouchableOpacity, Text, Image } from "react-native";
 //Analytics
 import { Analytics, Event } from "expo-analytics";
+import { withNavigation } from "react-navigation";
 const analytics = new Analytics("UA-159002245-1");
 
 const HomeCourseTitle = props => {
@@ -49,4 +50,4 @@ const HomeCourseTitle = props => {
     );
 };
 
-export default HomeCourseTitle;
+export default withNavigation(HomeCourseTitle);
