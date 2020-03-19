@@ -1,9 +1,7 @@
 export function validateFields(recipe, courses, mode) {
     const errs = [];
     const recipeTags =
-        mode === "create"
-            ? recipe.tags
-            : recipe.tags.map(tag => tag.description);
+        mode === "create" ? recipe.tags : recipe.tags.map(tag => tag.name);
     if (!recipe.title) {
         errs.push("title");
     }
