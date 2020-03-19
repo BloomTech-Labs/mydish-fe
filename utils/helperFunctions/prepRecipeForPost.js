@@ -1,13 +1,11 @@
 import { postImage } from "./postImage";
 import { serverErrorAlert } from "./serverErrorAlert";
+import { cleanUpIngredients } from "./recipeCleanup/cleanupIngredients";
 
 export const prepRecipeForPost = async recipe => {
     return {
         ...recipe,
-        // Remove any ingredients that are empty
-        ingredients: recipe.ingredients
-            .filter(ing => ing.name.length && ing.quantity && ing.units)
-            .map(ing => ({ ...ing, name: ing.name.replace(/\n+/g, " ") })), //Remove any newlines
+        ingredients: cleanUpIngredients(recipe.ingredients), //Removes empty ingredients, removes any newlines
         instructions: recipe.instructions
             .filter(step => step.length) // Remove empty instructions
             .map((step, i) => ({
