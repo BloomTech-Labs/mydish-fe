@@ -29,6 +29,8 @@ import { validateFields } from "../utils/helperFunctions/vaildateFields";
 import { serverErrorAlert } from "../utils/helperFunctions/serverErrorAlert";
 import { prepRecipeForPost } from "../utils/helperFunctions/prepRecipeForPost";
 
+import { courses } from "../constants/courses";
+
 //Analytics
 import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-160806654-1");
@@ -55,6 +57,7 @@ function CreateRecipeForm({
         instructions: new Array(3).fill(""),
         notes: [""],
     };
+
     const [recipe, setRecipe] = useState(initialFormState);
     const recipeToRender = savedRecipe
         ? useSelector(state => state.singleRecipe.recipe)
@@ -73,15 +76,6 @@ function CreateRecipeForm({
         prep_time: false,
         cook_time: false,
     });
-
-    const courses = [
-        "Breakfast",
-        "Brunch",
-        "Lunch",
-        "Dinner",
-        "Dessert",
-        "Snack",
-    ];
 
     const postRecipe = async () => {
         analytics
