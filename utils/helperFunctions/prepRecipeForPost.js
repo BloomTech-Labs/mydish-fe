@@ -14,4 +14,4 @@ export const prepRecipeForPost = async recipe => {
         author_comment: "Original Recipe",
         img: recipe.img ? await postImage(recipe.img, serverErrorAlert) : "",
     };
-};
+}; //
