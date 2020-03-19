@@ -1,6 +1,9 @@
-export function validateFields(recipe, courses) {
+export function validateFields(recipe, courses, mode) {
     const errs = [];
-
+    const recipeTags =
+        mode === "create"
+            ? recipe.tags
+            : recipe.tags.map(tag => tag.description);
     if (!recipe.title) {
         errs.push("title");
     }
@@ -20,7 +23,7 @@ export function validateFields(recipe, courses) {
     let courseTypeCount = 0;
 
     courses.forEach(type => {
-        recipe.tags.includes(type) && courseTypeCount++; //if the courseType has been selected by the user increment a count variable.
+        recipeTags.includes(type) && courseTypeCount++; //if the courseType has been selected by the user increment a count variable.
     });
 
     if (!courseTypeCount) {
