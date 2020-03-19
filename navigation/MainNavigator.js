@@ -19,7 +19,7 @@ const MainNavigator = createBottomTabNavigator(
                 tabBarLabel: "Explore",
                 tabBarIcon: <Image style={styles.homeTab} source={search} />,
                 tabBarOnPress: ({ navigation }) => {
-                    navigation.push("Home");
+                    navigation.navigate("Home");
                 },
             },
         },
@@ -29,7 +29,7 @@ const MainNavigator = createBottomTabNavigator(
                 tabBarLabel: "Create",
                 tabBarIcon: <Image style={styles.createTab} source={plus} />,
                 tabBarOnPress: ({ navigation }) => {
-                    navigation.push("Create");
+                    navigation.navigate("Create");
                 },
             },
         },
@@ -39,7 +39,7 @@ const MainNavigator = createBottomTabNavigator(
                 tabBarLabel: "CookBook",
                 tabBarIcon: <Image style={styles.createTab} source={fork} />,
                 tabBarOnPress: ({ navigation }) => {
-                    navigation.push("CookBook");
+                    navigation.navigate("CookBook");
                 },
             },
         },
