@@ -1,5 +1,7 @@
 import { store } from "../../store/index";
-export function validateFields(recipe, courses, mode) {
+import { courses } from "../../constants/courses";
+export function validateFields(recipe, mode) {
+    console.log("COURSES ", courses);
     const state = store.getState();
     recipe = recipe || state.singleRecipe.recipe;
     const errs = [];
