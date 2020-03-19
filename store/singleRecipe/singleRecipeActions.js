@@ -208,6 +208,11 @@ export const addNote = note => ({
     payload: note,
 });
 
+export const CLEANUP_RECIPE = "CLEANUP_RECIPE";
+export const cleanUpRecipe = () => ({
+    type: CLEANUP_RECIPE,
+});
+
 export const VERSION_BY_REVISION_NUM = "VERSION_BY_REVISION_NUM";
 
 export const fetchVersionByRevisionId = (id, revisionId) => {
