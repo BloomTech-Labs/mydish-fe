@@ -33,6 +33,9 @@ import {
     RESET_ALERTS,
     TOGGLE_TAG,
 } from "./singleRecipeActions";
+import { cleanUpIngredients } from "../../utils/recipeCleanUp/recipeCleanup/cleanUpIngredients";
+import { cleanUpInstructions } from "../../utils/recipeCleanUp/recipeCleanup/cleanUpInstructions";
+import { cleanUpNotes } from "../../utils/recipeCleanUp/recipeCleanup/cleanUpNotes";
 
 const initState = {
     recipe: {

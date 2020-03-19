@@ -1,8 +1,8 @@
 import { postImage } from "./postImage";
 import { serverErrorAlert } from "./serverErrorAlert";
-import { cleanUpIngredients } from "./recipeCleanup/cleanUpIngredients";
-import { cleanUpInstructions } from "./recipeCleanup/cleanUpInstructions";
-import { cleanUpNotes } from "./recipeCleanup/cleanUpNotes";
+import { cleanUpIngredients } from "./recipeCleanUp/cleanUpIngredients";
+import { cleanUpInstructions } from "./recipeCleanUp/cleanUpInstructions";
+import { cleanUpNotes } from "./recipeCleanUp/cleanUpNotes";
 
 export const prepRecipeForPost = async recipe => {
     const create = "create";
