@@ -409,6 +409,9 @@ function CreateRecipeForm({
                                     onPress={
                                         savedRecipe
                                             ? async () => {
+                                                  dispatch(
+                                                      actions.cleanUpRecipe(),
+                                                  );
                                                   setCommitModal({
                                                       save: true,
                                                       cancel: false,

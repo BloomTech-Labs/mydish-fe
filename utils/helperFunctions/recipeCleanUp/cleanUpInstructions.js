@@ -3,7 +3,7 @@ export const cleanUpInstructions = (instructions, mode) => {
         .filter(instruction => {
             const step =
                 mode === "create" ? instruction : instruction.description;
-            return step.replace(/\s|\n+/g, "").length; //Check that step has length after spaces and newlines are removed
+            return step && step.replace(/\s|\n+/g, "").length; //Check that step has length after spaces and newlines are removed
         })
         .map((instruction, i) => {
             const step =
