@@ -1,6 +1,5 @@
 import FormData from "form-data";
 import axiosWithAuth from "../axiosWithAuth";
-import axios from "axios";
 
 export async function postImage(image, errAlert) {
     const form = new FormData();
@@ -29,5 +28,3 @@ export async function postImage(image, errAlert) {
     }
     return res.data.url;
 }
-
-// export postImage;
