@@ -3,10 +3,8 @@ import {
     Text,
     TextInput,
     View,
-    Image,
     ScrollView,
     TouchableOpacity,
-    Alert,
     ActivityIndicator,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
