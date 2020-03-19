@@ -29,6 +29,7 @@ import CommitModal from "./EditRecipeComponents/Modal";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import postImage from "./RecipeImageComponents/postImage";
 import { validateFields } from "../utils/helperFunctions/vaildateFields";
+import { serverErrorAlert } from "../utils/helperFunctions/serverErrorAlert";
 
 //Analytics
 import { Analytics, Event } from "expo-analytics";
@@ -138,14 +139,6 @@ function CreateRecipeForm({
         } finally {
             setIsLoading(false);
         }
-    };
-
-    const serverErrorAlert = () => {
-        return Alert.alert(
-            "Sorry",
-            "There was an error when trying to create your recipe. Please try again.",
-            [{ text: "Okay" }],
-        );
     };
 
     const addIng = () => {
