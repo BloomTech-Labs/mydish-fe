@@ -412,6 +412,19 @@ function CreateRecipeForm({
                                                   dispatch(
                                                       actions.cleanUpRecipe(),
                                                   );
+                                                  console.log(
+                                                      "\n ***** \n recipeToRender \n ***** \n ",
+                                                      recipeToRender,
+                                                  );
+                                                  const errMessages = validateFields(
+                                                      recipeToRender,
+                                                      courses,
+                                                  );
+
+                                                  if (errMessages.length) {
+                                                      setErrors(errMessages);
+                                                      return;
+                                                  }
                                                   setCommitModal({
                                                       save: true,
                                                       cancel: false,
