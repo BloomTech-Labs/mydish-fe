@@ -2,17 +2,15 @@ import { postImage } from "./postImage";
 import { serverErrorAlert } from "./serverErrorAlert";
 import { cleanUpIngredients } from "./recipeCleanup/cleanUpIngredients";
 import { cleanUpInstructions } from "./recipeCleanup/cleanUpInstructions";
+import { cleanUpNotes } from "./recipeCleanup/cleanUpNotes";
 
 export const prepRecipeForPost = async recipe => {
+    const create = "create";
     return {
         ...recipe,
         ingredients: cleanUpIngredients(recipe.ingredients), // Removes empty ingredients, removes any newlines.
-        instructions: cleanUpInstructions(recipe.instructions, "create"), // Same thing as cleanUpIngredients, but for Instructions.
-        notes: recipe.notes
-            .filter(note => note.length) // Remove empty notes
-            .map(
-                (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
-            ),
+        instructions: cleanUpInstructions(recipe.instructions, create), // Removes empty instructions, removes any newlines.
+        notes: cleanUpNotes(recipe.notes, create), // Removes empty notest, removes any newlines.
         author_comment: "Original Recipe",
         img: recipe.img ? await postImage(recipe.img, serverErrorAlert) : "",
     };
