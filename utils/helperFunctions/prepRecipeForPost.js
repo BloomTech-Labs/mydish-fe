@@ -1,6 +1,6 @@
 import { postImage } from "./postImage";
 import { serverErrorAlert } from "./serverErrorAlert";
-import { cleanUpIngredients } from "./recipeCleanup/cleanupIngredients";
+import { cleanUpIngredients } from "./recipeCleanup/cleanUpIngredients";
 
 export const prepRecipeForPost = async recipe => {
     return {
