@@ -1,17 +1,13 @@
 import { postImage } from "./postImage";
 import { serverErrorAlert } from "./serverErrorAlert";
 import { cleanUpIngredients } from "./recipeCleanup/cleanUpIngredients";
+import { cleanUpInstructions } from "./recipeCleanup/cleanUpInstructions";
 
 export const prepRecipeForPost = async recipe => {
     return {
         ...recipe,
-        ingredients: cleanUpIngredients(recipe.ingredients), //Removes empty ingredients, removes any newlines
-        instructions: recipe.instructions
-            .filter(step => step.length) // Remove empty instructions
-            .map((step, i) => ({
-                step_number: i + 1, // Add the step number
-                description: step.replace(/\n+/g, " "), // Remove any newlines
-            })),
+        ingredients: cleanUpIngredients(recipe.ingredients), // Removes empty ingredients, removes any newlines.
+        instructions: cleanUpInstructions(recipe.instructions, "create"), // Same thing as cleanUpIngredients, but for Instructions.
         notes: recipe.notes
             .filter(note => note.length) // Remove empty notes
             .map(
