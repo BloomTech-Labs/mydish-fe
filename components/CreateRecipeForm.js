@@ -30,6 +30,7 @@ import { serverErrorAlert } from "../utils/helperFunctions/serverErrorAlert";
 import { prepRecipeForPost } from "../utils/helperFunctions/prepRecipeForPost";
 
 import { courses } from "../constants/courses";
+import { initialCreateFormState } from "../constants/initialCreateFormState";
 
 //Analytics
 import { Analytics, Event } from "expo-analytics";
@@ -42,23 +43,8 @@ function CreateRecipeForm({
     saveButtonEditedRecipe,
 }) {
     const dispatch = useDispatch();
-    const emptyIngredient = {
-        name: "",
-        quantity: "",
-        units: "",
-    };
-    const initialFormState = {
-        img: "",
-        title: "",
-        prep_time: "",
-        cook_time: "",
-        tags: [],
-        ingredients: new Array(3).fill(emptyIngredient),
-        instructions: new Array(3).fill(""),
-        notes: [""],
-    };
 
-    const [recipe, setRecipe] = useState(initialFormState);
+    const [recipe, setRecipe] = useState(initialCreateFormState);
     const recipeToRender = savedRecipe
         ? useSelector(state => state.singleRecipe.recipe)
         : recipe;
