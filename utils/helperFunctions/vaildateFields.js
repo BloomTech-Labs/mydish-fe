@@ -1,4 +1,7 @@
+import { store } from "../../store/index";
 export function validateFields(recipe, courses, mode) {
+    const state = store.getState();
+    recipe = recipe || state.singleRecipe.recipe;
     const errs = [];
     const recipeTags =
         mode === "create" ? recipe.tags : recipe.tags.map(tag => tag.name);

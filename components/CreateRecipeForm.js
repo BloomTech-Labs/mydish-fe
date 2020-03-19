@@ -70,7 +70,7 @@ function CreateRecipeForm({
             .catch(e => console.log(e.message));
         const preppedRecipe = await prepRecipeForPost(recipe);
 
-        const errMessages = validateFields(preppedRecipe, courses);
+        const errMessages = validateFields(preppedRecipe, courses, "create");
 
         if (errMessages.length) {
             setErrors(errMessages);
@@ -408,17 +408,15 @@ function CreateRecipeForm({
                                 <TouchableOpacity
                                     onPress={
                                         savedRecipe
-                                            ? async () => {
+                                            ? () => {
                                                   dispatch(
                                                       actions.cleanUpRecipe(),
                                                   );
-                                                  console.log(
-                                                      "\n ***** \n recipeToRender \n ***** \n ",
-                                                      recipeToRender,
-                                                  );
+                                                  setErrorMessages();
                                                   const errMessages = validateFields(
-                                                      recipeToRender,
+                                                      null,
                                                       courses,
+                                                      "edit",
                                                   );
 
                                                   if (errMessages.length) {
