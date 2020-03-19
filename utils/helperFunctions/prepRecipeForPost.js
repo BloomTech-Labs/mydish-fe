@@ -1,4 +1,4 @@
-import postImage from "./postImage";
+import { postImage } from "./postImage";
 import { serverErrorAlert } from "./serverErrorAlert";
 
 export const prepRecipeForPost = async recipe => {
