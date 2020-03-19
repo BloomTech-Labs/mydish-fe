@@ -25,7 +25,7 @@ import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 import CommitModal from "./EditRecipeComponents/Modal";
 
 import axiosWithAuth from "../utils/axiosWithAuth";
-import { validateFields } from "../utils/helperFunctions/vaildateFields";
+import { validateFields } from "../utils/helperFunctions/validateFields";
 import { serverErrorAlert } from "../utils/helperFunctions/serverErrorAlert";
 import { prepRecipeForPost } from "../utils/helperFunctions/prepRecipeForPost";
 
