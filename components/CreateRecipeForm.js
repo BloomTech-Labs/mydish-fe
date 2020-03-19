@@ -43,7 +43,6 @@ function CreateRecipeForm({
     saveButtonEditedRecipe,
 }) {
     const dispatch = useDispatch();
-
     const [recipe, setRecipe] = useState(initialCreateFormState);
     const recipeToRender = savedRecipe
         ? useSelector(state => state.singleRecipe.recipe)
@@ -416,7 +415,6 @@ function CreateRecipeForm({
                                                       null,
                                                       "edit",
                                                   );
-
                                                   if (errMessages.length) {
                                                       setErrors(errMessages);
                                                       return;
