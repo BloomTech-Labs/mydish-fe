@@ -70,7 +70,7 @@ function CreateRecipeForm({
             .catch(e => console.log(e.message));
         const preppedRecipe = await prepRecipeForPost(recipe);
 
-        const errMessages = validateFields(preppedRecipe, courses, "create");
+        const errMessages = validateFields(preppedRecipe, "create");
 
         if (errMessages.length) {
             setErrors(errMessages);
@@ -412,10 +412,8 @@ function CreateRecipeForm({
                                                   dispatch(
                                                       actions.cleanUpRecipe(),
                                                   );
-                                                  setErrorMessages();
                                                   const errMessages = validateFields(
                                                       null,
-                                                      courses,
                                                       "edit",
                                                   );
 
