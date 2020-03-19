@@ -1,5 +1,5 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
-import postImage from "../../components/RecipeImageComponents/postImage";
+import postImage from "../../utils/helperFunctions/postImage";
 
 export const START_UPDATE_RECIPE = "START_UPDATE_RECIPE";
 export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
