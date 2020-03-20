@@ -1,8 +1,7 @@
 import FormData from "form-data";
-import axiosWithAuth from "../../utils/axiosWithAuth";
-import axios from "axios";
+import axiosWithAuth from "../axiosWithAuth";
 
-async function postImage(image, errAlert) {
+export async function postImage(image, errAlert) {
     const form = new FormData();
     const imageData = {
         uri: image,
@@ -29,5 +28,3 @@ async function postImage(image, errAlert) {
     }
     return res.data.url;
 }
-
-export default postImage;

@@ -32,7 +32,11 @@ import {
     VERSION_BY_REVISION_NUM,
     RESET_ALERTS,
     TOGGLE_TAG,
+    CLEANUP_RECIPE,
 } from "./singleRecipeActions";
+import { cleanUpIngredients } from "../../utils/helperFunctions/recipeCleanUp/cleanUpIngredients";
+import { cleanUpInstructions } from "../../utils/helperFunctions/recipeCleanUp/cleanUpInstructions";
+import { cleanUpNotes } from "../../utils/helperFunctions/recipeCleanUp/cleanUpNotes";
 
 const initState = {
     recipe: {
@@ -225,7 +229,19 @@ export const singleRecipeReducer = (state = initState, action) => {
                         .map((step, i) => ({ ...step, step_number: i + 1 })),
                 },
             };
-
+        case CLEANUP_RECIPE:
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    ingredients: cleanUpIngredients(state.recipe.ingredients),
+                    instructions: cleanUpInstructions(
+                        state.recipe.instructions,
+                        "edit",
+                    ),
+                    notes: cleanUpNotes(state.recipe.notes, "edit"),
+                },
+            };
         case DELETE_RECIPE_START:
             return {
                 ...state,

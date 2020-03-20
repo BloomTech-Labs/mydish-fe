@@ -1,5 +1,5 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
-import postImage from "../../components/RecipeImageComponents/postImage";
+import { postImage } from "../../utils/helperFunctions/postImage";
 
 export const START_UPDATE_RECIPE = "START_UPDATE_RECIPE";
 export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
@@ -206,6 +206,11 @@ export const ADD_NOTE = "ADD_NOTE";
 export const addNote = note => ({
     type: ADD_NOTE,
     payload: note,
+});
+
+export const CLEANUP_RECIPE = "CLEANUP_RECIPE";
+export const cleanUpRecipe = () => ({
+    type: CLEANUP_RECIPE,
 });
 
 export const VERSION_BY_REVISION_NUM = "VERSION_BY_REVISION_NUM";
