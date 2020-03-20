@@ -80,7 +80,6 @@ function IndividualRecipe(props) {
     };
 
     useEffect(() => {
-        x;
         loadRecipe();
         fetchUserId();
 
@@ -155,13 +154,7 @@ function IndividualRecipe(props) {
         // If any values are 'undefined' or 'NaN', this will ensure they are 'false'
         !!Number(revisionId) || !!Number(recipe.previous_versions_count);
 
-    // const getVersionString = () =>
-    //     recipe.revision_number
-    //         ? `AUTHOR COMMENT ON VERSION ${recipe.revision_number}:`
-    //         : "AUTHOR COMMENT ON CURRENT VERSION:";
-
     const cancelButtonEditedRecipe = () => {
-        //TO DO - an alert or modal before dispatching stopEditMode
         Alert.alert(
             "Exit Edit Mode",
             "Are you sure you want to exit without saving your changes?",
@@ -281,12 +274,8 @@ function IndividualRecipe(props) {
                                     </TouchableOpacity>
                                 )}
                         </ImageBackground>
-                        {/* <View style={styles.titleWrapper}> */}
                         <View style={styles.recipeContentContainer}>
                             <DisplayTitle title={recipe.title} />
-                            {/* </View> */}
-                            {/* tags(row)*/}
-                            {/* previous versions(under edit button, flex-end) */}
                             <View>
                                 <Text style={styles.authorName}>
                                     {recipe.owner.username &&
@@ -406,12 +395,6 @@ function IndividualRecipe(props) {
                                     </>
                                 )}
                             </View>
-                            {/* <View style={{ marginLeft: 10 }}>
-                                <Text style={{ fontWeight: "bold" }}>
-                                    {getVersionString()}
-                                </Text>
-                                <Text>{recipe.author_comment}</Text>
-                            </View> */}
                         </View>
                     </View>
                 </ScrollView>
