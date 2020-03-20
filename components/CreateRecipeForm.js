@@ -82,7 +82,9 @@ function CreateRecipeForm({
 
             recipeID = res.data.id;
             setIsLoading(false);
-            navigation.navigate("IndividualR", { recipe, recipeID });
+            setRecipe(initialCreateFormState);
+            navigation.navigate("Home");
+            navigation.push("IndividualR", { recipe, recipeID });
         } catch (err) {
             console.log("error from adding new recipe \n", err.response);
             if (err.response.status === 500) {
