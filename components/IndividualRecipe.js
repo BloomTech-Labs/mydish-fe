@@ -51,7 +51,6 @@ function IndividualRecipe(props) {
         cancel: false,
     });
     const [tempRecipe, setTempRecipe] = useState(null);
-    const [imageModalVisible, setImageModalVisible] = useState(false);
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const totalCookTime =
         (Number(recipe.prep_time) || 0) + (Number(recipe.cook_time) || 0);
