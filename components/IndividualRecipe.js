@@ -4,8 +4,6 @@ import {
     Text,
     ScrollView,
     Image,
-    TouchableWithoutFeedback,
-    KeyboardAvoidingView,
     SafeAreaView,
     AsyncStorage,
     TouchableOpacity,
@@ -30,31 +28,17 @@ import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
 
 import clock from "../assets/timer.png";
-import logo from "../assets/background.png";
 import { savedPlaceholder } from "../constants/imagePlaceholders";
 import { maxUsername } from "../constants/maxLenth";
 
-import Title from "./EditRecipeComponents/Title";
 import Tab from "./Tab";
 import CreateRecipeForm from "./CreateRecipeForm";
-import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
-import AddIngredient from "./AddRecipeFields/AddIngredient";
-import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction";
-import AddInstruction from "./AddRecipeFields/AddInstruction";
-import IndividualRecipeNotes from "./EditRecipeComponents/IndividualRecipeNotes";
-import AddNote from "./AddRecipeFields/AddNote";
 import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngredient";
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
-import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
-import CameraIcon from "./RecipeImageComponents/CameraIcon";
 import { FontAwesome } from "@expo/vector-icons";
-import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
-import CommitModal from "./EditRecipeComponents/Modal";
-
-import { StackActions, NavigationActions } from "react-navigation";
 
 import { fetchRecipes } from "../store/recipes/recipeActions";
 
