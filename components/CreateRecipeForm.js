@@ -3,10 +3,8 @@ import {
     Text,
     TextInput,
     View,
-    Image,
     ScrollView,
     TouchableOpacity,
-    Alert,
     ActivityIndicator,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -27,8 +25,12 @@ import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 import CommitModal from "./EditRecipeComponents/Modal";
 
 import axiosWithAuth from "../utils/axiosWithAuth";
-import postImage from "./RecipeImageComponents/postImage";
-import { validateFields } from "../utils/helperFunctions/vaildateFields";
+import { validateFields } from "../utils/helperFunctions/validateFields";
+import { serverErrorAlert } from "../utils/helperFunctions/serverErrorAlert";
+import { prepRecipeForPost } from "../utils/helperFunctions/prepRecipeForPost";
+
+import { courses } from "../constants/courses";
+import { initialCreateFormState } from "../constants/initialCreateFormState";
 
 //Analytics
 import { Analytics, Event } from "expo-analytics";
@@ -41,22 +43,7 @@ function CreateRecipeForm({
     saveButtonEditedRecipe,
 }) {
     const dispatch = useDispatch();
-    const emptyIngredient = {
-        name: "",
-        quantity: "",
-        units: "",
-    };
-    const initialFormState = {
-        img: "",
-        title: "",
-        prep_time: "",
-        cook_time: "",
-        tags: [],
-        ingredients: new Array(3).fill(emptyIngredient),
-        instructions: new Array(3).fill(""),
-        notes: [""],
-    };
-    const [recipe, setRecipe] = useState(initialFormState);
+    const [recipe, setRecipe] = useState(initialCreateFormState);
     const recipeToRender = savedRecipe
         ? useSelector(state => state.singleRecipe.recipe)
         : recipe;
@@ -75,48 +62,14 @@ function CreateRecipeForm({
         cook_time: false,
     });
 
-    const courses = [
-        "Breakfast",
-        "Brunch",
-        "Lunch",
-        "Dinner",
-        "Dessert",
-        "Snack",
-    ];
-
-    const cleanUpRecipe = async () => {
-        return {
-            ...recipe,
-            // Remove any ingredients that are empty
-            ingredients: recipe.ingredients
-                .filter(ing => ing.name.length && ing.quantity && ing.units)
-                .map(ing => ({ ...ing, name: ing.name.replace(/\n+/g, " ") })), //Remove any newlines
-            instructions: recipe.instructions
-                .filter(step => step.length) // Remove empty instructions
-                .map((step, i) => ({
-                    step_number: i + 1, // Add the step number
-                    description: step.replace(/\n+/g, " "), // Remove any newlines
-                })),
-            notes: recipe.notes
-                .filter(note => note.length) // Remove empty instructions
-                .map(
-                    (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
-                ),
-            author_comment: "Original Recipe",
-            img: recipe.img
-                ? await postImage(recipe.img, serverErrorAlert)
-                : "",
-        };
-    };
-
     const postRecipe = async () => {
         analytics
             .event(new Event("Recipe", "Create recipe"))
             .then(() => console.log("Recipe added"))
             .catch(e => console.log(e.message));
-        const postRecipe = await cleanUpRecipe();
+        const preppedRecipe = await prepRecipeForPost(recipe);
 
-        const errMessages = validateFields(postRecipe, courses);
+        const errMessages = validateFields(preppedRecipe, "create");
 
         if (errMessages.length) {
             setErrors(errMessages);
@@ -125,11 +78,13 @@ function CreateRecipeForm({
         setIsLoading(true);
         try {
             const axiosCustom = await axiosWithAuth();
-            const res = await axiosCustom.post("recipes", postRecipe);
+            const res = await axiosCustom.post("recipes", preppedRecipe);
 
             recipeID = res.data.id;
             setIsLoading(false);
-            navigation.navigate("IndividualR", { recipe, recipeID });
+            setRecipe(initialCreateFormState);
+            navigation.navigate("Home");
+            navigation.push("IndividualR", { recipe, recipeID });
         } catch (err) {
             console.log("error from adding new recipe \n", err.response);
             if (err.response.status === 500) {
@@ -138,14 +93,6 @@ function CreateRecipeForm({
         } finally {
             setIsLoading(false);
         }
-    };
-
-    const serverErrorAlert = () => {
-        return Alert.alert(
-            "Sorry",
-            "There was an error when trying to create your recipe. Please try again.",
-            [{ text: "Okay" }],
-        );
     };
 
     const addIng = () => {
@@ -462,7 +409,18 @@ function CreateRecipeForm({
                                 <TouchableOpacity
                                     onPress={
                                         savedRecipe
-                                            ? async () => {
+                                            ? () => {
+                                                  dispatch(
+                                                      actions.cleanUpRecipe(),
+                                                  );
+                                                  const errMessages = validateFields(
+                                                      null,
+                                                      "edit",
+                                                  );
+                                                  if (errMessages.length) {
+                                                      setErrors(errMessages);
+                                                      return;
+                                                  }
                                                   setCommitModal({
                                                       save: true,
                                                       cancel: false,
