@@ -8,6 +8,7 @@ import Login from "../components/Login";
 import styles from "../styles/navigation.styles";
 import search from "../assets/Union.png";
 import plus from "../assets/add_circle_grey.png";
+import home from "../assets/home-icon.png";
 import logout from "../assets/account_circle.png";
 import fork from "../assets/restaurant_grey.png";
 
@@ -16,8 +17,8 @@ const MainNavigator = createBottomTabNavigator(
         Home: {
             screen: RecipeNavigator,
             navigationOptions: {
-                tabBarLabel: "Explore",
-                tabBarIcon: <Image style={styles.homeTab} source={search} />,
+                tabBarLabel: "Home",
+                tabBarIcon: <Image style={styles.homeTab} source={home} />,
                 tabBarOnPress: ({ navigation }) => {
                     navigation.navigate("Home");
                 },
@@ -44,17 +45,17 @@ const MainNavigator = createBottomTabNavigator(
             },
         },
 
-        Profile: {
-            screen: Login,
-            navigationOptions: {
-                tabBarLabel: "Sign Out",
-                tabBarIcon: <Image style={styles.loginTab} source={logout} />,
-                tabBarOnPress: async ({ navigation }) => {
-                    await AsyncStorage.clear();
-                    navigation.navigate("Auth");
-                },
-            },
-        },
+        // Profile: {
+        //     screen: Login,
+        //     navigationOptions: {
+        //         tabBarLabel: "Sign Out",
+        //         tabBarIcon: <Image style={styles.loginTab} source={logout} />,
+        //         tabBarOnPress: async ({ navigation }) => {
+        //             await AsyncStorage.clear();
+        //             navigation.navigate("Auth");
+        //         },
+        //     },
+        // },
     },
     {
         initialRouteName: "Home",
