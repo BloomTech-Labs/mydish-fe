@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     fetchRecipe,
     resetRecipe,
-    resetCurrentActive,
     stopEditMode,
     startEditMode,
     submitEditedRecipe,
@@ -58,9 +57,6 @@ function IndividualRecipe(props) {
     const successAlert = useSelector(state => state.singleRecipe.successAlert);
 
     const editMode = useSelector(state => state.singleRecipe.editMode);
-    const currentActive = useSelector(
-        state => state.singleRecipe.currentActive,
-    );
 
     //Anytime someone navigations to here - it has ID, we could just also pass another value
     const id = props.navigation.getParam("recipeID", "params not passed");
@@ -128,10 +124,6 @@ function IndividualRecipe(props) {
     const tabsDisplay = cat => {
         const newActive = cat;
         setColor({ active: newActive });
-        if (currentActive && currentActive.field === "title") {
-            currentActive.close();
-        }
-        dispatch(resetCurrentActive());
     };
 
     const startEditModeButton = () => {
@@ -144,7 +136,6 @@ function IndividualRecipe(props) {
     const saveButtonEditedRecipe = author_comment => {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
-        dispatch(resetCurrentActive());
         dispatch(fetchRecipes(""));
         setCommitModal({ save: false, cancel: false });
     };
@@ -168,7 +159,6 @@ function IndividualRecipe(props) {
                     text: "OK",
                     onPress: () => {
                         dispatch(stopEditMode());
-                        dispatch(resetCurrentActive());
                         dispatch(fetchRecipes(""));
                         dispatch(resetRecipe(tempRecipe));
                     },
