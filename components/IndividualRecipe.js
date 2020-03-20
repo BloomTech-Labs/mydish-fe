@@ -80,6 +80,7 @@ function IndividualRecipe(props) {
     };
 
     useEffect(() => {
+        x;
         loadRecipe();
         fetchUserId();
 
@@ -132,13 +133,6 @@ function IndividualRecipe(props) {
             currentActive.close();
         }
         dispatch(resetCurrentActive());
-    };
-
-    const stopEditPress = () => {
-        if (currentActive.type === "edit") {
-            currentActive.close();
-        }
-        dispatch(fetchRecipes(""));
     };
 
     const startEditModeButton = () => {
