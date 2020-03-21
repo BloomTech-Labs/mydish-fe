@@ -37,6 +37,7 @@ import {
 import { cleanUpIngredients } from "../../utils/helperFunctions/recipeCleanUp/cleanUpIngredients";
 import { cleanUpInstructions } from "../../utils/helperFunctions/recipeCleanUp/cleanUpInstructions";
 import { cleanUpNotes } from "../../utils/helperFunctions/recipeCleanUp/cleanUpNotes";
+import { cleanUpTags } from "../../utils/helperFunctions/recipeCleanUp/cleanUpTags";
 
 const initState = {
     recipe: {
@@ -64,14 +65,13 @@ const initState = {
 
 export const singleRecipeReducer = (state = initState, action) => {
     console.log(action.type);
-    // console.log("state.recipe.instructions ", state.recipe.instructions);
     console.log("state.recipe ", state.recipe);
     switch (action.type) {
         case START_EDIT_MODE:
-            console.log(state.recipe);
+            // console.log(state.recipe);
             return { ...state, editMode: true };
         case STOP_EDIT_MODE:
-            console.log(state.recipe);
+            // console.log(state.recipe);
             return { ...state, editMode: false };
 
         case START_UPDATE_RECIPE:
@@ -268,6 +268,14 @@ export const singleRecipeReducer = (state = initState, action) => {
         case START_SUBMIT_EDITED_RECIPE:
             return {
                 ...state,
+                recipe: {
+                    ...state.recipe,
+                    tags: cleanUpTags(state.recipe.tags),
+                    /* We have to clean up the tags here so that we are sending the back-end an 
+                    array of strings, as opposed to an array of objects. We can't call cleanUpTags()
+                    with the other cleanUp functions above, because it would cause the filters in
+                    TOGGLE_TAG to deselect all tags and not allow the user to Save.*/
+                },
                 isSubmitting: true,
                 isLoading: true,
                 error: null,
