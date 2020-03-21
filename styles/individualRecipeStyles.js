@@ -48,48 +48,19 @@ const styles = StyleSheet.create({
         fontFamily: theme.REGULAR_FONT_FAMILY,
         fontSize: theme.SMALL_FONT_SIZE,
     },
-    innovatorContainer: {
-        flexDirection: "row",
-        marginRight: 10,
-    },
     timeContainer: {
         flexDirection: "row",
     },
     blackText: {
         color: theme.DARK_FONT_COLOR,
     },
-    innovatorTime: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        paddingRight: 30,
-        paddingLeft: 14,
-        borderBottomWidth: 0.3,
-        borderBottomColor: "#6B6F70",
-        paddingBottom: 10,
-        marginBottom: 10,
-    },
     likeView: {
         flexDirection: "row",
-    },
-    tags: {
-        fontSize: 14,
-        color: "#363838",
-        fontWeight: "500",
-        marginLeft: 13,
-        marginBottom: 8,
     },
     individualTags: {
         fontSize: theme.REGULAR_FONT_SIZE,
         color: theme.PRIMARY_COLOR,
         fontFamily: theme.REGULAR_FONT_FAMILY,
-    },
-    tagBox: {
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        flexWrap: "wrap",
-        paddingBottom: 16.5,
-        marginLeft: 14,
-        marginRight: 14,
     },
     ingredients: {
         alignItems: "center",
@@ -195,10 +166,6 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         borderRadius: 5,
-    },
-    cameraIcon: {
-        alignSelf: "flex-end",
-        marginLeft: "auto",
     },
     editButton: {
         backgroundColor: "#8FCC70",

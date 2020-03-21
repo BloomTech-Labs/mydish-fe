@@ -6,8 +6,6 @@ import {
     UPDATE_RECIPE_FAILURE,
     UPDATE_RECIPE_SUCCESS,
     RESET_RECIPE,
-    SET_CURRENT_ACTIVE,
-    RESET_CURRENT_ACTIVE,
     EDIT_IMAGE,
     EDIT_TITLE,
     EDIT_PREPTIME,
@@ -59,7 +57,6 @@ const initState = {
     isSubmitting: false,
     editMode: false,
     error: null,
-    currentActive: { type: null, field: null, index: null, close: null },
 };
 
 export const singleRecipeReducer = (state = initState, action) => {
@@ -105,17 +102,6 @@ export const singleRecipeReducer = (state = initState, action) => {
                 recipe: action.recipe || state.recipe,
                 isLoading: false,
                 error: action.payload,
-            };
-
-        case SET_CURRENT_ACTIVE:
-            return {
-                ...state,
-                currentActive: action.payload,
-            };
-        case RESET_CURRENT_ACTIVE:
-            return {
-                ...state,
-                currentActive: initState.currentActive,
             };
         case EDIT_INGRED:
             const ingredients = state.recipe.ingredients.map((val, i) => {
