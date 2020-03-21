@@ -85,26 +85,6 @@ const Ingredient = ({
         }
     };
 
-    const cancelAdd = () => {
-        setHighlighted({ name: false, quantity: false, units: false });
-        stopAdding();
-    };
-
-    const submitAdd = () => {
-        const lengthObj = {
-            name: !ingredient.name.length,
-            quantity: !ingredient.quantity.length,
-            units: !ingredient.units.length,
-        };
-
-        if (Object.values(lengthObj).find(x => !!x)) {
-            setHighlighted(lengthObj);
-        } else {
-            stopAdding();
-            dispatch(addIngredient(ingredient));
-        }
-    };
-
     return (
         <View>
             <View
@@ -181,18 +161,6 @@ const Ingredient = ({
                     }
                 />
             </View>
-            {parent === "AddIngredient" && (
-                <View
-                    style={{
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-evenly",
-                    }}
-                >
-                    <Button title="Cancel" onPress={cancelAdd} />
-                    <Button title="Submit" onPress={submitAdd} />
-                </View>
-            )}
         </View>
     );
 };
