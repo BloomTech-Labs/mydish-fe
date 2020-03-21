@@ -4,5 +4,5 @@ export const courses = [
     "Lunch",
     "Dinner",
     "Dessert",
-    "Snack",
+    "Snacks",
 ];
