@@ -65,13 +65,10 @@ const initState = {
 
 export const singleRecipeReducer = (state = initState, action) => {
     console.log(action.type);
-    console.log("state.recipe ", state.recipe);
     switch (action.type) {
         case START_EDIT_MODE:
-            // console.log(state.recipe);
             return { ...state, editMode: true };
         case STOP_EDIT_MODE:
-            // console.log(state.recipe);
             return { ...state, editMode: false };
 
         case START_UPDATE_RECIPE:

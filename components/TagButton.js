@@ -13,7 +13,6 @@ export default function TagButton({ tag, isSelected, setRecipe, parent }) {
         }
         if (parent === "create") {
             setRecipe(oldRecipe => {
-                console.log("OldRecipe.tags ", oldRecipe.tags);
                 // Does our tag exist in our recipe?
                 const index = oldRecipe.tags.includes(tag);
 
