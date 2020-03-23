@@ -187,11 +187,11 @@ const styles = StyleSheet.create({
         width: 25,
     },
     buttonContainer: {
+        ...theme.DEBUG_BORDER,
         flexDirection: "row",
-        justifyContent: "flex-end",
+        justifyContent: "space-around",
         alignItems: "center",
-        width: 150,
-        height: "100%",
+        marginTop: 64,
         marginRight: 16,
     },
     input: {

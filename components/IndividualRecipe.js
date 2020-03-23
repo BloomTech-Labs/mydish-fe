@@ -377,6 +377,14 @@ function IndividualRecipe(props) {
                                     </>
                                 )}
                             </View>
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity>
+                                    <Text>Delete</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity>
+                                    <Text>Save</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </ScrollView>
