@@ -68,7 +68,7 @@ const Instruction = ({
                         style={{
                             maxWidth: "90%",
                             width: "90%",
-                            paddingLeft: 12,
+                            padding: 8,
                             borderWidth: theme.INPUT_BORDER_WIDTH,
                             borderColor: highlighted
                                 ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
