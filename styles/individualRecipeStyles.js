@@ -55,9 +55,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     individualTags: {
-        fontSize: theme.REGULAR_FONT_SIZE,
+        ...theme.REGULAR_FONT,
         color: theme.DARK_FONT_COLOR,
-        fontFamily: theme.REGULAR_FONT_FAMILY,
     },
     ingredients: {
         alignItems: "center",
@@ -109,9 +108,8 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     recipeFieldsText: {
-        fontFamily: theme.REGULAR_FONT_FAMILY,
+        ...theme.REGULAR_FONT,
         color: theme.DARK_FONT_COLOR,
-        fontSize: theme.REGULAR_FONT_SIZE,
     },
     ingredientView: {
         width: "50%",

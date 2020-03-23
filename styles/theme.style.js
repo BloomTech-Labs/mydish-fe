@@ -30,6 +30,10 @@ export default {
     SMALL_FONT_SIZE: 12,
     LARGE_FONT_SIZE: 24,
     REGULAR_FONT_WEIGHT: "normal",
+    REGULAR_FONT: {
+        fontFamily: "nunito sans",
+        fontSize: 14,
+    },
     INPUT_FONT_FAMILY: "Roboto",
     SUBHEADING_FONT_SIZE: 14,
     SUBHEADING_FONT_WEIGHT: 600,
