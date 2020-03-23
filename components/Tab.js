@@ -9,18 +9,18 @@ function Tab({ text, toggleTab, color }) {
             onPress={() => toggleTab(text)}
         >
             <View
-                style={
-                    color.active.includes(text)
-                        ? styles.showTab
-                        : styles.hideTab
-                }
+                style={{
+                    ...styles.tab,
+                    ...(color.active.includes(text) && styles.showTab),
+                }}
             >
                 <Text
-                    style={
-                        color.active.includes(text)
+                    style={{
+                        ...styles.tabText,
+                        ...(color.active.includes(text)
                             ? styles.tabTextActive
-                            : styles.tabTextInactive
-                    }
+                            : styles.tabTextInactive),
+                    }}
                 >
                     {text}
                 </Text>
