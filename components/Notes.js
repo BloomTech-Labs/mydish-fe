@@ -1,18 +1,31 @@
-import React, { useState } from "react";
-import { View, Text, TextInput } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, TextInput } from "react-native";
+import { useDispatch } from "react-redux";
+import {
+    editNotes,
+    deleteNote,
+} from "../store/singleRecipe/singleRecipeActions";
 import XDeleteButton from "./XDeleteButton";
 import styles from "../styles/createRecipeStyles";
 
-const Notes = ({ index, removeNote, note, setRecipe }) => {
+const Notes = ({ index, removeNote, note, id, setRecipe, parent }) => {
     const [highlighted, setHighlighted] = useState(false);
+    const dispatch = useDispatch();
+
     const changeHandler = value => {
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            notes: oldRecipe.notes.map((note, i) => {
-                if (i === index) return value;
-                else return note;
-            }),
-        }));
+        if (parent === "create") {
+            setRecipe(oldRecipe => ({
+                ...oldRecipe,
+                notes: oldRecipe.notes.map((note, i) => {
+                    if (i === index) return value;
+                    else return note;
+                }),
+            }));
+        } else if (parent === "editRecipe") {
+            const noteToSave = { description: value };
+            id ? (noteToSave.id = id) : null;
+            dispatch(editNotes(index, noteToSave));
+        }
     };
 
     return (
@@ -38,7 +51,14 @@ const Notes = ({ index, removeNote, note, setRecipe }) => {
                 onFocus={() => setHighlighted(true)}
                 onBlur={() => setHighlighted(false)}
             />
-            <XDeleteButton action={() => removeNote(index)} parent="note" />
+            <XDeleteButton
+                action={
+                    parent === "create"
+                        ? () => removeNote(index)
+                        : () => dispatch(deleteNote(index))
+                }
+                parent="note"
+            />
         </View>
     );
 };

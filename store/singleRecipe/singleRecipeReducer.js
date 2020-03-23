@@ -6,10 +6,10 @@ import {
     UPDATE_RECIPE_FAILURE,
     UPDATE_RECIPE_SUCCESS,
     RESET_RECIPE,
-    SET_CURRENT_ACTIVE,
-    RESET_CURRENT_ACTIVE,
     EDIT_IMAGE,
     EDIT_TITLE,
+    EDIT_PREPTIME,
+    EDIT_COOKTIME,
     EDIT_INGRED,
     EDIT_INSTRUCT,
     EDIT_NOTES,
@@ -29,7 +29,13 @@ import {
     SUBMIT_EDITED_RECIPE_FAILURE,
     VERSION_BY_REVISION_NUM,
     RESET_ALERTS,
+    TOGGLE_TAG,
+    CLEANUP_RECIPE,
 } from "./singleRecipeActions";
+import { cleanUpIngredients } from "../../utils/helperFunctions/recipeCleanUp/cleanUpIngredients";
+import { cleanUpInstructions } from "../../utils/helperFunctions/recipeCleanUp/cleanUpInstructions";
+import { cleanUpNotes } from "../../utils/helperFunctions/recipeCleanUp/cleanUpNotes";
+import { cleanUpTags } from "../../utils/helperFunctions/recipeCleanUp/cleanUpTags";
 
 const initState = {
     recipe: {
@@ -52,7 +58,6 @@ const initState = {
     isSubmitting: false,
     editMode: false,
     error: null,
-    currentActive: { type: null, field: null, index: null, close: null },
 };
 
 export const singleRecipeReducer = (state = initState, action) => {
@@ -95,22 +100,10 @@ export const singleRecipeReducer = (state = initState, action) => {
                 isLoading: false,
                 error: action.payload,
             };
-
-        case SET_CURRENT_ACTIVE:
-            return {
-                ...state,
-                currentActive: action.payload,
-            };
-        case RESET_CURRENT_ACTIVE:
-            return {
-                ...state,
-                currentActive: initState.currentActive,
-            };
-
         case EDIT_INGRED:
             const ingredients = state.recipe.ingredients.map((val, i) => {
                 if (i === action.index) {
-                    return action.payload;
+                    return { ...val, ...action.payload };
                 } else return val;
             });
             return { ...state, recipe: { ...state.recipe, ingredients } };
@@ -133,6 +126,18 @@ export const singleRecipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 recipe: { ...state.recipe, title: action.payload },
+            };
+
+        case EDIT_PREPTIME:
+            return {
+                ...state,
+                recipe: { ...state.recipe, prep_time: action.payload },
+            };
+
+        case EDIT_COOKTIME:
+            return {
+                ...state,
+                recipe: { ...state.recipe, cook_time: action.payload },
             };
 
         case EDIT_NOTES:
@@ -207,7 +212,19 @@ export const singleRecipeReducer = (state = initState, action) => {
                         .map((step, i) => ({ ...step, step_number: i + 1 })),
                 },
             };
-
+        case CLEANUP_RECIPE:
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    ingredients: cleanUpIngredients(state.recipe.ingredients),
+                    instructions: cleanUpInstructions(
+                        state.recipe.instructions,
+                        "edit",
+                    ),
+                    notes: cleanUpNotes(state.recipe.notes, "edit"),
+                },
+            };
         case DELETE_RECIPE_START:
             return {
                 ...state,
@@ -234,6 +251,14 @@ export const singleRecipeReducer = (state = initState, action) => {
         case START_SUBMIT_EDITED_RECIPE:
             return {
                 ...state,
+                recipe: {
+                    ...state.recipe,
+                    tags: cleanUpTags(state.recipe.tags),
+                    /* We have to clean up the tags here so that we are sending the back-end an 
+                    array of strings, as opposed to an array of objects. We can't call cleanUpTags()
+                    with the other cleanUp functions above, because it would cause the filters in
+                    TOGGLE_TAG to deselect all tags and not allow the user to Save.*/
+                },
                 isSubmitting: true,
                 isLoading: true,
                 error: null,
@@ -273,6 +298,32 @@ export const singleRecipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 successAlert: false,
+            };
+
+        case TOGGLE_TAG:
+            let tagExists = false;
+            let filteredTags = [];
+
+            state.recipe.tags.forEach((tag, index) => {
+                if (tag.name === action.payload) {
+                    tagExists = true;
+                }
+            });
+
+            if (tagExists) {
+                filteredTags = state.recipe.tags.filter((tag, index) => {
+                    return tag.name !== action.payload;
+                });
+            } else {
+                filteredTags = [...state.recipe.tags, { name: action.payload }];
+            }
+
+            return {
+                ...state,
+                recipe: {
+                    ...state.recipe,
+                    tags: filteredTags,
+                },
             };
 
         default:
