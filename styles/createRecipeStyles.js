@@ -146,22 +146,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 30,
     },
-    btn: {
-        width: 136,
-        height: 32,
-        marginBottom: 20,
-        borderRadius: 5,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    saveBtn: {
-        backgroundColor: theme.PRIMARY_COLOR,
-    },
-    cancelBtn: {
-        borderWidth: 1,
-        borderColor: theme.PRIMARY_COLOR,
-        marginRight: 35,
-    },
     btnText: {
         fontSize: 16,
         fontWeight: "bold",

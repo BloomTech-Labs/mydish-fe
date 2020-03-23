@@ -390,12 +390,7 @@ function CreateRecipeForm({
                                     <TouchableOpacity
                                         onPress={cancelButtonEditedRecipe}
                                     >
-                                        <View
-                                            style={{
-                                                ...styles.btn,
-                                                ...styles.cancelBtn,
-                                            }}
-                                        >
+                                        <View style={theme.SECONDARY_BUTTON}>
                                             <Text
                                                 style={{
                                                     ...styles.btnText,
@@ -430,12 +425,7 @@ function CreateRecipeForm({
                                             : postRecipe
                                     }
                                 >
-                                    <View
-                                        style={{
-                                            ...styles.btn,
-                                            ...styles.saveBtn,
-                                        }}
-                                    >
+                                    <View style={theme.PRIMARY_BUTTON}>
                                         <Text
                                             style={{
                                                 ...styles.btnText,
