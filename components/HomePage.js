@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { SafeAreaView, View } from "react-native";
 import RecipeList from "./RecipeList.js";
-import { homepageHeaderOptions } from "../constants/navigationHeaderOptions";
+// import { homepageHeaderOptions } from "./header/navigationHeader";
 import { fetchRecipes } from "../store/recipes/recipeActions";
 
 //Analytics
@@ -42,4 +42,4 @@ const HomePage = () => {
 
 export default HomePage;
 
-HomePage.navigationOptions = homepageHeaderOptions;
+// HomePage.navigationOptions = homepageHeaderOptions;
