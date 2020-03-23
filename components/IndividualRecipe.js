@@ -26,7 +26,6 @@ import {
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
 
-import clock from "../assets/timer.png";
 import { savedPlaceholder } from "../constants/imagePlaceholders";
 import { maxUsername } from "../constants/maxLenth";
 
@@ -304,7 +303,6 @@ function IndividualRecipe(props) {
                                 </View>
                             </View>
                             <View style={styles.underTitleRow}>
-                                <Image source={clock} style={styles.icon} />
                                 <Text style={styles.cookTimeText}>
                                     {totalCookTime} minutes
                                 </Text>

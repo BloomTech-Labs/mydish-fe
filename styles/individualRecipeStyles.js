@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         marginTop: 5,
-        ...theme.DEBUG_BORDER,
     },
     tagAndVersionsRow: {
         alignItems: "flex-start",
@@ -40,7 +39,6 @@ const styles = StyleSheet.create({
     recipeContentContainer: {
         marginHorizontal: 16,
     },
-    icon: { width: 20, height: 20, marginRight: 5 },
     versions: {
         color: theme.PRIMARY_COLOR,
         textDecorationLine: "underline",
