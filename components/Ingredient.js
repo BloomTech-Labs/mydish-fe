@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TextInput, View, TouchableOpacity, Button, Text } from "react-native";
+import { TextInput, View, Button, Text } from "react-native";
 import { useDispatch } from "react-redux";
 import {
     addIngredient,
     editIngred,
+    deleteIngredient,
 } from "../store/singleRecipe/singleRecipeActions";
 import Picker from "./Picker";
 import XDeleteButton from "./XDeleteButton";
@@ -16,7 +17,6 @@ const Ingredient = ({
     setRecipe,
     stopAdding,
     parent,
-    closeEdit,
 }) => {
     const nameInput = useRef(null);
     const quantityInput = useRef(null);
@@ -64,7 +64,7 @@ const Ingredient = ({
         // If our parent component is the IndividualRecipeIngredient, then
         //     this will dispatch the editIngred() to update the store
 
-        if (parent === "IndividualRecipeIngredient") {
+        if (parent === "editRecipe") {
             dispatch(editIngred(index, ingredient));
         }
     }, [ingredient]);
@@ -82,32 +82,6 @@ const Ingredient = ({
                     else return ing;
                 }),
             }));
-        }
-    };
-
-    const cancelAdd = () => {
-        setHighlighted({ name: false, quantity: false, units: false });
-        stopAdding();
-    };
-
-    const submitAdd = () => {
-        const lengthObj = {
-            name: !ingredient.name.length,
-            quantity: !ingredient.quantity.length,
-            units: !ingredient.units.length,
-        };
-
-        if (Object.values(lengthObj).find(x => !!x)) {
-            setHighlighted(lengthObj);
-        } else {
-            stopAdding();
-            dispatch(addIngredient(ingredient));
-        }
-    };
-
-    const submitToStopEdit = () => {
-        if (parent === "IndividualRecipeIngredient") {
-            closeEdit();
         }
     };
 
@@ -146,13 +120,11 @@ const Ingredient = ({
                     }
                     returnKeyType="done"
                     value={ingredient.quantity.toString()}
-                    onSubmitEditing={submitToStopEdit}
                     onFocus={() => setHighlighted({ quantity: true })}
                     onBlur={() => setHighlighted({ quantity: false })}
                 />
 
                 <Picker
-                    onClose={submitToStopEdit}
                     handleChange={handleChange}
                     unit={ingredient.units}
                     highlighted={highlighted}
@@ -176,29 +148,19 @@ const Ingredient = ({
                     placeholder="Ingredient Name"
                     onChangeText={event => handleChange("name", event)}
                     value={ingredient.name}
-                    onSubmitEditing={submitToStopEdit}
                     onFocus={() => setHighlighted({ name: true })}
                     onBlur={() => setHighlighted({ name: false })}
                 />
-                {parent === "create" && (
-                    <XDeleteButton
-                        parent="ingredient"
-                        action={() => removeIng(index)}
-                    />
-                )}
+
+                <XDeleteButton
+                    parent="ingredient"
+                    action={
+                        parent === "create"
+                            ? () => removeIng(index)
+                            : () => dispatch(deleteIngredient(index))
+                    }
+                />
             </View>
-            {parent === "AddIngredient" && (
-                <View
-                    style={{
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-evenly",
-                    }}
-                >
-                    <Button title="Cancel" onPress={cancelAdd} />
-                    <Button title="Submit" onPress={submitAdd} />
-                </View>
-            )}
         </View>
     );
 };

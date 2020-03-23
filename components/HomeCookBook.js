@@ -1,8 +1,8 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
-import CourseTitle from "./CourseTitle";
+import { View, ScrollView, Text } from "react-native";
+import HomeCourseTitle from "./HomeCourseTitle";
 
-const MyCookBook = props => {
+const HomeCookBook = props => {
     const Courses = [
         {
             course: "Breakfast",
@@ -36,23 +36,37 @@ const MyCookBook = props => {
     ];
 
     return (
-        <View style={{ width: "90%", marginLeft: "5%" }}>
-            <ScrollView style={{ paddingBottom: "10%" }}>
-                {Courses.map((course, index) => (
-                    <CourseTitle
-                        key={index}
-                        course={course}
-                        navigation={props.navigation}
-                    />
-                ))}
-            </ScrollView>
+        <View
+            style={{
+                width: "100%",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                paddingLeft: 5,
+                paddingRight: 5,
+                paddingTop: 5,
+                paddingBottom: 5,
+            }}
+        >
+            {Courses.map((course, index) => (
+                <HomeCourseTitle
+                    key={index}
+                    course={course}
+                    navigation={props.navigation}
+                    style={{
+                        width: "100%",
+                        borderColor: "black",
+                        borderWidth: 2.0,
+                    }}
+                />
+            ))}
         </View>
     );
 };
 
-export default MyCookBook;
+export default HomeCookBook;
 
-MyCookBook.navigationOptions = {
+HomeCookBook.navigationOptions = {
     headerTitle: "My Cookbook",
     headerTitleStyle: {
         fontSize: 22,

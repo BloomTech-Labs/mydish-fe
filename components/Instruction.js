@@ -1,18 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextInput, Text, View } from "react-native";
 import XDeleteButton from "./XDeleteButton";
 import theme from "../styles/theme.style";
+import { useDispatch } from "react-redux";
+import {
+    editInstruct,
+    deleteInstruction,
+} from "../store/singleRecipe/singleRecipeActions";
 
-const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
+const Instruction = ({
+    instruction,
+    setRecipe,
+    index,
+    removeInstruction,
+    parent,
+}) => {
+    const dispatch = useDispatch();
     const [highlighted, setHighlighted] = useState(false);
+
     const handleChange = value => {
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            instructions: oldRecipe.instructions.map((step, i) => {
-                if (i === index) return value;
-                else return step;
-            }),
-        }));
+        if (parent === "create") {
+            setRecipe(oldRecipe => ({
+                ...oldRecipe,
+                instructions: oldRecipe.instructions.map((step, i) => {
+                    if (i === index) return value;
+                    else return step;
+                }),
+            }));
+        } else if (parent === "editRecipe") {
+            dispatch(
+                editInstruct(index, {
+                    description: value,
+                    step_number: index + 1,
+                }),
+            );
+        }
     };
 
     return (
@@ -62,7 +84,11 @@ const Instruction = ({ instruction, setRecipe, index, removeInstruction }) => {
                         onBlur={() => setHighlighted(false)}
                     />
                     <XDeleteButton
-                        action={() => removeInstruction(index)}
+                        action={
+                            parent === "create"
+                                ? () => removeInstruction(index)
+                                : () => dispatch(deleteInstruction(index))
+                        }
                         parent="instruction"
                     />
                 </View>

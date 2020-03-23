@@ -1,5 +1,5 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
-import postImage from "../../components/RecipeImageComponents/postImage";
+import { postImage } from "../../utils/helperFunctions/postImage";
 
 export const START_UPDATE_RECIPE = "START_UPDATE_RECIPE";
 export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
@@ -123,22 +123,6 @@ export const resetRecipe = (recipe = null) => ({
     payload: recipe,
 });
 
-// currentActive indicates a recipe field that is currently swiped/open. It is set
-// onSwipeableOpen and given 3 properties: the field name, an index, and a close function.
-// Each component has a check to see if the current active is another field and if
-// it is, when swiping, the close function of the currentActive is called, closing the
-// currently active field.
-export const SET_CURRENT_ACTIVE = "SET_CURRENT_ACTIVE";
-export const setCurrentActive = field => ({
-    type: SET_CURRENT_ACTIVE,
-    payload: field,
-});
-
-export const RESET_CURRENT_ACTIVE = "RESET_CURRENT_ACTIVE";
-export const resetCurrentActive = () => ({
-    type: RESET_CURRENT_ACTIVE,
-});
-
 export const EDIT_IMAGE = "EDIT_IMAGE";
 export const editImage = img => ({
     type: EDIT_IMAGE,
@@ -148,6 +132,24 @@ export const editImage = img => ({
 export const EDIT_TITLE = "EDIT_TITLE";
 export const editTitle = value => ({
     type: EDIT_TITLE,
+    payload: value,
+});
+
+export const TOGGLE_TAG = "TOGGLE_TAG";
+export const toggleStateTag = tagName => ({
+    type: TOGGLE_TAG,
+    payload: tagName,
+});
+
+export const EDIT_PREPTIME = "EDIT_PREPTIME";
+export const editPreptime = value => ({
+    type: EDIT_PREPTIME,
+    payload: value,
+});
+
+export const EDIT_COOKTIME = "EDIT_COOKTIME";
+export const editCooktime = value => ({
+    type: EDIT_COOKTIME,
     payload: value,
 });
 
@@ -188,6 +190,11 @@ export const ADD_NOTE = "ADD_NOTE";
 export const addNote = note => ({
     type: ADD_NOTE,
     payload: note,
+});
+
+export const CLEANUP_RECIPE = "CLEANUP_RECIPE";
+export const cleanUpRecipe = () => ({
+    type: CLEANUP_RECIPE,
 });
 
 export const VERSION_BY_REVISION_NUM = "VERSION_BY_REVISION_NUM";

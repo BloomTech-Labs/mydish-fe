@@ -46,7 +46,7 @@ export default Picker = ({ handleChange, unit, highlighted, onClose }) => {
                 { label: "whole", value: "whole" },
                 { label: "pint", value: "pint" },
                 { label: "package", value: "package" },
-                { label: "lbs", value: "lbs" },
+                { label: "lbs", value: "pound" },
             ]}
         />
     );
