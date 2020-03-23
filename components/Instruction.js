@@ -74,7 +74,7 @@ const Instruction = ({
                                 ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
                                 : theme.INPUT_BORDER_COLOR,
                             borderRadius: theme.INPUT_BORDER_RADIUS,
-                            minHeight: theme.INPUT_HEIGHT,
+                            minHeight: 120,
                         }}
                         placeholder=" Add Instructions"
                         multiline
