@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/singleRecipe/singleRecipeActions";
 import styles from "../styles/createRecipeStyles";
 import theme from "../styles/theme.style";
+import { createHeaderOptions } from "./header/navigationHeader";
 
 import RecipeName from "./RecipeName";
 import Ingredient from "./Ingredient";
@@ -453,10 +454,6 @@ function CreateRecipeForm({
         </KeyboardAwareScrollView>
     );
 }
-CreateRecipeForm.navigationOptions = {
-    tabBarLabel: "create new recipe",
-    headerTitle: <RecipeShareLogo />,
-    headerStyle: { backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR },
-};
+CreateRecipeForm.navigationOptions = createHeaderOptions;
 
 export default CreateRecipeForm;
