@@ -48,8 +48,6 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         flexWrap: "wrap",
-        marginLeft: "2%",
-        marginRight: "2%",
     },
     centered: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
