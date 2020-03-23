@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Search from "./Search.js";
-import { useDispatch } from "react-redux";
-import theme from "../styles/theme.style";
+import { useDispatch, useSelector } from "react-redux";
 
 import { SafeAreaView, View, ScrollView, Text } from "react-native";
-import RecipeShareLogo from "./RecipeShareLogo.js";
 import RecipeList from "./RecipeList.js";
+import { homepageHeaderOptions } from "./header/navigationHeader";
 import { fetchRecipes } from "../store/recipes/recipeActions";
+import styles from "../styles/homepageStyles";
 
 //Analytics
 import { Analytics, PageHit } from "expo-analytics";
@@ -20,47 +20,30 @@ analytics
 
 const HomePage = () => {
     let [dish, setDish] = useState("");
+    const search = useSelector(state => state.navigation.search.homepage);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         const timer = setTimeout(() => {
             dispatch(fetchRecipes(dish));
-        }, 600);
+        }, 200);
 
         return () => clearTimeout(timer);
     }, [dish]);
 
+    useEffect(() => {
+        console.log("re-render plz");
+    }, [search]);
+
     return (
-        <SafeAreaView>
-            <View
-                style={{
-                    height: "100%",
-                }}
-            >
-                <Search setDish={setDish} dish={dish} />
+        <SafeAreaView style={styles.homepageContainer}>
+            <View>
+                {search && <Search setDish={setDish} dish={dish} />}
                 <ScrollView>
-                    <Text
-                        style={{
-                            fontSize: 24,
-                            fontWeight: "bold",
-                            marginVertical: "2%",
-                            paddingLeft: 10,
-                        }}
-                    >
-                        Cookbook
-                    </Text>
+                    <Text style={styles.heading}>Cookbook</Text>
                     <HomeCookBook />
-                    <Text
-                        style={{
-                            fontSize: 24,
-                            fontWeight: "bold",
-                            marginVertical: "2%",
-                            paddingLeft: 10,
-                        }}
-                    >
-                        Suggested Recipes
-                    </Text>
+                    <Text style={styles.heading}>Suggested Recipes</Text>
                     <RecipeList />
                 </ScrollView>
             </View>
@@ -70,9 +53,4 @@ const HomePage = () => {
 
 export default HomePage;
 
-HomePage.navigationOptions = {
-    headerTitle: <RecipeShareLogo />,
-    headerStyle: {
-        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
-    },
-};
+HomePage.navigationOptions = homepageHeaderOptions;

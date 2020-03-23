@@ -22,7 +22,7 @@ const AuthNavigator = createBottomTabNavigator(
             screen: LoginNavigator,
             navigationOptions: {
                 tabBarLabel: "Login",
-                tabBarIcon: <Image style={styles.createTab} source={logout} />,
+                tabBarIcon: <Image style={styles.loginTab} source={logout} />,
             },
         },
     },

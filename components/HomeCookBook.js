@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, Text } from "react-native";
+import { View } from "react-native";
 import HomeCourseTitle from "./HomeCourseTitle";
 
 const HomeCookBook = props => {
@@ -42,10 +42,7 @@ const HomeCookBook = props => {
                 flexDirection: "row",
                 flexWrap: "wrap",
                 justifyContent: "space-between",
-                paddingLeft: 5,
-                paddingRight: 5,
-                paddingTop: 5,
-                paddingBottom: 5,
+                paddingVertical: 5,
             }}
         >
             {Courses.map((course, index) => (
@@ -65,11 +62,3 @@ const HomeCookBook = props => {
 };
 
 export default HomeCookBook;
-
-HomeCookBook.navigationOptions = {
-    headerTitle: "My Cookbook",
-    headerTitleStyle: {
-        fontSize: 22,
-        color: "#42C200",
-    },
-};
