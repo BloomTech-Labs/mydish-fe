@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Image, View } from "react-native";
+import { Image, View } from "react-native";
 import logo from "../assets/LogoRed.png";
 
 function RecipeShareLogo() {
@@ -14,10 +14,10 @@ function RecipeShareLogo() {
             <Image
                 source={logo}
                 style={{
-                    width: 34,
-                    height: 40,
+                    resizeMode: "contain",
+                    height: 35,
                     marginLeft: 10,
-                    marginBottom: 10,
+                    marginBottom: 4,
                 }}
             />
         </View>

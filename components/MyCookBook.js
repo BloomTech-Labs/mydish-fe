@@ -1,6 +1,7 @@
 import React from "react";
 import { View, ScrollView } from "react-native";
 import CourseTitle from "./CourseTitle";
+import { cookbookHeaderOptions } from "./header/navigationHeader";
 
 const MyCookBook = props => {
     const Courses = [
@@ -52,10 +53,4 @@ const MyCookBook = props => {
 
 export default MyCookBook;
 
-MyCookBook.navigationOptions = {
-    headerTitle: "My Cookbook",
-    headerTitleStyle: {
-        fontSize: 22,
-        color: "#42C200",
-    },
-};
+MyCookBook.navigationOptions = cookbookHeaderOptions;
