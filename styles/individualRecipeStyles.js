@@ -48,16 +48,6 @@ const styles = StyleSheet.create({
     timeContainer: {
         flexDirection: "row",
     },
-    blackText: {
-        color: theme.DARK_FONT_COLOR,
-    },
-    likeView: {
-        flexDirection: "row",
-    },
-    individualTags: {
-        ...theme.REGULAR_FONT,
-        color: theme.DARK_FONT_COLOR,
-    },
     ingredients: {
         alignItems: "center",
         flexDirection: "row",
@@ -95,14 +85,9 @@ const styles = StyleSheet.create({
     recipeDetails: {
         marginVertical: 15,
     },
-    cookTimeText: {
-        fontFamily: theme.REGULAR_FONT_FAMILY,
-        color: theme.DARK_FONT_COLOR,
-    },
     authorName: {
-        fontFamily: theme.REGULAR_FONT_FAMILY,
+        ...theme.REGULAR_FONT,
         fontSize: theme.SMALL_FONT_SIZE,
-        color: theme.DARK_FONT_COLOR,
     },
     recipeFieldsList: {
         marginVertical: 10,

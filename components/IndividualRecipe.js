@@ -271,16 +271,12 @@ function IndividualRecipe(props) {
                                         recipe.tags.map((tag, index) => (
                                             <Text
                                                 key={tag.id}
-                                                style={styles.individualTags}
+                                                style={theme.REGULAR_FONT}
                                             >
                                                 {tag.name}
                                                 {index <
                                                     recipe.tags.length - 1 && (
-                                                    <Text
-                                                        style={styles.blackText}
-                                                    >
-                                                        ,{" "}
-                                                    </Text>
+                                                    <Text>, </Text>
                                                 )}
                                             </Text>
                                         ))}
@@ -303,9 +299,11 @@ function IndividualRecipe(props) {
                                 </View>
                             </View>
                             <View style={styles.underTitleRow}>
-                                <Text style={styles.cookTimeText}>
-                                    {totalCookTime} minutes
-                                </Text>
+                                <View style={styles.timeContainer}>
+                                    <Text style={theme.REGULAR_FONT}>
+                                        {totalCookTime} minutes
+                                    </Text>
+                                </View>
                             </View>
 
                             <View style={styles.tabsContainer}>

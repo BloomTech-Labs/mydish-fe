@@ -5,14 +5,16 @@ Font.loadAsync({
     "nunito sans bold": require("../assets/fonts/NunitoSans-Bold.ttf"),
     "nunito sans semi-bold": require("../assets/fonts/NunitoSans-SemiBold.ttf"),
 });
-
+const regularFontFamily = "nunito sans";
+const darkFontColor = "#1E1B1B";
+const regularFontSize = 14;
 export default {
     PRIMARY_COLOR: "#D2291F",
     HOVER_COLOR: "#B82D25",
     ACCENT_COLOR: "#EBC953",
     DISABLED_COLOR: "#D7665F",
     NAV_BAR_BACKGROUND_COLOR: "#F1F1F1",
-    DARK_FONT_COLOR: "#1E1B1B",
+    DARK_FONT_COLOR: darkFontColor,
     GREY_FONT_COLOR: "#959595",
     DARK_GREY_FONT_COLOR: "#525252",
     WHITE_FONT_COLOR: "#FFFFFF",
@@ -23,16 +25,17 @@ export default {
     INPUT_BORDER_RADIUS: 6,
     INPUT_HEIGHT: 36,
     INPUT_WIDTH_SHORT: 48,
-    REGULAR_FONT_FAMILY: "nunito sans",
+    REGULAR_FONT_FAMILY: regularFontFamily,
     BOLD_FONT_FAMILY: "nunito sans bold",
     SEMI_BOLD_FONT_FAMILY: "nunito sans semi-bold",
-    REGULAR_FONT_SIZE: 14,
+    REGULAR_FONT_SIZE: regularFontSize,
     SMALL_FONT_SIZE: 12,
     LARGE_FONT_SIZE: 24,
     REGULAR_FONT_WEIGHT: "normal",
     REGULAR_FONT: {
-        fontFamily: "nunito sans",
-        fontSize: 14,
+        fontFamily: regularFontFamily,
+        fontSize: regularFontSize,
+        color: darkFontColor,
     },
     INPUT_FONT_FAMILY: "Roboto",
     SUBHEADING_FONT_SIZE: 14,
