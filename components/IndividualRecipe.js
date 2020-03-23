@@ -236,34 +236,7 @@ function IndividualRecipe(props) {
                                     : savedPlaceholder
                             }
                             style={styles.image}
-                        >
-                            {recipe.owner.user_id &&
-                                userId === recipe.owner.user_id && (
-                                    <TouchableOpacity
-                                        onPress={startEditModeButton}
-                                        style={styles.editButton}
-                                    >
-                                        <FontAwesome
-                                            name="pencil-square-o"
-                                            size={20}
-                                            color="white"
-                                        />
-                                    </TouchableOpacity>
-                                )}
-                            {recipe.owner.user_id &&
-                                userId === recipe.owner.user_id && (
-                                    <TouchableOpacity
-                                        onPress={deleteRecipeHandler}
-                                        style={styles.deleteButton}
-                                    >
-                                        <FontAwesome
-                                            name="trash-o"
-                                            size={20}
-                                            color="white"
-                                        />
-                                    </TouchableOpacity>
-                                )}
-                        </ImageBackground>
+                        />
                         <View style={styles.recipeContentContainer}>
                             <DisplayTitle title={recipe.title} />
                             <View style={styles.underTitleRow}>
