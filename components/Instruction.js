@@ -76,7 +76,7 @@ const Instruction = ({
                             borderRadius: theme.INPUT_BORDER_RADIUS,
                             minHeight: 120,
                         }}
-                        placeholder=" Add Instructions"
+                        placeholder=" Add step"
                         multiline
                         onChangeText={handleChange}
                         value={instruction}
