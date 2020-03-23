@@ -36,10 +36,6 @@ const styles = StyleSheet.create({
     editIcon: {
         marginRight: 20,
     },
-    versionHistoryContainer: {
-        width: "100%",
-        alignItems: "flex-end",
-    },
     versions: {
         color: theme.PRIMARY_COLOR,
         textDecorationLine: "underline",

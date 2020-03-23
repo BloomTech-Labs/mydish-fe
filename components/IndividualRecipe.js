@@ -266,7 +266,7 @@ function IndividualRecipe(props) {
                         </ImageBackground>
                         <View style={styles.recipeContentContainer}>
                             <DisplayTitle title={recipe.title} />
-                            <View>
+                            <View style={styles.underTitleRow}>
                                 <Text style={styles.authorName}>
                                     {recipe.owner.username &&
                                     recipe.owner.username.length > maxUsername
@@ -276,42 +276,28 @@ function IndividualRecipe(props) {
                                           )}...`
                                         : `By ${recipe.owner.username}`}
                                 </Text>
-                                <View style={styles.underTitleRow}>
-                                    <View style={styles.tagRow}>
-                                        {recipe.tags &&
-                                            recipe.tags.map((tag, index) => (
-                                                <Text
-                                                    key={tag.id}
-                                                    style={
-                                                        styles.individualTags
-                                                    }
-                                                >
-                                                    {tag.name}
-                                                    {index <
-                                                        recipe.tags.length -
-                                                            1 && (
-                                                        <Text
-                                                            style={
-                                                                styles.blackText
-                                                            }
-                                                        >
-                                                            ,{" "}
-                                                        </Text>
-                                                    )}
-                                                </Text>
-                                            ))}
-                                    </View>
-                                    <View style={styles.timeContainer}>
-                                        <Image
-                                            source={clock}
-                                            style={styles.icon}
-                                        />
-                                        <Text style={styles.cookTimeText}>
-                                            {totalCookTime} minutes
-                                        </Text>
-                                    </View>
+                            </View>
+                            <View style={styles.underTitleRow}>
+                                <View style={styles.tagRow}>
+                                    {recipe.tags &&
+                                        recipe.tags.map((tag, index) => (
+                                            <Text
+                                                key={tag.id}
+                                                style={styles.individualTags}
+                                            >
+                                                {tag.name}
+                                                {index <
+                                                    recipe.tags.length - 1 && (
+                                                    <Text
+                                                        style={styles.blackText}
+                                                    >
+                                                        ,{" "}
+                                                    </Text>
+                                                )}
+                                            </Text>
+                                        ))}
                                 </View>
-                                <View style={styles.versionHistoryContainer}>
+                                <View>
                                     {hasRevisions() && (
                                         <TouchableOpacity
                                             onPress={() =>
@@ -327,6 +313,12 @@ function IndividualRecipe(props) {
                                         </TouchableOpacity>
                                     )}
                                 </View>
+                            </View>
+                            <View style={styles.underTitleRow}>
+                                <Image source={clock} style={styles.icon} />
+                                <Text style={styles.cookTimeText}>
+                                    {totalCookTime} minutes
+                                </Text>
                             </View>
 
                             <View style={styles.tabsContainer}>

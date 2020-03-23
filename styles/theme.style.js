@@ -35,4 +35,5 @@ export default {
     TITLE_FONT_WEIGHT: "bold",
     BUTTON_FONT_WEIGHT: "bold",
     MARGIN_SIDE_STANDARD: 16,
+    DEBUG_BORDER: { borderWidth: 1, borderColor: "#f00" },
 };
