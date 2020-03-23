@@ -1,15 +1,17 @@
-// import React from "react";
+import React from "react";
+import RecipeShareLogo from "../RecipeShareLogo";
+import SearchButton from "./SearchButton";
 
-// import { TouchableOpacity, Image } from "react-native";
-// import RecipeShareLogo from "../RecipeShareLogo";
-// // import SearchButton from "."
-// import search from "../../assets/search-icon.png";
+export const homepageHeaderOptions = {
+    headerTitle: <RecipeShareLogo />,
+    headerRight: <SearchButton homepage={"homepage"} />,
+};
 
-// export const homepageHeaderOptions = {
-//     headerTitle: <RecipeShareLogo />,
-//     headerRight: (
-//         <TouchableOpacity onPress={() => {}} style={{ marginRight: 22 }}>
-//             <Image source={search} style={{}} />
-//         </TouchableOpacity>
-//     ),
-// };
+export const createHeaderOptions = {
+    headerTitle: <RecipeShareLogo />,
+};
+
+export const cookbookHeaderOptions = {
+    headerTitle: <RecipeShareLogo />,
+    headerRight: <SearchButton cookbook={"cookbook"} />,
+};
