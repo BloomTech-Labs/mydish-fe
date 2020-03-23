@@ -50,8 +50,6 @@ function IndividualRecipe(props) {
     });
     const [tempRecipe, setTempRecipe] = useState(null);
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    const totalCookTime =
-        (Number(recipe.prep_time) || 0) + (Number(recipe.cook_time) || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const successAlert = useSelector(state => state.singleRecipe.successAlert);
 
@@ -298,10 +296,23 @@ function IndividualRecipe(props) {
                                     )}
                                 </View>
                             </View>
-                            <View style={styles.underTitleRow}>
+                            <View
+                                style={{
+                                    ...styles.underTitleRow,
+                                    marginTop: 22,
+                                }}
+                            >
                                 <View style={styles.timeContainer}>
+                                    <Text
+                                        style={{
+                                            ...theme.REGULAR_FONT,
+                                            marginRight: 10,
+                                        }}
+                                    >
+                                        Prep: {recipe.prep_time} min.
+                                    </Text>
                                     <Text style={theme.REGULAR_FONT}>
-                                        {totalCookTime} minutes
+                                        Cook: {recipe.cook_time} min.
                                     </Text>
                                 </View>
                             </View>
