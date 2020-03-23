@@ -60,7 +60,7 @@ const Instruction = ({
                     style={{
                         width: "100%",
                         flexDirection: "row",
-                        alignItems: "center",
+                        alignItems: "flex-start",
                         justifyContent: "space-between",
                     }}
                 >
