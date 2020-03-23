@@ -276,9 +276,16 @@ function IndividualRecipe(props) {
                                           )}...`
                                         : `By ${recipe.owner.username}`}
                                 </Text>
-                                <TouchableOpacity style={styles.editButton}>
-                                    <Text style={styles.editText}>Edit</Text>
-                                </TouchableOpacity>
+                                {recipe.owner.user_id &&
+                                    userId === recipe.owner.user_id && (
+                                        <TouchableOpacity
+                                            style={styles.editButton}
+                                        >
+                                            <Text style={styles.editText}>
+                                                Edit
+                                            </Text>
+                                        </TouchableOpacity>
+                                    )}
                             </View>
                             <View style={styles.underTitleRow}>
                                 <View style={styles.tagRow}>
