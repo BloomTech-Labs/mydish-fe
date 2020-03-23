@@ -372,14 +372,14 @@ function CreateRecipeForm({
                                 )}
                             </Text>
                             {addInstructions()}
-                            <Add text="Add A Step" submit={addInstruction} />
+                            <Add text="Add Step" submit={addInstruction} />
 
                             <Text style={{ ...styles.heading, marginTop: 20 }}>
                                 Notes
                             </Text>
 
                             {addNotes()}
-                            <Add text="Add A Note" submit={addNote} />
+                            <Add text="Add Note" submit={addNote} />
                             {errors.length > 0 && (
                                 <Text style={styles.errors}>
                                     * Please fill out all required fields.
