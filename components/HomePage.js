@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react";
 import Search from "./Search.js";
 import { useDispatch } from "react-redux";
 
-<<<<<<< HEAD
-import { SafeAreaView, View } from "react-native";
-=======
 import { SafeAreaView, View, ScrollView, Text } from "react-native";
 import RecipeShareLogo from "./RecipeShareLogo.js";
->>>>>>> c74c8f39c163e2569fc36248c2a9fb4eb35be2b8
 import RecipeList from "./RecipeList.js";
 // import { homepageHeaderOptions } from "./header/navigationHeader";
 import { fetchRecipes } from "../store/recipes/recipeActions";
