@@ -8,8 +8,17 @@ Font.loadAsync({
 const regularFontFamily = "nunito sans";
 const darkFontColor = "#1E1B1B";
 const regularFontSize = 14;
+const primaryColor = "#D2291F";
+const button = {
+    width: 136,
+    height: 32,
+    marginBottom: 20,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+};
 export default {
-    PRIMARY_COLOR: "#D2291F",
+    PRIMARY_COLOR: primaryColor,
     HOVER_COLOR: "#B82D25",
     ACCENT_COLOR: "#EBC953",
     DISABLED_COLOR: "#D7665F",
@@ -44,4 +53,11 @@ export default {
     BUTTON_FONT_WEIGHT: "bold",
     MARGIN_SIDE_STANDARD: 16,
     DEBUG_BORDER: { borderWidth: 1, borderColor: "#f00" },
+    PRIMARY_BUTTON: { ...button, backgroundColor: primaryColor },
+    SECONDARY_BUTTON: {
+        ...button,
+        borderWidth: 1,
+        borderColor: primaryColor,
+        marginRight: 35,
+    },
 };
