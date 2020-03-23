@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Recipe from "./Recipe";
 import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import theme from "../styles/theme.style";
 
 const RecipeList = ({ parent, folder }) => {
     const isLoading = useSelector(store => store.cookbook.isLoading);
@@ -23,7 +24,7 @@ const RecipeList = ({ parent, folder }) => {
     if (isLoading) {
         return (
             <View style={styles.centered}>
-                <ActivityIndicator size="large" color="#00ff00" />
+                <ActivityIndicator size="large" color={theme.PRIMARY_COLOR} />
             </View>
         );
     }
