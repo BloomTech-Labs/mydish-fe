@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     },
     versions: {
         color: theme.PRIMARY_COLOR,
-        textDecorationLine: "underline",
         fontFamily: theme.REGULAR_FONT_FAMILY,
         fontSize: theme.SMALL_FONT_SIZE,
     },
@@ -55,32 +54,31 @@ const styles = StyleSheet.create({
     tabsContainer: {
         flexDirection: "row",
         width: "100%",
-        marginTop: 20,
+        marginTop: 30,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.GREY_FONT_COLOR,
     },
     tabsTouchable: {
         width: "50%",
     },
-    showTab: {
-        paddingVertical: 8,
-        backgroundColor: theme.PRIMARY_COLOR,
-        borderBottomWidth: 1,
-        borderBottomColor: theme.GREY_FONT_COLOR,
+    tab: {
+        paddingVertical: 2,
     },
-    hideTab: {
-        paddingVertical: 8,
-        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
-        borderBottomWidth: 1,
+    showTab: {
         borderBottomColor: theme.PRIMARY_COLOR,
+        borderBottomWidth: 3,
+    },
+    tabText: {
+        textAlign: "center",
+        fontSize: 16,
     },
     tabTextActive: {
-        textAlign: "center",
-        color: theme.WHITE_FONT_COLOR,
+        color: theme.PRIMARY_COLOR,
         fontFamily: theme.BOLD_FONT_FAMILY,
     },
     tabTextInactive: {
-        textAlign: "center",
         color: theme.DARK_FONT_COLOR,
-        fontFamily: theme.BOLD_FONT_FAMILY,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
     },
     recipeDetails: {
         marginVertical: 15,
