@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         width: "100%",
         justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: 5,
+        ...theme.DEBUG_BORDER,
     },
     tagRow: {
         flexDirection: "row",
@@ -33,9 +36,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
     },
     icon: { width: 20, height: 20, marginRight: 5 },
-    editIcon: {
-        marginRight: 20,
-    },
     versions: {
         color: theme.PRIMARY_COLOR,
         textDecorationLine: "underline",
@@ -162,22 +162,18 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     editButton: {
-        backgroundColor: "#8FCC70",
-        padding: 5,
+        backgroundColor: theme.PRIMARY_COLOR,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 20,
-        width: 35,
-        height: 35,
-        margin: 10,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        width: 113,
+        height: 28,
+        borderRadius: 5,
+    },
+    editText: {
+        color: theme.WHITE_FONT_COLOR,
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        fontSize: theme.REGULAR_FONT_SIZE,
     },
     deleteButton: {
         backgroundColor: "#C00000",
@@ -203,9 +199,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#8FCC70",
         width: 25,
-    },
-    editIcons: {
-        marginRight: 5,
     },
     buttonContainer: {
         flexDirection: "row",
