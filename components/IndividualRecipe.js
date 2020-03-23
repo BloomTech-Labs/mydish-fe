@@ -377,20 +377,35 @@ function IndividualRecipe(props) {
                                     </>
                                 )}
                             </View>
-                            <View style={styles.buttonContainer}>
-                                <TouchableOpacity
-                                    style={theme.SECONDARY_BUTTON}
-                                >
-                                    <Text style={theme.SECONDARY_BUTTON_TEXT}>
-                                        Delete
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={theme.PRIMARY_BUTTON}>
-                                    <Text style={theme.PRIMARY_BUTTON_TEXT}>
-                                        Save
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
+                            {recipe.owner.user_id &&
+                                userId === recipe.owner.user_id && (
+                                    <View style={styles.buttonContainer}>
+                                        <TouchableOpacity
+                                            style={theme.SECONDARY_BUTTON}
+                                            onPress={deleteRecipeHandler}
+                                        >
+                                            <Text
+                                                style={
+                                                    theme.SECONDARY_BUTTON_TEXT
+                                                }
+                                            >
+                                                Delete
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={theme.PRIMARY_BUTTON}
+                                            onPress={startEditModeButton}
+                                        >
+                                            <Text
+                                                style={
+                                                    theme.PRIMARY_BUTTON_TEXT
+                                                }
+                                            >
+                                                Edit
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
                         </View>
                     </View>
                 </ScrollView>
