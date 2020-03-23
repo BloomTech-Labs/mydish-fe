@@ -33,7 +33,7 @@ const HomePage = () => {
     }, [dish]);
 
     useEffect(() => {
-        console.log("re-render plz");
+        setDish("");
     }, [search]);
 
     return (
