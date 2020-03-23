@@ -40,7 +40,7 @@ const Instruction = ({
     return (
         <View
             style={{
-                marginBottom: 10,
+                marginBottom: 16,
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
@@ -48,47 +48,39 @@ const Instruction = ({
         >
             <View
                 style={{
-                    flexGrow: 1,
-                    flexDirection: "column",
-                    width: "60%", //Not sure why, but a higher percentage (like 90%) causes weird behavior on iPad. Removing width property makes instructions field run over edge of screen.
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
                 }}
             >
-                <View
+                <TextInput
                     style={{
-                        width: "100%",
-                        flexDirection: "row",
-                        alignItems: "flex-start",
-                        justifyContent: "space-between",
+                        maxWidth: "90%",
+                        width: "90%",
+                        padding: 8,
+                        borderWidth: theme.INPUT_BORDER_WIDTH,
+                        borderColor: highlighted
+                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+                            : theme.INPUT_BORDER_COLOR,
+                        borderRadius: theme.INPUT_BORDER_RADIUS,
+                        minHeight: 120,
                     }}
-                >
-                    <TextInput
-                        style={{
-                            maxWidth: "90%",
-                            width: "90%",
-                            padding: 8,
-                            borderWidth: theme.INPUT_BORDER_WIDTH,
-                            borderColor: highlighted
-                                ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
-                                : theme.INPUT_BORDER_COLOR,
-                            borderRadius: theme.INPUT_BORDER_RADIUS,
-                            minHeight: 120,
-                        }}
-                        placeholder=" Add step"
-                        multiline
-                        onChangeText={handleChange}
-                        value={instruction}
-                        onFocus={() => setHighlighted(true)}
-                        onBlur={() => setHighlighted(false)}
-                    />
-                    <XDeleteButton
-                        action={
-                            parent === "create"
-                                ? () => removeInstruction(index)
-                                : () => dispatch(deleteInstruction(index))
-                        }
-                        parent="instruction"
-                    />
-                </View>
+                    placeholder=" Add step"
+                    multiline
+                    onChangeText={handleChange}
+                    value={instruction}
+                    onFocus={() => setHighlighted(true)}
+                    onBlur={() => setHighlighted(false)}
+                />
+                <XDeleteButton
+                    action={
+                        parent === "create"
+                            ? () => removeInstruction(index)
+                            : () => dispatch(deleteInstruction(index))
+                    }
+                    parent="instruction"
+                />
             </View>
         </View>
     );
