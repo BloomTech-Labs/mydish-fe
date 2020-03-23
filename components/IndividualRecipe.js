@@ -303,17 +303,21 @@ function IndividualRecipe(props) {
                                 }}
                             >
                                 <View style={styles.timeContainer}>
-                                    <Text
-                                        style={{
-                                            ...theme.REGULAR_FONT,
-                                            marginRight: 10,
-                                        }}
-                                    >
-                                        Prep: {recipe.prep_time} min.
-                                    </Text>
-                                    <Text style={theme.REGULAR_FONT}>
-                                        Cook: {recipe.cook_time} min.
-                                    </Text>
+                                    {recipe.prep_time !== null && (
+                                        <Text
+                                            style={{
+                                                ...theme.REGULAR_FONT,
+                                                marginRight: 10,
+                                            }}
+                                        >
+                                            Prep: {recipe.prep_time} min.
+                                        </Text>
+                                    )}
+                                    {recipe.cook_time !== null && (
+                                        <Text style={theme.REGULAR_FONT}>
+                                            Cook: {recipe.cook_time} min.
+                                        </Text>
+                                    )}
                                 </View>
                             </View>
 
