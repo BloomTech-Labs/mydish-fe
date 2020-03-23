@@ -53,9 +53,6 @@ const Instruction = ({
                     width: "60%", //Not sure why, but a higher percentage (like 90%) causes weird behavior on iPad. Removing width property makes instructions field run over edge of screen.
                 }}
             >
-                <Text style={{ marginLeft: 14, marginBottom: 5 }}>
-                    Step {index + 1}
-                </Text>
                 <View
                     style={{
                         width: "100%",

@@ -363,7 +363,7 @@ function CreateRecipeForm({
                             <Add text="Add Ingredient" submit={addIng} />
 
                             <Text style={{ ...styles.heading, marginTop: 20 }}>
-                                Instructions
+                                Steps
                                 {errors.includes("instructions") && (
                                     <Text style={styles.missingAsterisk}>
                                         {" "}
