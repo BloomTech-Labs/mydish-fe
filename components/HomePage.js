@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Search from "./Search.js";
 import { useDispatch } from "react-redux";
-import theme from "../styles/theme.style";
 
 import { SafeAreaView, View } from "react-native";
-import RecipeShareLogo from "./RecipeShareLogo.js";
 import RecipeList from "./RecipeList.js";
+import { homepageHeaderOptions } from "../constants/navigationHeaderOptions";
 import { fetchRecipes } from "../store/recipes/recipeActions";
 
 //Analytics
@@ -43,9 +42,4 @@ const HomePage = () => {
 
 export default HomePage;
 
-HomePage.navigationOptions = {
-    headerTitle: <RecipeShareLogo />,
-    headerStyle: {
-        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
-    },
-};
+HomePage.navigationOptions = homepageHeaderOptions;
