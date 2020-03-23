@@ -30,7 +30,7 @@ const MyCookBook = props => {
                 "https://cdn3.tmbi.com/toh/GoogleImages/exps19201_RDS011700016SC03_13_2b_WEB.jpg",
         },
         {
-            course: "Snack",
+            course: "Snacks",
             img: "https://data.thefeedfeed.com/recommended/post_4483824.jpeg",
         },
     ];
