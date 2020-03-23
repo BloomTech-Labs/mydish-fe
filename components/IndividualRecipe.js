@@ -279,6 +279,7 @@ function IndividualRecipe(props) {
                                 {recipe.owner.user_id &&
                                     userId === recipe.owner.user_id && (
                                         <TouchableOpacity
+                                            onPress={startEditModeButton}
                                             style={styles.editButton}
                                         >
                                             <Text style={styles.editText}>
