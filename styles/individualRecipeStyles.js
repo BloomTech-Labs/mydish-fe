@@ -13,14 +13,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingVertical: 3,
     },
     title: {
         fontSize: theme.LARGE_FONT_SIZE,
         color: theme.DARK_FONT_COLOR,
         fontFamily: theme.BOLD_FONT_FAMILY,
         fontWeight: "bold",
-        marginTop: 5,
+        marginTop: 32,
     },
     underTitleRow: {
         flexDirection: "row",
