@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
         fontSize: theme.LARGE_FONT_SIZE,
         color: theme.DARK_FONT_COLOR,
         fontFamily: theme.BOLD_FONT_FAMILY,
-        fontWeight: "bold",
         marginTop: 32,
     },
     underTitleRow: {
