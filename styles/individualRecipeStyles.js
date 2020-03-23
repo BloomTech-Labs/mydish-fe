@@ -28,9 +28,14 @@ const styles = StyleSheet.create({
         marginTop: 5,
         ...theme.DEBUG_BORDER,
     },
-    tagRow: {
+    tagAndVersionsRow: {
+        alignItems: "flex-start",
+        marginTop: 14,
+    },
+    tagBox: {
         flexDirection: "row",
-        marginTop: 10,
+        width: 199,
+        flexWrap: "wrap",
     },
     recipeContentContainer: {
         marginHorizontal: 16,
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
     },
     individualTags: {
         fontSize: theme.REGULAR_FONT_SIZE,
-        color: theme.PRIMARY_COLOR,
+        color: theme.DARK_FONT_COLOR,
         fontFamily: theme.REGULAR_FONT_FAMILY,
     },
     ingredients: {

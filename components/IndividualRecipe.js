@@ -261,8 +261,13 @@ function IndividualRecipe(props) {
                                         </TouchableOpacity>
                                     )}
                             </View>
-                            <View style={styles.underTitleRow}>
-                                <View style={styles.tagRow}>
+                            <View
+                                style={{
+                                    ...styles.underTitleRow,
+                                    ...styles.tagAndVersionsRow,
+                                }}
+                            >
+                                <View style={styles.tagBox}>
                                     {recipe.tags &&
                                         recipe.tags.map((tag, index) => (
                                             <Text
