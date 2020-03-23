@@ -6,6 +6,7 @@ Font.loadAsync({
     "nunito sans semi-bold": require("../assets/fonts/NunitoSans-SemiBold.ttf"),
 });
 const regularFontFamily = "nunito sans";
+const boldFontFamily = "nunito sans bold";
 const darkFontColor = "#1E1B1B";
 const regularFontSize = 14;
 const primaryColor = "#D2291F";
@@ -16,6 +17,10 @@ const button = {
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+};
+const buttonText = {
+    fontFamily: boldFontFamily,
+    fontSize: 16,
 };
 export default {
     PRIMARY_COLOR: primaryColor,
@@ -35,7 +40,7 @@ export default {
     INPUT_HEIGHT: 36,
     INPUT_WIDTH_SHORT: 48,
     REGULAR_FONT_FAMILY: regularFontFamily,
-    BOLD_FONT_FAMILY: "nunito sans bold",
+    BOLD_FONT_FAMILY: boldFontFamily,
     SEMI_BOLD_FONT_FAMILY: "nunito sans semi-bold",
     REGULAR_FONT_SIZE: regularFontSize,
     SMALL_FONT_SIZE: 12,
@@ -60,4 +65,6 @@ export default {
         borderColor: primaryColor,
         marginRight: 35,
     },
+    PRIMARY_BUTTON_TEXT: { ...buttonText, color: "#FFF" },
+    SECONDARY_BUTTON_TEXT: { ...buttonText, color: primaryColor },
 };

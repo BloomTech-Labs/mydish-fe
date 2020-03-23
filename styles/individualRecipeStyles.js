@@ -187,9 +187,8 @@ const styles = StyleSheet.create({
         width: 25,
     },
     buttonContainer: {
-        ...theme.DEBUG_BORDER,
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "center",
         alignItems: "center",
         marginTop: 64,
         marginRight: 16,

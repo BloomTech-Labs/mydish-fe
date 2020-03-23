@@ -378,11 +378,17 @@ function IndividualRecipe(props) {
                                 )}
                             </View>
                             <View style={styles.buttonContainer}>
-                                <TouchableOpacity>
-                                    <Text>Delete</Text>
+                                <TouchableOpacity
+                                    style={theme.SECONDARY_BUTTON}
+                                >
+                                    <Text style={theme.SECONDARY_BUTTON_TEXT}>
+                                        Delete
+                                    </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <Text>Save</Text>
+                                <TouchableOpacity style={theme.PRIMARY_BUTTON}>
+                                    <Text style={theme.PRIMARY_BUTTON_TEXT}>
+                                        Save
+                                    </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
