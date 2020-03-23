@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: theme.LARGE_FONT_SIZE,
-        color: theme.DARK_FONT_COLOR,
+        color: theme.DARK_GREY_FONT_COLOR,
         fontFamily: theme.BOLD_FONT_FAMILY,
         marginTop: 32,
     },
