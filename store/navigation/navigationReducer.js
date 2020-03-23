@@ -1,7 +1,10 @@
 import { SEARCH_HOMEPAGE } from "./navigationActions";
 
 const initState = {
-    searchHomepage: true,
+    search: {
+        homepage: false,
+        cookbook: false,
+    },
 };
 
 export const navigationReducer = (state = initState, action) => {
@@ -9,7 +12,10 @@ export const navigationReducer = (state = initState, action) => {
         case SEARCH_HOMEPAGE:
             return {
                 ...state,
-                searchHomepage: action.payload,
+                search: {
+                    ...state.search,
+                    homepage: action.payload,
+                },
             };
         default:
             return state;
