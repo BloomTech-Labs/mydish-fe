@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         width: 32,
         height: 32,
         marginRight: 16,
-        marginBottom: 4,
+        marginBottom: 16,
         backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
         padding: 5,
         borderRadius: 16,
