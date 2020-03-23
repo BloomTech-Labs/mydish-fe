@@ -3,13 +3,13 @@ import {
     Text,
     TextInput,
     View,
-    Image,
     ScrollView,
     TouchableOpacity,
-    Alert,
     ActivityIndicator,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../store/singleRecipe/singleRecipeActions";
 import styles from "../styles/createRecipeStyles";
 import theme from "../styles/theme.style";
 
@@ -22,80 +22,54 @@ import Notes from "./Notes";
 import RecipeShareLogo from "./RecipeShareLogo";
 import RecipeImage from "./RecipeImageComponents/RecipeImage";
 import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
+import CommitModal from "./EditRecipeComponents/Modal";
 
 import axiosWithAuth from "../utils/axiosWithAuth";
-import postImage from "./RecipeImageComponents/postImage";
-import { validateFields } from "../utils/helperFunctions/vaildateFields";
+import { validateFields } from "../utils/helperFunctions/validateFields";
+import { serverErrorAlert } from "../utils/helperFunctions/serverErrorAlert";
+import { prepRecipeForPost } from "../utils/helperFunctions/prepRecipeForPost";
+
+import { courses } from "../constants/courses";
+import { initialCreateFormState } from "../constants/initialCreateFormState";
 
 //Analytics
 import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-160806654-1");
 
-function CreateRecipeForm(props) {
-    const emptyIngredient = {
-        name: "",
-        quantity: "",
-        units: "",
-    };
-    const initialFormState = {
-        img: "",
-        title: "",
-        prep_time: "",
-        cook_time: "",
-        tags: [],
-        ingredients: new Array(3).fill(emptyIngredient),
-        instructions: new Array(3).fill(""),
-        notes: [""],
-    };
-
-    const [recipe, setRecipe] = useState(initialFormState);
+function CreateRecipeForm({
+    navigation,
+    savedRecipe,
+    cancelButtonEditedRecipe,
+    saveButtonEditedRecipe,
+}) {
+    const dispatch = useDispatch();
+    const [recipe, setRecipe] = useState(initialCreateFormState);
+    const recipeToRender = savedRecipe
+        ? useSelector(state => state.singleRecipe.recipe)
+        : recipe;
+    const savedRecipeTagNames =
+        savedRecipe && recipeToRender.tags.map(tag => tag.name);
+    const [editRecipe, create] = ["editRecipe", "create"];
     let [errors, setErrors] = useState([]);
+    const [commitModal, setCommitModal] = useState({
+        save: false,
+        cancel: false,
+    });
     const [imageModalVisible, setImageModalVisible] = useState(false);
-    const [image, setImage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [highlighted, setHighlighted] = useState({
         prep_time: false,
         cook_time: false,
     });
 
-    const courses = [
-        "Breakfast",
-        "Brunch",
-        "Lunch",
-        "Dinner",
-        "Dessert",
-        "Snack",
-    ];
-
     const postRecipe = async () => {
         analytics
             .event(new Event("Recipe", "Create recipe"))
             .then(() => console.log("Recipe added"))
             .catch(e => console.log(e.message));
-        const postRecipe = {
-            ...recipe,
-            // Remove any ingredients that are empty
-            ingredients: recipe.ingredients
-                .filter(
-                    ing => ing.name.length && ing.quantity.length && ing.units,
-                )
-                .map(ing => ({ ...ing, name: ing.name.replace(/\n+/g, " ") })), //Remove any newlines
-            instructions: recipe.instructions
-                .filter(step => step.length) // Remove empty instructions
-                .map((step, i) => ({
-                    step_number: i + 1, // Add the step number
-                    description: step.replace(/\n+/g, " "), // Remove any newlines
-                })),
-            notes: recipe.notes
-                .filter(note => note.length) // Remove empty instructions
-                .map(
-                    (note, i) => note.replace(/\n+/g, " "), // Remove any newlines
-                ),
-            author_comment: "Original Recipe",
-            img: image ? await postImage(image, serverErrorAlert) : "", // Post image file to S3, store the returned URL
-        };
+        const preppedRecipe = await prepRecipeForPost(recipe);
 
-        const errMessages = validateFields(postRecipe, courses);
+        const errMessages = validateFields(preppedRecipe, "create");
 
         if (errMessages.length) {
             setErrors(errMessages);
@@ -104,11 +78,13 @@ function CreateRecipeForm(props) {
         setIsLoading(true);
         try {
             const axiosCustom = await axiosWithAuth();
-            const res = await axiosCustom.post("recipes", postRecipe);
+            const res = await axiosCustom.post("recipes", preppedRecipe);
 
             recipeID = res.data.id;
             setIsLoading(false);
-            props.navigation.navigate("IndividualR", { recipe, recipeID });
+            setRecipe(initialCreateFormState);
+            navigation.navigate("Home");
+            navigation.push("IndividualR", { recipe, recipeID });
         } catch (err) {
             console.log("error from adding new recipe \n", err.response);
             if (err.response.status === 500) {
@@ -119,34 +95,32 @@ function CreateRecipeForm(props) {
         }
     };
 
-    const serverErrorAlert = () => {
-        return Alert.alert(
-            "Sorry",
-            "There was an error when trying to create your recipe. Please try again.",
-            [{ text: "Okay" }],
-        );
-    };
-
     const addIng = () => {
         const newIng = { name: "", quantity: "", units: "" };
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            ingredients: [...oldRecipe.ingredients, newIng],
-        }));
+        savedRecipe
+            ? dispatch(actions.addIngredient(newIng))
+            : setRecipe(oldRecipe => ({
+                  ...oldRecipe,
+                  ingredients: [...oldRecipe.ingredients, newIng],
+              }));
     };
 
     const addInstruction = () => {
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            instructions: [...oldRecipe.instructions, ""],
-        }));
+        savedRecipe
+            ? dispatch(actions.addInstruction(""))
+            : setRecipe(oldRecipe => ({
+                  ...oldRecipe,
+                  instructions: [...oldRecipe.instructions, ""],
+              }));
     };
 
     const addNote = () => {
-        setRecipe(oldRecipe => ({
-            ...oldRecipe,
-            notes: [...oldRecipe.notes, ""],
-        }));
+        savedRecipe
+            ? dispatch(actions.addNote(""))
+            : setRecipe(oldRecipe => ({
+                  ...oldRecipe,
+                  notes: [...oldRecipe.notes, ""],
+              }));
     };
 
     const removeNote = index => {
@@ -173,7 +147,7 @@ function CreateRecipeForm(props) {
     };
 
     const addIngredients = () => {
-        return recipe.ingredients.map((ingredient, i) => (
+        return recipeToRender.ingredients.map((ingredient, i) => (
             <Ingredient
                 key={i}
                 index={i}
@@ -181,31 +155,36 @@ function CreateRecipeForm(props) {
                 recipeIng={ingredient}
                 recipe={recipe}
                 setRecipe={setRecipe}
-                parent="create"
+                parent={savedRecipe ? editRecipe : create}
             />
         ));
     };
 
     const addInstructions = () => {
-        return recipe.instructions.map((instruction, i) => (
+        return recipeToRender.instructions.map((instruction, i) => (
             <Instruction
                 key={i}
                 index={i}
                 removeInstruction={removeInstruction}
-                instruction={instruction}
+                instruction={
+                    savedRecipe ? instruction.description : instruction
+                }
                 setRecipe={setRecipe}
+                parent={savedRecipe ? editRecipe : create}
             />
         ));
     };
 
     const addNotes = () => {
-        return recipe.notes.map((note, i) => (
+        return recipeToRender.notes.map((note, i) => (
             <Notes
                 key={i}
                 index={i}
                 removeNote={removeNote}
-                note={note}
+                note={savedRecipe ? note.description : note}
+                id={savedRecipe && note.id}
                 setRecipe={setRecipe}
+                parent={savedRecipe ? editRecipe : create}
             />
         ));
     };
@@ -231,21 +210,27 @@ function CreateRecipeForm(props) {
             <View>
                 <ScrollView>
                     <RecipeImage
-                        image={image}
+                        image={recipeToRender.img}
                         setImageModalVisible={setImageModalVisible}
                     />
                     <View style={styles.container}>
                         <View>
+                            <CommitModal
+                                commitModal={commitModal}
+                                setCommitModal={setCommitModal}
+                                saveButtonEditedRecipe={saveButtonEditedRecipe}
+                            />
                             <ImageUploadModal
                                 visible={imageModalVisible}
                                 setVisible={setImageModalVisible}
-                                image={image}
-                                setImage={setImage}
+                                setRecipe={setRecipe}
+                                parent={savedRecipe ? editRecipe : create}
                             />
                             <RecipeName
-                                recipe={recipe}
+                                recipe={recipeToRender}
                                 setRecipe={setRecipe}
                                 missing={errors.includes("title")}
+                                parent={savedRecipe ? editRecipe : create}
                             />
                             <View style={styles.totalTimeView}>
                                 <View style={styles.timeContainer}>
@@ -254,7 +239,9 @@ function CreateRecipeForm(props) {
                                         {errors.includes(
                                             "prep_time and/or cook_time",
                                         ) && (
-                                            <Text style={styles.missing}>
+                                            <Text
+                                                style={styles.missingAsterisk}
+                                            >
                                                 *
                                             </Text>
                                         )}
@@ -272,12 +259,16 @@ function CreateRecipeForm(props) {
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
                                             if (isNaN(Number(min))) return;
-                                            setRecipe({
-                                                ...recipe,
-                                                prep_time: min,
-                                            });
+                                            savedRecipe
+                                                ? dispatch(
+                                                      actions.editPreptime(min),
+                                                  )
+                                                : setRecipe({
+                                                      ...recipe,
+                                                      prep_time: min,
+                                                  });
                                         }}
-                                        value={String(recipe.prep_time)}
+                                        value={String(recipeToRender.prep_time)}
                                         onFocus={() =>
                                             setHighlighted({ prep_time: true })
                                         }
@@ -292,7 +283,9 @@ function CreateRecipeForm(props) {
                                         {errors.includes(
                                             "prep_time and/or cook_time",
                                         ) && (
-                                            <Text style={styles.missing}>
+                                            <Text
+                                                style={styles.missingAsterisk}
+                                            >
                                                 *
                                             </Text>
                                         )}
@@ -310,12 +303,16 @@ function CreateRecipeForm(props) {
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
                                             if (isNaN(Number(min))) return;
-                                            setRecipe({
-                                                ...recipe,
-                                                cook_time: min,
-                                            });
+                                            savedRecipe
+                                                ? dispatch(
+                                                      actions.editCooktime(min),
+                                                  )
+                                                : setRecipe({
+                                                      ...recipe,
+                                                      cook_time: min,
+                                                  });
                                         }}
-                                        value={String(recipe.cook_time)}
+                                        value={String(recipeToRender.cook_time)}
                                         onFocus={() =>
                                             setHighlighted({ cook_time: true })
                                         }
@@ -328,7 +325,9 @@ function CreateRecipeForm(props) {
                             <View style={styles.heading}>
                                 <Text>Course Type</Text>
                                 {errors.includes("tags") && (
-                                    <Text style={styles.missing}>*</Text>
+                                    <Text style={styles.missingAsterisk}>
+                                        *
+                                    </Text>
                                 )}
                             </View>
                             <View style={styles.tagGroup}>
@@ -336,17 +335,27 @@ function CreateRecipeForm(props) {
                                     <TagButton
                                         key={i}
                                         tag={course}
-                                        isSelected={recipe.tags.includes(
-                                            course,
-                                        )}
+                                        isSelected={
+                                            savedRecipe
+                                                ? savedRecipeTagNames.includes(
+                                                      course,
+                                                  )
+                                                : recipe.tags.includes(course)
+                                        }
                                         setRecipe={setRecipe}
+                                        parent={
+                                            savedRecipe ? editRecipe : create
+                                        }
                                     />
                                 ))}
                             </View>
                             <Text style={{ ...styles.heading, marginTop: 20 }}>
                                 Ingredients
                                 {errors.includes("ingredients") && (
-                                    <Text style={styles.missing}> *</Text>
+                                    <Text style={styles.missingAsterisk}>
+                                        {" "}
+                                        *
+                                    </Text>
                                 )}
                             </Text>
                             {addIngredients()}
@@ -355,7 +364,10 @@ function CreateRecipeForm(props) {
                             <Text style={{ ...styles.heading, marginTop: 20 }}>
                                 Instructions
                                 {errors.includes("instructions") && (
-                                    <Text style={styles.missing}> *</Text>
+                                    <Text style={styles.missingAsterisk}>
+                                        {" "}
+                                        *
+                                    </Text>
                                 )}
                             </Text>
                             {addInstructions()}
@@ -372,14 +384,68 @@ function CreateRecipeForm(props) {
                                     * Please fill out all required fields.
                                 </Text>
                             )}
-                            <TouchableOpacity
-                                style={styles.saveView}
-                                onPress={postRecipe}
-                            >
-                                <View style={styles.saveBtn}>
-                                    <Text style={styles.saveText}>Save</Text>
-                                </View>
-                            </TouchableOpacity>
+                            <View style={styles.saveView}>
+                                {savedRecipe && (
+                                    <TouchableOpacity
+                                        onPress={cancelButtonEditedRecipe}
+                                    >
+                                        <View
+                                            style={{
+                                                ...styles.btn,
+                                                ...styles.cancelBtn,
+                                            }}
+                                        >
+                                            <Text
+                                                style={{
+                                                    ...styles.btnText,
+                                                    ...styles.cancelText,
+                                                }}
+                                            >
+                                                Cancel
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )}
+                                <TouchableOpacity
+                                    onPress={
+                                        savedRecipe
+                                            ? () => {
+                                                  dispatch(
+                                                      actions.cleanUpRecipe(),
+                                                  );
+                                                  const errMessages = validateFields(
+                                                      null,
+                                                      "edit",
+                                                  );
+                                                  if (errMessages.length) {
+                                                      setErrors(errMessages);
+                                                      return;
+                                                  }
+                                                  setCommitModal({
+                                                      save: true,
+                                                      cancel: false,
+                                                  });
+                                              }
+                                            : postRecipe
+                                    }
+                                >
+                                    <View
+                                        style={{
+                                            ...styles.btn,
+                                            ...styles.saveBtn,
+                                        }}
+                                    >
+                                        <Text
+                                            style={{
+                                                ...styles.btnText,
+                                                ...styles.saveText,
+                                            }}
+                                        >
+                                            Save
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </ScrollView>

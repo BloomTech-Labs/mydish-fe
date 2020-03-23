@@ -9,11 +9,11 @@ import {
     Button,
 } from "react-native";
 //Analytics
-import { Analytics, Event } from 'expo-analytics';
-const analytics = new Analytics('UA-159002245-1');
+import { Analytics, Event } from "expo-analytics";
+const analytics = new Analytics("UA-159002245-1");
 
 const CommitModal = props => {
-    const { modal, setModal, saveButtonEditedRecipe } = props;
+    const { commitModal, setCommitModal, saveButtonEditedRecipe } = props;
     const [author_comment, setAuthor_comment] = useState();
     const [highlighted, setHighlighted] = useState(false);
 
@@ -23,19 +23,20 @@ const CommitModal = props => {
         } else {
             saveButtonEditedRecipe(author_comment);
         }
-        analytics.event(new Event('Recipe', 'User edited existing recipe'))
+        analytics
+            .event(new Event("Recipe", "User edited existing recipe"))
             .then(() => console.log("Recipe edited"))
             .catch(e => console.log(e.message));
     };
 
     const closeModalHandler = () => {
         setHighlighted(false);
-        setModal({ save: false, cancel: false });
+        setCommitModal({ save: false, cancel: false });
     };
 
     return (
         <View style={{ flexDirection: "row" }}>
-            <Modal visible={modal.save} animationType="fade" transparent>
+            <Modal visible={commitModal.save} animationType="fade" transparent>
                 <TouchableHighlight onPress={closeModalHandler}>
                     <View
                         style={{

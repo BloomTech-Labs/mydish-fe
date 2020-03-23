@@ -4,8 +4,6 @@ import {
     Text,
     ScrollView,
     Image,
-    TouchableWithoutFeedback,
-    KeyboardAvoidingView,
     SafeAreaView,
     AsyncStorage,
     TouchableOpacity,
@@ -17,7 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     fetchRecipe,
     resetRecipe,
-    resetCurrentActive,
     stopEditMode,
     startEditMode,
     submitEditedRecipe,
@@ -30,30 +27,17 @@ import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
 
 import clock from "../assets/timer.png";
-import logo from "../assets/background.png";
 import { savedPlaceholder } from "../constants/imagePlaceholders";
 import { maxUsername } from "../constants/maxLenth";
 
-import Title from "./EditRecipeComponents/Title";
 import Tab from "./Tab";
-import IndividualRecipeIngredient from "./EditRecipeComponents/IndividualRecipeIngredient";
-import AddIngredient from "./AddRecipeFields/AddIngredient";
-import IndividualRecipeInstruction from "./EditRecipeComponents/IndividualRecipeInstruction";
-import AddInstruction from "./AddRecipeFields/AddInstruction";
-import IndividualRecipeNotes from "./EditRecipeComponents/IndividualRecipeNotes";
-import AddNote from "./AddRecipeFields/AddNote";
+import CreateRecipeForm from "./CreateRecipeForm";
 import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngredient";
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
-import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
-import CameraIcon from "./RecipeImageComponents/CameraIcon";
 import { FontAwesome } from "@expo/vector-icons";
-import { Octicons } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
-import CommitModal from "./EditRecipeComponents/Modal";
-
-import { StackActions, NavigationActions } from "react-navigation";
 
 import { fetchRecipes } from "../store/recipes/recipeActions";
 
@@ -61,18 +45,18 @@ function IndividualRecipe(props) {
     const dispatch = useDispatch();
     const [color, setColor] = useState({ active: "Ingredients" });
     const [userId, setUserId] = useState(null);
-    const [modal, setModal] = useState({ save: false, cancel: false });
+    const [commitModal, setCommitModal] = useState({
+        save: false,
+        cancel: false,
+    });
     const [tempRecipe, setTempRecipe] = useState(null);
-    const [imageModalVisible, setImageModalVisible] = useState(false);
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
+    const totalCookTime =
+        (Number(recipe.prep_time) || 0) + (Number(recipe.cook_time) || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const successAlert = useSelector(state => state.singleRecipe.successAlert);
 
     const editMode = useSelector(state => state.singleRecipe.editMode);
-    const currentActive = useSelector(
-        state => state.singleRecipe.currentActive,
-    );
 
     //Anytime someone navigations to here - it has ID, we could just also pass another value
     const id = props.navigation.getParam("recipeID", "params not passed");
@@ -140,17 +124,6 @@ function IndividualRecipe(props) {
     const tabsDisplay = cat => {
         const newActive = cat;
         setColor({ active: newActive });
-        if (currentActive && currentActive.field === "title") {
-            currentActive.close();
-        }
-        dispatch(resetCurrentActive());
-    };
-
-    const stopEditPress = () => {
-        if (currentActive.type === "edit") {
-            currentActive.close();
-        }
-        dispatch(fetchRecipes(""));
     };
 
     const startEditModeButton = () => {
@@ -163,9 +136,8 @@ function IndividualRecipe(props) {
     const saveButtonEditedRecipe = author_comment => {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
-        dispatch(resetCurrentActive());
         dispatch(fetchRecipes(""));
-        setModal({ save: false, cancel: false });
+        setCommitModal({ save: false, cancel: false });
     };
 
     const hasRevisions = () =>
@@ -173,13 +145,7 @@ function IndividualRecipe(props) {
         // If any values are 'undefined' or 'NaN', this will ensure they are 'false'
         !!Number(revisionId) || !!Number(recipe.previous_versions_count);
 
-    // const getVersionString = () =>
-    //     recipe.revision_number
-    //         ? `AUTHOR COMMENT ON VERSION ${recipe.revision_number}:`
-    //         : "AUTHOR COMMENT ON CURRENT VERSION:";
-
     const cancelButtonEditedRecipe = () => {
-        //TO DO - an alert or modal before dispatching stopEditMode
         Alert.alert(
             "Exit Edit Mode",
             "Are you sure you want to exit without saving your changes?",
@@ -193,7 +159,6 @@ function IndividualRecipe(props) {
                     text: "OK",
                     onPress: () => {
                         dispatch(stopEditMode());
-                        dispatch(resetCurrentActive());
                         dispatch(fetchRecipes(""));
                         dispatch(resetRecipe(tempRecipe));
                     },
@@ -250,201 +215,12 @@ function IndividualRecipe(props) {
 
     const editableRecipeDisplay = () => {
         return (
-            <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
-                <SafeAreaView>
-                    <TouchableWithoutFeedback onPress={stopEditPress}>
-                        <ScrollView>
-                            <View style={styles.recipeContainer}>
-                                <CommitModal
-                                    modal={modal}
-                                    setModal={setModal}
-                                    saveButtonEditedRecipe={
-                                        saveButtonEditedRecipe
-                                    }
-                                />
-                                <ImageUploadModal
-                                    visible={imageModalVisible}
-                                    setVisible={setImageModalVisible}
-                                    scope="global"
-                                />
-                                <ImageBackground
-                                    source={
-                                        recipe.img
-                                            ? { uri: recipe.img }
-                                            : savedPlaceholder
-                                    }
-                                    style={styles.image}
-                                >
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            setModal({
-                                                save: true,
-                                                cancel: false,
-                                            });
-                                        }}
-                                        style={styles.editButton}
-                                    >
-                                        <FontAwesome
-                                            name="check"
-                                            size={20}
-                                            color="white"
-                                        />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        onPress={cancelButtonEditedRecipe}
-                                        style={styles.deleteButton}
-                                    >
-                                        <Octicons
-                                            name="x"
-                                            size={20}
-                                            color="white"
-                                        />
-                                    </TouchableOpacity>
-                                    <View style={styles.cameraIcon}>
-                                        <CameraIcon
-                                            setImageModalVisible={
-                                                setImageModalVisible
-                                            }
-                                        />
-                                    </View>
-                                </ImageBackground>
-                                <View style={styles.titleWrapper}>
-                                    <Title
-                                        title={recipe.title}
-                                        currentActive={currentActive}
-                                    />
-                                </View>
-                                <View style={styles.innovatorTime}>
-                                    <View style={styles.innovatorContainer}>
-                                        <Image
-                                            source={logo}
-                                            style={styles.icon}
-                                        />
-                                        <Text>
-                                            {recipe.owner.username &&
-                                            recipe.owner.username.length >
-                                                maxUsername
-                                                ? `${recipe.owner.username.slice(
-                                                      0,
-                                                      maxUsername,
-                                                  )}...`
-                                                : recipe.owner.username}
-                                        </Text>
-                                    </View>
-
-                                    <View style={styles.timeContainer}>
-                                        <Image
-                                            source={clock}
-                                            style={styles.icon}
-                                        />
-                                        <Text>{totalCookTime} minutes</Text>
-                                    </View>
-                                </View>
-
-                                <Text style={styles.tags}>Tags</Text>
-                                <View style={styles.tagBox}>
-                                    {recipe.tags &&
-                                        recipe.tags.map(cat => (
-                                            <Text
-                                                key={cat.id}
-                                                style={styles.individualTags}
-                                            >
-                                                {cat.name}
-                                            </Text>
-                                        ))}
-                                </View>
-                                <View style={styles.tabsContainer}>
-                                    <Tab
-                                        text="Ingredients"
-                                        color={color}
-                                        toggleTab={tabsDisplay}
-                                    />
-                                    <Tab
-                                        text="Instructions"
-                                        color={color}
-                                        toggleTab={tabsDisplay}
-                                    />
-                                </View>
-
-                                <View style={styles.recipeDetails}>
-                                    {color.active === "Ingredients" && (
-                                        <>
-                                            {recipe.ingredients &&
-                                                recipe.ingredients.map(
-                                                    (ing, i) => (
-                                                        <IndividualRecipeIngredient
-                                                            key={i}
-                                                            index={i}
-                                                            recipeIng={ing}
-                                                            currentActive={
-                                                                currentActive
-                                                            }
-                                                        />
-                                                    ),
-                                                )}
-
-                                            <AddIngredient
-                                                currentActive={currentActive}
-                                            />
-                                        </>
-                                    )}
-
-                                    {color.active === "Instructions" && (
-                                        <>
-                                            {recipe.instructions &&
-                                                recipe.instructions.map(
-                                                    (step, i) => (
-                                                        <IndividualRecipeInstruction
-                                                            key={
-                                                                step.step_number
-                                                            }
-                                                            index={i}
-                                                            instruction={step}
-                                                            currentActive={
-                                                                currentActive
-                                                            }
-                                                        />
-                                                    ),
-                                                )}
-
-                                            <AddInstruction
-                                                instructionsLength={
-                                                    recipe.instructions.length
-                                                }
-                                                currentActive={currentActive}
-                                            />
-                                            <View
-                                                style={{ paddingRight: "80%" }}
-                                            >
-                                                {recipe.notes[0].id !==
-                                                    null && (
-                                                    <Text style={styles.notes}>
-                                                        NOTES
-                                                    </Text>
-                                                )}
-                                            </View>
-                                            {recipe.notes[0].id !== null &&
-                                                recipe.notes.map((note, i) => (
-                                                    <IndividualRecipeNotes
-                                                        key={i}
-                                                        index={i}
-                                                        note={note}
-                                                        currentActive={
-                                                            currentActive
-                                                        }
-                                                    />
-                                                ))}
-                                            <AddNote
-                                                currentActive={currentActive}
-                                            />
-                                        </>
-                                    )}
-                                </View>
-                            </View>
-                        </ScrollView>
-                    </TouchableWithoutFeedback>
-                </SafeAreaView>
-            </KeyboardAvoidingView>
+            <CreateRecipeForm
+                navigation={props.navigation}
+                savedRecipe={true}
+                cancelButtonEditedRecipe={cancelButtonEditedRecipe}
+                saveButtonEditedRecipe={saveButtonEditedRecipe}
+            />
         );
     };
 
@@ -488,12 +264,8 @@ function IndividualRecipe(props) {
                                     </TouchableOpacity>
                                 )}
                         </ImageBackground>
-                        {/* <View style={styles.titleWrapper}> */}
                         <View style={styles.recipeContentContainer}>
                             <DisplayTitle title={recipe.title} />
-                            {/* </View> */}
-                            {/* tags(row)*/}
-                            {/* previous versions(under edit button, flex-end) */}
                             <View>
                                 <Text style={styles.authorName}>
                                     {recipe.owner.username &&
@@ -613,12 +385,6 @@ function IndividualRecipe(props) {
                                     </>
                                 )}
                             </View>
-                            {/* <View style={{ marginLeft: 10 }}>
-                                <Text style={{ fontWeight: "bold" }}>
-                                    {getVersionString()}
-                                </Text>
-                                <Text>{recipe.author_comment}</Text>
-                            </View> */}
                         </View>
                     </View>
                 </ScrollView>
