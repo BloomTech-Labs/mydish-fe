@@ -328,7 +328,7 @@ function IndividualRecipe(props) {
                                     toggleTab={tabsDisplay}
                                 />
                                 <Tab
-                                    text="Instructions"
+                                    text="Steps"
                                     color={color}
                                     toggleTab={tabsDisplay}
                                 />
@@ -346,7 +346,7 @@ function IndividualRecipe(props) {
                                             ))}
                                     </>
                                 )}
-                                {color.active === "Instructions" && (
+                                {color.active === "Steps" && (
                                     <>
                                         {recipe.instructions &&
                                             recipe.instructions.map(
