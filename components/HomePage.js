@@ -41,9 +41,15 @@ const HomePage = () => {
             <View>
                 {search && <Search setDish={setDish} dish={dish} />}
                 <ScrollView>
-                    <Text style={styles.heading}>Cookbook</Text>
-                    <HomeCookBook />
-                    <Text style={styles.heading}>Suggested Recipes</Text>
+                    {!search && (
+                        <>
+                            <Text style={styles.heading}>Cookbook</Text>
+                            <HomeCookBook />
+                            <Text style={styles.heading}>
+                                Suggested Recipes
+                            </Text>
+                        </>
+                    )}
                     <RecipeList />
                 </ScrollView>
             </View>
