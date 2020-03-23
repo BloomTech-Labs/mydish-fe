@@ -55,19 +55,26 @@ const styles = StyleSheet.create({
         marginLeft: 14,
         alignContent: "center",
     },
-    tagButtons: {
+    tagButton: {
         borderRadius: 50,
+        width: "auto",
         alignItems: "center",
         justifyContent: "center",
-        height: 32,
-        paddingRight: 19,
-        paddingLeft: 19,
+        height: 27,
+        paddingHorizontal: 16,
         marginBottom: 8,
-        marginRight: 10,
-        backgroundColor: "#959595",
+        marginRight: 8,
     },
-    tagButtonPressed: {
-        backgroundColor: theme.HOVER_COLOR,
+    tagButtonSelected: {
+        ...theme.PRIMARY_BUTTON,
+        borderColor: theme.PRIMARY_COLOR,
+        borderWidth: 1,
+    },
+    tagButtonUnselected: {
+        ...theme.SECONDARY_BUTTON,
+    },
+    tagText: {
+        fontSize: 14,
     },
     fontColorWhite: {
         color: "white",
