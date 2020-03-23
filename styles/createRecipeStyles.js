@@ -146,17 +146,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 30,
     },
-    btnText: {
-        fontSize: 16,
-        fontWeight: "bold",
-    },
-    saveText: {
-        color: "#FFF",
-    },
-    cancelText: {
-        color: theme.PRIMARY_COLOR,
-    },
-    doneText: { fontSize: 16, color: "#3BA405" },
     add: {
         fontSize: 16,
         color: "#363838",

@@ -392,10 +392,9 @@ function CreateRecipeForm({
                                     >
                                         <View style={theme.SECONDARY_BUTTON}>
                                             <Text
-                                                style={{
-                                                    ...styles.btnText,
-                                                    ...styles.cancelText,
-                                                }}
+                                                style={
+                                                    theme.SECONDARY_BUTTON_TEXT
+                                                }
                                             >
                                                 Cancel
                                             </Text>
@@ -426,12 +425,7 @@ function CreateRecipeForm({
                                     }
                                 >
                                     <View style={theme.PRIMARY_BUTTON}>
-                                        <Text
-                                            style={{
-                                                ...styles.btnText,
-                                                ...styles.saveText,
-                                            }}
-                                        >
+                                        <Text style={theme.PRIMARY_BUTTON_TEXT}>
                                             Save
                                         </Text>
                                     </View>
