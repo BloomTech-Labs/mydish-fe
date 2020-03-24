@@ -1,54 +1,87 @@
-import React from "react";
-import { View, ScrollView } from "react-native";
-import CourseTitle from "./CourseTitle";
+import React, { useEffect } from "react";
+import { View, ScrollView, Text, ActivityIndicator } from "react-native";
 import { cookbookHeaderOptions } from "./header/navigationHeader";
 
-const MyCookBook = props => {
-    const Courses = [
-        {
-            course: "Breakfast",
-            img:
-                "https://d9hyo6bif16lx.cloudfront.net/live/img/production/detail/menu/breakfast_breakfast-classics_big-two-do-breakfast.jpg",
-        },
-        {
-            course: "Brunch",
-            img:
-                "https://media.timeout.com/images/105500044/1024/576/image.jpg",
-        },
-        {
-            course: "Lunch",
-            img:
-                "https://hips.hearstapps.com/del.h-cdn.co/assets/17/41/1600x1600/square-1507827786-buddha-bowls-delish-1.jpg?resize=640:*",
-        },
-        {
-            course: "Dinner",
-            img:
-                "https://img1.cookinglight.timeinc.net/sites/default/files/styles/4_3_horizontal_-_900x675/public/image/2016/09/main/_1501p108-weeknight-lemon-chicken-skillet-dinner.jpg?itok=sGWzw71z",
-        },
-        {
-            course: "Dessert",
-            img:
-                "https://cdn3.tmbi.com/toh/GoogleImages/exps19201_RDS011700016SC03_13_2b_WEB.jpg",
-        },
-        {
-            course: "Snacks",
-            img: "https://data.thefeedfeed.com/recommended/post_4483824.jpeg",
-        },
-    ];
+import styles from "../styles/recipe-styles";
+import { fetchCookbook } from "../store/cookbook/cookbookAction";
+import { useDispatch, useSelector } from "react-redux";
+import RecipeList from "./RecipeList";
+import { FlatList } from "react-native-gesture-handler";
+import Recipe from "./Recipe";
 
-    return (
-        <View style={{ width: "90%", marginLeft: "5%" }}>
-            <ScrollView style={{ paddingBottom: "10%" }}>
-                {Courses.map((course, index) => (
-                    <CourseTitle
-                        key={index}
-                        course={course}
-                        navigation={props.navigation}
-                    />
-                ))}
-            </ScrollView>
-        </View>
+const MyCookBook = props => {
+    const dispatch = useDispatch();
+    const loading = useSelector(state => state.cookbook.isLoading);
+    const allCookbookRecipes = useSelector(
+        state => state.cookbook.cookbookRecipes,
     );
+    useEffect(() => {
+        dispatch(fetchCookbook());
+    }, [dispatch, fetchCookbook]);
+
+    const getAllCategories = allRecipes => {
+        let categoryList = [];
+        allRecipes.forEach((recipe, index) => {
+            if (!categoryList.includes(recipe.tags[0].name)) {
+                categoryList = [...categoryList, recipe.tags[0].name];
+            }
+        });
+        return categoryList;
+    };
+
+    if (loading) {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    flexDirection: "column",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                }}
+            >
+                <View style={styles.centered}>
+                    <ActivityIndicator size="large" color="#00ff00" />
+                </View>
+            </View>
+        );
+    } else {
+        const categories = getAllCategories(allCookbookRecipes);
+        console.log(
+            "magical magic is ",
+            categories.map(tag => {
+                return allCookbookRecipes.filter((recipe, index) => {
+                    return recipe.tags[0].name === tag;
+                });
+            }),
+        );
+        return (
+            <View style={{ width: "90%", marginLeft: "5%" }}>
+                <ScrollView style={{ paddingBottom: "10%" }}>
+                    {categories.map(tag => {
+                        return (
+                            <>
+                                <Text key={`${Math.random()}`}>{`${tag}`}</Text>
+                                {allCookbookRecipes
+                                    .filter(recipeToFilter => {
+                                        return (
+                                            recipeToFilter.tags[0].name === tag
+                                        );
+                                    })
+                                    .map(filteredRecipe => {
+                                        return (
+                                            <Recipe
+                                                key={filteredRecipe.id}
+                                                recipe={filteredRecipe}
+                                            />
+                                        );
+                                    })}
+                            </>
+                        );
+                    })}
+                </ScrollView>
+            </View>
+        );
+    }
 };
 
 export default MyCookBook;
