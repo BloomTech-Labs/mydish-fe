@@ -32,24 +32,28 @@ const CookBookFolder = props => {
         );
     } else {
         return (
-            <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <View
+                style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginHorizontal: 16,
+                    marginVertical: 5,
+                }}
+            >
                 {folder.length ? (
-                    <RecipeList
-                        folder={folder}
-                        parent="cookbook" />
+                    <RecipeList folder={folder} parent="cookbook" />
                 ) : (
-                        <>
-                            <Text
-                                style={styles.noRecipes}>
-                                You have no saved recipes in this section of your
-                                Cookbook!
+                    <>
+                        <Text style={styles.noRecipes}>
+                            You have no saved recipes in this section of your
+                            Cookbook!
                         </Text>
-                            <Button
-                                title="<- Back To My Cookbook"
-                                onPress={() => props.navigation.pop()}
-                            />
-                        </>
-                    )}
+                        <Button
+                            title="<- Back To My Cookbook"
+                            onPress={() => props.navigation.pop()}
+                        />
+                    </>
+                )}
             </View>
         );
     }
