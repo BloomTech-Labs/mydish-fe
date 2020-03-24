@@ -259,7 +259,12 @@ function CreateRecipeForm({
                                         placeholder="minutes"
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
-                                            if (isNaN(Number(min))) return;
+                                            if (
+                                                min !== "" &&
+                                                (isNaN(Number(min)) ||
+                                                    Number(min) === 0)
+                                            )
+                                                return;
                                             savedRecipe
                                                 ? dispatch(
                                                       actions.editPreptime(min),
@@ -309,7 +314,12 @@ function CreateRecipeForm({
                                         placeholder="minutes"
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
-                                            if (isNaN(Number(min))) return;
+                                            if (
+                                                min !== "" &&
+                                                (isNaN(Number(min)) ||
+                                                    Number(min) === 0)
+                                            )
+                                                return;
                                             savedRecipe
                                                 ? dispatch(
                                                       actions.editCooktime(min),
