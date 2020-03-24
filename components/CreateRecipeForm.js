@@ -259,7 +259,12 @@ function CreateRecipeForm({
                                         placeholder="minutes"
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
-                                            if (isNaN(Number(min))) return;
+                                            if (
+                                                min !== "" &&
+                                                (isNaN(Number(min)) ||
+                                                    Number(min) === 0)
+                                            )
+                                                return;
                                             savedRecipe
                                                 ? dispatch(
                                                       actions.editPreptime(min),
@@ -269,7 +274,13 @@ function CreateRecipeForm({
                                                       prep_time: min,
                                                   });
                                         }}
-                                        value={String(recipeToRender.prep_time)}
+                                        value={
+                                            recipeToRender.prep_time
+                                                ? String(
+                                                      recipeToRender.prep_time,
+                                                  )
+                                                : ""
+                                        }
                                         onFocus={() =>
                                             setHighlighted({ prep_time: true })
                                         }
@@ -303,7 +314,12 @@ function CreateRecipeForm({
                                         placeholder="minutes"
                                         keyboardType={"numeric"}
                                         onChangeText={min => {
-                                            if (isNaN(Number(min))) return;
+                                            if (
+                                                min !== "" &&
+                                                (isNaN(Number(min)) ||
+                                                    Number(min) === 0)
+                                            )
+                                                return;
                                             savedRecipe
                                                 ? dispatch(
                                                       actions.editCooktime(min),
@@ -313,7 +329,13 @@ function CreateRecipeForm({
                                                       cook_time: min,
                                                   });
                                         }}
-                                        value={String(recipeToRender.cook_time)}
+                                        value={
+                                            recipeToRender.cook_time
+                                                ? String(
+                                                      recipeToRender.cook_time,
+                                                  )
+                                                : ""
+                                        }
                                         onFocus={() =>
                                             setHighlighted({ cook_time: true })
                                         }
