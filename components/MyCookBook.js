@@ -3,7 +3,7 @@ import { View, ScrollView, Text, ActivityIndicator } from "react-native";
 import { cookbookHeaderOptions } from "./header/navigationHeader";
 
 import styles from "../styles/recipe-styles";
-import { fetchCookbook } from "../store/cookbook/cookbookAction";
+import { getAllCookbookRecipes } from "../store/cookbook/cookbookAction";
 import { useDispatch, useSelector } from "react-redux";
 import RecipeList from "./RecipeList";
 import { FlatList } from "react-native-gesture-handler";
@@ -13,21 +13,24 @@ const MyCookBook = props => {
     const dispatch = useDispatch();
     const loading = useSelector(state => state.cookbook.isLoading);
     const allCookbookRecipes = useSelector(
-        state => state.cookbook.cookbookRecipes,
+        state => state.cookbook.entireCookbook,
     );
+
     useEffect(() => {
-        dispatch(fetchCookbook());
-    }, [dispatch, fetchCookbook]);
+        dispatch(getAllCookbookRecipes());
+    }, [dispatch, getAllCookbookRecipes]);
 
     const getAllCategories = allRecipes => {
         let categoryList = [];
-        allRecipes.forEach((recipe, index) => {
-            if (recipe.tags && recipe.tags[0]) {
-                if (!categoryList.includes(recipe.tags[0].name)) {
-                    categoryList = [...categoryList, recipe.tags[0].name];
+        if (allRecipes) {
+            allRecipes.forEach((recipe, index) => {
+                if (recipe.tags && recipe.tags[0]) {
+                    if (!categoryList.includes(recipe.tags[0].name)) {
+                        categoryList = [...categoryList, recipe.tags[0].name];
+                    }
                 }
-            }
-        });
+            });
+        }
         return categoryList;
     };
 

@@ -39,6 +39,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
 
 import { fetchRecipes } from "../store/recipes/recipeActions";
+import { getAllCookbookRecipes } from "../store/cookbook/cookbookAction";
 
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
@@ -183,6 +184,7 @@ function IndividualRecipe(props) {
                         onPress: () => {
                             dispatch(deleteRecipe(recipe.id));
                             dispatch(fetchRecipes(""));
+                            dispatch(getAllCookbookRecipes());
                             props.navigation.navigate("Home");
                         },
                     },
