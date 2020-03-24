@@ -42,7 +42,7 @@ const CommitModal = props => {
                         style={{
                             height: "100%",
                             width: "100%",
-                            backgroundColor: "rgba(50, 50, 50, 0.4)",
+                            backgroundColor: "rgba(30, 27, 27, 0.45)",
                             alignItems: "center",
                             justifyContent: "center",
                         }}
