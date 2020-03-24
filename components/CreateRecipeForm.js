@@ -363,7 +363,7 @@ function CreateRecipeForm({
                             <Add text="Add Ingredient" submit={addIng} />
 
                             <Text style={{ ...styles.heading, marginTop: 20 }}>
-                                Instructions
+                                Steps
                                 {errors.includes("instructions") && (
                                     <Text style={styles.missingAsterisk}>
                                         {" "}
@@ -372,14 +372,14 @@ function CreateRecipeForm({
                                 )}
                             </Text>
                             {addInstructions()}
-                            <Add text="Add A Step" submit={addInstruction} />
+                            <Add text="Add Step" submit={addInstruction} />
 
                             <Text style={{ ...styles.heading, marginTop: 20 }}>
                                 Notes
                             </Text>
 
                             {addNotes()}
-                            <Add text="Add A Note" submit={addNote} />
+                            <Add text="Add Note" submit={addNote} />
                             {errors.length > 0 && (
                                 <Text style={styles.errors}>
                                     * Please fill out all required fields.
@@ -390,17 +390,11 @@ function CreateRecipeForm({
                                     <TouchableOpacity
                                         onPress={cancelButtonEditedRecipe}
                                     >
-                                        <View
-                                            style={{
-                                                ...styles.btn,
-                                                ...styles.cancelBtn,
-                                            }}
-                                        >
+                                        <View style={theme.SECONDARY_BUTTON}>
                                             <Text
-                                                style={{
-                                                    ...styles.btnText,
-                                                    ...styles.cancelText,
-                                                }}
+                                                style={
+                                                    theme.SECONDARY_BUTTON_TEXT
+                                                }
                                             >
                                                 Cancel
                                             </Text>
@@ -430,18 +424,8 @@ function CreateRecipeForm({
                                             : postRecipe
                                     }
                                 >
-                                    <View
-                                        style={{
-                                            ...styles.btn,
-                                            ...styles.saveBtn,
-                                        }}
-                                    >
-                                        <Text
-                                            style={{
-                                                ...styles.btnText,
-                                                ...styles.saveText,
-                                            }}
-                                        >
+                                    <View style={theme.PRIMARY_BUTTON}>
+                                        <Text style={theme.PRIMARY_BUTTON_TEXT}>
                                             Save
                                         </Text>
                                     </View>

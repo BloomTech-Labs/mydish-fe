@@ -26,7 +26,6 @@ import {
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
 
-import clock from "../assets/timer.png";
 import { savedPlaceholder } from "../constants/imagePlaceholders";
 import { maxUsername } from "../constants/maxLenth";
 
@@ -51,8 +50,6 @@ function IndividualRecipe(props) {
     });
     const [tempRecipe, setTempRecipe] = useState(null);
     const recipe = useSelector(state => state.singleRecipe.recipe);
-    const totalCookTime =
-        (Number(recipe.prep_time) || 0) + (Number(recipe.cook_time) || 0);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const successAlert = useSelector(state => state.singleRecipe.successAlert);
 
@@ -236,37 +233,10 @@ function IndividualRecipe(props) {
                                     : savedPlaceholder
                             }
                             style={styles.image}
-                        >
-                            {recipe.owner.user_id &&
-                                userId === recipe.owner.user_id && (
-                                    <TouchableOpacity
-                                        onPress={startEditModeButton}
-                                        style={styles.editButton}
-                                    >
-                                        <FontAwesome
-                                            name="pencil-square-o"
-                                            size={20}
-                                            color="white"
-                                        />
-                                    </TouchableOpacity>
-                                )}
-                            {recipe.owner.user_id &&
-                                userId === recipe.owner.user_id && (
-                                    <TouchableOpacity
-                                        onPress={deleteRecipeHandler}
-                                        style={styles.deleteButton}
-                                    >
-                                        <FontAwesome
-                                            name="trash-o"
-                                            size={20}
-                                            color="white"
-                                        />
-                                    </TouchableOpacity>
-                                )}
-                        </ImageBackground>
+                        />
                         <View style={styles.recipeContentContainer}>
                             <DisplayTitle title={recipe.title} />
-                            <View>
+                            <View style={styles.underTitleRow}>
                                 <Text style={styles.authorName}>
                                     {recipe.owner.username &&
                                     recipe.owner.username.length > maxUsername
@@ -276,42 +246,40 @@ function IndividualRecipe(props) {
                                           )}...`
                                         : `By ${recipe.owner.username}`}
                                 </Text>
-                                <View style={styles.underTitleRow}>
-                                    <View style={styles.tagRow}>
-                                        {recipe.tags &&
-                                            recipe.tags.map((tag, index) => (
-                                                <Text
-                                                    key={tag.id}
-                                                    style={
-                                                        styles.individualTags
-                                                    }
-                                                >
-                                                    {tag.name}
-                                                    {index <
-                                                        recipe.tags.length -
-                                                            1 && (
-                                                        <Text
-                                                            style={
-                                                                styles.blackText
-                                                            }
-                                                        >
-                                                            ,{" "}
-                                                        </Text>
-                                                    )}
-                                                </Text>
-                                            ))}
-                                    </View>
-                                    <View style={styles.timeContainer}>
-                                        <Image
-                                            source={clock}
-                                            style={styles.icon}
-                                        />
-                                        <Text style={styles.cookTimeText}>
-                                            {totalCookTime} minutes
-                                        </Text>
-                                    </View>
+                                {recipe.owner.user_id &&
+                                    userId === recipe.owner.user_id && (
+                                        <TouchableOpacity
+                                            onPress={startEditModeButton}
+                                            style={styles.editButton}
+                                        >
+                                            <Text style={styles.editText}>
+                                                Edit
+                                            </Text>
+                                        </TouchableOpacity>
+                                    )}
+                            </View>
+                            <View
+                                style={{
+                                    ...styles.underTitleRow,
+                                    ...styles.tagAndVersionsRow,
+                                }}
+                            >
+                                <View style={styles.tagBox}>
+                                    {recipe.tags &&
+                                        recipe.tags.map((tag, index) => (
+                                            <Text
+                                                key={tag.id}
+                                                style={theme.REGULAR_FONT}
+                                            >
+                                                {tag.name}
+                                                {index <
+                                                    recipe.tags.length - 1 && (
+                                                    <Text>, </Text>
+                                                )}
+                                            </Text>
+                                        ))}
                                 </View>
-                                <View style={styles.versionHistoryContainer}>
+                                <View>
                                     {hasRevisions() && (
                                         <TouchableOpacity
                                             onPress={() =>
@@ -328,6 +296,30 @@ function IndividualRecipe(props) {
                                     )}
                                 </View>
                             </View>
+                            <View
+                                style={{
+                                    ...styles.underTitleRow,
+                                    marginTop: 22,
+                                }}
+                            >
+                                <View style={styles.timeContainer}>
+                                    {recipe.prep_time !== null && (
+                                        <Text
+                                            style={{
+                                                ...theme.REGULAR_FONT,
+                                                marginRight: 10,
+                                            }}
+                                        >
+                                            Prep: {recipe.prep_time} min.
+                                        </Text>
+                                    )}
+                                    {recipe.cook_time !== null && (
+                                        <Text style={theme.REGULAR_FONT}>
+                                            Cook: {recipe.cook_time} min.
+                                        </Text>
+                                    )}
+                                </View>
+                            </View>
 
                             <View style={styles.tabsContainer}>
                                 <Tab
@@ -336,7 +328,7 @@ function IndividualRecipe(props) {
                                     toggleTab={tabsDisplay}
                                 />
                                 <Tab
-                                    text="Instructions"
+                                    text="Steps"
                                     color={color}
                                     toggleTab={tabsDisplay}
                                 />
@@ -354,7 +346,7 @@ function IndividualRecipe(props) {
                                             ))}
                                     </>
                                 )}
-                                {color.active === "Instructions" && (
+                                {color.active === "Steps" && (
                                     <>
                                         {recipe.instructions &&
                                             recipe.instructions.map(
@@ -385,6 +377,35 @@ function IndividualRecipe(props) {
                                     </>
                                 )}
                             </View>
+                            {recipe.owner.user_id &&
+                                userId === recipe.owner.user_id && (
+                                    <View style={styles.buttonContainer}>
+                                        <TouchableOpacity
+                                            style={theme.SECONDARY_BUTTON}
+                                            onPress={deleteRecipeHandler}
+                                        >
+                                            <Text
+                                                style={
+                                                    theme.SECONDARY_BUTTON_TEXT
+                                                }
+                                            >
+                                                Delete
+                                            </Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={theme.PRIMARY_BUTTON}
+                                            onPress={startEditModeButton}
+                                        >
+                                            <Text
+                                                style={
+                                                    theme.PRIMARY_BUTTON_TEXT
+                                                }
+                                            >
+                                                Edit
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
                         </View>
                     </View>
                 </ScrollView>

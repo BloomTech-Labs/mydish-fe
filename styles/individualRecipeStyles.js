@@ -13,54 +13,39 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingVertical: 3,
     },
     title: {
         fontSize: theme.LARGE_FONT_SIZE,
-        color: theme.DARK_FONT_COLOR,
+        color: theme.DARK_GREY_FONT_COLOR,
         fontFamily: theme.BOLD_FONT_FAMILY,
-        fontWeight: "bold",
-        marginTop: 5,
+        marginTop: 32,
     },
     underTitleRow: {
         flexDirection: "row",
         width: "100%",
         justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: 5,
     },
-    tagRow: {
+    tagAndVersionsRow: {
+        alignItems: "flex-start",
+        marginTop: 14,
+    },
+    tagBox: {
         flexDirection: "row",
-        marginTop: 10,
+        width: 199,
+        flexWrap: "wrap",
     },
     recipeContentContainer: {
         marginHorizontal: 16,
     },
-    icon: { width: 20, height: 20, marginRight: 5 },
-    editIcon: {
-        marginRight: 20,
-    },
-    versionHistoryContainer: {
-        width: "100%",
-        alignItems: "flex-end",
-    },
     versions: {
         color: theme.PRIMARY_COLOR,
-        textDecorationLine: "underline",
         fontFamily: theme.REGULAR_FONT_FAMILY,
         fontSize: theme.SMALL_FONT_SIZE,
     },
     timeContainer: {
         flexDirection: "row",
-    },
-    blackText: {
-        color: theme.DARK_FONT_COLOR,
-    },
-    likeView: {
-        flexDirection: "row",
-    },
-    individualTags: {
-        fontSize: theme.REGULAR_FONT_SIZE,
-        color: theme.PRIMARY_COLOR,
-        fontFamily: theme.REGULAR_FONT_FAMILY,
     },
     ingredients: {
         alignItems: "center",
@@ -69,52 +54,45 @@ const styles = StyleSheet.create({
     tabsContainer: {
         flexDirection: "row",
         width: "100%",
-        marginTop: 20,
+        marginTop: 30,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.GREY_FONT_COLOR,
     },
     tabsTouchable: {
         width: "50%",
     },
-    showTab: {
-        paddingVertical: 8,
-        backgroundColor: theme.PRIMARY_COLOR,
-        borderBottomWidth: 1,
-        borderBottomColor: theme.GREY_FONT_COLOR,
+    tab: {
+        paddingVertical: 2,
     },
-    hideTab: {
-        paddingVertical: 8,
-        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
-        borderBottomWidth: 1,
+    showTab: {
         borderBottomColor: theme.PRIMARY_COLOR,
+        borderBottomWidth: 3,
+    },
+    tabText: {
+        textAlign: "center",
+        fontSize: 16,
     },
     tabTextActive: {
-        textAlign: "center",
-        color: theme.WHITE_FONT_COLOR,
+        color: theme.PRIMARY_COLOR,
         fontFamily: theme.BOLD_FONT_FAMILY,
     },
     tabTextInactive: {
-        textAlign: "center",
         color: theme.DARK_FONT_COLOR,
-        fontFamily: theme.BOLD_FONT_FAMILY,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
     },
     recipeDetails: {
         marginVertical: 15,
     },
-    cookTimeText: {
-        fontFamily: theme.REGULAR_FONT_FAMILY,
-        color: theme.DARK_FONT_COLOR,
-    },
     authorName: {
-        fontFamily: theme.REGULAR_FONT_FAMILY,
+        ...theme.REGULAR_FONT,
         fontSize: theme.SMALL_FONT_SIZE,
-        color: theme.DARK_FONT_COLOR,
     },
     recipeFieldsList: {
         marginVertical: 10,
     },
     recipeFieldsText: {
-        fontFamily: theme.REGULAR_FONT_FAMILY,
+        ...theme.REGULAR_FONT,
         color: theme.DARK_FONT_COLOR,
-        fontSize: theme.REGULAR_FONT_SIZE,
     },
     ingredientView: {
         width: "50%",
@@ -168,41 +146,18 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     editButton: {
-        backgroundColor: "#8FCC70",
-        padding: 5,
+        backgroundColor: theme.PRIMARY_COLOR,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 20,
-        width: 35,
-        height: 35,
-        margin: 10,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        width: 113,
+        height: 28,
+        borderRadius: 5,
     },
-    deleteButton: {
-        backgroundColor: "#C00000",
-        padding: 5,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 20,
-        width: 35,
-        height: 35,
-        margin: 10,
-        marginLeft: 5,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+    editText: {
+        color: theme.WHITE_FONT_COLOR,
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        fontSize: theme.REGULAR_FONT_SIZE,
     },
     titleButtonContainer: {
         justifyContent: "center",
@@ -210,15 +165,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#8FCC70",
         width: 25,
     },
-    editIcons: {
-        marginRight: 5,
-    },
     buttonContainer: {
         flexDirection: "row",
-        justifyContent: "flex-end",
+        justifyContent: "center",
         alignItems: "center",
-        width: 150,
-        height: "100%",
+        marginTop: 64,
         marginRight: 16,
     },
     input: {

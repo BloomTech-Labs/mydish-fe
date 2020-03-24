@@ -35,7 +35,7 @@ const Notes = ({ index, removeNote, note, id, setRecipe, parent }) => {
                 flexWrap: "nowrap",
                 flexDirection: "row",
                 justifyContent: "space-between",
-                alignItems: "center",
+                alignItems: "flex-start",
             }}
         >
             <TextInput
