@@ -46,14 +46,6 @@ const MyCookBook = props => {
         );
     } else {
         const categories = getAllCategories(allCookbookRecipes);
-        console.log(
-            "magical magic is ",
-            categories.map(tag => {
-                return allCookbookRecipes.filter((recipe, index) => {
-                    return recipe.tags[0].name === tag;
-                });
-            }),
-        );
         return (
             <View style={{ width: "90%", marginLeft: "5%" }}>
                 <ScrollView style={{ paddingBottom: "10%" }}>
