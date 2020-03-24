@@ -22,8 +22,10 @@ const MyCookBook = props => {
     const getAllCategories = allRecipes => {
         let categoryList = [];
         allRecipes.forEach((recipe, index) => {
-            if (!categoryList.includes(recipe.tags[0].name)) {
-                categoryList = [...categoryList, recipe.tags[0].name];
+            if (recipe.tags && recipe.tags[0]) {
+                if (!categoryList.includes(recipe.tags[0].name)) {
+                    categoryList = [...categoryList, recipe.tags[0].name];
+                }
             }
         });
         return categoryList;
@@ -46,6 +48,7 @@ const MyCookBook = props => {
         );
     } else {
         const categories = getAllCategories(allCookbookRecipes);
+        console.log("All Cookbook Recipes ", allCookbookRecipes);
         return (
             <View style={{ maxWidth: "90%", marginLeft: "5%" }}>
                 <ScrollView style={{ paddingBottom: "10%" }}>
