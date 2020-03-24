@@ -9,7 +9,7 @@ import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-160806654-1");
 
 const Recipe = props => {
-    const { navigation, recipe } = props;
+    const { navigation, recipe, parent } = props;
 
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
 
@@ -24,37 +24,55 @@ const Recipe = props => {
     };
 
     return (
-        <View style={styles.recipeContainer}>
-            <View
+        <TouchableOpacity
+            style={
+                parent === "Cookbook"
+                    ? styles.cookbookContainer
+                    : styles.recipeContainer
+            }
+            onPress={handlePress}
+        >
+            <Image
+                source={recipe.img ? { uri: recipe.img } : savedPlaceholder}
                 style={{
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    zIndex: 1,
-                    marginRight: 10,
+                    width: parent === "Cookbook" ? "38%" : "100%",
+                    height: parent === "Cookbook" ? 75 : 200,
+                    borderRadius: 5,
                 }}
-            ></View>
+            />
 
-            <TouchableOpacity onPress={handlePress}>
-                <Image
-                    source={recipe.img ? { uri: recipe.img } : savedPlaceholder}
-                    style={{ width: "100%", height: 200, borderRadius: 5 }}
-                />
+            <Text
+                style={
+                    parent === "Cookbook" ? styles.cookbookText : styles.text
+                }
+            >
+                {recipe.title}
+            </Text>
 
-                <Text style={styles.text}>{recipe.title}</Text>
-
-                <View style={styles.prepView}>
-                    <Text style={styles.username}>
-                        {recipe.owner.username.length > maxUsername
-                            ? `${recipe.owner.username.slice(
-                                  0,
-                                  maxUsername,
-                              )}...`
-                            : recipe.owner.username}
-                    </Text>
-                    <Text style={styles.prep}>{totalCookTime} min.</Text>
-                </View>
-            </TouchableOpacity>
-        </View>
+            <View
+                style={
+                    parent === "Cookbook"
+                        ? styles.cookbookPrepView
+                        : styles.prepView
+                }
+            >
+                {parent === "Cookbook" ? (
+                    <></>
+                ) : (
+                    <>
+                        <Text style={styles.username}>
+                            {recipe.owner.username.length > maxUsername
+                                ? `${recipe.owner.username.slice(
+                                      0,
+                                      maxUsername,
+                                  )}...`
+                                : recipe.owner.username}
+                        </Text>
+                        <Text style={styles.prep}>{totalCookTime} min.</Text>
+                    </>
+                )}
+            </View>
+        </TouchableOpacity>
     );
 };
 

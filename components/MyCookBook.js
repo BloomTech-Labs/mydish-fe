@@ -47,12 +47,12 @@ const MyCookBook = props => {
     } else {
         const categories = getAllCategories(allCookbookRecipes);
         return (
-            <View style={{ width: "90%", marginLeft: "5%" }}>
+            <View style={{ maxWidth: "90%", marginLeft: "5%" }}>
                 <ScrollView style={{ paddingBottom: "10%" }}>
                     {categories.map(tag => {
                         return (
                             <>
-                                <Text key={`${Math.random()}`}>{`${tag}`}</Text>
+                                <Text style={styles.heading}>{`${tag}`}</Text>
                                 {allCookbookRecipes
                                     .filter(recipeToFilter => {
                                         return (
@@ -64,6 +64,7 @@ const MyCookBook = props => {
                                             <Recipe
                                                 key={filteredRecipe.id}
                                                 recipe={filteredRecipe}
+                                                parent={"Cookbook"}
                                             />
                                         );
                                     })}
