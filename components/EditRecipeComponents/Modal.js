@@ -56,7 +56,7 @@ const CommitModal = props => {
                                     padding: 15,
                                     justifyContent: "center",
                                     alignItems: "center",
-                                    marginHorizontal: 20,
+                                    marginHorizontal: 59,
                                 }}
                             >
                                 <Text
