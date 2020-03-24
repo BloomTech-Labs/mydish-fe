@@ -53,7 +53,8 @@ const CommitModal = props => {
                                     backgroundColor:
                                         "rgba(300, 300, 300, 0.95)",
                                     borderRadius: 10,
-                                    padding: 15,
+                                    paddingVertical: 16,
+                                    paddingHorizontal: 24,
                                     justifyContent: "center",
                                     alignItems: "center",
                                     marginHorizontal: 59,
