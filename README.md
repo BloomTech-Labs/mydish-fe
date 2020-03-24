@@ -67,7 +67,7 @@ MyDish allows users to create their own recipes and keep track of different vers
 
 #### [React-Redux](https://react-redux.js.org/)
 
-#### Front end deployed to `Expo`
+#### Front end deployed to [Expo](https://expo.io)
 
 ### Back End [found here](https://github.com/Lambda-School-Labs/mydish-be):
 
