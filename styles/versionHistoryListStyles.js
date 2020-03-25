@@ -3,15 +3,13 @@ import theme from "./theme.style";
 
 const styles = StyleSheet.create({
     versionView: {
-        borderBottomColor: "#ccc",
-        borderBottomWidth: 1,
-        marginVertical: 15,
+        marginVertical: 16,
         paddingVertical: 4,
     },
     label: {
-        fontSize: 18,
-        marginBottom: 15,
-        fontWeight: "bold",
+        fontSize: 16,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        color: theme.PRIMARY_COLOR,
     },
     commentLabel: {
         fontWeight: "bold",
