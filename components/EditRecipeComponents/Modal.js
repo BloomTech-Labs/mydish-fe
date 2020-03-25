@@ -6,12 +6,13 @@ import {
     Text,
     TextInput,
     TouchableHighlight,
-    Button,
+    TouchableOpacity,
 } from "react-native";
 //Analytics
 import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-159002245-1");
-
+import theme from "../../styles/theme.style";
+import styles from "../../styles/commitModalStyles";
 const CommitModal = props => {
     const { commitModal, setCommitModal, saveButtonEditedRecipe } = props;
     const [author_comment, setAuthor_comment] = useState();
@@ -38,70 +39,49 @@ const CommitModal = props => {
         <View style={{ flexDirection: "row" }}>
             <Modal visible={commitModal.save} animationType="fade" transparent>
                 <TouchableHighlight onPress={closeModalHandler}>
-                    <View
-                        style={{
-                            height: "100%",
-                            width: "100%",
-                            backgroundColor: "rgba(50, 50, 50, 0.4)",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
+                    <View style={styles.modalContainer}>
                         <KeyboardAvoidingView behavior={"position"}>
-                            <View
-                                style={{
-                                    backgroundColor:
-                                        "rgba(300, 300, 300, 0.95)",
-                                    borderRadius: 10,
-                                    padding: 15,
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    marginHorizontal: 20,
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        fontSize: 16,
-                                        textAlign: "center",
-                                    }}
-                                >
-                                    Please leave a brief comment describing your
-                                    recipe changes.
+                            <View style={styles.modal}>
+                                <Text style={styles.text}>
+                                    What did you change on this version of the
+                                    recipe?
                                 </Text>
                                 <TextInput
                                     multiline
+                                    placeholder="Notes"
                                     onChangeText={text =>
                                         setAuthor_comment(text)
                                     }
                                     style={{
-                                        marginBottom: 10,
-                                        marginTop: 20,
-                                        minHeight: 40,
-                                        maxWidth: "90%",
-                                        width: "90%",
-                                        borderRadius: 4,
-                                        borderWidth: 1,
-                                        borderColor: highlighted
-                                            ? "red"
-                                            : "black",
+                                        ...styles.textInput,
+                                        ...(highlighted && styles.highlighted),
                                     }}
                                 />
-                                <View
-                                    style={{
-                                        flexDirection: "row",
-                                        justifyContent: "space-around",
-                                        width: "80%",
-                                    }}
-                                >
-                                    <Button
-                                        title="Cancel"
+                                <View style={styles.buttonContainer}>
+                                    <TouchableOpacity
                                         onPress={closeModalHandler}
-                                    />
-
-                                    <Button
-                                        title="OK"
+                                        style={{
+                                            ...styles.cancelButton,
+                                            ...styles.narrowButton,
+                                        }}
+                                    >
+                                        <Text
+                                            style={theme.SECONDARY_BUTTON_TEXT}
+                                        >
+                                            Cancel
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
                                         onPress={saveModalHandler}
-                                    />
+                                        style={{
+                                            ...theme.PRIMARY_BUTTON,
+                                            ...styles.narrowButton,
+                                        }}
+                                    >
+                                        <Text style={theme.PRIMARY_BUTTON_TEXT}>
+                                            OK
+                                        </Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </KeyboardAvoidingView>
