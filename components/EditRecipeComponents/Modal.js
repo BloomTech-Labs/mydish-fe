@@ -95,7 +95,7 @@ const CommitModal = props => {
                                     style={{
                                         flexDirection: "row",
                                         justifyContent: "center",
-                                        width: "80%",
+                                        width: "100%",
                                     }}
                                 >
                                     <TouchableOpacity
@@ -104,6 +104,7 @@ const CommitModal = props => {
                                             ...theme.SECONDARY_BUTTON,
                                             width: 100,
                                             marginRight: 20,
+                                            marginBottom: 0,
                                         }}
                                     >
                                         <Text
@@ -117,6 +118,7 @@ const CommitModal = props => {
                                         style={{
                                             ...theme.PRIMARY_BUTTON,
                                             width: 100,
+                                            marginBottom: 0,
                                         }}
                                     >
                                         <Text style={theme.PRIMARY_BUTTON_TEXT}>
