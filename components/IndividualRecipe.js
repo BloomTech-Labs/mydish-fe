@@ -22,6 +22,7 @@ import {
     deleteRecipe,
     resetAlerts,
 } from "../store/singleRecipe/singleRecipeActions";
+import { fetchAllVersionHistory } from "../store/version-control/versionControlActions";
 
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
@@ -54,6 +55,7 @@ function IndividualRecipe(props) {
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const successAlert = useSelector(state => state.singleRecipe.successAlert);
+    const versionsList = useSelector(state => state.versionsList.versionsList);
 
     const editMode = useSelector(state => state.singleRecipe.editMode);
 
@@ -77,7 +79,7 @@ function IndividualRecipe(props) {
     useEffect(() => {
         loadRecipe();
         fetchUserId();
-
+        dispatch(fetchAllVersionHistory(id));
         //below is a cleanup that resets the initState of singleRecipe to null values,
         //which is important for a smooth user experience
         return () => dispatch(resetRecipe());
@@ -139,10 +141,10 @@ function IndividualRecipe(props) {
         setCommitModal({ save: false, cancel: false });
     };
 
-    const hasRevisions = () =>
-        // Double !! turn the value into a guaranteed boolean (true or false)
-        // If any values are 'undefined' or 'NaN', this will ensure they are 'false'
-        !!Number(revisionId) || !!Number(recipe.previous_versions_count);
+    // const hasRevisions = () =>
+    //     // Double !! turn the value into a guaranteed boolean (true or false)
+    //     // If any values are 'undefined' or 'NaN', this will ensure they are 'false'
+    //     !!Number(revisionId) || !!Number(recipe.previous_versions_count);
 
     const cancelButtonEditedRecipe = () => {
         Alert.alert(
@@ -303,8 +305,8 @@ function IndividualRecipe(props) {
                                                     ),
                                                 )}
                                         </View>
-                                        <View>
-                                            {hasRevisions() && (
+                                        {versionsList.length > 0 && (
+                                            <View>
                                                 <TouchableOpacity
                                                     onPress={() =>
                                                         setVersionListVisible(
@@ -318,8 +320,8 @@ function IndividualRecipe(props) {
                                                         Previous Versions
                                                     </Text>
                                                 </TouchableOpacity>
-                                            )}
-                                        </View>
+                                            </View>
+                                        )}
                                     </View>
                                     <View
                                         style={{
