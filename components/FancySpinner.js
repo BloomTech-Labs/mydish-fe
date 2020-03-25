@@ -1,8 +1,10 @@
 import React from "react";
 import { View, ActivityIndicator } from "react-native";
 import styles from "../styles/recipe-styles";
+import * as theme from "../styles/theme.style";
 
 const FancySpinner = () => {
+    console.log(theme);
     return (
         <View
             style={{
@@ -13,7 +15,10 @@ const FancySpinner = () => {
             }}
         >
             <View style={styles.centered}>
-                <ActivityIndicator size="large" color="#00ff00" />
+                <ActivityIndicator
+                    size="large"
+                    color={theme.default.PRIMARY_COLOR}
+                />
             </View>
         </View>
     );
