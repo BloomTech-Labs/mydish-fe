@@ -27,7 +27,9 @@ import {
     START_SUBMIT_EDITED_RECIPE,
     SUBMIT_EDITED_RECIPE_SUCCESS,
     SUBMIT_EDITED_RECIPE_FAILURE,
-    VERSION_BY_REVISION_NUM,
+    FETCH_VERSION_BY_REVISION_NUM_START,
+    FETCH_VERSION_BY_REVISION_NUM_SUCCESS,
+    FETCH_VERSION_BY_REVISION_NUM_FAILURE,
     RESET_ALERTS,
     TOGGLE_TAG,
     CLEANUP_RECIPE,
@@ -287,13 +289,24 @@ export const singleRecipeReducer = (state = initState, action) => {
                 ? { ...state, recipe: action.payload }
                 : initState;
 
-        case VERSION_BY_REVISION_NUM:
+        case FETCH_VERSION_BY_REVISION_NUM_START:
+            return {
+                ...state,
+                isLoading: true,
+                error: null,
+            };
+        case FETCH_VERSION_BY_REVISION_NUM_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 recipe: action.payload,
             };
-
+        case FETCH_VERSION_BY_REVISION_NUM_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: payload.error,
+            };
         case RESET_ALERTS:
             return {
                 ...state,
