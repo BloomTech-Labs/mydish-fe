@@ -317,7 +317,7 @@ function IndividualRecipe(props) {
                                                     <Text
                                                         style={styles.versions}
                                                     >
-                                                        Previous Versions
+                                                        Other Versions
                                                     </Text>
                                                 </TouchableOpacity>
                                             </View>
