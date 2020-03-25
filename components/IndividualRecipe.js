@@ -22,7 +22,10 @@ import {
     deleteRecipe,
     resetAlerts,
 } from "../store/singleRecipe/singleRecipeActions";
-import { fetchAllVersionHistory } from "../store/version-control/versionControlActions";
+import {
+    fetchAllVersionHistory,
+    resetAllVersionHistory,
+} from "../store/version-control/versionControlActions";
 
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
@@ -81,8 +84,12 @@ function IndividualRecipe(props) {
         fetchUserId();
         dispatch(fetchAllVersionHistory(id));
         //below is a cleanup that resets the initState of singleRecipe to null values,
+        //and resets the versionHistory state to an empty array,
         //which is important for a smooth user experience
-        return () => dispatch(resetRecipe());
+        return () => {
+            dispatch(resetRecipe());
+            dispatch(resetAllVersionHistory());
+        };
     }, [id, revisionId]);
 
     useEffect(() => {
