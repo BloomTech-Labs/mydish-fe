@@ -96,3 +96,76 @@ describe("Fetch Recipe actions return the correct state object", () => {
         expect(returnStore).toEqual(expectedStore);
     });
 });
+
+describe("Fetch All Cookbook actions return the correct state object", () => {
+    test("START_FETCH_ALL_COOKBOOK", () => {
+        const initStore = {
+            entireCookbook: [],
+            isLoading: false,
+            error: "testError",
+        };
+        const expectedStore = {
+            entireCookbook: [],
+            isLoading: true,
+            error: null,
+        };
+
+        const returnStore = cookbookReducer(initStore, {
+            type: cookbookTypes.START_FETCH_ALL_COOKBOOK,
+        });
+        expect(returnStore).toEqual(expectedStore);
+
+        const returnStore2 = cookbookReducer(returnStore, {
+            type: cookbookTypes.START_FETCH_ALL_COOKBOOK,
+        });
+        expect(returnStore2).toEqual(expectedStore);
+    });
+
+    test("FETCH_ALL_COOKBOOK_SUCCESS", () => {
+        const recipesTofetch = [
+            { title: "testRecipe1" },
+            { title: "testRecipe2" },
+        ];
+
+        const initStore = {
+            entireCookbook: [],
+            isLoading: false,
+            error: null,
+        };
+
+        const expectedStore = {
+            entireCookbook: recipesTofetch,
+            isLoading: false,
+            error: null,
+        };
+        const action = {
+            type: cookbookTypes.FETCH_ALL_COOKBOOK_SUCCESS,
+            payload: recipesTofetch,
+        };
+
+        const returnStore = cookbookReducer(initStore, action);
+        expect(returnStore).toEqual(expectedStore);
+    });
+
+    test("FETCH_ALL_COOKBOOK_FAILURE", () => {
+        const initStore = {
+            entireCookbook: [],
+            isLoading: true,
+            error: null,
+        };
+
+        const expectedStore = {
+            entireCookbook: [],
+            isLoading: false,
+            error: "testError",
+        };
+
+        const action = {
+            type: cookbookTypes.FETCH_ALL_COOKBOOK_FAILURE,
+            payload: "testError",
+        };
+
+        const returnStore = cookbookReducer(initStore, action);
+        expect(returnStore).toEqual(expectedStore);
+    });
+});
