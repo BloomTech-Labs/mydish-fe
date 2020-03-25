@@ -196,6 +196,10 @@ function IndividualRecipe(props) {
         }
     };
 
+    const hasTimeValue = time => {
+        return time !== null && time !== 0 && time !== "";
+    };
+
     if (isLoading) {
         return (
             <View
@@ -305,7 +309,7 @@ function IndividualRecipe(props) {
                                 }}
                             >
                                 <View style={styles.timeContainer}>
-                                    {recipe.prep_time !== null && (
+                                    {hasTimeValue(recipe.prep_time) && (
                                         <Text
                                             style={{
                                                 ...theme.REGULAR_FONT,
@@ -315,7 +319,7 @@ function IndividualRecipe(props) {
                                             Prep: {recipe.prep_time} min.
                                         </Text>
                                     )}
-                                    {recipe.cook_time !== null && (
+                                    {hasTimeValue(recipe.cook_time) && (
                                         <Text style={theme.REGULAR_FONT}>
                                             Cook: {recipe.cook_time} min.
                                         </Text>
