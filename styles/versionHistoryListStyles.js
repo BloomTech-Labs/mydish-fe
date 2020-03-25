@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     versionView: {
         borderBottomColor: "#ccc",
         borderBottomWidth: 1,
-        margin: 15,
+        marginVertical: 15,
         paddingVertical: 4,
         paddingHorizontal: 2,
     },
