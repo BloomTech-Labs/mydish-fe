@@ -7,12 +7,11 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        paddingVertical: 3,
         fontFamily: theme.REGULAR_FONT_FAMILY,
         color: theme.PRIMARY_COLOR,
     },
-    commentLabel: {
-        fontWeight: "bold",
+    authorComment: {
+        ...theme.REGULAR_FONT,
     },
 });
 
