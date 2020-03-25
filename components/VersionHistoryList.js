@@ -28,7 +28,6 @@ const VersionHistoryList = props => {
                 data={versionList}
                 keyExtractor={item => item.revision_number.toString()}
                 renderItem={({ item }) => {
-                    console.log(item);
                     return (
                         <TouchableOpacity
                             onPress={() => {
