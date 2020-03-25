@@ -6,7 +6,8 @@ import {
     Text,
     TextInput,
     TouchableHighlight,
-    Button,
+    TouchableOpacity,
+    // Button,
 } from "react-native";
 //Analytics
 import { Analytics, Event } from "expo-analytics";
@@ -80,8 +81,7 @@ const CommitModal = props => {
                                     style={{
                                         fontFamily: theme.REGULAR_FONT_FAMILY,
                                         padding: 8,
-                                        marginBottom: 10,
-                                        marginTop: 16,
+                                        marginVertical: 16,
                                         minHeight: 109,
                                         width: "100%",
                                         borderRadius: 5,
@@ -94,19 +94,35 @@ const CommitModal = props => {
                                 <View
                                     style={{
                                         flexDirection: "row",
-                                        justifyContent: "space-around",
+                                        justifyContent: "center",
                                         width: "80%",
                                     }}
                                 >
-                                    <Button
-                                        title="Cancel"
+                                    <TouchableOpacity
                                         onPress={closeModalHandler}
-                                    />
-
-                                    <Button
-                                        title="OK"
+                                        style={{
+                                            ...theme.SECONDARY_BUTTON,
+                                            width: 100,
+                                            marginRight: 20,
+                                        }}
+                                    >
+                                        <Text
+                                            style={theme.SECONDARY_BUTTON_TEXT}
+                                        >
+                                            Cancel
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
                                         onPress={saveModalHandler}
-                                    />
+                                        style={{
+                                            ...theme.PRIMARY_BUTTON,
+                                            width: 100,
+                                        }}
+                                    >
+                                        <Text style={theme.PRIMARY_BUTTON_TEXT}>
+                                            OK
+                                        </Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </KeyboardAvoidingView>
