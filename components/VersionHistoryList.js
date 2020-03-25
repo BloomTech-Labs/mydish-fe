@@ -48,7 +48,9 @@ const VersionHistoryList = props => {
                         >
                             <View style={styles.versionView}>
                                 <Text style={styles.label}>
-                                    Version {item.revision_number}.{" "}
+                                    {item.revision_number > 1
+                                        ? `Version ${item.revision_number}`
+                                        : `Original`}
                                 </Text>
                                 <Text>{formattedDate.toString()}</Text>
                                 <View style={{ flexDirection: "row" }}>
