@@ -87,3 +87,64 @@ describe("fetchCookbook action creator", () => {
         });
     });
 });
+
+describe("getAllCookbookRecipes action creator", () => {
+    test("dispatches START_FETCH_ALL_COOKBOOK", () => {
+        axiosWithAuth.mockImplementation(() => {
+            return {
+                get: () => ({}),
+            };
+        });
+        const dispatch = jest.fn();
+        cookbookActions.getAllCookbookRecipes()(dispatch);
+
+        expect(dispatch).toHaveBeenCalledWith({
+            type: cookbookActions.START_FETCH_ALL_COOKBOOK,
+        });
+    });
+
+    test("dispatches FETCH_ALL_COOKBOOK_SUCCESS upon a successful request", async () => {
+        const dispatch = jest.fn();
+
+        const responseData = [{ title: "testCookbookTitle" }];
+        axiosWithAuth.mockImplementation(() => {
+            return {
+                get: () => ({ data: responseData }),
+            };
+        });
+
+        await cookbookActions.getAllCookbookRecipes()(dispatch);
+
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenCalledWith({
+            type: cookbookActions.START_FETCH_ALL_COOKBOOK,
+        });
+        expect(dispatch).toHaveBeenCalledWith({
+            type: cookbookActions.FETCH_ALL_COOKBOOK_SUCCESS,
+            payload: responseData,
+        });
+    });
+
+    test("dispatches FETCH_ALL_COOKBOOK_FAILURE upon an unsuccessful request", async () => {
+        const dispatch = jest.fn();
+
+        const errorMessage = "testError";
+        axiosWithAuth.mockImplementation(() => {
+            return {
+                get: () => {
+                    throw errorMessage;
+                },
+            };
+        });
+
+        await cookbookActions.getAllCookbookRecipes()(dispatch);
+
+        expect(dispatch).toHaveBeenCalledWith({
+            type: cookbookActions.START_FETCH_ALL_COOKBOOK,
+        });
+        expect(dispatch).toHaveBeenCalledWith({
+            type: cookbookActions.FETCH_ALL_COOKBOOK_FAILURE,
+            payload: errorMessage,
+        });
+    });
+});
