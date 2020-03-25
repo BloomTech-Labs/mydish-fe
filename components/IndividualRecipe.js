@@ -49,6 +49,7 @@ function IndividualRecipe(props) {
         cancel: false,
     });
     const [tempRecipe, setTempRecipe] = useState(null);
+    const [versionListVisible, setVersionListVisible] = useState(false);
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const successAlert = useSelector(state => state.singleRecipe.successAlert);
@@ -288,10 +289,7 @@ function IndividualRecipe(props) {
                                     {hasRevisions() && (
                                         <TouchableOpacity
                                             onPress={() =>
-                                                props.navigation.navigate(
-                                                    "VersionHistoryList",
-                                                    { parentId: id },
-                                                )
+                                                setVersionListVisible(true)
                                             }
                                         >
                                             <Text style={styles.versions}>
