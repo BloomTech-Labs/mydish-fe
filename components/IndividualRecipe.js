@@ -7,7 +7,6 @@ import {
     SafeAreaView,
     AsyncStorage,
     TouchableOpacity,
-    ActivityIndicator,
     ImageBackground,
     Alert,
 } from "react-native";
@@ -40,6 +39,7 @@ import RecipeShareLogo from "./RecipeShareLogo";
 
 import { fetchRecipes } from "../store/recipes/recipeActions";
 import { getAllCookbookRecipes } from "../store/cookbook/cookbookAction";
+import FancySpinner from "./FancySpinner";
 
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
@@ -201,19 +201,7 @@ function IndividualRecipe(props) {
     };
 
     if (isLoading) {
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: "column",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                }}
-            >
-                <RecipeShareLogo />
-                <ActivityIndicator size="large" color="#444444" />
-            </View>
-        );
+        return <FancySpinner />;
     }
 
     const editableRecipeDisplay = () => {

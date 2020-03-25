@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { View, Text, Button, ActivityIndicator } from "react-native";
+import { View, Text, Button } from "react-native";
 import RecipeList from "./RecipeList";
 import styles from "../styles/recipe-styles";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCookbook } from "../store/cookbook/cookbookAction";
+import FancySpinner from "./FancySpinner";
 
 const CookBookFolder = props => {
     const dispatch = useDispatch();
@@ -16,20 +17,7 @@ const CookBookFolder = props => {
     }, [dispatch, fetchCookbook, course]);
 
     if (loading) {
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: "column",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                }}
-            >
-                <View style={styles.centered}>
-                    <ActivityIndicator size="large" color="#00ff00" />
-                </View>
-            </View>
-        );
+        return <FancySpinner />;
     } else {
         return (
             <View
