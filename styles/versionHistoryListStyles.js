@@ -2,6 +2,13 @@ import { StyleSheet } from "react-native";
 import theme from "./theme.style";
 
 const styles = StyleSheet.create({
+    title: {
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        color: theme.DARK_GREY_FONT_COLOR,
+        fontSize: 18,
+        paddingVertical: 3,
+        marginTop: 16,
+    },
     versionView: {
         marginTop: 16,
     },

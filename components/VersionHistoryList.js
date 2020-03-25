@@ -24,6 +24,7 @@ const VersionHistoryList = props => {
 
     return (
         <View>
+            <Text style={styles.title}>Other versions</Text>
             <FlatList
                 data={versionList}
                 keyExtractor={item => item.revision_number.toString()}
