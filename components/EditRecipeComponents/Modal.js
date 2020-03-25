@@ -73,16 +73,18 @@ const CommitModal = props => {
                                 </Text>
                                 <TextInput
                                     multiline
+                                    placeholder="Notes"
                                     onChangeText={text =>
                                         setAuthor_comment(text)
                                     }
                                     style={{
+                                        fontFamily: theme.REGULAR_FONT_FAMILY,
+                                        padding: 8,
                                         marginBottom: 10,
-                                        marginTop: 20,
-                                        minHeight: 40,
-                                        maxWidth: "90%",
-                                        width: "90%",
-                                        borderRadius: 4,
+                                        marginTop: 16,
+                                        minHeight: 109,
+                                        width: "100%",
+                                        borderRadius: 5,
                                         borderWidth: 1,
                                         borderColor: highlighted
                                             ? "red"
