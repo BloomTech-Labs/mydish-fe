@@ -3,7 +3,7 @@ import styles from "../styles/recipe-styles";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import { savedPlaceholder } from "../constants/imagePlaceholders";
-import { maxUsername } from "../constants/maxLenth";
+import { maxUsername } from "../constants/maxLength";
 //Analytics
 import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-160806654-1");

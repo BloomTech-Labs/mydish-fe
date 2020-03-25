@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, TextInput, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { editTitle } from "../store/singleRecipe/singleRecipeActions";
-import { maxRecipeName } from "../constants/maxLenth";
+import { maxRecipeName } from "../constants/maxLength";
 import styles from "../styles/createRecipeStyles";
 
 const RecipeName = ({ recipe, setRecipe, missing, parent }) => {

@@ -16,7 +16,7 @@ import { registerUser, clearError } from "../store/auth/authActions";
 import styles from "../styles/authPageStyles";
 import backgroundImg from "../assets/auth-page-background.jpg";
 import RecipeShareLogo from "./RecipeShareLogo.js";
-import { maxUsername } from "../constants/maxLenth";
+import { maxUsername } from "../constants/maxLength";
 import theme from "../styles/theme.style";
 
 const SignUp = ({ navigation }) => {
