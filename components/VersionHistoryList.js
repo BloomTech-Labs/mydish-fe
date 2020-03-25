@@ -28,6 +28,7 @@ const VersionHistoryList = props => {
                 data={versionList}
                 keyExtractor={item => item.revision_number.toString()}
                 renderItem={({ item }) => {
+                    console.log(item);
                     return (
                         <TouchableOpacity
                             onPress={() => {
@@ -50,7 +51,9 @@ const VersionHistoryList = props => {
                                         : `Original`}
                                 </Text>
                                 <Text style={styles.authorComment}>
-                                    {item.changes.author_comment}
+                                    {item.revision_number > 1
+                                        ? item.changes.author_comment
+                                        : `Posted by ${item.owner.username}`}
                                 </Text>
                             </View>
                         </TouchableOpacity>
