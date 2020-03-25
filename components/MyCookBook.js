@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, ScrollView, Text, ActivityIndicator } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { cookbookHeaderOptions } from "./header/navigationHeader";
 
 import styles from "../styles/recipe-styles";
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RecipeList from "./RecipeList";
 import { FlatList } from "react-native-gesture-handler";
 import Recipe from "./Recipe";
+import FancySpinner from "./FancySpinner";
 
 const MyCookBook = props => {
     const dispatch = useDispatch();
@@ -35,20 +36,7 @@ const MyCookBook = props => {
     };
 
     if (loading) {
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: "column",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                }}
-            >
-                <View style={styles.centered}>
-                    <ActivityIndicator size="large" color="#00ff00" />
-                </View>
-            </View>
-        );
+        return <FancySpinner />;
     } else {
         const categories = getAllCategories(allCookbookRecipes);
         console.log("All Cookbook Recipes ", allCookbookRecipes);

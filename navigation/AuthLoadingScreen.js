@@ -1,5 +1,6 @@
 import React from "react";
-import { AsyncStorage, View, ActivityIndicator, StatusBar } from "react-native";
+import { AsyncStorage, View, StatusBar } from "react-native";
+import FancySpinner from "../components/FancySpinner";
 
 function AuthLoadingScreen(props) {
     const _bootstrapAsync = async () => {
@@ -16,7 +17,7 @@ function AuthLoadingScreen(props) {
     // Render any loading content that you like here
     return (
         <View>
-            <ActivityIndicator />
+            <FancySpinner />
             <StatusBar barStyle="default" />
         </View>
     );

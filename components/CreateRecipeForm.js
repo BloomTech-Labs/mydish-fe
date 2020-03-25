@@ -5,7 +5,6 @@ import {
     View,
     ScrollView,
     TouchableOpacity,
-    ActivityIndicator,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,6 +34,7 @@ import { initialCreateFormState } from "../constants/initialCreateFormState";
 
 //Analytics
 import { Analytics, Event } from "expo-analytics";
+import FancySpinner from "./FancySpinner";
 const analytics = new Analytics("UA-160806654-1");
 
 function CreateRecipeForm({
@@ -191,19 +191,7 @@ function CreateRecipeForm({
     };
 
     if (isLoading) {
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: "column",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                }}
-            >
-                <RecipeShareLogo />
-                <ActivityIndicator size="large" color="#444444" />
-            </View>
-        );
+        return <FancySpinner />;
     }
 
     return (
