@@ -3,11 +3,11 @@ import theme from "./theme.style";
 
 const styles = StyleSheet.create({
     versionView: {
-        marginVertical: 16,
-        paddingVertical: 4,
+        marginTop: 16,
     },
     label: {
         fontSize: 16,
+        paddingVertical: 3,
         fontFamily: theme.REGULAR_FONT_FAMILY,
         color: theme.PRIMARY_COLOR,
     },
