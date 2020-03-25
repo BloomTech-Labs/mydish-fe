@@ -6,7 +6,6 @@ import {
     fetchRecipe,
 } from "../store/singleRecipe/singleRecipeActions";
 import { fetchAllVersionHistory } from "../store/version-control/versionControlActions";
-import formatdate from "../utils/helperFunctions/formatdate";
 import styles from "../styles/versionHistoryListStyles";
 
 const VersionHistoryList = props => {
@@ -29,8 +28,6 @@ const VersionHistoryList = props => {
                 data={versionList}
                 keyExtractor={item => item.revision_number.toString()}
                 renderItem={({ item }) => {
-                    formattedDate = formatdate(item.date_modified); //Format date to Month, Day, Year, H:MM AM/MP
-
                     return (
                         <TouchableOpacity
                             onPress={() => {
@@ -52,7 +49,6 @@ const VersionHistoryList = props => {
                                         ? `Version ${item.revision_number}`
                                         : `Original`}
                                 </Text>
-                                <Text>{formattedDate.toString()}</Text>
                                 <View style={{ flexDirection: "row" }}>
                                     <Text style={styles.commentLabel}>
                                         Author Comment:{" "}
