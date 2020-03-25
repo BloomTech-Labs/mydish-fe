@@ -35,7 +35,6 @@ import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngr
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
-import { FontAwesome } from "@expo/vector-icons";
 import RecipeShareLogo from "./RecipeShareLogo";
 
 import { fetchRecipes } from "../store/recipes/recipeActions";
