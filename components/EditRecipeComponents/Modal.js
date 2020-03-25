@@ -11,7 +11,7 @@ import {
 //Analytics
 import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-159002245-1");
-
+import theme from "../../styles/theme.style";
 const CommitModal = props => {
     const { commitModal, setCommitModal, saveButtonEditedRecipe } = props;
     const [author_comment, setAuthor_comment] = useState();
@@ -62,12 +62,14 @@ const CommitModal = props => {
                             >
                                 <Text
                                     style={{
-                                        fontSize: 16,
-                                        textAlign: "center",
+                                        textAlign: "left",
+                                        fontFamily: theme.BOLD_FONT_FAMILY,
+                                        fontSize: theme.REGULAR_FONT_SIZE,
+                                        paddingVertical: 2,
                                     }}
                                 >
-                                    Please leave a brief comment describing your
-                                    recipe changes.
+                                    What did you change on this version of the
+                                    recipe?
                                 </Text>
                                 <TextInput
                                     multiline
