@@ -7,7 +7,10 @@ import {
     StyleSheet,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-
+import {
+    fetchVersionByRevisionId,
+    fetchRecipe,
+} from "../store/singleRecipe/singleRecipeActions";
 import { fetchAllVersionHistory } from "../store/version-control/versionControlActions";
 import formatdate from "../utils/helperFunctions/formatdate";
 
@@ -31,19 +34,21 @@ const VersionHistoryList = props => {
                 data={versionList}
                 keyExtractor={item => item.revision_number.toString()}
                 renderItem={({ item }) => {
-                    {
-                        /*Format date to Month, Day, Year, H:MM AM/MP */
-                    }
-                    formattedDate = formatdate(item.date_modified);
+                    formattedDate = formatdate(item.date_modified); //Format date to Month, Day, Year, H:MM AM/MP
 
                     return (
                         <TouchableOpacity
                             onPress={() => {
-                                // getRecipeByRevisionNumber(item.changes.id, item.id)
-                                props.navigation.navigate("IndividualR", {
-                                    recipeID: item.changes.id,
-                                    revisionID: item.id,
-                                });
+                                item.id
+                                    ? dispatch(
+                                          fetchVersionByRevisionId(
+                                              item.changes.id,
+                                              item.id,
+                                          ),
+                                      )
+                                    : dispatch(fetchRecipe(item.changes.id));
+
+                                props.setVersionListVisible(false);
                             }}
                         >
                             <View style={styles.versionView}>

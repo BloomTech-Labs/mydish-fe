@@ -267,7 +267,13 @@ function IndividualRecipe(props) {
                                     )}
                             </View>
                             {versionListVisible ? (
-                                <VersionHistoryList id={id} />
+                                <VersionHistoryList
+                                    id={id}
+                                    setVersionListVisible={
+                                        setVersionListVisible
+                                    }
+                                    navigation={props.navigation}
+                                />
                             ) : (
                                 <View>
                                     <View
