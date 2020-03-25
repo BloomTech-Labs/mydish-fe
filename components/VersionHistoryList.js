@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-    FlatList,
-    Text,
-    View,
-    TouchableOpacity,
-    StyleSheet,
-} from "react-native";
+import { FlatList, Text, View, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import {
     fetchVersionByRevisionId,
@@ -13,6 +7,7 @@ import {
 } from "../store/singleRecipe/singleRecipeActions";
 import { fetchAllVersionHistory } from "../store/version-control/versionControlActions";
 import formatdate from "../utils/helperFunctions/formatdate";
+import styles from "../styles/versionHistoryListStyles";
 
 const VersionHistoryList = props => {
     const versionList = useSelector(state => state.versionsList.versionsList);
@@ -72,24 +67,6 @@ const VersionHistoryList = props => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    versionView: {
-        borderBottomColor: "#ccc",
-        borderBottomWidth: 1,
-        margin: 15,
-        paddingVertical: 4,
-        paddingHorizontal: 2,
-    },
-    label: {
-        fontSize: 18,
-        marginBottom: 15,
-        fontWeight: "bold",
-    },
-    commentLabel: {
-        fontWeight: "bold",
-    },
-});
 
 VersionHistoryList.navigationOptions = {
     headerTitle: "Version History",
