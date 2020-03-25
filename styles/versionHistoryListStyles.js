@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         marginVertical: 15,
         paddingVertical: 4,
-        paddingHorizontal: 2,
     },
     label: {
         fontSize: 18,
