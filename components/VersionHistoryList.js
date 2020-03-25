@@ -15,7 +15,7 @@ const VersionHistoryList = props => {
     const versionList = useSelector(state => state.versionsList.versionsList);
     const dispatch = useDispatch();
 
-    const id = props.navigation.getParam("parentId", "parentId not passed");
+    const id = props.id;
 
     async function fetchAllVersions(id) {
         await dispatch(fetchAllVersionHistory(id));

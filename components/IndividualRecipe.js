@@ -31,6 +31,7 @@ import { maxUsername } from "../constants/maxLenth";
 
 import Tab from "./Tab";
 import CreateRecipeForm from "./CreateRecipeForm";
+import VersionHistoryList from "./VersionHistoryList";
 import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngredient";
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
@@ -253,6 +254,7 @@ function IndividualRecipe(props) {
                                         : `By ${recipe.owner.username}`}
                                 </Text>
                                 {recipe.owner.user_id &&
+                                    !versionListVisible &&
                                     userId === recipe.owner.user_id && (
                                         <TouchableOpacity
                                             onPress={startEditModeButton}
@@ -264,151 +266,191 @@ function IndividualRecipe(props) {
                                         </TouchableOpacity>
                                     )}
                             </View>
-                            <View
-                                style={{
-                                    ...styles.underTitleRow,
-                                    ...styles.tagAndVersionsRow,
-                                }}
-                            >
-                                <View style={styles.tagBox}>
-                                    {recipe.tags &&
-                                        recipe.tags.map((tag, index) => (
-                                            <Text
-                                                key={tag.id}
-                                                style={theme.REGULAR_FONT}
-                                            >
-                                                {tag.name}
-                                                {index <
-                                                    recipe.tags.length - 1 && (
-                                                    <Text>, </Text>
-                                                )}
-                                            </Text>
-                                        ))}
-                                </View>
+                            {versionListVisible ? (
+                                <VersionHistoryList id={id} />
+                            ) : (
                                 <View>
-                                    {hasRevisions() && (
-                                        <TouchableOpacity
-                                            onPress={() =>
-                                                setVersionListVisible(true)
-                                            }
-                                        >
-                                            <Text style={styles.versions}>
-                                                Previous Versions
-                                            </Text>
-                                        </TouchableOpacity>
-                                    )}
-                                </View>
-                            </View>
-                            <View
-                                style={{
-                                    ...styles.underTitleRow,
-                                    marginTop: 22,
-                                }}
-                            >
-                                <View style={styles.timeContainer}>
-                                    {hasTimeValue(recipe.prep_time) && (
-                                        <Text
-                                            style={{
-                                                ...theme.REGULAR_FONT,
-                                                marginRight: 10,
-                                            }}
-                                        >
-                                            Prep: {recipe.prep_time} min.
-                                        </Text>
-                                    )}
-                                    {hasTimeValue(recipe.cook_time) && (
-                                        <Text style={theme.REGULAR_FONT}>
-                                            Cook: {recipe.cook_time} min.
-                                        </Text>
-                                    )}
-                                </View>
-                            </View>
-
-                            <View style={styles.tabsContainer}>
-                                <Tab
-                                    text="Ingredients"
-                                    color={color}
-                                    toggleTab={tabsDisplay}
-                                />
-                                <Tab
-                                    text="Steps"
-                                    color={color}
-                                    toggleTab={tabsDisplay}
-                                />
-                            </View>
-
-                            <View style={styles.recipeDetails}>
-                                {color.active === "Ingredients" && (
-                                    <>
-                                        {recipe.ingredients &&
-                                            recipe.ingredients.map((ing, i) => (
-                                                <DisplayRecipeIngredient
-                                                    key={i}
-                                                    ingredient={ing}
-                                                />
-                                            ))}
-                                    </>
-                                )}
-                                {color.active === "Steps" && (
-                                    <>
-                                        {recipe.instructions &&
-                                            recipe.instructions.map(
-                                                (step, i) => (
-                                                    <DisplayRecipeInstruction
-                                                        key={step.step_number}
-                                                        instruction={step}
-                                                    />
-                                                ),
+                                    <View
+                                        style={{
+                                            ...styles.underTitleRow,
+                                            ...styles.tagAndVersionsRow,
+                                        }}
+                                    >
+                                        <View style={styles.tagBox}>
+                                            {recipe.tags &&
+                                                recipe.tags.map(
+                                                    (tag, index) => (
+                                                        <Text
+                                                            key={tag.id}
+                                                            style={
+                                                                theme.REGULAR_FONT
+                                                            }
+                                                        >
+                                                            {tag.name}
+                                                            {index <
+                                                                recipe.tags
+                                                                    .length -
+                                                                    1 && (
+                                                                <Text>, </Text>
+                                                            )}
+                                                        </Text>
+                                                    ),
+                                                )}
+                                        </View>
+                                        <View>
+                                            {hasRevisions() && (
+                                                <TouchableOpacity
+                                                    onPress={() =>
+                                                        setVersionListVisible(
+                                                            true,
+                                                        )
+                                                    }
+                                                >
+                                                    <Text
+                                                        style={styles.versions}
+                                                    >
+                                                        Previous Versions
+                                                    </Text>
+                                                </TouchableOpacity>
                                             )}
-
-                                        {recipe.notes[0].id !== null && (
-                                            <Text style={styles.notes}>
-                                                Notes
-                                            </Text>
-                                        )}
-                                        {recipe.notes[0].id !== null && (
-                                            <View style={styles.redBorder} />
-                                        )}
-                                        {recipe.notes[0].id !== null &&
-                                            recipe.notes.map((note, i) => (
-                                                <DisplayRecipeNotes
-                                                    key={i}
-                                                    notes={note}
-                                                    index={i}
-                                                />
-                                            ))}
-                                    </>
-                                )}
-                            </View>
-                            {recipe.owner.user_id &&
-                                userId === recipe.owner.user_id && (
-                                    <View style={styles.buttonContainer}>
-                                        <TouchableOpacity
-                                            style={theme.SECONDARY_BUTTON}
-                                            onPress={deleteRecipeHandler}
-                                        >
-                                            <Text
-                                                style={
-                                                    theme.SECONDARY_BUTTON_TEXT
-                                                }
-                                            >
-                                                Delete
-                                            </Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                            style={theme.PRIMARY_BUTTON}
-                                            onPress={startEditModeButton}
-                                        >
-                                            <Text
-                                                style={
-                                                    theme.PRIMARY_BUTTON_TEXT
-                                                }
-                                            >
-                                                Edit
-                                            </Text>
-                                        </TouchableOpacity>
+                                        </View>
                                     </View>
-                                )}
+                                    <View
+                                        style={{
+                                            ...styles.underTitleRow,
+                                            marginTop: 22,
+                                        }}
+                                    >
+                                        <View style={styles.timeContainer}>
+                                            {hasTimeValue(recipe.prep_time) && (
+                                                <Text
+                                                    style={{
+                                                        ...theme.REGULAR_FONT,
+                                                        marginRight: 10,
+                                                    }}
+                                                >
+                                                    Prep: {recipe.prep_time}{" "}
+                                                    min.
+                                                </Text>
+                                            )}
+                                            {hasTimeValue(recipe.cook_time) && (
+                                                <Text
+                                                    style={theme.REGULAR_FONT}
+                                                >
+                                                    Cook: {recipe.cook_time}{" "}
+                                                    min.
+                                                </Text>
+                                            )}
+                                        </View>
+                                    </View>
+
+                                    <View style={styles.tabsContainer}>
+                                        <Tab
+                                            text="Ingredients"
+                                            color={color}
+                                            toggleTab={tabsDisplay}
+                                        />
+                                        <Tab
+                                            text="Steps"
+                                            color={color}
+                                            toggleTab={tabsDisplay}
+                                        />
+                                    </View>
+
+                                    <View style={styles.recipeDetails}>
+                                        {color.active === "Ingredients" && (
+                                            <>
+                                                {recipe.ingredients &&
+                                                    recipe.ingredients.map(
+                                                        (ing, i) => (
+                                                            <DisplayRecipeIngredient
+                                                                key={i}
+                                                                ingredient={ing}
+                                                            />
+                                                        ),
+                                                    )}
+                                            </>
+                                        )}
+                                        {color.active === "Steps" && (
+                                            <>
+                                                {recipe.instructions &&
+                                                    recipe.instructions.map(
+                                                        (step, i) => (
+                                                            <DisplayRecipeInstruction
+                                                                key={
+                                                                    step.step_number
+                                                                }
+                                                                instruction={
+                                                                    step
+                                                                }
+                                                            />
+                                                        ),
+                                                    )}
+
+                                                {recipe.notes[0].id !==
+                                                    null && (
+                                                    <Text style={styles.notes}>
+                                                        Notes
+                                                    </Text>
+                                                )}
+                                                {recipe.notes[0].id !==
+                                                    null && (
+                                                    <View
+                                                        style={styles.redBorder}
+                                                    />
+                                                )}
+                                                {recipe.notes[0].id !== null &&
+                                                    recipe.notes.map(
+                                                        (note, i) => (
+                                                            <DisplayRecipeNotes
+                                                                key={i}
+                                                                notes={note}
+                                                                index={i}
+                                                            />
+                                                        ),
+                                                    )}
+                                            </>
+                                        )}
+                                    </View>
+                                    {recipe.owner.user_id &&
+                                        userId === recipe.owner.user_id && (
+                                            <View
+                                                style={styles.buttonContainer}
+                                            >
+                                                <TouchableOpacity
+                                                    style={
+                                                        theme.SECONDARY_BUTTON
+                                                    }
+                                                    onPress={
+                                                        deleteRecipeHandler
+                                                    }
+                                                >
+                                                    <Text
+                                                        style={
+                                                            theme.SECONDARY_BUTTON_TEXT
+                                                        }
+                                                    >
+                                                        Delete
+                                                    </Text>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity
+                                                    style={theme.PRIMARY_BUTTON}
+                                                    onPress={
+                                                        startEditModeButton
+                                                    }
+                                                >
+                                                    <Text
+                                                        style={
+                                                            theme.PRIMARY_BUTTON_TEXT
+                                                        }
+                                                    >
+                                                        Edit
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        )}
+                                </View>
+                            )}
                         </View>
                     </View>
                 </ScrollView>
