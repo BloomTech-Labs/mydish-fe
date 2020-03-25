@@ -49,14 +49,9 @@ const VersionHistoryList = props => {
                                         ? `Version ${item.revision_number}`
                                         : `Original`}
                                 </Text>
-                                <View style={{ flexDirection: "row" }}>
-                                    <Text style={styles.commentLabel}>
-                                        Author Comment:{" "}
-                                    </Text>
-                                    <Text style={{ width: "65%" }}>
-                                        {item.changes.author_comment}
-                                    </Text>
-                                </View>
+                                <Text style={styles.authorComment}>
+                                    {item.changes.author_comment}
+                                </Text>
                             </View>
                         </TouchableOpacity>
                     );
