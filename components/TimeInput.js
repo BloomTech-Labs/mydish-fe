@@ -17,6 +17,7 @@ function TimeInput({
     recipe,
     setRecipe,
     recipeToRender,
+    savedRecipe,
 }) {
     const dispatch = useDispatch();
     return (
