@@ -206,17 +206,15 @@ describe("editInstruct action creator", () => {
     test("dispatches object with index and input value", () => {
         const input = { body: "F=m*a" };
         const index = 2;
-        const expectedDispatch = {
+        const expectedResponse = {
             type: actions.EDIT_INSTRUCT,
             payload: input,
             index,
         };
-        const dispatch = jest.fn();
 
-        actions.editInstruct(2, input)(dispatch);
+        const response = actions.editInstruct(2, input);
 
-        expect(dispatch).toHaveBeenCalled();
-        expect(dispatch).toHaveBeenCalledWith(expectedDispatch);
+        expect(response).toEqual(expectedResponse);
     });
     test.todo(
         "dispatches stopEdit() function when last character of the input is '\\n'",
