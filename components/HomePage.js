@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withNavigation } from "react-navigation";
-import { SafeAreaView, View, ScrollView, Text } from "react-native";
+import {
+    SafeAreaView,
+    View,
+    ScrollView,
+    Text,
+    AsyncStorage,
+} from "react-native";
 import { homepageHeaderOptions } from "./header/navigationHeader";
 import { fetchRecipes } from "../store/recipes/recipeActions";
 import { profilePageToggle } from "../store/navigation/navigationActions";
 
 import Search from "./Search.js";
 import RecipeList from "./RecipeList.js";
+import HomeCookBook from "./HomeCookBook.js";
 import styles from "../styles/homepageStyles";
 
 //Analytics
 import { Analytics, PageHit } from "expo-analytics";
-import HomeCookBook from "./HomeCookBook.js";
-import { Button } from "react-native";
 const analytics = new Analytics("UA-160806654-1");
 
 analytics
@@ -38,6 +43,7 @@ const HomePage = ({ navigation }) => {
 
     useEffect(() => {
         if (profile) {
+            AsyncStorage.clear();
             navigation.navigate("Login");
             dispatch(profilePageToggle(false));
         }
