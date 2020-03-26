@@ -31,9 +31,8 @@ const styles = StyleSheet.create({
         height: 18,
     },
     uploadModal: {
-        height: 200,
-        marginLeft: 40,
-        marginRight: 40,
+        height: 122,
+        marginHorizontal: 59,
         backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
         justifyContent: "center",
         alignItems: "center",
