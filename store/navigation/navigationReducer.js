@@ -1,6 +1,7 @@
-import { SEARCH_HOMEPAGE } from "./navigationActions";
+import { PROFILE_PAGE_TOGGLE, SEARCH_HOMEPAGE } from "./navigationActions";
 
 const initState = {
+    profileOpen: false,
     search: {
         homepage: false,
         cookbook: false,
@@ -9,6 +10,11 @@ const initState = {
 
 export const navigationReducer = (state = initState, action) => {
     switch (action.type) {
+        case PROFILE_PAGE_TOGGLE:
+            return {
+                ...state,
+                profileOpen: action.payload,
+            };
         case SEARCH_HOMEPAGE:
             return {
                 ...state,
