@@ -63,8 +63,8 @@ function ImageUploadModal({ visible, setVisible, setRecipe, parent }) {
 
     return (
         <Modal
-            animationIn="slideInDown"
-            animationOut="slideOutUp"
+            animationIn="fadeIn"
+            animationOut="fadeOut"
             animationInTiming={400}
             animationOutTiming={400}
             hideModalContentWhileAnimating={true}
