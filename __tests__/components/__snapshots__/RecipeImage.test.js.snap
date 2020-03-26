@@ -65,7 +65,7 @@ exports[`<ImageUploadModal /> matches snapshot 1`] = `
             "borderRadius": 16,
             "height": 32,
             "justifyContent": "center",
-            "marginBottom": 4,
+            "marginBottom": 16,
             "marginRight": 16,
             "padding": 5,
             "width": 32,

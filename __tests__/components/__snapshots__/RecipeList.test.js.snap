@@ -6,8 +6,6 @@ exports[`<RecipeList /> matches snapshot 1`] = `
     Object {
       "flexDirection": "row",
       "flexWrap": "wrap",
-      "marginLeft": "2%",
-      "marginRight": "2%",
     }
   }
 />

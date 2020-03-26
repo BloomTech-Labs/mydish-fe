@@ -80,13 +80,10 @@ exports[`<ImageUploadModal /> matches snapshot 1`] = `
         Object {
           "alignItems": "center",
           "backgroundColor": "#F1F1F1",
-          "borderRadius": 20,
-          "height": 200,
+          "borderRadius": 10,
+          "height": 122,
           "justifyContent": "center",
-          "marginLeft": 40,
-          "marginRight": 40,
-          "position": "relative",
-          "top": -100,
+          "marginHorizontal": 59,
         }
       }
     >
@@ -121,13 +118,21 @@ exports[`<ImageUploadModal /> matches snapshot 1`] = `
             source={1}
             style={
               Object {
-                "height": 57,
-                "marginBottom": 5,
-                "width": 66,
+                "height": 42,
+                "marginBottom": 8,
+                "width": 49,
               }
             }
           />
-          <Text>
+          <Text
+            style={
+              Object {
+                "fontFamily": "nunito sans bold",
+                "fontSize": 12,
+                "paddingVertical": 2,
+              }
+            }
+          >
             Camera
           </Text>
         </View>
@@ -152,14 +157,22 @@ exports[`<ImageUploadModal /> matches snapshot 1`] = `
             source={1}
             style={
               Object {
-                "height": 60,
-                "marginBottom": 5,
-                "width": 60,
+                "height": 49,
+                "marginBottom": 8,
+                "width": 49,
               }
             }
           />
-          <Text>
-            Photos
+          <Text
+            style={
+              Object {
+                "fontFamily": "nunito sans bold",
+                "fontSize": 12,
+                "paddingVertical": 2,
+              }
+            }
+          >
+            Gallery
           </Text>
         </View>
       </View>
