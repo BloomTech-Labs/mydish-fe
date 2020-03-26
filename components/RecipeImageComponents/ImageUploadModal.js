@@ -30,7 +30,8 @@ function ImageUploadModal({ visible, setVisible, setRecipe, parent }) {
             return true;
         }
     };
-    // Function takes argument of "take" (to take a new photo) or "choose" (to choose existing photo from camer roll)
+    // @param {string} method
+    //(value of "take" will launch camera, "choose" will open image gallery)
     const getImage = async method => {
         const hasPermission = await verifyPermissions();
         if (!hasPermission) return;
