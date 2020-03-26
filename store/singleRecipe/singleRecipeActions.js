@@ -197,11 +197,17 @@ export const cleanUpRecipe = () => ({
     type: CLEANUP_RECIPE,
 });
 
-export const VERSION_BY_REVISION_NUM = "VERSION_BY_REVISION_NUM";
+export const FETCH_VERSION_BY_REVISION_NUM_START =
+    "FETCH_VERSION_BY_REVISION_NUM_START";
+export const FETCH_VERSION_BY_REVISION_NUM_SUCCESS =
+    "FETCH_VERSION_BY_REVISION_NUM_SUCCESS";
+export const FETCH_VERSION_BY_REVISION_NUM_FAILURE =
+    "FETCH_VERSION_BY_REVISION_NUM_FAILURE";
 
 export const fetchVersionByRevisionId = (id, revisionId) => {
     return async dispatch => {
         try {
+            dispatch({ type: FETCH_VERSION_BY_REVISION_NUM_START });
             const axiosCustom = await axiosWithAuth();
             const res = await axiosCustom.get(
                 `recipes/${id}/version/${revisionId}`,
@@ -214,8 +220,15 @@ export const fetchVersionByRevisionId = (id, revisionId) => {
                 revision_number: res.data.revision_number,
             };
 
-            dispatch({ type: VERSION_BY_REVISION_NUM, payload: fullRecipe });
+            dispatch({
+                type: FETCH_VERSION_BY_REVISION_NUM_SUCCESS,
+                payload: fullRecipe,
+            });
         } catch (error) {
+            dispatch({
+                type: FETCH_VERSION_BY_REVISION_NUM_FAILURE,
+                payload: error,
+            });
             console.log(error);
             throw error;
         }

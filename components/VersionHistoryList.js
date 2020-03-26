@@ -1,21 +1,18 @@
 import React, { useEffect } from "react";
-import {
-    FlatList,
-    Text,
-    View,
-    TouchableOpacity,
-    StyleSheet,
-} from "react-native";
+import { FlatList, Text, View, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-
+import {
+    fetchVersionByRevisionId,
+    fetchRecipe,
+} from "../store/singleRecipe/singleRecipeActions";
 import { fetchAllVersionHistory } from "../store/version-control/versionControlActions";
-import formatdate from "../utils/helperFunctions/formatdate";
+import styles from "../styles/versionHistoryListStyles";
 
 const VersionHistoryList = props => {
     const versionList = useSelector(state => state.versionsList.versionsList);
     const dispatch = useDispatch();
 
-    const id = props.navigation.getParam("parentId", "parentId not passed");
+    const id = props.id;
 
     async function fetchAllVersions(id) {
         await dispatch(fetchAllVersionHistory(id));
@@ -27,38 +24,37 @@ const VersionHistoryList = props => {
 
     return (
         <View>
+            <Text style={styles.title}>Other versions</Text>
             <FlatList
                 data={versionList}
                 keyExtractor={item => item.revision_number.toString()}
                 renderItem={({ item }) => {
-                    {
-                        /*Format date to Month, Day, Year, H:MM AM/MP */
-                    }
-                    formattedDate = formatdate(item.date_modified);
-
                     return (
                         <TouchableOpacity
                             onPress={() => {
-                                // getRecipeByRevisionNumber(item.changes.id, item.id)
-                                props.navigation.navigate("IndividualR", {
-                                    recipeID: item.changes.id,
-                                    revisionID: item.id,
-                                });
+                                item.id
+                                    ? dispatch(
+                                          fetchVersionByRevisionId(
+                                              item.changes.id,
+                                              item.id,
+                                          ),
+                                      )
+                                    : dispatch(fetchRecipe(item.changes.id));
+
+                                props.setVersionListVisible(false);
                             }}
                         >
                             <View style={styles.versionView}>
                                 <Text style={styles.label}>
-                                    Version {item.revision_number}.{" "}
+                                    {item.revision_number > 1
+                                        ? `Version ${item.revision_number}`
+                                        : `Original`}
                                 </Text>
-                                <Text>{formattedDate.toString()}</Text>
-                                <View style={{ flexDirection: "row" }}>
-                                    <Text style={styles.commentLabel}>
-                                        Author Comment:{" "}
-                                    </Text>
-                                    <Text style={{ width: "65%" }}>
-                                        {item.changes.author_comment}
-                                    </Text>
-                                </View>
+                                <Text style={styles.authorComment}>
+                                    {item.revision_number > 1
+                                        ? item.changes.author_comment
+                                        : `Posted by ${item.owner.username}`}
+                                </Text>
                             </View>
                         </TouchableOpacity>
                     );
@@ -67,24 +63,6 @@ const VersionHistoryList = props => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    versionView: {
-        borderBottomColor: "#ccc",
-        borderBottomWidth: 1,
-        margin: 15,
-        paddingVertical: 4,
-        paddingHorizontal: 2,
-    },
-    label: {
-        fontSize: 18,
-        marginBottom: 15,
-        fontWeight: "bold",
-    },
-    commentLabel: {
-        fontWeight: "bold",
-    },
-});
 
 VersionHistoryList.navigationOptions = {
     headerTitle: "Version History",
