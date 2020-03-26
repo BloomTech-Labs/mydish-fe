@@ -4,6 +4,7 @@ import { withNavigation } from "react-navigation";
 import { SafeAreaView, View, ScrollView, Text } from "react-native";
 import { homepageHeaderOptions } from "./header/navigationHeader";
 import { fetchRecipes } from "../store/recipes/recipeActions";
+import { profilePageToggle } from "../store/navigation/navigationActions";
 
 import Search from "./Search.js";
 import RecipeList from "./RecipeList.js";
@@ -22,6 +23,7 @@ analytics
 
 const HomePage = ({ navigation }) => {
     let [dish, setDish] = useState("");
+    const profile = useSelector(state => state.navigation.profileOpen);
     const search = useSelector(state => state.navigation.search.homepage);
 
     const dispatch = useDispatch();
@@ -33,6 +35,13 @@ const HomePage = ({ navigation }) => {
 
         return () => clearTimeout(timer);
     }, [dish]);
+
+    useEffect(() => {
+        if (profile) {
+            navigation.navigate("Login");
+            dispatch(profilePageToggle(false));
+        }
+    }, [profile]);
 
     useEffect(() => {
         setDish("");
