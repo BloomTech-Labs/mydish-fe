@@ -98,7 +98,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                       "borderRadius": 16,
                       "height": 32,
                       "justifyContent": "center",
-                      "marginBottom": 4,
+                      "marginBottom": 16,
                       "marginRight": 16,
                       "padding": 5,
                       "width": 32,
@@ -129,6 +129,185 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
             }
           >
             <View>
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Modal
+                  animationType="fade"
+                  hardwareAccelerated={false}
+                  transparent={true}
+                  visible={false}
+                >
+                  <View
+                    accessible={true}
+                    isTVSelectable={true}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    style={null}
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "rgba(30, 27, 27, 0.45)",
+                          "height": "100%",
+                          "justifyContent": "center",
+                          "width": "100%",
+                        }
+                      }
+                    >
+                      <View
+                        onLayout={[Function]}
+                      >
+                        <View
+                          style={
+                            Object {
+                              "bottom": 0,
+                            }
+                          }
+                        >
+                          <View
+                            style={
+                              Object {
+                                "alignItems": "center",
+                                "backgroundColor": "rgba(300, 300, 300, 0.95)",
+                                "borderRadius": 10,
+                                "justifyContent": "center",
+                                "marginHorizontal": 59,
+                                "paddingHorizontal": 24,
+                                "paddingVertical": 16,
+                              }
+                            }
+                          >
+                            <Text
+                              style={
+                                Object {
+                                  "fontFamily": "nunito sans bold",
+                                  "fontSize": 14,
+                                  "paddingVertical": 2,
+                                  "textAlign": "left",
+                                }
+                              }
+                            >
+                              What did you change on this version of the recipe?
+                            </Text>
+                            <TextInput
+                              allowFontScaling={true}
+                              maxLength={240}
+                              multiline={true}
+                              onChangeText={[Function]}
+                              placeholder="Notes"
+                              rejectResponderTermination={true}
+                              style={
+                                Object {
+                                  "borderColor": "#D4D4D4",
+                                  "borderRadius": 5,
+                                  "borderWidth": 1,
+                                  "fontFamily": "nunito sans",
+                                  "marginVertical": 16,
+                                  "maxWidth": "100%",
+                                  "minHeight": 109,
+                                  "padding": 8,
+                                  "width": "100%",
+                                }
+                              }
+                              underlineColorAndroid="transparent"
+                            />
+                            <View
+                              style={
+                                Object {
+                                  "flexDirection": "row",
+                                  "justifyContent": "center",
+                                  "width": "100%",
+                                }
+                              }
+                            >
+                              <View
+                                accessible={true}
+                                isTVSelectable={true}
+                                onResponderGrant={[Function]}
+                                onResponderMove={[Function]}
+                                onResponderRelease={[Function]}
+                                onResponderTerminate={[Function]}
+                                onResponderTerminationRequest={[Function]}
+                                onStartShouldSetResponder={[Function]}
+                                style={
+                                  Object {
+                                    "alignItems": "center",
+                                    "borderColor": "#D2291F",
+                                    "borderRadius": 5,
+                                    "borderWidth": 1,
+                                    "height": 32,
+                                    "justifyContent": "center",
+                                    "marginBottom": 0,
+                                    "marginRight": 20,
+                                    "opacity": 1,
+                                    "width": 100,
+                                  }
+                                }
+                              >
+                                <Text
+                                  style={
+                                    Object {
+                                      "color": "#D2291F",
+                                      "fontFamily": "nunito sans bold",
+                                      "fontSize": 16,
+                                    }
+                                  }
+                                >
+                                  Cancel
+                                </Text>
+                              </View>
+                              <View
+                                accessible={true}
+                                isTVSelectable={true}
+                                onResponderGrant={[Function]}
+                                onResponderMove={[Function]}
+                                onResponderRelease={[Function]}
+                                onResponderTerminate={[Function]}
+                                onResponderTerminationRequest={[Function]}
+                                onStartShouldSetResponder={[Function]}
+                                style={
+                                  Object {
+                                    "alignItems": "center",
+                                    "backgroundColor": "#D2291F",
+                                    "borderRadius": 5,
+                                    "height": 32,
+                                    "justifyContent": "center",
+                                    "marginBottom": 0,
+                                    "opacity": 1,
+                                    "width": 100,
+                                  }
+                                }
+                              >
+                                <Text
+                                  style={
+                                    Object {
+                                      "color": "#FFF",
+                                      "fontFamily": "nunito sans bold",
+                                      "fontSize": 16,
+                                    }
+                                  }
+                                >
+                                  OK
+                                </Text>
+                              </View>
+                            </View>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </Modal>
+              </View>
               <Modal
                 animationType="none"
                 hardwareAccelerated={false}
@@ -208,13 +387,10 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                       Object {
                         "alignItems": "center",
                         "backgroundColor": "#F1F1F1",
-                        "borderRadius": 20,
-                        "height": 200,
+                        "borderRadius": 10,
+                        "height": 122,
                         "justifyContent": "center",
-                        "marginLeft": 40,
-                        "marginRight": 40,
-                        "position": "relative",
-                        "top": -100,
+                        "marginHorizontal": 59,
                       }
                     }
                   >
@@ -249,13 +425,21 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                           source={1}
                           style={
                             Object {
-                              "height": 57,
-                              "marginBottom": 5,
-                              "width": 66,
+                              "height": 42,
+                              "marginBottom": 8,
+                              "width": 49,
                             }
                           }
                         />
-                        <Text>
+                        <Text
+                          style={
+                            Object {
+                              "fontFamily": "nunito sans bold",
+                              "fontSize": 12,
+                              "paddingVertical": 2,
+                            }
+                          }
+                        >
                           Camera
                         </Text>
                       </View>
@@ -280,14 +464,22 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                           source={1}
                           style={
                             Object {
-                              "height": 60,
-                              "marginBottom": 5,
-                              "width": 60,
+                              "height": 49,
+                              "marginBottom": 8,
+                              "width": 49,
                             }
                           }
                         />
-                        <Text>
-                          Photos
+                        <Text
+                          style={
+                            Object {
+                              "fontFamily": "nunito sans bold",
+                              "fontSize": 12,
+                              "paddingVertical": 2,
+                            }
+                          }
+                        >
+                          Gallery
                         </Text>
                       </View>
                     </View>
@@ -307,7 +499,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                 }
               >
                 <Text>
-                  Title
+                  Recipe Name
                 </Text>
               </View>
               <TextInput
@@ -316,7 +508,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
-                placeholder="Enter Title"
+                placeholder="Enter recipe name"
                 rejectResponderTermination={true}
                 style={
                   Object {
@@ -336,8 +528,8 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                 style={
                   Object {
                     "alignSelf": "flex-end",
-                    "color": "#363838",
-                    "fontSize": 11,
+                    "color": "#1E1B1B",
+                    "fontSize": 10,
                     "marginRight": 14,
                     "marginTop": 4,
                   }
@@ -473,22 +665,25 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#959595",
+                      "borderColor": "#D2291F",
                       "borderRadius": 50,
-                      "height": 32,
+                      "borderWidth": 1,
+                      "height": 27,
                       "justifyContent": "center",
                       "marginBottom": 8,
-                      "marginRight": 10,
+                      "marginRight": 8,
                       "opacity": 1,
-                      "paddingLeft": 19,
-                      "paddingRight": 19,
+                      "paddingHorizontal": 16,
+                      "width": "auto",
                     }
                   }
                 >
                   <Text
                     style={
                       Object {
-                        "color": "white",
+                        "color": "#D2291F",
+                        "fontFamily": "nunito sans bold",
+                        "fontSize": 14,
                       }
                     }
                   >
@@ -507,22 +702,25 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#959595",
+                      "borderColor": "#D2291F",
                       "borderRadius": 50,
-                      "height": 32,
+                      "borderWidth": 1,
+                      "height": 27,
                       "justifyContent": "center",
                       "marginBottom": 8,
-                      "marginRight": 10,
+                      "marginRight": 8,
                       "opacity": 1,
-                      "paddingLeft": 19,
-                      "paddingRight": 19,
+                      "paddingHorizontal": 16,
+                      "width": "auto",
                     }
                   }
                 >
                   <Text
                     style={
                       Object {
-                        "color": "white",
+                        "color": "#D2291F",
+                        "fontFamily": "nunito sans bold",
+                        "fontSize": 14,
                       }
                     }
                   >
@@ -541,22 +739,25 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#959595",
+                      "borderColor": "#D2291F",
                       "borderRadius": 50,
-                      "height": 32,
+                      "borderWidth": 1,
+                      "height": 27,
                       "justifyContent": "center",
                       "marginBottom": 8,
-                      "marginRight": 10,
+                      "marginRight": 8,
                       "opacity": 1,
-                      "paddingLeft": 19,
-                      "paddingRight": 19,
+                      "paddingHorizontal": 16,
+                      "width": "auto",
                     }
                   }
                 >
                   <Text
                     style={
                       Object {
-                        "color": "white",
+                        "color": "#D2291F",
+                        "fontFamily": "nunito sans bold",
+                        "fontSize": 14,
                       }
                     }
                   >
@@ -575,22 +776,25 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#959595",
+                      "borderColor": "#D2291F",
                       "borderRadius": 50,
-                      "height": 32,
+                      "borderWidth": 1,
+                      "height": 27,
                       "justifyContent": "center",
                       "marginBottom": 8,
-                      "marginRight": 10,
+                      "marginRight": 8,
                       "opacity": 1,
-                      "paddingLeft": 19,
-                      "paddingRight": 19,
+                      "paddingHorizontal": 16,
+                      "width": "auto",
                     }
                   }
                 >
                   <Text
                     style={
                       Object {
-                        "color": "white",
+                        "color": "#D2291F",
+                        "fontFamily": "nunito sans bold",
+                        "fontSize": 14,
                       }
                     }
                   >
@@ -609,22 +813,25 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#959595",
+                      "borderColor": "#D2291F",
                       "borderRadius": 50,
-                      "height": 32,
+                      "borderWidth": 1,
+                      "height": 27,
                       "justifyContent": "center",
                       "marginBottom": 8,
-                      "marginRight": 10,
+                      "marginRight": 8,
                       "opacity": 1,
-                      "paddingLeft": 19,
-                      "paddingRight": 19,
+                      "paddingHorizontal": 16,
+                      "width": "auto",
                     }
                   }
                 >
                   <Text
                     style={
                       Object {
-                        "color": "white",
+                        "color": "#D2291F",
+                        "fontFamily": "nunito sans bold",
+                        "fontSize": 14,
                       }
                     }
                   >
@@ -643,26 +850,29 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                   style={
                     Object {
                       "alignItems": "center",
-                      "backgroundColor": "#959595",
+                      "borderColor": "#D2291F",
                       "borderRadius": 50,
-                      "height": 32,
+                      "borderWidth": 1,
+                      "height": 27,
                       "justifyContent": "center",
                       "marginBottom": 8,
-                      "marginRight": 10,
+                      "marginRight": 8,
                       "opacity": 1,
-                      "paddingLeft": 19,
-                      "paddingRight": 19,
+                      "paddingHorizontal": 16,
+                      "width": "auto",
                     }
                   }
                 >
                   <Text
                     style={
                       Object {
-                        "color": "white",
+                        "color": "#D2291F",
+                        "fontFamily": "nunito sans bold",
+                        "fontSize": 14,
                       }
                     }
                   >
-                    Snack
+                    Snacks
                   </Text>
                 </View>
               </View>
@@ -698,7 +908,6 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                     onBlur={[Function]}
                     onChangeText={[Function]}
                     onFocus={[Function]}
-                    onSubmitEditing={[Function]}
                     placeholder="Amount"
                     rejectResponderTermination={true}
                     returnKeyType="done"
@@ -1044,7 +1253,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                                 Object {
                                   "label": "lbs",
                                   "textColor": undefined,
-                                  "value": "lbs",
+                                  "value": "pound",
                                 },
                               ]
                             }
@@ -1073,7 +1282,6 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                     onBlur={[Function]}
                     onChangeText={[Function]}
                     onFocus={[Function]}
-                    onSubmitEditing={[Function]}
                     placeholder="Ingredient Name"
                     rejectResponderTermination={true}
                     style={
@@ -1136,7 +1344,6 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                     onBlur={[Function]}
                     onChangeText={[Function]}
                     onFocus={[Function]}
-                    onSubmitEditing={[Function]}
                     placeholder="Amount"
                     rejectResponderTermination={true}
                     returnKeyType="done"
@@ -1482,7 +1689,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                                 Object {
                                   "label": "lbs",
                                   "textColor": undefined,
-                                  "value": "lbs",
+                                  "value": "pound",
                                 },
                               ]
                             }
@@ -1511,7 +1718,6 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                     onBlur={[Function]}
                     onChangeText={[Function]}
                     onFocus={[Function]}
-                    onSubmitEditing={[Function]}
                     placeholder="Ingredient Name"
                     rejectResponderTermination={true}
                     style={
@@ -1574,7 +1780,6 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                     onBlur={[Function]}
                     onChangeText={[Function]}
                     onFocus={[Function]}
-                    onSubmitEditing={[Function]}
                     placeholder="Amount"
                     rejectResponderTermination={true}
                     returnKeyType="done"
@@ -1920,7 +2125,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                                 Object {
                                   "label": "lbs",
                                   "textColor": undefined,
-                                  "value": "lbs",
+                                  "value": "pound",
                                 },
                               ]
                             }
@@ -1949,7 +2154,6 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                     onBlur={[Function]}
                     onChangeText={[Function]}
                     onFocus={[Function]}
-                    onSubmitEditing={[Function]}
                     placeholder="Ingredient Name"
                     rejectResponderTermination={true}
                     style={
@@ -2031,7 +2235,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                   <Text
                     style={
                       Object {
-                        "color": "#000000",
+                        "color": "#1E1B1B",
                         "fontSize": 14,
                         "marginLeft": 5,
                       }
@@ -2053,7 +2257,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                   }
                 }
               >
-                Instructions
+                Steps
               </Text>
               <View
                 style={
@@ -2061,87 +2265,67 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                     "alignItems": "center",
                     "flexDirection": "row",
                     "justifyContent": "space-between",
-                    "marginBottom": 10,
+                    "marginBottom": 16,
                   }
                 }
               >
                 <View
                   style={
                     Object {
-                      "flexDirection": "column",
-                      "flexGrow": 1,
-                      "width": "60%",
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "width": "100%",
                     }
                   }
                 >
-                  <Text
+                  <TextInput
+                    allowFontScaling={true}
+                    maxLength={960}
+                    multiline={true}
+                    onBlur={[Function]}
+                    onChangeText={[Function]}
+                    onFocus={[Function]}
+                    placeholder=" Add step"
+                    rejectResponderTermination={true}
                     style={
                       Object {
-                        "marginBottom": 5,
-                        "marginLeft": 14,
+                        "borderColor": "#D4D4D4",
+                        "borderRadius": 6,
+                        "borderWidth": 1,
+                        "maxWidth": "90%",
+                        "minHeight": 120,
+                        "padding": 8,
+                        "width": "90%",
                       }
                     }
-                  >
-                    Step 
-                    1
-                  </Text>
+                    underlineColorAndroid="transparent"
+                    value=""
+                  />
                   <View
+                    accessible={true}
+                    isTVSelectable={true}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
                     style={
                       Object {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                        "width": "100%",
+                        "opacity": 1,
                       }
                     }
                   >
-                    <TextInput
-                      allowFontScaling={true}
-                      multiline={true}
-                      onBlur={[Function]}
-                      onChangeText={[Function]}
-                      onFocus={[Function]}
-                      placeholder=" Add Instructions"
-                      rejectResponderTermination={true}
+                    <Image
+                      source={1}
                       style={
                         Object {
-                          "borderColor": "#D4D4D4",
-                          "borderRadius": 6,
-                          "borderWidth": 1,
-                          "maxWidth": "90%",
-                          "minHeight": 36,
-                          "paddingLeft": 12,
-                          "width": "90%",
+                          "height": 22,
+                          "width": 22,
                         }
                       }
-                      underlineColorAndroid="transparent"
-                      value=""
                     />
-                    <View
-                      accessible={true}
-                      isTVSelectable={true}
-                      onResponderGrant={[Function]}
-                      onResponderMove={[Function]}
-                      onResponderRelease={[Function]}
-                      onResponderTerminate={[Function]}
-                      onResponderTerminationRequest={[Function]}
-                      onStartShouldSetResponder={[Function]}
-                      style={
-                        Object {
-                          "opacity": 1,
-                        }
-                      }
-                    >
-                      <Image
-                        source={1}
-                        style={
-                          Object {
-                            "height": 22,
-                            "width": 22,
-                          }
-                        }
-                      />
-                    </View>
                   </View>
                 </View>
               </View>
@@ -2151,87 +2335,67 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                     "alignItems": "center",
                     "flexDirection": "row",
                     "justifyContent": "space-between",
-                    "marginBottom": 10,
+                    "marginBottom": 16,
                   }
                 }
               >
                 <View
                   style={
                     Object {
-                      "flexDirection": "column",
-                      "flexGrow": 1,
-                      "width": "60%",
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "width": "100%",
                     }
                   }
                 >
-                  <Text
+                  <TextInput
+                    allowFontScaling={true}
+                    maxLength={960}
+                    multiline={true}
+                    onBlur={[Function]}
+                    onChangeText={[Function]}
+                    onFocus={[Function]}
+                    placeholder=" Add step"
+                    rejectResponderTermination={true}
                     style={
                       Object {
-                        "marginBottom": 5,
-                        "marginLeft": 14,
+                        "borderColor": "#D4D4D4",
+                        "borderRadius": 6,
+                        "borderWidth": 1,
+                        "maxWidth": "90%",
+                        "minHeight": 120,
+                        "padding": 8,
+                        "width": "90%",
                       }
                     }
-                  >
-                    Step 
-                    2
-                  </Text>
+                    underlineColorAndroid="transparent"
+                    value=""
+                  />
                   <View
+                    accessible={true}
+                    isTVSelectable={true}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
                     style={
                       Object {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                        "width": "100%",
+                        "opacity": 1,
                       }
                     }
                   >
-                    <TextInput
-                      allowFontScaling={true}
-                      multiline={true}
-                      onBlur={[Function]}
-                      onChangeText={[Function]}
-                      onFocus={[Function]}
-                      placeholder=" Add Instructions"
-                      rejectResponderTermination={true}
+                    <Image
+                      source={1}
                       style={
                         Object {
-                          "borderColor": "#D4D4D4",
-                          "borderRadius": 6,
-                          "borderWidth": 1,
-                          "maxWidth": "90%",
-                          "minHeight": 36,
-                          "paddingLeft": 12,
-                          "width": "90%",
+                          "height": 22,
+                          "width": 22,
                         }
                       }
-                      underlineColorAndroid="transparent"
-                      value=""
                     />
-                    <View
-                      accessible={true}
-                      isTVSelectable={true}
-                      onResponderGrant={[Function]}
-                      onResponderMove={[Function]}
-                      onResponderRelease={[Function]}
-                      onResponderTerminate={[Function]}
-                      onResponderTerminationRequest={[Function]}
-                      onStartShouldSetResponder={[Function]}
-                      style={
-                        Object {
-                          "opacity": 1,
-                        }
-                      }
-                    >
-                      <Image
-                        source={1}
-                        style={
-                          Object {
-                            "height": 22,
-                            "width": 22,
-                          }
-                        }
-                      />
-                    </View>
                   </View>
                 </View>
               </View>
@@ -2241,87 +2405,67 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                     "alignItems": "center",
                     "flexDirection": "row",
                     "justifyContent": "space-between",
-                    "marginBottom": 10,
+                    "marginBottom": 16,
                   }
                 }
               >
                 <View
                   style={
                     Object {
-                      "flexDirection": "column",
-                      "flexGrow": 1,
-                      "width": "60%",
+                      "alignItems": "flex-start",
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "width": "100%",
                     }
                   }
                 >
-                  <Text
+                  <TextInput
+                    allowFontScaling={true}
+                    maxLength={960}
+                    multiline={true}
+                    onBlur={[Function]}
+                    onChangeText={[Function]}
+                    onFocus={[Function]}
+                    placeholder=" Add step"
+                    rejectResponderTermination={true}
                     style={
                       Object {
-                        "marginBottom": 5,
-                        "marginLeft": 14,
+                        "borderColor": "#D4D4D4",
+                        "borderRadius": 6,
+                        "borderWidth": 1,
+                        "maxWidth": "90%",
+                        "minHeight": 120,
+                        "padding": 8,
+                        "width": "90%",
                       }
                     }
-                  >
-                    Step 
-                    3
-                  </Text>
+                    underlineColorAndroid="transparent"
+                    value=""
+                  />
                   <View
+                    accessible={true}
+                    isTVSelectable={true}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
                     style={
                       Object {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                        "width": "100%",
+                        "opacity": 1,
                       }
                     }
                   >
-                    <TextInput
-                      allowFontScaling={true}
-                      multiline={true}
-                      onBlur={[Function]}
-                      onChangeText={[Function]}
-                      onFocus={[Function]}
-                      placeholder=" Add Instructions"
-                      rejectResponderTermination={true}
+                    <Image
+                      source={1}
                       style={
                         Object {
-                          "borderColor": "#D4D4D4",
-                          "borderRadius": 6,
-                          "borderWidth": 1,
-                          "maxWidth": "90%",
-                          "minHeight": 36,
-                          "paddingLeft": 12,
-                          "width": "90%",
+                          "height": 22,
+                          "width": 22,
                         }
                       }
-                      underlineColorAndroid="transparent"
-                      value=""
                     />
-                    <View
-                      accessible={true}
-                      isTVSelectable={true}
-                      onResponderGrant={[Function]}
-                      onResponderMove={[Function]}
-                      onResponderRelease={[Function]}
-                      onResponderTerminate={[Function]}
-                      onResponderTerminationRequest={[Function]}
-                      onStartShouldSetResponder={[Function]}
-                      style={
-                        Object {
-                          "opacity": 1,
-                        }
-                      }
-                    >
-                      <Image
-                        source={1}
-                        style={
-                          Object {
-                            "height": 22,
-                            "width": 22,
-                          }
-                        }
-                      />
-                    </View>
                   </View>
                 </View>
               </View>
@@ -2362,13 +2506,13 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                   <Text
                     style={
                       Object {
-                        "color": "#000000",
+                        "color": "#1E1B1B",
                         "fontSize": 14,
                         "marginLeft": 5,
                       }
                     }
                   >
-                    Add A Step
+                    Add Step
                   </Text>
                 </View>
               </View>
@@ -2389,7 +2533,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
               <View
                 style={
                   Object {
-                    "alignItems": "center",
+                    "alignItems": "flex-start",
                     "flexDirection": "row",
                     "flexWrap": "nowrap",
                     "justifyContent": "space-between",
@@ -2399,6 +2543,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
               >
                 <TextInput
                   allowFontScaling={true}
+                  maxLength={480}
                   multiline={true}
                   onBlur={[Function]}
                   onChangeText={[Function]}
@@ -2482,57 +2627,67 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                   <Text
                     style={
                       Object {
-                        "color": "#000000",
+                        "color": "#1E1B1B",
                         "fontSize": 14,
                         "marginLeft": 5,
                       }
                     }
                   >
-                    Add A Note
+                    Add Note
                   </Text>
                 </View>
               </View>
               <View
-                accessible={true}
-                isTVSelectable={true}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
                 style={
                   Object {
                     "alignItems": "center",
-                    "marginTop": 30,
-                    "opacity": 1,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "marginBottom": 48,
+                    "marginTop": 64,
                   }
                 }
               >
                 <View
+                  accessible={true}
+                  isTVSelectable={true}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
                   style={
                     Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#D2291F",
-                      "borderRadius": 5,
-                      "height": 32,
-                      "justifyContent": "center",
-                      "marginBottom": 20,
-                      "width": 136,
+                      "opacity": 1,
                     }
                   }
                 >
-                  <Text
+                  <View
                     style={
                       Object {
-                        "color": "#FFF",
-                        "fontSize": 16,
-                        "fontWeight": "bold",
+                        "alignItems": "center",
+                        "backgroundColor": "#D2291F",
+                        "borderRadius": 5,
+                        "height": 32,
+                        "justifyContent": "center",
+                        "marginBottom": 20,
+                        "width": 136,
                       }
                     }
                   >
-                    Save
-                  </Text>
+                    <Text
+                      style={
+                        Object {
+                          "color": "#FFF",
+                          "fontFamily": "nunito sans bold",
+                          "fontSize": 16,
+                        }
+                      }
+                    >
+                      Save
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
