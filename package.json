@@ -53,7 +53,10 @@
         "collectCoverageFrom": [
             "**/*.{js,jsx}",
             "!**/node_modules/**",
-            "!**/vendor/**"
+            "!**/vendor/**",
+            "!**/coverage/**",
+            "!**/babel.config.js",
+            "!**/web-build/**"
         ]
     },
     "prettier": {

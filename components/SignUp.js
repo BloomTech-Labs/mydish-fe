@@ -5,23 +5,22 @@ import {
     TextInput,
     TouchableOpacity,
     SafeAreaView,
-    ActivityIndicator,
     Alert,
     Image,
     KeyboardAvoidingView,
     ScrollView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser, clearError } from "../store/auth/authActions";
+import { clearError, registerUser } from "../store/auth/authActions";
 import styles from "../styles/authPageStyles";
 import backgroundImg from "../assets/auth-page-background.jpg";
 import RecipeShareLogo from "./RecipeShareLogo.js";
 import { maxUsername } from "../constants/maxLength";
 import theme from "../styles/theme.style";
+import AuthButton from "./AuthButton";
 
 const SignUp = ({ navigation }) => {
-    const [signUp, setSignUp] = useState({ username: "", password: "" });
-    const isLoading = useSelector(state => state.auth.isAuthorizing);
+    const [credentials, setSignUp] = useState({ username: "", password: "" });
     const errorMsg = useSelector(state => state.auth.error);
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
@@ -34,7 +33,7 @@ const SignUp = ({ navigation }) => {
     }, [errorMsg]);
 
     const register = async () => {
-        const success = await dispatch(registerUser(signUp));
+        const success = await dispatch(registerUser(credentials));
 
         if (success) {
             navigation.navigate("App");
@@ -59,27 +58,33 @@ const SignUp = ({ navigation }) => {
                                 ref={usernameInput}
                                 style={styles.inputFields}
                                 maxLength={maxUsername}
-                                value={signUp.username}
+                                value={credentials.username}
                                 returnKeyType="next"
                                 onSubmitEditing={() =>
                                     passwordInput.current.focus()
                                 }
                                 onChangeText={event =>
-                                    setSignUp({ ...signUp, username: event })
+                                    setSignUp({
+                                        ...credentials,
+                                        username: event,
+                                    })
                                 }
                             />
                             <Text
                                 style={styles.maxLengthIndicator}
-                            >{`${signUp.username.length}/${maxUsername}`}</Text>
+                            >{`${credentials.username.length}/${maxUsername}`}</Text>
 
                             <Text style={styles.inputLabelText}>Password</Text>
                             <TextInput
                                 ref={passwordInput}
                                 style={styles.inputFields}
-                                value={signUp.password}
+                                value={credentials.password}
                                 returnKeyType="go"
                                 onChangeText={event =>
-                                    setSignUp({ ...signUp, password: event })
+                                    setSignUp({
+                                        ...credentials,
+                                        password: event,
+                                    })
                                 }
                                 secureTextEntry={true}
                                 onSubmitEditing={register}
@@ -102,21 +107,11 @@ const SignUp = ({ navigation }) => {
                             </View>
 
                             <View style={{ flexDirection: "row-reverse" }}>
-                                <TouchableOpacity
-                                    onPress={register}
-                                    style={styles.submitButton}
-                                >
-                                    {isLoading ? (
-                                        <ActivityIndicator
-                                            size="large"
-                                            color="#00ff00"
-                                        />
-                                    ) : (
-                                        <Text style={styles.submitButtonText}>
-                                            Sign Up
-                                        </Text>
-                                    )}
-                                </TouchableOpacity>
+                                <AuthButton
+                                    parent="signup"
+                                    credentials={credentials}
+                                    register={register}
+                                />
                             </View>
                         </View>
                     </View>
