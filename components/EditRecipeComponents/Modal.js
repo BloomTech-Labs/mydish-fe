@@ -13,6 +13,7 @@ import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-159002245-1");
 import theme from "../../styles/theme.style";
 import styles from "../../styles/commitModalStyles";
+import { maxAuthorComment } from "../../constants/maxLength";
 const CommitModal = props => {
     const { commitModal, setCommitModal, saveButtonEditedRecipe } = props;
     const [author_comment, setAuthor_comment] = useState();
@@ -48,6 +49,7 @@ const CommitModal = props => {
                                 </Text>
                                 <TextInput
                                     multiline
+                                    maxLength={maxAuthorComment}
                                     placeholder="Notes"
                                     onChangeText={text =>
                                         setAuthor_comment(text)

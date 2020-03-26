@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TextInput, Text, View } from "react-native";
 import XDeleteButton from "./XDeleteButton";
 import theme from "../styles/theme.style";
+import { maxInstruction } from "../constants/maxLength";
 import { useDispatch } from "react-redux";
 import {
     editInstruct,
@@ -68,6 +69,7 @@ const Instruction = ({
                     }}
                     placeholder=" Add step"
                     multiline
+                    maxLength={maxInstruction}
                     onChangeText={handleChange}
                     value={instruction}
                     onFocus={() => setHighlighted(true)}

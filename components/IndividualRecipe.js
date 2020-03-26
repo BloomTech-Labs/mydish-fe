@@ -30,7 +30,7 @@ import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
 
 import { savedPlaceholder } from "../constants/imagePlaceholders";
-import { maxUsername } from "../constants/maxLenth";
+import { maxUsername } from "../constants/maxLength";
 
 import Tab from "./Tab";
 import CreateRecipeForm from "./CreateRecipeForm";

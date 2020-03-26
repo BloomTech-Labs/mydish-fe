@@ -7,6 +7,7 @@ import {
 } from "../store/singleRecipe/singleRecipeActions";
 import XDeleteButton from "./XDeleteButton";
 import styles from "../styles/createRecipeStyles";
+import { maxNote } from "../constants/maxLength";
 
 const Notes = ({ index, removeNote, note, id, setRecipe, parent }) => {
     const [highlighted, setHighlighted] = useState(false);
@@ -46,6 +47,7 @@ const Notes = ({ index, removeNote, note, id, setRecipe, parent }) => {
                 }
                 placeholder="Add Notes"
                 multiline={true}
+                maxLength={maxNote}
                 onChangeText={changeHandler}
                 value={note}
                 onFocus={() => setHighlighted(true)}
