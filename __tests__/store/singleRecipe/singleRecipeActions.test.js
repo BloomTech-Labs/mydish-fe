@@ -179,22 +179,10 @@ describe("editTitle action creator", () => {
             type: actions.EDIT_TITLE,
             payload: input,
         };
-        // const dispatch = jest.fn();
 
         const response = actions.editTitle(input);
 
-        // expect(dispatch).toHaveBeenCalled();
         expect(response).toEqual(expectedResponse);
-    });
-    test.skip("dispatches stopEdit() function when last character of the input is '\\n'", () => {
-        const input = "Charlie horse\n";
-        const dispatch = jest.fn(cb => cb.toString());
-
-        actions.editTitle(input)(dispatch);
-
-        expect(dispatch).toHaveBeenCalled();
-        // expect(stopEditSpy).toHaveBeenCalled();
-        expect(dispatch).toHaveBeenCalledWith(actions.stopEdit());
     });
 });
 
