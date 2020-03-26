@@ -216,9 +216,6 @@ describe("editInstruct action creator", () => {
 
         expect(response).toEqual(expectedResponse);
     });
-    test.todo(
-        "dispatches stopEdit() function when last character of the input is '\\n'",
-    );
 });
 
 describe("editNotes action creator", () => {
