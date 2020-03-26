@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 20,
+        borderRadius: 10,
     },
     iconsContainer: {
         flexDirection: "row",
