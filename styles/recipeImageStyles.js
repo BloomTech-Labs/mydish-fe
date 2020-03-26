@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     iconLarge: {
-        height: 60,
-        width: 60,
+        width: 49,
+        height: 49,
         marginBottom: 8,
     },
     iconLargeCamera: {
-        height: 57,
-        width: 66,
+        height: 42,
+        width: 49,
     },
     text: {
         fontFamily: theme.BOLD_FONT_FAMILY,
