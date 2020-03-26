@@ -167,7 +167,6 @@ test("RESET_RECIPE", () => {
         isSubmitting: false,
         editMode: false,
         error: null,
-        currentActive: { type: null, field: null, index: null, close: null },
     };
 
     const returnState = singleRecipeReducer(initState, {
