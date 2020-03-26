@@ -20,10 +20,10 @@ test("axiosWithAuth is mocked", () => {
     expect(test.get()).toEqual({});
 });
 
-describe("startEdit action creator", () => {
+describe("startEditMode action creator", () => {
     test("Calling function returns START_EDIT type", () => {
-        const returnObj = actions.startEdit();
-        expect(returnObj).toEqual({ type: actions.START_EDIT });
+        const returnObj = actions.startEditMode();
+        expect(returnObj).toEqual({ type: actions.START_EDIT_MODE });
     });
 });
 
