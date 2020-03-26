@@ -234,61 +234,17 @@ function CreateRecipeForm({
                                     recipeToRender={recipeToRender}
                                     savedRecipe={savedRecipe}
                                 />
-                                <View style={styles.timeContainer}>
-                                    <View style={styles.heading}>
-                                        <Text>Cook Time</Text>
-                                        {errors.includes(
-                                            "prep_time and/or cook_time",
-                                        ) && (
-                                            <Text
-                                                style={styles.missingAsterisk}
-                                            >
-                                                *
-                                            </Text>
-                                        )}
-                                    </View>
-                                    <TextInput
-                                        style={
-                                            highlighted.cook_time
-                                                ? {
-                                                      ...styles.timeInputContainer,
-                                                      ...styles.highlighted,
-                                                  }
-                                                : styles.timeInputContainer
-                                        }
-                                        placeholder="minutes"
-                                        keyboardType={"numeric"}
-                                        onChangeText={min => {
-                                            if (
-                                                min !== "" &&
-                                                (isNaN(Number(min)) ||
-                                                    Number(min) === 0)
-                                            )
-                                                return;
-                                            savedRecipe
-                                                ? dispatch(
-                                                      actions.editCooktime(min),
-                                                  )
-                                                : setRecipe({
-                                                      ...recipe,
-                                                      cook_time: min,
-                                                  });
-                                        }}
-                                        value={
-                                            recipeToRender.cook_time
-                                                ? String(
-                                                      recipeToRender.cook_time,
-                                                  )
-                                                : ""
-                                        }
-                                        onFocus={() =>
-                                            setHighlighted({ cook_time: true })
-                                        }
-                                        onBlur={() =>
-                                            setHighlighted({ cook_time: false })
-                                        }
-                                    />
-                                </View>
+                                <TimeInput
+                                    type="cook_time"
+                                    title="Cook Time"
+                                    errors={errors}
+                                    highlighted={highlighted}
+                                    setHighlighted={setHighlighted}
+                                    recipe={recipe}
+                                    setRecipe={setRecipe}
+                                    recipeToRender={recipeToRender}
+                                    savedRecipe={savedRecipe}
+                                />
                             </View>
                             <View style={styles.heading}>
                                 <Text>Course Type</Text>
