@@ -8,9 +8,7 @@ import { maxUsername } from "../constants/maxLength";
 import { Analytics, Event } from "expo-analytics";
 const analytics = new Analytics("UA-160806654-1");
 
-const Recipe = props => {
-    const { navigation, recipe, parent } = props;
-
+const Recipe = ({ navigation, recipe, parent }) => {
     const totalCookTime = (recipe.prep_time || 0) + (recipe.cook_time || 0);
 
     const handlePress = () => {
