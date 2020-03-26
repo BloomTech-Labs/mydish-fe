@@ -175,16 +175,16 @@ describe("saveNewRecipe action creator", () => {
 describe("editTitle action creator", () => {
     test("dispatches object with input value", () => {
         const input = "Charlie horse";
-        const expectedDispatch = {
+        const expectedResponse = {
             type: actions.EDIT_TITLE,
             payload: input,
         };
-        const dispatch = jest.fn();
+        // const dispatch = jest.fn();
 
-        actions.editTitle(input)(dispatch);
+        const response = actions.editTitle(input);
 
-        expect(dispatch).toHaveBeenCalled();
-        expect(dispatch).toHaveBeenCalledWith(expectedDispatch);
+        // expect(dispatch).toHaveBeenCalled();
+        expect(response).toEqual(expectedResponse);
     });
     test.skip("dispatches stopEdit() function when last character of the input is '\\n'", () => {
         const input = "Charlie horse\n";
