@@ -1,17 +1,21 @@
 import React from "react";
 import RecipeShareLogo from "../RecipeShareLogo";
+import ProfileButton from "./ProfileButton";
 import SearchButton from "./SearchButton";
 
+const headerTitle = <RecipeShareLogo />;
+
 export const homepageHeaderOptions = {
-    headerTitle: <RecipeShareLogo />,
+    headerLeft: <ProfileButton />,
+    headerTitle,
     headerRight: <SearchButton homepage={"homepage"} />,
 };
 
 export const createHeaderOptions = {
-    headerTitle: <RecipeShareLogo />,
+    headerTitle,
 };
 
 export const cookbookHeaderOptions = {
-    headerTitle: <RecipeShareLogo />,
+    headerTitle,
     headerRight: <SearchButton cookbook={"cookbook"} />,
 };
