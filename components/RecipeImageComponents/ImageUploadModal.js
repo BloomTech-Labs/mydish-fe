@@ -86,7 +86,7 @@ function ImageUploadModal({ visible, setVisible, setRecipe, parent }) {
                             }}
                             source={camera}
                         />
-                        <Text>Camera</Text>
+                        <Text style={styles.text}>Camera</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         testID="imageIcon"
@@ -94,7 +94,7 @@ function ImageUploadModal({ visible, setVisible, setRecipe, parent }) {
                         onPress={() => getImage(choose)}
                     >
                         <Image style={styles.iconLarge} source={gallery} />
-                        <Text>Photos</Text>
+                        <Text style={styles.text}>Gallery</Text>
                     </TouchableOpacity>
                 </View>
             </View>

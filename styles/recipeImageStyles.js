@@ -53,11 +53,16 @@ const styles = StyleSheet.create({
     iconLarge: {
         height: 60,
         width: 60,
-        marginBottom: 5,
+        marginBottom: 8,
     },
     iconLargeCamera: {
         height: 57,
         width: 66,
+    },
+    text: {
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        fontSize: theme.SMALL_FONT_SIZE,
+        paddingVertical: 2,
     },
 });
 
