@@ -6,8 +6,8 @@ import * as Permissions from "expo-permissions";
 import styles from "../../styles/recipeImageStyles";
 import { useDispatch } from "react-redux";
 import { editImage } from "../../store/singleRecipe/singleRecipeActions";
-import camera from "../../assets/camera_plus_black.png";
-import gallery from "../../assets/image.png";
+import camera from "../../assets/camera_red.png";
+import gallery from "../../assets/image_red.png";
 
 function ImageUploadModal({ visible, setVisible, setRecipe, parent }) {
     const dispatch = useDispatch();
