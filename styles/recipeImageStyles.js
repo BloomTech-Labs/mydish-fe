@@ -31,15 +31,12 @@ const styles = StyleSheet.create({
         height: 18,
     },
     uploadModal: {
-        height: 200,
-        position: "relative",
-        top: -100,
-        marginLeft: 40,
-        marginRight: 40,
+        height: 122,
+        marginHorizontal: 59,
         backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 20,
+        borderRadius: 10,
     },
     iconsContainer: {
         flexDirection: "row",
@@ -51,13 +48,18 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     iconLarge: {
-        height: 60,
-        width: 60,
-        marginBottom: 5,
+        width: 49,
+        height: 49,
+        marginBottom: 8,
     },
     iconLargeCamera: {
-        height: 57,
-        width: 66,
+        height: 42,
+        width: 49,
+    },
+    text: {
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        fontSize: theme.SMALL_FONT_SIZE,
+        paddingVertical: 2,
     },
 });
 

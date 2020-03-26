@@ -14,6 +14,7 @@ import theme from "../styles/theme.style";
 import { createHeaderOptions } from "./header/navigationHeader";
 
 import RecipeName from "./RecipeName";
+import TimeInput from "./TimeInput";
 import Ingredient from "./Ingredient";
 import Instruction from "./Instruction";
 import TagButton from "./TagButton";
@@ -222,116 +223,28 @@ function CreateRecipeForm({
                                 parent={savedRecipe ? editRecipe : create}
                             />
                             <View style={styles.totalTimeView}>
-                                <View style={styles.timeContainer}>
-                                    <View style={styles.heading}>
-                                        <Text>Prep Time</Text>
-                                        {errors.includes(
-                                            "prep_time and/or cook_time",
-                                        ) && (
-                                            <Text
-                                                style={styles.missingAsterisk}
-                                            >
-                                                *
-                                            </Text>
-                                        )}
-                                    </View>
-                                    <TextInput
-                                        style={
-                                            highlighted.prep_time
-                                                ? {
-                                                      ...styles.timeInputContainer,
-                                                      ...styles.highlighted,
-                                                  }
-                                                : styles.timeInputContainer
-                                        }
-                                        placeholder="minutes"
-                                        keyboardType={"numeric"}
-                                        onChangeText={min => {
-                                            if (
-                                                min !== "" &&
-                                                (isNaN(Number(min)) ||
-                                                    Number(min) === 0)
-                                            )
-                                                return;
-                                            savedRecipe
-                                                ? dispatch(
-                                                      actions.editPreptime(min),
-                                                  )
-                                                : setRecipe({
-                                                      ...recipe,
-                                                      prep_time: min,
-                                                  });
-                                        }}
-                                        value={
-                                            recipeToRender.prep_time
-                                                ? String(
-                                                      recipeToRender.prep_time,
-                                                  )
-                                                : ""
-                                        }
-                                        onFocus={() =>
-                                            setHighlighted({ prep_time: true })
-                                        }
-                                        onBlur={() =>
-                                            setHighlighted({ prep_time: false })
-                                        }
-                                    />
-                                </View>
-                                <View style={styles.timeContainer}>
-                                    <View style={styles.heading}>
-                                        <Text>Cook Time</Text>
-                                        {errors.includes(
-                                            "prep_time and/or cook_time",
-                                        ) && (
-                                            <Text
-                                                style={styles.missingAsterisk}
-                                            >
-                                                *
-                                            </Text>
-                                        )}
-                                    </View>
-                                    <TextInput
-                                        style={
-                                            highlighted.cook_time
-                                                ? {
-                                                      ...styles.timeInputContainer,
-                                                      ...styles.highlighted,
-                                                  }
-                                                : styles.timeInputContainer
-                                        }
-                                        placeholder="minutes"
-                                        keyboardType={"numeric"}
-                                        onChangeText={min => {
-                                            if (
-                                                min !== "" &&
-                                                (isNaN(Number(min)) ||
-                                                    Number(min) === 0)
-                                            )
-                                                return;
-                                            savedRecipe
-                                                ? dispatch(
-                                                      actions.editCooktime(min),
-                                                  )
-                                                : setRecipe({
-                                                      ...recipe,
-                                                      cook_time: min,
-                                                  });
-                                        }}
-                                        value={
-                                            recipeToRender.cook_time
-                                                ? String(
-                                                      recipeToRender.cook_time,
-                                                  )
-                                                : ""
-                                        }
-                                        onFocus={() =>
-                                            setHighlighted({ cook_time: true })
-                                        }
-                                        onBlur={() =>
-                                            setHighlighted({ cook_time: false })
-                                        }
-                                    />
-                                </View>
+                                <TimeInput
+                                    type="prep_time"
+                                    title="Prep Time"
+                                    errors={errors}
+                                    highlighted={highlighted}
+                                    setHighlighted={setHighlighted}
+                                    recipe={recipe}
+                                    setRecipe={setRecipe}
+                                    recipeToRender={recipeToRender}
+                                    savedRecipe={savedRecipe}
+                                />
+                                <TimeInput
+                                    type="cook_time"
+                                    title="Cook Time"
+                                    errors={errors}
+                                    highlighted={highlighted}
+                                    setHighlighted={setHighlighted}
+                                    recipe={recipe}
+                                    setRecipe={setRecipe}
+                                    recipeToRender={recipeToRender}
+                                    savedRecipe={savedRecipe}
+                                />
                             </View>
                             <View style={styles.heading}>
                                 <Text>Course Type</Text>
