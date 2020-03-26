@@ -5,14 +5,13 @@ import {
     TextInput,
     TouchableOpacity,
     SafeAreaView,
-    ActivityIndicator,
     Alert,
     Image,
     KeyboardAvoidingView,
     ScrollView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, clearError } from "../store/auth/authActions";
+import { clearError, loginUser } from "../store/auth/authActions";
 import styles from "../styles/authPageStyles.js";
 import backgroundImg from "../assets/auth-page-background.jpg";
 import RecipeShareLogo from "./RecipeShareLogo.js";
@@ -20,15 +19,13 @@ import RecipeShareLogo from "./RecipeShareLogo.js";
 //Analytics
 import { Analytics, Event } from "expo-analytics";
 
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
 import theme from "../styles/theme.style";
+import AuthButton from "./AuthButton";
 
 const analytics = new Analytics("UA-160806654-1");
 
 const Login = ({ navigation }) => {
-    const [login, setLogin] = useState({ username: "", password: "" });
-    const isLoading = useSelector(state => state.auth.isAuthorizing);
+    const [credentials, setLogin] = useState({ username: "", password: "" });
     const errorMsg = useSelector(state => state.auth.error);
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
@@ -40,9 +37,8 @@ const Login = ({ navigation }) => {
         }
     }, [errorMsg]);
 
-    // This has an underscore to differentiate it from the loginUser action
     const _loginUser = async () => {
-        const success = await dispatch(loginUser(login));
+        const success = await dispatch(loginUser(credentials));
 
         if (success) {
             navigation.navigate("App");
@@ -74,13 +70,16 @@ const Login = ({ navigation }) => {
                                 style={styles.inputFields}
                                 name="username"
                                 testID="username"
-                                value={login.username}
+                                value={credentials.username}
                                 returnKeyType="next"
                                 onSubmitEditing={() =>
                                     passwordInput.current.focus()
                                 }
                                 onChangeText={event =>
-                                    setLogin({ ...login, username: event })
+                                    setLogin({
+                                        ...credentials,
+                                        username: event,
+                                    })
                                 }
                             />
                             <Text style={styles.inputLabelText}>Password</Text>
@@ -89,10 +88,13 @@ const Login = ({ navigation }) => {
                                 style={styles.inputFields}
                                 name="password"
                                 testID="password"
-                                value={login.password}
+                                value={credentials.password}
                                 returnKeyType="done"
                                 onChangeText={event =>
-                                    setLogin({ ...login, password: event })
+                                    setLogin({
+                                        ...credentials,
+                                        password: event,
+                                    })
                                 }
                                 secureTextEntry={true}
                                 onSubmitEditing={_loginUser}
@@ -120,21 +122,11 @@ const Login = ({ navigation }) => {
                                     marginRight: 16,
                                 }}
                             >
-                                <TouchableOpacity
-                                    onPress={_loginUser}
-                                    style={styles.submitButton}
-                                >
-                                    {isLoading ? (
-                                        <ActivityIndicator
-                                            size="large"
-                                            color="#00ff00"
-                                        />
-                                    ) : (
-                                        <Text style={styles.submitButtonText}>
-                                            Login
-                                        </Text>
-                                    )}
-                                </TouchableOpacity>
+                                <AuthButton
+                                    parent="login"
+                                    credentials={credentials}
+                                    loginUser={_loginUser}
+                                />
                             </View>
                         </View>
                     </View>
