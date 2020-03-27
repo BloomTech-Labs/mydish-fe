@@ -5,6 +5,7 @@ import {
     START_FETCH_ALL_COOKBOOK,
     FETCH_ALL_COOKBOOK_SUCCESS,
     FETCH_ALL_COOKBOOK_FAILURE,
+    ADD_COOKBOOK_RECIPE,
 } from "./cookbookAction";
 
 const initState = {
@@ -51,6 +52,15 @@ export const cookbookReducer = (state = initState, action) => {
                 ...state,
                 isLoading: false,
                 error: action.payload,
+            };
+        case ADD_COOKBOOK_RECIPE:
+            const recipesByTags = action.payload.tags.map(tag => ({
+                ...action.payload,
+                tags: [tag],
+            }));
+            return {
+                ...state,
+                entireCookbook: [...state.entireCookbook, ...recipesByTags],
             };
 
         default:
