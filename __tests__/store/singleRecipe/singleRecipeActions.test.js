@@ -20,10 +20,10 @@ test("axiosWithAuth is mocked", () => {
     expect(test.get()).toEqual({});
 });
 
-describe("startEdit action creator", () => {
+describe("startEditMode action creator", () => {
     test("Calling function returns START_EDIT type", () => {
-        const returnObj = actions.startEdit();
-        expect(returnObj).toEqual({ type: actions.START_EDIT });
+        const returnObj = actions.startEditMode();
+        expect(returnObj).toEqual({ type: actions.START_EDIT_MODE });
     });
 });
 
@@ -106,95 +106,17 @@ describe("fetchRecipe action creator", () => {
     });
 });
 
-describe("saveNewRecipe action creator", () => {
-    test("dispatches START_SAVE_NEW_RECIPE", () => {
-        axiosWithAuth.mockImplementation(() => {
-            return {
-                post: () => ({}),
-            };
-        });
-        // Turn dispatch into a simple jest function.
-        // This means that we won't dash to our reducer, and
-        //     we can instead check for our dispatch
-        //     "toHaveBeenCalledWith" the correct action '' '
-        const dispatch = jest.fn();
-        actions.saveNewRecipe()(dispatch);
-
-        expect(dispatch).toHaveBeenCalledWith({
-            type: actions.START_SAVE_NEW_RECIPE,
-        });
-    });
-
-    test("dispatches SAVE_NEW_RECIPE_SUCCESS upon a successful request", async () => {
-        const dispatch = jest.fn();
-
-        // Our test responseData, and our mocked axios.post() function
-        axiosWithAuth.mockImplementation(() => {
-            return {
-                post: () => ({}),
-            };
-        });
-
-        await actions.saveNewRecipe()(dispatch);
-
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenCalledWith({
-            type: actions.START_SAVE_NEW_RECIPE,
-        });
-        expect(dispatch).toHaveBeenCalledWith({
-            type: actions.SAVE_NEW_RECIPE_SUCCESS,
-        });
-    });
-
-    test("dispatches SAVE_NEW_RECIPE_FAILURE upon an unsuccessful request", async () => {
-        const dispatch = jest.fn();
-
-        // Our test responseData, and our mocked axios.post() function
-        const errorMessage = "testError";
-        axiosWithAuth.mockImplementation(() => {
-            return {
-                post: () => {
-                    throw errorMessage;
-                },
-            };
-        });
-
-        await actions.saveNewRecipe()(dispatch);
-
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenCalledWith({
-            type: actions.START_SAVE_NEW_RECIPE,
-        });
-        expect(dispatch).toHaveBeenCalledWith({
-            type: actions.SAVE_NEW_RECIPE_FAILURE,
-            payload: errorMessage,
-        });
-    });
-});
-
 describe("editTitle action creator", () => {
     test("dispatches object with input value", () => {
         const input = "Charlie horse";
-        const expectedDispatch = {
+        const expectedResponse = {
             type: actions.EDIT_TITLE,
             payload: input,
         };
-        const dispatch = jest.fn();
 
-        actions.editTitle(input)(dispatch);
+        const response = actions.editTitle(input);
 
-        expect(dispatch).toHaveBeenCalled();
-        expect(dispatch).toHaveBeenCalledWith(expectedDispatch);
-    });
-    test.skip("dispatches stopEdit() function when last character of the input is '\\n'", () => {
-        const input = "Charlie horse\n";
-        const dispatch = jest.fn(cb => cb.toString());
-
-        actions.editTitle(input)(dispatch);
-
-        expect(dispatch).toHaveBeenCalled();
-        // expect(stopEditSpy).toHaveBeenCalled();
-        expect(dispatch).toHaveBeenCalledWith(actions.stopEdit());
+        expect(response).toEqual(expectedResponse);
     });
 });
 
@@ -202,62 +124,48 @@ describe("editIngred action creator", () => {
     test("dispatches object with index and input value", () => {
         const input = { name: "v = dx/dt" };
         const index = 2;
-        const expectedDispatch = {
+        const expectedResponse = {
             type: actions.EDIT_INGRED,
             payload: input,
             index,
         };
-        const dispatch = jest.fn();
 
-        actions.editIngred(2, input)(dispatch);
+        const response = actions.editIngred(2, input);
 
-        expect(dispatch).toHaveBeenCalled();
-        expect(dispatch).toHaveBeenCalledWith(expectedDispatch);
+        expect(response).toEqual(expectedResponse);
     });
-    test.todo(
-        "dispatches stopEdit() function when last character of the input is '\\n'",
-    );
 });
 
 describe("editInstruct action creator", () => {
     test("dispatches object with index and input value", () => {
         const input = { body: "F=m*a" };
         const index = 2;
-        const expectedDispatch = {
+        const expectedResponse = {
             type: actions.EDIT_INSTRUCT,
             payload: input,
             index,
         };
-        const dispatch = jest.fn();
 
-        actions.editInstruct(2, input)(dispatch);
+        const response = actions.editInstruct(2, input);
 
-        expect(dispatch).toHaveBeenCalled();
-        expect(dispatch).toHaveBeenCalledWith(expectedDispatch);
+        expect(response).toEqual(expectedResponse);
     });
-    test.todo(
-        "dispatches stopEdit() function when last character of the input is '\\n'",
-    );
 });
 
 describe("editNotes action creator", () => {
     test("dispatches object with index and input value", () => {
         const input = "test notes";
         const index = 2;
-        const expectedDispatch = {
+        const expectedResponse = {
             type: actions.EDIT_NOTES,
-            notes: input,
+            payload: input,
+            index,
         };
-        const dispatch = jest.fn();
 
-        actions.editNotes(input)(dispatch);
+        const response = actions.editNotes(2, input);
 
-        expect(dispatch).toHaveBeenCalled();
-        expect(dispatch).toHaveBeenCalledWith(expectedDispatch);
+        expect(response).toEqual(expectedResponse);
     });
-    test.todo(
-        "dispatches stopEdit() function when last character of the input is '\\n'",
-    );
 });
 
 describe("stopEdit action creator", () => {
