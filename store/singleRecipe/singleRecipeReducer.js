@@ -227,28 +227,6 @@ export const singleRecipeReducer = (state = initState, action) => {
                     notes: cleanUpNotes(state.recipe.notes, "edit"),
                 },
             };
-        case DELETE_RECIPE_START:
-            return {
-                ...state,
-                isSubmitting: true,
-                isLoading: true,
-                error: null,
-            };
-
-        case DELETE_RECIPE_SUCCESS:
-            return {
-                ...state,
-                isSubmitting: false,
-                isLoading: false,
-            };
-
-        case DELETE_RECIPE_FAILURE:
-            return {
-                ...state,
-                isSubmitting: false,
-                isLoading: false,
-                error: action.payload,
-            };
 
         case START_SUBMIT_EDITED_RECIPE:
             return {
