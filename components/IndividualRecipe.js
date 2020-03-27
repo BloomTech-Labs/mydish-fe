@@ -164,7 +164,6 @@ function IndividualRecipe(props) {
                     text: "OK",
                     onPress: () => {
                         dispatch(stopEditMode());
-                        dispatch(fetchRecipes(""));
                         dispatch(resetRecipe(tempRecipe));
                     },
                 },
