@@ -30,7 +30,9 @@ describe("LoginUser action creator", () => {
         const dispatch = jest.fn();
         axiosWithAuth.mockImplementation(() => {
             return {
-                post: () => ({}),
+                post: () => ({
+                    data: { token: { token: "test" }, user: { id: 1 } },
+                }),
             };
         });
 
@@ -46,14 +48,14 @@ describe("LoginUser action creator", () => {
 
         // Our test responseData, and our mocked
         //     axiosWithAuth().post() function
-        const responseData = { token: "testToken" };
+        const responseData = { token: { token: "test" }, user: { id: 1 } };
         axiosWithAuth.mockImplementation(() => {
             return {
                 post: () => ({ data: responseData }),
             };
         });
         // Our AsyncStorage mock
-        AsyncStorage.setItem = jest.fn(() => {});
+        AsyncStorage.multiSet = jest.fn(() => {});
 
         const success = await authActions.loginUser()(dispatch);
 
