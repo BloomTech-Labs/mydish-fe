@@ -9,6 +9,7 @@ import {
 
 const initState = {
     cookbookRecipes: [],
+    entireCookbook: [],
     isLoading: false,
     error: null,
 };
