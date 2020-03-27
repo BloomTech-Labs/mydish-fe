@@ -21,10 +21,14 @@ import {
     resetAlerts,
 } from "../store/singleRecipe/singleRecipeActions";
 import {
+    fetchRecipes,
+    updateRecipe,
+    deleteRecipe,
+} from "../store/recipes/recipeActions";
+import {
     fetchAllVersionHistory,
     resetAllVersionHistory,
 } from "../store/version-control/versionControlActions";
-import { fetchRecipes, deleteRecipe } from "../store/recipes/recipeActions";
 import { getAllCookbookRecipes } from "../store/cookbook/cookbookAction";
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
@@ -142,7 +146,7 @@ function IndividualRecipe(props) {
     const saveButtonEditedRecipe = author_comment => {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
-        dispatch(fetchRecipes(""));
+        dispatch(updateRecipe(recipe));
         setCommitModal({ save: false, cancel: false });
     };
 
