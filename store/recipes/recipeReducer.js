@@ -3,6 +3,7 @@ import {
     FETCH_RECIPES_SUCCESS,
     FETCH_RECIPES_FAILURE,
     ADD_RECIPE,
+    UPDATE_RECIPE,
     DELETE_RECIPE_START,
     DELETE_RECIPE_SUCCESS,
     DELETE_RECIPE_FAILURE,
@@ -39,6 +40,14 @@ export const recipeReducer = (state = initState, action) => {
             return {
                 ...state,
                 recipeList: [...state.recipeList, action.payload],
+            };
+        case UPDATE_RECIPE:
+            const updatedRecipe = action.payload;
+            return {
+                ...state,
+                recipeList: state.recipeList.map(recipe =>
+                    recipe.id === updatedRecipe.id ? updatedRecipe : recipe,
+                ),
             };
         case DELETE_RECIPE_START:
             return {
