@@ -9,6 +9,7 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/singleRecipe/singleRecipeActions";
+import { addCookbookRecipe } from "../store/cookbook/cookbookAction";
 import styles from "../styles/createRecipeStyles";
 import theme from "../styles/theme.style";
 import { createHeaderOptions } from "./header/navigationHeader";
@@ -87,6 +88,7 @@ function CreateRecipeForm({
             setRecipe(initialCreateFormState);
             navigation.navigate("Home");
             navigation.push("IndividualR", { recipe, recipeID });
+            dispatch(addCookbookRecipe(res.data));
         } catch (err) {
             console.log("error from adding new recipe \n", err.response);
             if (err.response.status === 500) {
