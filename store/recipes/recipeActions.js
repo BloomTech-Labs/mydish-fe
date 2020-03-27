@@ -22,6 +22,12 @@ export const addRecipe = recipe => ({
     payload: recipe,
 });
 
+export const UPDATE_RECIPE = "UPDATE_RECIPE";
+export const updateRecipe = recipe => ({
+    type: UPDATE_RECIPE,
+    payload: recipe,
+});
+
 export const DELETE_RECIPE_START = "DELETE_RECIPE_START";
 export const DELETE_RECIPE_SUCCESS = "DELETE_RECIPE_SUCCESS";
 export const DELETE_RECIPE_FAILURE = "DELETE_RECIPE_FAILURE";
