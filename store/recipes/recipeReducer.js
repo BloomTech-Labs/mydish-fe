@@ -2,6 +2,7 @@ import {
     START_FETCH_RECIPES,
     FETCH_RECIPES_SUCCESS,
     FETCH_RECIPES_FAILURE,
+    ADD_RECIPE,
 } from "./recipeActions";
 
 const initState = {
@@ -30,7 +31,11 @@ export const recipeReducer = (state = initState, action) => {
                 isLoading: false,
                 error: action.payload,
             };
-
+        case ADD_RECIPE:
+            return {
+                ...state,
+                recipeList: [...state.recipeList, action.payload],
+            };
         default:
             return state;
     }

@@ -15,3 +15,9 @@ export const fetchRecipes = searchQuery => async dispatch => {
         dispatch({ type: FETCH_RECIPES_FAILURE, payload: err });
     }
 };
+
+export const ADD_RECIPE = "ADD_RECIPE";
+export const addRecipe = recipe => ({
+    type: ADD_RECIPE,
+    payload: recipe,
+});
