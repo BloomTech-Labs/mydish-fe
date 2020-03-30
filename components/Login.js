@@ -6,21 +6,19 @@ import {
     TouchableOpacity,
     SafeAreaView,
     Alert,
-    Image,
     KeyboardAvoidingView,
     ScrollView,
+    ImageBackground,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, loginUser } from "../store/auth/authActions";
 import styles from "../styles/authPageStyles.js";
 import backgroundImg from "../assets/auth-page-background.jpg";
-import RecipeShareLogo from "./RecipeShareLogo.js";
+import AuthButton from "./AuthButton";
+import { logoHeaderPlain } from "./header/navigationHeader";
 
 //Analytics
 import { Analytics, Event } from "expo-analytics";
-
-import theme from "../styles/theme.style";
-import AuthButton from "./AuthButton";
 
 const analytics = new Analytics("UA-160806654-1");
 
@@ -59,87 +57,90 @@ const Login = ({ navigation }) => {
 
     return (
         <SafeAreaView>
-            <Image source={backgroundImg} style={styles.backgroundImg} />
-            <KeyboardAvoidingView behavior="height">
-                <ScrollView>
-                    <View style={styles.container}>
-                        <View style={styles.contentContainer}>
-                            <Text style={styles.inputLabelText}>Username</Text>
-                            <TextInput
-                                ref={usernameInput}
-                                style={styles.inputFields}
-                                name="username"
-                                testID="username"
-                                value={credentials.username}
-                                returnKeyType="next"
-                                onSubmitEditing={() =>
-                                    passwordInput.current.focus()
-                                }
-                                onChangeText={event =>
-                                    setLogin({
-                                        ...credentials,
-                                        username: event,
-                                    })
-                                }
-                            />
-                            <Text style={styles.inputLabelText}>Password</Text>
-                            <TextInput
-                                ref={passwordInput}
-                                style={styles.inputFields}
-                                name="password"
-                                testID="password"
-                                value={credentials.password}
-                                returnKeyType="done"
-                                onChangeText={event =>
-                                    setLogin({
-                                        ...credentials,
-                                        password: event,
-                                    })
-                                }
-                                secureTextEntry={true}
-                                onSubmitEditing={_loginUser}
-                            />
-
-                            <View style={styles.promptContainer}>
-                                <Text style={styles.questionPrompt}>
-                                    Don't have an account?{" "}
+            <ImageBackground
+                source={backgroundImg}
+                style={styles.backgroundImg}
+            >
+                <KeyboardAvoidingView behavior="height">
+                    <ScrollView>
+                        <View style={styles.container}>
+                            <View style={styles.contentContainer}>
+                                <Text style={styles.inputLabelText}>
+                                    Username
                                 </Text>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        dispatch(clearError());
-                                        navigation.navigate("Signup");
+                                <TextInput
+                                    ref={usernameInput}
+                                    style={styles.inputFields}
+                                    name="username"
+                                    testID="username"
+                                    value={credentials.username}
+                                    returnKeyType="next"
+                                    onSubmitEditing={() =>
+                                        passwordInput.current.focus()
+                                    }
+                                    onChangeText={event =>
+                                        setLogin({
+                                            ...credentials,
+                                            username: event,
+                                        })
+                                    }
+                                />
+                                <Text style={styles.inputLabelText}>
+                                    Password
+                                </Text>
+                                <TextInput
+                                    ref={passwordInput}
+                                    style={styles.inputFields}
+                                    name="password"
+                                    testID="password"
+                                    value={credentials.password}
+                                    returnKeyType="done"
+                                    onChangeText={event =>
+                                        setLogin({
+                                            ...credentials,
+                                            password: event,
+                                        })
+                                    }
+                                    secureTextEntry={true}
+                                    onSubmitEditing={_loginUser}
+                                />
+
+                                <View style={styles.promptContainer}>
+                                    <Text style={styles.questionPrompt}>
+                                        Don't have an account?{" "}
+                                    </Text>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            dispatch(clearError());
+                                            navigation.navigate("Signup");
+                                        }}
+                                    >
+                                        <Text style={styles.switchAuthPageLink}>
+                                            Sign Up
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+
+                                <View
+                                    style={{
+                                        flexDirection: "row-reverse",
+                                        marginRight: 16,
                                     }}
                                 >
-                                    <Text style={styles.switchAuthPageLink}>
-                                        Sign Up
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            <View
-                                style={{
-                                    flexDirection: "row-reverse",
-                                    marginRight: 16,
-                                }}
-                            >
-                                <AuthButton
-                                    parent="login"
-                                    credentials={credentials}
-                                    loginUser={_loginUser}
-                                />
+                                    <AuthButton
+                                        parent="login"
+                                        credentials={credentials}
+                                        loginUser={_loginUser}
+                                    />
+                                </View>
                             </View>
                         </View>
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </ImageBackground>
         </SafeAreaView>
     );
 };
-Login.navigationOptions = {
-    headerTitle: <RecipeShareLogo />,
-    headerStyle: {
-        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
-    },
-};
+Login.navigationOptions = logoHeaderPlain;
 
 export default Login;
