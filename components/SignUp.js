@@ -107,7 +107,7 @@ const SignUp = ({ navigation }) => {
                                         }}
                                     >
                                         <Text style={styles.switchAuthPageLink}>
-                                            Login
+                                            Sign in
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
