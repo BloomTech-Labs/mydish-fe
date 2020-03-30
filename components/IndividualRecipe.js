@@ -71,8 +71,6 @@ function IndividualRecipe(props) {
         "revisionId not passed",
     );
 
-    console.log("these are props for IndividualRecipe: ", props);
-
     const loadRecipe = async () => {
         try {
             if (!!Number(revisionId))
@@ -185,8 +183,6 @@ function IndividualRecipe(props) {
     };
 
     const deleteRecipeHandler = () => {
-        console.log("deleting", recipe);
-
         try {
             Alert.alert(
                 "Are you sure you want to delete this recipe?",
