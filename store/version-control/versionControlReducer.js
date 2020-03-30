@@ -5,6 +5,8 @@ import {
 
 const initialState = {
     versionsList: [],
+    isFetching: false,
+    error: null,
 };
 
 export const versionControlRecucer = (state = initialState, action) => {
