@@ -11,7 +11,7 @@ export const homepageHeaderOptions = {
     headerRight: <SearchButton homepage={"homepage"} />,
 };
 
-export const createHeaderOptions = {
+export const logoHeaderPlain = {
     headerTitle,
 };
 

@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import { View, ScrollView, Text } from "react-native";
 import { cookbookHeaderOptions } from "./header/navigationHeader";
-
 import styles from "../styles/recipe-styles";
 import { getAllCookbookRecipes } from "../store/cookbook/cookbookAction";
 import { useDispatch, useSelector } from "react-redux";
-import RecipeList from "./RecipeList";
-import { FlatList } from "react-native-gesture-handler";
 import Recipe from "./Recipe";
 import FancySpinner from "./FancySpinner";
 
-const MyCookBook = props => {
+const MyCookBook = () => {
     const dispatch = useDispatch();
     const loading = useSelector(state => state.cookbook.isLoading);
     const allCookbookRecipes = useSelector(
@@ -24,7 +21,7 @@ const MyCookBook = props => {
     const getAllCategories = allRecipes => {
         let categoryList = [];
         if (allRecipes) {
-            allRecipes.forEach((recipe, index) => {
+            allRecipes.forEach((recipe, _) => {
                 if (recipe.tags && recipe.tags[0]) {
                     if (!categoryList.includes(recipe.tags[0].name)) {
                         categoryList = [...categoryList, recipe.tags[0].name];
@@ -39,14 +36,15 @@ const MyCookBook = props => {
         return <FancySpinner />;
     } else {
         const categories = getAllCategories(allCookbookRecipes);
-        console.log("All Cookbook Recipes ", allCookbookRecipes);
         return (
             <View style={{ maxWidth: "90%", marginLeft: "5%" }}>
                 <ScrollView style={{ paddingBottom: "10%" }}>
-                    {categories.map(tag => {
+                    {categories.map((tag, i) => {
                         return (
                             <>
-                                <Text style={styles.heading}>{`${tag}`}</Text>
+                                <Text key={i} style={styles.heading}>
+                                    {tag}
+                                </Text>
                                 {allCookbookRecipes
                                     .filter(recipeToFilter => {
                                         return (
