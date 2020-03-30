@@ -1,6 +1,7 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
 
-export const ALL_VERSION_HISTORY = "ALL_VERSION_HISTORY";
+export const START_FETCH_ALL_VERSION_HISTORY =
+    "START_FETCH_ALL_VERSION_HISTORY";
 export const VERSION_BY_REVISION_NUM = "VERSION_BY_REVISION_NUM";
 
 export const fetchAllVersionHistory = id => {
@@ -17,7 +18,7 @@ export const fetchAllVersionHistory = id => {
             });
 
             dispatch({
-                type: ALL_VERSION_HISTORY,
+                type: START_FETCH_ALL_VERSION_HISTORY,
                 versionsList: sortedVersionList,
             });
         } catch (error) {

@@ -1,5 +1,5 @@
 import {
-    ALL_VERSION_HISTORY,
+    START_FETCH_ALL_VERSION_HISTORY,
     RESET_ALL_VERSION_HISTORY,
 } from "./versionControlActions";
 
@@ -9,7 +9,7 @@ const initialState = {
 
 export const versionControlRecucer = (state = initialState, action) => {
     switch (action.type) {
-        case ALL_VERSION_HISTORY:
+        case START_FETCH_ALL_VERSION_HISTORY:
             return {
                 versionsList: action.versionsList,
             };
