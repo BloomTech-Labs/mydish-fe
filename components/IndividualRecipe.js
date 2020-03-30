@@ -20,11 +20,7 @@ import {
     fetchVersionByRevisionId,
     resetAlerts,
 } from "../store/singleRecipe/singleRecipeActions";
-import {
-    fetchRecipes,
-    updateRecipe,
-    deleteRecipe,
-} from "../store/recipes/recipeActions";
+import { updateRecipe, deleteRecipe } from "../store/recipes/recipeActions";
 import {
     fetchAllVersionHistory,
     resetAllVersionHistory,
@@ -49,7 +45,6 @@ import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 import RecipeShareLogo from "./RecipeShareLogo";
 
-import { fetchRecipes } from "../store/recipes/recipeActions";
 import FancySpinner from "./FancySpinner";
 
 function IndividualRecipe(props) {
@@ -195,7 +190,6 @@ function IndividualRecipe(props) {
                         text: "OK",
                         onPress: () => {
                             dispatch(deleteRecipe(recipe.id));
-                            dispatch(fetchRecipes(""));
                             dispatch(deleteCookbookRecipe(recipe.id));
                             props.navigation.navigate("Home");
                         },
