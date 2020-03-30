@@ -10,7 +10,10 @@ import {
 } from "react-native";
 import { homepageHeaderOptions } from "./header/navigationHeader";
 import { fetchRecipes } from "../store/recipes/recipeActions";
-import { profilePageToggle } from "../store/navigation/navigationActions";
+import {
+    profilePageToggle,
+    searchHomepage,
+} from "../store/navigation/navigationActions";
 
 import Search from "./Search.js";
 import RecipeList from "./RecipeList.js";
@@ -46,6 +49,7 @@ const HomePage = ({ navigation }) => {
             AsyncStorage.clear();
             navigation.navigate("Login");
             dispatch(profilePageToggle(false));
+            dispatch(searchHomepage(false));
         }
     }, [profile]);
 

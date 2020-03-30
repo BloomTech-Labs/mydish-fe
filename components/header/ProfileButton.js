@@ -19,8 +19,6 @@ export default function ProfileButton() {
         _bootstrapAsync();
     }, []);
 
-    console.log();
-
     const togglePress = () => {
         dispatch(profilePageToggle(!profile));
     };
