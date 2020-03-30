@@ -4,7 +4,6 @@ import styles from "../styles/recipe-styles";
 import * as theme from "../styles/theme.style";
 
 const FancySpinner = () => {
-    console.log(theme);
     return (
         <View
             style={{

@@ -20,16 +20,16 @@ import {
     fetchVersionByRevisionId,
     resetAlerts,
 } from "../store/singleRecipe/singleRecipeActions";
-import {
-    fetchRecipes,
-    updateRecipe,
-    deleteRecipe,
-} from "../store/recipes/recipeActions";
+import { updateRecipe, deleteRecipe } from "../store/recipes/recipeActions";
 import {
     fetchAllVersionHistory,
     resetAllVersionHistory,
 } from "../store/version-control/versionControlActions";
-import { getAllCookbookRecipes } from "../store/cookbook/cookbookAction";
+import {
+    updateCookbookRecipe,
+    deleteCookbookRecipe,
+} from "../store/cookbook/cookbookAction";
+
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
 
@@ -146,6 +146,7 @@ function IndividualRecipe(props) {
     const saveButtonEditedRecipe = author_comment => {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
+        dispatch(updateCookbookRecipe(recipe));
         dispatch(updateRecipe(recipe));
         setCommitModal({ save: false, cancel: false });
     };
@@ -189,7 +190,7 @@ function IndividualRecipe(props) {
                         text: "OK",
                         onPress: () => {
                             dispatch(deleteRecipe(recipe.id));
-                            dispatch(getAllCookbookRecipes());
+                            dispatch(deleteCookbookRecipe(recipe.id));
                             props.navigation.navigate("Home");
                         },
                     },

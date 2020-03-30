@@ -35,3 +35,21 @@ export const getAllCookbookRecipes = asdf => async dispatch => {
         dispatch({ type: FETCH_ALL_COOKBOOK_FAILURE, payload: err });
     }
 };
+
+export const ADD_COOKBOOK_RECIPE = "ADD_COOKBOOK_RECIPE";
+export const addCookbookRecipe = recipe => ({
+    type: ADD_COOKBOOK_RECIPE,
+    payload: recipe,
+});
+
+export const UPDATE_COOKBOOK_RECIPE = "UPDATE_COOKBOOK_RECIPE";
+export const updateCookbookRecipe = recipe => ({
+    type: UPDATE_COOKBOOK_RECIPE,
+    payload: recipe,
+});
+
+export const DELETE_COOKBOOK_RECIPE = "DELETE_COOKBOOK_RECIPE";
+export const deleteCookbookRecipe = id => ({
+    type: DELETE_COOKBOOK_RECIPE,
+    payload: id,
+});
