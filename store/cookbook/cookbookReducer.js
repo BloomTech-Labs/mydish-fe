@@ -7,6 +7,7 @@ import {
     FETCH_ALL_COOKBOOK_FAILURE,
     ADD_COOKBOOK_RECIPE,
     UPDATE_COOKBOOK_RECIPE,
+    DELETE_COOKBOOK_RECIPE,
 } from "./cookbookAction";
 
 const initState = {
@@ -79,7 +80,13 @@ export const cookbookReducer = (state = initState, action) => {
                     ...recipeSplitByTags,
                 ],
             };
-
+        case DELETE_COOKBOOK_RECIPE:
+            return {
+                ...state,
+                entireCookbook: state.entireCookbook.filter(
+                    recipe => recipe.id !== action.payload,
+                ),
+            };
         default:
             return state;
     }
