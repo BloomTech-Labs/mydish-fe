@@ -71,15 +71,26 @@ function IndividualRecipe(props) {
         "revisionId not passed",
     );
 
+    console.log("these are props for IndividualRecipe: ", props);
+
     const loadRecipe = async () => {
         try {
             if (!!Number(revisionId))
                 dispatch(fetchVersionByRevisionId(id, revisionId));
-            else dispatch(fetchRecipe(id));
+            else {
+                console.log("HERE I AM");
+                dispatch(fetchRecipe(id));
+            }
         } catch (error) {
             throw new Error("This is an error");
         }
     };
+
+    useEffect(() => {
+        if (recipe.title === undefined) {
+            props.navigation.pop();
+        }
+    }, [recipe.title]);
 
     useEffect(() => {
         loadRecipe();
@@ -191,7 +202,7 @@ function IndividualRecipe(props) {
                         onPress: () => {
                             dispatch(deleteRecipe(recipe.id));
                             dispatch(deleteCookbookRecipe(recipe.id));
-                            props.navigation.navigate("Home");
+                            props.navigation.pop();
                         },
                     },
                 ],
