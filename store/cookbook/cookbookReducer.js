@@ -6,6 +6,7 @@ import {
     FETCH_ALL_COOKBOOK_SUCCESS,
     FETCH_ALL_COOKBOOK_FAILURE,
     ADD_COOKBOOK_RECIPE,
+    UPDATE_COOKBOOK_RECIPE,
 } from "./cookbookAction";
 
 const initState = {
@@ -14,6 +15,13 @@ const initState = {
     isLoading: false,
     error: null,
 };
+
+const splitRecipeByTags = recipe => {
+    return recipe.tags.map(tag => {
+        return { ...recipe, tags: [tag] };
+    });
+};
+let recipeSplitByTags;
 
 export const cookbookReducer = (state = initState, action) => {
     switch (action.type) {
@@ -54,13 +62,22 @@ export const cookbookReducer = (state = initState, action) => {
                 error: action.payload,
             };
         case ADD_COOKBOOK_RECIPE:
-            const recipesByTags = action.payload.tags.map(tag => ({
-                ...action.payload,
-                tags: [tag],
-            }));
+            recipeSplitByTags = splitRecipeByTags(action.payload);
             return {
                 ...state,
-                entireCookbook: [...state.entireCookbook, ...recipesByTags],
+                entireCookbook: [...state.entireCookbook, ...recipeSplitByTags],
+            };
+        case UPDATE_COOKBOOK_RECIPE:
+            const updatedRecipe = action.payload;
+            recipeSplitByTags = splitRecipeByTags(updatedRecipe);
+            return {
+                ...state,
+                entireCookbook: [
+                    ...state.entireCookbook.filter(
+                        recipe => recipe.id !== updatedRecipe.id,
+                    ),
+                    ...recipeSplitByTags,
+                ],
             };
 
         default:
