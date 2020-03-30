@@ -18,9 +18,13 @@ import {
     startEditMode,
     submitEditedRecipe,
     fetchVersionByRevisionId,
-    deleteRecipe,
     resetAlerts,
 } from "../store/singleRecipe/singleRecipeActions";
+import {
+    fetchRecipes,
+    updateRecipe,
+    deleteRecipe,
+} from "../store/recipes/recipeActions";
 import {
     fetchAllVersionHistory,
     resetAllVersionHistory,
@@ -148,6 +152,7 @@ function IndividualRecipe(props) {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
         dispatch(updateCookbookRecipe(recipe));
+        dispatch(updateRecipe(recipe));
         setCommitModal({ save: false, cancel: false });
     };
 
@@ -165,7 +170,6 @@ function IndividualRecipe(props) {
                     text: "OK",
                     onPress: () => {
                         dispatch(stopEditMode());
-                        dispatch(fetchRecipes(""));
                         dispatch(resetRecipe(tempRecipe));
                     },
                 },

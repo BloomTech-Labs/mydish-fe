@@ -1,5 +1,6 @@
 import axiosWithAuth from "../../utils/axiosWithAuth";
 import { postImage } from "../../utils/helperFunctions/postImage";
+import { fetchAllVersionHistory } from "../version-control/versionControlActions";
 
 export const START_UPDATE_RECIPE = "START_UPDATE_RECIPE";
 export const UPDATE_RECIPE_SUCCESS = "UPDATE_RECIPE_SUCCESS";
@@ -72,6 +73,7 @@ export const submitEditedRecipe = author_comment => async (
         const res = await axiosCustom.put(`recipes/${newRecipe.id}`, newRecipe);
 
         dispatch({ type: SUBMIT_EDITED_RECIPE_SUCCESS, payload: res.data });
+        dispatch(fetchAllVersionHistory(newRecipe.id)); //Causes "Other versions" link to appear as soon as first edit on a recipe has been completed.
     } catch (err) {
         dispatch({ type: SUBMIT_EDITED_RECIPE_FAILURE, payload: err.response });
     }
@@ -230,28 +232,6 @@ export const fetchVersionByRevisionId = (id, revisionId) => {
                 payload: error,
             });
             console.log(error);
-            throw error;
-        }
-    };
-};
-
-export const DELETE_RECIPE_START = "DELETE_RECIPE_START";
-export const DELETE_RECIPE_SUCCESS = "DELETE_RECIPE_SUCCESS";
-export const DELETE_RECIPE_FAILURE = "DELETE_RECIPE_FAILURE";
-
-export const deleteRecipe = id => {
-    return async dispatch => {
-        console.log("this is the id Im passing in", id);
-        dispatch({ type: DELETE_RECIPE_START });
-        try {
-            const axiosCustom = await axiosWithAuth();
-            const res = await axiosCustom.delete(`recipes/${id}`);
-            console.log("response from deleting", res.data);
-
-            dispatch({ type: DELETE_RECIPE_SUCCESS, payload: id });
-        } catch (error) {
-            console.log(error);
-            dispatch({ type: DELETE_RECIPE_FAILURE, payload: err });
             throw error;
         }
     };
