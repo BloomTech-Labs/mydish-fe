@@ -25,7 +25,10 @@ import {
     fetchAllVersionHistory,
     resetAllVersionHistory,
 } from "../store/version-control/versionControlActions";
-import { updateCookbookRecipe } from "../store/cookbook/cookbookAction";
+import {
+    updateCookbookRecipe,
+    deleteCookbookRecipe,
+} from "../store/cookbook/cookbookAction";
 
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
@@ -43,7 +46,6 @@ import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 import RecipeShareLogo from "./RecipeShareLogo";
 
 import { fetchRecipes } from "../store/recipes/recipeActions";
-import { getAllCookbookRecipes } from "../store/cookbook/cookbookAction";
 import FancySpinner from "./FancySpinner";
 
 function IndividualRecipe(props) {
@@ -190,7 +192,7 @@ function IndividualRecipe(props) {
                         onPress: () => {
                             dispatch(deleteRecipe(recipe.id));
                             dispatch(fetchRecipes(""));
-                            dispatch(getAllCookbookRecipes());
+                            dispatch(deleteCookbookRecipe(recipe.id));
                             props.navigation.navigate("Home");
                         },
                     },
