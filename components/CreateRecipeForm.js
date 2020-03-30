@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import {
-    Text,
-    TextInput,
-    View,
-    ScrollView,
-    TouchableOpacity,
-} from "react-native";
+import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/singleRecipe/singleRecipeActions";
 import { addCookbookRecipe } from "../store/cookbook/cookbookAction";
 import styles from "../styles/createRecipeStyles";
 import theme from "../styles/theme.style";
-import { createHeaderOptions } from "./header/navigationHeader";
+import { logoHeaderPlain } from "./header/navigationHeader";
 
 import RecipeName from "./RecipeName";
 import TimeInput from "./TimeInput";
@@ -21,7 +15,6 @@ import Instruction from "./Instruction";
 import TagButton from "./TagButton";
 import Add from "./Add";
 import Notes from "./Notes";
-import RecipeShareLogo from "./RecipeShareLogo";
 import RecipeImage from "./RecipeImageComponents/RecipeImage";
 import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 import CommitModal from "./EditRecipeComponents/Modal";
@@ -366,6 +359,6 @@ function CreateRecipeForm({
         </KeyboardAwareScrollView>
     );
 }
-CreateRecipeForm.navigationOptions = createHeaderOptions;
+CreateRecipeForm.navigationOptions = logoHeaderPlain;
 
 export default CreateRecipeForm;
