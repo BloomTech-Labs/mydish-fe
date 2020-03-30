@@ -19,7 +19,7 @@ const AuthButton = ({ parent, loginUser, register }) => {
                 />
             ) : (
                 <Text style={styles.submitButtonText}>
-                    {parent === "login" ? "Login" : "Sign Up"}
+                    {parent === "login" ? "Sign in" : "Sign up"}
                 </Text>
             )}
         </TouchableOpacity>

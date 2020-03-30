@@ -9,11 +9,7 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     backgroundImg: {
-        maxWidth: "80%",
-        maxHeight: "90%",
-        resizeMode: "cover",
-        zIndex: -10000,
-        position: "absolute",
+        height: "100%",
     },
     contentContainer: {
         display: "flex",
@@ -52,12 +48,12 @@ const styles = StyleSheet.create({
     submitButton: {
         justifyContent: "center",
         alignSelf: "center",
-        width: 150,
-        height: 40,
+        width: "100%",
+        height: 45,
         borderRadius: 5,
         backgroundColor: theme.PRIMARY_COLOR,
         paddingVertical: 10,
-        marginTop: 30,
+        marginTop: 60,
     },
     submitButtonText: {
         textAlign: "center",
