@@ -25,6 +25,7 @@ import {
     fetchAllVersionHistory,
     resetAllVersionHistory,
 } from "../store/version-control/versionControlActions";
+import { updateCookbookRecipe } from "../store/cookbook/cookbookAction";
 
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
@@ -144,7 +145,7 @@ function IndividualRecipe(props) {
     const saveButtonEditedRecipe = author_comment => {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
-        dispatch(fetchRecipes(""));
+        dispatch(updateCookbookRecipe(recipe));
         setCommitModal({ save: false, cancel: false });
     };
 
