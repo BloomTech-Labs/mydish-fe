@@ -47,3 +47,9 @@ export const updateCookbookRecipe = recipe => ({
     type: UPDATE_COOKBOOK_RECIPE,
     payload: recipe,
 });
+
+export const DELETE_COOKBOOK_RECIPE = "DELETE_COOKBOOK_RECIPE";
+export const deleteCookbookRecipe = id => ({
+    type: DELETE_COOKBOOK_RECIPE,
+    payload: id,
+});
