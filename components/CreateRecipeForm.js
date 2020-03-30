@@ -23,6 +23,8 @@ import { validateFields } from "../utils/helperFunctions/validateFields";
 import { serverErrorAlert } from "../utils/helperFunctions/serverErrorAlert";
 import { prepRecipeForPost } from "../utils/helperFunctions/prepRecipeForPost";
 
+import { addRecipe } from "../store/recipes/recipeActions";
+
 import { courses } from "../constants/courses";
 import { initialCreateFormState } from "../constants/initialCreateFormState";
 
@@ -80,6 +82,7 @@ function CreateRecipeForm({
             setRecipe(initialCreateFormState);
             navigation.navigate("Home");
             navigation.push("IndividualR", { recipe, recipeID });
+            dispatch(addRecipe(res.data));
         } catch (err) {
             console.log("error from adding new recipe \n", err.response);
             if (err.response.status === 500) {
