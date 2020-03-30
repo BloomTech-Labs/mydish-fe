@@ -41,3 +41,9 @@ export const addCookbookRecipe = recipe => ({
     type: ADD_COOKBOOK_RECIPE,
     payload: recipe,
 });
+
+export const UPDATE_COOKBOOK_RECIPE = "UPDATE_COOKBOOK_RECIPE";
+export const updateCookbookRecipe = recipe => ({
+    type: UPDATE_COOKBOOK_RECIPE,
+    payload: recipe,
+});
