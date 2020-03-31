@@ -3,11 +3,11 @@ import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../store/singleRecipe/singleRecipeActions";
+import { fetchIngredients } from "../store/ingredientPrediction/ingredientPredictionActions";
 import { addCookbookRecipe } from "../store/cookbook/cookbookAction";
 import styles from "../styles/createRecipeStyles";
 import theme from "../styles/theme.style";
 import { logoHeaderPlain } from "./header/navigationHeader";
-
 import RecipeName from "./RecipeName";
 import TimeInput from "./TimeInput";
 import Ingredient from "./Ingredient";
@@ -18,14 +18,12 @@ import Notes from "./Notes";
 import RecipeImage from "./RecipeImageComponents/RecipeImage";
 import ImageUploadModal from "./RecipeImageComponents/ImageUploadModal";
 import CommitModal from "./EditRecipeComponents/Modal";
-
+import SuggestedIngredients from "./SuggestedIngredients";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { validateFields } from "../utils/helperFunctions/validateFields";
 import { serverErrorAlert } from "../utils/helperFunctions/serverErrorAlert";
 import { prepRecipeForPost } from "../utils/helperFunctions/prepRecipeForPost";
-
 import { addRecipe } from "../store/recipes/recipeActions";
-
 import { courses } from "../constants/courses";
 import { initialCreateFormState } from "../constants/initialCreateFormState";
 
@@ -97,12 +95,25 @@ function CreateRecipeForm({
 
     const addIng = () => {
         const newIng = { name: "", quantity: "", units: "" };
+        const ingObj = {};
+
+        recipe.ingredients.forEach((ing, i) => {
+            Object.defineProperty(ingObj, i + 1, {
+                value: ing.name.toLowerCase(),
+                writable: true,
+                enumerable: true,
+            });
+        });
+
         savedRecipe
             ? dispatch(actions.addIngredient(newIng))
-            : setRecipe(oldRecipe => ({
-                  ...oldRecipe,
-                  ingredients: [...oldRecipe.ingredients, newIng],
-              }));
+            : [
+                  setRecipe(oldRecipe => ({
+                      ...oldRecipe,
+                      ingredients: [...oldRecipe.ingredients, newIng],
+                  })),
+                  dispatch(fetchIngredients(ingObj)),
+              ];
     };
 
     const addInstruction = () => {
@@ -282,6 +293,8 @@ function CreateRecipeForm({
                             </Text>
                             {addIngredients()}
                             <Add text="Add Ingredient" submit={addIng} />
+
+                            <SuggestedIngredients />
 
                             <Text style={{ ...styles.heading, marginTop: 20 }}>
                                 Steps
