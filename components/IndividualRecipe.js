@@ -29,13 +29,10 @@ import {
     updateCookbookRecipe,
     deleteCookbookRecipe,
 } from "../store/cookbook/cookbookAction";
-
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
-
 import { savedPlaceholder } from "../constants/imagePlaceholders";
 import { maxUsername } from "../constants/maxLength";
-
 import Tab from "./Tab";
 import CreateRecipeForm from "./CreateRecipeForm";
 import VersionHistoryList from "./VersionHistoryList";
@@ -44,7 +41,6 @@ import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeIns
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 import RecipeShareLogo from "./RecipeShareLogo";
-
 import FancySpinner from "./FancySpinner";
 
 function IndividualRecipe(props) {
@@ -59,7 +55,6 @@ function IndividualRecipe(props) {
     const [versionListVisible, setVersionListVisible] = useState(false);
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
-    const hasDeleted = useSelector(state => state.allRecipes.hasDeleted);
     const successAlert = useSelector(state => state.singleRecipe.successAlert);
     const versionsList = useSelector(state => state.versionsList.versionsList);
 
@@ -79,7 +74,6 @@ function IndividualRecipe(props) {
             if (!!Number(revisionId))
                 dispatch(fetchVersionByRevisionId(id, revisionId));
             else {
-                console.log("DISPATCHING FETCH RECIPE");
                 dispatch(fetchRecipe(id));
             }
         } catch (error) {
@@ -88,8 +82,6 @@ function IndividualRecipe(props) {
     };
 
     useEffect(() => {
-        console.log("USE EFFECT LINE 87");
-
         loadRecipe();
         fetchUserId();
         dispatch(fetchAllVersionHistory(id));
@@ -97,7 +89,6 @@ function IndividualRecipe(props) {
         //and resets the versionHistory state to an empty array,
         //which is important for a smooth user experience
         return () => {
-            console.log("IN THE USEEFFECT LINE 87 CLEANUP");
             dispatch(resetRecipe());
             dispatch(resetAllVersionHistory());
         };

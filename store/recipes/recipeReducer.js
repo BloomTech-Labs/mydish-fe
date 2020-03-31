@@ -10,7 +10,6 @@ import {
 } from "./recipeActions";
 
 const initState = {
-    hasDeleted: false,
     recipeList: [],
     isLoading: true,
     isSubmitting: false,
@@ -53,7 +52,6 @@ export const recipeReducer = (state = initState, action) => {
         case DELETE_RECIPE_START:
             return {
                 ...state,
-                hasDeleted: false,
                 isSubmitting: true,
                 isLoading: true,
                 error: null,
@@ -62,7 +60,6 @@ export const recipeReducer = (state = initState, action) => {
         case DELETE_RECIPE_SUCCESS:
             return {
                 ...state,
-                hasDeleted: true,
                 isSubmitting: false,
                 isLoading: false,
                 recipeList: state.recipeList.filter(
@@ -73,7 +70,6 @@ export const recipeReducer = (state = initState, action) => {
         case DELETE_RECIPE_FAILURE:
             return {
                 ...state,
-                hasDeleted: false,
                 isSubmitting: false,
                 isLoading: false,
                 error: action.payload,
