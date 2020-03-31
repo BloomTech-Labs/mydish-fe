@@ -59,6 +59,7 @@ function IndividualRecipe(props) {
     const [versionListVisible, setVersionListVisible] = useState(false);
     const recipe = useSelector(state => state.singleRecipe.recipe);
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
+    const hasDeleted = useSelector(state => state.allRecipes.hasDeleted);
     const successAlert = useSelector(state => state.singleRecipe.successAlert);
     const versionsList = useSelector(state => state.versionsList.versionsList);
 
@@ -70,13 +71,15 @@ function IndividualRecipe(props) {
         "revisionID",
         "revisionId not passed",
     );
+    const navigationChildRoutes = props.navigation.dangerouslyGetParent().router
+        .childRouters;
 
     const loadRecipe = async () => {
         try {
             if (!!Number(revisionId))
                 dispatch(fetchVersionByRevisionId(id, revisionId));
             else {
-                console.log("HERE I AM");
+                console.log("DISPATCHING FETCH RECIPE");
                 dispatch(fetchRecipe(id));
             }
         } catch (error) {
@@ -85,12 +88,8 @@ function IndividualRecipe(props) {
     };
 
     useEffect(() => {
-        if (recipe.title === undefined) {
-            props.navigation.pop();
-        }
-    }, [recipe.title]);
+        console.log("USE EFFECT LINE 87");
 
-    useEffect(() => {
         loadRecipe();
         fetchUserId();
         dispatch(fetchAllVersionHistory(id));
@@ -98,6 +97,7 @@ function IndividualRecipe(props) {
         //and resets the versionHistory state to an empty array,
         //which is important for a smooth user experience
         return () => {
+            console.log("IN THE USEEFFECT LINE 87 CLEANUP");
             dispatch(resetRecipe());
             dispatch(resetAllVersionHistory());
         };
@@ -115,6 +115,9 @@ function IndividualRecipe(props) {
         };
     }, []);
 
+    // console.log("NAVIGATION", props.navigation);
+    // console.log("DANGEROUS PARENT OH NO", Object.keys(navigationChildRoutes));
+
     useEffect(() => {
         if (successAlert) {
             dispatch(resetAlerts());
@@ -129,7 +132,7 @@ function IndividualRecipe(props) {
                 { cancelable: false },
             );
         }
-    });
+    }, [successAlert]);
 
     async function fetchUserId() {
         try {
@@ -162,16 +165,15 @@ function IndividualRecipe(props) {
 
     const cancelButtonEditedRecipe = () => {
         Alert.alert(
-            "Exit Edit Mode",
+            "Abandon editing session",
             "Are you sure you want to exit without saving your changes?",
             [
                 {
                     text: "Cancel",
-
                     style: "cancel",
                 },
                 {
-                    text: "OK",
+                    text: "Yes",
                     onPress: () => {
                         dispatch(stopEditMode());
                         dispatch(resetRecipe(tempRecipe));
@@ -190,14 +192,22 @@ function IndividualRecipe(props) {
                 [
                     {
                         text: "Cancel",
-
                         style: "cancel",
                     },
                     {
-                        text: "OK",
+                        text: "Yes",
                         onPress: () => {
                             dispatch(deleteRecipe(recipe.id));
                             dispatch(deleteCookbookRecipe(recipe.id));
+                            dispatch(resetRecipe());
+                            props.navigation.pop();
+                            if (
+                                Object.keys(navigationChildRoutes).includes(
+                                    "Home",
+                                )
+                            )
+                                props.navigation.navigate("CookBook");
+                            else props.navigation.navigate("Home");
                             props.navigation.pop();
                         },
                     },
