@@ -29,13 +29,10 @@ import {
     updateCookbookRecipe,
     deleteCookbookRecipe,
 } from "../store/cookbook/cookbookAction";
-
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
-
 import { savedPlaceholder } from "../constants/imagePlaceholders";
 import { maxUsername } from "../constants/maxLength";
-
 import Tab from "./Tab";
 import CreateRecipeForm from "./CreateRecipeForm";
 import VersionHistoryList from "./VersionHistoryList";
@@ -44,7 +41,6 @@ import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeIns
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 import RecipeShareLogo from "./RecipeShareLogo";
-
 import FancySpinner from "./FancySpinner";
 
 function IndividualRecipe(props) {
@@ -70,12 +66,16 @@ function IndividualRecipe(props) {
         "revisionID",
         "revisionId not passed",
     );
+    const navigationChildRoutes = props.navigation.dangerouslyGetParent().router
+        .childRouters;
 
     const loadRecipe = async () => {
         try {
             if (!!Number(revisionId))
                 dispatch(fetchVersionByRevisionId(id, revisionId));
-            else dispatch(fetchRecipe(id));
+            else {
+                dispatch(fetchRecipe(id));
+            }
         } catch (error) {
             throw new Error("This is an error");
         }
@@ -106,6 +106,9 @@ function IndividualRecipe(props) {
         };
     }, []);
 
+    // console.log("NAVIGATION", props.navigation);
+    // console.log("DANGEROUS PARENT OH NO", Object.keys(navigationChildRoutes));
+
     useEffect(() => {
         if (successAlert) {
             dispatch(resetAlerts());
@@ -120,7 +123,7 @@ function IndividualRecipe(props) {
                 { cancelable: false },
             );
         }
-    });
+    }, [successAlert]);
 
     async function fetchUserId() {
         try {
@@ -153,16 +156,15 @@ function IndividualRecipe(props) {
 
     const cancelButtonEditedRecipe = () => {
         Alert.alert(
-            "Exit Edit Mode",
+            "Abandon editing session",
             "Are you sure you want to exit without saving your changes?",
             [
                 {
                     text: "Cancel",
-
                     style: "cancel",
                 },
                 {
-                    text: "OK",
+                    text: "Yes",
                     onPress: () => {
                         dispatch(stopEditMode());
                         dispatch(resetRecipe(tempRecipe));
@@ -174,8 +176,6 @@ function IndividualRecipe(props) {
     };
 
     const deleteRecipeHandler = () => {
-        console.log("deleting", recipe);
-
         try {
             Alert.alert(
                 "Are you sure you want to delete this recipe?",
@@ -183,15 +183,23 @@ function IndividualRecipe(props) {
                 [
                     {
                         text: "Cancel",
-
                         style: "cancel",
                     },
                     {
-                        text: "OK",
+                        text: "Yes",
                         onPress: () => {
                             dispatch(deleteRecipe(recipe.id));
                             dispatch(deleteCookbookRecipe(recipe.id));
-                            props.navigation.navigate("Home");
+                            dispatch(resetRecipe());
+                            props.navigation.pop();
+                            if (
+                                Object.keys(navigationChildRoutes).includes(
+                                    "Home",
+                                )
+                            )
+                                props.navigation.navigate("CookBook");
+                            else props.navigation.navigate("Home");
+                            props.navigation.pop();
                         },
                     },
                 ],

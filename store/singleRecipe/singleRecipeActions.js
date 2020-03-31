@@ -101,9 +101,12 @@ export const fetchRecipe = id => async dispatch => {
         const res = await axiosCustom.get(`recipes/${id}`);
 
         dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res.data });
+        return true;
     } catch (err) {
         console.log("err", err);
+
         dispatch({ type: FETCH_RECIPE_FAILURE, payload: err });
+        return false;
     }
 };
 
