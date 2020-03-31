@@ -39,12 +39,10 @@ const MyCookBook = () => {
         return (
             <View style={{ maxWidth: "90%", marginLeft: "5%" }}>
                 <ScrollView style={{ paddingBottom: "10%" }}>
-                    {categories.map((tag, i) => {
+                    {categories.map(tag => {
                         return (
-                            <>
-                                <Text key={i} style={styles.heading}>
-                                    {tag}
-                                </Text>
+                            <View key={tag}>
+                                <Text style={styles.heading}>{tag}</Text>
                                 {allCookbookRecipes
                                     .filter(recipeToFilter => {
                                         return (
@@ -52,15 +50,17 @@ const MyCookBook = () => {
                                         );
                                     })
                                     .map(filteredRecipe => {
+                                        const id = filteredRecipe.id;
+                                        const tag = filteredRecipe.tags[0].name;
                                         return (
                                             <Recipe
-                                                key={filteredRecipe.id}
+                                                key={`${id}.${tag}`}
                                                 recipe={filteredRecipe}
                                                 parent={"Cookbook"}
                                             />
                                         );
                                     })}
-                            </>
+                            </View>
                         );
                     })}
                 </ScrollView>
