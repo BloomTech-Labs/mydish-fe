@@ -2,6 +2,12 @@ import { StyleSheet } from "react-native";
 import theme from "./theme.style";
 
 module.exports = StyleSheet.create({
+    cookbookHeadText: {
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        fontSize: theme.LARGE_FONT_SIZE,
+        color: theme.DARK_GREY_FONT_COLOR,
+        marginTop: 19,
+    },
     recipeContainer: {
         width: "50%",
         padding: 5,

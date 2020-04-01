@@ -33,9 +33,14 @@ const MyCookBook = () => {
     };
     const categories = getAllCategories(allCookbookRecipes);
 
+    const cookbookHeadText = () => (
+        <Text style={styles.cookbookHeadText}>My Cookbook</Text>
+    );
+
     const noCookbookRecipes = () => {
         return (
             <View style={styles.noRecipeCookbookContainer}>
+                {cookbookHeadText()}
                 <Text style={styles.noRecipes}>
                     You don't have any recipes saved yet.
                 </Text>
@@ -51,6 +56,7 @@ const MyCookBook = () => {
 
     return (
         <View style={{ maxWidth: "90%", marginLeft: "5%" }}>
+            {cookbookHeadText()}
             <ScrollView style={{ paddingBottom: "10%" }}>
                 {categories.map(tag => {
                     return (
