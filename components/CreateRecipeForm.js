@@ -105,11 +105,16 @@ function CreateRecipeForm({
             i >= 0 && j < 10;
             i--, j++
         ) {
-            Object.defineProperty(ingObj, i + 1, {
-                value: ingredients[i].name.toLowerCase(),
-                writable: true,
-                enumerable: true,
-            });
+            const name = ingredients[i].name
+                .replace(/\s|\n+/g, "")
+                .toLowerCase();
+            if (name) {
+                Object.defineProperty(ingObj, i + 1, {
+                    value: name,
+                    writable: true,
+                    enumerable: true,
+                });
+            }
         }
         savedRecipe
             ? dispatch(actions.addIngredient(newIng))
