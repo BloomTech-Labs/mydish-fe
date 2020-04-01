@@ -116,6 +116,7 @@ function CreateRecipeForm({
                 });
             }
         }
+        console.log(ingObj);
         savedRecipe
             ? dispatch(actions.addIngredient(newIng))
             : [
@@ -123,7 +124,8 @@ function CreateRecipeForm({
                       ...oldRecipe,
                       ingredients: [...oldRecipe.ingredients, newIng],
                   })),
-                  dispatch(fetchIngredients(ingObj)),
+                  Object.keys(ingObj).length >= 3 &&
+                      dispatch(fetchIngredients(ingObj)),
               ];
     };
 
