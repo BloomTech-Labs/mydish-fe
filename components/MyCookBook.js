@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, ScrollView, Text, TouchableOpacity } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { withNavigation } from "react-navigation";
 import { cookbookHeaderOptions } from "./header/navigationHeader";
 import { getAllCookbookRecipes } from "../store/cookbook/cookbookAction";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/recipe-styles";
 import Recipe from "./Recipe";
 import FancySpinner from "./FancySpinner";
-import { setRecoveryProps } from "expo/build/ErrorRecovery/ErrorRecovery";
+import AddRecipeButton from "./AddRecipeButton";
 
 const MyCookBook = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -35,17 +35,10 @@ const MyCookBook = ({ navigation }) => {
     };
     const categories = getAllCategories(allCookbookRecipes);
 
-    const addRecipePress = () => navigation.navigate("Create");
-
     const cookbookHeadText = () => (
         <View style={styles.cookbookHeadContainer}>
             <Text style={styles.cookbookHeadText}>My Cookbook</Text>
-            <TouchableOpacity
-                onPress={addRecipePress}
-                style={styles.addRecipeButton}
-            >
-                <Text style={styles.addRecipeButtonText}>Add recipe</Text>
-            </TouchableOpacity>
+            <AddRecipeButton navigation={navigation} />
         </View>
     );
 
@@ -55,12 +48,7 @@ const MyCookBook = ({ navigation }) => {
             <Text style={styles.noRecipes}>
                 You don't have any recipes saved yet.
             </Text>
-            <TouchableOpacity
-                onPress={addRecipePress}
-                style={styles.addRecipeButton}
-            >
-                <Text style={styles.addRecipeButtonText}>Add recipe</Text>
-            </TouchableOpacity>
+            <AddRecipeButton navigation={navigation} />
         </View>
     );
 

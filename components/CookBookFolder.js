@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
-import RecipeList from "./RecipeList";
-import styles from "../styles/recipe-styles";
 import { useSelector, useDispatch } from "react-redux";
+import { View, Text, TouchableOpacity } from "react-native";
 import { fetchCookbook } from "../store/cookbook/cookbookAction";
+import styles from "../styles/recipe-styles";
 import FancySpinner from "./FancySpinner";
+import RecipeList from "./RecipeList";
+import AddRecipeButton from "./AddRecipeButton";
 
 const CookBookFolder = props => {
     const dispatch = useDispatch();
@@ -31,10 +32,13 @@ const CookBookFolder = props => {
                 {folder.length ? (
                     <RecipeList folder={folder} parent="cookbook" />
                 ) : (
-                    <Text style={styles.noRecipes}>
-                        You don't have any recipes in this section of your
-                        Cookbook yet.
-                    </Text>
+                    <View style={styles.noRecipeCookbookContainer}>
+                        <Text style={styles.noRecipes}>
+                            You don't have any recipes in this section of your
+                            Cookbook yet.
+                        </Text>
+                        <AddRecipeButton navigation={props.navigation} />
+                    </View>
                 )}
             </View>
         );

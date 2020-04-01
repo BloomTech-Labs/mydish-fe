@@ -29,8 +29,7 @@ module.exports = StyleSheet.create({
         fontSize: theme.LARGE_FONT_SIZE,
         color: theme.DARK_FONT_COLOR,
         fontFamily: theme.REGULAR_FONT_FAMILY,
-        paddingHorizontal: 20,
-        marginTop: "50%",
+        marginTop: "60%",
         marginBottom: 20,
         textAlign: "center",
     },
@@ -83,6 +82,7 @@ module.exports = StyleSheet.create({
     },
     noRecipeCookbookContainer: {
         alignItems: "center",
+        marginHorizontal: 19,
     },
     centered: { flex: 1, justifyContent: "center", alignItems: "center" },
     heading: {
