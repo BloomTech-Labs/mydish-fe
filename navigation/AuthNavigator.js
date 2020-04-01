@@ -26,7 +26,7 @@ const AuthNavigator = createBottomTabNavigator(
             },
         },
     },
-    { initialRouteName: "Home" },
+    { initialRouteName: "Login" },
 );
 
 export default AuthNavigator;
