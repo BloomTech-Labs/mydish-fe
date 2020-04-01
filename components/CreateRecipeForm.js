@@ -106,7 +106,8 @@ function CreateRecipeForm({
             i--, j++
         ) {
             const name = ingredients[i].name.toLowerCase();
-            if (name.replace(/\s|\n+/g, "")) {
+            if (name.replace(/\s|\t|\n+/g, "")) {
+                // Remove spaces, tabs, and newlines. Add to ingObj if it still has content.
                 Object.defineProperty(ingObj, j + 1, {
                     value: name,
                     writable: true,
