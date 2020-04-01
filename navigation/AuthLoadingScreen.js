@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AsyncStorage, View, StatusBar } from "react-native";
 import FancySpinner from "../components/FancySpinner";
 
@@ -10,7 +10,7 @@ function AuthLoadingScreen(props) {
         // screen will be unmounted and thrown away.
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         _bootstrapAsync();
     }, []);
 
