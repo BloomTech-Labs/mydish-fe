@@ -1,5 +1,6 @@
 import React from "react";
-import { View, TouchableOpacity, Text, Image } from "react-native";
+import { TouchableOpacity, Text, Image } from "react-native";
+import theme from "../styles/theme.style";
 //Analytics
 import { Analytics, Event } from "expo-analytics";
 import { withNavigation } from "react-navigation";
@@ -17,36 +18,27 @@ const HomeCourseTitle = props => {
     };
 
     return (
-        <View
-            style={{
-                height: 100,
-                marginBottom: "10%",
-                width: "50%",
-                paddingLeft: 5,
-                paddingRight: 5,
-                paddingTop: 5,
-                paddingBottom: 5,
-            }}
-        >
-            <TouchableOpacity onPress={handlePress}>
-                <Image
-                    source={{ uri: img }}
-                    style={{
-                        width: "100%",
-                        height: 100,
-                        borderRadius: 4,
-                    }}
-                />
-                <Text
-                    style={{
-                        fontSize: 14,
-                        marginBottom: "4%",
-                    }}
-                >
-                    {course}
-                </Text>
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={handlePress} style={{ width: "48%" }}>
+            <Image
+                source={{ uri: img }}
+                style={{
+                    width: "100%",
+                    height: 95,
+                    borderRadius: 4,
+                }}
+            />
+            <Text
+                style={{
+                    fontSize: theme.REGULAR_FONT_SIZE,
+                    fontFamily: theme.REGULAR_FONT_FAMILY,
+                    color: theme.DARK_GREY_FONT_COLOR,
+                    marginBottom: 10,
+                    lineHeight: 19,
+                }}
+            >
+                {course}
+            </Text>
+        </TouchableOpacity>
     );
 };
 

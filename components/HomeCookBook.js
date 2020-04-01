@@ -50,11 +50,6 @@ const HomeCookBook = props => {
                     key={index}
                     course={course}
                     navigation={props.navigation}
-                    style={{
-                        width: "100%",
-                        borderColor: "black",
-                        borderWidth: 2.0,
-                    }}
                 />
             ))}
         </View>
