@@ -9,9 +9,20 @@ module.exports = StyleSheet.create({
         fontSize: theme.REGULAR_FONT_SIZE,
         fontFamily: theme.REGULAR_FONT_FAMILY,
     },
+    ingredientContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 12,
+    },
     ingredientText: {
         color: theme.DARK_FONT_COLOR,
         fontSize: theme.REGULAR_FONT_SIZE,
         fontFamily: theme.REGULAR_FONT_FAMILY,
+    },
+    addButton: {
+        marginRight: 14,
+    },
+    deleteButton: {
+        marginLeft: "auto",
     },
 });

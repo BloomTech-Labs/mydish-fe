@@ -40,21 +40,28 @@ const SuggestedIngredients = ({ recipe, setRecipe }) => {
                     {suggestedIngredients.map((ing, i) => {
                         if (i < 5) {
                             return (
-                                <View key={i}>
-                                    <Add
-                                        submit={() => {
-                                            addIngredient(ing);
-                                            dispatch(deleteIngredient(ing));
-                                        }}
-                                    />
+                                <View
+                                    style={styles.ingredientContainer}
+                                    key={i}
+                                >
+                                    <View style={styles.addButton}>
+                                        <Add
+                                            submit={() => {
+                                                addIngredient(ing);
+                                                dispatch(deleteIngredient(ing));
+                                            }}
+                                        />
+                                    </View>
                                     <Text style={styles.ingredientText}>
                                         {ing}
                                     </Text>
-                                    <Delete
-                                        action={() =>
-                                            dispatch(deleteIngredient(ing))
-                                        }
-                                    />
+                                    <View style={styles.deleteButton}>
+                                        <Delete
+                                            action={() =>
+                                                dispatch(deleteIngredient(ing))
+                                            }
+                                        />
+                                    </View>
                                 </View>
                             );
                         }
