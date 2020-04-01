@@ -3,7 +3,6 @@ import {
     View,
     Text,
     ScrollView,
-    Image,
     SafeAreaView,
     AsyncStorage,
     TouchableOpacity,
@@ -33,6 +32,7 @@ import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
 import { savedPlaceholder } from "../constants/imagePlaceholders";
 import { maxUsername } from "../constants/maxLength";
+import { logoHeaderPlain } from "./header/navigationHeader";
 import Tab from "./Tab";
 import CreateRecipeForm from "./CreateRecipeForm";
 import VersionHistoryList from "./VersionHistoryList";
@@ -57,7 +57,6 @@ function IndividualRecipe(props) {
     const isLoading = useSelector(state => state.singleRecipe.isLoading);
     const successAlert = useSelector(state => state.singleRecipe.successAlert);
     const versionsList = useSelector(state => state.versionsList.versionsList);
-
     const editMode = useSelector(state => state.singleRecipe.editMode);
 
     //Anytime someone navigations to here - it has ID, we could just also pass another value
@@ -105,9 +104,6 @@ function IndividualRecipe(props) {
             didBlurSubscription.remove();
         };
     }, []);
-
-    // console.log("NAVIGATION", props.navigation);
-    // console.log("DANGEROUS PARENT OH NO", Object.keys(navigationChildRoutes));
 
     useEffect(() => {
         if (successAlert) {
@@ -468,11 +464,6 @@ function IndividualRecipe(props) {
     return editMode ? editableRecipeDisplay() : nonEditableRecipeDisplay();
 }
 
-IndividualRecipe.navigationOptions = {
-    headerTitle: <RecipeShareLogo />,
-    headerStyle: {
-        backgroundColor: theme.NAV_BAR_BACKGROUND_COLOR,
-    },
-};
+IndividualRecipe.navigationOptions = logoHeaderPlain;
 
 export default IndividualRecipe;
