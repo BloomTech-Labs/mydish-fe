@@ -12,13 +12,10 @@ const Add = props => {
                 onPress={submit}
                 style={{ flexDirection: "row", alignItems: "center" }}
             >
-                <Image
-                    source={add}
-                    style={{ width: 20, height: 20, marginLeft: 16 }}
-                />
+                <Image source={add} style={{ width: 20, height: 20 }} />
                 <Text
                     style={{
-                        color: theme.DARK_FONT_COLOR,
+                        color: theme.DARK_GREY_FONT_COLOR,
                         fontSize: theme.REGULAR_FONT_SIZE,
                         marginLeft: 5,
                     }}

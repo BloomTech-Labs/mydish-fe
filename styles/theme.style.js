@@ -44,6 +44,7 @@ export default {
     SEMI_BOLD_FONT_FAMILY: "nunito sans semi-bold",
     REGULAR_FONT_SIZE: regularFontSize,
     SMALL_FONT_SIZE: 12,
+    MEDIUM_FONT_SIZE: 18,
     LARGE_FONT_SIZE: 24,
     REGULAR_FONT_WEIGHT: "normal",
     REGULAR_FONT: {

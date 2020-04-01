@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import { TextInput, View, Button, Text } from "react-native";
+import { TextInput, View } from "react-native";
 import { useDispatch } from "react-redux";
 import {
-    addIngredient,
     editIngred,
     deleteIngredient,
 } from "../store/singleRecipe/singleRecipeActions";
@@ -10,14 +9,7 @@ import Picker from "./Picker";
 import XDeleteButton from "./XDeleteButton";
 import theme from "../styles/theme.style";
 
-const Ingredient = ({
-    recipeIng,
-    removeIng,
-    index,
-    setRecipe,
-    stopAdding,
-    parent,
-}) => {
+const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
     const nameInput = useRef(null);
     const quantityInput = useRef(null);
 
