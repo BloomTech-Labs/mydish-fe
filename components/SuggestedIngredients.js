@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import styles from "../styles/ingredientPredictionStyles";
 
 const SuggestedIngredients = () => {
@@ -16,9 +16,11 @@ const SuggestedIngredients = () => {
                     {suggestedIngredients.map((ing, i) => {
                         if (i < 5) {
                             return (
-                                <Text key={i} style={styles.ingredientText}>
-                                    {ing}
-                                </Text>
+                                <TouchableOpacity key={i}>
+                                    <Text style={styles.ingredientText}>
+                                        {ing}
+                                    </Text>
+                                </TouchableOpacity>
                             );
                         }
                     })}
