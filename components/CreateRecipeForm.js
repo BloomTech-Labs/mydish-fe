@@ -96,19 +96,21 @@ function CreateRecipeForm({
     const addIng = () => {
         const newIng = { name: "", quantity: "", units: "" };
         const ingObj = {};
+        const ingredients = recipe.ingredients;
         /* The Ingredient Prediction API returns an error if passed more than 10 ingredients.
         The loop below creates an ingObj that includes (at most) the last 10 ingredients 
         entered by the user. */
         for (
-            let i = recipe.ingredients.length - 1, j = 0;
+            let i = ingredients.length - 1, j = 0;
             i >= 0 && j < 10;
             i--, j++
         ) {
-            Object.defineProperty(ingObj, i + 1, {
-                value: recipe.ingredients[i].name.toLowerCase(),
-                writable: true,
-                enumerable: true,
-            });
+            // Object.defineProperty(ingObj, i + 1, {
+            //     value: recipe.ingredients[i].name.toLowerCase(),
+            //     writable: true,
+            //     enumerable: true,
+            // });
+            ingObj[(i + 1).toString()] = ingredients[i].name.toLowerCase();
         }
         console.log(ingObj);
         savedRecipe
