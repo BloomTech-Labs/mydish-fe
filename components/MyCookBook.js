@@ -38,25 +38,31 @@ const MyCookBook = ({ navigation }) => {
     const addRecipePress = () => navigation.navigate("Create");
 
     const cookbookHeadText = () => (
-        <Text style={styles.cookbookHeadText}>My Cookbook</Text>
+        <View style={styles.cookbookHeadContainer}>
+            <Text style={styles.cookbookHeadText}>My Cookbook</Text>
+            <TouchableOpacity
+                onPress={addRecipePress}
+                style={styles.addRecipeButton}
+            >
+                <Text style={styles.addRecipeButtonText}>Add recipe</Text>
+            </TouchableOpacity>
+        </View>
     );
 
-    const noCookbookRecipes = () => {
-        return (
-            <View style={styles.noRecipeCookbookContainer}>
-                {cookbookHeadText()}
-                <Text style={styles.noRecipes}>
-                    You don't have any recipes saved yet.
-                </Text>
-                <TouchableOpacity
-                    onPress={addRecipePress}
-                    style={styles.addRecipeButton}
-                >
-                    <Text style={styles.addRecipeButtonText}>Add recipe</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    };
+    const noCookbookRecipes = () => (
+        <View style={styles.noRecipeCookbookContainer}>
+            {cookbookHeadText()}
+            <Text style={styles.noRecipes}>
+                You don't have any recipes saved yet.
+            </Text>
+            <TouchableOpacity
+                onPress={addRecipePress}
+                style={styles.addRecipeButton}
+            >
+                <Text style={styles.addRecipeButtonText}>Add recipe</Text>
+            </TouchableOpacity>
+        </View>
+    );
 
     if (loading) return <FancySpinner />;
     if (!loading && allCookbookRecipes.length === 0) return noCookbookRecipes();
