@@ -30,11 +30,20 @@ analytics
     .catch(e => console.log(e.message));
 
 const HomePage = ({ navigation }) => {
+    const dispatch = useDispatch();
+    const [hasToken, setHasToken] = useState();
     let [dish, setDish] = useState("");
     const profile = useSelector(state => state.navigation.profileOpen);
     const search = useSelector(state => state.navigation.search.homepage);
 
-    const dispatch = useDispatch();
+    const _bootstrapAsync = async () => {
+        const userToken = await AsyncStorage.getItem("userToken");
+        userToken ? setHasToken(true) : setHasToken(false);
+    };
+
+    useEffect(() => {
+        _bootstrapAsync();
+    }, []);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -62,7 +71,7 @@ const HomePage = ({ navigation }) => {
             <View>
                 {search && <Search setDish={setDish} dish={dish} />}
                 <ScrollView>
-                    {!search && (
+                    {!search && hasToken && (
                         <>
                             <Text style={styles.heading}>Cookbook</Text>
                             <HomeCookBook />
