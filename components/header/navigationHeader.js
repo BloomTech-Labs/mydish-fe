@@ -17,5 +17,5 @@ export const logoHeaderPlain = {
 
 export const cookbookHeaderOptions = {
     headerTitle,
-    headerRight: <SearchButton cookbook={"cookbook"} />,
+    // headerRight: <SearchButton cookbook={"cookbook"} />,
 };
