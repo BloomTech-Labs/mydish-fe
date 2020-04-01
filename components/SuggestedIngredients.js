@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Text, View, TouchableOpacity } from "react-native";
+import Add from "./Add";
+import Delete from "./XDeleteButton";
 import { deleteIngredient } from "../store/ingredientPrediction/ingredientPredictionActions";
 import styles from "../styles/ingredientPredictionStyles";
 
@@ -38,17 +40,22 @@ const SuggestedIngredients = ({ recipe, setRecipe }) => {
                     {suggestedIngredients.map((ing, i) => {
                         if (i < 5) {
                             return (
-                                <TouchableOpacity
-                                    key={i}
-                                    onPress={() => {
-                                        addIngredient(ing);
-                                        dispatch(deleteIngredient(ing));
-                                    }}
-                                >
+                                <View key={i}>
+                                    <Add
+                                        submit={() => {
+                                            addIngredient(ing);
+                                            dispatch(deleteIngredient(ing));
+                                        }}
+                                    />
                                     <Text style={styles.ingredientText}>
                                         {ing}
                                     </Text>
-                                </TouchableOpacity>
+                                    <Delete
+                                        action={() =>
+                                            dispatch(deleteIngredient(ing))
+                                        }
+                                    />
+                                </View>
                             );
                         }
                     })}
