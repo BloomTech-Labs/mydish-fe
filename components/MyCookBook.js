@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 import { cookbookHeaderOptions } from "./header/navigationHeader";
 import styles from "../styles/recipe-styles";
 import { getAllCookbookRecipes } from "../store/cookbook/cookbookAction";
@@ -31,42 +31,52 @@ const MyCookBook = () => {
         }
         return categoryList;
     };
+    const categories = getAllCategories(allCookbookRecipes);
 
-    if (loading) {
-        return <FancySpinner />;
-    } else {
-        const categories = getAllCategories(allCookbookRecipes);
+    const noCookbookRecipes = () => {
         return (
-            <View style={{ maxWidth: "90%", marginLeft: "5%" }}>
-                <ScrollView style={{ paddingBottom: "10%" }}>
-                    {categories.map(tag => {
-                        return (
-                            <View key={tag}>
-                                <Text style={styles.heading}>{tag}</Text>
-                                {allCookbookRecipes
-                                    .filter(recipeToFilter => {
-                                        return (
-                                            recipeToFilter.tags[0].name === tag
-                                        );
-                                    })
-                                    .map(filteredRecipe => {
-                                        const id = filteredRecipe.id;
-                                        const tag = filteredRecipe.tags[0].name;
-                                        return (
-                                            <Recipe
-                                                key={`${id}.${tag}`}
-                                                recipe={filteredRecipe}
-                                                parent={"Cookbook"}
-                                            />
-                                        );
-                                    })}
-                            </View>
-                        );
-                    })}
-                </ScrollView>
+            <View style={styles.noRecipeCookbookContainer}>
+                <Text style={styles.noRecipes}>
+                    You don't have any recipes saved yet.
+                </Text>
+                <TouchableOpacity style={styles.addRecipeButton}>
+                    <Text style={styles.addRecipeButtonText}>Add recipe</Text>
+                </TouchableOpacity>
             </View>
         );
-    }
+    };
+
+    if (loading) return <FancySpinner />;
+    if (!loading && allCookbookRecipes.length === 0) return noCookbookRecipes();
+
+    return (
+        <View style={{ maxWidth: "90%", marginLeft: "5%" }}>
+            <ScrollView style={{ paddingBottom: "10%" }}>
+                {categories.map(tag => {
+                    return (
+                        <View key={tag}>
+                            <Text style={styles.heading}>{tag}</Text>
+                            {allCookbookRecipes
+                                .filter(recipeToFilter => {
+                                    return recipeToFilter.tags[0].name === tag;
+                                })
+                                .map(filteredRecipe => {
+                                    const id = filteredRecipe.id;
+                                    const tag = filteredRecipe.tags[0].name;
+                                    return (
+                                        <Recipe
+                                            key={`${id}.${tag}`}
+                                            recipe={filteredRecipe}
+                                            parent={"Cookbook"}
+                                        />
+                                    );
+                                })}
+                        </View>
+                    );
+                })}
+            </ScrollView>
+        </View>
+    );
 };
 
 export default MyCookBook;

@@ -4,25 +4,22 @@ import theme from "./theme.style";
 module.exports = StyleSheet.create({
     recipeContainer: {
         width: "50%",
-        paddingLeft: 5,
-        paddingRight: 5,
-        paddingTop: 5,
-        paddingBottom: 5,
+        padding: 5,
     },
     cookbookContainer: {
         maxWidth: "100%",
         width: "100%",
-        paddingLeft: 5,
-        paddingRight: 5,
-        paddingTop: 5,
-        paddingBottom: 5,
+        padding: 5,
         flexDirection: "row",
         flexWrap: "nowrap",
     },
     noRecipes: {
-        padding: 20,
+        fontSize: theme.LARGE_FONT_SIZE,
+        color: theme.DARK_FONT_COLOR,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        paddingHorizontal: 20,
         marginTop: "50%",
-        fontSize: 30,
+        marginBottom: 20,
         textAlign: "center",
     },
     text: {
@@ -63,6 +60,15 @@ module.exports = StyleSheet.create({
     },
     prep: {
         fontSize: 11,
+    },
+    addRecipeButton: {
+        ...theme.PRIMARY_BUTTON,
+    },
+    addRecipeButtonText: {
+        ...theme.PRIMARY_BUTTON_TEXT,
+    },
+    noRecipeCookbookContainer: {
+        alignItems: "center",
     },
     centered: { flex: 1, justifyContent: "center", alignItems: "center" },
     heading: {
