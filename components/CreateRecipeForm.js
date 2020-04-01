@@ -302,7 +302,10 @@ function CreateRecipeForm({
                             {savedRecipe ? (
                                 <></>
                             ) : (
-                                <SuggestedIngredients setRecipe={setRecipe} />
+                                <SuggestedIngredients
+                                    recipe={recipe}
+                                    setRecipe={setRecipe}
+                                />
                             )}
 
                             <Text
