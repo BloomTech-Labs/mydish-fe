@@ -2,41 +2,51 @@ import { StyleSheet } from "react-native";
 import theme from "./theme.style";
 
 module.exports = StyleSheet.create({
+    cookbookHeadText: {
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        fontSize: theme.LARGE_FONT_SIZE,
+        color: theme.DARK_GREY_FONT_COLOR,
+    },
     recipeContainer: {
         width: "50%",
-        paddingLeft: 5,
-        paddingRight: 5,
-        paddingTop: 5,
-        paddingBottom: 5,
+        padding: 5,
+    },
+    cookbookHeadContainer: {
+        marginTop: 19,
+        flexDirection: "row",
+        alignItems: "flex-start",
+        width: "100%",
+        justifyContent: "space-between",
     },
     cookbookContainer: {
         maxWidth: "100%",
         width: "100%",
-        paddingLeft: 5,
-        paddingRight: 5,
-        paddingTop: 5,
-        paddingBottom: 5,
         flexDirection: "row",
         flexWrap: "nowrap",
+        marginVertical: 5,
     },
     noRecipes: {
-        padding: 20,
-        marginTop: "50%",
-        fontSize: 30,
+        fontSize: theme.LARGE_FONT_SIZE,
+        color: theme.DARK_FONT_COLOR,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        marginTop: "60%",
+        marginBottom: 20,
         textAlign: "center",
     },
     text: {
         marginTop: "3%",
-        fontSize: 13,
-        fontWeight: "bold",
+        fontSize: 12,
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        color: theme.DARK_FONT_COLOR,
         textAlign: "left",
         width: "80%",
         maxWidth: "80%",
     },
     cookbookText: {
         marginLeft: 20,
-        fontSize: 13,
-        fontWeight: "bold",
+        fontSize: 12,
+        fontFamily: theme.BOLD_FONT_FAMILY,
+        color: theme.DARK_FONT_COLOR,
         textAlign: "left",
         width: "100%",
         maxWidth: "100%",
@@ -64,11 +74,21 @@ module.exports = StyleSheet.create({
     prep: {
         fontSize: 11,
     },
+    addRecipeButton: {
+        ...theme.PRIMARY_BUTTON,
+    },
+    addRecipeButtonText: {
+        ...theme.PRIMARY_BUTTON_TEXT,
+    },
+    noRecipeCookbookContainer: {
+        alignItems: "center",
+        marginHorizontal: 19,
+    },
     centered: { flex: 1, justifyContent: "center", alignItems: "center" },
     heading: {
-        fontSize: 24,
+        fontSize: theme.MEDIUM_FONT_SIZE,
         fontFamily: theme.BOLD_FONT_FAMILY,
-        color: theme.DARK_FONT_COLOR,
+        color: theme.DARK_GREY_FONT_COLOR,
         marginVertical: 10,
     },
 });
