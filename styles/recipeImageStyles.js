@@ -4,14 +4,14 @@ import theme from "../styles/theme.style";
 const styles = StyleSheet.create({
     imageContainer: {
         flex: 1,
-        height: 300,
+        height: 180,
         backgroundColor: "whitesmoke",
         alignItems: "center",
         justifyContent: "center",
     },
     image: {
-        height: "100%",
         width: "100%",
+        height: "100%",
         justifyContent: "flex-end",
         alignItems: "flex-end",
     },

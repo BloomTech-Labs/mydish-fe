@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Text, View } from "react-native";
+import styles from "../styles/ingredientPredictionStyles";
 
 const SuggestedIngredients = () => {
     const suggestedIngredients = useSelector(
@@ -8,18 +9,22 @@ const SuggestedIngredients = () => {
     );
 
     return (
-        <View>
+        <>
             {suggestedIngredients.length > 0 && (
                 <View>
-                    <Text>Suggested Ingredients</Text>
+                    <Text style={styles.headText}>Suggested Ingredients</Text>
                     {suggestedIngredients.map((ing, i) => {
                         if (i < 7) {
-                            return <Text key={i}>{ing}</Text>;
+                            return (
+                                <Text key={i} style={styles.ingredientText}>
+                                    {ing}
+                                </Text>
+                            );
                         }
                     })}
                 </View>
             )}
-        </View>
+        </>
     );
 };
 

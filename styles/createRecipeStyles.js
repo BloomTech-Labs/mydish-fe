@@ -6,14 +6,20 @@ const borderColor = theme.INPUT_BORDER_COLOR;
 
 const styles = StyleSheet.create({
     heading: {
-        fontSize: theme.REGULAR_FONT_SIZE,
-        fontWeight: "500",
-        color: "#363838",
+        // fontSize: theme.MEDIUM_FONT_SIZE,
+        // fontWeight: "500",
+        // color: theme.DARK_GREY_FONT_COLOR,
         marginTop: 12,
         marginBottom: 5,
         flexDirection: "row",
     },
-
+    headText: {
+        color: theme.DARK_GREY_FONT_COLOR,
+        fontSize: theme.MEDIUM_FONT_SIZE,
+    },
+    img: {
+        height: 180,
+    },
     errors: {
         color: theme.PRIMARY_COLOR,
         fontFamily: theme.SEMI_BOLD_FONT_FAMILY,

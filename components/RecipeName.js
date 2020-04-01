@@ -26,7 +26,7 @@ const RecipeName = ({ recipe, setRecipe, missing, parent }) => {
     return (
         <>
             <View style={styles.heading}>
-                <Text>Recipe Name</Text>
+                <Text style={styles.headText}>Title</Text>
                 {missing && <Text style={styles.missingAsterisk}>*</Text>}
             </View>
             <TextInput

@@ -21,9 +21,9 @@ function TimeInput({
 }) {
     const dispatch = useDispatch();
     return (
-        <View style={styles.timeContainer}>
+        <View>
             <View style={styles.heading}>
-                <Text>{title}</Text>
+                <Text style={styles.headText}>{title}</Text>
                 {errors.includes("prep_time and/or cook_time") && (
                     <Text style={styles.missingAsterisk}>*</Text>
                 )}

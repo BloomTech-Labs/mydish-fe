@@ -256,7 +256,7 @@ function CreateRecipeForm({
                                 />
                             </View>
                             <View style={styles.heading}>
-                                <Text>Course Type</Text>
+                                <Text style={styles.headText}>Course Type</Text>
                                 {errors.includes("tags") && (
                                     <Text style={styles.missingAsterisk}>
                                         *
@@ -282,7 +282,12 @@ function CreateRecipeForm({
                                     />
                                 ))}
                             </View>
-                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                            <Text
+                                style={{
+                                    ...styles.heading,
+                                    ...styles.headText,
+                                }}
+                            >
                                 Ingredients
                                 {errors.includes("ingredients") && (
                                     <Text style={styles.missingAsterisk}>
@@ -294,9 +299,14 @@ function CreateRecipeForm({
                             {addIngredients()}
                             <Add text="Add Ingredient" submit={addIng} />
 
-                            <SuggestedIngredients />
+                            {savedRecipe ? <></> : <SuggestedIngredients />}
 
-                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                            <Text
+                                style={{
+                                    ...styles.heading,
+                                    ...styles.headText,
+                                }}
+                            >
                                 Steps
                                 {errors.includes("instructions") && (
                                     <Text style={styles.missingAsterisk}>
@@ -308,7 +318,12 @@ function CreateRecipeForm({
                             {addInstructions()}
                             <Add text="Add Step" submit={addInstruction} />
 
-                            <Text style={{ ...styles.heading, marginTop: 20 }}>
+                            <Text
+                                style={{
+                                    ...styles.heading,
+                                    ...styles.headText,
+                                }}
+                            >
                                 Notes
                             </Text>
 

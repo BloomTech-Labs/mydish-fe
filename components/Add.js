@@ -18,7 +18,7 @@ const Add = props => {
                 />
                 <Text
                     style={{
-                        color: theme.DARK_FONT_COLOR,
+                        color: theme.DARK_GREY_FONT_COLOR,
                         fontSize: theme.REGULAR_FONT_SIZE,
                         marginLeft: 5,
                     }}
