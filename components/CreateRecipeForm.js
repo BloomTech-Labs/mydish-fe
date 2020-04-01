@@ -110,7 +110,7 @@ function CreateRecipeForm({
             //     writable: true,
             //     enumerable: true,
             // });
-            ingObj[(i + 1).toString()] = ingredients[i].name.toLowerCase();
+            ingObj[i + 1] = ingredients[i].name.toLowerCase();
         }
         console.log(ingObj);
         savedRecipe
