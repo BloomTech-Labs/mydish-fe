@@ -105,10 +105,8 @@ function CreateRecipeForm({
             i >= 0 && j < 10;
             i--, j++
         ) {
-            const name = ingredients[i].name
-                .replace(/\s|\n+/g, "")
-                .toLowerCase();
-            if (name) {
+            const name = ingredients[i].name.toLowerCase();
+            if (name.replace(/\s|\n+/g, "")) {
                 Object.defineProperty(ingObj, i + 1, {
                     value: name,
                     writable: true,
