@@ -2,6 +2,7 @@ import {
     START_FETCH_INGREDIENTS,
     FETCH_INGREDIENTS_SUCCESS,
     FETCH_INGREDIENTS_FAILURE,
+    DELETE_INGREDIENT,
 } from "./ingredientPredictionActions";
 
 const initState = {
@@ -32,6 +33,13 @@ export const ingredientPredictionReducer = (state = initState, action) => {
                 ingredients: [],
                 error: action.payload,
                 isLoading: false,
+            };
+        case DELETE_INGREDIENT:
+            return {
+                ...state,
+                ingredients: state.ingredients.filter(
+                    ing => ing !== action.payload,
+                ),
             };
         default:
             return state;
