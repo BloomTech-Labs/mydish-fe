@@ -14,7 +14,7 @@ const SuggestedIngredients = () => {
                 <View>
                     <Text style={styles.headText}>Suggested Ingredients</Text>
                     {suggestedIngredients.map((ing, i) => {
-                        if (i < 7) {
+                        if (i < 5) {
                             return (
                                 <Text key={i} style={styles.ingredientText}>
                                     {ing}
