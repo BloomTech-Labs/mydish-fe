@@ -107,14 +107,13 @@ function CreateRecipeForm({
         ) {
             const name = ingredients[i].name.toLowerCase();
             if (name.replace(/\s|\n+/g, "")) {
-                Object.defineProperty(ingObj, i + 1, {
+                Object.defineProperty(ingObj, j + 1, {
                     value: name,
                     writable: true,
                     enumerable: true,
                 });
             }
         }
-        console.log(ingObj);
         savedRecipe
             ? dispatch(actions.addIngredient(newIng))
             : [
