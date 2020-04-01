@@ -299,7 +299,11 @@ function CreateRecipeForm({
                             {addIngredients()}
                             <Add text="Add Ingredient" submit={addIng} />
 
-                            {savedRecipe ? <></> : <SuggestedIngredients />}
+                            {savedRecipe ? (
+                                <></>
+                            ) : (
+                                <SuggestedIngredients setRecipe={setRecipe} />
+                            )}
 
                             <Text
                                 style={{
