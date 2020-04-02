@@ -103,7 +103,7 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                     }}
                     placeholder="Amount"
                     maxLength={3}
-                    keyboardType={"numeric"}
+                    keyboardType={"numbers-and-punctuation"}
                     onChangeText={qty =>
                         handleChange(
                             "quantity",
