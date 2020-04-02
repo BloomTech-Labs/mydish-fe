@@ -105,11 +105,15 @@ function CreateRecipeForm({
             i >= 0 && j < 10;
             i--, j++
         ) {
-            Object.defineProperty(ingObj, i + 1, {
-                value: ingredients[i].name.toLowerCase(),
-                writable: true,
-                enumerable: true,
-            });
+            const name = ingredients[i].name.toLowerCase();
+            if (name.replace(/\s|\t|\n+/g, "")) {
+                // Remove spaces, tabs, and newlines. Add to ingObj if it still has content.
+                Object.defineProperty(ingObj, j + 1, {
+                    value: name,
+                    writable: true,
+                    enumerable: true,
+                });
+            }
         }
         savedRecipe
             ? dispatch(actions.addIngredient(newIng))
@@ -118,7 +122,8 @@ function CreateRecipeForm({
                       ...oldRecipe,
                       ingredients: [...oldRecipe.ingredients, newIng],
                   })),
-                  dispatch(fetchIngredients(ingObj)),
+                  Object.keys(ingObj).length >= 3 &&
+                      dispatch(fetchIngredients(ingObj)),
               ];
     };
 
