@@ -18,3 +18,9 @@ export const fetchIngredients = ingredients => dispatch => {
             dispatch({ type: FETCH_INGREDIENTS_FAILURE, payload: err });
         });
 };
+
+export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
+export const deleteIngredient = name => ({
+    type: DELETE_INGREDIENT,
+    payload: name,
+});
