@@ -102,7 +102,7 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                         textAlign: "center",
                     }}
                     placeholder="Amount"
-                    maxLength={3}
+                    maxLength={5}
                     keyboardType={"numbers-and-punctuation"}
                     onChangeText={qty =>
                         handleChange(
