@@ -34,7 +34,7 @@ const Recipe = ({ navigation, recipe, parent }) => {
                 source={recipe.img ? { uri: recipe.img } : savedPlaceholder}
                 style={{
                     width: parent === "Cookbook" ? "38%" : "100%",
-                    height: parent === "Cookbook" ? 75 : 200,
+                    height: parent === "Cookbook" ? 75 : 130,
                     borderRadius: 5,
                 }}
             />
@@ -54,11 +54,9 @@ const Recipe = ({ navigation, recipe, parent }) => {
                         : styles.prepView
                 }
             >
-                {parent === "Cookbook" ? (
-                    <></>
-                ) : (
+                {!(parent === "Cookbook") && (
                     <>
-                        <Text style={styles.username}>
+                        <Text style={styles.prepAndUsername}>
                             {recipe.owner.username.length > maxUsername
                                 ? `${recipe.owner.username.slice(
                                       0,
@@ -66,7 +64,9 @@ const Recipe = ({ navigation, recipe, parent }) => {
                                   )}...`
                                 : recipe.owner.username}
                         </Text>
-                        <Text style={styles.prep}>{totalCookTime} min.</Text>
+                        <Text style={styles.prepAndUsername}>
+                            {totalCookTime} min.
+                        </Text>
                     </>
                 )}
             </View>

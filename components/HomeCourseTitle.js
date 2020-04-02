@@ -23,7 +23,7 @@ const HomeCourseTitle = props => {
                 source={{ uri: img }}
                 style={{
                     width: "100%",
-                    height: 95,
+                    height: 85,
                     borderRadius: 4,
                 }}
             />

@@ -14,7 +14,6 @@ import {
     profilePageToggle,
     searchHomepage,
 } from "../store/navigation/navigationActions";
-
 import Search from "./Search.js";
 import RecipeList from "./RecipeList.js";
 import HomeCookBook from "./HomeCookBook.js";
@@ -73,7 +72,7 @@ const HomePage = ({ navigation }) => {
                 <ScrollView>
                     {!search && hasToken && (
                         <>
-                            <Text style={styles.heading}>Cookbook</Text>
+                            <Text style={styles.heading}>My Cookbook</Text>
                             <HomeCookBook />
                             <Text style={styles.heading}>All Recipes</Text>
                         </>
