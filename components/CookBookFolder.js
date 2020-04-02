@@ -6,6 +6,7 @@ import styles from "../styles/recipe-styles";
 import FancySpinner from "./FancySpinner";
 import RecipeList from "./RecipeList";
 import AddRecipeButton from "./AddRecipeButton";
+import { logoHeaderPlain } from "./header/navigationHeader";
 
 const CookBookFolder = props => {
     const dispatch = useDispatch();
@@ -21,28 +22,26 @@ const CookBookFolder = props => {
         return <FancySpinner />;
     } else {
         return (
-            <View
-                style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginHorizontal: 16,
-                    marginVertical: 5,
-                }}
-            >
-                {folder.length ? (
-                    <RecipeList folder={folder} parent="cookbook" />
-                ) : (
-                    <View style={styles.noRecipeCookbookContainer}>
-                        <Text style={styles.noRecipes}>
-                            You don't have any recipes in this section of your
-                            Cookbook yet.
-                        </Text>
-                        <AddRecipeButton navigation={props.navigation} />
-                    </View>
-                )}
+            <View style={styles.cookbookFolderContainer}>
+                <Text style={styles.folderHeadText}>{course}</Text>
+                <View style={styles.cookbookFolderRecipeList}>
+                    {folder.length ? (
+                        <RecipeList folder={folder} parent="cookbook" />
+                    ) : (
+                        <View style={styles.noRecipeCookbookContainer}>
+                            <Text style={styles.noRecipes}>
+                                You don't have any {course} recipes in your
+                                Cookbook yet.
+                            </Text>
+                            <AddRecipeButton navigation={props.navigation} />
+                        </View>
+                    )}
+                </View>
             </View>
         );
     }
 };
+
+CookBookFolder.navigationOptions = logoHeaderPlain;
 
 export default CookBookFolder;

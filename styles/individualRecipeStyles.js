@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        height: 300,
+        height: 220,
         resizeMode: "cover",
         flexDirection: "row",
     },

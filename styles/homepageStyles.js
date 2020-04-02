@@ -6,9 +6,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     heading: {
-        fontSize: 24,
+        fontSize: theme.LARGE_FONT_SIZE,
         fontFamily: theme.BOLD_FONT_FAMILY,
-        color: theme.DARK_FONT_COLOR,
+        color: theme.DARK_GREY_FONT_COLOR,
         marginVertical: 10,
     },
 });

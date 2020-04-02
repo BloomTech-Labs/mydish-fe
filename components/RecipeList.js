@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Recipe from "./Recipe";
-import { View, StyleSheet, FlatList } from "react-native";
-import theme from "../styles/theme.style";
+import { View, FlatList } from "react-native";
 import FancySpinner from "./FancySpinner";
 
 const RecipeList = ({ parent, folder }) => {
@@ -17,16 +16,10 @@ const RecipeList = ({ parent, folder }) => {
             ? folder
             : useSelector(store => store.allRecipes.recipeList);
 
-    // TODO: Talk with backend - If we can get each recipe to have an
-    //       extra property called "forkCount", we can pass the forkCount
-    //       down to the <Recipe/> component. This could help the user see
-    //       how many times a recipe has been forked '' '
+    if (isLoading) return <FancySpinner />;
 
-    if (isLoading) {
-        return <FancySpinner />;
-    }
     return (
-        <View style={styles.container}>
+        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {recipeList.length !== 0 && (
                 <FlatList
                     contentContainerStyle={{ paddingBottom: 150 }}
@@ -41,13 +34,5 @@ const RecipeList = ({ parent, folder }) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-    },
-    centered: { flex: 1, justifyContent: "center", alignItems: "center" },
-});
 
 export default RecipeList;
