@@ -107,7 +107,9 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                     onChangeText={qty =>
                         handleChange(
                             "quantity",
-                            isNaN(Number(qty)) ? ingredient.quantity : qty,
+                            qty.replace(/[0-9 ./,-]/g, "")
+                                ? ingredient.quantity
+                                : qty,
                         )
                     }
                     returnKeyType="done"
