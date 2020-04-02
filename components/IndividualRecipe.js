@@ -65,8 +65,6 @@ function IndividualRecipe(props) {
         "revisionID",
         "revisionId not passed",
     );
-    const navigationChildRoutes = props.navigation.dangerouslyGetParent().router
-        .childRouters;
 
     const loadRecipe = async () => {
         try {
@@ -187,14 +185,6 @@ function IndividualRecipe(props) {
                             dispatch(deleteRecipe(recipe.id));
                             dispatch(deleteCookbookRecipe(recipe.id));
                             dispatch(resetRecipe());
-                            props.navigation.pop();
-                            if (
-                                Object.keys(navigationChildRoutes).includes(
-                                    "Home",
-                                )
-                            )
-                                props.navigation.navigate("CookBook");
-                            else props.navigation.navigate("Home");
                             props.navigation.pop();
                         },
                     },
