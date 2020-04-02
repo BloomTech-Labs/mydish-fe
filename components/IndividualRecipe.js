@@ -210,20 +210,16 @@ function IndividualRecipe(props) {
         return time !== null && time !== 0 && time !== "";
     };
 
-    if (isLoading) {
-        return <FancySpinner />;
-    }
+    if (isLoading) return <FancySpinner />;
 
-    const editableRecipeDisplay = () => {
-        return (
-            <CreateRecipeForm
-                navigation={props.navigation}
-                savedRecipe={true}
-                cancelButtonEditedRecipe={cancelButtonEditedRecipe}
-                saveButtonEditedRecipe={saveButtonEditedRecipe}
-            />
-        );
-    };
+    const editableRecipeDisplay = () => (
+        <CreateRecipeForm
+            navigation={props.navigation}
+            savedRecipe={true}
+            cancelButtonEditedRecipe={cancelButtonEditedRecipe}
+            saveButtonEditedRecipe={saveButtonEditedRecipe}
+        />
+    );
 
     const nonEditableRecipeDisplay = () => {
         return (
