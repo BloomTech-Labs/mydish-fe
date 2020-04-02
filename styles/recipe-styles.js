@@ -1,11 +1,31 @@
 import { StyleSheet } from "react-native";
 import theme from "./theme.style";
 
+const headText = {
+    fontFamily: theme.BOLD_FONT_FAMILY,
+    fontSize: theme.LARGE_FONT_SIZE,
+    color: theme.DARK_GREY_FONT_COLOR,
+};
+
+const containerMargins = {
+    marginHorizontal: theme.MARGIN_SIDE_STANDARD,
+};
+
 module.exports = StyleSheet.create({
     cookbookHeadText: {
-        fontFamily: theme.BOLD_FONT_FAMILY,
-        fontSize: theme.LARGE_FONT_SIZE,
-        color: theme.DARK_GREY_FONT_COLOR,
+        ...headText,
+    },
+    folderHeadText: {
+        ...headText,
+        margin: 5,
+        marginTop: 15,
+    },
+    cookbookFolderContainer: {
+        ...containerMargins,
+    },
+    cookbookFolderRecipeList: {
+        alignItems: "center",
+        justifyContent: "center",
     },
     recipeContainer: {
         width: "50%",
@@ -34,13 +54,13 @@ module.exports = StyleSheet.create({
         textAlign: "center",
     },
     text: {
-        marginTop: "3%",
-        fontSize: 12,
-        fontFamily: theme.BOLD_FONT_FAMILY,
-        color: theme.DARK_FONT_COLOR,
+        marginTop: 5,
+        fontSize: 18,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        color: theme.DARK_GREY_FONT_COLOR,
         textAlign: "left",
-        width: "80%",
-        maxWidth: "80%",
+        width: "95%",
+        maxWidth: "95%",
     },
     cookbookText: {
         marginLeft: 20,
@@ -50,9 +70,6 @@ module.exports = StyleSheet.create({
         textAlign: "left",
         width: "100%",
         maxWidth: "100%",
-    },
-    username: {
-        fontSize: 11,
     },
     usercardTxt: {
         flexDirection: "row",
@@ -71,8 +88,10 @@ module.exports = StyleSheet.create({
         justifyContent: "space-between",
         width: "80%",
     },
-    prep: {
+    prepAndUsername: {
         fontSize: 11,
+        fontFamily: theme.REGULAR_FONT_FAMILY,
+        color: theme.DARK_FONT_COLOR,
     },
     addRecipeButton: {
         ...theme.PRIMARY_BUTTON,
