@@ -36,13 +36,13 @@ function TimeInput({
                 placeholder="minutes"
                 keyboardType={"numeric"}
                 onChangeText={min => {
-                    if (min !== "" && (isNaN(Number(min)) || Number(min) === 0))
-                        return;
+                    const minutes = Number(min);
+                    if (min !== "" && (isNaN(minutes) || minutes === 0)) return;
                     if (savedRecipe) {
                         if (type === "prep_time") {
-                            dispatch(editPreptime(min));
+                            dispatch(editPreptime(minutes));
                         } else if (type === "cook_time") {
-                            dispatch(editCooktime(min));
+                            dispatch(editCooktime(minutes));
                         }
                     } else {
                         setRecipe({
