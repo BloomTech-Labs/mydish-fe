@@ -40,7 +40,6 @@ import DisplayRecipeIngredient from "./DisplayRecipeComponents/DisplayRecipeIngr
 import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeInstruction";
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
-import RecipeShareLogo from "./RecipeShareLogo";
 import FancySpinner from "./FancySpinner";
 
 function IndividualRecipe(props) {
