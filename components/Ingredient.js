@@ -108,6 +108,7 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                         ...(highlighted.quantity && styles.highlighted),
                     }}
                     placeholder="Amount"
+                    autoCapitalize="none"
                     maxLength={5}
                     keyboardType={"numbers-and-punctuation"}
                     onChangeText={qty =>
@@ -130,8 +131,9 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                         ...styles.units,
                         ...(highlighted.units && styles.highlighted),
                     }}
-                    maxLength={11}
                     placeholder="Units"
+                    autoCapitalize="none"
+                    maxLength={11}
                     onChangeText={event => handleChange("units", event)}
                     value={ingredient.units}
                     onFocus={() => setHighlighted({ units: true })}
@@ -159,6 +161,7 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                     multiline
                     maxLength={44}
                     placeholder="Ingredient Name"
+                    autoCapitalize="none"
                     onChangeText={event => handleChange("name", event)}
                     value={ingredient.name}
                     onFocus={() => setHighlighted({ name: true })}
