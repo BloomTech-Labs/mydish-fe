@@ -79,29 +79,9 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
 
     return (
         <View>
-            <View
-                // style={{
-                //     marginBottom: 12,
-                //     flexDirection: "row",
-                //     justifyContent: "space-between",
-                //     alignItems: "flex-start",
-                // }}
-                style={styles.container}
-            >
+            <View style={styles.container}>
                 <TextInput
                     ref={quantityInput}
-                    // style={{
-                    //     height: theme.INPUT_HEIGHT,
-                    //     width: "20%",
-                    //     paddingLeft: 10,
-                    //     paddingRight: 10,
-                    //     borderWidth: theme.INPUT_BORDER_WIDTH,
-                    //     borderColor: highlighted.quantity
-                    //         ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
-                    //         : theme.INPUT_BORDER_COLOR,
-                    //     borderRadius: theme.INPUT_BORDER_RADIUS,
-                    //     textAlign: "center",
-                    // }}
                     style={{
                         ...styles.input,
                         ...styles.quantity,
@@ -119,10 +99,11 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                                 : qty,
                         )
                     }
-                    returnKeyType="done"
                     value={ingredient.quantity.toString()}
                     onFocus={() => setHighlighted({ quantity: true })}
                     onBlur={() => setHighlighted({ quantity: false })}
+                    returnKeyType="next"
+                    onSubmitEditing={() => unitInput.current.focus()}
                 />
                 <TextInput
                     ref={unitInput}
@@ -138,21 +119,11 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                     value={ingredient.units}
                     onFocus={() => setHighlighted({ units: true })}
                     onBlur={() => setHighlighted({ units: false })}
+                    returnKeyType="next"
+                    onSubmitEditing={() => nameInput.current.focus()}
                 />
                 <TextInput
                     ref={nameInput}
-                    // style={{
-                    //     minHeight: theme.INPUT_HEIGHT,
-                    //     width: "40%",
-                    //     borderWidth: theme.INPUT_BORDER_WIDTH,
-                    //     borderColor: highlighted.name
-                    //         ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
-                    //         : theme.INPUT_BORDER_COLOR,
-                    //     borderRadius: theme.INPUT_BORDER_RADIUS,
-                    //     textAlign: "left",
-                    //     paddingLeft: 12,
-                    //     paddingBottom: 5,
-                    // }}
                     style={{
                         ...styles.input,
                         ...styles.name,
@@ -166,6 +137,7 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                     value={ingredient.name}
                     onFocus={() => setHighlighted({ name: true })}
                     onBlur={() => setHighlighted({ name: false })}
+                    returnKeyType="next"
                 />
 
                 <XDeleteButton
