@@ -8,6 +8,12 @@ module.exports = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "flex-start",
     },
+    inputContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        width: "90%",
+    },
     input: {
         height: theme.INPUT_HEIGHT,
         paddingHorizontal: 10,
@@ -23,7 +29,7 @@ module.exports = StyleSheet.create({
     name: {
         height: "auto",
         minHeight: theme.INPUT_HEIGHT,
-        width: "40%",
+        width: "45%",
         paddingBottom: 5,
     },
     highlighted: { borderColor: theme.INPUT_BORDER_HIGHLIGHT_COLOR },
