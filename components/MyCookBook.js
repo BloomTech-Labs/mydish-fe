@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView, Text, SafeAreaView } from "react-native";
 import { withNavigation } from "react-navigation";
 import { cookbookHeaderOptions } from "./header/navigationHeader";
 import { getAllCookbookRecipes } from "../store/cookbook/cookbookAction";
@@ -56,9 +56,14 @@ const MyCookBook = ({ navigation }) => {
     if (!loading && allCookbookRecipes.length === 0) return noCookbookRecipes();
 
     return (
-        <View style={{ maxWidth: "90%", marginLeft: "5%" }}>
+        <SafeAreaView
+            style={{
+                maxWidth: "90%",
+                marginHorizontal: 16,
+            }}
+        >
             {cookbookHeadText()}
-            <ScrollView style={{ paddingBottom: "10%" }}>
+            <ScrollView>
                 {categories.map(tag => {
                     return (
                         <View key={tag}>
@@ -81,8 +86,9 @@ const MyCookBook = ({ navigation }) => {
                         </View>
                     );
                 })}
+                <View style={{ height: 200 }} />
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
 };
 
