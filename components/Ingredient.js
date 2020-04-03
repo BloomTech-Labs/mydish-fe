@@ -5,9 +5,8 @@ import {
     editIngred,
     deleteIngredient,
 } from "../store/singleRecipe/singleRecipeActions";
-import Picker from "./Picker";
 import XDeleteButton from "./XDeleteButton";
-import theme from "../styles/theme.style";
+import styles from "../styles/ingredientStyles";
 
 const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
     const quantityInput = useRef(null);
