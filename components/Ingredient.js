@@ -10,8 +10,9 @@ import XDeleteButton from "./XDeleteButton";
 import theme from "../styles/theme.style";
 
 const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
-    const nameInput = useRef(null);
     const quantityInput = useRef(null);
+    const unitInput = useRef(null);
+    const nameInput = useRef(null);
 
     const dispatch = useDispatch();
 
@@ -117,11 +118,14 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                     onFocus={() => setHighlighted({ quantity: true })}
                     onBlur={() => setHighlighted({ quantity: false })}
                 />
-
-                <Picker
-                    handleChange={handleChange}
-                    unit={ingredient.units}
-                    highlighted={highlighted}
+                <TextInput
+                    ref={unitInput}
+                    maxLength={8}
+                    placeholder="Units"
+                    onChangeText={event => handleChange("units", event)}
+                    value={ingredient.units}
+                    onFocus={() => setHighlighted({ units: true })}
+                    onBlur={() => setHighlighted({ units: false })}
                 />
                 <TextInput
                     ref={nameInput}
