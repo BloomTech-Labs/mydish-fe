@@ -18,8 +18,8 @@ module.exports = StyleSheet.create({
         fontFamily: theme.REGULAR_FONT_FAMILY,
         fontSize: 16,
     },
-    quantity: { width: "20%" },
-    units: { width: "30%" },
+    quantity: { width: "25%" },
+    units: { width: "25%" },
     name: {
         height: "auto",
         minHeight: theme.INPUT_HEIGHT,
