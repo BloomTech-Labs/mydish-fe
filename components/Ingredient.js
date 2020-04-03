@@ -5,13 +5,13 @@ import {
     editIngred,
     deleteIngredient,
 } from "../store/singleRecipe/singleRecipeActions";
-import Picker from "./Picker";
 import XDeleteButton from "./XDeleteButton";
-import theme from "../styles/theme.style";
+import styles from "../styles/ingredientStyles";
 
 const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
-    const nameInput = useRef(null);
     const quantityInput = useRef(null);
+    const unitInput = useRef(null);
+    const nameInput = useRef(null);
 
     const dispatch = useDispatch();
 
@@ -79,72 +79,67 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
 
     return (
         <View>
-            <View
-                style={{
-                    marginBottom: 12,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                }}
-            >
-                <TextInput
-                    ref={quantityInput}
-                    style={{
-                        height: theme.INPUT_HEIGHT,
-                        width: "20%",
-                        paddingLeft: 10,
-                        paddingRight: 10,
-                        borderWidth: theme.INPUT_BORDER_WIDTH,
-                        borderColor: highlighted.quantity
-                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
-                            : theme.INPUT_BORDER_COLOR,
-                        borderRadius: theme.INPUT_BORDER_RADIUS,
-                        textAlign: "center",
-                    }}
-                    placeholder="Amount"
-                    maxLength={5}
-                    keyboardType={"numbers-and-punctuation"}
-                    onChangeText={qty =>
-                        handleChange(
-                            "quantity",
-                            qty.replace(/[0-9 ./,-]/g, "")
-                                ? ingredient.quantity
-                                : qty,
-                        )
-                    }
-                    returnKeyType="done"
-                    value={ingredient.quantity.toString()}
-                    onFocus={() => setHighlighted({ quantity: true })}
-                    onBlur={() => setHighlighted({ quantity: false })}
-                />
-
-                <Picker
-                    handleChange={handleChange}
-                    unit={ingredient.units}
-                    highlighted={highlighted}
-                />
-                <TextInput
-                    ref={nameInput}
-                    style={{
-                        minHeight: theme.INPUT_HEIGHT,
-                        width: "40%",
-                        borderWidth: theme.INPUT_BORDER_WIDTH,
-                        borderColor: highlighted.name
-                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
-                            : theme.INPUT_BORDER_COLOR,
-                        borderRadius: theme.INPUT_BORDER_RADIUS,
-                        textAlign: "left",
-                        paddingLeft: 12,
-                        paddingBottom: 5,
-                    }}
-                    multiline
-                    maxLength={44}
-                    placeholder="Ingredient Name"
-                    onChangeText={event => handleChange("name", event)}
-                    value={ingredient.name}
-                    onFocus={() => setHighlighted({ name: true })}
-                    onBlur={() => setHighlighted({ name: false })}
-                />
+            <View style={styles.container}>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        ref={quantityInput}
+                        style={{
+                            ...styles.input,
+                            ...styles.quantity,
+                            ...(highlighted.quantity && styles.highlighted),
+                        }}
+                        placeholder="Amount"
+                        autoCapitalize="none"
+                        maxLength={5}
+                        keyboardType={"numbers-and-punctuation"}
+                        onChangeText={qty =>
+                            handleChange(
+                                "quantity",
+                                qty.replace(/[0-9 ./,-]/g, "")
+                                    ? ingredient.quantity
+                                    : qty,
+                            )
+                        }
+                        value={ingredient.quantity.toString()}
+                        onFocus={() => setHighlighted({ quantity: true })}
+                        onBlur={() => setHighlighted({ quantity: false })}
+                        returnKeyType="next"
+                        onSubmitEditing={() => unitInput.current.focus()}
+                    />
+                    <TextInput
+                        ref={unitInput}
+                        style={{
+                            ...styles.input,
+                            ...styles.units,
+                            ...(highlighted.units && styles.highlighted),
+                        }}
+                        placeholder="Units"
+                        autoCapitalize="none"
+                        maxLength={11}
+                        onChangeText={event => handleChange("units", event)}
+                        value={ingredient.units}
+                        onFocus={() => setHighlighted({ units: true })}
+                        onBlur={() => setHighlighted({ units: false })}
+                        returnKeyType="next"
+                        onSubmitEditing={() => nameInput.current.focus()}
+                    />
+                    <TextInput
+                        ref={nameInput}
+                        style={{
+                            ...styles.input,
+                            ...styles.name,
+                            ...(highlighted.name && styles.highlighted),
+                        }}
+                        multiline
+                        maxLength={44}
+                        placeholder="Ingredient Name"
+                        autoCapitalize="none"
+                        onChangeText={event => handleChange("name", event)}
+                        value={ingredient.name}
+                        onFocus={() => setHighlighted({ name: true })}
+                        onBlur={() => setHighlighted({ name: false })}
+                    />
+                </View>
 
                 <XDeleteButton
                     parent="ingredient"

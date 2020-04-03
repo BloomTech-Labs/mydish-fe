@@ -125,7 +125,8 @@ const styles = StyleSheet.create({
     notesContainer: {
         flexGrow: 1,
         minHeight: theme.INPUT_HEIGHT,
-        padding: 12,
+        paddingHorizontal: 10,
+        paddingTop: 10,
         borderWidth: theme.INPUT_BORDER_WIDTH,
         borderColor: theme.INPUT_BORDER_COLOR,
         borderRadius: theme.INPUT_BORDER_RADIUS,

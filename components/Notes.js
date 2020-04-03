@@ -46,7 +46,8 @@ const Notes = ({ index, removeNote, note, id, setRecipe, parent }) => {
                         : styles.notesContainer
                 }
                 placeholder="Add Notes"
-                multiline={true}
+                multiline
+                textAlignVertical="top"
                 maxLength={maxNote}
                 onChangeText={changeHandler}
                 value={note}

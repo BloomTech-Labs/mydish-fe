@@ -59,7 +59,7 @@ const Instruction = ({
                     style={{
                         maxWidth: "90%",
                         width: "90%",
-                        padding: 8,
+                        padding: 10,
                         borderWidth: theme.INPUT_BORDER_WIDTH,
                         borderColor: highlighted
                             ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
@@ -67,8 +67,9 @@ const Instruction = ({
                         borderRadius: theme.INPUT_BORDER_RADIUS,
                         minHeight: 120,
                     }}
-                    placeholder=" Add step"
+                    placeholder="Add step"
                     multiline
+                    textAlignVertical="top"
                     maxLength={maxInstruction}
                     onChangeText={handleChange}
                     value={instruction}
