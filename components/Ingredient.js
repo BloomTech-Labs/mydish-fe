@@ -130,7 +130,7 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                         ...styles.units,
                         ...(highlighted.units && styles.highlighted),
                     }}
-                    maxLength={8}
+                    maxLength={11}
                     placeholder="Units"
                     onChangeText={event => handleChange("units", event)}
                     value={ingredient.units}
