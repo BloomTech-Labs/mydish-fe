@@ -22,7 +22,7 @@ export default function SearchButton(props) {
     return (
         <TouchableOpacity onPress={togglePress} style={styles.rightButton}>
             {search.homepage ? (
-                <Image source={searchIconActive} />
+                <Image source={searchIconActive} style={styles.searchIcon} />
             ) : (
                 <Image source={searchIcon} style={styles.searchIcon} />
             )}
