@@ -67,7 +67,7 @@ const Instruction = ({
                         borderRadius: theme.INPUT_BORDER_RADIUS,
                         minHeight: 120,
                     }}
-                    placeholder=" Add step"
+                    placeholder="Add step"
                     multiline
                     textAlignVertical="top"
                     maxLength={maxInstruction}
