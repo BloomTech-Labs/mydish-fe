@@ -80,64 +80,66 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
     return (
         <View>
             <View style={styles.container}>
-                <TextInput
-                    ref={quantityInput}
-                    style={{
-                        ...styles.input,
-                        ...styles.quantity,
-                        ...(highlighted.quantity && styles.highlighted),
-                    }}
-                    placeholder="Amount"
-                    autoCapitalize="none"
-                    maxLength={5}
-                    keyboardType={"numbers-and-punctuation"}
-                    onChangeText={qty =>
-                        handleChange(
-                            "quantity",
-                            qty.replace(/[0-9 ./,-]/g, "")
-                                ? ingredient.quantity
-                                : qty,
-                        )
-                    }
-                    value={ingredient.quantity.toString()}
-                    onFocus={() => setHighlighted({ quantity: true })}
-                    onBlur={() => setHighlighted({ quantity: false })}
-                    returnKeyType="next"
-                    onSubmitEditing={() => unitInput.current.focus()}
-                />
-                <TextInput
-                    ref={unitInput}
-                    style={{
-                        ...styles.input,
-                        ...styles.units,
-                        ...(highlighted.units && styles.highlighted),
-                    }}
-                    placeholder="Units"
-                    autoCapitalize="none"
-                    maxLength={11}
-                    onChangeText={event => handleChange("units", event)}
-                    value={ingredient.units}
-                    onFocus={() => setHighlighted({ units: true })}
-                    onBlur={() => setHighlighted({ units: false })}
-                    returnKeyType="next"
-                    onSubmitEditing={() => nameInput.current.focus()}
-                />
-                <TextInput
-                    ref={nameInput}
-                    style={{
-                        ...styles.input,
-                        ...styles.name,
-                        ...(highlighted.name && styles.highlighted),
-                    }}
-                    multiline
-                    maxLength={44}
-                    placeholder="Ingredient Name"
-                    autoCapitalize="none"
-                    onChangeText={event => handleChange("name", event)}
-                    value={ingredient.name}
-                    onFocus={() => setHighlighted({ name: true })}
-                    onBlur={() => setHighlighted({ name: false })}
-                />
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        ref={quantityInput}
+                        style={{
+                            ...styles.input,
+                            ...styles.quantity,
+                            ...(highlighted.quantity && styles.highlighted),
+                        }}
+                        placeholder="Amount"
+                        autoCapitalize="none"
+                        maxLength={5}
+                        keyboardType={"numbers-and-punctuation"}
+                        onChangeText={qty =>
+                            handleChange(
+                                "quantity",
+                                qty.replace(/[0-9 ./,-]/g, "")
+                                    ? ingredient.quantity
+                                    : qty,
+                            )
+                        }
+                        value={ingredient.quantity.toString()}
+                        onFocus={() => setHighlighted({ quantity: true })}
+                        onBlur={() => setHighlighted({ quantity: false })}
+                        returnKeyType="next"
+                        onSubmitEditing={() => unitInput.current.focus()}
+                    />
+                    <TextInput
+                        ref={unitInput}
+                        style={{
+                            ...styles.input,
+                            ...styles.units,
+                            ...(highlighted.units && styles.highlighted),
+                        }}
+                        placeholder="Units"
+                        autoCapitalize="none"
+                        maxLength={11}
+                        onChangeText={event => handleChange("units", event)}
+                        value={ingredient.units}
+                        onFocus={() => setHighlighted({ units: true })}
+                        onBlur={() => setHighlighted({ units: false })}
+                        returnKeyType="next"
+                        onSubmitEditing={() => nameInput.current.focus()}
+                    />
+                    <TextInput
+                        ref={nameInput}
+                        style={{
+                            ...styles.input,
+                            ...styles.name,
+                            ...(highlighted.name && styles.highlighted),
+                        }}
+                        multiline
+                        maxLength={44}
+                        placeholder="Ingredient Name"
+                        autoCapitalize="none"
+                        onChangeText={event => handleChange("name", event)}
+                        value={ingredient.name}
+                        onFocus={() => setHighlighted({ name: true })}
+                        onBlur={() => setHighlighted({ name: false })}
+                    />
+                </View>
 
                 <XDeleteButton
                     parent="ingredient"
