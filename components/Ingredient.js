@@ -137,7 +137,6 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                     value={ingredient.name}
                     onFocus={() => setHighlighted({ name: true })}
                     onBlur={() => setHighlighted({ name: false })}
-                    returnKeyType="next"
                 />
 
                 <XDeleteButton
