@@ -80,26 +80,32 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
     return (
         <View>
             <View
-                style={{
-                    marginBottom: 12,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                }}
+                // style={{
+                //     marginBottom: 12,
+                //     flexDirection: "row",
+                //     justifyContent: "space-between",
+                //     alignItems: "flex-start",
+                // }}
+                style={styles.container}
             >
                 <TextInput
                     ref={quantityInput}
+                    // style={{
+                    //     height: theme.INPUT_HEIGHT,
+                    //     width: "20%",
+                    //     paddingLeft: 10,
+                    //     paddingRight: 10,
+                    //     borderWidth: theme.INPUT_BORDER_WIDTH,
+                    //     borderColor: highlighted.quantity
+                    //         ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+                    //         : theme.INPUT_BORDER_COLOR,
+                    //     borderRadius: theme.INPUT_BORDER_RADIUS,
+                    //     textAlign: "center",
+                    // }}
                     style={{
-                        height: theme.INPUT_HEIGHT,
-                        width: "20%",
-                        paddingLeft: 10,
-                        paddingRight: 10,
-                        borderWidth: theme.INPUT_BORDER_WIDTH,
-                        borderColor: highlighted.quantity
-                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
-                            : theme.INPUT_BORDER_COLOR,
-                        borderRadius: theme.INPUT_BORDER_RADIUS,
-                        textAlign: "center",
+                        ...styles.input,
+                        ...styles.quantity,
+                        ...(highlighted.quantity && styles.highlighted),
                     }}
                     placeholder="Amount"
                     maxLength={5}
@@ -119,6 +125,11 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                 />
                 <TextInput
                     ref={unitInput}
+                    style={{
+                        ...styles.input,
+                        ...styles.units,
+                        ...(highlighted.units && styles.highlighted),
+                    }}
                     maxLength={8}
                     placeholder="Units"
                     onChangeText={event => handleChange("units", event)}
@@ -128,17 +139,22 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                 />
                 <TextInput
                     ref={nameInput}
+                    // style={{
+                    //     minHeight: theme.INPUT_HEIGHT,
+                    //     width: "40%",
+                    //     borderWidth: theme.INPUT_BORDER_WIDTH,
+                    //     borderColor: highlighted.name
+                    //         ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
+                    //         : theme.INPUT_BORDER_COLOR,
+                    //     borderRadius: theme.INPUT_BORDER_RADIUS,
+                    //     textAlign: "left",
+                    //     paddingLeft: 12,
+                    //     paddingBottom: 5,
+                    // }}
                     style={{
-                        minHeight: theme.INPUT_HEIGHT,
-                        width: "40%",
-                        borderWidth: theme.INPUT_BORDER_WIDTH,
-                        borderColor: highlighted.name
-                            ? theme.INPUT_BORDER_HIGHLIGHT_COLOR
-                            : theme.INPUT_BORDER_COLOR,
-                        borderRadius: theme.INPUT_BORDER_RADIUS,
-                        textAlign: "left",
-                        paddingLeft: 12,
-                        paddingBottom: 5,
+                        ...styles.input,
+                        ...styles.name,
+                        ...(highlighted.name && styles.highlighted),
                     }}
                     multiline
                     maxLength={44}
