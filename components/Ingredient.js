@@ -102,12 +102,14 @@ const Ingredient = ({ recipeIng, removeIng, index, setRecipe, parent }) => {
                         textAlign: "center",
                     }}
                     placeholder="Amount"
-                    maxLength={3}
-                    keyboardType={"numeric"}
+                    maxLength={5}
+                    keyboardType={"numbers-and-punctuation"}
                     onChangeText={qty =>
                         handleChange(
                             "quantity",
-                            isNaN(Number(qty)) ? ingredient.quantity : qty,
+                            qty.replace(/[0-9 ./,-]/g, "")
+                                ? ingredient.quantity
+                                : qty,
                         )
                     }
                     returnKeyType="done"
