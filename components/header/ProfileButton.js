@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Image, TouchableOpacity, AsyncStorage } from "react-native";
 import { profilePageToggle } from "../../store/navigation/navigationActions";
 import { useSelector, useDispatch } from "react-redux";
+import styles from "../../styles/navigationHeaderStyles";
 import profileIcon from "../../assets/profile-icon.png";
 import profileIconActive from "../../assets/profile-icon-red.png";
 
@@ -27,12 +28,18 @@ export default function ProfileButton() {
             {hasToken && (
                 <TouchableOpacity
                     onPress={togglePress}
-                    style={{ marginLeft: 20 }}
+                    style={styles.leftButton}
                 >
                     {profile ? (
-                        <Image source={profileIconActive} />
+                        <Image
+                            source={profileIconActive}
+                            style={styles.profileIcon}
+                        />
                     ) : (
-                        <Image source={profileIcon} />
+                        <Image
+                            source={profileIcon}
+                            style={styles.profileIcon}
+                        />
                     )}
                 </TouchableOpacity>
             )}
