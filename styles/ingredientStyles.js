@@ -20,6 +20,11 @@ module.exports = StyleSheet.create({
     },
     quantity: { width: "20%" },
     units: { width: "30%" },
-    name: { width: "40%", paddingBottom: 5 },
+    name: {
+        height: "auto",
+        minHeight: theme.INPUT_HEIGHT,
+        width: "40%",
+        paddingBottom: 5,
+    },
     highlighted: { borderColor: theme.INPUT_BORDER_HIGHLIGHT_COLOR },
 });
