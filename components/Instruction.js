@@ -69,6 +69,7 @@ const Instruction = ({
                     }}
                     placeholder=" Add step"
                     multiline
+                    textAlignVertical="top"
                     maxLength={maxInstruction}
                     onChangeText={handleChange}
                     value={instruction}
