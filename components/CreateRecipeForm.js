@@ -41,10 +41,10 @@ function CreateRecipeForm({
     const dispatch = useDispatch();
     const [recipe, setRecipe] = useState(initialCreateFormState);
     const recipeToRender = savedRecipe
-        ? useSelector(state => state.singleRecipe.recipe)
+        ? useSelector((state) => state.singleRecipe.recipe)
         : recipe;
     const savedRecipeTagNames =
-        savedRecipe && recipeToRender.tags.map(tag => tag.name);
+        savedRecipe && recipeToRender.tags.map((tag) => tag.name);
     const [editRecipe, create] = ["editRecipe", "create"];
     let [errors, setErrors] = useState([]);
     const [commitModal, setCommitModal] = useState({
@@ -62,7 +62,7 @@ function CreateRecipeForm({
         analytics
             .event(new Event("Recipe", "Create recipe"))
             .then(() => console.log("Recipe added"))
-            .catch(e => console.log(e.message));
+            .catch((e) => console.log(e.message));
         const preppedRecipe = await prepRecipeForPost(recipe);
 
         const errMessages = validateFields(preppedRecipe, "create");
@@ -96,29 +96,20 @@ function CreateRecipeForm({
     const addIng = () => {
         const newIng = { name: "", quantity: "", units: "" };
         const ingObj = {};
-        const ingredients = recipe.ingredients;
-        /* The Ingredient Prediction API returns an error if passed more than 10 ingredients.
-        The loop below creates an ingObj that includes (at most) the last 10 ingredients 
-        entered by the user. */
-        for (
-            let i = ingredients.length - 1, j = 0;
-            i >= 0 && j < 10;
-            i--, j++
-        ) {
-            const name = ingredients[i].name.toLowerCase();
-            if (name.replace(/\s|\t|\n+/g, "")) {
+        recipe.ingredients.forEach((ingredient, i) => {
+            if (ingredient.name.replace(/\s|\t|\n+/g, "")) {
                 // Remove spaces, tabs, and newlines. Add to ingObj if it still has content.
-                Object.defineProperty(ingObj, j + 1, {
-                    value: name,
+                Object.defineProperty(ingObj, i + 1, {
+                    value: ingredient.name.toLowerCase(),
                     writable: true,
                     enumerable: true,
                 });
             }
-        }
+        });
         savedRecipe
             ? dispatch(actions.addIngredient(newIng))
             : [
-                  setRecipe(oldRecipe => ({
+                  setRecipe((oldRecipe) => ({
                       ...oldRecipe,
                       ingredients: [...oldRecipe.ingredients, newIng],
                   })),
@@ -130,7 +121,7 @@ function CreateRecipeForm({
     const addInstruction = () => {
         savedRecipe
             ? dispatch(actions.addInstruction(""))
-            : setRecipe(oldRecipe => ({
+            : setRecipe((oldRecipe) => ({
                   ...oldRecipe,
                   instructions: [...oldRecipe.instructions, ""],
               }));
@@ -139,28 +130,28 @@ function CreateRecipeForm({
     const addNote = () => {
         savedRecipe
             ? dispatch(actions.addNote(""))
-            : setRecipe(oldRecipe => ({
+            : setRecipe((oldRecipe) => ({
                   ...oldRecipe,
                   notes: [...oldRecipe.notes, ""],
               }));
     };
 
-    const removeNote = index => {
-        setRecipe(oldRecipe => ({
+    const removeNote = (index) => {
+        setRecipe((oldRecipe) => ({
             ...oldRecipe,
             notes: oldRecipe.notes.filter((val, i) => i !== index),
         }));
     };
 
-    const removeIng = index => {
-        setRecipe(oldRecipe => ({
+    const removeIng = (index) => {
+        setRecipe((oldRecipe) => ({
             ...oldRecipe,
             ingredients: oldRecipe.ingredients.filter((val, i) => i !== index),
         }));
     };
 
-    const removeInstruction = index => {
-        setRecipe(oldRecipe => ({
+    const removeInstruction = (index) => {
+        setRecipe((oldRecipe) => ({
             ...oldRecipe,
             instructions: oldRecipe.instructions.filter(
                 (val, i) => i !== index,
