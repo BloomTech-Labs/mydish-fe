@@ -872,7 +872,7 @@ exports[`<CreateRecipeForm /> matches snapshot 1`] = `
                       }
                     }
                   >
-                    Snacks
+                    Snack
                   </Text>
                 </View>
               </View>

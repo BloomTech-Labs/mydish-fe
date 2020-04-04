@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import HomeCourseTitle from "./HomeCourseTitle";
 
-const HomeCookBook = props => {
+const HomeCookBook = (props) => {
     const Courses = [
         {
             course: "Breakfast",
@@ -30,7 +30,7 @@ const HomeCookBook = props => {
                 "https://cdn3.tmbi.com/toh/GoogleImages/exps19201_RDS011700016SC03_13_2b_WEB.jpg",
         },
         {
-            course: "Snacks",
+            course: "Snack",
             img: "https://data.thefeedfeed.com/recommended/post_4483824.jpeg",
         },
     ];
