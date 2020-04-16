@@ -20,7 +20,7 @@ import { logoHeaderPlain } from "./header/navigationHeader";
 
 const SignUp = ({ navigation }) => {
     const [credentials, setSignUp] = useState({ username: "", password: "" });
-    const errorMsg = useSelector(state => state.auth.error);
+    const errorMsg = useSelector((state) => state.auth.error);
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
@@ -67,7 +67,7 @@ const SignUp = ({ navigation }) => {
                                     onSubmitEditing={() =>
                                         passwordInput.current.focus()
                                     }
-                                    onChangeText={event =>
+                                    onChangeText={(event) =>
                                         setSignUp({
                                             ...credentials,
                                             username: event,
@@ -86,7 +86,24 @@ const SignUp = ({ navigation }) => {
                                     style={styles.inputFields}
                                     value={credentials.password}
                                     returnKeyType="go"
-                                    onChangeText={event =>
+                                    onChangeText={(event) =>
+                                        setSignUp({
+                                            ...credentials,
+                                            password: event,
+                                        })
+                                    }
+                                    secureTextEntry={true}
+                                    onSubmitEditing={register}
+                                />
+                                <Text style={styles.inputLabelText}>
+                                    Verify Password
+                                </Text>
+                                <TextInput
+                                    ref={passwordInput}
+                                    style={styles.inputFields}
+                                    value={credentials.password}
+                                    returnKeyType="go"
+                                    onChangeText={(event) =>
                                         setSignUp({
                                             ...credentials,
                                             password: event,
