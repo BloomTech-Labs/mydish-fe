@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, TouchableOpacity, AsyncStorage, Modal } from "react-native";
+import { Image, TouchableOpacity, AsyncStorage } from "react-native";
 import { profilePageToggle } from "../../store/navigation/navigationActions";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../../styles/navigationHeaderStyles";
@@ -29,6 +29,7 @@ export default function ProfileButton() {
     const togglePress = () => {
         dispatch(profilePageToggle(!profile));
     };
+
     return (
         <>
             {hasToken && (

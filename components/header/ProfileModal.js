@@ -1,11 +1,26 @@
 import React from "react";
-import { View, Text, Modal, Button, Alert } from "react-native";
+import {
+    View,
+    Text,
+    Modal,
+    Alert,
+    TouchableOpacity,
+    Image,
+} from "react-native";
+
+//ICONS
+import LogoutProfileIcon from "../../assets/profile-icon-red.png";
+import { Ionicons } from "@expo/vector-icons";
+
+//STYLES
+import styles from "../../styles/profileModalStyles";
+import icon from "../../styles/navigationHeaderStyles";
 
 const ProfileModal = (props) => {
     return (
         <Modal
             visible={props.visible}
-            animationType="slide"
+            animationType="fade"
             onRequestClose={() => {
                 Alert.alert(
                     "Close Window",
@@ -25,13 +40,26 @@ const ProfileModal = (props) => {
                 );
             }}
         >
-            <View>
-                <Text>What would you like to do?</Text>
-                <Button title="Logout" onPress={() => props.logout()} />
-                <Button
-                    title="Close"
+            <View style={styles.container}>
+                <Ionicons style={styles.setting} name="md-settings" size={40} />
+                <TouchableOpacity
+                    style={styles.logout}
+                    onPress={() => props.logout()}
+                >
+                    <Image
+                        style={icon.profileIcon}
+                        source={LogoutProfileIcon}
+                    />
+                    <Text style={styles.text}>Logout</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.close}
                     onPress={() => props.closeModal()}
-                ></Button>
+                >
+                    <Ionicons name="md-arrow-back" size={24} />
+                    <Text style={styles.text}>Close</Text>
+                </TouchableOpacity>
             </View>
         </Modal>
     );
