@@ -5,11 +5,17 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "../../styles/navigationHeaderStyles";
 import profileIcon from "../../assets/profile-icon.png";
 import profileIconActive from "../../assets/profile-icon-red.png";
+import ProfileModal from "./ProfileModal";
 
 export default function ProfileButton() {
     const [hasToken, setHasToken] = useState();
     const dispatch = useDispatch();
-    const profile = useSelector(state => state.navigation.profileOpen);
+    const profile = useSelector((state) => state.navigation.profileOpen);
+    const [isVisible, setIsVisible] = useState(false);
+
+    const closeModal = () => {
+        setIsVisible(false);
+    };
 
     const _bootstrapAsync = async () => {
         const userToken = await AsyncStorage.getItem("userToken");
@@ -23,11 +29,12 @@ export default function ProfileButton() {
     const togglePress = () => {
         dispatch(profilePageToggle(!profile));
     };
+
     return (
         <>
             {hasToken && (
                 <TouchableOpacity
-                    onPress={togglePress}
+                    onPress={() => setIsVisible(true)}
                     style={styles.leftButton}
                 >
                     {profile ? (
@@ -41,6 +48,11 @@ export default function ProfileButton() {
                             style={styles.profileIcon}
                         />
                     )}
+                    <ProfileModal
+                        visible={isVisible}
+                        closeModal={closeModal}
+                        logout={togglePress}
+                    />
                 </TouchableOpacity>
             )}
         </>
