@@ -19,11 +19,16 @@ import AuthButton from "./AuthButton";
 import { logoHeaderPlain } from "./header/navigationHeader";
 
 const SignUp = ({ navigation }) => {
-    const [credentials, setSignUp] = useState({ username: "", password: "" });
-    const errorMsg = useSelector(state => state.auth.error);
+    const [credentials, setSignUp] = useState({
+        username: "",
+        password: "",
+        confirmPassword: "",
+    });
+    const errorMsg = useSelector((state) => state.auth.error);
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
+    const confirmPasswordInput = useRef(null);
 
     useEffect(() => {
         if (errorMsg != null) {
@@ -31,9 +36,18 @@ const SignUp = ({ navigation }) => {
         }
     }, [errorMsg]);
 
-    const register = async () => {
-        const success = await dispatch(registerUser(credentials));
+    useEffect(() => {
+        if (credentials.password != credentials.confirmPassword) {
+            passwordMatch();
+        }
+    }, []);
 
+    const register = async () => {
+        if (credentials.password != credentials.confirmPassword) {
+            return Alert.alert("Passwords don't match");
+        }
+        const success = await dispatch(registerUser(credentials));
+        console.log(credentials);
         if (success) {
             navigation.navigate("App");
         }
@@ -43,6 +57,10 @@ const SignUp = ({ navigation }) => {
         return Alert.alert("Oops!", "Please provide a username and password.", [
             { title: "Okay" },
         ]);
+    };
+
+    const passwordMatch = () => {
+        return Alert.alert("Passwords do not match", [{ title: "Okay" }]);
     };
 
     return (
@@ -67,7 +85,7 @@ const SignUp = ({ navigation }) => {
                                     onSubmitEditing={() =>
                                         passwordInput.current.focus()
                                     }
-                                    onChangeText={event =>
+                                    onChangeText={(event) =>
                                         setSignUp({
                                             ...credentials,
                                             username: event,
@@ -86,10 +104,28 @@ const SignUp = ({ navigation }) => {
                                     style={styles.inputFields}
                                     value={credentials.password}
                                     returnKeyType="go"
-                                    onChangeText={event =>
+                                    onChangeText={(event) =>
                                         setSignUp({
                                             ...credentials,
                                             password: event,
+                                        })
+                                    }
+                                    secureTextEntry={true}
+                                    onSubmitEditing={register}
+                                />
+
+                                <Text style={styles.inputLabelText}>
+                                    Confirm Password
+                                </Text>
+                                <TextInput
+                                    ref={confirmPasswordInput}
+                                    style={styles.inputFields}
+                                    value={credentials.confirmPassword}
+                                    returnKeyType="go"
+                                    onChangeText={(event) =>
+                                        setSignUp({
+                                            ...credentials,
+                                            confirmPassword: event,
                                         })
                                     }
                                     secureTextEntry={true}
