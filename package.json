@@ -7,7 +7,8 @@
         "web": "expo start --web",
         "eject": "expo eject",
         "test": "jest",
-        "test:watch": "jest --watch"
+        "test:watch": "jest --watch",
+        "coverage": "CI=true jest --coverage --watchAll=false || true"
     },
     "dependencies": {
         "@expo/vector-icons": "^10.0.6",
@@ -52,7 +53,8 @@
             "styled-components": "<rootDir>/node_modules/styled-components/native/dist/styled-components.native.cjs.js"
         },
         "collectCoverageFrom": [
-            "**/*.{js,jsx}",
+            "**/*.js",
+            "!**/__tests__/**",
             "!**/node_modules/**",
             "!**/vendor/**",
             "!**/coverage/**",
