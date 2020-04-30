@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -7,16 +7,28 @@ import {
     TouchableOpacity,
     Image,
 } from "react-native";
+import Settings from "../header/Settings";
+import EditProfile from "../EditProfile";
 
 //ICONS
-import LogoutProfileIcon from "../../assets/profile-icon-red.png";
+
 import { Ionicons } from "@expo/vector-icons";
 
 //STYLES
 import styles from "../../styles/profileModalStyles";
-import icon from "../../styles/navigationHeaderStyles";
 
 const ProfileModal = (props) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const { logout } = props;
+    const { visible } = props;
+    const { closeModal } = props;
+
+    function changeHandler(event) {}
+
+    const flip = () => {
+        isEditing ? setIsEditing(false) : setIsEditing(true);
+    };
+
     return (
         <Modal
             visible={props.visible}
@@ -42,24 +54,24 @@ const ProfileModal = (props) => {
         >
             <View style={styles.container}>
                 <Ionicons style={styles.setting} name="md-settings" size={40} />
-                <TouchableOpacity
-                    style={styles.logout}
-                    onPress={() => props.logout()}
-                >
-                    <Image
-                        style={icon.profileIcon}
-                        source={LogoutProfileIcon}
-                    />
-                    <Text style={styles.text}>Logout</Text>
-                </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={styles.close}
-                    onPress={() => props.closeModal()}
+                    onPress={() => {
+                        setIsEditing(true);
+                    }}
                 >
-                    <Ionicons name="md-arrow-back" size={24} />
-                    <Text style={styles.text}>Close</Text>
+                    <Text>Edit Profile</Text>
                 </TouchableOpacity>
+
+                {isEditing ? (
+                    <EditProfile close={flip} />
+                ) : (
+                    <Settings
+                        logout={logout}
+                        visible={visible}
+                        closeModal={closeModal}
+                    />
+                )}
             </View>
         </Modal>
     );
