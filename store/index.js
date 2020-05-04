@@ -8,6 +8,7 @@ import { singleRecipeReducer as singleRecipe } from "./singleRecipe/singleRecipe
 import { versionControlRecucer as versionsList } from "./version-control/versionControlReducer";
 import { navigationReducer as navigation } from "./navigation/navigationReducer";
 import { ingredientPredictionReducer as ingredientPrediction } from "./ingredientPrediction/ingredientPredictionReducer";
+import { usersReducer as users } from "./users/usersReducer";
 
 const rootReducer = combineReducers({
     auth,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     versionsList,
     navigation,
     ingredientPrediction,
+    users,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

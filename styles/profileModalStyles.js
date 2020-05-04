@@ -13,6 +13,7 @@ module.exports = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         padding: 30,
+        maxWidth: "100%",
     },
     setting: {
         marginBottom: 55,
@@ -23,10 +24,28 @@ module.exports = StyleSheet.create({
         color: theme.DARK_FONT_COLOR,
         fontWeight: theme.REGULAR_FONT_WEIGHT,
     },
+    editprofile: {
+        ...settings,
+        justifyContent: "center",
+        alignContent: "center",
+    },
     logout: {
         ...settings,
     },
     close: {
         ...settings,
+    },
+
+    InputField: {
+        marginVertical: 35,
+    },
+    content: {
+        padding: 30,
+    },
+    button: {
+        fontSize: 24,
+    },
+    modal: {
+        width: "100%",
     },
 });

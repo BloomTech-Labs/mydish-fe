@@ -52,11 +52,15 @@ function IndividualRecipe(props) {
     });
     const [tempRecipe, setTempRecipe] = useState(null);
     const [versionListVisible, setVersionListVisible] = useState(false);
-    const recipe = useSelector(state => state.singleRecipe.recipe);
-    const isLoading = useSelector(state => state.singleRecipe.isLoading);
-    const successAlert = useSelector(state => state.singleRecipe.successAlert);
-    const versionsList = useSelector(state => state.versionsList.versionsList);
-    const editMode = useSelector(state => state.singleRecipe.editMode);
+    const recipe = useSelector((state) => state.singleRecipe.recipe);
+    const isLoading = useSelector((state) => state.singleRecipe.isLoading);
+    const successAlert = useSelector(
+        (state) => state.singleRecipe.successAlert,
+    );
+    const versionsList = useSelector(
+        (state) => state.versionsList.versionsList,
+    );
+    const editMode = useSelector((state) => state.singleRecipe.editMode);
 
     //Anytime someone navigations to here - it has ID, we could just also pass another value
     const id = props.navigation.getParam("recipeID", "params not passed");
@@ -127,7 +131,7 @@ function IndividualRecipe(props) {
         }
     }
 
-    const tabsDisplay = cat => {
+    const tabsDisplay = (cat) => {
         const newActive = cat;
         setColor({ active: newActive });
     };
@@ -139,7 +143,7 @@ function IndividualRecipe(props) {
         setTempRecipe(recipe);
     };
 
-    const saveButtonEditedRecipe = author_comment => {
+    const saveButtonEditedRecipe = (author_comment) => {
         dispatch(submitEditedRecipe(author_comment));
         dispatch(stopEditMode());
         dispatch(updateCookbookRecipe(recipe));
@@ -195,7 +199,7 @@ function IndividualRecipe(props) {
         }
     };
 
-    const hasTimeValue = time => {
+    const hasTimeValue = (time) => {
         return time !== null && time !== 0 && time !== "";
     };
 
@@ -226,15 +230,26 @@ function IndividualRecipe(props) {
                         <View style={styles.recipeContentContainer}>
                             <DisplayTitle title={recipe.title} />
                             <View style={styles.underTitleRow}>
-                                <Text style={styles.authorName}>
-                                    {recipe.owner.username &&
-                                    recipe.owner.username.length > maxUsername
-                                        ? `By ${recipe.owner.username.slice(
-                                              0,
-                                              maxUsername,
-                                          )}...`
-                                        : `By ${recipe.owner.username}`}
-                                </Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        userId === recipe.owner.user_id
+                                            ? props.navigation.push("MyProfile")
+                                            : props.navigation.push(
+                                                  "OtherProfile",
+                                              );
+                                    }}
+                                >
+                                    <Text style={styles.authorName}>
+                                        {recipe.owner.username &&
+                                        recipe.owner.username.length >
+                                            maxUsername
+                                            ? `By ${recipe.owner.username.slice(
+                                                  0,
+                                                  maxUsername,
+                                              )}...`
+                                            : `By ${recipe.owner.username}`}
+                                    </Text>
+                                </TouchableOpacity>
                                 {recipe.owner.user_id &&
                                     !versionListVisible &&
                                     userId === recipe.owner.user_id && (

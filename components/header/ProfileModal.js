@@ -13,6 +13,7 @@ import EditProfile from "../EditProfile";
 //ICONS
 
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 //STYLES
 import styles from "../../styles/profileModalStyles";
@@ -23,9 +24,7 @@ const ProfileModal = (props) => {
     const { visible } = props;
     const { closeModal } = props;
 
-    function changeHandler(event) {}
-
-    const flip = () => {
+    const changeHandler = () => {
         isEditing ? setIsEditing(false) : setIsEditing(true);
     };
 
@@ -55,16 +54,22 @@ const ProfileModal = (props) => {
             <View style={styles.container}>
                 <Ionicons style={styles.setting} name="md-settings" size={40} />
 
-                <TouchableOpacity
-                    onPress={() => {
-                        setIsEditing(true);
-                    }}
-                >
-                    <Text>Edit Profile</Text>
-                </TouchableOpacity>
-
+                <View>
+                    <TouchableOpacity
+                        style={styles.editprofile}
+                        onPress={() => {
+                            setIsEditing(true);
+                        }}
+                    >
+                        <MaterialCommunityIcons
+                            name="playlist-edit"
+                            size={40}
+                        />
+                        <Text style={styles.text}>Edit Profile</Text>
+                    </TouchableOpacity>
+                </View>
                 {isEditing ? (
-                    <EditProfile close={flip} />
+                    <EditProfile close={changeHandler} />
                 ) : (
                     <Settings
                         logout={logout}
