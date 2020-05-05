@@ -1,18 +1,10 @@
 import React, { useState } from "react";
-import {
-    View,
-    Text,
-    Modal,
-    Alert,
-    TouchableOpacity,
-    Image,
-} from "react-native";
+import { View, Text, Modal, Alert, TouchableOpacity } from "react-native";
 import Settings from "../header/Settings";
 import EditProfile from "../EditProfile";
 
 //ICONS
 
-import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 //STYLES
@@ -30,6 +22,7 @@ const ProfileModal = (props) => {
 
     return (
         <Modal
+            style={(styles.modal, { backgroundColor: "black" })}
             visible={props.visible}
             animationType="fade"
             onRequestClose={() => {
@@ -52,8 +45,6 @@ const ProfileModal = (props) => {
             }}
         >
             <View style={styles.container}>
-                <Ionicons style={styles.setting} name="md-settings" size={40} />
-
                 <View>
                     <TouchableOpacity
                         style={styles.editprofile}

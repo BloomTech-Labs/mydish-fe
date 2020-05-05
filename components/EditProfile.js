@@ -1,23 +1,25 @@
 import { AsyncStorage } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 import {
-    View,
-    Text,
-    StyleSheet,
+    Alert,
     TouchableOpacity,
     TextInput,
     ScrollView,
+    Text,
+    View,
 } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../store/users/usersActions";
+import { updateUser, getUser } from "../store/users/usersActions";
 import styles from "../styles/profileModalStyles";
 import authStyles from "../styles/authPageStyles";
 
 import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 const EditProfile = (props) => {
     const passwordInput = useRef(null);
+    const confirmPasswordInput = useRef(null);
     const emailInput = useRef(null);
     const displayNameInput = useRef(null);
     const avatarInput = useRef(null);
@@ -25,9 +27,13 @@ const EditProfile = (props) => {
     const currentUsername = useSelector((state) => state.auth.username);
     const isEditing = useSelector((state) => state.users.isEditing);
     const [newUserId, setUserId] = useState();
+    const displayName = useSelector((state) => state.users.user.display_name);
+    const avatar = useSelector((state) => state.users.user.avatar_url);
+    const email = useSelector((state) => state.users.user.email);
 
     const [updatedValues, setUpdatedValues] = useState({
-        password: "",
+        password: null,
+        confirmPassword: null,
         email: null,
         display_name: null,
         avatar_url: null,
@@ -38,6 +44,7 @@ const EditProfile = (props) => {
         try {
             userId = (await AsyncStorage.getItem("userID")) || "none";
             setUserId(await userId);
+            dispatch(getUser(await userId));
         } catch (error) {
             // Error retrieving data
             console.log(error.message);
@@ -47,7 +54,11 @@ const EditProfile = (props) => {
     };
 
     const update = async () => {
-        await dispatch(updateUser(newUserId, updatedValues));
+        if (updatedValues.password !== updatedValues.confirmPassword) {
+            return Alert.alert("Passwords don't match");
+        } else {
+            await dispatch(updateUser(newUserId, updatedValues));
+        }
     };
 
     useEffect(() => {
@@ -55,11 +66,12 @@ const EditProfile = (props) => {
     }, []);
 
     return (
-        <ScrollView>
+        <ScrollView style={authStyles.scrollContainer}>
+            <Text style={styles.textFields}>Password</Text>
             <TextInput
                 style={authStyles.inputFields}
                 ref={passwordInput}
-                placeholder="Password"
+                placeholder="Enter Password"
                 placeholderTextColor="black"
                 value={updatedValues.password}
                 returnKeyType="next"
@@ -73,7 +85,23 @@ const EditProfile = (props) => {
 
             <TextInput
                 style={authStyles.inputFields}
+                ref={confirmPasswordInput}
+                placeholder="Confirm Password"
+                placeholderTextColor="black"
+                value={updatedValues.confirmPassword}
+                returnKeyType="next"
+                onChangeText={(event) =>
+                    setUpdatedValues({
+                        ...updatedValues,
+                        confirmPassword: event,
+                    })
+                }
+            />
+            <Text style={styles.textFields}>Email</Text>
+            <TextInput
+                style={authStyles.inputFields}
                 ref={emailInput}
+                defaultValue={`${email}`}
                 value={updatedValues.email}
                 placeholder="Email"
                 placeholderTextColor="black"
@@ -86,10 +114,11 @@ const EditProfile = (props) => {
                     })
                 }
             />
-
+            <Text style={styles.textFields}>Display Name</Text>
             <TextInput
                 style={authStyles.inputFields}
                 ref={displayNameInput}
+                defaultValue={`${displayName}`}
                 value={updatedValues.display_name}
                 placeholder="Nickname"
                 placeholderTextColor="black"
@@ -101,10 +130,12 @@ const EditProfile = (props) => {
                     })
                 }
             />
-
+            <Text style={styles.textFields}>Avatar URL</Text>
             <TextInput
                 style={authStyles.inputFields}
                 ref={avatarInput}
+                autoGrow={false}
+                defaultValue={`${avatar}`}
                 value={updatedValues.avatar_url}
                 placeholder="Avatar Url"
                 placeholderTextColor="black"
@@ -116,25 +147,23 @@ const EditProfile = (props) => {
                     })
                 }
             />
+            <View style={styles.content}>
+                <TouchableOpacity
+                    onPress={() => {
+                        update();
+                    }}
+                >
+                    <AntDesign name="checkcircle" size={36} />
+                </TouchableOpacity>
 
-            <TouchableOpacity
-                style={styles.content}
-                onPress={() => {
-                    update();
-                }}
-            >
-                <Text style={styles.text}>Save</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={styles.content}
-                onPress={() => {
-                    props.close();
-                }}
-            >
-                {/* <Text style={styles.text}>Close</Text> */}
-                <MaterialIcons name="cancel" size={24} />
-            </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        props.close();
+                    }}
+                >
+                    <MaterialIcons name="cancel" size={40} />
+                </TouchableOpacity>
+            </View>
         </ScrollView>
     );
 };

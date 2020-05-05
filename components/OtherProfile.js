@@ -41,7 +41,7 @@ const OtherProfile = (props) => {
                 />
             </View>
             <View>
-                <ListItem title={nickname} subtitle={email} />
+                <ListItem title={nickname} subtitle="User" />
             </View>
         </View>
     );

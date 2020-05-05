@@ -9,13 +9,13 @@ export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
 export const updateUser = (id, newValues) => async (dispatch) => {
     dispatch({ type: START_UPDATE_USER });
     let success = false;
-    console.log("Inside of action creator", id, newValues);
+
     try {
         const axiosCustom = await axiosWithAuth();
         const res = await axiosCustom.put(`users/${id}`, newValues);
 
         dispatch({ type: UPDATE_USER_SUCCESS, payload: res.data });
-
+        console.log("this is the updatedValues", newValues);
         success = true;
     } catch (err) {
         dispatch({
@@ -34,7 +34,6 @@ export const GET_USER_FAILURE = "GET_USER_FAILURE";
 export const getUser = (id) => async (dispatch) => {
     dispatch({ type: GET_USER_START });
     let success = false;
-    console.log("This is guest id inside of the action creator", id);
     try {
         const axiosCustom = await axiosWithAuth();
         const res = await axiosCustom.get(`users/${id}`);

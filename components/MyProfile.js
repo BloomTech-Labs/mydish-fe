@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Modal, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "react-native-elements";
 import { logoHeaderPlain } from "./header/navigationHeader";
@@ -11,7 +11,6 @@ import { getUser } from "../store/users/usersActions";
 
 const MyProfile = (props) => {
     const dispatch = useDispatch();
-    const recipe = useSelector((state) => state.singleRecipe.recipe);
     const owner_id = useSelector((state) => state.singleRecipe.recipe);
     const nickname = useSelector((state) => state.users.user.display_name);
     const avatar = useSelector((state) => state.users.user.avatar_url);
@@ -45,7 +44,11 @@ const MyProfile = (props) => {
                     }}
                 />
             </View>
-            <View>
+            <TouchableOpacity
+                onPress={() => {
+                    props.navigation.push("MyCookBook");
+                }}
+            >
                 <ListItem
                     title={nickname}
                     subtitle={email}
@@ -55,7 +58,7 @@ const MyProfile = (props) => {
                         containerStyle: { marginTop: -20 },
                     }}
                 />
-            </View>
+            </TouchableOpacity>
         </View>
     );
 };

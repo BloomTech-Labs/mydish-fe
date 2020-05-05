@@ -5,6 +5,7 @@ import VersionHistoryList from "../components/VersionHistoryList";
 import CookBookFolder from "../components/CookBookFolder";
 import MyProfile from "../components/MyProfile";
 import OtherProfile from "../components/OtherProfile";
+import MyCookBook from "../components/MyCookBook";
 
 const RecipeNavigator = createStackNavigator(
     {
@@ -14,6 +15,7 @@ const RecipeNavigator = createStackNavigator(
         VersionHistoryList: { screen: VersionHistoryList },
         MyProfile: { screen: MyProfile },
         OtherProfile: { screen: OtherProfile },
+        MyCookBook: { screen: MyCookBook },
     },
     { initialRouteName: "Home", headerLayoutPreset: "center" },
 );
