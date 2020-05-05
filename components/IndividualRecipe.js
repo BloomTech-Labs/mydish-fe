@@ -27,6 +27,7 @@ import {
 import {
     updateCookbookRecipe,
     deleteCookbookRecipe,
+    getAllCookbookRecipes,
 } from "../store/cookbook/cookbookAction";
 import styles from "../styles/individualRecipeStyles.js";
 import theme from "../styles/theme.style";
@@ -41,6 +42,12 @@ import DisplayRecipeInstruction from "./DisplayRecipeComponents/DisplayRecipeIns
 import DisplayRecipeNotes from "./DisplayRecipeComponents/DisplayRecipeNotes";
 import DisplayTitle from "./DisplayRecipeComponents/DisplayTitle";
 import FancySpinner from "./FancySpinner";
+import { prepRecipeForPost } from "../utils/helperFunctions/prepRecipeForPost";
+import { validateFields } from "../utils/helperFunctions/validateFields";
+import axiosWithAuth from "../utils/axiosWithAuth";
+import { serverErrorAlert } from "../utils/helperFunctions/serverErrorAlert";
+import { addCookbookRecipe } from "../store/cookbook/cookbookAction";
+import { addRecipe } from "../store/recipes/recipeActions";
 
 function IndividualRecipe(props) {
     const dispatch = useDispatch();
@@ -52,6 +59,10 @@ function IndividualRecipe(props) {
     });
     const [tempRecipe, setTempRecipe] = useState(null);
     const [versionListVisible, setVersionListVisible] = useState(false);
+
+
+    const [Loading, setLoading] = useState(false);
+
     const recipe = useSelector((state) => state.singleRecipe.recipe);
     const isLoading = useSelector((state) => state.singleRecipe.isLoading);
     const successAlert = useSelector(
@@ -62,8 +73,12 @@ function IndividualRecipe(props) {
     );
     const editMode = useSelector((state) => state.singleRecipe.editMode);
 
+
+    const [id, setId] = useState(
+        props.navigation.getParam("recipeID", "params not passed"),
+    );
+
     //Anytime someone navigations to here - it has ID, we could just also pass another value
-    const id = props.navigation.getParam("recipeID", "params not passed");
     const revisionId = props.navigation.getParam(
         "revisionID",
         "revisionId not passed",
@@ -199,11 +214,63 @@ function IndividualRecipe(props) {
         }
     };
 
+
+
+    const postRecipe = async (recipe) => {
+        setLoading(true);
+        try {
+            const axiosCustom = await axiosWithAuth();
+            const res = await axiosCustom.post("recipes", recipe);
+            setLoading(false);
+            dispatch(addCookbookRecipe(res.data)); // adds recipe to user cookbook
+            setId(res.data.id);
+        } catch (err) {
+            console.log("error from copying this recipe \n", err);
+            if (err) {
+                serverErrorAlert();
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const copyRecipeHandler = (copiedRecipe) => {
+        const newRecipe = {
+            title: copiedRecipe.title,
+            img: copiedRecipe.img,
+            prep_time: copiedRecipe.prep_time,
+            cook_time: copiedRecipe.cook_time,
+            tags: copiedRecipe.tags.map((tag) => {
+                return tag.name;
+            }),
+            ingredients: copiedRecipe.ingredients.map((ingredient) => {
+                return {
+                    name: ingredient.name,
+                    quantity: ingredient.quantity,
+                    units: ingredient.units,
+                };
+            }),
+            instructions: copiedRecipe.instructions.map((instruction) => {
+                return {
+                    description: instruction.description,
+                    step_number: instruction.step_number,
+                };
+            }),
+            author_comment: copiedRecipe.author_comment,
+            notes: copiedRecipe.notes.map((note) => {
+                return { description: note.description };
+            }),
+            forked_from: copiedRecipe.owner,
+        };
+        postRecipe(newRecipe);
+    };
+
+
     const hasTimeValue = (time) => {
         return time !== null && time !== 0 && time !== "";
     };
 
-    if (isLoading) return <FancySpinner />;
+    if (isLoading || Loading) return <FancySpinner />;
 
     const editableRecipeDisplay = () => (
         <CreateRecipeForm
@@ -259,6 +326,20 @@ function IndividualRecipe(props) {
                                         >
                                             <Text style={styles.editText}>
                                                 Edit
+                                            </Text>
+                                        </TouchableOpacity>
+                                    )}
+                                {recipe.owner.user_id &&
+                                    !versionListVisible &&
+                                    userId !== recipe.owner.user_id && (
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                copyRecipeHandler(recipe)
+                                            }
+                                            style={styles.copyButton}
+                                        >
+                                            <Text style={styles.editText}>
+                                                Copy to my Cookbook
                                             </Text>
                                         </TouchableOpacity>
                                     )}
@@ -448,6 +529,28 @@ function IndividualRecipe(props) {
                                                         }
                                                     >
                                                         Edit
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        )}
+                                    {recipe.owner.user_id &&
+                                        !versionListVisible &&
+                                        userId !== recipe.owner.user_id && (
+                                            <View
+                                                style={styles.buttonContainer}
+                                            >
+                                                <TouchableOpacity
+                                                    onPress={() =>
+                                                        copyRecipeHandler(
+                                                            recipe,
+                                                        )
+                                                    }
+                                                    style={styles.copyButton}
+                                                >
+                                                    <Text
+                                                        style={styles.editText}
+                                                    >
+                                                        Copy to my Cookbook
                                                     </Text>
                                                 </TouchableOpacity>
                                             </View>

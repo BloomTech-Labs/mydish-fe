@@ -51,6 +51,8 @@ You can find the deployed project on the [Google Play Store](https://play.google
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 [![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)](https://github.com/facebook/react/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Maintainability](https://api.codeclimate.com/v1/badges/19e8f274d642d4835355/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/mydish-fe/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/19e8f274d642d4835355/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/mydish-fe/test_coverage)
 ​
 
 ## Project Overview
