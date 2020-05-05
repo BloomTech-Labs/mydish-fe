@@ -23,12 +23,14 @@ const SignUp = ({ navigation }) => {
         username: "",
         password: "",
         confirmPassword: "",
+        email: "",
     });
     const errorMsg = useSelector((state) => state.auth.error);
     const dispatch = useDispatch();
     const usernameInput = useRef(null);
     const passwordInput = useRef(null);
     const confirmPasswordInput = useRef(null);
+    const emailInput = useRef(null);
 
     useEffect(() => {
         if (errorMsg != null) {
@@ -36,15 +38,17 @@ const SignUp = ({ navigation }) => {
         }
     }, [errorMsg]);
 
-    useEffect(() => {
-        if (credentials.password != credentials.confirmPassword) {
-            passwordMatch();
-        }
-    }, []);
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
 
     const register = async () => {
         if (credentials.password != credentials.confirmPassword) {
             return Alert.alert("Passwords don't match");
+        }
+        if (!validateEmail(credentials.email)) {
+            return Alert.alert("Please enter a valid email address");
         }
         const success = await dispatch(registerUser(credentials));
         console.log(credentials);
@@ -57,10 +61,6 @@ const SignUp = ({ navigation }) => {
         return Alert.alert("Oops!", "Please provide a username and password.", [
             { title: "Okay" },
         ]);
-    };
-
-    const passwordMatch = () => {
-        return Alert.alert("Passwords do not match", [{ title: "Okay" }]);
     };
 
     return (
@@ -111,7 +111,9 @@ const SignUp = ({ navigation }) => {
                                         })
                                     }
                                     secureTextEntry={true}
-                                    onSubmitEditing={register}
+                                    onSubmitEditing={() =>
+                                        confirmPasswordInput.current.focus()
+                                    }
                                 />
 
                                 <Text style={styles.inputLabelText}>
@@ -129,6 +131,23 @@ const SignUp = ({ navigation }) => {
                                         })
                                     }
                                     secureTextEntry={true}
+                                    onSubmitEditing={() =>
+                                        emailInput.current.focus()
+                                    }
+                                />
+
+                                <Text style={styles.inputLabelText}>Email</Text>
+                                <TextInput
+                                    ref={emailInput}
+                                    style={styles.inputFields}
+                                    value={credentials.email}
+                                    returnKeyType="go"
+                                    onChangeText={(event) =>
+                                        setSignUp({
+                                            ...credentials,
+                                            email: event,
+                                        })
+                                    }
                                     onSubmitEditing={register}
                                 />
 
