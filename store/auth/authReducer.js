@@ -11,6 +11,7 @@ import {
 
 const authStore = {
     userId: null,
+    username: null,
     isAuthorizing: false,
     error: null,
 };
@@ -23,7 +24,8 @@ export const authReducer = (state = authStore, { type, payload }) => {
             return {
                 ...state,
                 isAuthorizing: false,
-                userId: payload.cook_id,
+                userId: payload.user.id,
+                username: payload.user.username,
                 error: null,
             };
         case LOGIN_FAILURE:
@@ -34,7 +36,8 @@ export const authReducer = (state = authStore, { type, payload }) => {
             return {
                 ...state,
                 isAuthorizing: false,
-                userId: payload.cook_id,
+                userId: payload.user.id,
+                username: payload.user.username,
                 error: null,
             };
         case REGISTER_FAILURE:

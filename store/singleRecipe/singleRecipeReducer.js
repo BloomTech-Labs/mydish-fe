@@ -45,7 +45,10 @@ const initState = {
         prep_time: 0,
         cook_time: 0,
         img: null,
-        owner: {},
+        owner: {
+            user_id: null,
+            username: null,
+        },
         ingredients: [],
         instructions: [],
         tags: [],

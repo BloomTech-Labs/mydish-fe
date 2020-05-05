@@ -59,7 +59,10 @@ function IndividualRecipe(props) {
     });
     const [tempRecipe, setTempRecipe] = useState(null);
     const [versionListVisible, setVersionListVisible] = useState(false);
+
+
     const [Loading, setLoading] = useState(false);
+
     const recipe = useSelector((state) => state.singleRecipe.recipe);
     const isLoading = useSelector((state) => state.singleRecipe.isLoading);
     const successAlert = useSelector(
@@ -69,6 +72,8 @@ function IndividualRecipe(props) {
         (state) => state.versionsList.versionsList,
     );
     const editMode = useSelector((state) => state.singleRecipe.editMode);
+
+
     const [id, setId] = useState(
         props.navigation.getParam("recipeID", "params not passed"),
     );
@@ -209,6 +214,8 @@ function IndividualRecipe(props) {
         }
     };
 
+
+
     const postRecipe = async (recipe) => {
         setLoading(true);
         try {
@@ -258,6 +265,7 @@ function IndividualRecipe(props) {
         postRecipe(newRecipe);
     };
 
+
     const hasTimeValue = (time) => {
         return time !== null && time !== 0 && time !== "";
     };
@@ -289,15 +297,26 @@ function IndividualRecipe(props) {
                         <View style={styles.recipeContentContainer}>
                             <DisplayTitle title={recipe.title} />
                             <View style={styles.underTitleRow}>
-                                <Text style={styles.authorName}>
-                                    {recipe.owner.username &&
-                                    recipe.owner.username.length > maxUsername
-                                        ? `By ${recipe.owner.username.slice(
-                                              0,
-                                              maxUsername,
-                                          )}...`
-                                        : `By ${recipe.owner.username}`}
-                                </Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        userId === recipe.owner.user_id
+                                            ? props.navigation.push("MyProfile")
+                                            : props.navigation.push(
+                                                  "OtherProfile",
+                                              );
+                                    }}
+                                >
+                                    <Text style={styles.authorName}>
+                                        {recipe.owner.username &&
+                                        recipe.owner.username.length >
+                                            maxUsername
+                                            ? `By ${recipe.owner.username.slice(
+                                                  0,
+                                                  maxUsername,
+                                              )}...`
+                                            : `By ${recipe.owner.username}`}
+                                    </Text>
+                                </TouchableOpacity>
                                 {recipe.owner.user_id &&
                                     !versionListVisible &&
                                     userId === recipe.owner.user_id && (

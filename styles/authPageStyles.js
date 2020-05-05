@@ -80,6 +80,11 @@ const styles = StyleSheet.create({
         color: theme.WHITE_FONT_COLOR,
         marginTop: -20,
     },
+    scrollContainer: {
+        height: "100%",
+        width: "100%",
+        alignSelf: "center",
+    },
 });
 
 module.exports = styles;
