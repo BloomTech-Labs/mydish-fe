@@ -105,7 +105,7 @@ export const singleRecipeReducer = (state = initState, action) => {
         case EDIT_INGRED:
             const ingredients = state.recipe.ingredients.map((val, i) => {
                 if (i === action.index) {
-                    return { ...val, ...action.payload };
+                    return action.payload;
                 } else return val;
             });
             return { ...state, recipe: { ...state.recipe, ingredients } };
