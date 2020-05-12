@@ -1,14 +1,14 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react';
+import { View, Text } from 'react-native';
 
-import styles from "../../styles/individualRecipeStyles";
+import styles from '../../styles/individualRecipeStyles';
 
 const DisplayTitle = ({ title }) => {
-    return (
-        <View style={styles.titleContainer}>
-            <Text style={styles.title}>{title}</Text>
-        </View>
-    );
+  return (
+    <View style={styles.titleContainer}>
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  );
 };
 
 export default DisplayTitle;
