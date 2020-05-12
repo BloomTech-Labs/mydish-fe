@@ -8,6 +8,9 @@ const CreateNavigator = createStackNavigator(
   {
     RecipePicker: {
       screen: CreateRecipePicker,
+      navigationOptions: {
+        headerLeft: null,
+      },
     },
     GenerateRecipe: {
       screen: GenerateRecipeForm,

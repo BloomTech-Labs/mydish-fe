@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,11 +33,10 @@ function CreateRecipeForm({
 }) {
   const dispatch = useDispatch();
   const [recipe, setRecipe] = useState(initialCreateFormState);
-  const recipeToRender = savedRecipe
-    ? useSelector((state) => state.singleRecipe.recipe)
-    : recipe;
-  const savedRecipeTagNames =
-    savedRecipe && recipeToRender.tags.map((tag) => tag.name);
+  let savedRecipe = false;
+  const recipeStore = useSelector((state) => state.singleRecipe.recipe);
+  const [recipeToRender, setRecipeToRender] = useState(recipe);
+  const savedRecipeTagNames = recipeToRender.tags.map((tag) => tag.name);
   const [editRecipe, create] = ['editRecipe', 'create'];
   let [errors, setErrors] = useState([]);
   const [commitModal, setCommitModal] = useState({
@@ -50,6 +49,17 @@ function CreateRecipeForm({
     prep_time: false,
     cook_time: false,
   });
+  const [bool, setBool] = useState(true);
+
+  useEffect(() => {
+    dispatch(actions.resetRecipe());
+    setRecipeToRender(recipeStore);
+    savedRecipe = true;
+  }, []);
+
+  useEffect(() => {
+    setRecipeToRender(recipeStore);
+  }, [bool]);
 
   const postRecipe = async () => {
     const preppedRecipe = await prepRecipeForPost(recipe);
@@ -84,54 +94,28 @@ function CreateRecipeForm({
 
   const addIng = () => {
     const newIng = { name: '', quantity: '', units: '' };
-
-    savedRecipe
-      ? dispatch(actions.addIngredient(newIng))
-      : [
-          setRecipe((oldRecipe) => ({
-            ...oldRecipe,
-            ingredients: [...oldRecipe.ingredients, newIng],
-          })),
-        ];
+    dispatch(actions.addIngredient(newIng));
+    setBool(!bool);
   };
 
   const addInstruction = () => {
-    savedRecipe
-      ? dispatch(actions.addInstruction(''))
-      : setRecipe((oldRecipe) => ({
-          ...oldRecipe,
-          instructions: [...oldRecipe.instructions, ''],
-        }));
+    dispatch(actions.addInstruction(''));
   };
 
   const addNote = () => {
-    savedRecipe
-      ? dispatch(actions.addNote(''))
-      : setRecipe((oldRecipe) => ({
-          ...oldRecipe,
-          notes: [...oldRecipe.notes, ''],
-        }));
+    dispatch(actions.addNote(''));
   };
 
   const removeNote = (index) => {
-    setRecipe((oldRecipe) => ({
-      ...oldRecipe,
-      notes: oldRecipe.notes.filter((val, i) => i !== index),
-    }));
+    dispatch(actions.deleteNote(index));
   };
 
   const removeIng = (index) => {
-    setRecipe((oldRecipe) => ({
-      ...oldRecipe,
-      ingredients: oldRecipe.ingredients.filter((val, i) => i !== index),
-    }));
+    dispatch(actions.deleteIngredient(index));
   };
 
   const removeInstruction = (index) => {
-    setRecipe((oldRecipe) => ({
-      ...oldRecipe,
-      instructions: oldRecipe.instructions.filter((val, i) => i !== index),
-    }));
+    dispatch(actions.deleteInstruction(index));
   };
 
   const addIngredients = () => {
@@ -143,7 +127,7 @@ function CreateRecipeForm({
         recipeIng={ingredient}
         recipe={recipe}
         setRecipe={setRecipe}
-        parent={savedRecipe ? editRecipe : create}
+        parent={editRecipe}
       />
     ));
   };
@@ -154,9 +138,11 @@ function CreateRecipeForm({
         key={i}
         index={i}
         removeInstruction={removeInstruction}
-        instruction={savedRecipe ? instruction.description : instruction}
+        instruction={
+          instruction.description ? instruction.description : instruction
+        }
         setRecipe={setRecipe}
-        parent={savedRecipe ? editRecipe : create}
+        parent={editRecipe}
       />
     ));
   };
@@ -167,10 +153,9 @@ function CreateRecipeForm({
         key={i}
         index={i}
         removeNote={removeNote}
-        note={savedRecipe ? note.description : note}
-        id={savedRecipe && note.id}
+        note={note.description ? note.description : note}
         setRecipe={setRecipe}
-        parent={savedRecipe ? editRecipe : create}
+        parent={editRecipe}
       />
     ));
   };
