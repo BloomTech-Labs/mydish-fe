@@ -29,7 +29,7 @@ const MainNavigator = createBottomTabNavigator(
         tabBarIcon: <Image style={styles.tab} source={create} />,
         tabBarOnPress: ({ navigation }) => {
           navigation.pop();
-          navigation.navigate('Create');
+          navigation.navigate('RecipePicker');
         },
       },
     },

@@ -3,7 +3,7 @@ import { TouchableOpacity, Text } from 'react-native';
 import styles from '../styles/recipe-styles';
 
 export default AddRecipeButton = ({ navigation }) => {
-  const pressHandler = () => navigation.navigate('Create');
+  const pressHandler = () => navigation.navigate('RecipePicker');
 
   return (
     <TouchableOpacity onPress={pressHandler} style={styles.addRecipeButton}>
