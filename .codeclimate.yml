@@ -1,5 +1,5 @@
 exclude_patterns:
-    - "__tests__/"
-    - "spec/"
-    - "**/vendor/"
-    - "**/node_modules/"
+  - '__tests__/'
+  - 'spec/'
+  - '**/vendor/'
+  - '**/node_modules/'

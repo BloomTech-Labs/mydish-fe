@@ -7,19 +7,19 @@ You can find the deployed project on the [Google Play Store](https://play.google
 **TestFlight Instructions**
 ​
 
--   Search for TestFlight in the App Store.
--   Once installed, follow [this link](https://apps.apple.com/us/app/testflight/id899247664).
-    ​
+- Search for TestFlight in the App Store.
+- Once installed, follow [this link](https://apps.apple.com/us/app/testflight/id899247664).
+  ​
 
 # Table of Contents
 
--   [Getting Started](#getting-started)
--   [Contributors](#contributors)
--   [Project Overview](#project-overview)
--   [Tech Stack](#tech-stack)
--   [APIs](#apis)
--   [Contributing](#contributing)
-    ​
+- [Getting Started](#getting-started)
+- [Contributors](#contributors)
+- [Project Overview](#project-overview)
+- [Tech Stack](#tech-stack)
+- [APIs](#apis)
+- [Contributing](#contributing)
+  ​
 
 ## Getting Started
 
@@ -69,11 +69,11 @@ MyDish allows users to create their own recipes and keep track of different vers
 
 ### Key Features
 
--   Recipe creation
--   Editing a recipe
--   Version History
--   Image upload
-    ​
+- Recipe creation
+- Editing a recipe
+- Version History
+- Image upload
+  ​
 
 ## Tech Stack
 
@@ -104,9 +104,9 @@ This API is a data science ingredient prediction model. Based on the request, it
 
 ```json
 {
-    "1": "garlic",
-    "2": "butter",
-    "3": "chives"
+  "1": "garlic",
+  "2": "butter",
+  "3": "chives"
 }
 ```
 
@@ -130,11 +130,11 @@ Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it 
 **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
 ​
 
--   Check first to see if your issue has already been reported.
--   Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
--   Create a live example of the problem.
--   Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
-    ​
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
+  ​
 
 ### Feature Requests
 
@@ -150,11 +150,11 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 #### Pull Request Guidelines
 
--   Ensure any install or build dependencies are removed before the end of the layer when doing a build.
--   Update the README.md with details of changes to the interface, including new plist variables, exposed ports, useful file locations and container parameters.
--   Ensure that your code conforms to our existing code conventions and test coverage.
--   Include the relevant issue number, if applicable.
--   You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+- Ensure any install or build dependencies are removed before the end of the layer when doing a build.
+- Update the README.md with details of changes to the interface, including new plist variables, exposed ports, useful file locations and container parameters.
+- Ensure that your code conforms to our existing code conventions and test coverage.
+- Include the relevant issue number, if applicable.
+- You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
 
 ### Attribution
 
