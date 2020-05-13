@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,6 +41,7 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
     prep_time: false,
     cook_time: false,
   });
+  const [generateCam, setGenerateCam] = useState(false);
 
   const postRecipe = async () => {
     const preppedRecipe = await prepRecipeForPost(recipe);
@@ -159,6 +160,10 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
     ));
   };
 
+  const handleIngredientsGenerate = () => {};
+
+  const handleInstructionsGenerate = () => {};
+
   if (isLoading) {
     return <FancySpinner />;
   }
@@ -182,7 +187,7 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
                 visible={imageModalVisible}
                 setVisible={setImageModalVisible}
                 setRecipe={setRecipe}
-                parent={create}
+                parent={generateCam ? generate : create}
               />
               <RecipeName
                 recipe={recipe}
@@ -190,6 +195,29 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
                 missing={errors.includes('title')}
                 parent={create}
               />
+              <Text
+                style={{
+                  color: theme.DARK_GREY_FONT_COLOR,
+                  fontSize: theme.REGULAR_FONT_SIZE,
+                  marginTop: 30,
+                }}
+              >
+                Generate ingredients or instructions from an image!
+              </Text>
+              <View style={styles.generateView}>
+                <TouchableOpacity onPress={handleIngredientsGenerate}>
+                  <View style={theme.SECONDARY_BUTTON}>
+                    <Text style={theme.SECONDARY_BUTTON_TEXT}>Ingredients</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleInstructionsGenerate}>
+                  <View style={theme.SECONDARY_BUTTON}>
+                    <Text style={theme.SECONDARY_BUTTON_TEXT}>
+                      Instructions
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
               <View style={styles.totalTimeView}>
                 <TimeInput
                   type="prep_time"
@@ -242,7 +270,6 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
               </Text>
               {addIngredients()}
               <Add text="Add Ingredient" submit={addIng} />
-
               <Text
                 style={{
                   ...styles.heading,
@@ -256,7 +283,6 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
               </Text>
               {addInstructions()}
               <Add text="Add Step" submit={addInstruction} />
-
               <Text
                 style={{
                   ...styles.heading,
@@ -265,7 +291,6 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
               >
                 Notes
               </Text>
-
               {addNotes()}
               <Add text="Add Note" submit={addNote} />
               {errors.length > 0 && (

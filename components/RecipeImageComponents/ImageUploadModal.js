@@ -36,11 +36,16 @@ function ImageUploadModal({ visible, setVisible, setRecipe, parent }) {
     const hasPermission = await verifyPermissions();
     if (!hasPermission) return;
 
-    const imgConfig = {
-      allowsEditing: true,
-      aspect: [16, 9],
-      quality: 0.5,
-    };
+    let imgConfig = {};
+
+    parent === 'generate'
+      ? (imgConfig = { allowsEditing: true, quality: 0.5 })
+      : (imgConfig = {
+          allowsEditing: true,
+          aspect: [16, 9],
+          quality: 0.5,
+        });
+
     let img = '';
 
     if (method === take) {
