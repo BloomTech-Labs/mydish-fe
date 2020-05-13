@@ -26,18 +26,10 @@ import { courses } from '../constants/courses';
 import { initialCreateFormState } from '../constants/initialCreateFormState';
 import FancySpinner from './FancySpinner';
 
-function CreateRecipeForm({
-  navigation,
-  cancelButtonEditedRecipe,
-  saveButtonEditedRecipe,
-}) {
+function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const dispatch = useDispatch();
   const [recipe, setRecipe] = useState(initialCreateFormState);
-  let savedRecipe = false;
-  const recipeStore = useSelector((state) => state.singleRecipe.recipe);
-  const [recipeToRender, setRecipeToRender] = useState(recipe);
-  const savedRecipeTagNames = recipeToRender.tags.map((tag) => tag.name);
-  const [editRecipe, create] = ['editRecipe', 'create'];
+  const [generate, create] = ['generate', 'create'];
   let [errors, setErrors] = useState([]);
   const [commitModal, setCommitModal] = useState({
     save: false,
@@ -49,17 +41,6 @@ function CreateRecipeForm({
     prep_time: false,
     cook_time: false,
   });
-  const [bool, setBool] = useState(true);
-
-  useEffect(() => {
-    dispatch(actions.resetRecipe());
-    setRecipeToRender(recipeStore);
-    savedRecipe = true;
-  }, []);
-
-  useEffect(() => {
-    setRecipeToRender(recipeStore);
-  }, [bool]);
 
   const postRecipe = async () => {
     const preppedRecipe = await prepRecipeForPost(recipe);
@@ -94,32 +75,50 @@ function CreateRecipeForm({
 
   const addIng = () => {
     const newIng = { name: '', quantity: '', units: '' };
-    dispatch(actions.addIngredient(newIng));
-    setBool(!bool);
+    setRecipe((oldRecipe) => ({
+      ...oldRecipe,
+      ingredients: [...oldRecipe.ingredients, newIng],
+    }));
   };
 
   const addInstruction = () => {
+    setRecipe((oldRecipe) => ({
+      ...oldRecipe,
+      instructions: [...oldRecipe.instructions, ''],
+    }));
     dispatch(actions.addInstruction(''));
   };
 
   const addNote = () => {
-    dispatch(actions.addNote(''));
+    setRecipe((oldRecipe) => ({
+      ...oldRecipe,
+      notes: [...oldRecipe.notes, ''],
+    }));
   };
 
   const removeNote = (index) => {
-    dispatch(actions.deleteNote(index));
+    setRecipe((oldRecipe) => ({
+      ...oldRecipe,
+      notes: oldRecipe.notes.filter((val, i) => i !== index),
+    }));
   };
 
   const removeIng = (index) => {
-    dispatch(actions.deleteIngredient(index));
+    setRecipe((oldRecipe) => ({
+      ...oldRecipe,
+      ingredients: oldRecipe.ingredients.filter((val, i) => i !== index),
+    }));
   };
 
   const removeInstruction = (index) => {
-    dispatch(actions.deleteInstruction(index));
+    setRecipe((oldRecipe) => ({
+      ...oldRecipe,
+      instructions: oldRecipe.instructions.filter((val, i) => i !== index),
+    }));
   };
 
   const addIngredients = () => {
-    return recipeToRender.ingredients.map((ingredient, i) => (
+    return recipe.ingredients.map((ingredient, i) => (
       <Ingredient
         key={i}
         index={i}
@@ -127,13 +126,13 @@ function CreateRecipeForm({
         recipeIng={ingredient}
         recipe={recipe}
         setRecipe={setRecipe}
-        parent={editRecipe}
+        parent={create}
       />
     ));
   };
 
   const addInstructions = () => {
-    return recipeToRender.instructions.map((instruction, i) => (
+    return recipe.instructions.map((instruction, i) => (
       <Instruction
         key={i}
         index={i}
@@ -142,20 +141,20 @@ function CreateRecipeForm({
           instruction.description ? instruction.description : instruction
         }
         setRecipe={setRecipe}
-        parent={editRecipe}
+        parent={create}
       />
     ));
   };
 
   const addNotes = () => {
-    return recipeToRender.notes.map((note, i) => (
+    return recipe.notes.map((note, i) => (
       <Notes
         key={i}
         index={i}
         removeNote={removeNote}
         note={note.description ? note.description : note}
         setRecipe={setRecipe}
-        parent={editRecipe}
+        parent={create}
       />
     ));
   };
@@ -169,7 +168,7 @@ function CreateRecipeForm({
       <View>
         <ScrollView>
           <RecipeImage
-            image={recipeToRender.img}
+            image={recipe.img}
             setImageModalVisible={setImageModalVisible}
           />
           <View style={styles.container}>
@@ -183,13 +182,13 @@ function CreateRecipeForm({
                 visible={imageModalVisible}
                 setVisible={setImageModalVisible}
                 setRecipe={setRecipe}
-                parent={savedRecipe ? editRecipe : create}
+                parent={create}
               />
               <RecipeName
-                recipe={recipeToRender}
+                recipe={recipe}
                 setRecipe={setRecipe}
                 missing={errors.includes('title')}
-                parent={savedRecipe ? editRecipe : create}
+                parent={create}
               />
               <View style={styles.totalTimeView}>
                 <TimeInput
@@ -200,8 +199,7 @@ function CreateRecipeForm({
                   setHighlighted={setHighlighted}
                   recipe={recipe}
                   setRecipe={setRecipe}
-                  recipeToRender={recipeToRender}
-                  savedRecipe={savedRecipe}
+                  recipeToRender={recipe}
                 />
                 <TimeInput
                   type="cook_time"
@@ -211,8 +209,7 @@ function CreateRecipeForm({
                   setHighlighted={setHighlighted}
                   recipe={recipe}
                   setRecipe={setRecipe}
-                  recipeToRender={recipeToRender}
-                  savedRecipe={savedRecipe}
+                  recipeToRender={recipe}
                 />
               </View>
               <View style={styles.heading}>
@@ -226,13 +223,9 @@ function CreateRecipeForm({
                   <TagButton
                     key={i}
                     tag={course}
-                    isSelected={
-                      savedRecipe
-                        ? savedRecipeTagNames.includes(course)
-                        : recipe.tags.includes(course)
-                    }
+                    isSelected={recipe.tags.includes(course)}
                     setRecipe={setRecipe}
-                    parent={savedRecipe ? editRecipe : create}
+                    parent={create}
                   />
                 ))}
               </View>
@@ -281,31 +274,7 @@ function CreateRecipeForm({
                 </Text>
               )}
               <View style={styles.saveView}>
-                {savedRecipe && (
-                  <TouchableOpacity onPress={cancelButtonEditedRecipe}>
-                    <View style={theme.SECONDARY_BUTTON}>
-                      <Text style={theme.SECONDARY_BUTTON_TEXT}>Cancel</Text>
-                    </View>
-                  </TouchableOpacity>
-                )}
-                <TouchableOpacity
-                  onPress={
-                    savedRecipe
-                      ? () => {
-                          dispatch(actions.cleanUpRecipe());
-                          const errMessages = validateFields(null, 'edit');
-                          if (errMessages.length) {
-                            setErrors(errMessages);
-                            return;
-                          }
-                          setCommitModal({
-                            save: true,
-                            cancel: false,
-                          });
-                        }
-                      : postRecipe
-                  }
-                >
+                <TouchableOpacity onPress={postRecipe}>
                   <View style={theme.PRIMARY_BUTTON}>
                     <Text style={theme.PRIMARY_BUTTON_TEXT}>Save</Text>
                   </View>

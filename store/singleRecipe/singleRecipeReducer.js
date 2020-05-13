@@ -60,8 +60,6 @@ const initState = {
   isSubmitting: false,
   editMode: false,
   error: null,
-  ingredientsImage: null,
-  instructionsImage: null,
 };
 
 export const singleRecipeReducer = (state = initState, action) => {
