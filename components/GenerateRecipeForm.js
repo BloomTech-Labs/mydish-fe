@@ -29,7 +29,11 @@ import FancySpinner from './FancySpinner';
 function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const dispatch = useDispatch();
   const [recipe, setRecipe] = useState(initialCreateFormState);
-  const [generate, create] = ['generate', 'create'];
+  const [generateIngredients, generateInstructions, create] = [
+    'generateIngredients',
+    'generateInstructions',
+    'create',
+  ];
   let [errors, setErrors] = useState([]);
   const [commitModal, setCommitModal] = useState({
     save: false,
@@ -41,7 +45,8 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
     prep_time: false,
     cook_time: false,
   });
-  const [generateCam, setGenerateCam] = useState(false);
+  const [generateIngredientsCam, setGenerateIngredientsCam] = useState(false);
+  const [generateInstructionsCam, setGenerateInstructionsCam] = useState(false);
 
   const postRecipe = async () => {
     const preppedRecipe = await prepRecipeForPost(recipe);
@@ -160,9 +165,15 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
     ));
   };
 
-  const handleIngredientsGenerate = () => {};
+  const handleIngredientsGenerate = () => {
+    setGenerateIngredientsCam(true);
+    setImageModalVisible(true);
+  };
 
-  const handleInstructionsGenerate = () => {};
+  const handleInstructionsGenerate = () => {
+    setGenerateInstructionsCam(true);
+    setImageModalVisible(true);
+  };
 
   if (isLoading) {
     return <FancySpinner />;
@@ -187,7 +198,15 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
                 visible={imageModalVisible}
                 setVisible={setImageModalVisible}
                 setRecipe={setRecipe}
-                parent={generateCam ? generate : create}
+                setIngredients={setGenerateIngredientsCam}
+                setInstructions={setGenerateInstructionsCam}
+                parent={
+                  generateIngredientsCam
+                    ? generateIngredients
+                    : generateInstructionsCam
+                    ? generateInstructions
+                    : create
+                }
               />
               <RecipeName
                 recipe={recipe}

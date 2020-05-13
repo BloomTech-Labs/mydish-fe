@@ -8,14 +8,8 @@ import {
 } from './generateRecipeAction.js';
 
 const initState = {
-  ingredients: {
-    image: null,
-    returnedIngredients: null,
-  },
-  instructions: {
-    image: null,
-    returnedInstructions: null,
-  },
+  ingredients: [],
+  instructions: [],
   isLoading: false,
   error: null,
 };
@@ -30,10 +24,7 @@ export const recipeGenerateReducer = (state = initState, action) => {
     case GENERATE_INGREDIENTS_SUCCESS:
       return {
         ...state,
-        ingredients: {
-          ...state.ingredients,
-          returnedIngredients: action.payload,
-        },
+        ingredients: action.payload,
         isLoading: false,
       };
     case GENERATE_INGREDIENTS_FAILURE:
@@ -50,10 +41,7 @@ export const recipeGenerateReducer = (state = initState, action) => {
     case GENERATE_INSTRUCTIONS_SUCCESS:
       return {
         ...state,
-        instructions: {
-          ...state.instructions,
-          returnedInstructions: action.payload,
-        },
+        instructions: action.payload,
         isLoading: false,
       };
     case GENERATE_INSTRUCTIONS_FAILURE:
