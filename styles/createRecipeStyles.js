@@ -164,7 +164,6 @@ const styles = StyleSheet.create({
   generateView: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
     marginTop: 15,
     marginBottom: 24,
   },

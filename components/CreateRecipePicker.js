@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import theme from '../styles/theme.style.js';
 
 const CreateRecipePicker = (props) => {
   return (
@@ -11,8 +12,13 @@ const CreateRecipePicker = (props) => {
           props.navigation.push('Create');
         }}
       >
-        <SimpleLineIcons name="pencil" size={36} color="black" />
-        <Text>Manually Enter a Recipe</Text>
+        <SimpleLineIcons
+          style={styles.icon}
+          name="pencil"
+          size={36}
+          color="darkred"
+        />
+        <Text style={styles.tempText}>Manually Enter a Recipe</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -21,8 +27,13 @@ const CreateRecipePicker = (props) => {
           props.navigation.push('GenerateRecipe');
         }}
       >
-        <SimpleLineIcons name="camera" size={36} color="black" />
-        <Text>Generate a Recipe</Text>
+        <SimpleLineIcons
+          style={styles.icon}
+          name="camera"
+          size={36}
+          color="darkred"
+        />
+        <Text style={styles.tempText}>Generate a Recipe</Text>
       </TouchableOpacity>
     </View>
   );
@@ -31,11 +42,20 @@ const styles = StyleSheet.create({
   tempContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 150,
   },
   tempContent: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 40,
+  },
+  tempText: {
+    fontFamily: theme.REGULAR_FONT.fontFamily,
+    fontSize: 26,
+    fontWeight: theme.BUTTON_FONT_WEIGHT,
+  },
+  icon: {
+    marginBottom: 12,
   },
 });
 

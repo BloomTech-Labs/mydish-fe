@@ -6,6 +6,10 @@ export const GENERATE_INGREDIENTS_FAILURE = 'GENERATE_INGREDIENTS_FAILURE';
 export const generateIngredients = (photo) => (dispatch) => {
   dispatch({ type: START_GENERATE_INGREDIENTS });
 
+  const photoPackage = {
+    img: photo,
+  };
+
   axios
     .post(
       'http://dishify2-env.eba-jpgptbu3.us-east-1.elasticbeanstalk.com/recipe_parser/ingredients/',
@@ -38,5 +42,30 @@ export const generateInstructions = (photo) => (dispatch) => {
     .catch((err) => {
       console.log(err);
       dispatch({ type: GENERATE_INSTRUCTIONS_FAILURE, payload: err });
+    });
+};
+
+export const START_GENERATE_GETTER = 'START_GENERATE_GETTER';
+export const GENERATE_GETTER_SUCCESS = 'GENERATE_GETTER_SUCCESS';
+export const GENERATE_GETTER_FAILURE = 'GENERATE_GETTER_FAILURE';
+export const predictIngredientsFromTitle = (food) => (dispatch) => {
+  dispatch({ type: START_GENERATE_GETTER });
+
+  const newObject = {
+    word: food,
+  };
+
+  axios
+    .post(
+      'http://dishify2-env.eba-jpgptbu3.us-east-1.elasticbeanstalk.com/ingredients/getter',
+      newObject
+    )
+    .then((res) => {
+      console.log(res.data);
+      dispatch({ type: GENERATE_GETTER_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: GENERATE_GETTER_FAILURE, payload: err });
     });
 };

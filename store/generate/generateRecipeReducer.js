@@ -5,11 +5,15 @@ import {
   START_GENERATE_INSTRUCTIONS,
   GENERATE_INSTRUCTIONS_SUCCESS,
   GENERATE_INSTRUCTIONS_FAILURE,
+  START_GENERATE_GETTER,
+  GENERATE_GETTER_SUCCESS,
+  GENERATE_GETTER_FAILURE,
 } from './generateRecipeAction.js';
 
 const initState = {
   ingredients: [],
   instructions: [],
+  getter: [],
   isLoading: false,
   error: null,
 };
@@ -50,6 +54,22 @@ export const recipeGenerateReducer = (state = initState, action) => {
         error: action.payload,
         isLoading: false,
       };
+    case START_GENERATE_GETTER:
+      return {
+        isLoading: true,
+      };
+    case GENERATE_GETTER_SUCCESS:
+      return {
+        ...state,
+        getter: action.payload,
+        isLoading: false,
+      };
+    case GENERATE_GETTER_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
     default:
       return state;
   }

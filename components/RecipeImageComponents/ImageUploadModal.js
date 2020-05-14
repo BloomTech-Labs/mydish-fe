@@ -63,6 +63,19 @@ function ImageUploadModal({
 
     let img = '';
 
+    const calculateImageSize = (base64String) => {
+      let padding, inBytes, base64StringLength;
+      if (base64String.endsWith('==')) padding = 2;
+      else if (base64String.endsWith('=')) padding = 1;
+      else padding = 0;
+      base64StringLength = base64String.length;
+      console.log(base64StringLength);
+      inBytes = (base64StringLength / 4) * 3 - padding;
+      console.log(inBytes);
+      this.kbytes = inBytes / 1000;
+      return this.kbytes;
+    };
+
     if (method === take) {
       img = await ImagePicker.launchCameraAsync(imgConfig);
     } else if (method === choose) {
@@ -78,9 +91,11 @@ function ImageUploadModal({
       } else if (parent === 'editRecipe') {
         dispatch(editImage(img.uri));
       } else if (parent === 'generateIngredients') {
-        dispatch(generateIngredients(img.base64));
+        console.log(img.uri.size);
+        dispatch(generateIngredients(img.uri));
         setIngredients(false);
       } else if (parent === 'generateInstructions') {
+        console.log(calculateImageSize(img.base64));
         dispatch(generateInstructions(img.base64));
         setInstructions(false);
       }

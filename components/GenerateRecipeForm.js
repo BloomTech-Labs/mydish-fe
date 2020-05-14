@@ -7,6 +7,7 @@ import { addCookbookRecipe } from '../store/cookbook/cookbookAction';
 import styles from '../styles/createRecipeStyles';
 import theme from '../styles/theme.style';
 import { logoHeaderPlain } from './header/navigationHeader';
+import GenerateFields from './GenerateFields';
 import RecipeName from './RecipeName';
 import TimeInput from './TimeInput';
 import Ingredient from './Ingredient';
@@ -25,6 +26,8 @@ import { addRecipe } from '../store/recipes/recipeActions';
 import { courses } from '../constants/courses';
 import { initialCreateFormState } from '../constants/initialCreateFormState';
 import FancySpinner from './FancySpinner';
+import { TextInput } from 'react-native-gesture-handler';
+import { predictIngredientsFromTitle } from '../store/generate/generateRecipeAction';
 
 function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const dispatch = useDispatch();
@@ -44,9 +47,11 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const [highlighted, setHighlighted] = useState({
     prep_time: false,
     cook_time: false,
+    predict_text: false,
   });
   const [generateIngredientsCam, setGenerateIngredientsCam] = useState(false);
   const [generateInstructionsCam, setGenerateInstructionsCam] = useState(false);
+  const [predictionText, setPredictionText] = useState('');
 
   const postRecipe = async () => {
     const preppedRecipe = await prepRecipeForPost(recipe);
@@ -92,7 +97,6 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
       ...oldRecipe,
       instructions: [...oldRecipe.instructions, ''],
     }));
-    dispatch(actions.addInstruction(''));
   };
 
   const addNote = () => {
@@ -165,16 +169,6 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
     ));
   };
 
-  const handleIngredientsGenerate = () => {
-    setGenerateIngredientsCam(true);
-    setImageModalVisible(true);
-  };
-
-  const handleInstructionsGenerate = () => {
-    setGenerateInstructionsCam(true);
-    setImageModalVisible(true);
-  };
-
   if (isLoading) {
     return <FancySpinner />;
   }
@@ -208,35 +202,20 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
                     : create
                 }
               />
+              <GenerateFields
+                setGenerateIngredientsCam={setGenerateIngredientsCam}
+                setGenerateInstructionsCam={setGenerateInstructionsCam}
+                setImageModalVisible={setImageModalVisible}
+                predictionText={predictionText}
+                setPredictionText={setPredictionText}
+              />
               <RecipeName
                 recipe={recipe}
                 setRecipe={setRecipe}
                 missing={errors.includes('title')}
                 parent={create}
               />
-              <Text
-                style={{
-                  color: theme.DARK_GREY_FONT_COLOR,
-                  fontSize: theme.REGULAR_FONT_SIZE,
-                  marginTop: 30,
-                }}
-              >
-                Generate ingredients or instructions from an image!
-              </Text>
-              <View style={styles.generateView}>
-                <TouchableOpacity onPress={handleIngredientsGenerate}>
-                  <View style={theme.SECONDARY_BUTTON}>
-                    <Text style={theme.SECONDARY_BUTTON_TEXT}>Ingredients</Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleInstructionsGenerate}>
-                  <View style={theme.SECONDARY_BUTTON}>
-                    <Text style={theme.SECONDARY_BUTTON_TEXT}>
-                      Instructions
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
+
               <View style={styles.totalTimeView}>
                 <TimeInput
                   type="prep_time"
