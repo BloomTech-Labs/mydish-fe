@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useDispatch, useSelector } from 'react-redux';
-import * as actions from '../store/singleRecipe/singleRecipeActions';
 import { addCookbookRecipe } from '../store/cookbook/cookbookAction';
 import styles from '../styles/createRecipeStyles';
 import theme from '../styles/theme.style';
@@ -26,8 +25,6 @@ import { addRecipe } from '../store/recipes/recipeActions';
 import { courses } from '../constants/courses';
 import { initialCreateFormState } from '../constants/initialCreateFormState';
 import FancySpinner from './FancySpinner';
-import { TextInput } from 'react-native-gesture-handler';
-import { predictIngredientsFromTitle } from '../store/generate/generateRecipeAction';
 
 function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const dispatch = useDispatch();
@@ -44,6 +41,11 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   });
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const loading = useSelector((state) => state.generateRecipe.isLoading);
+  const ingredients = useSelector((state) => state.generateRecipe.ingredients);
+  const instructions = useSelector(
+    (state) => state.generateRecipe.instructions
+  );
   const [highlighted, setHighlighted] = useState({
     prep_time: false,
     cook_time: false,
@@ -52,6 +54,26 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const [generateIngredientsCam, setGenerateIngredientsCam] = useState(false);
   const [generateInstructionsCam, setGenerateInstructionsCam] = useState(false);
   const [predictionText, setPredictionText] = useState('');
+
+  useEffect(() => {
+    const formattedIngredients = ingredients.map((ingredient) => {
+      // function to configure ingredients
+    });
+    const formattedInstructions = instructions.map((instruction) => {
+      // function to configure instructions
+    });
+
+    ingredients &&
+      setRecipe((oldRecipe) => ({
+        ...oldRecipe,
+        ingredients: formattedIngredients,
+      }));
+    instructions &&
+      setRecipe((oldRecipe) => ({
+        ...oldRecipe,
+        instructions: formattedInstructions,
+      }));
+  }, [ingredients, instructions]);
 
   const postRecipe = async () => {
     const preppedRecipe = await prepRecipeForPost(recipe);
@@ -169,7 +191,7 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
     ));
   };
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return <FancySpinner />;
   }
 

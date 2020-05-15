@@ -61,11 +61,9 @@ export const predictIngredientsFromTitle = (food) => (dispatch) => {
       newObject
     )
     .then((res) => {
-      console.log(res.data);
       dispatch({ type: GENERATE_GETTER_SUCCESS, payload: res.data });
     })
     .catch((err) => {
-      console.log(err);
       dispatch({ type: GENERATE_GETTER_FAILURE, payload: err });
     });
 };

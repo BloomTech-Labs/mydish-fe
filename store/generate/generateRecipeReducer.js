@@ -11,9 +11,8 @@ import {
 } from './generateRecipeAction.js';
 
 const initState = {
-  ingredients: [],
-  instructions: [],
-  getter: [],
+  ingredients: null,
+  instructions: null,
   isLoading: false,
   error: null,
 };
@@ -61,7 +60,7 @@ export const recipeGenerateReducer = (state = initState, action) => {
     case GENERATE_GETTER_SUCCESS:
       return {
         ...state,
-        getter: action.payload,
+        ingredients: action.payload,
         isLoading: false,
       };
     case GENERATE_GETTER_FAILURE:
