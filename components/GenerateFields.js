@@ -7,6 +7,7 @@ import inputStyles from '../styles/authPageStyles';
 import { maxRecipeName } from '../constants/maxLength';
 import { TextInput } from 'react-native-gesture-handler';
 import { predictIngredientsFromTitle } from '../store/generate/generateRecipeAction';
+import { submitEditedRecipe } from '../store/singleRecipe/singleRecipeActions';
 
 const GenerateFields = ({
   setGenerateIngredientsCam,
@@ -14,6 +15,7 @@ const GenerateFields = ({
   setImageModalVisible,
   predictionText,
   setPredictionText,
+  setRecipe,
 }) => {
   const dispatch = useDispatch();
   const [highlighted, setHighlighted] = useState(false);
@@ -31,6 +33,10 @@ const GenerateFields = ({
   const predictIngredients = () => {
     dispatch(predictIngredientsFromTitle(predictionText));
     setPredictionText('');
+    setRecipe((oldRecipe) => ({
+      ...oldRecipe,
+      title: predictionText,
+    }));
   };
 
   const handlePredictionTextChanges = (value) => {

@@ -56,18 +56,26 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const [predictionText, setPredictionText] = useState('');
 
   useEffect(() => {
-    const formattedIngredients = ingredients.map((ingredient) => {
-      // function to configure ingredients
-    });
-    const formattedInstructions = instructions.map((instruction) => {
-      // function to configure instructions
-    });
+    ingredients &&
+      (formattedIngredients = ingredients.map((ing) => {
+        return {
+          units: ing.unit ? ing.unit : 'whole',
+          quantity: ing.quantity,
+          name: ing.ingredient,
+        };
+      }));
+
+    instructions &&
+      (formattedInstructions = instructions.map((instruction) => {
+        // function to configure instructions
+      }));
 
     ingredients &&
       setRecipe((oldRecipe) => ({
         ...oldRecipe,
         ingredients: formattedIngredients,
       }));
+
     instructions &&
       setRecipe((oldRecipe) => ({
         ...oldRecipe,
@@ -230,6 +238,7 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
                 setImageModalVisible={setImageModalVisible}
                 predictionText={predictionText}
                 setPredictionText={setPredictionText}
+                setRecipe={setRecipe}
               />
               <RecipeName
                 recipe={recipe}

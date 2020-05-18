@@ -57,13 +57,16 @@ export const predictIngredientsFromTitle = (food) => (dispatch) => {
 
   axios
     .post(
-      'http://dishify2-env.eba-jpgptbu3.us-east-1.elasticbeanstalk.com/ingredients/getter',
+      'http://dishify1505-env.eba-b5yyyntm.us-east-1.elasticbeanstalk.com/ingredients/getter',
       newObject
     )
     .then((res) => {
-      dispatch({ type: GENERATE_GETTER_SUCCESS, payload: res.data });
+      const newObj = JSON.parse(res.data);
+      console.log(newObj);
+      dispatch({ type: GENERATE_GETTER_SUCCESS, payload: newObj });
     })
     .catch((err) => {
+      console.log(res.data);
       dispatch({ type: GENERATE_GETTER_FAILURE, payload: err });
     });
 };

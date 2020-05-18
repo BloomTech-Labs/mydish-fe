@@ -55,6 +55,7 @@ export const recipeGenerateReducer = (state = initState, action) => {
       };
     case START_GENERATE_GETTER:
       return {
+        ...state,
         isLoading: true,
       };
     case GENERATE_GETTER_SUCCESS:
