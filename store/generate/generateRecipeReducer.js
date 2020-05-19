@@ -15,7 +15,6 @@ import {
 const initState = {
   ingredients: null,
   instructions: null,
-  title: null,
   isLoading: false,
   error: null,
 };

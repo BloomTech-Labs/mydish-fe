@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import { logoHeaderPlain } from './header/navigationHeader';
 import theme from '../styles/theme.style.js';
 
 const CreateRecipePicker = (props) => {
@@ -58,5 +59,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
+
+CreateRecipePicker.navigationOptions = logoHeaderPlain;
 
 export default CreateRecipePicker;
