@@ -56,15 +56,6 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const [predictionText, setPredictionText] = useState('');
 
   useEffect(() => {
-    ingredients &&
-      (formattedIngredients = ingredients.map((ing) => {
-        return {
-          units: ing.unit ? ing.unit : 'whole',
-          quantity: ing.quantity,
-          name: ing.ingredient,
-        };
-      }));
-
     instructions &&
       (formattedInstructions = instructions.map((instruction) => {
         // function to configure instructions
@@ -73,7 +64,7 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
     ingredients &&
       setRecipe((oldRecipe) => ({
         ...oldRecipe,
-        ingredients: formattedIngredients,
+        ingredients: ingredients,
       }));
 
     instructions &&

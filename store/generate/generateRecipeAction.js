@@ -51,19 +51,24 @@ export const GENERATE_GETTER_FAILURE = 'GENERATE_GETTER_FAILURE';
 export const predictIngredientsFromTitle = (food) => (dispatch) => {
   dispatch({ type: START_GENERATE_GETTER });
 
-  const newObject = {
+  const foodToSubmit = {
     word: food,
   };
 
   axios
     .post(
       'http://dishify1505-env.eba-b5yyyntm.us-east-1.elasticbeanstalk.com/ingredients/getter',
-      newObject
+      foodToSubmit
     )
     .then((res) => {
-      const newObj = JSON.parse(res.data);
-      console.log(newObj);
-      dispatch({ type: GENERATE_GETTER_SUCCESS, payload: newObj });
+      const formattedResponse = JSON.parse(res.data).map((ing) => {
+        return {
+          units: ing.unit ? ing.unit : 'whole',
+          quantity: ing.quantity,
+          name: ing.ingredient,
+        };
+      });
+      dispatch({ type: GENERATE_GETTER_SUCCESS, payload: formattedResponse });
     })
     .catch((err) => {
       console.log(res.data);
