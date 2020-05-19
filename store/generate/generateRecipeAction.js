@@ -75,3 +75,40 @@ export const predictIngredientsFromTitle = (food) => (dispatch) => {
       dispatch({ type: GENERATE_GETTER_FAILURE, payload: err });
     });
 };
+
+export const START_FETCH_TITLE_FROM_IMAGE = 'START_FETCH_TITLE_FROM_IMAGE';
+export const FETCH_TITLE_FROM_IMAGE_FAILURE = 'FETCH_TITLE_FROM_IMAGE_SUCCESS';
+export const fetchTitleFromImage = (image) => (dispatch) => {
+  dispatch({ type: START_FETCH_TITLE_FROM_IMAGE });
+
+  axios
+    .post('placeholder URL', image)
+    .then((res) => {
+      const foodToSubmit = res.data;
+      axios
+        .post(
+          'http://dishify1505-env.eba-b5yyyntm.us-east-1.elasticbeanstalk.com/ingredients/getter',
+          foodToSubmit
+        )
+        .then((res) => {
+          const formattedResponse = JSON.parse(res.data).map((ing) => {
+            return {
+              units: ing.unit ? ing.unit : 'whole',
+              quantity: ing.quantity,
+              name: ing.ingredient,
+            };
+          });
+          dispatch({
+            type: GENERATE_GETTER_SUCCESS,
+            payload: formattedResponse,
+          });
+        })
+        .catch((err) => {
+          console.log(res.data);
+          dispatch({ type: GENERATE_GETTER_FAILURE, payload: err });
+        });
+    })
+    .catch((err) => {
+      dispatch({ type: FETCH_TITLE_FROM_IMAGE_FAILURE, payload: err });
+    });
+};
