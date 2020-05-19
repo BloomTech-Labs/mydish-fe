@@ -9,6 +9,7 @@ import { editImage } from '../../store/singleRecipe/singleRecipeActions';
 import {
   generateIngredients,
   generateInstructions,
+  fetchTitleFromImage,
 } from '../../store/generate/generateRecipeAction';
 import camera from '../../assets/camera_red.png';
 import gallery from '../../assets/image_red.png';
@@ -19,6 +20,7 @@ function ImageUploadModal({
   setRecipe,
   setIngredients,
   setInstructions,
+  setTitle,
   parent,
 }) {
   const dispatch = useDispatch();
@@ -49,7 +51,9 @@ function ImageUploadModal({
 
     let imgConfig = {};
 
-    parent === 'generateIngredients' || parent === 'generateInstructions'
+    parent === 'generateIngredients' ||
+    parent === 'generateInstructions' ||
+    parent === 'generateTitle'
       ? (imgConfig = {
           allowsEditing: true,
           base64: true,
@@ -91,13 +95,14 @@ function ImageUploadModal({
       } else if (parent === 'editRecipe') {
         dispatch(editImage(img.uri));
       } else if (parent === 'generateIngredients') {
-        console.log(img.uri.size);
         dispatch(generateIngredients(img.uri));
         setIngredients(false);
       } else if (parent === 'generateInstructions') {
-        console.log(calculateImageSize(img.base64));
-        dispatch(generateInstructions(img.base64));
+        dispatch(generateInstructions(img.uri));
         setInstructions(false);
+      } else if (parent === 'generateTitle') {
+        dispatch(fetchTitleFromImage(img.uri));
+        setTitle(false);
       }
     }
     setVisible(false);

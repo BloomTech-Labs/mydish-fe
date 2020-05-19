@@ -3,15 +3,14 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import styles from '../styles/createRecipeStyles';
 import theme from '../styles/theme.style';
-import inputStyles from '../styles/authPageStyles';
 import { maxRecipeName } from '../constants/maxLength';
 import { TextInput } from 'react-native-gesture-handler';
 import { predictIngredientsFromTitle } from '../store/generate/generateRecipeAction';
-import { submitEditedRecipe } from '../store/singleRecipe/singleRecipeActions';
 
 const GenerateFields = ({
   setGenerateIngredientsCam,
   setGenerateInstructionsCam,
+  setGenerateTitleCam,
   setImageModalVisible,
   predictionText,
   setPredictionText,
@@ -21,12 +20,23 @@ const GenerateFields = ({
   const [highlighted, setHighlighted] = useState(false);
 
   const handleIngredientsGenerate = () => {
+    setGenerateInstructionsCam(false);
+    setGenerateTitleCam(false);
     setGenerateIngredientsCam(true);
     setImageModalVisible(true);
   };
 
   const handleInstructionsGenerate = () => {
+    setGenerateIngredientsCam(false);
+    setGenerateTitleCam(false);
     setGenerateInstructionsCam(true);
+    setImageModalVisible(true);
+  };
+
+  const handleGenerateTitleFromPhoto = () => {
+    setGenerateIngredientsCam(false);
+    setGenerateInstructionsCam(false);
+    setGenerateTitleCam(true);
     setImageModalVisible(true);
   };
 
@@ -52,7 +62,7 @@ const GenerateFields = ({
           marginTop: 30,
         }}
       >
-        Generate ingredients or instructions from an image!
+        Generate ingredients or instructions by taking a photo of a recipe!
       </Text>
       <View style={styles.generateView}>
         <TouchableOpacity onPress={handleIngredientsGenerate}>
@@ -63,6 +73,24 @@ const GenerateFields = ({
         <TouchableOpacity onPress={handleInstructionsGenerate}>
           <View style={theme.SECONDARY_BUTTON}>
             <Text style={theme.SECONDARY_BUTTON_TEXT}>Instructions</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <Text
+        style={{
+          color: theme.DARK_GREY_FONT_COLOR,
+          fontSize: theme.REGULAR_FONT_SIZE,
+          marginTop: 30,
+        }}
+      >
+        Generate ingredients from an image of your food!
+      </Text>
+      <View style={styles.generateView}>
+        <TouchableOpacity onPress={handleGenerateTitleFromPhoto}>
+          <View style={{ ...theme.SECONDARY_BUTTON, width: 215 }}>
+            <Text style={theme.SECONDARY_BUTTON_TEXT}>
+              Snap a Photo of Your Plate
+            </Text>
           </View>
         </TouchableOpacity>
       </View>

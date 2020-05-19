@@ -29,9 +29,10 @@ import FancySpinner from './FancySpinner';
 function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const dispatch = useDispatch();
   const [recipe, setRecipe] = useState(initialCreateFormState);
-  const [generateIngredients, generateInstructions, create] = [
+  const [generateIngredients, generateInstructions, generateTitle, create] = [
     'generateIngredients',
     'generateInstructions',
+    'generateTitle',
     'create',
   ];
   let [errors, setErrors] = useState([]);
@@ -53,6 +54,7 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   });
   const [generateIngredientsCam, setGenerateIngredientsCam] = useState(false);
   const [generateInstructionsCam, setGenerateInstructionsCam] = useState(false);
+  const [generateTitleCam, setGenerateTitleCam] = useState(false);
   const [predictionText, setPredictionText] = useState('');
 
   useEffect(() => {
@@ -215,17 +217,21 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
                 setRecipe={setRecipe}
                 setIngredients={setGenerateIngredientsCam}
                 setInstructions={setGenerateInstructionsCam}
+                setTitle={setGenerateTitleCam}
                 parent={
                   generateIngredientsCam
                     ? generateIngredients
                     : generateInstructionsCam
                     ? generateInstructions
+                    : generateTitleCam
+                    ? generateTitle
                     : create
                 }
               />
               <GenerateFields
                 setGenerateIngredientsCam={setGenerateIngredientsCam}
                 setGenerateInstructionsCam={setGenerateInstructionsCam}
+                setGenerateTitleCam={setGenerateTitleCam}
                 setImageModalVisible={setImageModalVisible}
                 predictionText={predictionText}
                 setPredictionText={setPredictionText}

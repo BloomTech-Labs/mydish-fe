@@ -306,7 +306,7 @@ function IndividualRecipe(props) {
                   userId !== recipe.owner.user_id && (
                     <TouchableOpacity
                       onPress={() => copyRecipeHandler(recipe)}
-                      style={styles.copyButton}
+                      style={{ ...styles.editButton, width: 175 }}
                     >
                       <Text style={styles.editText}>Copy to my Cookbook</Text>
                     </TouchableOpacity>
@@ -437,7 +437,7 @@ function IndividualRecipe(props) {
                       <View style={styles.buttonContainer}>
                         <TouchableOpacity
                           onPress={() => copyRecipeHandler(recipe)}
-                          style={styles.copyButton}
+                          style={{ ...styles.editButton, width: 175 }}
                         >
                           <Text style={styles.editText}>
                             Copy to my Cookbook

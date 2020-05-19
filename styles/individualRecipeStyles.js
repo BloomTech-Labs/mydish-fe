@@ -154,15 +154,6 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: 5,
   },
-  copyButton: {
-    backgroundColor: theme.PRIMARY_COLOR,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    width: 175,
-    height: 28,
-    borderRadius: 5,
-  },
   editText: {
     color: theme.WHITE_FONT_COLOR,
     fontFamily: theme.BOLD_FONT_FAMILY,
