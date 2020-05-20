@@ -23,8 +23,26 @@ export const generateIngredients = (image) => async (dispatch) => {
     requestOptions
   )
     .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+    .then((result) => {
+      const formattedIngredients = JSON.parse(
+        JSON.parse(result)
+      ).ingredients.map((ing) => {
+        return {
+          units: ing.unit ? ing.unit : '',
+          quantity: ing.quantity ? ing.quantity : '',
+          name: ing.ingredient,
+        };
+      });
+      console.log(formattedIngredients);
+      dispatch({
+        type: GENERATE_INGREDIENTS_SUCCESS,
+        payload: formattedIngredients,
+      });
+    })
+    .catch((error) => {
+      console.log('error', error);
+      dispatch({ type: GENERATE_INGREDIENTS_FAILURE, payload: error });
+    });
 };
 
 export const START_GENERATE_INSTRUCTIONS = 'START_GENERATE_INSTRUCTIONS';
@@ -33,12 +51,12 @@ export const GENERATE_INSTRUCTIONS_FAILURE = 'GENERATE_INSTRUCTIONS_FAILURE';
 export const generateInstructions = (image) => async (dispatch) => {
   dispatch({ type: START_GENERATE_INSTRUCTIONS });
 
-  var myHeaders = new Headers();
+  const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
-  var raw = JSON.stringify({ word: image });
+  const raw = JSON.stringify({ word: image });
 
-  var requestOptions = {
+  const requestOptions = {
     method: 'POST',
     headers: myHeaders,
     body: raw,
@@ -50,8 +68,17 @@ export const generateInstructions = (image) => async (dispatch) => {
     requestOptions
   )
     .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+    .then((result) => {
+      const formattedInstructions = JSON.parse(JSON.parse(result)).instructions;
+      dispatch({
+        type: GENERATE_INSTRUCTIONS_SUCCESS,
+        payload: formattedInstructions,
+      });
+    })
+    .catch((error) => {
+      console.log('error', error);
+      dispatch({ type: GENERATE_INSTRUCTIONS_FAILURE, payload: error });
+    });
 };
 
 export const START_GENERATE_GETTER = 'START_GENERATE_GETTER';

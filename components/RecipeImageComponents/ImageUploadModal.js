@@ -57,7 +57,7 @@ function ImageUploadModal({
       ? (imgConfig = {
           base64: true,
           quality: 0.5,
-          allowsEditng: true,
+          allowsEditing: true,
         })
       : (imgConfig = {
           allowsEditing: true,

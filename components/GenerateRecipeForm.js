@@ -47,6 +47,7 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const instructions = useSelector(
     (state) => state.generateRecipe.instructions
   );
+  // console.log(instructions);
   const [highlighted, setHighlighted] = useState({
     prep_time: false,
     cook_time: false,
@@ -58,11 +59,6 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const [predictionText, setPredictionText] = useState('');
 
   useEffect(() => {
-    instructions &&
-      (formattedInstructions = instructions.map((instruction) => {
-        // function to configure instructions
-      }));
-
     ingredients &&
       setRecipe((oldRecipe) => ({
         ...oldRecipe,
@@ -72,7 +68,7 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
     instructions &&
       setRecipe((oldRecipe) => ({
         ...oldRecipe,
-        instructions: formattedInstructions,
+        instructions: instructions,
       }));
   }, [ingredients, instructions]);
 
