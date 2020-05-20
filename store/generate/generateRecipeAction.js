@@ -1,6 +1,4 @@
 import axios from 'axios';
-import FormData from 'form-data';
-import newImage from '../../images/image.jpg';
 
 export const START_GENERATE_INGREDIENTS = 'START_GENERATE_INGREDIENTS';
 export const GENERATE_INGREDIENTS_SUCCESS = 'GENERATE_INGREDIENTS_SUCCESS';
@@ -54,20 +52,6 @@ export const generateInstructions = (image) => async (dispatch) => {
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log('error', error));
-
-  // axios
-  //   .post(
-  //     'http://dishify1505-env.eba-b5yyyntm.us-east-1.elasticbeanstalk.com/recipe_parser/instructions',
-  //     form
-  //   )
-  //   .then((res) => {
-  //     console.log(res.data);
-  //     dispatch({ type: GENERATE_INSTRUCTIONS_SUCCESS, payload: res.data });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     dispatch({ type: GENERATE_INSTRUCTIONS_FAILURE, payload: err });
-  //   });
 };
 
 export const START_GENERATE_GETTER = 'START_GENERATE_GETTER';
