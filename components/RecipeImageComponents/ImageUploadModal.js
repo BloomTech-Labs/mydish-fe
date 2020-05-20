@@ -55,9 +55,9 @@ function ImageUploadModal({
     parent === 'generateInstructions' ||
     parent === 'generateTitle'
       ? (imgConfig = {
-          allowsEditing: true,
           base64: true,
-          quality: 0,
+          quality: 0.5,
+          allowsEditng: true,
         })
       : (imgConfig = {
           allowsEditing: true,
@@ -95,10 +95,10 @@ function ImageUploadModal({
       } else if (parent === 'editRecipe') {
         dispatch(editImage(img.uri));
       } else if (parent === 'generateIngredients') {
-        dispatch(generateIngredients(img.uri));
+        dispatch(generateIngredients(img.base64));
         setIngredients(false);
       } else if (parent === 'generateInstructions') {
-        dispatch(generateInstructions(img.uri));
+        dispatch(generateInstructions(img.base64));
         setInstructions(false);
       } else if (parent === 'generateTitle') {
         dispatch(fetchTitleFromImage(img.uri));

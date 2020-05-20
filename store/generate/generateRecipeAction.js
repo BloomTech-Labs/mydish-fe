@@ -1,5 +1,6 @@
 import axios from 'axios';
 import FormData from 'form-data';
+import newImage from '../../images/image.jpg';
 
 export const START_GENERATE_INGREDIENTS = 'START_GENERATE_INGREDIENTS';
 export const GENERATE_INGREDIENTS_SUCCESS = 'GENERATE_INGREDIENTS_SUCCESS';
@@ -7,75 +8,52 @@ export const GENERATE_INGREDIENTS_FAILURE = 'GENERATE_INGREDIENTS_FAILURE';
 export const generateIngredients = (image) => async (dispatch) => {
   dispatch({ type: START_GENERATE_INGREDIENTS });
 
-  const form = new FormData();
-  const imageData = {
-    uri: image,
-    type: 'image/jpeg',
-    name: image.split('/').pop(),
+  const myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+
+  const raw = JSON.stringify({ word: image });
+
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow',
   };
-  form.append('image', imageData);
 
-  try {
-    res = await axios({
-      method: 'post',
-      url:
-        'http://dishify1505-env.eba-b5yyyntm.us-east-1.elasticbeanstalk.com/recipe_parser/ingredients',
-      data: form,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    console.log(res.data);
-    dispatch({ type: GENERATE_INGREDIENTS_SUCCESS, payload: res.data });
-  } catch (err) {
-    console.log(err);
-    dispatch({ type: GENERATE_INGREDIENTS_FAILURE, payload: err });
-  }
-  // axios
-  //   .post(
-  //     'http://dishify1505-env.eba-b5yyyntm.us-east-1.elasticbeanstalk.com/recipe_parser/ingredients',
-
-  //   )
-  //   .then((res) => {
-  //     console.log(res.data);
-  //     dispatch({ type: GENERATE_INGREDIENTS_SUCCESS, payload: res.data });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     dispatch({ type: GENERATE_INGREDIENTS_FAILURE, payload: err });
-  //   });
+  fetch(
+    'http://dishify2005-env.eba-tnzz2p6v.us-east-1.elasticbeanstalk.com/recipe_parser/ingredients\n',
+    requestOptions
+  )
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log('error', error));
 };
+
 export const START_GENERATE_INSTRUCTIONS = 'START_GENERATE_INSTRUCTIONS';
 export const GENERATE_INSTRUCTIONS_SUCCESS = 'GENERATE_INSTRUCTIONS_SUCCESS';
 export const GENERATE_INSTRUCTIONS_FAILURE = 'GENERATE_INSTRUCTIONS_FAILURE';
 export const generateInstructions = (image) => async (dispatch) => {
   dispatch({ type: START_GENERATE_INSTRUCTIONS });
 
-  const form = new FormData();
-  const imageData = {
-    uri: image,
-    type: 'image/jpeg',
-    name: image.split('/').pop(),
-  };
-  form.append('image', imageData);
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
 
-  try {
-    const res = await axios({
-      method: 'post',
-      url:
-        'http://dishify1505-env.eba-b5yyyntm.us-east-1.elasticbeanstalk.com/recipe_parser/instructions',
-      data: form,
-      headers: {
-        'content-type': `multipart/form-data`,
-      },
-    });
-    console.log(res);
-    dispatch({ type: GENERATE_INGREDIENTS_SUCCESS, payload: res.data });
-  } catch (err) {
-    console.log(err);
-    dispatch({ type: GENERATE_INGREDIENTS_FAILURE, payload: err });
-  }
+  var raw = JSON.stringify({ word: image });
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow',
+  };
+
+  fetch(
+    'http://dishify2005-env.eba-tnzz2p6v.us-east-1.elasticbeanstalk.com/recipe_parser/instructions',
+    requestOptions
+  )
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log('error', error));
 
   // axios
   //   .post(
