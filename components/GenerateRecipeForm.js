@@ -64,13 +64,15 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
         ...oldRecipe,
         ingredients: ingredients,
       }));
+  }, [ingredients]);
 
+  useEffect(() => {
     instructions &&
       setRecipe((oldRecipe) => ({
         ...oldRecipe,
         instructions: instructions,
       }));
-  }, [ingredients, instructions]);
+  }, [instructions]);
 
   const postRecipe = async () => {
     const preppedRecipe = await prepRecipeForPost(recipe);
