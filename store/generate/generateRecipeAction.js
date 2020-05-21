@@ -29,7 +29,7 @@ export const generateIngredients = (image) => async (dispatch) => {
       ).ingredients.map((ing) => {
         return {
           units: ing.unit ? ing.unit : '',
-          quantity: ing.quantity ? ing.quantity : '',
+          quantity: ing.quantity ? ing.quantity.replace(/[a-z A-Z]/g, '') : '',
           name: ing.ingredient,
         };
       });
