@@ -5,7 +5,10 @@ import styles from '../styles/createRecipeStyles';
 import theme from '../styles/theme.style';
 import { maxRecipeName } from '../constants/maxLength';
 import { TextInput } from 'react-native-gesture-handler';
-import { predictIngredientsFromTitle } from '../store/generate/generateRecipeAction';
+import {
+  predictIngredientsFromTitle,
+  generateRecipeFromUrl,
+} from '../store/generate/generateRecipeAction';
 
 const GenerateFields = ({
   setGenerateIngredientsCam,
@@ -15,6 +18,8 @@ const GenerateFields = ({
   predictionText,
   setPredictionText,
   setRecipe,
+  setGenerateRecipeText,
+  generateRecipeText,
 }) => {
   const dispatch = useDispatch();
   const [highlighted, setHighlighted] = useState(false);
@@ -42,15 +47,24 @@ const GenerateFields = ({
 
   const predictIngredients = () => {
     dispatch(predictIngredientsFromTitle(predictionText));
-    setPredictionText('');
     setRecipe((oldRecipe) => ({
       ...oldRecipe,
       title: predictionText,
     }));
+    setPredictionText('');
   };
 
   const handlePredictionTextChanges = (value) => {
     setPredictionText(value);
+  };
+
+  const handleGenrerateRecipeChanges = (value) => {
+    setGenerateRecipeText(value);
+  };
+
+  const generateRecipe = () => {
+    dispatch(generateRecipeFromUrl(generateRecipeText));
+    setGenerateRecipeText('');
   };
 
   return (
@@ -59,7 +73,47 @@ const GenerateFields = ({
         style={{
           color: theme.DARK_GREY_FONT_COLOR,
           fontSize: theme.REGULAR_FONT_SIZE,
-          marginTop: 30,
+          marginTop: 40,
+          alignSelf: 'center',
+        }}
+      >
+        Enter the URL for a recipe!
+      </Text>
+      <View style={styles.generateView}>
+        <TextInput
+          style={
+            highlighted
+              ? {
+                  ...styles.RecipeNameContainer,
+                  ...styles.highlighted,
+                  width: '80%',
+                }
+              : { ...styles.RecipeNameContainer, width: '80%' }
+          }
+          placeholder="Enter recipe URL"
+          onChangeText={handleGenrerateRecipeChanges}
+          value={generateRecipeText}
+          onFocus={() => setHighlighted(true)}
+          onBlur={() => setHighlighted(false)}
+          returnKeyType="go"
+          onSubmitEditing={generateRecipe}
+        />
+        <TouchableOpacity onPress={generateRecipe}>
+          <View
+            style={{
+              ...theme.PRIMARY_BUTTON,
+              width: 50,
+            }}
+          >
+            <Text style={theme.PRIMARY_BUTTON_TEXT}>Send</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <Text
+        style={{
+          color: theme.DARK_GREY_FONT_COLOR,
+          fontSize: theme.REGULAR_FONT_SIZE,
+          alignSelf: 'center',
         }}
       >
         Generate ingredients or instructions by taking a photo of a recipe!
@@ -80,7 +134,7 @@ const GenerateFields = ({
         style={{
           color: theme.DARK_GREY_FONT_COLOR,
           fontSize: theme.REGULAR_FONT_SIZE,
-          marginTop: 30,
+          alignSelf: 'center',
         }}
       >
         Generate ingredients from an image of your food!
@@ -98,19 +152,26 @@ const GenerateFields = ({
         style={{
           color: theme.DARK_GREY_FONT_COLOR,
           fontSize: theme.REGULAR_FONT_SIZE,
+          alignSelf: 'center',
         }}
       >
         Enter the name of a food and we'll predict the ingredients!
       </Text>
-      <View style={styles.generateView}>
+      <View
+        style={{
+          ...styles.generateView,
+          marginBottom: 40,
+        }}
+      >
         <TextInput
           style={
             highlighted
               ? {
                   ...styles.RecipeNameContainer,
                   ...styles.highlighted,
+                  width: '80%',
                 }
-              : styles.RecipeNameContainer
+              : { ...styles.RecipeNameContainer, width: '80%' }
           }
           maxLength={maxRecipeName}
           placeholder="Enter recipe name and we'll get the ingredients"

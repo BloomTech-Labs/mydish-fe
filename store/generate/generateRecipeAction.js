@@ -148,3 +148,41 @@ export const fetchTitleFromImage = (image) => (dispatch) => {
       dispatch({ type: FETCH_TITLE_FROM_IMAGE_FAILURE, payload: err });
     });
 };
+
+export const START_GENERATE_RECIPE = 'START_GENERATE_RECIPE';
+export const GENERATE_RECIPE_SUCCESS = 'GENERATE_RECIPE_SUCCESS';
+export const GENERATE_RECIPE_FAILURE = 'GENERATE_RECIPE_FAILURE';
+export const generateRecipeFromUrl = (url) => (dispatch) => {
+  dispatch({ type: START_GENERATE_RECIPE });
+
+  const sendObj = JSON.stringify({ word: url });
+
+  axios
+    .post(
+      'http://dishify2005-env.eba-tnzz2p6v.us-east-1.elasticbeanstalk.com/recipe/getter',
+      sendObj
+    )
+    .then((res) => {
+      const formattedResponse = {
+        title: JSON.parse(res.data).recipe.filter((obj) => obj.title)[0].title,
+        ingredients: JSON.parse(res.data)
+          .recipe.filter((obj) => obj.ingredients)[0]
+          .ingredients.map((ing) => {
+            return {
+              units: ing.unit ? ing.unit : 'whole',
+              quantity: ing.quantity ? ing.quantity : '1',
+              name: ing.ingredient ? ing.ingredient : '',
+            };
+          }),
+        instructions: JSON.parse(res.data)
+          .recipe.filter((obj) => obj.instructions)[0]
+          .instructions.map((obj) => obj.steps),
+      };
+      console.log(formattedResponse);
+      dispatch({ type: GENERATE_RECIPE_SUCCESS, payload: formattedResponse });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: GENERATE_RECIPE_FAILURE, payload: err });
+    });
+};

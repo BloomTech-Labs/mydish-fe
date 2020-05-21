@@ -47,7 +47,7 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const instructions = useSelector(
     (state) => state.generateRecipe.instructions
   );
-  // console.log(instructions);
+  const title = useSelector((state) => state.generateRecipe.title);
   const [highlighted, setHighlighted] = useState({
     prep_time: false,
     cook_time: false,
@@ -57,6 +57,7 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
   const [generateInstructionsCam, setGenerateInstructionsCam] = useState(false);
   const [generateTitleCam, setGenerateTitleCam] = useState(false);
   const [predictionText, setPredictionText] = useState('');
+  const [generateRecipeText, setGenerateRecipeText] = useState('');
 
   useEffect(() => {
     ingredients &&
@@ -73,6 +74,14 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
         instructions: instructions,
       }));
   }, [instructions]);
+
+  useEffect(() => {
+    title &&
+      setRecipe((oldRecipe) => ({
+        ...oldRecipe,
+        title: title,
+      }));
+  }, [title]);
 
   const postRecipe = async () => {
     const preppedRecipe = await prepRecipeForPost(recipe);
@@ -233,6 +242,8 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
                 setImageModalVisible={setImageModalVisible}
                 predictionText={predictionText}
                 setPredictionText={setPredictionText}
+                generateRecipeText={generateRecipeText}
+                setGenerateRecipeText={setGenerateRecipeText}
                 setRecipe={setRecipe}
               />
               <RecipeName
