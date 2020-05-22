@@ -30,6 +30,7 @@ const EditProfile = (props) => {
   const displayName = useSelector((state) => state.users.user.display_name);
   const avatar = useSelector((state) => state.users.user.avatar_url);
   const email = useSelector((state) => state.users.user.email);
+  const success = useSelector((state) => state.users.success);
 
   const [updatedValues, setUpdatedValues] = useState({
     password: null,
@@ -38,6 +39,15 @@ const EditProfile = (props) => {
     display_name: null,
     avatar_url: null,
   });
+
+  useEffect(() => {
+    setUpdatedValues({
+      ...updatedValues,
+      email: email ? email : '',
+      display_name: displayName ? displayName : '',
+      avatar_url: avatar ? avatar : '',
+    });
+  }, [displayName, avatar, email]);
 
   const getId = async () => {
     let userId = '';
@@ -151,6 +161,7 @@ const EditProfile = (props) => {
         <TouchableOpacity
           onPress={() => {
             update();
+            props.close();
           }}
         >
           <AntDesign name="checkcircle" size={36} />
