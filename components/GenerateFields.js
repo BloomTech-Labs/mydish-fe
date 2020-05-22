@@ -13,7 +13,6 @@ import {
 const GenerateFields = ({
   setGenerateIngredientsCam,
   setGenerateInstructionsCam,
-  setGenerateTitleCam,
   setImageModalVisible,
   predictionText,
   setPredictionText,
@@ -26,22 +25,13 @@ const GenerateFields = ({
 
   const handleIngredientsGenerate = () => {
     setGenerateInstructionsCam(false);
-    setGenerateTitleCam(false);
     setGenerateIngredientsCam(true);
     setImageModalVisible(true);
   };
 
   const handleInstructionsGenerate = () => {
     setGenerateIngredientsCam(false);
-    setGenerateTitleCam(false);
     setGenerateInstructionsCam(true);
-    setImageModalVisible(true);
-  };
-
-  const handleGenerateTitleFromPhoto = () => {
-    setGenerateIngredientsCam(false);
-    setGenerateInstructionsCam(false);
-    setGenerateTitleCam(true);
     setImageModalVisible(true);
   };
 
@@ -127,24 +117,6 @@ const GenerateFields = ({
         <TouchableOpacity onPress={handleInstructionsGenerate}>
           <View style={theme.SECONDARY_BUTTON}>
             <Text style={theme.SECONDARY_BUTTON_TEXT}>Instructions</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <Text
-        style={{
-          color: theme.DARK_GREY_FONT_COLOR,
-          fontSize: theme.REGULAR_FONT_SIZE,
-          alignSelf: 'center',
-        }}
-      >
-        Generate ingredients from an image of your food!
-      </Text>
-      <View style={styles.generateView}>
-        <TouchableOpacity onPress={handleGenerateTitleFromPhoto}>
-          <View style={{ ...theme.SECONDARY_BUTTON, width: 215 }}>
-            <Text style={theme.SECONDARY_BUTTON_TEXT}>
-              Snap a Photo of Your Plate
-            </Text>
           </View>
         </TouchableOpacity>
       </View>

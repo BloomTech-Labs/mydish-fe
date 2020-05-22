@@ -9,7 +9,6 @@ import { editImage } from '../../store/singleRecipe/singleRecipeActions';
 import {
   generateIngredients,
   generateInstructions,
-  fetchTitleFromImage,
 } from '../../store/generate/generateRecipeAction';
 import camera from '../../assets/camera_red.png';
 import gallery from '../../assets/image_red.png';
@@ -20,7 +19,6 @@ function ImageUploadModal({
   setRecipe,
   setIngredients,
   setInstructions,
-  setTitle,
   parent,
 }) {
   const dispatch = useDispatch();
@@ -51,9 +49,7 @@ function ImageUploadModal({
 
     let imgConfig = {};
 
-    parent === 'generateIngredients' ||
-    parent === 'generateInstructions' ||
-    parent === 'generateTitle'
+    parent === 'generateIngredients' || parent === 'generateInstructions'
       ? (imgConfig = {
           base64: true,
           quality: 0.5,
@@ -66,19 +62,6 @@ function ImageUploadModal({
         });
 
     let img = '';
-
-    const calculateImageSize = (base64String) => {
-      let padding, inBytes, base64StringLength;
-      if (base64String.endsWith('==')) padding = 2;
-      else if (base64String.endsWith('=')) padding = 1;
-      else padding = 0;
-      base64StringLength = base64String.length;
-      console.log(base64StringLength);
-      inBytes = (base64StringLength / 4) * 3 - padding;
-      console.log(inBytes);
-      this.kbytes = inBytes / 1000;
-      return this.kbytes;
-    };
 
     if (method === take) {
       img = await ImagePicker.launchCameraAsync(imgConfig);
@@ -100,9 +83,6 @@ function ImageUploadModal({
       } else if (parent === 'generateInstructions') {
         dispatch(generateInstructions(img.base64));
         setInstructions(false);
-      } else if (parent === 'generateTitle') {
-        dispatch(fetchTitleFromImage(img.uri));
-        setTitle(false);
       }
     }
     setVisible(false);

@@ -8,13 +8,10 @@ import {
   START_GENERATE_GETTER,
   GENERATE_GETTER_SUCCESS,
   GENERATE_GETTER_FAILURE,
-  START_FETCH_TITLE_FROM_IMAGE,
-  FETCH_TITLE_FROM_IMAGE_FAILURE,
   START_GENERATE_RECIPE,
   GENERATE_RECIPE_SUCCESS,
   GENERATE_RECIPE_FAILURE,
 } from './generateRecipeAction.js';
-import { ActionSheetIOS } from 'react-native';
 
 const initState = {
   ingredients: null,
@@ -72,17 +69,6 @@ export const recipeGenerateReducer = (state = initState, action) => {
         isLoading: false,
       };
     case GENERATE_GETTER_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload,
-      };
-    case START_FETCH_TITLE_FROM_IMAGE:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case FETCH_TITLE_FROM_IMAGE_FAILURE:
       return {
         ...state,
         isLoading: false,
