@@ -33,7 +33,6 @@ export const generateIngredients = (image) => async (dispatch) => {
           name: ing.ingredient,
         };
       });
-      console.log(formattedIngredients);
       dispatch({
         type: GENERATE_INGREDIENTS_SUCCESS,
         payload: formattedIngredients,
@@ -107,7 +106,7 @@ export const predictIngredientsFromTitle = (food) => (dispatch) => {
       dispatch({ type: GENERATE_GETTER_SUCCESS, payload: formattedResponse });
     })
     .catch((err) => {
-      console.log(res.data);
+      console.log('error', err);
       dispatch({ type: GENERATE_GETTER_FAILURE, payload: err });
     });
 };
@@ -137,11 +136,18 @@ export const generateRecipeFromUrl = (url) => (dispatch) => {
               name: ing.ingredient ? ing.ingredient : '',
             };
           }),
-        instructions: JSON.parse(res.data)
-          .recipe.filter((obj) => obj.instructions)[0]
-          .instructions.map((obj) => obj.steps),
+        instructions:
+          typeof JSON.parse(res.data).recipe.filter(
+            (obj) => obj.instructions
+          )[0].instructions === 'string'
+            ? [
+                JSON.parse(res.data).recipe.filter((obj) => obj.instructions)[0]
+                  .instructions,
+              ]
+            : JSON.parse(res.data)
+                .recipe.filter((obj) => obj.instructions)[0]
+                .instructions.map((obj) => obj.steps),
       };
-      console.log(formattedResponse);
       dispatch({ type: GENERATE_RECIPE_SUCCESS, payload: formattedResponse });
     })
     .catch((err) => {
