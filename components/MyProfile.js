@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Avatar } from 'react-native-elements';
 import { logoHeaderPlain } from './header/navigationHeader';
 import { getAllCookbookRecipes } from '../store/cookbook/cookbookAction';
+import theme from '../styles/theme.style';
 
 import { ListItem } from 'react-native-elements';
 
@@ -54,8 +55,25 @@ const MyProfile = (props) => {
           subtitle={email}
           badge={{
             value: `Cookbook ${cookbook.length}`,
-            textStyle: { color: 'black' },
-            containerStyle: { marginTop: -20 },
+            textStyle: {
+              backgroundColor: '#D2291F',
+              color: 'white',
+              fontFamily: 'nunito sans',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 20,
+              width: 113,
+              height: 28,
+              borderRadius: 5,
+              textAlign: 'center',
+              paddingTop: 5,
+              fontWeight: 'bold',
+              fontSize: 14,
+            },
+            containerStyle: {
+              marginTop: -20,
+              borderRadius: 100,
+            },
           }}
         />
       </TouchableOpacity>
