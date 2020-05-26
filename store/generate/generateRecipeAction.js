@@ -68,7 +68,10 @@ export const generateInstructions = (image) => async (dispatch) => {
   )
     .then((response) => response.text())
     .then((result) => {
-      const formattedInstructions = JSON.parse(JSON.parse(result)).instructions;
+      const formattedInstructions =
+        typeof JSON.parse(JSON.parse(result)).instructions === 'string'
+          ? [JSON.parse(JSON.parse(result)).instructions]
+          : JSON.parse(JSON.parse(result)).instructions;
       dispatch({
         type: GENERATE_INSTRUCTIONS_SUCCESS,
         payload: formattedInstructions,
