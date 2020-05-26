@@ -161,6 +161,12 @@ const styles = StyleSheet.create({
     marginTop: 64,
     marginBottom: 48,
   },
+  generateView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 15,
+    marginBottom: 24,
+  },
   add: {
     fontSize: 16,
     color: '#363838',

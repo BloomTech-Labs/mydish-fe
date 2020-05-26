@@ -94,7 +94,7 @@ const SignUp = ({ navigation }) => {
                   ref={passwordInput}
                   style={styles.inputFields}
                   value={credentials.password}
-                  returnKeyType="go"
+                  returnKeyType="next"
                   onChangeText={(event) =>
                     setSignUp({
                       ...credentials,
@@ -110,7 +110,7 @@ const SignUp = ({ navigation }) => {
                   ref={confirmPasswordInput}
                   style={styles.inputFields}
                   value={credentials.confirmPassword}
-                  returnKeyType="go"
+                  returnKeyType="next"
                   onChangeText={(event) =>
                     setSignUp({
                       ...credentials,

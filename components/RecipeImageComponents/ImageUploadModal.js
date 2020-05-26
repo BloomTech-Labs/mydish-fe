@@ -6,10 +6,21 @@ import * as Permissions from 'expo-permissions';
 import styles from '../../styles/recipeImageStyles';
 import { useDispatch } from 'react-redux';
 import { editImage } from '../../store/singleRecipe/singleRecipeActions';
+import {
+  generateIngredients,
+  generateInstructions,
+} from '../../store/generate/generateRecipeAction';
 import camera from '../../assets/camera_red.png';
 import gallery from '../../assets/image_red.png';
 
-function ImageUploadModal({ visible, setVisible, setRecipe, parent }) {
+function ImageUploadModal({
+  visible,
+  setVisible,
+  setRecipe,
+  setIngredients,
+  setInstructions,
+  parent,
+}) {
   const dispatch = useDispatch();
   const take = 'take';
   const choose = 'choose'; // Pass take or choose as argument to getImage()
@@ -36,11 +47,20 @@ function ImageUploadModal({ visible, setVisible, setRecipe, parent }) {
     const hasPermission = await verifyPermissions();
     if (!hasPermission) return;
 
-    const imgConfig = {
-      allowsEditing: true,
-      aspect: [16, 9],
-      quality: 0.5,
-    };
+    let imgConfig = {};
+
+    parent === 'generateIngredients' || parent === 'generateInstructions'
+      ? (imgConfig = {
+          base64: true,
+          quality: 0.5,
+          allowsEditing: true,
+        })
+      : (imgConfig = {
+          allowsEditing: true,
+          aspect: [16, 9],
+          quality: 0.5,
+        });
+
     let img = '';
 
     if (method === take) {
@@ -57,6 +77,12 @@ function ImageUploadModal({ visible, setVisible, setRecipe, parent }) {
         }));
       } else if (parent === 'editRecipe') {
         dispatch(editImage(img.uri));
+      } else if (parent === 'generateIngredients') {
+        dispatch(generateIngredients(img.base64));
+        setIngredients(false);
+      } else if (parent === 'generateInstructions') {
+        dispatch(generateInstructions(img.base64));
+        setInstructions(false);
       }
     }
     setVisible(false);
