@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, Alert, TouchableOpacity } from 'react-native';
 import Settings from '../header/Settings';
 import EditProfile from '../EditProfile';
+import { useSelector } from 'react-redux';
 
 //ICONS
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 //STYLES
 import styles from '../../styles/profileModalStyles';
@@ -15,6 +17,13 @@ const ProfileModal = (props) => {
   const { logout } = props;
   const { visible } = props;
   const { closeModal } = props;
+  const success = useSelector((state) => state.users.success);
+
+  useEffect(() => {
+    success
+      ? Alert.alert('Success!', 'Your profile has been successfully updated!')
+      : '';
+  }, [success]);
 
   const changeHandler = () => {
     isEditing ? setIsEditing(false) : setIsEditing(true);

@@ -4,6 +4,9 @@ import {
   GET_USER_START,
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
+  START_UPDATE_USER,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
 } from './usersActions';
 
 initState = {
@@ -12,6 +15,7 @@ initState = {
   isSubmitting: false,
   editMode: false,
   error: null,
+  success: null,
 };
 
 export const usersReducer = (state = initState, action) => {
@@ -26,6 +30,21 @@ export const usersReducer = (state = initState, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case START_UPDATE_USER:
+      return {
+        ...state,
+      };
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        success: true,
+      };
+    case UPDATE_USER_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        success: false,
       };
     default:
       return state;
