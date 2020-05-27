@@ -19,7 +19,7 @@ export const generateIngredients = (image) => async (dispatch) => {
   };
 
   fetch(
-    'http://dishify2005-env.eba-tnzz2p6v.us-east-1.elasticbeanstalk.com/recipe_parser/ingredients\n',
+    'http://dishify2605-env.eba-vdmixjfd.us-east-1.elasticbeanstalk.com/recipe_parser/ingredients',
     requestOptions
   )
     .then((response) => response.text())
@@ -63,7 +63,7 @@ export const generateInstructions = (image) => async (dispatch) => {
   };
 
   fetch(
-    'http://dishify2005-env.eba-tnzz2p6v.us-east-1.elasticbeanstalk.com/recipe_parser/instructions',
+    'http://dishify2605-env.eba-vdmixjfd.us-east-1.elasticbeanstalk.com/recipe_parser/instructions',
     requestOptions
   )
     .then((response) => response.text())
@@ -95,17 +95,19 @@ export const predictIngredientsFromTitle = (food) => (dispatch) => {
 
   axios
     .post(
-      'http://dishify1505-env.eba-b5yyyntm.us-east-1.elasticbeanstalk.com/ingredients/getter',
+      'http://dishify2605-env.eba-vdmixjfd.us-east-1.elasticbeanstalk.com/ingredients/getter',
       foodToSubmit
     )
     .then((res) => {
-      const formattedResponse = JSON.parse(res.data).map((ing) => {
-        return {
-          units: ing.unit ? ing.unit : 'whole',
-          quantity: ing.quantity,
-          name: ing.ingredient,
-        };
-      });
+      const formattedResponse = JSON.parse(res.data).recommendations.map(
+        (ing) => {
+          return {
+            units: ing.unit ? ing.unit : 'whole',
+            quantity: ing.quantity,
+            name: ing.ingredient,
+          };
+        }
+      );
       dispatch({ type: GENERATE_GETTER_SUCCESS, payload: formattedResponse });
     })
     .catch((err) => {
@@ -124,7 +126,7 @@ export const generateRecipeFromUrl = (url) => (dispatch) => {
 
   axios
     .post(
-      'http://dishify2005-env.eba-tnzz2p6v.us-east-1.elasticbeanstalk.com/recipe/getter',
+      'http://dishify2605-env.eba-vdmixjfd.us-east-1.elasticbeanstalk.com/recipe/getter',
       sendObj
     )
     .then((res) => {
@@ -147,9 +149,8 @@ export const generateRecipeFromUrl = (url) => (dispatch) => {
                 JSON.parse(res.data).recipe.filter((obj) => obj.instructions)[0]
                   .instructions,
               ]
-            : JSON.parse(res.data)
-                .recipe.filter((obj) => obj.instructions)[0]
-                .instructions.map((obj) => obj.steps),
+            : JSON.parse(res.data).recipe.filter((obj) => obj.instructions)[0]
+                .instructions,
       };
       dispatch({ type: GENERATE_RECIPE_SUCCESS, payload: formattedResponse });
     })
@@ -157,4 +158,9 @@ export const generateRecipeFromUrl = (url) => (dispatch) => {
       console.log(err);
       dispatch({ type: GENERATE_RECIPE_FAILURE, payload: err });
     });
+};
+
+export const CLEAR_RECIPE = 'CLEAR_RECIPE';
+export const clearRecipe = () => (dispatch) => {
+  dispatch({ type: CLEAR_RECIPE });
 };

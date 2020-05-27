@@ -24,6 +24,7 @@ import { prepRecipeForPost } from '../utils/helperFunctions/prepRecipeForPost';
 import { addRecipe } from '../store/recipes/recipeActions';
 import { courses } from '../constants/courses';
 import { initialCreateFormState } from '../constants/initialCreateFormState';
+import { clearRecipe } from '../store/generate/generateRecipeAction';
 import FancySpinner from './FancySpinner';
 
 function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
@@ -81,6 +82,11 @@ function CreateRecipeForm({ navigation, saveButtonEditedRecipe }) {
         title: title,
       }));
   }, [title]);
+
+  useEffect(() => {
+    dispatch(clearRecipe());
+    setRecipe(initialCreateFormState);
+  }, []);
 
   const postRecipe = async () => {
     const preppedRecipe = await prepRecipeForPost(recipe);
