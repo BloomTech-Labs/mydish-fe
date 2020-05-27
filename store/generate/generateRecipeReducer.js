@@ -11,6 +11,7 @@ import {
   START_GENERATE_RECIPE,
   GENERATE_RECIPE_SUCCESS,
   GENERATE_RECIPE_FAILURE,
+  CLEAR_RECIPE,
 } from './generateRecipeAction.js';
 
 const initState = {
@@ -93,6 +94,8 @@ export const recipeGenerateReducer = (state = initState, action) => {
         isLoading: false,
         error: action.payload,
       };
+    case CLEAR_RECIPE:
+      return initState;
     default:
       return state;
   }
